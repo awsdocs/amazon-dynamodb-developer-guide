@@ -1,0 +1,49 @@
+# Step 3: Query the Data<a name="SampleData.Query"></a>
+
+
+
+In this step, you will try some simple queries against the tables that you created, using the DynamoDB console\.
+
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
+
+1. In the navigation pane, choose **Tables**\.
+
+1. In the list of tables, choose *Reply*\.
+
+1. Choose the **Items** tab to view the data that you loaded into the table\.
+
+1. Choose the data filtering link, located just below the **Create item** button\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+
+   When you do this, the console reveals a data filtering pane\.  
+![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+
+1. In the data filtering pane, do the following:
+
+   1. Change the operation from **Scan** to **Query**\.
+
+   1. For the **Partition key**, enter the value `Amazon DynamoDB#DynamoDB Thread 1`\.
+
+   1. Choose **Start**\. Only the items that match your query criteria are returned from the *Reply* table\.
+
+1. The *Reply* table has a global secondary index on the PostedBy and Message attributes\. You can use the data filtering pane to query the index\. Do the following:
+
+   1. Change the query source from this:
+
+      `[Table] Reply: Id, ReplyDateTime`
+
+      to this:
+
+      `[Index] PostedBy-Message-Index: PostedBy, Message`
+
+   1. For the **Partition key**, enter the value `User A`\.
+
+   1. Choose **Start**\. Only the items that match your query criteria are returned from *PostedBy\-Message\-Index*\.
+
+Take some time to explore your other tables using the DynamoDB console:
+
++ *ProductCatalog*
+
++ *Forum*
+
++ *Thread*
