@@ -114,11 +114,11 @@ DynamoDB Streams is an optional feature that captures data modification events i
 
 Each event is represented by a *stream record*\. If you enable a stream on a table, DynamoDB Streams writes a stream record whenever one of the following events occurs:
 
-+ If a new item is added to the table, the stream captures an image of the entire item, including all of its attributes\.
++ A new item is added to the table. The stream captures an image of the entire item, including all of its attributes\.
 
-+ If an item is updated, the stream captures the "before" and "after" image of any attributes that were modified in the item\.
++ An item in the table is updated. The stream captures the "before" and "after" image of any attributes that were modified in the item\.
 
-+ If an item is deleted from the table, the stream captures an image of the entire item before it was deleted\.
++ An item is deleted from the table. The stream captures an image of the entire item before it was deleted\.
 
 Each stream record also contains the name of the table, the event timestamp, and other metadata\. Stream records have a lifetime of 24 hours; after that, they are automatically removed from the stream\.
 
