@@ -60,11 +60,11 @@ The scalar types are number, string, binary, Boolean, and null\.
 
 Strings are Unicode with UTF\-8 binary encoding\. The length of a string must be greater than zero and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
-If you define a primary key attribute as a string type attribute, the following additional constraints apply:
+The following additional constraints apply to primary key attributes when defined as type string:
 
-+ For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
++ The maximum length of a partition key \(always the first attribute\) is 2048 bytes\.
 
-+ For a composite primary key, the maximum length of the second attribute value \(the sort key\) is 1024 bytes\.
++ The maximum length of a sort key \(the second attribute in a composite primary key\) is 1024 bytes\.
 
 DynamoDB collates and compares strings using the bytes of the underlying UTF\-8 string encoding\. For example, "`a`" \(0x61\) is greater than "`A`" \(0x41\), and "`¿`" \(0xC2BF\) is greater than "`z`" \(0x7A\)\.
 
