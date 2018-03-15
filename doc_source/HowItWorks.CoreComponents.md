@@ -70,7 +70,7 @@ DynamoDB supports two different kinds of primary keys:
 
   The *Music* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a composite primary key \(*Artist* and *SongTitle*\)\. You can access any item in the *Music* table immediately, if you provide the *Artist* and *SongTitle* values for that item\.
 
-  A composite primary key gives you additional flexibility when querying data\. For example, if you provide only the value for *Artist*, DynamoDB retrieves all of the songs by that artist\. You could even provide a value for *Artist* and a range of *SongTitle* values, to retrieve only a subset of songs by a particular artist\.
+  A composite primary key gives you additional flexibility when querying data\. For example, if you provide only the value for *Artist*, DynamoDB retrieves all of the songs by that artist\. But if you provide a value for *Artist* together with a range of values for *SongTitle*, DynamoDB retrieves a subset of songs by the artist\.
 
 **Note**  
 The partition key of an item is also known as its *hash attribute*\. The term *hash attribute* derives from the use of an internal hash function in DynamoDB that evenly distributes data items across partitions, based on their partition key values\.  
