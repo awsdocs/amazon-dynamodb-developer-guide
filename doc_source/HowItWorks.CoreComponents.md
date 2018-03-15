@@ -60,7 +60,7 @@ DynamoDB supports two different kinds of primary keys:
 
    In a table that has only a partition key, no two items can have the same partition key value\.
 
-  The *People* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a simple primary key \(*PersonID*\)\. You can access any item in the *People* table immediately by providing the *PersonId* value for that item\.
+  The *People* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a simple primary key \(*PersonID*\)\. You can access any item in the *People* table directly by providing the *PersonId* value for that item\.
 
 + **Partition key and sort key** – Referred to as a *composite primary key*, this type of key is composed of two attributes\. The first attribute is the *partition key*, and the second attribute is the *sort key*\. 
 
@@ -68,7 +68,7 @@ DynamoDB supports two different kinds of primary keys:
 
   In a table that has a partition key and a sort key, it's possible for two items to have the same partition key value\. However, those two items must have different sort key values\.
 
-  The *Music* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a composite primary key \(*Artist* and *SongTitle*\)\. You can access any item in the *Music* table immediately, if you provide the *Artist* and *SongTitle* values for that item\.
+  The *Music* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a composite primary key \(*Artist* and *SongTitle*\)\. You can access any item in the *Music* table directly, if you provide the *Artist* and *SongTitle* values for that item\.
 
   A composite primary key gives you additional flexibility when querying data\. For example, if you provide only the value for *Artist*, DynamoDB retrieves all of the songs by that artist\. You could even provide a value for *Artist* and a range of *SongTitle* values, to retrieve only a subset of songs by a particular artist\.
 
