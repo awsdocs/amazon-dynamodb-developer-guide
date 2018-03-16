@@ -4,7 +4,7 @@
 
 In a relational database, you do not work directly with indexes\. Instead, you query tables by issuing `SELECT` statements, and the query optimizer can make use of any indexes\.
 
-A *query optimizer* is a relational database management systems \(RDBMS\) component that evaluates the available indexes, and determines whether they can be used to speed up a query\. If the indexes can be used to speed up a query, the RDBMS accesses the index first and then uses it to locate the data in the table\.
+A *query optimizer* is a relational database management system \(RDBMS\) component that evaluates the available indexes, and determines whether they can be used to speed up a query\. If the indexes can be used to speed up a query, the RDBMS accesses the index first and then uses it to locate the data in the table\.
 
 Here are some SQL statements that can use *GenreAndPriceIndex* to improve performance\. We assume that the *Music* table has enough data in it that the query optimizer decides to use this index, rather than simply scanning the entire table\.
 
