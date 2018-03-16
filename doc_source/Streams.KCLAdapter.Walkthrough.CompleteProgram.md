@@ -32,13 +32,15 @@ The source code consists of four `.java` files:
 // Licensed under the Apache License, Version 2.0.
 package com.amazonaws.codesamples;
 
-import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreams;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.DeleteTableRequest;
 import com.amazonaws.services.dynamodbv2.model.DescribeTableResult;
 import com.amazonaws.services.dynamodbv2.streamsadapter.AmazonDynamoDBStreamsAdapterClient;
@@ -48,23 +50,22 @@ import com.amazonaws.services.kinesis.clientlibrary.lib.worker.KinesisClientLibC
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.Worker;
 
 public class StreamsAdapterDemo {
-
     private static Worker worker;
     private static KinesisClientLibConfiguration workerConfig;
     private static IRecordProcessorFactory recordProcessorFactory;
 
-    private static AmazonDynamoDBStreamsAdapterClient adapterClient;
-    private static AWSCredentialsProvider streamsCredentials;
-
     private static AmazonDynamoDB dynamoDBClient;
-    private static AWSCredentialsProvider dynamoDBCredentials;
-
     private static AmazonCloudWatch cloudWatchClient;
+    private static AmazonDynamoDBStreams dynamoDBStreamsClient;
+    private static AmazonDynamoDBStreamsAdapterClient adapterClient;
 
-    private static String serviceName = "dynamodb";
-    private static String dynamodbEndpoint = "DYNAMODB_ENDPOINT_GOES_HERE";
     private static String tablePrefix = "KCL-Demo";
     private static String streamArn;
+
+    # Change this to the specific region you want to create your DynamoDB tables in.
+    private static Regions awsRegion = Regions.US_EAST_2;
+
+    private static AWSCredentialsProvider awsCredentialsProvider = DefaultAWSCredentialsProviderChain.getInstance();
 
     /**
      * @param args
@@ -72,23 +73,28 @@ public class StreamsAdapterDemo {
     public static void main(String[] args) throws Exception {
         System.out.println("Starting demo...");
 
+        dynamoDBClient = AmazonDynamoDBClientBuilder.standard()
+                                                    .withRegion(awsRegion)
+                                                    .build();
+        cloudWatchClient = AmazonCloudWatchClientBuilder.standard()
+                                                        .withRegion(awsRegion)
+                                                        .build();
+        dynamoDBStreamsClient = AmazonDynamoDBStreamsClientBuilder.standard()
+                                                                  .withRegion(awsRegion)
+                                                                  .build();
+        adapterClient = new AmazonDynamoDBStreamsAdapterClient(dynamoDBStreamsClient);
         String srcTable = tablePrefix + "-src";
         String destTable = tablePrefix + "-dest";
-        streamsCredentials = new ProfileCredentialsProvider();
-        dynamoDBCredentials = new ProfileCredentialsProvider();
-        recordProcessorFactory = new StreamsRecordProcessorFactory(dynamoDBCredentials, dynamodbEndpoint, serviceName,
-            destTable);
-
-        adapterClient = new AmazonDynamoDBStreamsAdapterClient(streamsCredentials, new ClientConfiguration());
-
-        dynamoDBClient = AmazonDynamoDBClientBuilder.standard().build();
-
-        cloudWatchClient = AmazonCloudWatchClientBuilder.standard().build();
+        recordProcessorFactory = new StreamsRecordProcessorFactory(dynamoDBClient, destTable);
 
         setUpTables();
 
-        workerConfig = new KinesisClientLibConfiguration("streams-adapter-demo", streamArn, streamsCredentials,
-            "streams-demo-worker").withMaxRecords(1000).withIdleTimeBetweenReadsInMillis(500)
+        workerConfig = new KinesisClientLibConfiguration("streams-adapter-demo",
+                                                         streamArn,
+                                                         awsCredentialsProvider,
+                                                         "streams-demo-worker")
+                .withMaxRecords(1000)
+                .withIdleTimeBetweenReadsInMillis(500)
                 .withInitialPositionInStream(InitialPositionInStream.TRIM_HORIZON);
 
         System.out.println("Creating worker for stream: " + streamArn);
@@ -102,7 +108,7 @@ public class StreamsAdapterDemo {
         t.join();
 
         if (StreamsAdapterDemoHelper.scanTable(dynamoDBClient, srcTable).getItems()
-            .equals(StreamsAdapterDemoHelper.scanTable(dynamoDBClient, destTable).getItems())) {
+                                    .equals(StreamsAdapterDemoHelper.scanTable(dynamoDBClient, destTable).getItems())) {
             System.out.println("Scan result is equal.");
         }
         else {
@@ -164,7 +170,6 @@ public class StreamsAdapterDemo {
         dynamoDBClient.deleteTable(new DeleteTableRequest().withTableName(destTable));
         System.exit(returnValue);
     }
-
 }
 ```
 
@@ -175,9 +180,6 @@ public class StreamsAdapterDemo {
 // Licensed under the Apache License, Version 2.0.
 package com.amazonaws.codesamples;
 
-import java.nio.charset.Charset;
-import java.util.List;
-
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.streamsadapter.model.RecordAdapter;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
@@ -185,8 +187,10 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorC
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
 import com.amazonaws.services.kinesis.model.Record;
 
-public class StreamsRecordProcessor implements IRecordProcessor {
+import java.nio.charset.Charset;
+import java.util.List;
 
+public class StreamsRecordProcessor implements IRecordProcessor {
     private Integer checkpointCounter;
 
     private final AmazonDynamoDB dynamoDBClient;
@@ -209,17 +213,17 @@ public class StreamsRecordProcessor implements IRecordProcessor {
             System.out.println(data);
             if (record instanceof RecordAdapter) {
                 com.amazonaws.services.dynamodbv2.model.Record streamRecord = ((RecordAdapter) record)
-                    .getInternalObject();
+                        .getInternalObject();
 
                 switch (streamRecord.getEventName()) {
                     case "INSERT":
                     case "MODIFY":
                         StreamsAdapterDemoHelper.putItem(dynamoDBClient, tableName,
-                            streamRecord.getDynamodb().getNewImage());
+                                                         streamRecord.getDynamodb().getNewImage());
                         break;
                     case "REMOVE":
                         StreamsAdapterDemoHelper.deleteItem(dynamoDBClient, tableName,
-                            streamRecord.getDynamodb().getKeys().get("Id").getN());
+                                                            streamRecord.getDynamodb().getKeys().get("Id").getN());
                 }
             }
             checkpointCounter += 1;
@@ -246,7 +250,6 @@ public class StreamsRecordProcessor implements IRecordProcessor {
             }
         }
     }
-
 }
 ```
 
@@ -257,27 +260,23 @@ public class StreamsRecordProcessor implements IRecordProcessor {
 // Licensed under the Apache License, Version 2.0.
 package com.amazonaws.codesamples;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory;
 
 public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
-
     private final String tableName;
+    private final AmazonDynamoDB dynamoDBClient;
 
-    public StreamsRecordProcessorFactory(AWSCredentialsProvider dynamoDBCredentials, String dynamoDBEndpoint,
-        String serviceName, String tableName) {
+    public StreamsRecordProcessorFactory(AmazonDynamoDB dynamoDBClient, String tableName) {
         this.tableName = tableName;
+        this.dynamoDBClient = dynamoDBClient;
     }
 
     @Override
     public IRecordProcessor createProcessor() {
-	AmazonDynamoDB dynamoDBClient = AmazonDynamoDBClientBuilder.standard().build();
         return new StreamsRecordProcessor(dynamoDBClient, tableName);
     }
-
 }
 ```
 
@@ -287,10 +286,6 @@ public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
 // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.
 package com.amazonaws.codesamples;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.AttributeAction;
@@ -313,8 +308,11 @@ import com.amazonaws.services.dynamodbv2.model.StreamSpecification;
 import com.amazonaws.services.dynamodbv2.model.StreamViewType;
 import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
 
-public class StreamsAdapterDemoHelper {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+public class StreamsAdapterDemoHelper {
     /**
      * @return StreamArn
      */
@@ -323,18 +321,17 @@ public class StreamsAdapterDemoHelper {
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("Id").withAttributeType("N"));
 
         java.util.List<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
-        keySchema.add(new KeySchemaElement().withAttributeName("Id").withKeyType(KeyType.HASH)); // Partition
-                                                                                                 // key
+        keySchema.add(new KeySchemaElement().withAttributeName("Id").withKeyType(KeyType.HASH)); // Partition key
 
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(2L)
-            .withWriteCapacityUnits(2L);
+                                                                                 .withWriteCapacityUnits(2L);
 
         StreamSpecification streamSpecification = new StreamSpecification();
         streamSpecification.setStreamEnabled(true);
         streamSpecification.setStreamViewType(StreamViewType.NEW_IMAGE);
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-            .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
-            .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
+                                                                        .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
+                                                                        .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
 
         try {
             System.out.println("Creating table " + tableName);
@@ -365,7 +362,7 @@ public class StreamsAdapterDemoHelper {
     }
 
     public static void putItem(AmazonDynamoDB dynamoDBClient, String tableName,
-        java.util.Map<String, AttributeValue> items) {
+                               java.util.Map<String, AttributeValue> items) {
         PutItemRequest putItemRequest = new PutItemRequest().withTableName(tableName).withItem(items);
         dynamoDBClient.putItem(putItemRequest);
     }
@@ -376,11 +373,11 @@ public class StreamsAdapterDemoHelper {
 
         Map<String, AttributeValueUpdate> attributeUpdates = new HashMap<String, AttributeValueUpdate>();
         AttributeValueUpdate update = new AttributeValueUpdate().withAction(AttributeAction.PUT)
-            .withValue(new AttributeValue().withS(val));
+                                                                .withValue(new AttributeValue().withS(val));
         attributeUpdates.put("attribute-2", update);
 
         UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-            .withAttributeUpdates(attributeUpdates);
+                                                                     .withAttributeUpdates(attributeUpdates);
         dynamoDBClient.updateItem(updateItemRequest);
     }
 
@@ -391,6 +388,5 @@ public class StreamsAdapterDemoHelper {
         DeleteItemRequest deleteItemRequest = new DeleteItemRequest().withTableName(tableName).withKey(key);
         dynamoDBClient.deleteItem(deleteItemRequest);
     }
-
 }
 ```
