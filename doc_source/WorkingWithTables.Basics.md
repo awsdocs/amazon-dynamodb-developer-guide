@@ -31,8 +31,7 @@ aws dynamodb create-table \
         AttributeName=Artist,KeyType=HASH \
         AttributeName=SongTitle,KeyType=RANGE \
     --provisioned-throughput \
-        ReadCapacityUnits=10, \
-        WriteCapacityUnits=5
+        ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
 
 The `CreateTable` operation returns metadata for the table, as shown below:
