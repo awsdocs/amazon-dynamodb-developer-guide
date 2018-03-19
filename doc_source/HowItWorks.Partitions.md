@@ -49,7 +49,7 @@ To read that same item from the *Pets* table, DynamoDB calculates the hash value
 
 To read all of the items with an *AnimalType* of *Dog*, you can issue a `Query` operation without specifying a sort key condition\. By default, the items are be returned in the order that they are stored \(that is, in ascending order by sort key\)\. Optionally, you can request descending order instead\.
 
-To query only some of the *Dog* items, you can apply a condition to the sort key \(for example, only the *Dog* items where *Name* is within the range `A` through `K`\)\.
+To query only some of the *Dog* items, you can apply a condition to the sort key \(for example, only the *Dog* items where *Name* begins with a letter that is within the range `A` through `K`\)\.
 
 **Note**  
 In a DynamoDB table, there is no upper limit on the number of distinct sort key values per partition key value\. If you needed to store many billions of *Dog* items in the *Pets* table, DynamoDB automatically allocates enough storage to handle this requirement\.
