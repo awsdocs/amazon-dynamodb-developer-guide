@@ -4,7 +4,7 @@ With SQL, you use the `SELECT` statement to retrieve one or more rows from a tab
 
 DynamoDB provides the following operations for reading data:
 
-+ `GetItem` – Retrieves a single item from a table\. This is the most efficient way to read a single item, because it provides direct access to the physical location of the item\. \(DynamoDB also provides `BatchGetItem` operation, allowing you to perform up to 100 `GetItem` calls in a single operation\.\)
++ `GetItem` – Retrieves a single item from a table\. This is the most efficient way to read a single item, because it provides direct access to the physical location of the item\. \(DynamoDB also provides the `BatchGetItem` operation, allowing you to perform up to 100 `GetItem` calls in a single operation\.\)
 
 + `Query` – Retrieves all of the items that have a specific partition key\. Within those items, you can apply a condition to the sort key and retrieve only a subset of the data\. `Query` provides quick, efficient access to the partitions where the data is stored\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
 
