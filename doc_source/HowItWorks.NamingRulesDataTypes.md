@@ -93,7 +93,7 @@ All numbers are sent across the network to DynamoDB as strings, to maximize comp
 **Note**  
 If number precision is important, you should pass numbers to DynamoDB using strings that you convert from number type\.
 
-You can use the number data type to represent a date or a time stamp\. One way to do this is by using epoch time—the number of seconds since 00:00:00 UTC on 1 January 1970\. For example, the epoch time `1437136300` represents 12:31:40 UTC on 17 July 2015\.
+You can use the number data type to represent a date or a time stamp\. One way to do this is by using epoch time—the number of seconds since 00:00:00 UTC on 1 January 1970\. For example, the epoch time `1437136300` represents 12:31:40 PM UTC on 17 July 2015\.
 
 For more information, see [http://en\.wikipedia\.org/wiki/Unix\_time](http://en.wikipedia.org/wiki/Unix_time)\.
 
