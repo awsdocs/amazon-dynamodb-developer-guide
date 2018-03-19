@@ -59,7 +59,7 @@ The primary key for this table consists of *Artist* and *SongTitle*\. You must s
 
 Here are some key things to know about this `PutItem` example:
 
-+ DynamoDB provide native support for documents, using JSON\. This makes DynamoDB ideal for storing semi\-structured data, such as *Tags*\. You can also retrieve and manipulate data from within JSON documents\.
++ DynamoDB provides native support for documents, using JSON\. This makes DynamoDB ideal for storing semi\-structured data, such as *Tags*\. You can also retrieve and manipulate data from within JSON documents\.
 
 + The *Music* table does not have any predefined attributes, other than the primary key \(*Artist* and *SongTitle*\)\.
 
