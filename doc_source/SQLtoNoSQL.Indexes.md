@@ -12,7 +12,7 @@ Whether you are using a relational database or DynamoDB, you should be judicious
 
 ### SQL<a name="SQLtoNoSQL.Indexes.Creating.SQL"></a>
 
-In a relational database, an index is a data structure that let you perform fast queries on different columns in a table\. You can use the `CREATE INDEX` SQL statement to add an index to an existing table, specifying the columns to be indexed\. After the index has been created, you can query the data in the table as usual, but now the database can use the index to quickly find the specified rows in the table instead of scanning the entire table\.
+In a relational database, an index is a data structure that lets you perform fast queries on different columns in a table\. You can use the `CREATE INDEX` SQL statement to add an index to an existing table, specifying the columns to be indexed\. After the index has been created, you can query the data in the table as usual, but now the database can use the index to quickly find the specified rows in the table instead of scanning the entire table\.
 
 After you create an index, the database maintains it for you\. Whenever you modify data in the table, the index is automatically modified to reflect changes in the table\.
 
