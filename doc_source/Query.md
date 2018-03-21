@@ -13,7 +13,7 @@
 
 The `Query` operation finds items based on primary key values\. You can query any table or secondary index that has a composite primary key \(a partition key and a sort key\)\.
 
-You must provide the name of the partition key attribute, and a single value for that attribute\.`Query` will return all of the items with that partition key value\. You can optionally provide a sort key attribute, and use a comparison operator to refine the search results\.
+You must provide the name of the partition key attribute, and a single value for that attribute\. `Query` will return all of the items with that partition key value\. You can optionally provide a sort key attribute, and use a comparison operator to refine the search results\.
 
 ## Key Condition Expression<a name="Query.KeyConditionExpressions"></a>
 
