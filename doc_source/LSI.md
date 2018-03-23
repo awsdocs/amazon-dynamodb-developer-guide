@@ -18,7 +18,7 @@ For example, consider the *Thread* table that is defined in [Creating Tables and
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-DynamoDB stores all of the items with the same partition key value contiguously\. In this example, given a particular ForumName, a `Query` operation could immediately locate all of the threads for that forum\. Within a group of items with the same partition key value, the items are sorted by sort key value\. If the sort key \(*Subject*\) is also provided in the query, DynamoDB can narrow down the results that are returned—for example, returning all of the threads in the "S3" forum that have a *Subject* beginning with the letter "a"\.
+DynamoDB stores all of the items with the same partition key value contiguously\. In this example, given a particular *ForumName*, a `Query` operation could immediately locate all of the threads for that forum\. Within a group of items with the same partition key value, the items are sorted by sort key value\. If the sort key \(*Subject*\) is also provided in the query, DynamoDB can narrow down the results that are returned—for example, returning all of the threads in the "S3" forum that have a *Subject* beginning with the letter "a"\.
 
 Some requests might require more complex data access patterns\. For example:
 
