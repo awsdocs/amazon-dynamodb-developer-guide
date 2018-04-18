@@ -20,6 +20,7 @@ if (process.argv.length > 2) {
     daxClient = new AWS.DynamoDB.DocumentClient({service: dax });
 }
 
+var client = daxClient != null ? daxClient : ddbClient;
 var tableName = "TryDaxTable";
 
 var pk = 1;
@@ -41,7 +42,7 @@ for (var i = 0; i < iterations; i++) {
                 }
             };
 
-            ddbClient.get(params, function(err, data) {
+            client.get(params, function(err, data) {
                 if (err) {
                     console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
                 } else {
