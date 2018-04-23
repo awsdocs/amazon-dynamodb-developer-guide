@@ -78,11 +78,8 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
    1. In the **Table name** field, type `Thread`\.
 
    1. For the **Primary key**, do the following:
-
       + In the **Partition key** field, type `ForumName`\. Set the data type to **String**\.
-
       + Choose **Add sort key**\.
-
       + In the **Sort key** field, type `Subject`\. Set the data type to **String**\.
 
 1. When the settings are as you want them, choose **Create**\.
@@ -98,11 +95,8 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
    1. In the **Table name** field, type `Reply`\.
 
    1. For the **Primary key**, do the following:
-
       + In the **Partition key** field, type `Id`\. Set the data type to **String**\.
-
       + Choose **Add sort key**\.
-
       + In the **Sort key** field, type `ReplyDateTime`\. Set the data type to **String**\.
 
    1. In the **Table settings** section, deselect **Use default settings**\.
@@ -110,19 +104,12 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
    1. In the **Secondary indexes** section, choose **Add index**\.
 
    1. In the **Add index** window, do the following:
-
       + For the **Primary key**, do the following:
-
         + In the **Partition key** field, type `PostedBy`\. Set the data type to **String**\.
-
         + Select **Add sort key**\.
-
         + In the **Sort key** field, type `Message`\. Set the data type to **String**\.
-
       + In the **Index name** field, type `PostedBy-Message-Index`\.
-
       + Set the **Projected attributes** to **All**\.
-
       + Choose **Add index**\.
 
 1. When the settings are as you want them, choose **Create**\.

@@ -2,7 +2,7 @@
 
 In this step, you populate the `Movies` table with sample data\.
 
-
+**Topics**
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.NET.02.01)
 + [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.NET.02.02)
 

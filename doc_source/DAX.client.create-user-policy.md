@@ -11,9 +11,7 @@ In this step, you will create an IAM user with a policy that grants access to yo
 1. Choose **Add user**\.
 
 1. On the **Details** page, enter the following information:
-
    + **User name**—type a unique name\. For example: `MyDAXUser`
-
    + **Access type**—choose **Programmatic access**\.
 
    Choose **Next: Permissions**\.
@@ -23,11 +21,8 @@ In this step, you will create an IAM user with a policy that grants access to yo
 1. On the **Create Policy** page, select **Create Your Own Policy**\.
 
 1. On the Review Policy page, enter the following information:
-
    + **Policy Name**—type a unique name\. For example: `MyDAXUserPolicy`\.
-
    + **Description**—type a short description for the policy
-
    + **Policy Document**—copy and paste the following document:
 
      ```
@@ -58,7 +53,7 @@ In this step, you will create an IAM user with a policy that grants access to yo
 
    Choose **Create Policy**\.
 
-1. Return to the **Permissions** page\. In the list of policies, choose **Refresh**\. To narrow the list of policies, choose **Filter | Customer managed**\. Choose the IAM policy you created in the previous step \(for example: `MyDAXUserPolicy`\), and then choose **Next: Review**\.
+1. Return to the **Permissions** page\. In the list of policies, choose **Refresh**\. To narrow the list of policies, choose **Filter \| Customer managed**\. Choose the IAM policy you created in the previous step \(for example: `MyDAXUserPolicy`\), and then choose **Next: Review**\.
 
 1. On the **Review** page, choose **Create user**\.
 

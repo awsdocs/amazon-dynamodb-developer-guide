@@ -6,7 +6,7 @@
 
  To use the API instead, see [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\. 
 
-
+**Topics**
 + [Tagging \(console\)](#Tagging.Operations.using-console)
 + [Tagging \(CLI\)](#Tagging.Operations.using-cli)
 
@@ -19,7 +19,7 @@
 1.  Choose a table, and then choose the **Settings** tab\. 
 
     You can add, list, edit, or delete tags here\. In this example, the `Movies` tag was created with a value of `moviesProd` for the Movies table\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/manage-tags.png)
 
 ## Tagging \(CLI\)<a name="Tagging.Operations.using-cli"></a>
 

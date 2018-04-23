@@ -1,6 +1,6 @@
 # Working with Tables: \.NET<a name="LowLevelDotNetWorkingWithTables"></a>
 
-
+**Topics**
 + [Creating a Table](#LowLeveldotNetCreateTable)
 + [Updating a Table](#LowLeveldotNetUpdateTable)
 + [Deleting a Table](#LowLeveldotNetDeleteTable)
@@ -101,7 +101,7 @@ var res = client.DescribeTable(new DescribeTableRequest{TableName = "ProductCata
 You can update only the provisioned throughput values of an existing table\. Depending on you application requirements, you might need to update these values\. 
 
 **Note**  
-You can increase throughput capacity as often as needed, and decrease it up to nine times per table in a single UTC calendar day\. For more information, see [Limits in DynamoDB](Limits.md)\. 
+You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information on throughput increases and decreases per day, see [Limits in DynamoDB](Limits.md)\. 
 
 The following are the steps to update a table using the \.NET low\-level API\. 
 

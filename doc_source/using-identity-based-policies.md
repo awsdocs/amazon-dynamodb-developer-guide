@@ -6,11 +6,8 @@ This topic provides examples of identity\-based policies that demonstrate how an
 We recommend that you first review the introductory topics that explain the basic concepts and options available to manage access to your Amazon DynamoDB resources\. For more information, see [Overview of Managing Access Permissions to Your Amazon DynamoDB Resources](access-control-overview.md)\. 
 
 The sections in this topic cover the following:
-
 + [Permissions Required to Use the Amazon DynamoDB Console](#console-permissions)
-
 + [AWS Managed \(Predefined\) Policies for Amazon DynamoDB](#access-policy-examples-aws-managed)
-
 + [Customer Managed Policy Examples](#access-policy-examples-for-sdk-cli)
 
 The following shows an example of a permissions policy\.
@@ -38,15 +35,10 @@ The following shows an example of a permissions policy\.
 ## Permissions Required to Use the Amazon DynamoDB Console<a name="console-permissions"></a>
 
 For a user to work with the DynamoDB console, that user must have a minimum set of permissions that allows the user to work with the DynamoDB resources for their AWS account\. In addition to these DynamoDB permissions, the console requires permissions from the following services:
-
 + Amazon CloudWatch permissions to display metrics and graphs\.
-
 + AWS Data Pipeline permissions to export and import DynamoDB data\. 
-
 +  AWS Identity and Access Management permissions to access roles necessary for exports and imports\.
-
 + Amazon Simple Notification Service permissions to notify you whenever a CloudWatch alarm is triggered\.
-
 + AWS Lambda permissions to process DynamoDB Streams records\.
 
 If you create an IAM policy that is more restrictive than the minimum required permissions, the console won't function as intended for users with that IAM policy\. To ensure that those users can still use the DynamoDB console, also attach the `AmazonDynamoDBReadOnlyAccess` managed policy to the user, as described in [AWS Managed \(Predefined\) Policies for Amazon DynamoDB](#access-policy-examples-aws-managed)\.
@@ -58,11 +50,8 @@ You don't need to allow minimum console permissions for users that are making ca
 AWS addresses many common use cases by providing standalone IAM policies that are created and administered by AWS\. These AWS managed policies grant necessary permissions for common use cases so that you can avoid having to investigate what permissions are needed\. For more information, see [AWS Managed Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\. 
 
 The following AWS managed policies, which you can attach to users in your account, are specific to DynamoDB and are grouped by use case scenario:
-
 + **AmazonDynamoDBReadOnlyAccess** – Grants read\-only access to DynamoDB resources by using the AWS Management Console\.
-
 + **AmazonDynamoDBFullAccess** – Grants full access to DynamoDB resources by using the AWS Management Console\.
-
 + **AmazonDynamoDBFullAccesswithDataPipeline** – Grants full access to DynamoDB resources, including export and import using AWS Data Pipeline, by using AWS Management Console\.
 
 **Note**  
@@ -77,7 +66,7 @@ In this section, you can find example user policies that grant permissions for v
 **Note**  
 All examples use the us\-west\-2 region and contain fictitious account IDs\.
 
-
+**Topics**
 + [Example 1: Allow a User to Perform Any DynamoDB Actions on a Table](#access-policy-examples-for-sdk-cli.example1)
 + [Example 2: Allow Read\-only Access on Items in a Table](#access-policy-examples-for-sdk-cli.example2)
 + [Example 3: Allow Put, Update, and Delete Operations on a Specific Table](#access-policy-examples-for-sdk-cli.example3)
@@ -181,7 +170,6 @@ Suppose you have separate test and production environments where each environmen
 Suppose further that you have two developers, Bob and Alice, who are testing the `ProductCatalog` table\. Instead of creating a separate AWS account for every developer, your developers can share the same test account\. in this test account, you can create a copy of the same table for each developer to work on, such as `Alice_ProductCatalog` and `Bob_ProductCatalog`\. In this case, you can create IAM users Alice and Bob in the AWS account that you created for the test environment\. You can then grant permissions to these users to perform DynamoDB actions on the tables that they own\. 
 
 To grant these user permissions, you can do either of the following:
-
 + Create a separate policy for each user and then attach each policy to its user separately\. For example, you can attach the following policy to user Alice to allow her access to all DynamoDB actions on the `Alice_ProductCatalog` table: 
 
   ```
@@ -201,7 +189,6 @@ To grant these user permissions, you can do either of the following:
   ```
 
   Then, you can create a similar policy with a different resource \(`Bob_ProductCatalog` table\) for user Bob\. 
-
 + Instead of attaching policies to individual users, you can use IAM policy variables to write a single policy and attach it to a group\. You need to create a group and, for this example, add both users Alice and user Bob to the group\. The following example grants permissions to perform all DynamoDB actions on the `${aws:username}_ProductCatalog` table\. The policy variable `${aws:username}` is replaced by the requester's user name when the policy is evaluated\. For example, if Alice sends a request to add an item, the action is allowed only if Alice is adding items to the `Alice_ProductCatalog` table\. 
 
   ```
@@ -245,11 +232,8 @@ Note that, instead of identifying a specific table as a resource, you can use a 
 DynamoDB customers can purchase reserved capacity, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to paying for a minimum usage level, at significant savings, over a period of time\. You can use the AWS Management Console to view and purchase reserved capacity\. However, you might not want all of the users in your organization to have the same levels of access\.
 
 DynamoDB provides the following API operations for controlling access to reserved capacity management:
-
 + `dynamodb:DescribeReservedCapacity` – returns the reserved capacity purchases that are currently in effect\.
-
 + `dynamodb:DescribeReservedCapacityOfferings` – returns details about the reserved capacity plans that are currently offered by AWS\.
-
 + `dynamodb:PurchaseReservedCapacityOfferings` – performs an actual purchase of reserved capacity\.
 
 The AWS Management Console uses these API operations to display reserved capacity information and to make purchases\. You cannot call these operations from an application program, because they are only accessible from the Console\. However, you can allow or deny access to these operations in an IAM permissions policy\.
@@ -286,13 +270,9 @@ When you enable DynamoDB Streams on a table, it captures information about every
 In some cases, you might want to prevent an application from reading data from a DynamoDB table, while still allowing access to that table's stream\. For example, you can configure AWS Lambda to poll the stream and invoke a Lambda function when item updates are detected, and then perform additional processing\.
 
 The following actions are available for controlling access to DynamoDB Streams:
-
 + `dynamodb:DescribeStream`
-
 + `dynamodb:GetRecords`
-
 + `dynamodb:GetShardIterator`
-
 + `dynamodb:ListStreams`
 
 The following example creates a policy that grants users permissions to access the streams on a table named `GameScores`\. The final wildcard character \(\*\) in the ARN matches any stream ID associated with that table\.

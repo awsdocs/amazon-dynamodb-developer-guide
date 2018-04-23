@@ -1,6 +1,6 @@
 # Working with Items: \.NET<a name="LowLevelDotNetItemCRUD"></a>
 
-
+**Topics**
 + [Putting an Item](#PutItemLowLevelAPIDotNet)
 + [Getting an Item](#GetItemLowLevelDotNET)
 + [Updating an Item](#UpdateItemLowLevelDotNet)
@@ -77,9 +77,7 @@ In the preceding example, you upload a book item that has the Id, Title, ISBN, a
 ### Specifying Optional Parameters<a name="PutItemLowLevelAPIDotNetOptions"></a>
 
 You can also provide optional parameters using the `PutItemRequest` object as shown in the following C\# code snippet\. The sample specifies the following optional parameters:
-
 + `ExpressionAttributeNames`, `ExpressionAttributeValues`, and `ConditionExpression` specify that the item can be replaced only if the existing item has the ISBN attribute with a specific value\. 
-
 +  `ReturnValues` parameter to request the old item in the response\.
 
 **Example**  
@@ -151,9 +149,7 @@ var attributeMap = result.Item; // Attribute list in the response.
 ### Specifying Optional Parameters<a name="GetItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `GetItemRequest` object as shown in the following C\# code snippet\. The sample specifies the following optional parameters:
-
 +  `ProjectionExpression` parameter to specify the attributes to retrieve\.
-
 +  `ConsistentRead` parameter to perform a strongly consistent read\. To learn more read consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
 
 **Example**  
@@ -185,17 +181,11 @@ For more information, see [GetItem](http://docs.aws.amazon.com/amazondynamodb/la
 The `UpdateItem` method updates an existing item if it is present\. You can use the `UpdateItem` operation to update existing attribute values, add new attributes, or delete attributes from the existing collection\. If the item that has the specified primary key is not found, it adds a new item\.
 
 The `UpdateItem` operation uses the following guidelines:
-
 + If the item does not exist, `UpdateItem` adds a new item using the primary key that is specified in the input\.
-
 + If the item exists, `UpdateItem` applies the updates as follows:
-
   + Replaces the existing attribute values by the values in the update
-
   + If the attribute that you provide in the input does not exist, it adds a new attribute to the item\.
-
   + If the input attribute is null, it deletes the attribute, if it is present\. 
-
   + If you use `ADD` for the Action, you can add values to an existing set \(string or number set\), or mathematically add \(use a positive number\) or subtract \(use a negative number\) from the existing numeric attribute value\.
 
 **Note**  
@@ -248,9 +238,7 @@ var response = client.UpdateItem(request);
 ### Specifying Optional Parameters<a name="UpdateItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `UpdateItemRequest` object as shown in the following C\# code snippet\. It specifies the following optional parameters:
-
 + `ExpressionAttributeValues` and `ConditionExpression` to specify that the price can be updated only if the existing price is 20\.00\.
-
 + `ReturnValues` parameter to request the updated item in the response\. 
 
 **Example**  
@@ -344,9 +332,7 @@ var response = client.DeleteItem(request);
 ### Specifying Optional Parameters<a name="DeleteItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `DeleteItemRequest` object as shown in the following C\# code snippet\. It specifies the following optional parameters:
-
 + `ExpressionAttributeValues` and `ConditionExpression` to specify that the book item can be deleted only if it is no longer in publication \(the InPublication attribute value is false\)\. 
-
 + `ReturnValues` parameter to request the deleted item in the response\.
 
 **Example**  
@@ -388,9 +374,7 @@ Batch write refers to putting and deleting multiple items in a batch\. The `Batc
 1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput limit or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
 
 The following C\# code snippet demonstrates the preceding steps\. The example creates a `BatchWriteItemRequest` to perform the following write operations:
-
 + Put an item in Forum table
-
 + Put and delete an item from Thread table
 
 The code then executes `BatchWriteItem` to perform a batch operation\.
@@ -561,7 +545,6 @@ foreach (KeyValuePair<string, KeysAndAttributes> pair in unprocessedKeys)
 ### Specifying Optional Parameters<a name="BatchGetItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `BatchGetItemRequest` object as shown in the following C\# code snippet\. The code samples retrieves two items from the Forum table\. It specifies the following optional parameter:
-
 +  `ProjectionExpression` parameter to specify the attributes to retrieve\.
 
 **Example**  

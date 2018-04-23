@@ -12,7 +12,6 @@ If you launched your DAX cluster with a different security group \(other than `d
 1. Choose the **default** security group\. In the **Actions** menu, choose **Edit inbound rules**\.
 
 1. Choose **Add Rule**, and enter the following information:
-
    + **Port Range**—type **8111**
 
      **Source**—type **default**, and then choose the identifier for your default security group\.

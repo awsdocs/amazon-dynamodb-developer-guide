@@ -4,7 +4,7 @@ This section walks you through first\-time setup and usage of DAX in your defaul
 
 After you have created your DAX cluster, you will be able to access it from an Amazon EC2 instance running in the same Amazon VPC\. You will then be able to use your DAX cluster with an application program\. \(For more information, see [Using the DAX Client in an Application](DAX.client.md)\.\)
 
-
+**Topics**
 + [Creating a DAX Service Role](#DAX.create-cluster.iam-permissions)
 + [AWS CLI](DAX.create-cluster.cli.md)
 + [AWS Management Console](DAX.create-cluster.console.md)
@@ -22,13 +22,9 @@ If you are using the AWS CLI, you will need to specify a DAX service role that y
 The AWS\-managed *AdministratorAccess* policy provides all of the permissions needed for creating a DAX cluster, and for creating a service role\. If your IAM user has *AdministratorAccess* attached, then no further action is needed\. 
 
 Otherwise, you will need to add the following permissions to your IAM policy so that your IAM user can create the service role:
-
 + `iam:CreateRole`
-
 + `iam:CreatePolicy`
-
 + `iam:AttachRolePolicy`
-
 + `iam:PassRole`
 
 You should attach these permissions to the user that is attempting to perform the action\.

@@ -111,9 +111,6 @@ content-length: 543
 ```
 
 ## Related Actions<a name="API_DescribeTables_Related_Actions"></a>
-
 +  [CreateTable](API_CreateTable_v20111205.md) 
-
 +  [DeleteTable](API_DeleteTable_v20111205.md) 
-
 +  [ListTables](API_ListTables_v20111205.md) 

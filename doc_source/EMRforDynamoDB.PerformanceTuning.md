@@ -10,7 +10,7 @@ You can also monitor your cluster and Hadoop jobs using web\-based tools, such a
 
 This section describes steps you can take to performance\-tune Hive operations on external DynamoDB tables\. 
 
-
+**Topics**
 + [DynamoDB Provisioned Throughput](EMRforDynamoDB.PerformanceTuning.Throughput.md)
 + [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)
 + [Additional Topics](EMRforDynamoDB.PerformanceTuning.Misc.md)

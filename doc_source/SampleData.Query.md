@@ -1,6 +1,6 @@
 # Step 3: Query the Data<a name="SampleData.Query"></a>
 
-
+**Topics**
 
 In this step, you will try some simple queries against the tables that you created, using the DynamoDB console\.
 
@@ -13,10 +13,10 @@ In this step, you will try some simple queries against the tables that you creat
 1. Choose the **Items** tab to view the data that you loaded into the table\.
 
 1. Choose the data filtering link, located just below the **Create item** button\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/console-data-filtering-01.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    When you do this, the console reveals a data filtering pane\.  
-![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/console-data-filtering-02.png)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Data filtering pane\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. In the data filtering pane, do the following:
 
@@ -41,9 +41,6 @@ In this step, you will try some simple queries against the tables that you creat
    1. Choose **Start**\. Only the items that match your query criteria are returned from *PostedBy\-Message\-Index*\.
 
 Take some time to explore your other tables using the DynamoDB console:
-
 + *ProductCatalog*
-
 + *Forum*
-
 + *Thread*

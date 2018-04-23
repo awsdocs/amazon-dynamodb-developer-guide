@@ -7,6 +7,5 @@ This section demonstrates how to launch an Amazon EC2 instance in your default A
 This section also provides information on how to modify your existing application so that it can leverage your DAX cluster\.
 
 **Note**  
-The DAX clients are available at the following URL:  
+DAX clients for various programming languages are available at the following URL:  
 ` [http://dax\-sdk\.s3\-website\-us\-west\-2\.amazonaws\.com](http://dax-sdk.s3-website-us-west-2.amazonaws.com)`
-At this time, DAX clients are available for Java and Node\.js\.

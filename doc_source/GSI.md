@@ -1,6 +1,6 @@
 # Global Secondary Indexes<a name="GSI"></a>
 
-
+**Topics**
 + [Attribute Projections](#GSI.Projections)
 + [Querying a Global Secondary Index](#GSI.Querying)
 + [Scanning a Global Secondary Index](#GSI.Scanning)
@@ -13,21 +13,18 @@
 
 Some applications might need to perform many kinds of queries, using a variety of different attributes as query criteria\. To support these requirements, you can create one or more global secondary indexes and issue `Query` requests against these indexes\. To illustrate, consider a table named *GameScores* that keeps track of users and scores for a mobile gaming application\. Each item in *GameScores* is identified by a partition key \(UserId\) and a sort key \(*GameTitle*\)\. The following diagram shows how the items in the table would be organized\. \(Not all of the attributes are shown\)
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_01.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Now suppose that you wanted to write a leaderboard application to display top scores for each game\. A query that specified the key attributes \(UserId and *GameTitle*\) would be very efficient; however, if the application needed to retrieve data from *GameScores* based on *GameTitle* only, it would need to use a `Scan` operation\. As more items are added to the table, scans of all the data would become slow and inefficient, making it difficult to answer questions such as these:
-
 + What is the top score ever recorded for the game Meteor Blasters?
-
 + Which user had the highest score for Galaxy Invaders?
-
 + What was the highest ratio of wins vs\. losses?
 
 To speed up queries on non\-key attributes, you can create a global secondary index\. A global secondary index contains a selection of attributes from the base table, but they are organized by a primary key that is different from that of the table\. The index key does not need to have any of the key attributes from the table; it doesn't even need to have the same key schema as a table\.
 
 For example, you could create a global secondary index named *GameTitleIndex*, with a partition key of *GameTitle* and a sort key of *TopScore*\. Since the base table's primary key attributes are always projected into an index, the UserId attribute is also present\. The following diagram shows what *GameTitleIndex* index would look like:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_02.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Now you can query *GameTitleIndex* and easily obtain the scores for Meteor Blasters\. The results are ordered by the sort key values, *TopScore*\. If you set the `ScanIndexForward` parameter to false, the results are returned in descending order, so the highest score is returned first\.
 
@@ -48,7 +45,7 @@ In a DynamoDB table, each key value must be unique\. However, the key values in 
 
 When this data is added to the *GameScores* table, DynamoDB will propagate it to *GameTitleIndex*\. If we then query the index using Comet Quest for *GameTitle* and 0 for *TopScore*, the following data is returned:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_05.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Only the items with the specified key values appear in the response; within that set of data, the items are in no particular order\. 
 
@@ -63,38 +60,31 @@ A global secondary index only keeps track of data items where its key attribute\
 
 Because you didn't specify the *TopScore* attribute, DynamoDB would not propagate this item to *GameTitleIndex*\. Thus, if you queried *GameScores* for all the Comet Quest items, you would get the following four items:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_04.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 A similar query on *GameTitleIndex* would still return three items, rather than four\. This is because the item with the nonexistent *TopScore* is not propagated to the index:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_05.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Attribute Projections<a name="GSI.Projections"></a>
 
 A *projection* is the set of attributes that is copied from a table into a secondary index\. The partition key and sort key of the table are always projected into the index; you can project other attributes to support your application's query requirements\. When you query an index, Amazon DynamoDB can access any attribute in the projection as if those attributes were in a table of their own\.
 
 When you create a secondary index, you need to specify the attributes that will be projected into the index\. DynamoDB provides three different options for this:
-
 + *KEYS\_ONLY* – Each item in the index consists only of the table partition key and sort key values, plus the index key values\. The `KEYS_ONLY` option results in the smallest possible secondary index\.
-
 + *INCLUDE* – In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non\-key attributes that you specify\.
-
 + *ALL* – The secondary index includes all of the attributes from the source table\. Because all of the table data is duplicated in the index, an `ALL` projection results in the largest possible secondary index\.
 
 In the diagram above, *GameTitleIndex* does not have any additional projected attributes\. An application can use *GameTitle* and *TopScore* in queries; however, it is not possible to efficiently determine which user has the highest score for a particular game, or the highest ratio of wins vs\. losses\. The most efficient way to support queries on this data would be to project these attributes from the base table into the global secondary index, as shown in this diagram:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_06.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Because the non\-key attributes Wins and Losses are projected into the index, an application can determine the wins vs\. losses ratio for any game, or for any combination of game and user ID\.
 
 When you choose the attributes to project into a global secondary index, you must consider the tradeoff between provisioned throughput costs and storage costs:
-
 + If you need to access just a few attributes with the lowest possible latency, consider projecting only those attributes into a global secondary index\. The smaller the index, the less that it will cost to store it, and the less your write costs will be\.
-
 + If your application will frequently access some non\-key attributes, you should consider projecting those attributes into a global secondary index\. The additional storage costs for the global secondary index will offset the cost of performing frequent table scans\.
-
 + If you need to access most of the non\-key attributes on a frequent basis, you can project these attributes—or even the entire base table— into a global secondary index\. This will give you maximum flexibility; however, your storage cost would increase, or even double\.
-
 + If your application needs to query a table infrequently, but must perform many writes or updates against the data in the table, consider projecting *KEYS\_ONLY*\. The global secondary index would be of minimal size, but would still be available when needed for query activity\. 
 
 ## Querying a Global Secondary Index<a name="GSI.Querying"></a>
@@ -117,11 +107,8 @@ Consider the following data returned from a `Query` that requests gaming data fo
 ```
 
 In this query:
-
 + DynamoDB accesses *GameTitleIndex*, using the *GameTitle* partition key to locate the index items for Meteor Blasters\. All of the index items with this key are stored adjacent to each other for rapid retrieval\.
-
 + Within this game, DynamoDB uses the index to access all of the user IDs and top scores for this game\.
-
 + The results are returned, sorted in descending order because the `ScanIndexForward` parameter is set to false\.
 
 ## Scanning a Global Secondary Index<a name="GSI.Scanning"></a>
@@ -165,15 +152,10 @@ When an item in a table is added, updated, or deleted, and a global secondary in
 In order for a table write to succeed, the provisioned throughput settings for the table and all of its global secondary indexes must have enough write capacity to accommodate the write; otherwise, the write to the table will be throttled\. 
 
 The cost of writing an item to a global secondary index depends on several factors:
-
 + If you write a new item to the table that defines an indexed attribute, or you update an existing item to define a previously undefined indexed attribute, one write operation is required to put the item into the index\.
-
 + If an update to the table changes the value of an indexed key attribute \(from A to B\), two writes are required, one to delete the previous item from the index and another write to put the new item into the index\.  
-
 + If an item was present in the index, but a write to the table caused the indexed attribute to be deleted, one write is required to delete the old item projection from the index\.
-
 + If an item is not present in the index before or after the item is updated, there is no additional write cost for the index\.
-
 + If an update to the table only changes the value of projected attributes in the index key schema, but does not change the value of any indexed key attribute, then one write is required to update the values of the projected attributes into the index\.
 
 All of these factors assume that the size of each item in the index is less than or equal to the 1 KB item size for calculating write capacity units\. Larger index entries will require additional write capacity units\. You can minimize your write costs by considering which attributes your queries will need to return and projecting only those attributes into the index\.
@@ -183,13 +165,9 @@ All of these factors assume that the size of each item in the index is less than
 When an application writes an item to a table, DynamoDB automatically copies the correct subset of attributes to any global secondary indexes in which those attributes should appear\. Your AWS account is charged for storage of the item in the base table and also for storage of attributes in any global secondary indexes on that table\.
 
 The amount of space used by an index item is the sum of the following:
-
 + The size in bytes of the base table primary key \(partition key and sort key\)
-
 + The size in bytes of the index key attribute
-
 + The size in bytes of the projected attributes \(if any\)
-
 + 100 bytes of overhead per index item
 
 To estimate the storage requirements for a global secondary index, you can estimate the average size of an item in the index and then multiply by the number of items in the base table that have the global secondary index key attributes\.

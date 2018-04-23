@@ -1,9 +1,7 @@
 # Step 1: Create a Table<a name="GettingStarted.Ruby.01"></a>
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following two attributes:
-
 + `year` – The partition key\. The `attribute_type` is `N` for number\. 
-
 + `title` – The sort key\. The `attribute_type` is `S` for string\.
 
 1. Copy and paste the following program into a file named `MoviesCreateTable.rb`:

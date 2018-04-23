@@ -40,19 +40,12 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
    The data file contains a subset of data provided by the United States Board on Geographic Names \([http://geonames\.usgs\.gov/domestic/download\_data\.htm](http://geonames.usgs.gov/domestic/download_data.htm)\)\.
 
    The `features.txt` file contains a subset of data from the United States Board on Geographic Names \([http://geonames\.usgs\.gov/domestic/download\_data\.htm](http://geonames.usgs.gov/domestic/download_data.htm)\)\. The fields in each line represent the following:
-
    + Feature ID \(unique identifier\)
-
    + Name
-
    + Class \(lake; forest; stream; and so on\)
-
    + State
-
    + Latitude \(degrees\)
-
    + Longitude \(degrees\)
-
    + Height \(in feet\)
 
 1. At the command prompt, enter the following command:

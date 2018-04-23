@@ -7,7 +7,7 @@ This section documents the operations available in the previous DynamoDB low\-le
 **Note**  
 We recommend that you migrate your applications to the latest API version \(2012\-08\-10\), since new DynamoDB features will not be backported to the previous API version\.
 
-
+**Topics**
 + [BatchGetItem](API_BatchGetItem_v20111205.md)
 + [BatchWriteItem](API_BatchWriteItem_v20111205.md)
 + [CreateTable](API_CreateTable_v20111205.md)

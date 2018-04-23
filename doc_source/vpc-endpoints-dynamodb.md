@@ -10,7 +10,7 @@ In order to access the public Internet, your VPC must have an Internet gateway�
 
 By default, communications to and from DynamoDB use the HTTPS protocol, which protects network traffic by using SSL/TLS encryption\. The following diagram shows how an EC2 instance in a VPC accesses DynamoDB:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ddb-no-vpc-endpoint.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Many customers have legitimate privacy and security concerns about sending and receiving data across the public Internet\. Customers can address these concerns by using a virtual private network \(VPN\) to route all DynamoDB network traffic through the customer's own corporate network infrastructure\. However, this approach can introduce bandwidth and availability challenges\.
 
@@ -20,11 +20,11 @@ When you create a VPC endpoint for DynamoDB, any requests to a DynamoDB endpoint
 
 The following diagram shows how an EC2 instance in a VPC can use a VPC endpoint to access DynamoDB\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ddb-yes-vpc-endpoint.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Tutorial: Using a VPC Endpoint for DynamoDB<a name="vpc-endpoints-dynamodb-tutorial"></a>
 
-
+**Topics**
 + [Step 1: Launch an Amazon EC2 Instance](#vpc-endpoints-dynamodb-tutorial.launch-ec2-instance)
 + [Step 2: Configure Your Amazon EC2 Instance](#vpc-endpoints-dynamodb-tutorial.configure-ec2-instance)
 + [Step 3: Create a VPC Endpoint for DynamoDB](#vpc-endpoints-dynamodb-tutorial.create-endpoint)
@@ -41,45 +41,33 @@ In this step, you launch an Amazon EC2 instance in your default Amazon VPC\. You
 1. Choose **Launch Instance** and do the following:
 
    Step 1: Choose an Amazon Machine Image \(AMI\)
-
    + At the top of the list of AMIs, go to **Amazon Linux AMI** and choose **Select**\.
 
    Step 2: Choose an Instance Type
-
    + At the top of the list of instance types, choose **t2\.micro**\.
-
    + Choose **Next: Configure Instance Details**\.
 
    Step 3: Configure Instance Details
-
    + Go to **Network** and choose your default VPC\.
 
      Choose **Next: Add Storage**\.
 
    Step 4: Add Storage
-
    + Skip this step by choosing **Next: Tag Instance**\.
 
    Step 5: Tag Instance
-
    + Skip this step by choosing **Next: Configure Security Group**\.
 
    Step 6: Configure Security Group
-
    + Choose **Select an existing security group**\.
-
    + In the list of security groups, choose **default**\. This is the default security group for your VPC\.
-
    + Choose **Next: Review and Launch**\.
 
    Step 7: Review Instance Launch
-
    + Choose **Launch**\.
 
 1. In the **Select an existing key pair or create a new key pair** window, do one of the following:
-
    + If you do not have an Amazon EC2 key pair, choose **Create a new key pair** and follow the instructions\. You will be asked to download a private key file \(*\.pem* file\); you will need this file later when you log in to your Amazon EC2 instance\.
-
    + If you already have an existing Amazon EC2 key pair, go to **Select a key pair** and choose your key pair from the list\. Note that you must already have the private key file \( *\.pem* file\) available in order to log in to your Amazon EC2 instance\.
 
 1. When you have configured your key pair, choose **Launch Instances\.**
@@ -103,17 +91,11 @@ The following steps assume that you are connecting to your Amazon EC2 instance f
    1. In the navigation pane, choose **Security Groups**\.
 
    1. Choose **Create Security Group**\. In the **Create Security Group** window, do the following:
-
       + **Security group name**—type a name for your security group\. For example: `my-ssh-access`
-
       + **Description**—type a short description for the security group\.
-
       + **VPC**—choose your default VPC\.
-
       + In the **Security group rules** section, choose **Add Rule** and do the following:
-
         + **Type**—choose SSH\.
-
         + **Source**—choose My IP\.
 
       When the settings are as you want them, choose **Create**\.
@@ -221,7 +203,7 @@ In this step, you will create a VPC endpoint for DynamoDB and test it to make su
    aws dynamodb list-tables
    ```
 
-   If you want, you can try some other AWS CLI commands for DynamoDB\. For more information, see the [AWS Command Line Interface Reference](http://docs.aws.amazon.com/cli/latest/reference/)\.
+   If you want, you can try some other AWS CLI commands for DynamoDB\. For more information, see the [AWS CLI Command Reference](http://docs.aws.amazon.com/cli/latest/reference/)\.
 
 ### Step 4: \(Optional\) Clean Up<a name="vpc-endpoints-dynamodb-tutorial.clean-up"></a>
 

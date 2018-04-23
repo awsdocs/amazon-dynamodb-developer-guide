@@ -21,7 +21,7 @@ var someData = "X".repeat(1000);
 var pkmax = 10;
 var skmax = 10;
 
-for (var ipk = 1; ipk <= 10; ipk++)  {
+for (var ipk = 1; ipk <= pkmax; ipk++)  {
 
     for (var isk = 1; isk <= skmax; isk++) {
         var params = {

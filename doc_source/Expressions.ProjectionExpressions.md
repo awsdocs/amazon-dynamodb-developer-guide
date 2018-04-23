@@ -5,15 +5,12 @@ To read data from a table, you use operations such as `GetItem`, `Query`, or `Sc
 A *projection expression* is a string that identifies the attributes you want\. To retrieve a single attribute, specify its name\. For multiple attributes, the names must be comma\-separated\.
 
 The following are some examples of projection expressions, based on the *ProductCatalog* item from [Specifying Item Attributes](Expressions.Attributes.md):
-
 + A single top\-level attribute\.
 
   `Title `
-
 + Three top\-level attributes\. DynamoDB will retrieve the entire `Color` set\.
 
   `Title, Price, Color `
-
 + Four top\-level attributes\. DynamoDB will return the entire contents of `RelatedItems` and `ProductReviews`\.
 
   `Title, Description, RelatedItems, ProductReviews `

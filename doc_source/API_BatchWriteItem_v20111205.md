@@ -15,29 +15,18 @@ If you use languages such as Java, you can use threads to upload items in parall
 Note that each individual put and delete specified in a `BatchWriteItem` operation costs the same in terms of consumed capacity units\. However, because `BatchWriteItem` performs the specified operations in parallel, you get lower latency\. Delete operations on non\-existent items consume 1 write capacity unit\. For more information about consumed capacity units, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
 
 When using `BatchWriteItem`, note the following limitations:
-
 + **Maximum operations in a single request—**You can specify a total of up to 25 put or delete operations; however, the total request size cannot exceed 1 MB \(the HTTP payload\)\. 
-
 + You can use the `BatchWriteItem` operation only to put and delete items\. You cannot use it to update existing items\.
-
 + **Not an atomic operation—**Individual operations specified in a `BatchWriteItem` are atomic; however `BatchWriteItem` as a whole is a "best\-effort" operation and not an atomic operation\. That is, in a `BatchWriteItem` request, some operations might succeed and others might fail\. The failed operations are returned in an `UnprocessedItems` field in the response\. Some of these failures might be because you exceeded the provisioned throughput configured for the table or a transient failure such as a network error\. You can investigate and optionally resend the requests\. Typically, you call `BatchWriteItem` in a loop and in each iteration check for unprocessed items, and submit a new `BatchWriteItem` request with those unprocessed items\. 
-
 + **Does not return any items—**The `BatchWriteItem` is designed for uploading large amounts of data efficiently\. It does not provide some of the sophistication offered by `PutItem` and `DeleteItem`\. For example, `DeleteItem` supports the `ReturnValues` field in your request body to request the deleted item in the response\. The `BatchWriteItem` operation does not return any items in the response\.
-
 + Unlike `PutItem` and `DeleteItem`, `BatchWriteItem` does not allow you to specify conditions on individual write requests in the operation\.
-
 + Attribute values must not be null; string and binary type attributes must have lengths greater than zero; and set type attributes must not be empty\. Requests that have empty values will be rejected with a `ValidationException`\.
 
 DynamoDB rejects the entire batch write operation if any one of the following is true: 
-
 + If one or more tables specified in the `BatchWriteItem` request does not exist\.
-
 + If primary key attributes specified on an item in the request does not match the corresponding table's primary key schema\.
-
 + If you try to perform multiple operations on the same item in the same `BatchWriteItem` request\. For example, you cannot put and delete the same item in the same `BatchWriteItem` request\. 
-
 + If the total request size exceeds the 1 MB request size \(the HTTP payload\) limit\.
-
 + If any individual item in a batch exceeds the 64 KB item size limit\.
 
 ## Requests<a name="API_BatchWriteItems_RequestParameters"></a>
@@ -130,9 +119,7 @@ BinarySet ::=
 ```
 
 In the request body, the `RequestItems` JSON object describes the operations that you want to perform\. The operations are grouped by tables\. You can use `BatchWriteItem` to update or delete several items across multiple tables\. For each specific write request, you must identify the type of request \(`PutItem`, `DeleteItem`\) followed by detail information about the operation\. 
-
 + For a `PutRequest`, you provide the item, that is, a list of attributes and their values\.
-
 + For a `DeleteRequest`, you provide the primary key name and value\. 
 
 ## Responses<a name="API_BatchWriteItems_ResponseElements"></a>
@@ -165,9 +152,7 @@ No errors specific to this operation\.
 ## Examples<a name="API_BatchWriteItems_Examples"></a>
 
 The following example shows an HTTP POST request and the response of a `BatchWriteItem` operation\. The request specifies the following operations on the Reply and the Thread tables:
-
 + Put an item and delete an item from the Reply table
-
 + Put an item into the Thread table
 
 For examples using the AWS SDK, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
@@ -229,9 +214,7 @@ content-type: application/x-amz-json-1.0
 ### Sample Response<a name="API_BatchWriteItems_Examples_Response"></a>
 
 The following example response shows a put operation on both the Thread and Reply tables succeeded and a delete operation on the Reply table failed \(for reasons such as throttling that is caused when you exceed the provisioned throughput on the table\)\. Note the following in the JSON response:
-
 + The `Responses` object shows one capacity unit was consumed on both the `Thread` and `Reply` tables as a result of the successful put operation on each of these tables\. 
-
 + The `UnprocessedItems` object shows the unsuccessful delete operation on the `Reply` table\. You can then issue a new `BatchWriteItem` call to address these unprocessed requests\.
 
 ```

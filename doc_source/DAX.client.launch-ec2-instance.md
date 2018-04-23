@@ -7,45 +7,32 @@ When your DAX cluster is available, you can launch an Amazon EC2 instance in you
 1. Choose **Launch Instance** and do the following:
 
    ** Step 1: Choose an Amazon Machine Image \(AMI\) **
-
    + At the top of the list of AMIs, go to **Amazon Linux AMI** and choose **Select**\.
 
    **Step 2: Choose an Instance Type**
-
    + At the top of the list of instance types, choose **t2\.micro**\.
-
    + Choose **Next: Configure Instance Details**\.
 
    **Step 3: Configure Instance Details**
-
    + Go to **Network** and choose your default VPC\.
-
    + Choose **Next: Add Storage**\.
 
    **Step 4: Add Storage**
-
    + Skip this step by choosing **Next: Tag Instance**\.
 
    **Step 5: Tag Instance**
-
    + Skip this step by choosing **Next: Configure Security Group**\.
 
    **Step 6: Configure Security Group**
-
    + Choose **Select an existing security group**\.
-
    + In the list of security groups, choose **default**\. This is the default security group for your VPC\.
-
    + Choose **Next: Review and Launch**\.
 
    **Step 7: Review Instance Launch**
-
    + Choose **Launch**\.
 
 1. In the **Select an existing key pair or create a new key pair** window, do one of the following:
-
    + If you do not have an Amazon EC2 key pair, choose **Create a new key pair** and follow the instructions\. You will be asked to download a private key file \(*\.pem* file\); you will need this file later when you log in to your Amazon EC2 instance\.
-
    + If you already have an existing Amazon EC2 key pair, go to ** Select a key pair** and choose your key pair from the list\. Note that you must already have the private key file \( *\.pem* file\) available in order to log in to your Amazon EC2 instance\.
 
 1. When you have configured your key pair, choose **Launch Instances\.**

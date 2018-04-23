@@ -3,9 +3,7 @@
 The AWS SDKs provide broad support for DynamoDB in [ Java](https://aws.amazon.com/sdk-for-java), [JavaScript in the browser](https://aws.amazon.com/sdk-for-browser), [\.NET](https://aws.amazon.com/sdk-for-net), [Node\.js](https://aws.amazon.com/sdk-for-node-js), [PHP](https://aws.amazon.com/sdk-for-php), [Python](https://aws.amazon.com/sdk-for-python), [Ruby](https://aws.amazon.com/sdk-for-ruby), [C\+\+](https://aws.amazon.com/sdk-for-cpp), [Go](https://aws.amazon.com/sdk-for-go), [Android](https://aws.amazon.com/mobile/sdk/), and [iOS](https://aws.amazon.com/mobile/sdk/)\. To get started quickly with these languages, see [Getting Started with DynamoDB](GettingStarted.md)\.
 
 The code samples in this Developer Guide provide more in\-depth coverage of DynamoDB operations, using the following programming languages:
-
 + [Java Code Samples](CodeSamples.Java.md)
-
 + [\.NET Code Samples](CodeSamples.DotNet.md)
 
 Before you can begin with this exercise, you will need to sign up for AWS, get your access key and secret key, and set up the AWS Command Line Interface on your computer\. If you haven't done so, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\.

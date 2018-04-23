@@ -4,7 +4,7 @@ DAX is a write\-through caching service, designed to simplify the process of add
 
 In many use cases, the way that your application uses DAX will affect the consistency of data within the DAX cluster, as well as the consistency of data between DAX and DynamoDB\.
 
-
+**Topics**
 + [Consistency Among DAX Cluster Nodes](#DAX.consistency.nodes)
 + [DAX Item Cache Behavior](#DAX.consistency.item-cache)
 + [DAX Query Cache Behavior](#DAX.consistency.query-cache)
@@ -28,11 +28,11 @@ Every DAX cluster has two distinct caches—an item cache and a query cache\. \(
 
 ### Consistency of Reads<a name="DAX.consistency.item-cache.reads"></a>
 
-With Amazon DynamoDB, the `GetItem` operation performs an eventually consistent read by default\. If you use `GetItem` with the DynamoDB client, and then attempt to read the same item immediately afterward, you might see the data as it appeared prior to the update\. This is due to propagation delay across all of the DynamoDB storage locations\. Consistency is usually reached within seconds, so if you retry the read, you will likely see the updated item\.
+With Amazon DynamoDB, the `GetItem` operation performs an eventually consistent read by default\. If you use `UpdateItem` with the DynamoDB client, and then attempt to read the same item immediately afterward, you might see the data as it appeared prior to the update\. This is due to propagation delay across all of the DynamoDB storage locations\. Consistency is usually reached within seconds, so if you retry the read, you will likely see the updated item\.
 
 When you use `GetItem` with the DAX client, the operation proceeds as follows:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-item-cache.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. The DAX client issues a `GetItem` request\. DAX attempts to read the requested item from the item cache\. If the item is in the cache \(cache hit\), DAX returns it to the application\.
 
@@ -61,16 +61,12 @@ For example, suppose you issue a `GetItem` request from the DAX client to read a
 
 #### How DAX Processes Writes<a name="DAX.consistency.item-cache.write-consistency.processing-writes"></a>
 
-DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX allows you to issue writes directly, so that your writes are immediately reflected in the item cache\. and thus have the writes be reflected directly in the item cache\. You do not need to manage cache invalidation logic, because DAX handles it for you\.
+DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX allows you to issue writes directly, so that your writes are immediately reflected in the item cache\. You do not need to manage cache invalidation logic, because DAX handles it for you\.
 
 DAX supports the following write operations: `PutItem`, `UpdateItem`, `DeleteItem`, and `BatchWriteItem`\. When you send one of these requests to DAX, it does the following:
-
 + DAX sends the request to DynamoDB\.
-
 + DynamoDB replies to DAX, confirming that the write succeeded\.
-
 + DAX writes the item to its item cache\.
-
 + DAX returns success to the requester\.
 
 If a write to DynamoDB fails for any reason, including throttling, then the item will not be cached in DAX and the exception for the failure will be returned to the requester\. This ensures that data is not written to the DAX cache unless it is first written successfully to DynamoDB\.
@@ -128,7 +124,7 @@ The DAX item cache implements a write\-through policy \(see [How DAX Processes W
 
 To illustrate, consider two users \(Alice and Bob\) who are working with the *ProductCatalog* table\. Alice accesses the table using DAX, but Bob bypasses DAX and accesses the table directly in DynamoDB\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-consistency-alice-bob.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Alice updates an item in the *ProductCatalog* table\. DAX forwards the request to DynamoDB, and the update succeeds\. DAX then writes the item to its item cache, and returns a successful response to Alice\. From that point on, until the item is ultimately evicted from the cache, any user who reads the item from DAX will see the item with Alice's update\.
 
@@ -146,7 +142,7 @@ If you decide to use a write\-around strategy, remember that DAX will populate i
 
 Consider a user \(Charlie\) who wants to work with the *GameScores* table using DAX\. The partition key for *GameScores* is `UserId`, so all of Charlie's scores would have the same `UserId`\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-consistency-charlie.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Charlie wants to retrieve all of his scores, so he sends a `Query` to DAX\. Assuming that this query has not been issued before, DAX forwards the query to DynamoDB for processing, stores the results in the DAX query cache, and then returns the results to Charlie\. The result set will remain available in the query cache until it is evicted\.
 

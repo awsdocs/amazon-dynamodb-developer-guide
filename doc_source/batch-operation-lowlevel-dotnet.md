@@ -1,6 +1,6 @@
 # Example: Batch Operations Using AWS SDK for \.NET Low\-Level API<a name="batch-operation-lowlevel-dotnet"></a>
 
-
+**Topics**
 + [Example: Batch Write Operation Using the AWS SDK for \.NET Low\-Level API](#batch-write-low-level-dotnet)
 + [Example: Batch Get Operation Using the AWS SDK for \.NET Low\-Level API](#LowLevelDotNetBatchGet)
 
@@ -9,9 +9,7 @@ This section provides examples of batch operations, batch write and batch get, t
 ## Example: Batch Write Operation Using the AWS SDK for \.NET Low\-Level API<a name="batch-write-low-level-dotnet"></a>
 
 The following C\# code example uses the `BatchWriteItem` method to perform the following put and delete operations:
-
 + Put one item in the Forum table
-
 + Put one item and delete one item from the Thread table\. 
 
 You can specify any number of put and delete requests against one or more tables when creating your batch write request\. However, DynamoDB `BatchWriteItem` limits the size of a batch write request and the number of put and delete operations in a single batch write operation\. For more information, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If your request exceeds these limits, your request is rejected\. If your table does not have sufficient provisioned throughput to serve this request, the unprocessed request items are returned in the response\. 

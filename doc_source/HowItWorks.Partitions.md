@@ -5,14 +5,12 @@ DynamoDB stores data in partitions\. A *partition* is an allocation of storage f
 When you create a table, the initial status of the table is `CREATING`\. During this phase, DynamoDB allocates sufficient partitions to the table so that it can handle your provisioned throughput requirements\. You can begin writing and reading table data after the table status changes to `ACTIVE`\.
 
 DynamoDB allocates additional partitions to a table in the following situations:
-
 + If you increase the table's provisioned throughput settings beyond what the existing partitions can support\.
-
 + If an existing partition fills to capacity and more storage space is required\.
 
-For more details, see [Understand Partition Behavior](GuidelinesForTables.md#GuidelinesForTables.Partitions)\.
-
 Partition management occurs automatically in the background and is transparent to your applications\. Your table remains available throughout and fully supports your provisioned throughput requirements\.
+
+For more details, see [Partition Key Design](bp-partition-key-design.md)\.
 
 Global secondary indexes in DynamoDB are also composed of partitions\. The data in a GSI is stored separately from the data in its base table, but index partitions behave in much the same way as table partitions\.
 
@@ -26,10 +24,10 @@ To read an item from the table, you must specify the partition key value for the
 
 The following diagram shows a table named *Pets*, which spans multiple partitions\. The table's primary key is *AnimalType* \(only this key attribute is shown\)\. DynamoDB uses its hash function to determine where to store a new item, in this case based on the hash value of the string *Dog*\. Note that the items are not stored in sorted order\. Each item's location is determined by the hash value of its partition key\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksPartitionKey.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 **Note**  
-DynamoDB is optimized for uniform distribution of items across a table's partitions, no matter how many partitions there may be\. We recommend that you choose a partition key that can have a large number of distinct values relative to the number of items in the table\. For more information, see [Best Practices for Tables](GuidelinesForTables.md)\.
+DynamoDB is optimized for uniform distribution of items across a table's partitions, no matter how many partitions there may be\. We recommend that you choose a partition key that can have a large number of distinct values relative to the number of items in the table\.
 
 ## Data Distribution: Partition Key and Sort Key<a name="HowItWorks.Partitions.CompositeKey"></a>
 
@@ -43,11 +41,11 @@ You can read multiple items from the table in a single operation \(`Query`\), pr
 
 Suppose that the *Pets* table has a composite primary key consisting of *AnimalType* \(partition key\) and *Name* \(sort key\)\. The following diagram shows DynamoDB writing an item with a partition key value of *Dog* and a sort key value of *Fido*\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksPartitionKeySortKey.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 To read that same item from the *Pets* table, DynamoDB calculates the hash value of *Dog*, yielding the partition in which these items are stored\. DynamoDB then scans the sort key attribute values until it finds *Fido*\.
 
-To read all of the items with an *AnimalType* of *Dog*, you can issue a `Query` operation without specifying a sort key condition\. By default, the items are be returned in the order that they are stored \(that is, in ascending order by sort key\)\. Optionally, you can request descending order instead\.
+To read all of the items with an *AnimalType* of *Dog*, you can issue a `Query` operation without specifying a sort key condition\. By default, the items are returned in the order that they are stored \(that is, in ascending order by sort key\)\. Optionally, you can request descending order instead\.
 
 To query only some of the *Dog* items, you can apply a condition to the sort key \(for example, only the *Dog* items where *Name* begins with a letter that is within the range `A` through `K`\)\.
 

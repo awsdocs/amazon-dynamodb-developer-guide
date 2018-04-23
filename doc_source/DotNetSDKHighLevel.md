@@ -1,6 +1,6 @@
 # \.NET: Object Persistence Model<a name="DotNetSDKHighLevel"></a>
 
-
+**Topics**
 + [DynamoDB Attributes](DeclarativeTagsList.md)
 + [DynamoDBContext Class](DotNetDynamoDBContext.md)
 + [Supported Data Types](#DotNetDynamoDBContext.SupportedTypes)
@@ -49,11 +49,9 @@ Suppose you have a `Book` class with Title, ISBN, and Authors properties\. You c
 In the preceding example, the `DynamoDBTable` attribute maps the `Book` class to the ProductCatalog table\. 
 
 The object persistence model supports both the explicit and default mapping between class properties and table attributes\.
-
 + **Explicit mapping—**To map a property to a primary key, you must use the `DynamoDBHashKey` and `DynamoDBRangeKey` object persistence model attributes\. Additionally, for the non\-primary key attributes, if a property name in your class and the corresponding table attribute to which you want to map it are not the same, then you must define the mapping by explicitly adding the `DynamoDBProperty` attribute\. 
 
   In the preceding example, `Id` property maps to the primary key with the same name and the `BookAuthors` property maps to the Authors attribute in the ProductCatalog table\.
-
 + **Default mapping—**By default, the object persistence model maps the class properties to the attributes with the same name in the table\. 
 
   In the preceding example, the properties `Title` and `ISBN` map to the attributes with the same name in the ProductCatalog table\. 
@@ -67,35 +65,20 @@ The object persistence model supports optimistic locking\. During an update oper
 ## Supported Data Types<a name="DotNetDynamoDBContext.SupportedTypes"></a>
 
 The object persistence model supports a set of primitive \.NET data types, collections, and arbitrary data types\. The model supports the following primitive data types\. 
-
 + `bool`
-
 + `byte` 
-
 + `char`
-
 + `DateTime`
-
 + `decimal`
-
 + `double`
-
 + `float`
-
 + `Int16`
-
 + `Int32`
-
 + `Int64`
-
 + `SByte`
-
 + `string`
-
 + `UInt16`
-
 + `UInt32`
-
 + `UInt64`
 
 The object persistence model also supports the \.NET collection types\. `DynamoDBContext` is able to convert concrete collection types and simple Plain Old CLR Objects \(POCOs\)\.

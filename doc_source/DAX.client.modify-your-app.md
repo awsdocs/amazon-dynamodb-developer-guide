@@ -90,7 +90,8 @@ public class GetMusicItemWithDocumentApi {
     public static void main(String[] args) throws Exception {
 
         ClientConfig daxConfig = new ClientConfig()
-                .withEndpoints("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111");
+                .withEndpoints("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111")
+                .withRegion("us-east-1");
         AmazonDaxClient client = new ClusterDaxClient(daxConfig);
 
         // Document client wrapper
@@ -100,7 +101,7 @@ public class GetMusicItemWithDocumentApi {
 
         try {
             System.out.println("Attempting to read the item...");
-            GetItemOutcome outcome = table.getItemOutcome(
+            GetItemOutcome outcome = table.tgetItemOutcome(
                 "Artist", "No One You Know",
                 "SongTitle", "Scared of My Shadow");
             System.out.println(outcome.getItem());

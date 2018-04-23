@@ -115,7 +115,5 @@ Date: Sun, 14 Aug 2011 17:20:03 GMT
 ```
 
 ## Related Actions<a name="API_DeleteTable_Related_Actions"></a>
-
 +  [CreateTable](API_CreateTable_v20111205.md) 
-
 +  [DescribeTables](API_DescribeTables_v20111205.md) 

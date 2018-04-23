@@ -1,6 +1,6 @@
 # Basic Operations for Tables<a name="WorkingWithTables.Basics"></a>
 
-
+**Topics**
 + [Creating a Table](#WorkingWithTables.Basics.CreateTable)
 + [Describing a Table](#WorkingWithTables.Basics.DescribeTable)
 + [Updating a Table](#WorkingWithTables.Basics.UpdateTable)
@@ -11,11 +11,8 @@
 ## Creating a Table<a name="WorkingWithTables.Basics.CreateTable"></a>
 
 Use the `CreateTable` operation to create a table\. You must provide the following information:
-
 + **Table name\.** The name must conform to the DynamoDB naming rules, and must be unique for the current AWS account and region\. For example, you could create a *People* table in US East \(N\. Virginia\) and another *People* table in EU \(Ireland\) \- however, these two tables would be entirely different from each other\. For more information, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\.
-
 + **Primary key\.** The primary key can consist of one attribute \(partition key\) or two attributes \(partition key and sort key\)\. You need to provide the attribute names, data types, and the role of each attribute: `HASH` \(for a partition key\) and `RANGE` \(for a sort key\)\. For more information, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
-
 + **Throughput settings\.** You must specify the initial read and write throughput settings for the table\. You can modify these settings later, or enable DynamoDB auto scaling to manage the settings for you\. For more information, see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md) and [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
 
 **Example**  
@@ -95,11 +92,8 @@ For billing purposes, your DynamoDB storage costs include a per\-item overhead o
 ## Updating a Table<a name="WorkingWithTables.Basics.UpdateTable"></a>
 
 The `UpdateTable` operation allows you to do one of the following:
-
 + Modify a table's provisioned throughput settings\.
-
 + Manipulate global secondary indexes on the table \(see [Global Secondary Indexes](GSI.md)\)\.
-
 + Enable or disable DynamoDB Streams on the table \(see [Capturing Table Activity with DynamoDB Streams](Streams.md)\)\.
 
 **Example**  
@@ -120,7 +114,7 @@ You can remove an unused table with the `DeleteTable` operation\. Note that dele
 This AWS CLI example shows how to delete a table:
 
 ```
-aws dynamodb delete-table --table-name Music 
+aws dynamodb delete-table --table-name Music
 ```
 
 When you issue a `DeleteTable` request, the table's status changes from `ACTIVE` to `DELETING`\. It might take a while to delete the table, depending on the resources it uses \(such as the data stored in the table, and any streams or indexes on the table\)\.

@@ -4,7 +4,7 @@ The `DynamoDBMapper` class is the entry point to DynamoDB\. It provides access t
 
 For the corresponding Javadoc documentation, see [DynamoDBMapper](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
 
-
+**Topics**
 + [`save`](#DynamoDBMapper.Methods.save)
 + [`load`](#DynamoDBMapper.Methods.load)
 + [`delete`](#DynamoDBMapper.Methods.delete)
@@ -14,10 +14,10 @@ For the corresponding Javadoc documentation, see [DynamoDBMapper](http://docs.aw
 + [`scanPage`](#DynamoDBMapper.Methods.scanPage)
 + [`parallelScan`](#DynamoDBMapper.Methods.parallelScan)
 + [`batchSave`](#DynamoDBMapper.Methods.batchSave)
-+ [`batchLoad`](#w3ab1c15c15c17c39c29)
++ [`batchLoad`](#w3ab1c15c17c17c39c29)
 + [`batchDelete`](#DynamoDBMapper.Methods.batchDelete)
 + [`batchWrite`](#DynamoDBMapper.Methods.batchWrite)
-+ [`count`](#w3ab1c15c15c17c39c35)
++ [`count`](#w3ab1c15c17c17c39c35)
 + [`generateCreateTableRequest`](#DynamoDBMapper.Methods.generateCreateTableRequest)
 + [`createS3Link`](#DynamoDBMapper.Methods.createS3Link)
 + [`getS3ClientCache`](#DynamoDBMapper.Methods.getS3ClientCache)
@@ -173,7 +173,7 @@ DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
     .withIndexName("PostedBy-Message-Index")
     .withConsistentRead(false);
 
-    List<PostedByMessage> indexItems =  mapper.scan(PostedByMessage.class, scanExpression);
+    List<PostedByMessage> iList =  mapper.scan(PostedByMessage.class, scanExpression);
     Iterator<PostedByMessage> indexItems = iList.iterator();
 ```
 
@@ -222,7 +222,7 @@ book2.title = "Book 902 Title";
 mapper.batchSave(Arrays.asList(book1, book2));
 ```
 
-## `batchLoad`<a name="w3ab1c15c15c17c39c29"></a>
+## `batchLoad`<a name="w3ab1c15c17c17c39c29"></a>
 
 Retrieves multiple items from one or more tables using their primary keys\.
 
@@ -280,7 +280,7 @@ List<Book> objectsToDelete = Arrays.asList(book3);
 mapper.batchWrite(objectsToWrite, objectsToDelete);
 ```
 
-## `count`<a name="w3ab1c15c15c17c39c35"></a>
+## `count`<a name="w3ab1c15c17c17c39c35"></a>
 
 Evaluates the specified scan expression and returns the count of matching items\. No item data is returned\.
 

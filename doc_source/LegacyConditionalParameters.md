@@ -15,7 +15,7 @@ The following table shows the DynamoDB APIs that still support these legacy para
 
 The following sections provide more information about legacy conditional parameters\.
 
-
+**Topics**
 + [AttributesToGet](LegacyConditionalParameters.AttributesToGet.md)
 + [AttributeUpdates](LegacyConditionalParameters.AttributeUpdates.md)
 + [ConditionalOperator](LegacyConditionalParameters.ConditionalOperator.md)

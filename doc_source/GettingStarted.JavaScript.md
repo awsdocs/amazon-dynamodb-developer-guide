@@ -1,23 +1,17 @@
 # JavaScript and DynamoDB<a name="GettingStarted.JavaScript"></a>
 
 In this tutorial, you use JavaScript to write simple programs to perform the following Amazon DynamoDB operations:
-
 + Create a table called `Movies` and load sample data in JSON format\.
-
 + Perform create, read, update, and delete operations on the table\.
-
 + Run simple queries\.
-
-You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary](GettingStarted.Js.Summary.md)\. 
 
 As you work through this tutorial, you can refer to the [AWS SDK for JavaScript API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\.
 
-## Prerequisites<a name="GettingStarted.Js.Prereqs"></a>
-
+## Tutorial Prerequisites<a name="GettingStarted.Js.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
-
+**Note**  
+You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary](GettingStarted.Js.Summary.md)\. 
 + Set up an AWS access key to use AWS SDKs\. For more information, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
-
 + Set up the AWS SDK for JavaScript\. To do this, add or modify the following script tag to your HTML pages:
 
   ```
@@ -25,7 +19,6 @@ As you work through this tutorial, you can refer to the [AWS SDK for JavaScript 
   ```
 **Note**  
  The version of AWS SDK for JavaScript might have been updated\. For the latest version, see the [AWS SDK for JavaScript API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\. 
-
 + Enable [cross\-origin resource sharing \(CORS\)](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cors.html) so your computer's browser can communicate with the downloadable version of DynamoDB\.
 
 **To enable CORS**

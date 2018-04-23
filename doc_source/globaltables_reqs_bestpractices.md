@@ -2,7 +2,7 @@
 
 A DynamoDB global table keeps your data consistent across regions\. In this environment, it is important that each replica table has identical properties\.
 
-
+**Topics**
 + [Requirements for Adding a New Replica Table](#globaltables_reqs_bestpractices.requirements)
 + [Best Practices for Managing Capacity](#globaltables_reqs_bestpractices.tables)
 + [Best Practices for Global Secondary Indexes](#globaltables_reqs_bestpractices.gsi)
@@ -10,13 +10,9 @@ A DynamoDB global table keeps your data consistent across regions\. In this envi
 ## Requirements for Adding a New Replica Table<a name="globaltables_reqs_bestpractices.requirements"></a>
 
 If you want to add a new replica table to a global table, each of the following conditions must be true:
-
 + The table must have the same primary key as all of the other replicas\.
-
 + The table must have the same name as all of the other replicas\.
-
 + The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item\.
-
 + None of the replica tables in the global table can contain any data\.
 
 You must also have appropriate IAM permissions\. For more information, see [Using IAM with Global Tables](gt_IAM.md)\.
@@ -39,9 +35,9 @@ To illustrate the importance of consistent capacity unit settings, suppose that 
 
 ### Manually Managing Capacity<a name="globaltables_reqs_bestpractices.tables.manual-capacity-management"></a>
 
-If you decide not to use DynamoDB auto scaling, then you will need to manually set the read capacity and write capacity settings on each replica table\. 
+If you decide not to use DynamoDB auto scaling, then you will need to manually set the read capacity and write capacity settings on each replica table\.
 
-You must provision sufficient write capacity in each region for every replica table\. The settings you choose should accommodate application writes that take place in the local region; coming from replica tables in other regions; and at least one additional system write for each application write that takes place within the local region\. \(DynamoDB performs these system writes on your behalf, to support the "last writer wins" conflict resolution mechanism provided by global tables\.\)
+Provisioned replicated write capacity units \(rWCUs\) in each region for every replica table should be the total number of rWCUs needed for application writes in all regions multiplied by two\. This will accommodate application writes that occur in the local region; replicated application writes coming from other regions; and at least one additional system write for each application write\. \(DynamoDB performs these system writes on your behalf, to support the "last writer wins" conflict resolution mechanism provided by global tables\.\)
 
 ## Best Practices for Global Secondary Indexes<a name="globaltables_reqs_bestpractices.gsi"></a>
 

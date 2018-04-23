@@ -13,9 +13,7 @@ In this step, you will copy data from the Hive table \(`hive_features`\) to a ne
    1. For **Primary key**, in the **Partition key** field, type **Id**\. Set the data type to **Number**\.
 
       Clear **Use Default Settings**\. For **Provisioned Capacity**, type the following:
-
       + **Read Capacity Units**—`10`
-
       + **Write Capacity Units**—`10`
 
    Choose **Create**\.

@@ -16,7 +16,7 @@ The program does the following:
 
 These steps are described in the following sections, and the complete application is shown at the end of the walkthrough\.
 
-
+**Topics**
 + [Step 1: Create DynamoDB Tables](#Streams.KCLAdapter.Walkthrough.Step1)
 + [Step 2: Generate Update Activity in Source Table](#Streams.KCLAdapter.Walkthrough.Step2)
 + [Step 3: Process the Stream](#Streams.KCLAdapter.Walkthrough.Step3)
@@ -67,13 +67,9 @@ StreamsAdapterDemoHelper.deleteItem(dynamoDBClient, tableName, "102");
 ## Step 3: Process the Stream<a name="Streams.KCLAdapter.Walkthrough.Step3"></a>
 
 Now the program begins processing the stream\. The DynamoDB Streams Kinesis Adapter acts as a transparent layer between the KCL and the DynamoDB Streams endpoint, so that the code can fully leverage KCL rather than having to make low\-level DynamoDB Streams calls\. The program performs the following tasks:
-
 + It defines a record processor class, `StreamsRecordProcessor`, with methods that comply with the KCL interface definition: `initialize`, `processRecords`, and `shutdown`\. The `processRecords` method contains the logic required for reading from the source table's stream and writing to the destination table\.
-
 + It defines a class factory for the record processor class \(`StreamsRecordProcessorFactory`\)\. This is required for Java programs that use the KCL\.
-
 + It instantiates a new KCL `Worker`, which is associated with the class factory\.
-
 + It shuts down the `Worker` when record processing is complete\.
 
 To learn more about the KCL interface definition, go to [Developing Amazon Kinesis Consumers Using the Amazon Kinesis Client Library](http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html) in the *Amazon Kinesis Developer Guide*\. 

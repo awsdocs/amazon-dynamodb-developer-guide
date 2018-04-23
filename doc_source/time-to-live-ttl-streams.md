@@ -5,11 +5,9 @@ You can back up, or otherwise process, items deleted by Time To Live by enabling
 The Streams record contains a user identity field `Records[<index>].userIdentity`\.
 
 Items that are deleted by the Time To Live process after expiration have the following fields:
-
 + `Records[<index>].userIdentity.type`
 
   `"Service"`
-
 + `Records[<index>].userIdentity.principalId`
 
   `"dynamodb.amazonaws.com"`

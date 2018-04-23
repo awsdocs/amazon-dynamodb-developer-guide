@@ -5,7 +5,7 @@ This section contains hands\-on tutorials to help you learn about Amazon DynamoD
 **Note**  
  AWS SDKs are available for a wide variety of languages\. For a complete list, see [Tools for Amazon Web Services](https://aws.amazon.com/tools)\. 
 
-
+**Topics**
 + [Java and DynamoDB](GettingStarted.Java.md)
 + [JavaScript and DynamoDB](GettingStarted.JavaScript.md)
 + [Node\.js and DynamoDB](GettingStarted.NodeJs.md)

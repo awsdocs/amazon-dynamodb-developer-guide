@@ -2,7 +2,7 @@
 
 This section describes current limits within Amazon DynamoDB \(or no limit, in some cases\)\. Each limit listed below applies on a per\-region basis unless otherwise specified\.
 
-
+**Topics**
 + [Capacity Units and Provisioned Throughput](#default-limits-capacity-units-provisioned-throughput)
 + [Tables](#limits-tables)
 + [Secondary Indexes](#limits-secondary-indexes)
@@ -28,18 +28,12 @@ One write capacity unit = one write per second, for items up to 1 KB in size\.
 
 For any table or global secondary index, the minimum settings for provisioned throughput are 1 read capacity unit and 1 write capacity unit\.
 
-An AWS account places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
-
+AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 + US East \(N\. Virginia\) Region:
-
   + Per table – 40,000 read capacity units and 40,000 write capacity units
-
   + Per account – 80,000 read capacity units and 80,000 write capacity units
-
 + All Other Regions:
-
   + Per table – 10,000 read capacity units and 10,000 write capacity units
-
   + Per account – 20,000 read capacity units and 20,000 write capacity units
 **Note**  
  All the account's available throughput can be applied to a single table or across multiple tables\. 
@@ -56,17 +50,15 @@ You cannot exceed your per\-account limits when you add provisioned capacity, an
 
 ### Decreasing Provisioned Throughput<a name="limits-decreasing-provisioned-throughput"></a>
 
- For every table and global secondary index in an UpdateTable operation, you can decrease `ReadCapacityUnits` or `WriteCapacityUnits` \(or both\)\. The new settings do not take effect until the `UpdateTable` operation is complete\. A dial down is allowed up to four times any time per day\. A day is defined according to the GMT time zone\. Additionally, if there was no decrease in the past four hours, an additional dial down is allowed, effectively bringing maximum number of decreases in a day to nine times \(4 decreases in the first 4 hours, and 1 decrease for each of the subsequent 4 hour windows in a day\)\. 
+For every table and global secondary index in an UpdateTable operation, you can decrease `ReadCapacityUnits` or `WriteCapacityUnits` \(or both\)\. The new settings do not take effect until the `UpdateTable` operation is complete\. A decrease is allowed up to four times any time per day\. A day is defined according to the GMT time zone\. Additionally, if there was no decrease in the past hour, an additional decrease is allowed, effectively bringing the maximum number of decreases in a day to 27 times \(4 decreases in the first hour, and 1 decrease for each of the subsequent 1\-hour windows in a day\)\. 
 
 **Important**  
- Table and GSIs dial down limits are decoupled, so any GSI\(s\) for a particular table have their own dial down limits\. However, if a single request decreases the throughput for a table and a GSI, it will be rejected if either exceeds the current limits\. A request will not be partially processed\. 
+Table and GSI decrease limits are decoupled, so any GSI\(s\) for a particular table have their own decrease limits\. However, if a single request decreases the throughput for a table and a GSI, it will be rejected if either exceeds the current limits\. A request will not be partially processed\. 
 
 **Example**  
  A table with a GSI, in the first 4 hours of a day, can be modified as follows:   
-
-+  Dial down the table's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
-
-+  Dial down the GSI's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
++  Decrease the table's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
++  Decrease the GSI's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
  At the end of that same day the table and the GSI's throughput can potentially be decreased a total of 9 times each\. 
 
 ## Tables<a name="limits-tables"></a>
@@ -120,17 +112,11 @@ The exception is for tables with local secondary indexes\. With a local secondar
 ### Table Names and Secondary Index Names<a name="limits-naming-rules-tables-secondary-indexes"></a>
 
 Names for tables and secondary indexes must be at least 3 characters long, but no greater than 255 characters long\. Allowed characters are:
-
 + `A-Z`
-
 + `a-z`
-
 + `0-9`
-
 + `_` \(underscore\)
-
 + `-` \(hyphen\)
-
 + `.` \(dot\)
 
 ### Attribute Names<a name="limits-naming-rules-attributes"></a>
@@ -138,11 +124,8 @@ Names for tables and secondary indexes must be at least 3 characters long, but n
 In general, an attribute name must be at least 1 character long, but no greater than 64 KB long\.
 
 The exceptions are listed below\. These attribute names must be no greater than 255 characters long:
-
 + Secondary index partition key names\.
-
 + Secondary index sort key names\.
-
 + The names of any user\-specified projected attributes \(applicable only to local secondary indexes\)\. In a `CreateTable` operation, if you specify a `ProjectionType` of `INCLUDE`, then the names of the attributes in the `NonKeyAttributes` parameter are length\-restricted\. The `KEYS_ONLY` and `ALL` projection types are not affected\. 
 
 These attribute names must be encoded using UTF\-8, and the total size of each name \(after encoding\) cannot exceed 255 bytes\.
@@ -158,9 +141,7 @@ Strings are Unicode with UTF\-8 binary encoding\. Because UTF\-8 is a variable w
 ### Number<a name="limits-data-types-numbers"></a>
 
 A Number can have up to 38 digits of precision, and can be positive, negative, or zero\.
-
 + Positive range: `1E-130` to `9.9999999999999999999999999999999999999E+125`
-
 + Negative range: `-9.9999999999999999999999999999999999999E+125` to `-1E-130`
 
 DynamoDB uses JSON strings to represent Number data in requests and replies\. For more information, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)\.
@@ -184,9 +165,7 @@ For example, consider an item with two attributes: one attribute named "shirt\-c
 ### Item Size for Tables With Local Secondary Indexes<a name="limits-items-size-secondary-indexes"></a>
 
 For each local secondary index on a table, there is a 400 KB limit on the total of the following:
-
 + The size of an item's data in the table\.
-
 + The size of the local secondary index entry corresponding to that item, including its key values and projected attributes\.
 
 ## Attributes<a name="limits-attributes"></a>
@@ -239,37 +218,20 @@ Do not allow more than two processes to read from the same DynamoDB Streams shar
 
 ### Maximum Write Capacity for a Table With a Stream Enabled<a name="limits-dynamodb-streams-max-write-capacity"></a>
 
- The following write capacity limits apply for tables with DynamoDB Streams enabled:
-
+AWS places some default limits on the write capacity for DynamoDB tables with Streams enabled\. These are the limits unless you request a higher amount\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 + US East \(N\. Virginia\) Region:
-
   + Per table – 40,000 write capacity units
-
-  + Per account – 80,000 write capacity units
-
 + All Other Regions:
-
   + Per table – 10,000 write capacity units
 
-  + Per account – 20,000 write capacity units
-
-If you require a write capacity increase for a table with DynamoDB Streams enabled, go to [https://aws\.amazon\.com/support](https://aws.amazon.com/support) and open a new Service Limit Increase case\. Specify "Table Write Capacity Units" as the limit you want to increase\.
+**Note**  
+ The provisioned throughput limits also apply for DynamoDB tables with Streams enabled\. For more information, see [Provisioned Throughput Default Limits](#default-limits-throughput)\. 
 
 ## DynamoDB Accelerator \(DAX\)<a name="limits-dax"></a>
 
 ### AWS Region Availability<a name="limits-dax-regions"></a>
 
-DAX is available in the following AWS regions:
-
-+ US East \(N\. Virginia\)
-
-+ US West \(N\. California\)
-
-+ US West \(Oregon\)
-
-+ EU \(Ireland\)
-
-+ Asia Pacific \(Tokyo\)
+For a list of regions in which DAX is available, see [DynamoDB Accelerator \(DAX\)](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_dax_region) in the *AWS General Reference*\.
 
 ### Nodes<a name="limits-dax-nodes"></a>
 

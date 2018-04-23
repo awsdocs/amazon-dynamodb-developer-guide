@@ -4,7 +4,7 @@ In the [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.T
 
 Hive is an excellent solution for copying data among DynamoDB tables, Amazon S3 buckets, native Hive tables, and Hadoop Distributed File System \(HDFS\)\. This section provides examples of these operations\.
 
-
+**Topics**
 + [Copying Data Between DynamoDB and a Native Hive Table](EMRforDynamoDB.CopyingData.NativeHive.md)
 + [Copying Data Between DynamoDB and Amazon S3](EMRforDynamoDB.CopyingData.S3.md)
 + [Copying Data Between DynamoDB and HDFS](EMRforDynamoDB.CopyingData.HDFS.md)

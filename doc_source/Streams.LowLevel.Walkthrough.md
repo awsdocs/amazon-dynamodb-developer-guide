@@ -1,5 +1,8 @@
 # DynamoDB Streams Low\-Level API: Java Example<a name="Streams.LowLevel.Walkthrough"></a>
 
+**Note**  
+The code on this page is not exhaustive and does not handle all scenarios for consuming DynamoDB Streams\. The recommended way to consume Stream records from DynamoDB is through the Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.
+
 This section contains a Java program that shows DynamoDB Streams in action\. The program does the following:
 
 1. Creates a DynamoDB table with a stream enabled\.
@@ -14,15 +17,12 @@ This section contains a Java program that shows DynamoDB Streams in action\. The
 
 1. Clean up\.
 
-**Note**  
-This code does not handle all exceptions, and will not work reliably under high\-traffic conditions\. The recommended way to consume Stream records from DynamoDB is through the Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.
-
 When you run the program, you will see output similar to the following:
 
 ```
 Issuing CreateTable request for TestTableForStreams
 Waiting for TestTableForStreams to be created...
-Current stream ARN for TestTableForStreams: arn:aws:dynamodb:us-east-1:561088533018:table/TestTableForStreams/stream/2017-12-04T17:53:56.180
+Current stream ARN for TestTableForStreams: arn:aws:dynamodb:us-east-2:123456789012:table/TestTableForStreams/stream/2018-03-20T16:49:55.208
 Stream enabled: true
 Update view type: NEW_AND_OLD_IMAGES
 
@@ -33,11 +33,11 @@ Processing item 3 of 100
 ...
 Processing item 100 of 100
 
-Shard: {ShardId: shardId-00000001512410041344-c311e990,SequenceNumberRange: {StartingSequenceNumber: 100000000023373864478,},}
-    Shard iterator: WzX5ue4IPXs6DcKRktkgix4pgx258O8DQKQPDKaMo+06aNUW4+RdDY3qcMqghErKKF9jBgmHt2hQIXDx8KHC1mWtdFqQ2VJXV4EOwKKdg5tTiExmUpvPc68NWmNlbRHI0piwtL3diyMT4Knpjct6HxxhI2pBXXWGnMkqnRGbtRC8GLT0+7f67Slt2gSXYkZ2Z31V5ZVQBBLVeoqaoj3rwefgGwTsT/s+1hTT+44x0xj7SjzE0wgdP3Wrb8vp6tjmTQpNrR0qEXWwdejcCGpLYg9k5St0B+If0RZpi8yTR65p83NJg1NfaC8a9JDk01pFc4peh9NnpWS2BXB0xiJQuzcyuHNyWIxN3MFUIAmTsJsp/8gGII=
-        {ApproximateCreationDateTime: Mon Dec 04 09:54:00 PST 2017,Keys: {Id={N: 1,}},NewImage: {Message={S: New item!,}, Id={N: 1,}},SequenceNumber: 100000000023373884315,SizeBytes: 24,StreamViewType: NEW_AND_OLD_IMAGES}
-        {ApproximateCreationDateTime: Mon Dec 04 09:54:00 PST 2017,Keys: {Id={N: 1,}},NewImage: {Message={S: This item has changed,}, Id={N: 1,}},OldImage: {Message={S: New item!,}, Id={N: 1,}},SequenceNumber: 200000000023373884435,SizeBytes: 56,StreamViewType: NEW_AND_OLD_IMAGES}
-        {ApproximateCreationDateTime: Mon Dec 04 09:54:00 PST 2017,Keys: {Id={N: 1,}},OldImage: {Message={S: This item has changed,}, Id={N: 1,}},SequenceNumber: 300000000023373884436,SizeBytes: 36,StreamViewType: NEW_AND_OLD_IMAGES}
+Shard: {ShardId: shardId-1234567890-...,SequenceNumberRange: {StartingSequenceNumber: 01234567890...,},}
+    Shard iterator: EjYFEkX2a26eVTWe...
+        ApproximateCreationDateTime: Tue Mar 20 09:50:00 PDT 2018,Keys: {Id={N: 1,}},NewImage: {Message={S: New item!,}, Id={N: 1,}},SequenceNumber: 100000000003218256368,SizeBytes: 24,StreamViewType: NEW_AND_OLD_IMAGES}
+         {ApproximateCreationDateTime: Tue Mar 20 09:50:00 PDT 2018,Keys: {Id={N: 1,}},NewImage: {Message={S: This item has changed,}, Id={N: 1,}},OldImage: {Message={S: New item!,}, Id={N: 1,}},SequenceNumber: 200000000003218256412,SizeBytes: 56,StreamViewType: NEW_AND_OLD_IMAGES}
+         {ApproximateCreationDateTime: Tue Mar 20 09:50:00 PDT 2018,Keys: {Id={N: 1,}},OldImage: {Message={S: This item has changed,}, Id={N: 1,}},SequenceNumber: 300000000003218256413,SizeBytes: 36,StreamViewType: NEW_AND_OLD_IMAGES}
 ...
 Deleting the table...
 Demo complete
@@ -57,6 +57,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreams;
@@ -87,19 +89,28 @@ public class StreamsLowLevelDemo {
 
     public static void main(String args[]) throws InterruptedException {
 
-        AmazonDynamoDB dynamoDBClient = AmazonDynamoDBClientBuilder.standard().build();
+        AmazonDynamoDB dynamoDBClient = AmazonDynamoDBClientBuilder
+            .standard()
+            .withRegion(Regions.US_EAST_2)
+            .withCredentials(new DefaultAWSCredentialsProviderChain())
+            .build();
 
-        AmazonDynamoDBStreams streamsClient = AmazonDynamoDBStreamsClientBuilder.standard().build();
+        AmazonDynamoDBStreams streamsClient =
+            AmazonDynamoDBStreamsClientBuilder
+                .standard()
+                .withRegion(Regions.US_EAST_2)
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .build();
 
         // Create a table, with a stream enabled
         String tableName = "TestTableForStreams";
-        
-        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>(
+
+        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>(
             Arrays.asList(new AttributeDefinition()
                 .withAttributeName("Id")
                 .withAttributeType("N")));
 
-        ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>(
+        ArrayList<KeySchemaElement> keySchema = new ArrayList<>(
             Arrays.asList(new KeySchemaElement()
                 .withAttributeName("Id")
                 .withKeyType(KeyType.HASH))); // Partition key
@@ -118,58 +129,55 @@ public class StreamsLowLevelDemo {
         System.out.println("Issuing CreateTable request for " + tableName);
         dynamoDBClient.createTable(createTableRequest);
         System.out.println("Waiting for " + tableName + " to be created...");
-          
-        try { 
-            TableUtils.waitUntilActive(dynamoDBClient, tableName); 
+
+        try {
+            TableUtils.waitUntilActive(dynamoDBClient, tableName);
         } catch (AmazonClientException e) {
             e.printStackTrace();
         }
-         
+
         // Print the stream settings for the table
         DescribeTableResult describeTableResult = dynamoDBClient.describeTable(tableName);
         String streamArn = describeTableResult.getTable().getLatestStreamArn();
-        System.out.println("Current stream ARN for " + tableName + ": " + 
-            describeTableResult.getTable().getLatestStreamArn());        
+        System.out.println("Current stream ARN for " + tableName + ": " +
+            describeTableResult.getTable().getLatestStreamArn());
         StreamSpecification streamSpec = describeTableResult.getTable().getStreamSpecification();
         System.out.println("Stream enabled: " + streamSpec.getStreamEnabled());
         System.out.println("Update view type: " + streamSpec.getStreamViewType());
         System.out.println();
 
         // Generate write activity in the table
-        
+
         System.out.println("Performing write activities on " + tableName);
         int maxItemCount = 100;
         for (Integer i = 1; i <= maxItemCount; i++) {
             System.out.println("Processing item " + i + " of " + maxItemCount);
-        
+
             // Write a new item
-            Map<String, AttributeValue> item = new HashMap<String, AttributeValue>();
+            Map<String, AttributeValue> item = new HashMap<>();
             item.put("Id", new AttributeValue().withN(i.toString()));
             item.put("Message", new AttributeValue().withS("New item!"));
             dynamoDBClient.putItem(tableName, item);
 
-        
+
             // Update the item
-            Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
+            Map<String, AttributeValue> key = new HashMap<>();
             key.put("Id", new AttributeValue().withN(i.toString()));
-            Map<String, AttributeValueUpdate> attributeUpdates = new HashMap<String, AttributeValueUpdate>();
+            Map<String, AttributeValueUpdate> attributeUpdates = new HashMap<>();
             attributeUpdates.put("Message", new AttributeValueUpdate()
                 .withAction(AttributeAction.PUT)
-                    .withValue(new AttributeValue()
+                .withValue(new AttributeValue()
                     .withS("This item has changed")));
             dynamoDBClient.updateItem(tableName, key, attributeUpdates);
-                
+
             // Delete the item
             dynamoDBClient.deleteItem(tableName, key);
         }
-        
-        System.out.println();
 
         // Get all the shard IDs from the stream.  Note that DescribeStream returns
         // the shard IDs one page at a time.
-        
         String lastEvaluatedShardId = null;
-        
+
         do {
             DescribeStreamResult describeStreamResult = streamsClient.describeStream(
                 new DescribeStreamRequest()
@@ -178,7 +186,7 @@ public class StreamsLowLevelDemo {
             List<Shard> shards = describeStreamResult.getStreamDescription().getShards();
 
             // Process each shard on this page
-            
+
             for (Shard shard : shards) {
                 String shardId = shard.getShardId();
                 System.out.println("Shard: " + shard);
@@ -186,14 +194,18 @@ public class StreamsLowLevelDemo {
                 // Get an iterator for the current shard
 
                 GetShardIteratorRequest getShardIteratorRequest = new GetShardIteratorRequest()
-                        .withStreamArn(streamArn)
-                        .withShardId(shardId)
-                        .withShardIteratorType(ShardIteratorType.TRIM_HORIZON);
-                GetShardIteratorResult getShardIteratorResult = 
+                    .withStreamArn(streamArn)
+                    .withShardId(shardId)
+                    .withShardIteratorType(ShardIteratorType.TRIM_HORIZON);
+                GetShardIteratorResult getShardIteratorResult =
                     streamsClient.getShardIterator(getShardIteratorRequest);
                 String currentShardIter = getShardIteratorResult.getShardIterator();
 
-                while (currentShardIter != null) {
+                // Shard iterator is not null until the Shard is sealed (marked as READ_ONLY).
+                // To prevent running the loop until the Shard is sealed, which will be on average
+                // 4 hours, we process only the items that were written into DynamoDB and then exit.
+                int processedRecordCount = 0;
+                while (currentShardIter != null && processedRecordCount < maxItemCount) {
                     System.out.println("    Shard iterator: " + currentShardIter.substring(380));
 
                     // Use the shard iterator to read the stream records
@@ -201,16 +213,15 @@ public class StreamsLowLevelDemo {
                     GetRecordsResult getRecordsResult = streamsClient.getRecords(new GetRecordsRequest()
                         .withShardIterator(currentShardIter));
                     List<Record> records = getRecordsResult.getRecords();
-                    if (records.isEmpty()) { break;}                    
                     for (Record record : records) {
-                         System.out.println("        " + record.getDynamodb());
-                    } 
+                        System.out.println("        " + record.getDynamodb());
+                    }
+                    processedRecordCount += records.size();
                     currentShardIter = getRecordsResult.getNextShardIterator();
-
                 }
             }
-            
-            // If LastEvaluatedShardId is set, then there is 
+
+            // If LastEvaluatedShardId is set, then there is
             // at least one more page of shard IDs to retrieve
             lastEvaluatedShardId = describeStreamResult.getStreamDescription().getLastEvaluatedShardId();
 

@@ -2,7 +2,7 @@
 
 This section describes the DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to datatypes\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
 
-
+**Topics**
 + [Naming Rules](#HowItWorks.NamingRules)
 + [Data Types](#HowItWorks.DataTypes)
 
@@ -11,23 +11,14 @@ This section describes the DynamoDB naming rules and the various data types that
 Tables, attributes, and other objects in DynamoDB must have names\. Names should be meaningful and concise—for example, names such as *Products*, *Books*, and *Authors* are self\-explanatory\.
 
 The following are the naming rules for DynamoDB:
-
 + All names must be encoded using UTF\-8, and are case\-sensitive\.
-
 + Table names and index names must be between 3 and 255 characters long, and can contain only the following characters: 
-
   + `a-z`
-
   + `A-Z `
-
   + ` 0-9 `
-
   + `_` \(underscore\)
-
   + `-` \(dash\)
-
   + `.` \(dot\)
-
 + Attribute names must be between 1 and 255 characters long\.
 
 ### Reserved Words and Special Characters<a name="HowItWorks.NamingRules.Reserved"></a>
@@ -39,11 +30,8 @@ Although DynamoDB allows you to use these reserved words and special characters 
 ## Data Types<a name="HowItWorks.DataTypes"></a>
 
 DynamoDB supports many different data types for attributes within a table\. They can be categorized as follows:
-
 + **Scalar Types** – A scalar type can represent exactly one value\. The scalar types are number, string, binary, Boolean, and null\.
-
 + **Document Types** – A document type can represent a complex structure with nested attributes—such as you would find in a JSON document\. The document types are list and map\.
-
 + **Set Types** – A set type can represent multiple scalar values\. The set types are string set, number set, and binary set\.
 
 When you create a table or a secondary index, you must specify the names and data types of each primary key attribute \(partition key and sort key\)\. Furthermore, each primary key attribute must be defined as type string, number, or binary\.
@@ -60,20 +48,15 @@ The scalar types are number, string, binary, Boolean, and null\.
 
 Strings are Unicode with UTF\-8 binary encoding\. The length of a string must be greater than zero and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
-The following additional constraints apply to primary key attributes when defined as type string:
-
-+ The maximum length of a partition key \(always the first attribute\) is 2048 bytes\.
-
-+ The maximum length of a sort key \(the second attribute in a composite primary key\) is 1024 bytes\.
+The following additional constraints apply to primary key attributes that are defined as type string:
++ For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
++ For a composite primary key, the maximum length of the second attribute value \(the sort key\) is 1024 bytes\.
 
 DynamoDB collates and compares strings using the bytes of the underlying UTF\-8 string encoding\. For example, "`a`" \(0x61\) is greater than "`A`" \(0x41\), and "`¿`" \(0xC2BF\) is greater than "`z`" \(0x7A\)\.
 
 You can use the string data type to represent a date or a time stamp\. One way to do this is by using ISO 8601 strings, as shown in these examples:
-
 + `2016-02-15`
-
 + `2015-12-21T17:42:34Z`
-
 + `20150311T122706Z`
 
 For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
@@ -81,9 +64,7 @@ For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.w
 #### Number<a name="HowItWorks.DataTypes.Number"></a>
 
 Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits precision\. Exceeding this results in an exception\.
-
 + Positive range: 1E\-130 to 9\.9999999999999999999999999999999999999E\+125
-
 + Negative range: \-9\.9999999999999999999999999999999999999E\+125 to \-1E\-130
 
 In DynamoDB, numbers are represented as variable length\. Leading and trailing zeroes are trimmed\.
@@ -104,9 +85,7 @@ Binary type attributes can store any binary data, such as compressed text, encry
 The length of a binary attribute must be greater than zero, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
 If you define a primary key attribute as a binary type attribute, the following additional constraints apply:
-
 + For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
-
 + For a composite primary key, the maximum length of the second attribute value \(the sort key\) is 1024 bytes\.
 
 Your applications must encode binary values in base64\-encoded format before sending them to DynamoDB\. Upon receipt of these values, DynamoDB decodes the data into an unsigned byte array and uses that as the length of the binary attribute\. 
@@ -186,7 +165,7 @@ Each value within a set must be unique\. The order of the values within a set is
 The following example shows a string set, a number set, and a binary set: 
 
 ```
-["Black", "Green" ,"Red"]
+["Black", "Green", "Red"]
 
 [42.2, -19, 7.5, 3.14]
 

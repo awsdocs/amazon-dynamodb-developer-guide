@@ -1,6 +1,6 @@
 # Working with Items: Java<a name="JavaDocumentAPIItemCRUD"></a>
 
-
+**Topics**
 + [Putting an Item](#PutDocumentAPIJava)
 + [Getting an Item](#JavaDocumentAPIGetItem)
 + [Batch Write: Putting and Deleting Multiple Items](#BatchWriteDocumentAPIJava)
@@ -17,11 +17,8 @@ You can use the AWS SDK for Java Document API to perform typical create, read, u
 The SDK for Java also provides an object persistence model, allowing you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
  The following sections describe Java snippets to perform several Java Document API item actions\. To run complete working examples instead, see: 
-
 +  [Example: CRUD Operations Using the AWS SDK for Java Document API](JavaDocumentAPICRUDExample.md) 
-
 +  [Example: Batch Operations Using AWS SDK for Java Document API](batch-operation-document-api-java.md) 
-
 +  [Example: Handling Binary Type Attributes Using the AWS SDK for Java Document API](JavaDocumentAPIBinaryTypeExample.md) 
 
 ## Putting an Item<a name="PutDocumentAPIJava"></a>
@@ -97,9 +94,7 @@ In the preceding example, the item has attributes that are scalars \(String, Num
 ### Specifying Optional Parameters<a name="PutItemJavaDocumentAPIOptions"></a>
 
 Along with the required parameters, you can also specify optional parameters to the `putItem` method\. For example, the following Java code snippet uses an optional parameter to specify a condition for uploading the item\. If the condition you specify is not met, then the AWS Java SDK throws a `ConditionalCheckFailedException`\. The code snippet specifies the following optional parameters in the `putItem` method:
-
 + A `ConditionExpression` that defines the conditions for the request\. The snippet defines the condition that the existing item that has the same primary key is replaced only if it has an ISBN attribute that equals a specific value\. 
-
 + A map for `ExpressionAttributeValues` that will be used in the condition\. In this case, there is only one substitution required: The placeholder `:val` in the condition expression will be replaced at runtime with the actual ISBN value to be checked\.
 
 The following example adds a new book item using these optional parameters\.
@@ -298,9 +293,7 @@ Batch write refers to putting and deleting multiple items in a batch\. The `batc
 1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput limit or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [Limits in DynamoDB](Limits.md)\. 
 
 The following Java code snippet demonstrates the preceding steps\. The example performs a `batchWriteItem` operation on two tables \- *Forum* and *Thread*\. The corresponding TableWriteItems objects define the following actions:
-
 + Put an item in the *Forum* table
-
 + Put and delete an item in the *Thread* table
 
 The code then calls `batchWriteItem` to perform the operation\.
@@ -315,7 +308,7 @@ TableWriteItems forumTableWriteItems = new TableWriteItems("Forum")
             .withPrimaryKey("Name", "Amazon RDS")
             .withNumber("Threads", 0));
 
-TableWriteItems threadTableWriteItems = new TableWriteItems(Thread)
+TableWriteItems threadTableWriteItems = new TableWriteItems("Thread")
     .withItemsToPut(
         new Item()
             .withPrimaryKey("ForumName","Amazon RDS","Subject","Amazon RDS Thread 1")
@@ -393,9 +386,7 @@ BatchGetItemOutcome outcome = dynamoDB.batchGetItem(forumTableKeysAndAttributes)
 The `updateItem` method of a `Table` object can update existing attribute values, add new attributes, or delete attributes from an existing item\. 
 
 The `updateItem` method behaves as follows:
-
 + If an item does not exist \(no item in the table with the specified primary key\), `updateItem` adds a new item to the table
-
 + If an item exists, `updateItem` performs the update as specified by the `UpdateExpression` parameter:
 
 **Note**  

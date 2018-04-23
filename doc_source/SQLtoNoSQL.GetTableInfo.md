@@ -4,7 +4,7 @@ You can verify that a table has been created according to your specifications\. 
 
 ## SQL<a name="SQLtoNoSQL.GetTableInfo.SQL"></a>
 
-Most relational database management systems \(RDBMS\) allow you to describe a table's structure—columns, data types, primary key definition, and so on\. There is no standard way to do this in SQL\. However, many database systems provide a `DESCRIBE` command\. Here is an example from MySQL:
+Most relational database management system \(RDBMS\) allow you to describe a table's structure—columns, data types, primary key definition, and so on\. There is no standard way to do this in SQL\. However, many database systems provide a `DESCRIBE` command\. Here is an example from MySQL:
 
 ```
 DESCRIBE Music;

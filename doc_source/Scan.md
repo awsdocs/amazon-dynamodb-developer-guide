@@ -1,6 +1,6 @@
 # Working with Scans<a name="Scan"></a>
 
-
+**Topics**
 + [Filter Expressions for *Scan*](#Scan.FilterExpression)
 + [Limiting the Number of Items in the Result Set](#Scan.Limit)
 + [Paginating the Results](#Scan.Pagination)
@@ -54,9 +54,7 @@ DynamoDB *paginates* the results from `Scan` operations\. With pagination, the `
 A single `Scan` will only return a result set that fits within the 1 MB size limit\. To determine whether there are more results, and to retrieve them one page at a time, applications should do the following:
 
 1. Examine the low\-level `Scan` result:
-
    + If the result contains a `LastEvaluatedKey` element, proceed to step 2\.
-
    + If there is *not* a `LastEvaluatedKey` in the result, then there are no more items to be retrieved\.
 
 1. Construct a new `Scan` request, with the same parameters as the previous one—but this time, take the `LastEvaluatedKey` value from step 1 and use it as the `ExclusiveStartKey` parameter in the new `Scan` request\.
@@ -107,9 +105,7 @@ For code samples in various programming languages, see the [Amazon DynamoDB Gett
 ## Counting the Items in the Results<a name="Scan.Count"></a>
 
 In addition to the items that match your criteria, the `Scan` response contains the following elements:
-
 + `ScannedCount` — the number of items that matched the key condition expression, *before* a filter expression \(if present\) was applied\.
-
 + `Count` — the number of items that remain, *after* a filter expression \(if present\) was applied\.
 
 **Note**  
@@ -133,11 +129,8 @@ You can `Scan` any table or secondary index\. `Scan` operations consume read cap
 | Local secondary index | The base table's provisioned read capacity\. | 
 
 By default, a `Scan` operation does not return any data on how much read capacity it consumes\. However, you can specify the `ReturnConsumedCapacity` parameter in a `Scan` request to obtain this information\. The following are the valid settings for `ReturnConsumedCapacity`:
-
 + `NONE`—no consumed capacity data is returned\. \(This is the default\.\)
-
 + `TOTAL`—the response includes the aggregate number of read capacity units consumed\.
-
 + `INDEXES`—the response shows the aggregate number of read capacity units consumed, together with the consumed capacity for each table and index that was accessed\.
 
 DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that is returned to an application\. For this reason, the number of capacity units consumed will be the same whether you request all of the attributes \(the default behavior\) or just some of them \(using a projection expression\)\. The number will also be the same whether or not you use a filter expression\.
@@ -160,14 +153,12 @@ By default, the `Scan` operation processes data sequentially\. DynamoDB returns 
 The larger the table or index being scanned, the more time the `Scan` will take to complete\. In addition, a sequential `Scan` might not always be able to fully utilize the provisioned read throughput capacity: Even though DynamoDB distributes a large table's data across multiple physical partitions, a `Scan` operation can only read one partition at a time\. For this reason, the throughput of a `Scan` is constrained by the maximum throughput of a single partition\.
 
 To address these issues, the `Scan` operation can logically divide a table or secondary index into multiple *segments*, with multiple application workers scanning the segments in parallel\. Each worker can be a thread \(in programming languages that support multithreading\) or an operating system process\. To perform a parallel scan, each worker issues its own `Scan` request with the following parameters:
-
 + `Segment —` A segment to be scanned by a particular worker\. Each worker should use a different value for `Segment`\.
-
 + `TotalSegments —` The total number of segments for the parallel scan\. This value must be the same as the number of workers that your application will use\.
 
 The following diagram shows how a multithreaded application performs a parallel `Scan` with three degrees of parallelism:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ParallelScan.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 In this diagram, the application spawns three threads and assigns each thread a number\. \(Segments are zero\-based, so the first number is always 0\.\) Each thread issues a `Scan` request, setting `Segment` to its designated number and setting `TotalSegments` to 3\. Each thread scans its designated segment, retrieving data 1 MB at a time, and returns the data to the application's main thread\.
 

@@ -16,7 +16,6 @@ You will download a `.zip` archive that contains JSON files with sample data for
 ## Download the Sample Data File Archive<a name="SampleData.LoadData.DownloadArchive"></a>
 
 1. Download the sample data archive \(`sampledata.zip`\) using this link:
-
    +  [sampledata\.zip](samples/sampledata.zip) 
 
 1. Extract the `.json` data files from the archive\.
@@ -60,9 +59,6 @@ You can use the AWS Management Console to verify the data that you loaded into t
 1. To return to the list of tables, choose **Cancel**\.
 
 Repeat this procedure for each of the other tables you created:
-
 + *Forum*
-
 + *Thread*
-
 + *Reply*

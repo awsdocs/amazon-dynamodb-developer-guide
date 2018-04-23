@@ -6,7 +6,7 @@ In Amazon DynamoDB, you use *expressions* to denote the attributes that you want
 For backward compatibility, DynamoDB also supports conditional parameters that do not use expressions\. For more information, see [Legacy Conditional Parameters](LegacyConditionalParameters.md)\.  
 New applications should use expressions rather than the legacy parameters\.
 
-
+**Topics**
 + [Specifying Item Attributes](Expressions.Attributes.md)
 + [Projection Expressions](Expressions.ProjectionExpressions.md)
 + [Expression Attribute Names](Expressions.ExpressionAttributeNames.md)

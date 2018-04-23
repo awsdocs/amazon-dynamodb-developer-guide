@@ -4,7 +4,7 @@ Before your application can access a database, it must be *authenticated* to ens
 
 The following diagram shows client interaction with a relational database, and with DynamoDB\.
 
-![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SQLtoNoSQL.png)![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Interaction with relational and NoSQL databases\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 The following table has more details about client interaction tasks:
 

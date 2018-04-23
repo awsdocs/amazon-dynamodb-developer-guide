@@ -1,13 +1,13 @@
 # DynamoDB Low\-Level API<a name="Programming.LowLevelAPI"></a>
 
-
+**Topics**
 + [Request Format](#Programming.LowLevelAPI.RequestFormat)
 + [Response Format](#Programming.LowLevelAPI.ResponseFormat)
 + [Data Type Descriptors](#Programming.LowLevelAPI.DataTypeDescriptors)
 + [Numeric Data](#Programming.LowLevelAPI.Numbers)
 + [Binary Data](#Programming.LowLevelAPI.Binary)
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.DDBLowLevelAPI.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 The DynamoDB *low\-level API* is the protocol\-level interface for Amazon DynamoDB\. At this level, every HTTP\(S\) request must be correctly formatted and carry a valid digital signature\. 
 
@@ -17,7 +17,7 @@ For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API
 
 **Note**  
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
-For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
+For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
 
 The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy, so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 
@@ -53,11 +53,8 @@ X-Amz-Target: DynamoDB_20120810.GetItem
 ```
 
 Note the following about this request:
-
 + The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API Requests](http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 Signing Process](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
-
 + The `X-Amz-Target` header contains the name of a DynamoDB operation: `GetItem`\. \(This is also accompanied by the low\-level API version, in this case `20120810`\.\)
-
 + The payload \(body\) of the request contains the parameters for the operation, in JSON format\. For the `GetItem` operation, the parameters are `TableName` and `Key`\.
 
 ## Response Format<a name="Programming.LowLevelAPI.ResponseFormat"></a>
@@ -112,25 +109,15 @@ The low\-level DynamoDB API protocol requires each attribute to be accompanied b
 The examples in [Request Format](#Programming.LowLevelAPI.RequestFormat) and [Response Format](#Programming.LowLevelAPI.ResponseFormat) show examples of how data type descriptors are used\. The `GetItem` request specifies `S` for the *Pets* key schema attributes \(`AnimalType` and `Name`\), which are of type string\. The `GetItem` response contains a *Pets* item with attributes of type string \(`S`\), number \(`N`\), map \(`M`\), and list \(`L`\)\.
 
 The following is a complete list of DynamoDB data type descriptors:
-
 + **`S`** – String
-
 + **`N`** – Number
-
 + **`B`** – Binary
-
 + **`BOOL`** – Boolean
-
 + **`NULL`** – Null
-
 + **`M`** – Map
-
 + **`L`** – List
-
 + **`SS`** – String Set
-
 + **`NS`** – Number Set
-
 + **`BS`** – Binary Set
 
 **Note**  

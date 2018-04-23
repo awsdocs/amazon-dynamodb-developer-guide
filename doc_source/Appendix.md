@@ -1,6 +1,7 @@
 # DynamoDB Appendix<a name="Appendix"></a>
 
-
+**Topics**
++ [Troubleshooting SSL/TLS connection establishment issues](ats-certs.md)
 + [Example Tables and Data](AppendixSampleTables.md)
 + [Creating Example Tables and Uploading Data](AppendixSampleDataCode.md)
 + [DynamoDB Example Application Using AWS SDK for Python \(Boto\): Tic\-Tac\-Toe](TicTacToe.md)

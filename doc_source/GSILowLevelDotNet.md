@@ -1,6 +1,6 @@
 # Working with Global Secondary Indexes: \.NET<a name="GSILowLevelDotNet"></a>
 
-
+**Topics**
 + [Create a Table With a Global Secondary Index](#GSILowLevelDotNet.CreateTableWithIndex)
 + [Describe a Table With a Global Secondary Index](#GSILowLevelDotNet.DescribeTableWithIndex)
 + [Query a Global Secondary Index](#GSILowLevelDotNet.QueryAnIndex)

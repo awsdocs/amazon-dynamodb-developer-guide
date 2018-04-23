@@ -4,7 +4,7 @@ In this step, you perform read and write operations on an item in the `Movies` t
 
 To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
 
-
+**Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.Ruby.03.01)
 + [Step 3\.2: Read an Item](#GettingStarted.Ruby.03.02)
 + [Step 3\.3: Update an Item](#GettingStarted.Ruby.03.03)
@@ -28,7 +28,7 @@ In this step, you add a new item to the table\.
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
@@ -43,7 +43,7 @@ In this step, you add a new item to the table\.
    }
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        item: item
    }
    
@@ -92,7 +92,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
@@ -103,7 +103,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    }
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        key: {
            year: year,
            title: title
@@ -133,9 +133,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
 You can use the `update_item` method to modify an existing item\. You can update values of existing attributes, add new attributes, or remove attributes\.
 
 In this example, you perform the following updates:
-
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
-
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
 The item changes from this:
@@ -177,13 +175,13 @@ To the following:
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        key: {
            year: year,
            title: title
@@ -232,13 +230,13 @@ The following program shows how to increment the `rating` for a movie\. Each tim
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        key: {
            year: year,
            title: title
@@ -288,13 +286,13 @@ In this case, the item is updated only if there are more than three actors\.
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        key: {
            year: year,
            title: title
@@ -362,13 +360,13 @@ In the following example, you try to delete a specific movie item if its rating 
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    year = 2015
    title = "The Big New Movie"
    
    params = {
-       table_name: "Movies",
+       table_name: table_name,
        key: {
            year: year,
            title: title

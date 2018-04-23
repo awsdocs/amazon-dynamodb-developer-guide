@@ -1,6 +1,6 @@
 # Example: Batch Operations Using AWS SDK for Java Document API<a name="batch-operation-document-api-java"></a>
 
-
+**Topics**
 + [Example: Batch Write Operation Using the AWS SDK for Java Document API](#JavaDocumentAPIBatchWrite)
 + [Example: Batch Get Operation Using the AWS SDK for Java Document API](#JavaDocumentAPIBatchGet)
 
@@ -12,9 +12,7 @@ The SDK for Java also provides an object persistence model, allowing you to map 
 ## Example: Batch Write Operation Using the AWS SDK for Java Document API<a name="JavaDocumentAPIBatchWrite"></a>
 
 The following Java code example uses the `batchWriteItem` method to perform the following put and delete operations:
-
 + Put one item in the Forum table
-
 + Put one item and delete one item from the Thread table\. 
 
 You can specify any number of put and delete requests against one or more tables when creating your batch write request\. However, `batchWriteItem` limits the size of a batch write request and the number of put and delete operations in a single batch write operation\. If your request exceeds these limits, your request is rejected\. If your table does not have sufficient provisioned throughput to serve this request, the unprocessed request items are returned in the response\. 

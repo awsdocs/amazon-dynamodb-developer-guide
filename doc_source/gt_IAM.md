@@ -9,11 +9,8 @@ Do not delete this service\-linked role\. If you do, then all of your global tab
 \(For more information about service\-linked roles, see [Using Service\-Linked Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.\)
 
 To create and maintain global tables in DynamoDB, you must have the `dynamodb:CreateGlobalTable` permission to access each of the following:
-
 + The replica table you want to add\.
-
 + Each existing replica that's already part of the global table\.
-
 + The global table itself\.
 
 If you use an IAM policy to manage access to one replica table, then you should apply an identical policy to all of the other replicas within that global table\. This practice will help you maintain a consistent permissions model across all of the replica tables\.

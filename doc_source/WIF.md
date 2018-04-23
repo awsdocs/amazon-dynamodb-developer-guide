@@ -3,23 +3,16 @@
 If you are writing an application targeted at large numbers of users, you can optionally use *web identity federation* for authentication and authorization\. Web identity federation removes the need for creating individual IAM users; instead, users can sign in to an identity provider and then obtain temporary security credentials from AWS Security Token Service \(AWS STS\)\. The app can then use these credentials to access AWS services\.
 
 Web identity federation supports the following identity providers:
-
 + Login with Amazon
-
 + Facebook
-
 + Google
 
 ## Additional Resources for Web Identity Federation<a name="WIF.AdditionalResources"></a>
 
 The following resources can help you learn more about web identity federation:
-
 + The [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html) is an interactive website that lets you walk through the process of authenticating via Login with Amazon, Facebook, or Google, getting temporary security credentials, and then using those credentials to make a request to AWS\.
-
 + The entry [Web Identity Federation using the AWS SDK for \.NET](http://aws.amazon.com/blogs/developer/web-identity-federation-using-the-aws-sdk-for-net) on the AWS \.NET Development blog walks through how to use web identity federation with Facebook and includes code snippets in C\# that show how to assume an IAM role with web identity and how to use temporary security credentials to access an AWS resource\.
-
 + The [AWS SDK for iOS](https://aws.amazon.com/sdkforios/) and the [AWS SDK for Android](https://aws.amazon.com/sdkforandroid/) contain sample apps\. These apps include code that shows how to invoke the identity providers, and then how to use the information from these providers to get and use temporary security credentials\.
-
 + The article [Web Identity Federation with Mobile Applications](https://aws.amazon.com/articles/4617974389850313) discusses web identity federation and shows an example of how to use web identity federation to access an AWS resource\.
 
 ## Example Policy for Web Identity Federation<a name="WIF.Example"></a>
@@ -41,7 +34,7 @@ When a user want to play a game, he signs in to his Login with Amazon account fr
 
 The following diagram shows how these pieces fit together\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/wif-overview.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 **Web Identity Federation Overview**
 

@@ -9,11 +9,8 @@ At runtime, if your app uses web identity federation, it must follow these steps
    After the identity provider authenticates the user, the provider returns a web identity token to your app\. The format of this token depends on the provider, but is typically a very long string of characters\.
 
 1. **Obtain temporary AWS security credentials\.** To do this, your app sends a `AssumeRoleWithWebIdentity` request to AWS Security Token Service \(AWS STS\)\. This request contains:
-
    + The web identity token from the previous step
-
    + The app ID from the identity provider
-
    + The Amazon Resource Name \(ARN\) of the IAM role that you created for this identity provider for this app
 
    AWS STS returns a set of AWS security credentials that expire after a certain amount of time \(3600 seconds, by default\)\.
@@ -54,13 +51,9 @@ At runtime, if your app uses web identity federation, it must follow these steps
    ```
 
 1. **Access AWS resources\.** The response from AWS STS contains information that your app will require in order to access DynamoDB resources:
-
    + The `AccessKeyID`, `SecretAccessKey` and `SessionToken` fields contain security credentials that are valid for this user and this app only\. 
-
    + The `Expiration` field signifies the time limit for these credentials, after which they will no longer be valid\.
-
    + The `AssumedRoleId` field contains the name of a session\-specific IAM role that has been assumed by the app\. The app will honor the access controls in the IAM policy document for the duration of this session\.
-
    + The `SubjectFromWebIdentityToken` field contains the unique ID that appears in an IAM policy variable for this particular identity provider\. The following are the IAM policy variables for supported providers, and some example values for them:  
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WIF.RunningYourApp.html)

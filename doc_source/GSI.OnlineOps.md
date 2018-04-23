@@ -2,7 +2,7 @@
 
 This section describes how to create, modify, and delete global secondary indexes\.
 
-
+**Topics**
 + [Creating a Table With Global Secondary Indexes](#GSI.Creating)
 + [Describing the Global Secondary Indexes on a Table](#GSI.Describing)
 + [Adding a Global Secondary Index To an Existing Table](#GSI.OnlineOps.Creating)
@@ -25,13 +25,9 @@ You must provide `ProvisionedThroughput` settings for the index, consisting of `
 To view the status of all the global secondary indexes on a table, use the `DescribeTable` operation\. The `GlobalSecondaryIndexes` portion of the response shows all of the indexes on the table, along with the current status of each \( `IndexStatus`\)\.
 
 The `IndexStatus` for a global secondary index will be one of the following:
-
 + `CREATING`—The index is currently being created, and is not yet available for use\.
-
 + `ACTIVE`—The index is ready for use, and applications can perform `Query` operations on the index
-
 + `UPDATING`—The provisioned throughput settings of the index are being changed\.
-
 + `DELETING`—The index is currently being deleted, and can no longer be used\.
 
 When DynamoDB has finished building a global secondary index, the index status changes from `CREATING` to `ACTIVE`\.
@@ -39,19 +35,12 @@ When DynamoDB has finished building a global secondary index, the index status c
 ## Adding a Global Secondary Index To an Existing Table<a name="GSI.OnlineOps.Creating"></a>
 
 To add a global secondary index to an existing table, use the `UpdateTable` operation with the `GlobalSecondaryIndexUpdates` parameter\. You must provide the following:
-
 + An index name\. The name must be unique among all the indexes on the table\.
-
 + The key schema of the index\. You must specify one attribute for the index partition key; you can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. The data types for each schema attribute must be scalar: String, Number, or Binary\.
-
 + The attributes to be projected from the table into the index:
-
   + `KEYS_ONLY` – Each item in the index consists only of the table partition key and sort key values, plus the index key values\. 
-
   + `INCLUDE` – In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non\-key attributes that you specify\.
-
   + `ALL` – The index includes all of the attributes from the source table\.
-
 + The provisioned throughput settings for the index, consisting of `ReadCapacityUnits` and `WriteCapacityUnits`\. These provisioned throughput settings are separate from those of the table\.
 
 You can only create one global secondary index per `UpdateTable` operation\.
@@ -87,23 +76,15 @@ DynamoDB provides a standalone tool for finding and resolving these issues\. For
 ### Adding a Global Secondary Index To a Large Table<a name="GSI.OnlineOps.Creating.LargeTable"></a>
 
 The time required for building a global secondary index depends on several factors, such as:
-
 + The size of the table
-
 + The number of items in the table that qualify for inclusion in the index
-
 + The number of attributes projected into the index
-
 + The provisioned write capacity of the index
-
 + Write activity on the main table during index builds\.
 
 If you are adding a global secondary index to a very large table, it might take a long time for the creation process to complete\. To monitor progress and determine whether the index has sufficient write capacity, consult the following Amazon CloudWatch metrics:
-
 + `OnlineIndexPercentageProgress`
-
 + `OnlineIndexConsumedWriteCapacity`
-
 + `OnlineIndexThrottleEvents`
 
 **Note**  

@@ -10,13 +10,11 @@ TTL compares the current time in epoch time format to the time stored in the Tim
 DynamoDB deletes expired items on a best\-effort basis to ensure availability of throughput for other data operations\.  
 
 **Important**  
- DynamoDB typically deletes expired items within 48 hours of expiration\. The exact duration within which an item truly gets deleted after expiration is specific to the nature of the workload and the size of the table\. Items that have expired and not been deleted will still show up in reads, queries, and scans\.
+ DynamoDB typically deletes expired items within 48 hours of expiration\. The exact duration within which an item truly gets deleted after expiration is specific to the nature of the workload and the size of the table\. Items that have expired and not been deleted will still show up in reads, queries, and scans\. These items can still be updated and successful updates to change or remove the expiration attribute will be honored\. 
 
 As items are deleted, they are removed from any Local Secondary Index and Global Secondary Index immediately in the same eventually consistent way as a standard delete operation\.
 
-For example, consider a table named *SessionData* that tracks the session history of users\. Each item in *SessionData* is identified by a partition key \(*UserName*\) and a sort key \(*SessionId*\)\. Additional attributes like *UserName*,*SessionId*, *CreationTime* and *ExpirationTime* track the session information\.
-
-The following diagram shows how the items in the table would be organized\. The *ExpirationTime* attribute is set as the Time To Live \(TTL\) attribute\. \(Not all of the attributes are shown\) 
+For example, consider a table named *SessionData* that tracks the session history of users\. Each item in *SessionData* is identified by a partition key \(*UserName*\) and a sort key \(*SessionId*\)\. Additional attributes like *UserName*,*SessionId*, *CreationTime* and *ExpirationTime* track the session information\. The *ExpirationTime* attribute is set as the Time To Live \(TTL\) attribute \(Not all of the attributes are shown\): 
 
 
 **SessionData**  
@@ -42,4 +40,5 @@ In this example each item has an *ExpirationTime* attribute value set when it is
 In this example, the item *CreationTime* is set to Friday, April 29 12:00 PM UTC 2016 and the *ExpirationTime* is set 2 hours later at Friday, April 29 2:00 PM UTC 2016\. The item will expire when the current time, in epoch format, is greater than the time in the *ExpirationTime* attribute\. In this case, the item with the key `{ Username: user1, SessionId: 74686572652773 }` will expire after 2:00 PM \(1461938400\)\.
 
 **Note**  
-Due to the potential delay between expiration and deletion time, you might get expired items when you query for items\. If you don’t want to view expired items when you issue a read request, you should filter them out\. To do this, use a *filter expression* that returns only items where the Time To Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for *Query*](Query.md#Query.FilterExpression) and [Filter Expressions for *Scan*](Scan.md#Scan.FilterExpression)\. 
+Due to the potential delay between expiration and deletion time, you might get expired items when you query for items\. If you don’t want to view expired items when you issue a read request, you should filter them out\.  
+To do this, use a *filter expression* that returns only items where the Time To Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for *Query*](Query.md#Query.FilterExpression) and [Filter Expressions for *Scan*](Scan.md#Scan.FilterExpression)\. 

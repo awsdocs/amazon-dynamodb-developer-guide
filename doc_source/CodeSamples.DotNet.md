@@ -1,25 +1,17 @@
 # \.NET Code Samples<a name="CodeSamples.DotNet"></a>
 
-
+**Topics**
 + [\.NET: Setting Your AWS Credentials](#CodeSamples.DotNet.Credentials)
 + [\.NET: Setting the AWS Region and Endpoint](#CodeSamples.DotNet.RegionAndEndpoint)
 
 This Developer Guide contains \.NET code snippets and ready\-to\-run programs\. You can find these code samples in the following sections:
-
 + [Working with Items in DynamoDB](WorkingWithItems.md)
-
 + [Working with Tables in DynamoDB](WorkingWithTables.md)
-
 + [Working with Queries](Query.md)
-
 + [Working with Scans](Scan.md)
-
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
-
 + [\.NET: Document Model](DotNetSDKMidLevel.md)
-
 + [\.NET: Object Persistence Model](DotNetSDKHighLevel.md)
-
 + [Capturing Table Activity with DynamoDB Streams](Streams.md)
 
 You can get started quickly by using the AWS SDK for \.NET with the Toolkit for Visual Studio\.

@@ -6,7 +6,7 @@ After you read this introduction, try working through the [Creating Tables and L
 
 For language\-specific tutorials with sample code, see [Getting Started with DynamoDB](GettingStarted.md)\.
 
-
+**Topics**
 + [DynamoDB Core Components](HowItWorks.CoreComponents.md)
 + [The DynamoDB API](HowItWorks.API.md)
 + [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)

@@ -3,9 +3,7 @@
 You can use the `query` method to retrieve data from a table\. You must specify a partition key value\. The sort key is optional\.
 
 The primary key for the `Movies` table is composed of the following:
-
 + `year` – The partition key\. The attribute type is number\. 
-
 + `title` – The sort key\. The attribute type is string\.
 
 To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\); for example, to find movies released in 2014 that have a title starting with the letter "A"\.
@@ -14,7 +12,7 @@ In addition to `query`, there is also a `scan` method that can retrieve all of t
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\. 
 
-
+**Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.Ruby.04.Query.01)
 + [Step 4\.2: Query \- All Movies Released in a Year with Certain Titles](#GettingStarted.Ruby.04.Query.02)
 + [Step 4\.3: Scan](#GettingStarted.Ruby.04.Scan)
@@ -35,10 +33,10 @@ The following program retrieves all movies released in the `year` 1985\.
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = "Movies"
+   table_name = "Movies"
    
    params = {
-       table_name: tableName,
+       table_name: table_name,
        key_condition_expression: "#yr = :yyyy",
        expression_attribute_names: {
            "#yr" => "year"
@@ -90,10 +88,10 @@ The following program retrieves all movies released in `year` 1992, with a `titl
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = "Movies"
+   table_name = "Movies"
    
    params = {
-       table_name: tableName,
+       table_name: table_name,
        projection_expression: "#yr, title, info.genres, info.actors[0]",
        key_condition_expression: 
            "#yr = :yyyy and title between :letter1 and :letter2",
@@ -151,10 +149,10 @@ The following program scans the `Movies` table, which contains approximately 5,0
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = "Movies"
+   table_name = "Movies"
    
    params = {
-       table_name: tableName,
+       table_name: table_name,
        projection_expression: "#yr, title, info.rating",
        filter_expression: "#yr between :start_yr and :end_yr",
        expression_attribute_names: {"#yr"=> "year"},
@@ -189,9 +187,7 @@ The following program scans the `Movies` table, which contains approximately 5,0
    ```
 
    In the code, note the following:
-
    + `projection_expression` specifies the attributes you want in the scan result\.
-
    + `filter_expression` specifies a condition that returns only items that satisfy the condition\. All other items are discarded\.
 
 1. To run the program, type the following command:

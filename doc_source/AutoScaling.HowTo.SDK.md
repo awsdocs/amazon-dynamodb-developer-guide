@@ -1,22 +1,17 @@
 # Application Programming With DynamoDB Auto Scaling<a name="AutoScaling.HowTo.SDK"></a>
 
 In addition to using the AWS Management Console and AWS CLI, you can write applications that interact with DynamoDB auto scaling\. This section contains two Java programs that you can use to test this functionality:
-
 + `EnableDynamoDBAutoscaling.java`
-
 + `DisableDynamoDBAutoscaling.java`
 
 ## Enabling Application Auto Scaling for a Table<a name="w3ab1c17b7c17c25b6"></a>
 
 The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(*TestTable*\)\. It proceeds as follows:
-
 + The program registers write capacity units as a scalable target for *TestTable*\. The range for this metric is between 5 and 10 write capacity units\.
-
 + After the scalable target is created, the program builds a target tracking configuration\. The policy seeks to maintain a 50 percent target ratio between consumed write capacity and provisioned write capacity\.
-
 + The program then creates the scaling policy, based on the target tracking configuration\.
 
-The program requires that you supply an ARN for a valid Application Auto Scaling service role\. \(For example: `"arn:aws:iam::122517410325:role/MyIAMAutoscalingServiceRole`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. For more information, see [Step 1: Create a Service Role for Application Auto Scaling](AutoScaling.CLI.md#AutoScaling.CLI.CreateServiceRole)\.
+The program requires that you supply an ARN for a valid Application Auto Scaling service linked role\. \(For example: `"arn:aws:iam::122517410325:role/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. 
 
 ```
 package com.amazonaws.codesamples.autoscaling;

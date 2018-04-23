@@ -1,9 +1,7 @@
 # Cost Allocation Reports<a name="CostAllocationReports"></a>
 
  AWS uses tags to organize resource costs on your cost allocation report\. AWS provides two types of cost allocation tags:
-
 + An AWS\-generated tag\. AWS defines, creates, and applies this tag for you\.
-
 + User\-defined tags\. You define, create, and apply these tags\.
 
 You must activate both types of tags separately before they can appear in Cost Explorer or on a cost allocation report\. 

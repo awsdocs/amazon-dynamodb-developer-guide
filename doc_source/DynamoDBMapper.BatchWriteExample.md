@@ -3,11 +3,8 @@
 The following Java code example declares Book, Forum, Thread, and Reply classes and maps them to the DynamoDB tables using the `DynamoDBMapper` class\. 
 
 The code illustrate the following batch write operations:
-
 + `batchSave` to put book items in the ProductCatalog table\. 
-
 + `batchDelete` to delete items from the ProductCatalog table\. 
-
 + `batchWrite` to put and delete items from the Forum and the Thread tables\.
 
 For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [Java Code Samples](CodeSamples.Java.md)\. 

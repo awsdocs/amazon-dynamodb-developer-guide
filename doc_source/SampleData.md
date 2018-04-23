@@ -7,7 +7,7 @@ These tables and their data are used as examples throughout this Developer Guide
 **Note**  
 If you are an application developer, we recommend that you also read Getting Started with DynamoDB, where you use the downloadable version of DynamoDB\. This lets you learn about the DynamoDB low\-level API for free, without having to pay any fees for throughput, storage, or data transfer\. For more information, see [Getting Started with DynamoDB](GettingStarted.md)\.
 
-
+**Topics**
 + [Step 1: Create Example Tables](SampleData.CreateTables.md)
 + [Step 2: Load Data into Tables](SampleData.LoadData.md)
 + [Step 3: Query the Data](SampleData.Query.md)

@@ -3,9 +3,7 @@
 You can use the `Query` method to retrieve data from a table\. You must specify a partition key value; the sort key is optional\.
 
 The primary key for the `Movies` table is composed of the following:
-
 + `year` – The partition key\. The attribute type is number\. 
-
 + `title` – The sort key\. The attribute type is string\.
 
 To find all movies released during a year, you need to specify only the `year` partition\-key attribute\. You can add the `title` sort\-key attribute to retrieve a subset of movies based on some condition \(on the sort\-key attribute\), such as finding movies released in 2014 that have a title starting with the letter "A"\.
@@ -14,16 +12,14 @@ In addition to `Query`, there is also a `Scan` method that can retrieve all of t
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
 
-
+**Topics**
 + [Step 4\.1: Query](#GettingStarted.NET.04.Query)
 + [Step 4\.2: Scan](#GettingStarted.NET.04.Scan)
 
 ## Step 4\.1: Query<a name="GettingStarted.NET.04.Query"></a>
 
 The C\# code included in this step performs the following queries:
-
 + Retrieves all movies release in `year` 1985\.
-
 + Retrieves all movies released in `year` 1992, with `title` beginning with the letter "A" through the letter "L"\.
 
 1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
@@ -454,9 +450,7 @@ The following program scans the entire `Movies` table, which contains approximat
    ```
 
    In the code, note the following:
-
    + The first scan uses the AWS SDK for \.NET document model to scan the `Movies` table and return movies released in the 1950s\. Because the document model doesn't support nested attributes in the `AttributesToGet` field, you must download the entire `info` attribute to have access to the lead actor and director\.
-
    + The second scan uses the AWS SDK for \.NET low\-level API to scan the `Movies` table and return movies released in the 1960s\. In this case, you can download only those attribute values in `info` that you're interested in, namely `info.actors[0]` and `info.directors[0]`\.
 
 1. Compile and run the program\.

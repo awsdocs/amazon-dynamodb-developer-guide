@@ -1,6 +1,6 @@
 # DynamoDB Streams and AWS Lambda Triggers<a name="Streams.Lambda"></a>
 
-
+**Topics**
 + [Tutorial: Processing New Items in a DynamoDB Table](Streams.Lambda.Tutorial.md)
 + [Best Practices](Streams.Lambda.BestPracticesWithDynamoDB.md)
 

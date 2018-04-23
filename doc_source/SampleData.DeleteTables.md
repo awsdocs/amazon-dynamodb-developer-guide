@@ -15,9 +15,6 @@ However, if you don't want to keep these tables, you should delete them to avoid
 1. Choose **Delete Table**\. You will be asked to confirm your selection\.
 
 Repeat this procedure for each of the other tables you created:
-
 + *Forum*
-
 + *Thread*
-
 + *Reply*

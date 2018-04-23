@@ -1,6 +1,6 @@
 # Working with Queries<a name="Query"></a>
 
-
+**Topics**
 + [Key Condition Expression](#Query.KeyConditionExpressions)
 + [Filter Expressions for *Query*](#Query.FilterExpression)
 + [Limiting the Number of Items in the Result Set](#Query.Limit)
@@ -22,21 +22,14 @@ To specify the search criteria, you use a *key condition expression*—a string 
 You must specify the partition key name and value as an equality condition\. 
 
 You can optionally provide a second condition for the sort key \(if present\)\. The sort key condition must use one of the following comparison operators:
-
 + `a = b` — true if the attribute *a* is equal to the value *b*
-
 + `a < b` — true if *a* is less than *b*
-
 + `a <= b` — true if *a* is less than or equal to *b*
-
 + `a > b` — true if *a* is greater than *b*
-
 + `a >= b` — true if *a* is greater than or equal to *b*
-
 + `a BETWEEN b AND c` — true if *a* is greater than or equal to *b*, and less than or equal to *c*\.
 
 The following function is also supported:
-
 + `begins_with (a, substr)`— true if the value of attribute `a` begins with a particular substring\.
 
 The following AWS CLI examples demonstrate the use of key condition expressions\. Note that these expressions use placeholders \(such as `:name` and `:sub`\) instead of actual values\. For more information, see [Expression Attribute Names](Expressions.ExpressionAttributeNames.md) and [Expression Attribute Values](Expressions.ExpressionAttributeValues.md)\.
@@ -148,9 +141,7 @@ DynamoDB *paginates* the results from `Query` operations\. With pagination, the 
 A single `Query` will only return a result set that fits within the 1 MB size limit\. To determine whether there are more results, and to retrieve them one page at a time, applications should do the following: 
 
 1. Examine the low\-level `Query` result:
-
    + If the result contains a `LastEvaluatedKey` element, proceed to step 2\.
-
    + If there is *not* a `LastEvaluatedKey` in the result, then there are no more items to be retrieved\.
 
 1. Construct a new `Query` request, with the same parameters as the previous one—but this time, take the `LastEvaluatedKey` value from step 1 and use it as the `ExclusiveStartKey` parameter in the new `Query` request\.
@@ -202,9 +193,7 @@ For code samples in various programming languages, see the [Amazon DynamoDB Gett
 ## Counting the Items in the Results<a name="Query.Count"></a>
 
 In addition to the items that match your criteria, the `Query` response contains the following elements:
-
 + `ScannedCount` — the number of items that matched the key condition expression, *before* a filter expression \(if present\) was applied\.
-
 + `Count` — the number of items that remain, *after* a filter expression \(if present\) was applied\.
 
 **Note**  
@@ -228,11 +217,8 @@ You can `Query` any table or secondary index, provided that it has a composite p
 | Local secondary index | The base table's provisioned read capacity\. | 
 
 By default, a `Query` operation does not return any data on how much read capacity it consumes\. However, you can specify the `ReturnConsumedCapacity` parameter in a `Query` request to obtain this information\. The following are the valid settings for `ReturnConsumedCapacity`:
-
 + `NONE`—no consumed capacity data is returned\. \(This is the default\.\)
-
 + `TOTAL`—the response includes the aggregate number of read capacity units consumed\.
-
 + `INDEXES`—the response shows the aggregate number of read capacity units consumed, together with the consumed capacity for each table and index that was accessed\.
 
 DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that is returned to an application\. For this reason, the number of capacity units consumed will be the same whether you request all of the attributes \(the default behavior\) or just some of them \(using a projection expression\)\. The number will also be the same whether or not you use a filter expression\.

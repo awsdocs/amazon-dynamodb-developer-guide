@@ -51,11 +51,8 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because Amazon DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
 
 The following C\# code snippet retrieves forum thread replies posted in the past 15 days\. The snippet specifies the following optional parameters:
-
 + A `KeyConditionExpression` to retrieve only the replies in the past 15 days\.
-
 + A `ProjectionExpression` parameter to specify a list of attributes to retrieve for items in the query result\.
-
 + A `ConsistentRead` parameter to perform a strongly consistent read\.
 
 **Example**  
@@ -135,15 +132,11 @@ Reply ( <emphasis role="underline">Id</emphasis>, <emphasis role="underline">Rep
 ```
 
 In this C\# code example, you execute variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
-
 + Find replies for a thread\.
-
 + Find replies for a thread\. Specify the Limit query parameter to set page size\. 
 
   This function illustrate the use of pagination to process multipage result\. Amazon DynamoDB has a page size limit and if your result exceeds the page size, you get only the first page of results\. This coding pattern ensures your code processes all the pages in the query result\.
-
 + Find replies in the last 15 days\.
-
 + Find replies in a specific date range\. 
 
   Both of the preceding two queries shows how you can specify sort key conditions to narrow query results and use other optional query parameters\. 

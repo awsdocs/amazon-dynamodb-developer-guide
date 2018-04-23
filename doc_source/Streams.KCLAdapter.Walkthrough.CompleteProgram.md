@@ -16,13 +16,9 @@ Done.
  To run this program, make sure the client application has access to DynamoDB and CloudWatch using policies\. For more information, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. 
 
 The source code consists of four `.java` files:
-
 + `StreamsAdapterDemo.java`
-
 + `StreamsRecordProcessor.java`
-
 + `StreamsRecordProcessorFactory.java`
-
 + `StreamsAdapterDemoHelper.java`
 
 ## *StreamsAdapterDemo\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemo"></a>

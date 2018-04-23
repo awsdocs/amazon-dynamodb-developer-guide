@@ -1,6 +1,6 @@
 # Working with Local Secondary Indexes: Java<a name="LSIJavaDocumentAPI"></a>
 
-
+**Topics**
 + [Create a Table With a Local Secondary Index](#LSIJavaDocumentAPI.CreateTableWithIndex)
 + [Describe a Table With a Local Secondary Index](#LSIJavaDocumentAPI.DescribeTableWithIndex)
 + [Query a Local Secondary Index](#LSIJavaDocumentAPI.QueryAnIndex)

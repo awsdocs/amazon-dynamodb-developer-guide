@@ -20,7 +20,7 @@ It will take several minutes to launch your cluster\. You can use the **Cluster 
 
 When the status changes to `Waiting`, the cluster is ready for use\.
 
-## Cluster Log Files and Amazon S3<a name="w3ab1c31c13c11c15c11"></a>
+## Cluster Log Files and Amazon S3<a name="w3ab1c36c13c11c15c11"></a>
 
 An Amazon EMR cluster generates log files that contain information about the cluster status and debugging information\. The default settings for **Create Cluster \- Quick Options** include setting up Amazon EMR logging\.
 

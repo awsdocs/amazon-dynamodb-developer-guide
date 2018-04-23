@@ -20,6 +20,12 @@ The AWS Management Console automates these tasks, so you can create a global tab
 
 The resulting DynamoDB global table consists of multiple replica tables, one per region, that DynamoDB treats as a single unit\. Every replica has the same table name and the same primary key schema\. When an application writes data to a replica table in one region, DynamoDB automatically propagates the write to the other replica tables in the other AWS regions\.
 
+**Important**  
+ Global Tables automatically creates the following attributes for every item to keep your table data in sync:   
+ aws:rep:updatetime 
+ aws:rep:updateregion 
+ You should not alter these attributes or create attributes with the same name\. 
+
 You can add replica tables to the global table, so that it can be available in additional AWS regions\. \(In order to do this, the global table must be empty\. In other words, none of the replica tables can have any data in them\.\)
 
 You can also remove a replica table from a global table\. If you do this, then the table is completely disassociated from the global table\. This newly\-independent table no longer interacts with the global table, and data is no longer propagated to or from the global table\.

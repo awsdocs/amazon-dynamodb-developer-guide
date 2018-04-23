@@ -27,7 +27,7 @@ To get started quickly with DynamoDB auto scaling, see [Using the AWS Management
 
 The following diagram provides a high\-level overview of how DynamoDB auto scaling manages throughput capacity for a table:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/auto-scaling.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 The following steps summarize the auto scaling process as shown in the previous diagram:
 
@@ -49,7 +49,7 @@ Within the range of 150 to 1,200 read capacity units, you decide that a target u
 
 **Note**  
 DynamoDB auto scaling modifies provisioned throughput settings only when the actual workload stays elevated \(or depressed\) for a sustained period of several minutes\. The Application Auto Scaling target tracking algorithm seeks to keep the target utilization at or near your chosen value over the long term\.  
-Sudden, short\-duration spikes of activity are accommodated by the table's built\-in burst capacity\. For more information, see [Use Burst Capacity Sparingly](GuidelinesForTables.md#GuidelinesForTables.Bursting)\.
+Sudden, short\-duration spikes of activity are accommodated by the table's built\-in burst capacity\. For more information, see [Using Burst Capacity Effectively](bp-partition-key-design.md#bp-partition-key-throughput-bursting)\.
 
 To enable DynamoDB auto scaling for the *ProductCatalog* table, you create a scaling policy\. This policy specifies the table or global secondary index that you want to manage, which capacity type to manage \(read capacity or write capacity\), the upper and lower boundaries for the provisioned throughput settings, and your target utilization\.
 
@@ -60,9 +60,6 @@ When one of the CloudWatch alarms is triggered, Amazon SNS sends you a notificat
 ### Usage Notes<a name="AutoScaling.UsageNotes"></a>
 
 Before you begin using DynamoDB auto scaling, you should be aware of the following:
-
-+ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. You can decrease the `ReadCapacityUnits` or `WriteCapacityUnits` settings for a table up to four times any time per day\. A day is defined according to the GMT time zone\. Additionally, if there was no decrease in the past four hours, an additional dial down is allowed, effectively bringing maximum number of decreases in a day to nine times \(4 decreases in the first 4 hours, and 1 decrease for each of the subsequent 4 hour windows in a day\)\. All other DynamoDB limits remain in effect, as described in [Limits in DynamoDB](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)\. 
-
++ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. All DynamoDB limits remain in effect, as described in [Limits in DynamoDB](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)\. 
 + DynamoDB auto scaling doesn't prevent you from manually modifying provisioned throughput settings\. These manual adjustments don't affect any existing CloudWatch alarms that are related to DynamoDB auto scaling\.
-
 + If you enable DynamoDB auto scaling for a table that has one or more global secondary indexes, we highly recommend that you also apply auto scaling uniformly to those indexes\. You can do this by choosing **Apply same settings to global secondary indexes** in the AWS Management Console\. For more information, see [Enabling DynamoDB Auto Scaling on Existing Tables](AutoScaling.Console.md#AutoScaling.Console.ExistingTable)\.

@@ -3,9 +3,7 @@
 The following C\# code example declares Book, Forum, Thread, and Reply classes and maps them to the DynamoDB tables using the object persistence model attributes\. 
 
 The code example then uses the `DynamoDBContext` to illustrate the following batch write operations\. 
-
 + `BatchWrite` object to put and delete book items from the ProductCatalog table\. 
-
 + `MultiTableBatchWrite` object to put and delete items from the Forum and the Thread tables\. 
 
 For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 

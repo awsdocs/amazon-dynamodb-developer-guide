@@ -2,7 +2,7 @@
 
 The following diagram provides a high\-level overview of DynamoDB application programming with the AWS SDKs\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. You write an application using an AWS SDK for your programming language\.
 
@@ -17,15 +17,10 @@ The following diagram provides a high\-level overview of DynamoDB application pr
 1. The AWS SDK processes the response and propagates it back to your application\.
 
 Each of the AWS SDKs provides important services to your application, including the following:
-
 + Formatting HTTP\(S\) requests and serializing request parameters\.
-
 + Generating a cryptographic signature for each request\.
-
 + Forwarding request to a DynamoDB endpoint and receiving responses from DynamoDB\.
-
 + Extracting the results from those responses\.
-
 + Implementing basic retry logic in case of errors\.
 
 You do not need to write code for any of these tasks\.

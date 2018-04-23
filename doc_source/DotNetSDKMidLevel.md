@@ -1,6 +1,6 @@
 # \.NET: Document Model<a name="DotNetSDKMidLevel"></a>
 
-
+**Topics**
 + [Operations Not Supported by the Document Model](#MidLevelAPILimitations)
 + [Working with Items in DynamoDB Using the AWS SDK for \.NET Document Model](WorkingWithItemsDocumentClasses.md)
 + [Getting an Item \- Table\.GetItem](#GetMidLevelDotNet)
@@ -35,9 +35,7 @@ The GetItem operation returns all the attributes of the item and performs an eve
 ### Specifying Optional Parameters<a name="GetMidLevelDotNetOptions"></a>
 
 You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code snippet retrieves an item from the ProductCatalog table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters: 
-
 + The `AttributesToGet` parameter to retrieve only the specified attributes\. 
-
 + The `ConsistentRead` parameter to request the latest values for all the specified attributes\. To learn more about data consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
 
 **Example**  
@@ -66,9 +64,7 @@ DynamoDBNull quantityOnHand = doc["QuantityOnHand"].AsDynamoDBNull();
 ```
 
 For attributes that are of type List or Map, here is how to map these attributes to the document model API:
-
 + List — use the `AsDynamoDBList` method\. 
-
 + Map — use the `AsDocument` method\.
 
 The following code snippet shows how to retrieve a List \(RelatedItems\) and a Map \(Pictures\) from the `Document` object:
@@ -104,9 +100,7 @@ table.DeleteItem(partitionKey)
 ### Specifying Optional Parameters<a name="DeleteItemMidLevelDotNetOptions"></a>
 
 You can configure additional options for the `Delete` operation by adding the `DeleteItemOperationConfig` parameter\. For a complete list of optional parameters, see [DeleteTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)\. The following C\# code snippet specifies the two following optional parameters:
-
 +  The `ConditionalExpression` parameter to ensure that the book item being deleted has a specific value for the ISBN attribute\. 
-
 + The `ReturnValues` parameter to request that the `Delete` method return the item that it deleted\. 
 
 **Example**  
@@ -137,15 +131,10 @@ The `UpdateItem` operation updates an existing item if it is present\. If the it
 You can use the `UpdateItem` operation to update existing attribute values, add new attributes to the existing collection, or delete attributes from the existing collection\. You provide these updates by creating a `Document` instance that describes the updates you wish to perform\. 
 
 The `UpdateItem` action uses the following guidelines:
-
 + If the item does not exist, `UpdateItem` adds a new item using the primary key that is specified in the input\.
-
 + If the item exists, `UpdateItem` applies the updates as follows:
-
   + Replaces the existing attribute values with the values in the update\.
-
   + If an attribute that you provide in the input does not exist, it adds a new attribute to the item\.
-
   + If the input attribute value is null, it deletes the attributes, if it is present\. 
 
 **Note**  
@@ -192,9 +181,7 @@ table.Update(book);
 You can configure additional options for the `UpdateItem` operation by adding the `UpdateItemOperationConfig` parameter\. For a complete list of optional parameters, see [UpdateItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 
 The following C\# code snippet updates a book item price to 25\. It specifies the two following optional parameters:
-
 +  The `ConditionalExpression` parameter that identifies the Price attribute with value 20 that you expect to be present\. 
-
 + The `ReturnValues` parameter to request the `UpdateItem` operation to return the item that is updated\. 
 
 **Example**  
@@ -266,9 +253,7 @@ You can use the batch write operation to perform put and delete operations on mu
 1. Execute the `MultiTableDocumentBatchWrite.Execute` method\.
 
 The following C\# code snippet demonstrates the preceding steps\. The code snippet uses batch write operation to perform the following write operations:
-
 + Put a new item in the Forum table item 
-
 + Put an item in the Thread table and delete an item from the same table\.
 
 ```

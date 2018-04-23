@@ -47,9 +47,7 @@ foreach (Dictionary<string, AttributeValue> item in response.ScanResult.Items)
 The `Scan` method supports several optional parameters\. For example, you can optionally use a scan filter to filter the scan result\. In a scan filter, you can specify a condition and an attribute name on which you want the condition evaluated\. For more information, see [Scan](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
 The following C\# code scans the ProductCatalog table to find items that are priced less than 0\. The sample specifies the following optional parameters:
-
 + A `FilterExpression` parameter to retrieve only the items priced less than 0 \(error condition\)\.
-
 + A `ProjectionExpression` parameter to specify the attributes to retrieve for items in the query results\.
 
 The following C\# code snippet scans the ProductCatalog table to find all items priced less than 0\. 

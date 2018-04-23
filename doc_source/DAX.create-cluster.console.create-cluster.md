@@ -22,13 +22,9 @@ If you want to create a single\-node cluster, choose **1**\. Your cluster will c
 If you want to create a multi\-node cluster, choose a number between **2** \(one primary and one read replica\) and **10** \(one primary and nine read replicas\)\. 
 
    1. **IAM role**—choose **Create new**, and enter the following information:
-
       + **IAM role name**—type a name for an IAM role\. For example: *DAXServiceRole*\. The console will create a new IAM role , and your DAX cluster assume this role at runtime\.
-
       + **IAM policy name**—type a name for an IAM policy\. For example: *DAXServicePolicy*\. The console will create a new IAM policy, and attach the policy to the IAM role\.
-
       + **IAM role policy**—choose **Read/Write**\. This will allow the DAX cluster to perform read and write operations in DynamoDB\.
-
       + **Target DynamoDB table**—choose **All tables**\.
 
    1. **Subnet group**—choose the subnet group that you created in [Step 1: Create a Subnet Group](DAX.create-cluster.console.create-subnet-group.md)\.

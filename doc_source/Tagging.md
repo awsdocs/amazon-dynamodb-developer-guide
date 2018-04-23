@@ -1,9 +1,7 @@
 # Tagging for DynamoDB<a name="Tagging"></a>
 
  You can label DynamoDB resources with tags\. Tags allow you to categorize your resources in different ways, for example, by purpose, owner, environment, or other criteria\. Tags can help you: 
-
 +  Quickly identify a resource based on the tags you've assigned to it\. 
-
 +  See AWS bills broken down by tags\. 
 **Note**  
  Any Local Secondary Indexes \(LSI\) and Global Secondary Indexes \(GSI\) related to tagged tables are labeled with the same tags automatically\. Currently, DynamoDB Streams usage cannot be tagged\. 

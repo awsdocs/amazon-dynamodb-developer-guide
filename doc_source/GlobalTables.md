@@ -10,7 +10,7 @@ DynamoDB global tables are ideal for massively scaled applications, with globall
 
 For information on pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. 
 
-
+**Topics**
 + [Supported Regions](#gt_supported_regions)
 + [Global Tables: How It Works](globaltables_HowItWorks.md)
 + [Requirements and Best Practices](globaltables_reqs_bestpractices.md)
@@ -21,13 +21,8 @@ For information on pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com
 ## Supported Regions<a name="gt_supported_regions"></a>
 
  The DynamoDB global tables feature is available in the following AWS regions: 
-
 +  US East \(N\. Virginia\) 
-
 +  US East \(Ohio\) 
-
 +  US West \(Oregon\) 
-
 +  EU \(Ireland\) 
-
 +  EU \(Frankfurt\) 

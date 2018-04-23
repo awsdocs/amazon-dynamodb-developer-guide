@@ -1,6 +1,6 @@
 # Working with Items in DynamoDB<a name="WorkingWithItems"></a>
 
-
+**Topics**
 + [Reading an Item](#WorkingWithItems.ReadingData)
 + [Writing an Item](#WorkingWithItems.WritingData)
 + [Return Values](#WorkingWithItems.ReturnValues)
@@ -15,26 +15,20 @@
 In DynamoDB, an *item* is a collection of attributes\. Each attribute has a name and a value\. An attribute value can be a scalar, a set, or a document type\. For more information, see [Amazon DynamoDB: How It Works](HowItWorks.md)\.
 
 DynamoDB provides four operations for basic create/read/update/delete \(CRUD\) functionality:
-
 + `PutItem` – create an item\.
-
 + `GetItem` – read an item\.
-
 + `UpdateItem` – update an item\.
-
 + `DeleteItem` – delete an item\.
 
 Each of these operations require you to specify the primary key of the item you want to work with\. For example, to read an item using `GetItem`, you must specify the partition key and sort key \(if applicable\) for that item\.
 
 In addition to the four basic CRUD operations, DynamoDB also provides the following:
-
 + `BatchGetItem` – read up to 100 items from one or more tables\.
-
 + `BatchWriteItem` – create or delete up to 25 items in one or more tables\.
 
 These batch operations combine multiple CRUD operations into a single request\. In addition, the batch operations read and write items in parallel to minimize response latencies\.
 
-This section describes how to use these operations and includes related topics, such as conditional updates and atomic counters\. This section also includes example code that uses the AWS SDKs\. For best practices, see [Best Practices for Items](GuidelinesForItems.md)\.
+This section describes how to use these operations and includes related topics, such as conditional updates and atomic counters\. This section also includes example code that uses the AWS SDKs\. 
 
 ## Reading an Item<a name="WorkingWithItems.ReadingData"></a>
 
@@ -73,21 +67,15 @@ aws dynamodb get-item \
 ## Writing an Item<a name="WorkingWithItems.WritingData"></a>
 
 To create, update, or delete an item in a DynamoDB table, use one of the following operations:
-
 + `PutItem`
-
 + `UpdateItem`
-
 + `DeleteItem`
 
 For each of these operations, you need to specify the entire primary key, not just part of it\. For example, if a table has a composite primary key \(partition key and sort key\), you must supply a value for the partition key and a value for the sort key\.
 
 To return the number of write capacity units consumed by any of these operations, set the `ReturnConsumedCapacity` parameter to one of the following: 
-
 + `TOTAL`—returns the total number of write capacity units consumed\.
-
 + `INDEXES`—returns the total number of write capacity units consumed, with subtotals for the table and any secondary indexes that were affected by the operation\.
-
 + `NONE`—no write capacity details are returned\. \(This is the default\.\)
 
 ### PutItem<a name="WorkingWithItems.WritingData.PutItem"></a>
@@ -172,47 +160,29 @@ The default value for `ReturnValues` is `NONE`, meaning that DynamoDB will not r
 The following are the other valid settings for `ReturnValues`, organized by DynamoDB API operation:
 
 ### *PutItem*<a name="WorkingWithItems.ReturnValues.PutItem"></a>
-
 + `ReturnValues`: `ALL_OLD`
-
   + If you overwrite an existing item, `ALL_OLD` returns the entire item as it appeared before the overwrite\.
-
   + If you write a nonexistent item, `ALL_OLD` has no effect\.
 
 ### *UpdateItem*<a name="WorkingWithItems.ReturnValues.UpdateItem"></a>
 
 The most common usage for `UpdateItem` is to update an existing item\. However, `UpdateItem` actually performs an *upsert*, meaning that it will automatically create the item if it does not already exist\.
-
 + `ReturnValues`: `ALL_OLD`
-
   + If you update an existing item, `ALL_OLD` returns the entire item as it appeared before the update\.
-
   + If you update a nonexistent item \(upsert\), `ALL_OLD` has no effect\.
-
 + `ReturnValues`: `ALL_NEW`
-
   + If you update an existing item, `ALL_NEW` returns the entire item as it appeared after the update\.
-
   + If you update a nonexistent item \(upsert\), `ALL_NEW` returns the entire item\.
-
 + `ReturnValues`: `UPDATED_OLD`
-
   + If you update an existing item, `UPDATED_OLD` returns only the updated attributes, as they appeared before the update\.
-
   + If you update a nonexistent item \(upsert\), `UPDATED_OLD` has no effect\.
-
 + `ReturnValues`: `UPDATED_NEW`
-
   + If you update an existing item, `UPDATED_NEW` returns only the affected attributes, as they appeared after the update\.
-
   + If you update a nonexistent item \(upsert\), `UPDATED_NEW` returns only the updated attributes, as they appear after the update\.
 
 ### *DeleteItem*<a name="WorkingWithItems.ReturnValues.DeleteItem"></a>
-
 + `ReturnValues`: `ALL_OLD`
-
   + If you delete an existing item, `ALL_OLD` returns the entire item as it appeared before you deleted it\.
-
   + If you delete a nonexistent item, `ALL_OLD` does not return any data\.
 
 ## Batch Operations<a name="WorkingWithItems.BatchOperations"></a>
@@ -301,7 +271,7 @@ You can use the `UpdateItem` operation to implement an *atomic counter*—a nume
 
 You might use an atomic counter to keep track of the number of visitors to a website\. In this case, your application would increment a numeric value, regardless of its current value\. If an `UpdateItem` operation should fail, the application could simply retry the operation\. This would risk updating the counter twice, but you could probably tolerate a slight overcounting or undercounting of website visitors\. 
 
-An atomic counter would not be appropriate where over\- or undercounting cannot be tolerated \(For example, in a banking application\)\. In these case, it is safer to use a conditional update instead of an atomic counter\.
+An atomic counter would not be appropriate where overcounting or undercounting cannot be tolerated \(For example, in a banking application\)\. In this case, it is safer to use a conditional update instead of an atomic counter\.
 
 For more information, see [Incrementing and Decrementing Numeric Attributes](Expressions.UpdateExpressions.md#Expressions.UpdateExpressions.SET.IncrementAndDecrement)\.
 
@@ -325,7 +295,7 @@ DynamoDB optionally supports conditional writes for these operations\. A conditi
 
 Conditional writes are helpful in cases where multiple users attempt to modify the same item\. Consider the following diagram, in which two users \(Alice and Bob\) are working with the same item from a DynamoDB table:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/update-no-condition.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Suppose that Alice uses the AWS CLI to update the `Price` attribute to 8:
 
@@ -359,7 +329,7 @@ To request a conditional `PutItem`, `DeleteItem`, or `UpdateItem`, you specify a
 
 Now consider the following diagram, showing how conditional writes would prevent Alice's update from being overwritten:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/update-yes-condition.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Alice first attempts to update `Price` to 8, but only if the current `Price` is 10:
 
@@ -405,9 +375,7 @@ For example, suppose you issue an `UpdateItem` request to increase the `Price` o
 ### Capacity Units Consumed by Conditional Writes<a name="WorkingWithItems.ConditionalWrites.ReturnConsumedCapacity"></a>
 
 If a `ConditionExpression` evaluates to false during a conditional write, DynamoDB will still consume write capacity from the table:
-
 + If the item does not currently exist in the table, DynamoDB will consume one write capacity unit\.
-
 + If the item does exist, then the number of write capacity units consumed depends on the size of the item\. For example, a failed conditional write of a 1 KB item would consume one write capacity unit\. If the item were twice that size, the failed conditional write would consume two write capacity units\.
 
 **Note**  
@@ -416,11 +384,8 @@ Write operations consume write capacity units only\. They never consume read cap
 A failed conditional write will return a *ConditionalCheckFailedException*\. When this occurs, you will not receive any information in the response about the write capacity that was consumed\. However, you can view the `ConsumedWriteCapacityUnits` metric for the table in Amazon CloudWatch\. \(For more information, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics) in [Monitoring DynamoDB](MonitoringDynamoDB.md)\.\) 
 
 To return the number of write capacity units consumed during a conditional write, you use the `ReturnConsumedCapacity` parameter:
-
 + `TOTAL`—returns the total number of write capacity units consumed\.
-
 + `INDEXES`—returns the total number of write capacity units consumed, with subtotals for the table and any secondary indexes that were affected by the operation\.
-
 + `NONE`—no write capacity details are returned\. \(This is the default\.\)
 
 **Note**  

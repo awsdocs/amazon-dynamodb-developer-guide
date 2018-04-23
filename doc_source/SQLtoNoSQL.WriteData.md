@@ -20,7 +20,7 @@ INSERT INTO Music
 VALUES(
     'No One You Know', 'Call Me Today', 'Somewhat Famous',
     2015, 2.14, 'Country',
-    '{"Composers": ["Smith", "Jones","Davis"],"LengthInSeconds": 214}'
+    '{"Composers": ["Smith", "Jones", "Davis"],"LengthInSeconds": 214}'
 );
 ```
 
@@ -58,11 +58,8 @@ In Amazon DynamoDB, you use the `PutItem` action to add an item to a table:
 The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
 
 Here are some key things to know about this `PutItem` example:
-
 + DynamoDB provides native support for documents, using JSON\. This makes DynamoDB ideal for storing semi\-structured data, such as *Tags*\. You can also retrieve and manipulate data from within JSON documents\.
-
 + The *Music* table does not have any predefined attributes, other than the primary key \(*Artist* and *SongTitle*\)\.
-
 + Most SQL databases are transaction\-oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
 
 **Note**  

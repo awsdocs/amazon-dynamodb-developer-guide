@@ -2,7 +2,7 @@
 
 Amazon DynamoDB is available in multiple AWS regions around the world\. Each region is independent and isolated from other AWS regions\. For example, if you have a table called *People* in the *us\-east\-2* region and another table named *People* in the *us\-west\-2* region, these are considered two entirely separate tables\. For a list of all the AWS regions in which DynamoDB is available, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
-Every AWS region consists of multiple distinct locations called Availability Zones\. Each Availability Zone is isolated from failures in other Availability Zones, and to provide inexpensive, low\-latency network connectivity to other Availability Zones in the same region\. This allows rapid replication of your data among multiple Availability Zones in a region\. 
+Every AWS region consists of multiple distinct locations called Availability Zones\. Each Availability Zone is isolated from failures in other Availability Zones, and provides inexpensive, low\-latency network connectivity to other Availability Zones in the same region\. This allows rapid replication of your data among multiple Availability Zones in a region\. 
 
 When your application writes data to a DynamoDB table and receives an HTTP 200 response \(`OK`\), all copies of the data are updated\. The data is eventually consistent across all storage locations, usually within one second or less\.
 

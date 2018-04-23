@@ -22,7 +22,7 @@ The arguments for `--item` are stored in the file `item.json`\. \(For simplicity
 }
 ```
 
-
+**Topics**
 + [Preventing Overwrites of an Existing Item](#Expressions.ConditionExpressions.PreventingOverwrites)
 + [Checking for Attributes in an Item](#Expressions.ConditionExpressions.CheckingForAttributes)
 + [Conditional Deletes](#Expressions.ConditionExpressions.AdvancedComparisons)
@@ -31,7 +31,7 @@ The arguments for `--item` are stored in the file `item.json`\. \(For simplicity
 
 ## Preventing Overwrites of an Existing Item<a name="Expressions.ConditionExpressions.PreventingOverwrites"></a>
 
-The `PutItem` operation will overwrite an item with the same key \(if it exists\)\. If you want to avoid this, use a condition expression\. This will allows the write to proceed only if the item in question does not already have the same key:
+The `PutItem` operation will overwrite an item with the same key \(if it exists\)\. If you want to avoid this, use a condition expression\. This will allow the write to proceed only if the item in question does not already have the same key:
 
 ```
 aws dynamodb put-item \
@@ -91,9 +91,7 @@ Let us revisit the item from [Condition Expressions](#Expressions.ConditionExpre
 ```
 
 Now suppose that you wanted to delete the item, but only under the following conditions:
-
 +  The `ProductCategory` is either "Sporting Goods" or "Gardening Supplies"
-
 +  The `Price` is between 500 and 600\.
 
 The following example will attempt to delete the item:

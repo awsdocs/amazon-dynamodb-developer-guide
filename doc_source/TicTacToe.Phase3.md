@@ -1,17 +1,15 @@
 # Step 3: Deploy in Production Using the DynamoDB Service<a name="TicTacToe.Phase3"></a>
 
-
+**Topics**
 + [3\.1: Create an IAM Role for Amazon EC2](#TicTacToe.DeployInProd.IAMCreateRole)
 + [3\.2: Create the Games Table in Amazon DynamoDB](#TicTacToe.DeployInProd.CreateTable)
 + [3\.3: Bundle and Deploy Tic\-Tac\-Toe Application Code](#TicTacToe.DeployInProd.IAMBundleDeployCode)
 + [3\.4: Set Up the AWS Elastic Beanstalk Environment](#TicTacToe.DeployInProd.SetUpElasticBeanstalk)
 
 In the preceding sections, you deployed and tested the Tic\-Tac\-Toe application locally on your computer using DynamoDB Local\. Now, you deploy the application in production as follows:
-
 + Deploy the application using Elastic Beanstalk, an easy\-to\-use service for deploying and scaling web applications and services\. For more information, go to [ Deploying a Flask Application to AWS Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html)\.
 
   Elastic Beanstalk will launch one or more Amazon Elastic Compute Cloud \(Amazon EC2\) instances, which you configure through Elastic Beanstalk, on which your Tic\-Tac\-Toe application will run\.
-
 + Using the Amazon DynamoDB service, create a Games table that exists on AWS rather than locally on your computer\. 
 
 In addition, you also have to configure permissions\. Any AWS resources you create, such as the Games table in DynamoDB, are private by default\. Only the resource owner, that is the AWS account that created the Games table, can access this table\. Thus, by default your Tic\-Tac\-Toe application cannot update the Games table\. 
@@ -132,11 +130,8 @@ In this step, you create an Elastic Beanstalk application, which is a collection
    ```
 
    For more information about custom URLs, go to [Constructing a Launch Now URL](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/launch-now-url.html) in the *AWS Elastic Beanstalk Developer Guide\. *For the URL, note the following:
-
    + You will need to provide an AWS region name \(the same as the one you provided in the configuration file\), an Amazon S3 bucket name, and the object name\. 
-
    + For testing, the URL requests the **SingleInstance** environment type, and **t1\.micro** as the instance type\.
-
    + The application name must be unique\. Thus, in the preceding URL, we suggest you prepend your name to the `applicationName`\.
 
    Doing this opens the Elastic Beanstalk console\. In some cases, you might need to sign in\.
@@ -144,19 +139,19 @@ In this step, you create an Elastic Beanstalk application, which is a collection
 1. In the Elastic Beanstalk console, choose **Review and Launch**, and then choose **Launch**\. 
 
 1. Note the URL for future reference\. This URL opens your Tic\-Tac\-Toe application home page\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-beanstalk-setup-50.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Configure the Tic\-Tac\-Toe application so it knows the location of the configuration file\.
 
    After Elastic Beanstalk creates the application, choose **Configuration**\. 
 
    1. Choose the gear box next to **Software Configuration**, as shown in the following screenshot\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-beanstalk-setup-60.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    1. At the end of the **Environment Properties** section, type `CONFIG_FILE` and its value `beanstalk.config`, and then choose **Save**\.
 
       It might take a few minutes for this environment update to complete\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-beanstalk-setup-70.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    After the update completes, you can play the game\.
 
@@ -167,12 +162,12 @@ In this step, you create an Elastic Beanstalk application, which is a collection
    ```
 
    Doing this will open the application home page\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-inprod-playgame-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Log in as testuser1, and choose **CREATE** to start a new tic\-tac\-toe game\. 
 
 1. Type **testuser2** in the **Choose an Opponent** box\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-inprod-playgame-20.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Open another browser window\. 
 
@@ -187,9 +182,9 @@ In this step, you create an Elastic Beanstalk application, which is a collection
 1. Log in as testuser2\.
 
 1. For the invitation from testuser1 in the list of pending invitations, choose **accept**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-inprod-playgame-30.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Now the game page will appear\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-inprod-playgame-40.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    Both testuser1 and testuser2 can play the game\. For each move, the application will save the move in the corresponding item in the Games table\. 

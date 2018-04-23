@@ -1,6 +1,6 @@
 # Working with Items in DynamoDB Using the AWS SDK for \.NET Document Model<a name="WorkingWithItemsDocumentClasses"></a>
 
-
+**Topics**
 + [Putting an Item \- Table\.PutItem Method](#PutMidLevelDotNet)
 + [Specifying Optional Parameters](#PutMidLevelDotNetOptions)
 
@@ -78,9 +78,7 @@ table.PutItem(book);
 In the preceding example, the `Document` instance creates an item that has Number, String, String Set, Boolean, and Null attributes\. \(Null is used to indicate that the *QuantityOnHand* for this product is unknown\.\) For Boolean and Null, use the constructor methods `DynamoDBBool` and `DynamoDBNull`\.
 
 In DynamoDB, the List and Map data types can contain elements composed of other data types\. Here is how to map these data types to the document model API:\.
-
 + List — use the `DynamoDBList` constructor\.
-
 + Map — use the `Document` constructor\.
 
 You can modify the preceding example to add a List attribute to the item\. To do this, use a `DynamoDBList` constructor, as shown in the following code snippet:
@@ -130,7 +128,6 @@ These examples are based on the item shown in [Specifying Item Attributes](Expre
 ## Specifying Optional Parameters<a name="PutMidLevelDotNetOptions"></a>
 
 You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code snippet puts an item in the ProductCatalog table\. It specifies the following optional parameter:
-
 +  The `ConditionalExpression` parameter to make this a conditional put request\. The example creates an expression that specifies the ISBN attribute must have a specific value that has to be present in the item that you are replacing\. 
 
 **Example**  

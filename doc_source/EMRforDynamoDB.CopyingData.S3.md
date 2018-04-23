@@ -24,7 +24,7 @@ For these examples, we will use a subpath within the bucket, as in this example:
 
 The following procedures are written with the assumption you followed the steps in the tutorial and have an external table that is mastered in DynamoDB \(*ddb\_features*\)\.
 
-
+**Topics**
 + [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.S3.DefaultFormat)
 + [Copying Data with a User\-Specified Format](#EMRforDynamoDB.CopyingData.S3.UserSpecifiedFormat)
 + [Copying Data Without a Column Mapping](#EMRforDynamoDB.CopyingData.S3.NoColumnMapping)

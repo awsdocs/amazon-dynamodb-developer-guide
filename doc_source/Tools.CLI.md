@@ -6,7 +6,7 @@
 
 For a complete listing of all the commands available for DynamoDB in the AWS CLI, go to [http://docs\.aws\.amazon\.com/cli/latest/reference/dynamodb/index\.html](http://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
 
-
+**Topics**
 + [Downloading and Configuring the AWS CLI](#Tools.CLI.DownloadingAndRunning)
 + [Using the AWS CLI with DynamoDB](#Tools.CLI.UsingWithDDB)
 + [Using the AWS CLI with Downloadable DynamoDB](#Tools.CLI.UsingWithDDBLocal)

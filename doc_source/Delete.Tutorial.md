@@ -2,7 +2,7 @@
 
 This section describes how to use the Amazon DynamoDB console or AWS CLI to delete a DynamoDB table backup\. \(If you want to use the AWS CLI, you have to configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.\)
 
-
+**Topics**
 + [Deleting a Table Backup \(Console\)](#deletebackup_console)
 + [Deleting a Table Backup \(AWS CLI\)](#deletebackup_cli)
 
@@ -15,12 +15,10 @@ The following procedure shows how to delete the `MusicCollectionBackup` that is 
 1. In the navigation pane on the left side of the console, choose **Backups**\.
 
 1. In the list of backups, choose `MusicCollectionBackup`\.  
-![\[Screenshot showing the MusicCollectionBackup with status as
-                            available\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackup.png)
+![\[Screenshot showing the MusicCollectionBackup with status as available\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackup.png)
 
 1. Choose **Delete backup**:  
-![\[Screenshot of the backups list with delete backup button
-                            highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackupSelected.png)
+![\[Screenshot of the backups list with delete backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackupSelected.png)
 
    Choose **Delete** to delete the backup\.  
 ![\[Screenshot of the delete backup screen.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ConfirmDeleteBackup.png)

@@ -65,11 +65,9 @@ Search search = ThreadTable.Scan(config);
 ## Example: Scan using the Table\.Scan method<a name="ScanMidLevelDotNetExampleTableScan"></a>
 
 The `Scan` operation performs a full table scan making it a potentially expensive operation\. You should use queries instead\. However, there are times when you might need to execute a scan against a table\. For example, you might have a data entry error in the product pricing and you must scan the table as shown in the following C\# code example\. The example scans the ProductCatalog table to find products for which the price value is less than 0\. The example illustrates the use of the two `Table.Scan` overloads\. 
-
 + `Table.Scan` that takes the `ScanFilter` object as a parameter\. 
 
   You can pass the `ScanFilter` parameter when passing in only the required parameters\.
-
 + `Table.Scan` that takes the `ScanOperationConfig` object as a parameter\. 
 
   You must use the `ScanOperationConfig` parameter if you want to pass any optional parameters to the `Scan` method\. 

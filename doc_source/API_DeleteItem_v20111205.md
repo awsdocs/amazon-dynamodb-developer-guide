@@ -42,22 +42,7 @@ content-type: application/x-amz-json-1.0
 |  Key  | The primary key that defines the item\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
 | Expected  | Designates an attribute for a conditional delete\. The `Expected` parameter allows you to provide an attribute name, and whether or not DynamoDB should check to see if the attribute has a particular value before deleting it\.Type: Map of attribute names\. | No | 
 | Expected:AttributeName  | The name of the attribute for the conditional put\. Type: String | No | 
-| Expected:AttributeName: ExpectedAttributeValue | Use this parameter to specify whether or not a value already exists for the attribute name\-value pair\. The following JSON notation deletes the item if the "Color" attribute doesn't exist for that item:
-
-```
-"Expected" :
-	{"Color":{"Exists":false}}
-```The following JSON notation checks to see if the attribute with name "Color" has an existing value of "Yellow" before deleting the item: 
-
-```
-"Expected" : 
-	{"Color":{"Exists":true},{"Value":{"S":"Yellow"}}}
-```By default, if you use the `Expected` parameter and provide a `Value`, DynamoDB assumes the attribute exists and has a current value to be replaced\. So you don't have to specify `{"Exists":true}`, because it is implied\. You can shorten the request to:
-
-```
-"Expected" : 
-	{"Color":{"Value":{"S":"Yellow"}}}
-``` If you specify `{"Exists":true}` without an attribute value to check, DynamoDB returns an error\.  | No | 
+| Expected:AttributeName: ExpectedAttributeValue | Use this parameter to specify whether or not a value already exists for the attribute name\-value pair\. The following JSON notation deletes the item if the "Color" attribute doesn't exist for that item:<pre>"Expected" :<br />	{"Color":{"Exists":false}}</pre>The following JSON notation checks to see if the attribute with name "Color" has an existing value of "Yellow" before deleting the item: <pre>"Expected" : <br />	{"Color":{"Exists":true},{"Value":{"S":"Yellow"}}}</pre>By default, if you use the `Expected` parameter and provide a `Value`, DynamoDB assumes the attribute exists and has a current value to be replaced\. So you don't have to specify `{"Exists":true}`, because it is implied\. You can shorten the request to:<pre>"Expected" : <br />	{"Color":{"Value":{"S":"Yellow"}}}</pre> If you specify `{"Exists":true}` without an attribute value to check, DynamoDB returns an error\.  | No | 
 | ReturnValues  | Use this parameter if you want to get the attribute name\-value pairs before they were deleted\. Possible parameter values are `NONE` \(default\) or `ALL_OLD`\. If `ALL_OLD` is specified, the content of the old item is returned\. If this parameter is not provided or is `NONE`, nothing is returned\.Type: String | No | 
 
 ## Responses<a name="API_DeleteItem_CommonResponseElements"></a>
@@ -137,5 +122,4 @@ Date: Tue, 12 Jul 2011 22:31:23 GMT
 ```
 
 ## Related Actions<a name="API_DeleteItem_Related_Actions"></a>
-
 +  [PutItem](API_PutItem_v20111205.md) 

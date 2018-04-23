@@ -8,7 +8,7 @@ If you are an application developer, you might have some experience using relati
 The SQL examples in this section are compatible with the MySQL relational database management system\.  
 The DynamoDB examples in this section show the name of the DynamoDB operation, along with the parameters for that operation in JSON format\. For code samples that use these operations, see [Getting Started with DynamoDB](GettingStarted.md)\.
 
-
+**Topics**
 + [SQL or NoSQL?](#SQLtoNoSQL.WhyDynamoDB)
 + [Accessing the Database](SQLtoNoSQL.Accessing.md)
 + [Creating a Table](SQLtoNoSQL.CreateTable.md)

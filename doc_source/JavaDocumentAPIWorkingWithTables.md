@@ -1,6 +1,6 @@
 # Working with Tables: Java<a name="JavaDocumentAPIWorkingWithTables"></a>
 
-
+**Topics**
 + [Creating a Table](#JavaDocumentAPICreate)
 + [Updating a Table](#JavaDocumentAPIUpdate)
 + [Deleting a Table](#JavaDocumentAPIDelete)
@@ -78,7 +78,7 @@ TableDescription tableDescription = dynamoDB.getTable(tableName).describe();
 You can update only the provisioned throughput values of an existing table\. Depending on you application requirements, you might need to update these values\. 
 
 **Note**  
-You can increase throughput capacity as often as needed, and decrease it up to nine times per table in a single UTC calendar day\. For more information, see [Limits in DynamoDB](Limits.md)\.
+For more information on throughput increases and decreases per day, see [Limits in DynamoDB](Limits.md)\.
 
 To update a table using the AWS SDK for Java API: 
 

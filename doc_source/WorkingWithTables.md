@@ -7,7 +7,7 @@ You can also perform these same tasks using the AWS Management Console\. For mor
 
 This section also provides more information about throughput capacity, using DynamoDB auto scaling or manually setting provisioned throughput\.
 
-
+**Topics**
 + [Basic Operations for Tables](WorkingWithTables.Basics.md)
 + [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)
 + [Item Sizes and Capacity Unit Consumption](CapacityUnitCalculations.md)

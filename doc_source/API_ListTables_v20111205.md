@@ -89,9 +89,6 @@ Date: Fri, 21 Oct 2011 20:35:38 GMT
 ```
 
 ## Related Actions<a name="API_ListTables_Related_Actions"></a>
-
 +  [DescribeTables](API_DescribeTables_v20111205.md) 
-
 +  [CreateTable](API_CreateTable_v20111205.md) 
-
 +  [DeleteTable](API_DeleteTable_v20111205.md) 

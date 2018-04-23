@@ -7,17 +7,13 @@ The `getDynamoDBClient` and `getDaxClient` methods provide DynamoDB and DAX clie
 The other `TryDaxHelper` methods \(`createTable`, `writeData`, `deleteTable`\) are for setting up and tearing down the DynamoDB table and its data\.
 
 You can modify the program in several ways\. For example:
-
 + Use different provisioned throughput settings for the table\.
-
 + Modify the size of each item written \(see the `stringSize` variable in the `writeData` method\)\.
-
 + Modify the number of `GetItem`, `Query` and `Scan` tests, and their parameters\.
-
 + Comment out the lines containing `helper.CreateTable` and `helper.DeleteTable` \(if you do not want to create and delete the table each time you run the program\)\.
 
 **Note**  
-To run this program, you must include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Step 4a: \(Java\) Run the Sample Application](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
+To run this program, you must include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```
 import java.util.Arrays;

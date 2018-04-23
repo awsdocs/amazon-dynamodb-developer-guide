@@ -1,6 +1,6 @@
 # Tutorial: Processing New Items in a DynamoDB Table<a name="Streams.Lambda.Tutorial"></a>
 
-
+**Topics**
 + [Step 1: Create a DynamoDB Table With a Stream Enabled](#Streams.Lambda.Tutorial.CreateTable)
 + [Step 2: Create a Lambda Execution Role](#Streams.Lambda.Tutorial.CreateRole)
 + [Step 3: Create an Amazon SNS Topic](#Streams.Lambda.Tutorial.SNSTopic)
@@ -11,7 +11,7 @@ In this tutorial, you will create an AWS Lambda trigger to process a stream from
 
 The scenario for this tutorial is Woofer, a simple social network\. Woofer users communicate using *barks* \(short text messages\) that are sent to other Woofer users\. The following diagram shows the components and workflow for this application: 
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/StreamsAndTriggers.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. A user writes an item to a DynamoDB table \(*BarkTable*\)\. Each item in the table represents a bark\.
 
@@ -128,13 +128,9 @@ You will also create a policy for the role\. The policy will contain all of the 
    ```
 
    The policy has four statements, to allow *WooferLambdaRole* to do the following:
-
    + Execute a Lambda function \(publishNewBark\)\. You will create the function later in this tutorial\.
-
    + Access CloudWatch Logs\. The Lambda function will write diagnostics to CloudWatch Logs at runtime\.
-
    + Read data from the DynamoDB stream for *BarkTable*\.
-
    + Publish messages to Amazon SNS\.
 
 1. Type the following command to attach the policy to *WooferLambdaRole*:

@@ -3,9 +3,7 @@
 You can use the `query` method to retrieve data from a table\. You must specify a partition key value\. The sort key is optional\.
 
 The primary key for the `Movies` table is composed of the following:
-
 + `year` – The partition key\. The attribute type is number\. 
-
 + `title` – The sort key\. The attribute type is string\.
 
 To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\)\. For example, to find movies released in 2014 that have a title starting with the letter "A"\.
@@ -14,7 +12,7 @@ In addition to `query`, there is also a `scan` method that can retrieve all of t
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
 
-
+**Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.PHP.04.Query.01)
 + [Step 4\.2: Query \- All Movies Released in a Year with Certain Titles](#GettingStarted.PHP.04.Query.02)
 + [Step 4\.3: Scan](#GettingStarted.PHP.04.Scan)
@@ -233,9 +231,7 @@ The following program scans the entire `Movies` table, which contains approximat
    ```
 
    In the code, note the following:
-
    + `ProjectionExpression` specifies the attributes you want in the scan result\.
-
    + `FilterExpression` specifies a condition that returns only items that satisfy the condition\. All other items are discarded\.
 
 1. To run the program, type the following command:

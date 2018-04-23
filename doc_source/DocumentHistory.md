@@ -1,7 +1,6 @@
 # Document History for DynamoDB<a name="DocumentHistory"></a>
 
 The following table describes important changes to the documentation\.
-
 + **API version:** 2012\-08\-10
 
 

@@ -2,7 +2,7 @@
 
 This section describes how to create a global table using the DynamoDB console, the AWS Command Line Interface \(CLI\), or the DynamoDB API\. 
 
-
+**Topics**
 + [Creating a Global Table \(Console\)](#creategt_console)
 + [Creating a Global Table \(AWS CLI\)](#creategt_cli)
 
@@ -56,8 +56,7 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
            AttributeName=Artist,KeyType=HASH \
            AttributeName=SongTitle,KeyType=RANGE \
        --provisioned-throughput \
-           ReadCapacityUnits=10, \
-           WriteCapacityUnits=5 \
+           ReadCapacityUnits=10,WriteCapacityUnits=5 \
        --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES \
        --region us-east-2
    ```
@@ -74,8 +73,7 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
            AttributeName=Artist,KeyType=HASH \
            AttributeName=SongTitle,KeyType=RANGE \
        --provisioned-throughput \
-           ReadCapacityUnits=10, \
-           WriteCapacityUnits=5 \
+           ReadCapacityUnits=10,WriteCapacityUnits=5 \
        --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES \
        --region us-east-1
    ```
@@ -103,8 +101,7 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
            AttributeName=Artist,KeyType=HASH \
            AttributeName=SongTitle,KeyType=RANGE \
        --provisioned-throughput \
-           ReadCapacityUnits=10, \
-           WriteCapacityUnits=5 \
+           ReadCapacityUnits=10,WriteCapacityUnits=5 \
        --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES \
        --region eu-west-1
    ```

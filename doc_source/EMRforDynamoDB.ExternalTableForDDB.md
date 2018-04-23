@@ -9,7 +9,7 @@ You can use `INSERT` statements to insert data into an external table and `SELEC
 
 If you no longer need the external table, you can remove it using the `DROP TABLE` statement\. In this case, `DROP TABLE` only removes the external table in Hive\. It does not affect the underlying DynamoDB table or any of its data\.
 
-
+**Topics**
 + [CREATE EXTERNAL TABLE Syntax](#EMRforDynamoDB.ExternalTableForDDB.Syntax)
 + [Data Type Mappings](#EMRforDynamoDB.ExternalTableForDDB.DataTypes)
 
@@ -34,25 +34,16 @@ Line 2 specifies the columns and data types for *hive\_table*\. You need to defi
 Line 3 is the `STORED BY` clause, where you specify a class that handles data management between the Hive and the DynamoDB table\. For DynamoDB, `STORED BY` should be set to `'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'`\. 
 
 Line 4 is the start of the `TBLPROPERTIES` clause, where you define the following parameters for `DynamoDBStorageHandler`: 
-
 + `dynamodb.table.name`—the name of the DynamoDB table\.
-
 +  `dynamodb.column.mapping`—pairs of column names in the Hive table and their corresponding attributes in the DynamoDB table\. Each pair is of the form *hive\_column\_name:dynamodb\_attribute\_name*, and the pairs are separated by commas\.
 
 Note the following:
-
 + The name of the Hive table name does not have to be the same as the DynamoDB table name\.
-
 + The Hive table column names do not have to be the same as those in the DynamoDB table\.
-
 + The table specified by `dynamodb.table.name` must exist in DynamoDB\.
-
 + For `dynamodb.column.mapping`:
-
   + You must map the key schema attributes for the DynamoDB table\. This includes the partition key and the sort key \(if present\)\.
-
   + You do not have to map the non\-key attributes of the DynamoDB table\. However, you will not see any data from those attributes when you query the Hive table\.
-
   + If the data types of a Hive table column and a DynamoDB attribute are incompatible, you will see `NULL` in these columns when you query the Hive table\.
 
 **Note**  
@@ -82,9 +73,7 @@ Boolean
 Null
 
 If you want to map a DynamoDB attribute of type Number, you must choose an appropriate Hive type:
-
 + The Hive `BIGINT` type is for 8\-byte signed integers\. It is the same as the `long` data type in Java\.
-
 + The Hive `DOUBLE` type is for 8\-bit double precision floating point numbers\. It is the same as the `double` type in Java\.
 
 If you have numeric data stored in DynamoDB that has a higher precision than the Hive data type you choose, then accessing the DynamoDB data could cause a loss of precision\. 

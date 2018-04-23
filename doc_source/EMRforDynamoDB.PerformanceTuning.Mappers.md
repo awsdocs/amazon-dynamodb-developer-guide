@@ -10,9 +10,7 @@ The number of mapper tasks used in a Hadoop job are influenced by *input splits*
 Each mapper in an Amazon EMR has a maximum read rate of 1 MiB per second\. The number of mappers in a cluster depends on the size of the nodes in your cluster\. \(For information about node sizes and the number of mappers per node, see [Task Configuration](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.\) 
 
 If your DynamoDB table has ample throughput capacity for reads, you can try increasing the number of mappers by doing one of the following:
-
 + Increase the size of the nodes in your cluster\. For example, if your cluster is using *m1\.large* nodes \(three mappers per node\), you can try upgrading to *m1\.xlarge* nodes \(eight mappers per node\)\.
-
 + Increase the number of nodes in your cluster\. For example, if you have three\-node cluster of *m1\.xlarge* nodes, you have a total of 24 mappers available\. If you were to double the size of the cluster, with the same type of node, you would have 48 mappers\.
 
 You can use the AWS Management Console to manage the size or the number of nodes in your cluster\. \(You might need to restart the cluster for these changes to take effect\.\)

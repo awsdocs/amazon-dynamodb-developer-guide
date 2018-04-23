@@ -86,17 +86,13 @@ Search search = table.Query(config);
 ## Example: Query using the Table\.Query method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
 
 The following C\# code example uses the `Table.Query` method to execute the following sample queries:
-
 + The following queries are executed against the Reply table\.
-
   + Find forum thread replies that were posted in the last 15 days\.
 
     This query is executed twice\. In the first Table\.Query call, the example provides only the required query parameters\. In the second Table\.Query call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
-
   + Find forum thread replies posted during a period of time\.
 
     This query uses the Between query operator to find replies posted in between two dates\.
-
 + Get a product from the ProductCatalog table\.
 
   Because the ProductCatalog table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item Id\.

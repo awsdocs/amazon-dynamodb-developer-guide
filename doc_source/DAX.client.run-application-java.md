@@ -1,15 +1,6 @@
-# Step 4a: \(Java\) Run the Sample Application<a name="DAX.client.run-application-java"></a>
+# Java and DAX<a name="DAX.client.run-application-java"></a>
 
-**Note**  
-This section covers the DAX client for Java\. If you prefer using Node\.js, skip this section and go to [Step 4b: \(Node\.js\) Run the Sample Application](DAX.client.run-application-nodejs.md)\.
-
-To help you test DAX functionality, we have provided a Java program that you can run on your Amazon EC2 instance\. The program consists of three source files:
-
-+ `TryDax.java`—the entry point for the program\.
-
-+ `TryDaxHelper.java`—utility methods for DynamoDB and DAX clients, and for creating a test table and data\.
-
-+ `TryDaxTests.java`—`GetItem`, `Query` and `Scan` activities for the test table\.
+To run the Java sample on your Amazon EC2 instance, follow this proceedure:
 
 1. Install the Java Development Kit \(JDK\):
 
@@ -116,13 +107,11 @@ To help you test DAX functionality, we have provided a Java program that you can
 1. In the previous step, you ran the program against the DynamoDB endpoint\. You will now run the program again, but this time the `GetItem`, `Query` and `Scan` operations will be processed by your DAX cluster\.
 
    To determine the endpoint for your DAX cluster, choose one of the following:
-
    + **Using the DynamoDB console**—choose your DAX cluster\. The cluster endpoint is shown in the console\. For example: 
 
      ```
      mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
      ```
-
    + **Using the AWS CLI**—type the following command:
 
      ```
@@ -147,9 +136,6 @@ To help you test DAX functionality, we have provided a Java program that you can
    Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query` and `Scan` should be significantly lower with DAX than with DynamoDB\.
 
 For more information about this program, see the following sections:
-
 + [TryDax\.java](DAX.client.run-application-java.TryDax.md)
-
 + [TryDaxHelper\.java](DAX.client.run-application-java.TryDaxHelper.md)
-
 + [TryDaxTests\.java](DAX.client.run-application-java.TryDaxTests.md)

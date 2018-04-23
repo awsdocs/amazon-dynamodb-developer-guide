@@ -31,9 +31,7 @@ The following C\# code snippet defines a `Book` class with object persistence at
 You can apply the `DynamoDBVersion` attribute only to a nullable numeric primitive type \(such as `int?`\)\. 
 
 Optimistic locking has the following impact on `DynamoDBContext` operations:
-
 + For a new item, `DynamoDBContext` assigns initial version number 0\. If you retrieve an existing item, and then update one or more of its properties and attempt to save the changes, the save operation succeeds only if the version number on the client\-side and the server\-side match\. The `DynamoDBContext` increments the version number\. You don't need to set the version number\.
-
 + The `Delete` method provides overloads that can take either a primary key value or an object as parameter as shown in the following C\# code snippet\.  
 **Example**  
 

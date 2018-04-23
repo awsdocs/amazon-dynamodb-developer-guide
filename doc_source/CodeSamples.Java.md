@@ -1,23 +1,16 @@
 # Java Code Samples<a name="CodeSamples.Java"></a>
 
-
+**Topics**
 + [Java: Setting Your AWS Credentials](#CodeSamples.Java.Credentials)
 + [Java: Setting the AWS Region and Endpoint](#CodeSamples.Java.RegionAndEndpoint)
 
 This Developer Guide contains Java code snippets and ready\-to\-run programs\. You can find these code samples in the following sections:
-
 + [Working with Items in DynamoDB](WorkingWithItems.md)
-
 + [Working with Tables in DynamoDB](WorkingWithTables.md)
-
 + [Working with Queries](Query.md)
-
 + [Working with Scans](Scan.md)
-
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
-
 + [Java: DynamoDBMapper](DynamoDBMapper.md)
-
 + [Capturing Table Activity with DynamoDB Streams](Streams.md)
 
 You can get started quickly by using Eclipse with the [AWS Toolkit for Eclipse](https://aws.amazon.com/eclipse/)\. In addition to a full\-featured IDE, you also get the AWS SDK for Java with automatic updates, and preconfigured templates for building AWS applications\.

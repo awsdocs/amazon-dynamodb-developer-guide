@@ -13,7 +13,7 @@ The following steps assume that you are connecting to your Amazon EC2 instance f
    ssh -i my-keypair.pem ec2-user@public-dns-name
    ```
 
-   You will need to specify your private key file \(*\.pem* file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 Instance](DAX.client.launch-ec2-instance.md)\)\. 
+   You will need to specify your private key file \(*\.pem* file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 Instance](DAX.client.launch-ec2-instance.md)\)\.
 
    The login ID is `ec2-user`\. No password is required\.
 

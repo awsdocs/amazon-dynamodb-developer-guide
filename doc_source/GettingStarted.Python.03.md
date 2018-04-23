@@ -4,7 +4,7 @@ In this step, you perform read and write operations on an item in the `Movies` t
 
 To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
 
-
+**Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.Python.03.01)
 + [Step 3\.2: Read an Item](#GettingStarted.Python.03.02)
 + [Step 3\.3: Update an Item](#GettingStarted.Python.03.03)
@@ -94,7 +94,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
+               if o % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -131,9 +131,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
 You can use the `update_item` method to modify an existing item\. You can update values of existing attributes, add new attributes, or remove attributes\.
 
 In this example, you perform the following updates:
-
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
-
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
 The item changes from this:
@@ -175,7 +173,7 @@ To the following:
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
+               if o % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -231,7 +229,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
+               if o % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -283,7 +281,7 @@ In this case, the item is updated only if there are more than three actors\.
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
+               if o % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -361,7 +359,7 @@ In the following example, you try to delete a specific movie item if its rating 
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
+               if o % 1 > 0:
                    return float(o)
                else:
                    return int(o)

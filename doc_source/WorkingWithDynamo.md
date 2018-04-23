@@ -2,7 +2,7 @@
 
  This chapter goes into details about the following topics: 
 
-
+**Topics**
 + [Working with Tables in DynamoDB](WorkingWithTables.md)
 + [Working with Items in DynamoDB](WorkingWithItems.md)
 + [Working with Queries](Query.md)

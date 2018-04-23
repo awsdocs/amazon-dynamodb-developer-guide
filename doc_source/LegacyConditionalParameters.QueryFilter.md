@@ -12,7 +12,6 @@ If you provide more than one condition in the `QueryFilter` map, then by default
 Note that `QueryFilter` does not allow key attributes\. You cannot define a filter condition on a partition key or a sort key\.
 
 Each `QueryFilter` element consists of an attribute name to compare, along with the following:
-
 +  `AttributeValueList` \- One or more values to evaluate against the supplied attribute\. The number of values in the list depends on the operator specified in `ComparisonOperator`\.
 
   For type Number, value comparisons are numeric\.
@@ -22,14 +21,13 @@ Each `QueryFilter` element consists of an attribute name to compare, along with 
   For type Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values\.
 
   For information on specifying data types in JSON, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)\.
-
 +  `ComparisonOperator` \- A comparator for evaluating attributes\. For example, equals, greater than, less than, etc\.
 
   The following comparison operators are available:
 
    `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS | BEGINS_WITH | IN | BETWEEN` 
 
-## Use *FilterExpression* Instead<a name="w3ab1c35c19c27c17"></a>
+## Use *FilterExpression* Instead<a name="w3ab1c40c21c27c17"></a>
 
 Suppose you wanted to query the *Music* table and apply a condition to the matching items\. You could use a `Query` request with a `QueryFilter` parameter, as in this AWS CLI example:
 

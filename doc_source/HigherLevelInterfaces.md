@@ -7,11 +7,8 @@ To simplify development, the AWS SDKs for Java and \.NET provide additional inte
 The higher\-level programming interfaces for DynamoDB are available in the AWS SDKs for Java and \.NET\.
 
 **Java**
-
 + [Java: DynamoDBMapper](DynamoDBMapper.md)
 
 **\.NET**
-
 + [\.NET: Document Model](DotNetSDKMidLevel.md)
-
 + [\.NET: Object Persistence Model](DotNetSDKHighLevel.md)

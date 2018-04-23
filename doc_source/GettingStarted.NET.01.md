@@ -3,9 +3,7 @@
 The document model in the AWS SDK for \.NET doesn't provide for creating tables, so you have to use the low\-level APIs\. For more information, see [Working with Tables: \.NET](LowLevelDotNetWorkingWithTables.md)\.
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
-
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
-
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
 1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:

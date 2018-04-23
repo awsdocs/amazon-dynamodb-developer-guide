@@ -1,6 +1,6 @@
 # Improving Data Access with Secondary Indexes<a name="SecondaryIndexes"></a>
 
-
+**Topics**
 + [Global Secondary Indexes](GSI.md)
 + [Local Secondary Indexes](LSI.md)
 
@@ -16,9 +16,7 @@ Every secondary index is associated with exactly one table, from which it obtain
 Every secondary index is automatically maintained by DynamoDB\. When you add, modify, or delete items in the base table, any indexes on that table are also updated to reflect these changes\.
 
 DynamoDB supports two types of secondary indexes:
-
 + **[Global secondary index](GSI.html) — **an index with a partition key and a sort key that can be different from those on the base table\. A global secondary index is considered "global" because queries on the index can span all of the data in the base table, across all partitions\.
-
 + **[Local secondary index](LSI.html) — **an index that has the same partition key as the base table, but a different sort key\. A local secondary index is "local" in the sense that every partition of a local secondary index is scoped to a base table partition that has the same partition key value\.
 
 You should consider your application's requirements when you determine which type of index to use\. The following table shows the main differences between a global secondary index and a local secondary index:
@@ -40,26 +38,17 @@ You should consider your application's requirements when you determine which typ
 If you want to create more than one table with secondary indexes, you must do so sequentially\. For example, you would create the first table and wait for it to become `ACTIVE`, create the next table and wait for it to become `ACTIVE`, and so on\. If you attempt to concurrently create more than one table with a secondary index, DynamoDB will return a `LimitExceededException`\.
 
 For each secondary index, you must specify the following:
-
 + The type of index to be created – either a global secondary index or a local secondary index\.
-
 + A name for the index\. The naming rules for indexes are the same as those for tables, as listed in [Limits in DynamoDB](Limits.md)\. The name must be unique for the base table it is associated with, but you can use the same name for indexes that are associated with different base tables\.
-
 + The key schema for the index\. Every attribute in the index key schema must be a top\-level attribute of type String, Number, or Binary\. Other data types, including documents and sets, are not allowed\. Other requirements for the key schema depend on the type of index: 
-
   + For a global secondary index, the partition key can be any scalar attribute of the base table\. A sort key is optional, and it too can be any scalar attribute of the base table\.
-
   + For a local secondary index, the partition key must be the same as the base table's partition key, and the sort key must be a non\-key base table attribute\.
-
 + Additional attributes, if any, to project from the base table into the index\. These attributes are in addition to the table's key attributes, which are automatically projected into every index\. You can project attributes of any data type, including scalars, documents, and sets\.
-
 + The provisioned throughput settings for the index, if necessary:
-
   + For a global secondary index, you must specify read and write capacity unit settings\. These provisioned throughput settings are independent of the base table's settings\.
-
   + For a local secondary index, you do not need to specify read and write capacity unit settings\. Any read and write operations on a local secondary index draw from the provisioned throughput settings of its base table\.
 
-For maximum query flexibility, you can create up to 5 global secondary indexes and up to 5 local secondary indexes per table\.
+For maximum query flexibility, you can create up to 5 global secondary indexes and up to 5 local secondary indexes per table\. Refer to the design guidance for GSI overloading for examples that show how you can satisfy multiple application access patterns with the limited number of GSIs\. 
 
 To get a detailed listing of secondary indexes on a table, use the `DescribeTable` operation\. `DescribeTable` will return the name, storage size and item counts for every secondary index on the table\. These values are not updated in real time, but they are refreshed approximately every six hours\.
 
@@ -67,4 +56,4 @@ You can access the data in a secondary index using either the `Query` or `Scan` 
 
 When you delete a table, all of the indexes associated with that table are also deleted\.
 
- For best practices, see [Best Practices for Local Secondary Indexes](GuidelinesForLSI.md) and [Best Practices for Global Secondary Indexes](GuidelinesForGSI.md), respectively\. 
+For best practices, see [Best Practices for Using Secondary Indexes in DynamoDB](bp-indexes.md)\.

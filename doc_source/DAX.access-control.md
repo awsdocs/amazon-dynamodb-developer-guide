@@ -98,29 +98,22 @@ The user policy, in conjunction with the DAX service role, determine the DynamoD
 
 To help further your understanding of IAM policies for use with DAX, we present a common scenario\. \(We will refer to this scenario throughout the rest of this section\.\) The following diagram shows a high\-level overview of the scenario:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-scenario.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 In this scenario, there are the following entities:
-
 + An IAM user \(Bob\)\. 
-
 + An IAM role \(*BobUserRole*\)\. Bob assumes this role at runtime\.
-
 + An IAM policy \(*BobAccessPolicy*\)\. This policy is attached to *BobUserRole*\. *BobAccessPolicy* defines the DynamoDB and DAX resources that *BobUserRole* is allowed to access\.
-
 + A DAX cluster \(*DAXCluster01*\)\.
-
 + An IAM service role \(*DAXServiceRole*\)\. This role allows *DAXCluster01* to access DynamoDB\. 
-
 + An IAM policy \(*DAXAccessPolicy*\)\. This policy is attached to *DAXServiceRole*\. *DAXAccessPolicy* defines the DynamoDB APIs and resources that *DAXCluster01* is allowed to access\.
-
 + A DynamoDB table \(*Books*\)\.
 
 The combination of policy statements in *BobAccessPolicy* and *DAXAccessPolicy* determine what Bob can do with the *Books* table\. For example, Bob might be able to access *Books* directly \(using the DynamoDB endpoint\), indirectly \(using the DAX cluster\), or both\. Bob might also be able to read data from *Books*, write data to *Books*, or both\.
 
 ## Access to DynamoDB, But No Access With DAX<a name="DAX.access-control.ddb-yes-dax-no"></a>
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-ddb-only.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 It is possible to allow direct access to a DynamoDB table, while preventing indirect access using a DAX cluster\. For direct access to DynamoDB, the privileges for *BobUserRole* are determined by *BobAccessPolicy* \(which is attached to the role\)\.
 
@@ -184,36 +177,24 @@ Again, DAX does not appear in this policy, so access via DAX is denied\.
 
 ## Access to DynamoDB and to DAX<a name="DAX.access-control.ddb-yes-dax-yes"></a>
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-ddb-and-dax.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 To allow access to a DAX cluster, you must include DAX\-specific actions in an IAM policy\.
 
 The following DAX\-specific actions correspond to their similarly\-named counterparts in the DynamoDB API:
-
 + `dax:GetItem`
-
 + `dax:BatchGetItem`
-
 + `dax:Query`
-
 + `dax:Scan`
-
 + `dax:PutItem`
-
 + `dax:UpdateItem`
-
 + `dax:DeleteItem`
-
 + `dax:BatchWriteItem`
 
 In addition, there are four other DAX\-specific actions that do not correspond to any DynamoDB APIs:
-
 + `dax:DefineAttributeList`
-
 + `dax:DefineAttributeListId`
-
 + `dax:DefineKeySchema`
-
 + `dax:Endpoints`
 
 You must specify all four of these actions in any IAM policy that allows access to a DAX cluster\. These actions are specific to the low\-level DAX data transport protocol\. Your application does not need to concern itself with these actions—they are only used in IAM policies\. 
@@ -425,7 +406,7 @@ In addition, *DAXServiceRole* would require an IAM policy that allows *DAXCluste
 
  In this scenario, Bob can access the *Books* table via DAX, but he does not have direct access to the *Books* table in DynamoDB\. Thus, when Bob gains access to DAX, he also gains access to a DynamoDB table that he otherwise might not be able to access\. When you are configuring an IAM policy for the DAX service role, remember that any user that is given access to the DAX cluster via the user access policy will gain access to the tables specified in that policy\. In this case, *BobAccessPolicy* gains access to the tables specified in *DAXAccessPolicy*\. 
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-dax-only.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 If you are currently using IAM roles and policies to restrict access to DynamoDB tables and data, then the use of DAX can subvert those policies\. In the policy below, Bob has access to a DynamoDB table via DAX but does not have explicit direct access to the same table in DynamoDB\. 
 

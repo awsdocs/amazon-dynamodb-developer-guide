@@ -1,14 +1,12 @@
 # Example: Batch Operations Using AWS SDK for \.NET Document Model API<a name="example-batch-operations-net-doc-model"></a>
 
-
+**Topics**
 + [Example: Batch Write Using AWS SDK for \.NET Document Model](#example-batchwrite-NetDocumentAPI)
 
 ## Example: Batch Write Using AWS SDK for \.NET Document Model<a name="example-batchwrite-NetDocumentAPI"></a>
 
  The following C\# code example illustrates single table and multi\-table batch write operations\. The example performs the following tasks:
-
 + To illustrate a single table batch write, it adds two items to the ProductCatalog table\. 
-
 + To illustrate a multi\-table batch write, it adds an item to both the Forum and Thread tables and deletes and item from the Thread table\.
 
 If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the ProductCatalog, Forum and Thread tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\.

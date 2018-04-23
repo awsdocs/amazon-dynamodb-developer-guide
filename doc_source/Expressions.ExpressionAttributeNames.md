@@ -7,7 +7,7 @@ This section describes several situations in which you will need to use expressi
 **Note**  
 The examples in this section use the AWS CLI\. For programming language\-specific code samples, see [Getting Started with DynamoDB](GettingStarted.md)\.
 
-
+**Topics**
 + [Reserved Words](#Expressions.ExpressionAttributeNames.ReservedWords)
 + [Attribute Names Containing Dots](#Expressions.ExpressionAttributeNames.AttributeNamesContainingDots)
 + [Nested Attributes](#Expressions.ExpressionAttributeNames.NestedAttributes)
@@ -90,12 +90,10 @@ aws dynamodb get-item \
 DynamoDB would return an empty result, instead of the expected map of one\-star reviews\. This is because DynamoDB interprets a dot in an expression attribute value as a character within an attribute's name\. When DynamoDB evaluates the expression attribute name `#pr1star`, it determines that `ProductReviews.OneStar` refers to a scalar attribute—which is not what was intended\.
 
 The correct approach would be to define an expression attribute name for each element in the document path:
-
 + `#pr — ProductReviews`
-
 + `#1star — OneStar`
 
-You could then use `#pr.#1s` for the projection expression:
+You could then use `#pr.#1star` for the projection expression:
 
 ```
 aws dynamodb get-item \
@@ -119,7 +117,6 @@ aws dynamodb get-item \
 ```
 
 To make this more concise, you can replace `ProductReviews` with an expression attribute name such as `#pr`\. The revised expression would now look like this:
-
 +  `#pr.FiveStar, #pr.ThreeStar, #pr.OneStar` 
 
 ```

@@ -2,7 +2,7 @@
 
  This section describes runtime errors and how to handle them\. It also describes error messages and codes that are specific to DynamoDB\.
 
-
+**Topics**
 + [Error Components](#Programming.Errors.Components)
 + [Error Messages and Codes](#Programming.Errors.MessagesAndCodes)
 + [Error Handling in Your Application](#Programming.Errors.Handling)
@@ -14,11 +14,8 @@
 When your program sends a request, DynamoDB attempts to process it\. If the request is successful, DynamoDB returns an HTTP success status code \(`200 OK`\), along with the results from the requested operation\.
 
 If the request is unsuccessful, DynamoDB returns an error\. Each error has three components: 
-
 + An HTTP status code \(such as `400`\)\.
-
 + An exception name \(such as `ResourceNotFoundException`\)\.
-
 + An error message \(such as `Requested resource not found: Table: tablename not found`\)\.
 
 The AWS SDKs take care of propagating errors to your application, so that you can take appropriate action\. For example, in a Java program, you can write `try-catch` logic to handle a `ResourceNotFoundException`\.
@@ -40,7 +37,7 @@ Date: Thu, 15 Mar 2012 23:56:23 GMT
 
 The following is a list of exceptions returned by DynamoDB, grouped by HTTP status code\. If *OK to retry?* is *Yes*, you can submit the same request again\. If *OK to retry?* is *No*, you will need to fix the problem on the client side before you submit a new request\.
 
-### HTTP Status Code 400<a name="w3ab1c15c13b9b5"></a>
+### HTTP Status Code 400<a name="w3ab1c15c15b9b5"></a>
 
 An HTTP `400` status code indicates a problem with your request, such as authentication failure, missing required parameters, or exceeding a table's provisioned throughput\. You will have to fix the issue in your application before submitting the request again\.
 
@@ -104,7 +101,7 @@ Message: Varies, depending upon the specific error\(s\) encountered
 This error can occur for several reasons, such as a required parameter that is missing, a value that is out range, or mismatched data types\. The error message contains details about the specific part of the request that caused the error\.  
 OK to retry? No
 
-### HTTP Status Code 5xx<a name="w3ab1c15c13b9b7"></a>
+### HTTP Status Code 5xx<a name="w3ab1c15c15b9b7"></a>
 
 An HTTP `5xx` status code indicates a problem that must be resolved by Amazon Web Services\. This might be a transient error in which case you can retry your request until it succeeds\. Otherwise, go to the [AWS Service Health Dashboard](http://status.aws.amazon.com/) to see if there are any operational issues with the service\.
 
@@ -154,9 +151,7 @@ try {
 ```
 
 In this code snippet, the `try-catch` construct handles two different kinds of exceptions:
-
 + `AmazonServiceException`—thrown if the client request was correctly transmitted to DynamoDB, but DynamoDB was unable to process the request and returned an error response instead\.
-
 + `AmazonClientException`—thrown if the client was unable to get a response from a service, or if the client was unable to parse the response from a service\.
 
 ## Error Retries and Exponential Backoff<a name="Programming.Errors.RetryAndBackoff"></a>
@@ -167,7 +162,7 @@ Each AWS SDK implements retry logic, automatically\. You can modify the retry pa
 
 If you're not using an AWS SDK, you should retry original requests that receive server errors \(5xx\)\. However, client errors \(4xx, other than a `ThrottlingException` or a `ProvisionedThroughputExceededException`\) indicate you need to revise the request itself to correct the problem before trying again\. 
 
-In addition to simple retries, each AWS SDK implements exponential backoff algorithm for better flow control\. The concept behind exponential backoff is to use progressively longer waits between retries for consecutive error responses\. For example, up to 50 milliseconds before the first retry, up to 100 milliseconds before the second, up to 200 milliseconds before third, and so on\. However, after a minute, if the request has not succeeded, the problem might be the request size exceeding your provisioned throughput, and not the request rate\. Set the maximum number of retries to stop around one minute\. If the request is not successful, investigate your provisioned throughput options\. For more information, see [Best Practices for Tables](GuidelinesForTables.md)\.
+In addition to simple retries, each AWS SDK implements exponential backoff algorithm for better flow control\. The concept behind exponential backoff is to use progressively longer waits between retries for consecutive error responses\. For example, up to 50 milliseconds before the first retry, up to 100 milliseconds before the second, up to 200 milliseconds before third, and so on\. However, after a minute, if the request has not succeeded, the problem might be the request size exceeding your provisioned throughput, and not the request rate\. Set the maximum number of retries to stop around one minute\. If the request is not successful, investigate your provisioned throughput options\. 
 
 **Note**  
 The AWS SDKs implement automatic retry logic and exponential backoff\.

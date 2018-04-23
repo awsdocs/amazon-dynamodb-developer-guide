@@ -1,6 +1,6 @@
 # Working with Local Secondary Indexes: \.NET<a name="LSILowLevelDotNet"></a>
 
-
+**Topics**
 + [Create a Table With a Local Secondary Index](#LSILowLevelDotNet.CreateTableWithIndex)
 + [Describe a Table With a Local Secondary Index](#LSILowLevelDotNet.DescribeTableWithIndex)
 + [Query a Local Secondary Index](#LSILowLevelDotNet.QueryAnIndex)

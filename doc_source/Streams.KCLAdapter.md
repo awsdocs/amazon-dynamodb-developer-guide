@@ -10,28 +10,19 @@ As a DynamoDB Streams user, you can leverage the design patterns found within th
 
 The following diagram shows how these libraries interact with one another\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/streams-kinesis-adapter.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 With the DynamoDB Streams Kinesis Adapter in place, you can begin developing against the KCL interface, with the API calls seamlessly directed at the DynamoDB Streams endpoint\.
 
 When your application starts, it calls the KCL to instantiate a worker\. You must provide the worker with configuration information for the application, such as the stream descriptor and AWS credentials, and the name of a record processor class that you provide\. As it runs the code in the record processor, the worker performs the following tasks:
-
 + Connects to the stream\.
-
 + Enumerates the shards within the stream\.
-
 + Coordinates shard associations with other workers \(if any\)\.
-
 + Instantiates a record processor for every shard it manages\.
-
 + Pulls records from the stream\.
-
 + Pushes the records to the corresponding record processor\.
-
 + Checkpoints processed records\.
-
 + Balances shard\-worker associations when the worker instance count changes\.
-
 + Balances shard\-worker associations when shards are split\.
 
 **Note**  

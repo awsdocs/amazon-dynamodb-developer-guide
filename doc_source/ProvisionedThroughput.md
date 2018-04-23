@@ -1,6 +1,6 @@
 # Throughput Settings for Reads and Writes<a name="ProvisionedThroughput"></a>
 
-
+**Topics**
 + [Read Capacity Units](#ProvisionedThroughput.CapacityUnits.Read)
 + [Write Capacity Units](#ProvisionedThroughput.CapacityUnits.Write)
 + [Request Throttling and Burst Capacity](#ProvisionedThroughput.Throttling)
@@ -49,23 +49,20 @@ We recommend that you use the AWS SDKs for software development\. The AWS SDKs p
 
 The DynamoDB console displays Amazon CloudWatch metrics for your tables, so you can monitor throttled read requests and write requests\. If you encounter excessive throttling, you should consider increasing your table's provisioned throughput settings\.
 
-In some cases, DynamoDB will use *burst capacity* to accommodate reads or writes in excess of your table's throughput settings\. With burst capacity, unexpected read or write requests can succeed where they otherwise would be throttled\. Burst capacity is available on a best\-effort basis, and DynamoDB does not guarantee that this capacity is always available\. For more information, see [Use Burst Capacity Sparingly](GuidelinesForTables.md#GuidelinesForTables.Bursting)\.
+In some cases, DynamoDB will use *burst capacity* to accommodate reads or writes in excess of your table's throughput settings\. With burst capacity, unexpected read or write requests can succeed where they otherwise would be throttled\. Burst capacity is available on a best\-effort basis, and DynamoDB does not guarantee that this capacity is always available\. For more information, see [Using Burst Capacity Effectively](bp-partition-key-design.md#bp-partition-key-throughput-bursting)\.
 
 ## Choosing Initial Throughput Settings<a name="ProvisionedThroughput.CapacityUnits.InitialSettings"></a>
 
 Every application has different requirements for reading and writing from a database\. When you are determining the initial throughput settings for a DynamoDB table, take the following inputs into consideration:
-
 + **Item sizes\.** Some items are small enough that they can be read or written using a single capacity unit\. Larger items will require multiple capacity units\. By estimating the sizes of the items that will be in your table, you can specify accurate settings for your table's provisioned throughput\.
-
 + **Expected read and write request rates\.** In addition to item size, you should estimate the number of reads and writes you need to perform per second\.
-
 + **Read consistency requirements\.** Read capacity units are based on strongly consistent read operations, which consume twice as many database resources as eventually consistent reads\. You should determine whether your application requires strongly consistent reads, or whether it can relax this requirement and perform eventually consistent reads instead\. \(Read operations in DynamoDB are eventually consistent, by default; you can request strongly consistent reads for these operations if necessary\.\)
 
 **Note**  
-For recommendations on provisioned throughput and related topics, see [Best Practices for Tables](GuidelinesForTables.md)\.
+For recommendations on provisioned throughput and related topics, see [Best Practices for Designing and Using Partition Keys Effectively](bp-partition-key-design.md)\.
 
 ## Modifying Throughput Settings<a name="ProvisionedThroughput.CapacityUnits.Modifying"></a>
 
 If you have enabled DynamoDB auto scaling for a table, then its throughput capacity will be dynamically adjusted in response to actual usage\. No manual intervention is required\.
 
-You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation \. You can increase throughput capacity as often as needed, and decrease it up to nine times per table in a single UTC calendar day\. For more information, see [Limits in DynamoDB](Limits.md)\.
+You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation\. For more information on throughput increases and decreases per day, see [Limits in DynamoDB](Limits.md)\.

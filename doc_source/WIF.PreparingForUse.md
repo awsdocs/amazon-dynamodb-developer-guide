@@ -3,11 +3,8 @@
 If you are an application developer and want to use web identity federation for your app, follow these steps:
 
 1. **Sign up as a developer with a third\-party identity provider\.** The following external links provide information about signing up with supported identity providers:
-
    + [Login with Amazon Developer Center](http://login.amazon.com/)
-
    + [Registration](https://developers.facebook.com/docs/plugins/registration/) on the Facebook site
-
    + [Using OAuth 2\.0 to Access Google APIs](https://developers.google.com/accounts/docs/OAuth2) on the Google site
 
 1. **Register your app with the identity provider\.** When you do this, the provider gives you an ID that's unique to your app\. If you want your app to work with multiple identity providers, you will need to obtain an app ID from each provider\.

@@ -8,7 +8,7 @@ In the following examples, Hive will read from and write to the following HDFS d
 
 The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and you have an external table that is mastered in DynamoDB \(*ddb\_features*\)\.
 
-
+**Topics**
 + [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.HDFS.DefaultFormat)
 + [Copying Data with a User\-Specified Format](#EMRforDynamoDB.CopyingData.HDFS.UserSpecifiedFormat)
 + [Copying Data Without a Column Mapping](#EMRforDynamoDB.CopyingData.HDFS.NoColumnMapping)

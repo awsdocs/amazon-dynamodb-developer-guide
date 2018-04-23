@@ -4,6 +4,6 @@ In addition to the Amazon DynamoDB web service, AWS provides a downloadable vers
 
 The topics in this section describe how to set up DynamoDB \(Downloadable Version\) and the DynamoDB web service\)\.
 
-
+**Topics**
 + [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)
 + [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)

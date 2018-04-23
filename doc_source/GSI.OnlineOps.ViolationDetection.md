@@ -3,23 +3,18 @@
 During the backfill phase of global secondary index creation, DynamoDB examines each item in the table to determine whether it is eligible for inclusion in the index\. Some items might not be eligible because they would cause index key violations\. In these cases, the items will remain in the table, but the index will not have a corresponding entry for that item\.
 
 An *index key violation* occurs if:
-
 + There is a data type mismatch between an attribute value and the index key schema data type\. For example, suppose one of the items in the *GameScores* table had a *TopScore* value of type String\. If you added a global secondary index with a partition key of *TopScore*, of type Number, the item from the table would violate the index key\.
-
 + An attribute value from the table exceeds the maximum length for an index key attribute\. The maximum length of a partition key is 2048 bytes, and the maximum length of a sort key is 1024 bytes\. If any of the corresponding attribute values in the table exceed these limits, the item from the table would violate the index key\.
 
 If an index key violation occurs, the backfill phase continues without interruption; however, any violating items are not included in the index\. After the backfill phase completes, all writes to items that violate the new index's key schema will be rejected\.
 
 To identify and fix attribute values in a table that violate an index key, use the Violation Detector tool\. To run Violation Detector, you create a configuration file that specifies the name of a table to be scanned, the names and data types of the global secondary index partition key and sort key, and what actions to take if any index key violations are found\. Violation Detector can run in one of two different modes:
-
 + **Detection mode**—detect index key violations\. Use detection mode to report the items in the table that would cause key violations in a global secondary index\. \(You can optionally request that these violating table items be deleted immediately when they are found\.\) The output from detection mode is written to a file, which you can use for further analysis\.
-
 + **Correction mode**— correct index key violations\. In correction mode, Violation Detector reads an input file with the same format as the output file from detection mode\. Correction mode reads the records from the input file and, for each record, it either deletes or updates the corresponding items in the table\. \(Note that if you choose to update the items, you must edit the input file and set appropriate values for these updates\.\)
 
 ## Downloading and Running Violation Detector<a name="GSI.OnlineOps.ViolationDetection.Running"></a>
 
 Violation Detector is available as an executable Java archive \(`.jar` file\), and will run on Windows, Mac, or Linux computers\. Violation Detector requires Java 1\.7 \(or above\) and Maven\.
-
 + [https://github\.com/awslabs/dynamodb\-online\-index\-violation\-detector](https://github.com/awslabs/dynamodb-online-index-violation-detector)
 
 Follow the instructions in the *README\.md* file to download and install Violation Detector using Maven
@@ -31,13 +26,9 @@ java -jar ViolationDetector.jar [options]
 ```
 
 The Violation Detector command line accepts the following options:
-
 + `-h | --help` — Prints a usage summary and options for Violation Detector\.
-
 + `-p | --configFilePath` `value` — The fully qualified name of a Violation Detector configuration file\. For more information, see [The Violation Detector Configuration File](#GSI.OnlineOps.ViolationDetection.ConfigFile) \.
-
 + `-t | --detect` `value` — Detect index key violations in the table, and write them to the Violation Detector output file\. If the value of this parameter is set to `keep`, items with key violations will not be modified\. If the value is set to `delete`, items with key violations will be deleted from the table\.
-
 + `-c | --correct` `value` — Read index key violations from an input file, and take corrective actions on the items in the table\. If the value of this parameter is set to `update`, items with key violations will be updated with new, non\-violating values\. If the value is set to `delete`, items with key violations will be deleted from the table\.
 
 ## The Violation Detector Configuration File<a name="GSI.OnlineOps.ViolationDetection.ConfigFile"></a>
@@ -49,18 +40,13 @@ At runtime, the Violation Detector tool requires a configuration file\. The para
 
 | Parameter Name | Description | Required? | 
 | --- | --- | --- | 
-|  `awsCredentialsFile`  |  The fully qualified name of a file containing your AWS credentials\. The credentials file must be in the following format: 
-
-```
-accessKey = access_key_id_goes_here
-secretKey = secret_key_goes_here
-```  |  Yes  | 
+|  `awsCredentialsFile`  |  The fully qualified name of a file containing your AWS credentials\. The credentials file must be in the following format: <pre>accessKey = access_key_id_goes_here<br />secretKey = secret_key_goes_here </pre>  |  Yes  | 
 |  `dynamoDBRegion`  |  The AWS region in which the table resides\. For example: `us-west-2`\.  |  Yes  | 
 |  `tableName`  | The name of the DynamoDB table to be scanned\. |  Yes  | 
 |  `gsiHashKeyName`  |  The name of the index partition key\.  |  Yes  | 
-|  `gsiHashKeyType`  |  The data type of the index partition key—String, Number, or Binary: `S | N | B`  |  Yes  | 
+|  `gsiHashKeyType`  |  The data type of the index partition key—String, Number, or Binary: `S \| N \| B`  |  Yes  | 
 |  `gsiRangeKeyName`  |  The name of the index sort key\. Do not specify this parameter if the index only has a simple primary key \(partition key\)\.  |  No  | 
-|  `gsiRangeKeyType`  |  The data type of the index sort key—String, Number, or Binary: `S | N | B`  Do not specify this parameter if the index only has a simple primary key \(partition key\)\.  |  No  | 
+|  `gsiRangeKeyType`  |  The data type of the index sort key—String, Number, or Binary: `S \| N \| B`  Do not specify this parameter if the index only has a simple primary key \(partition key\)\.  |  No  | 
 |  `recordDetails`  |  Whether to write the full details of index key violations to the output file\. If set to `true` \(the default\), full information about the violating items are reported\. If set to `false`, only the number of violations is reported\.  |  No  | 
 |  `recordGsiValueInViolationRecord`  |  Whether to write the values of the violating index keys to the output file\. If set to `true` \(default\), the key values are reported\. If set to `false`, the key values are not reported\.  |  No  | 
 |  `detectionOutputPath`  |  The full path of the Violation Detector output file\. This parameter supports writing to a local directory or to Amazon Simple Storage Service \(Amazon S3\)\. The following are examples: `detectionOutputPath = ``//local/path/filename.csv` `detectionOutputPath = ``s3://bucket/filename.csv` Information in the output file appears in CSV format \(comma\-separated values\)\. If you do not set `detectionOutputPath`, then the output file is named `violation_detection.csv` and is written to your current working directory\.  |  No  | 
@@ -80,7 +66,7 @@ To detect index key violations, use Violation Detector with the `--detect` comma
 
 | Id \(Primary Key\) | Price | 
 | --- | --- | 
-| 101 |  \-2  | 
+| 101 |  5  | 
 | 102 |  20  | 
 | 103 | 200  | 
 | 201 |  100  | 
@@ -140,31 +126,18 @@ Table Hash Key,GSI Hash Key Value,GSI Hash Key Violation Type,GSI Hash Key Viola
 ```
 
 The output file is in comma\-separated value format \(CSV\)\. The first line in the file is a header, followed by one record per item that violates the index key\. The fields of these violation records are as follows:
-
 + **Table Hash Key**—the partition key value of the item in the table\.
-
 + **Table Range Key**—the sort key value of the item in the table\.
-
 + **GSI Hash Key Value**—the partition key value of the global secondary index
-
 + **GSI Hash Key Violation Type**—either `Type Violation` or `Size Violation`\.
-
 + **GSI Hash Key Violation Description**—the cause of the violation\.
-
 + **GSI Hash Key Update Value\(FOR USER\)**—in correction mode, a new user\-supplied value for the attribute\.
-
 + **GSI Range Key Value**—the sort key value of the global secondary index
-
 + **GSI Range Key Violation Type**—either `Type Violation` or `Size Violation`\.
-
 + **GSI Range Key Violation Description**—the cause of the violation\.
-
 + **GSI Range Key Update Value\(FOR USER\)**—in correction mode, a new user\-supplied value for the attribute\.
-
 + **Delete Blank Attribute When Updating\(Y/N\)**—in correction mode, determines whether to delete \(Y\) or keep \(N\) the violating item in the table—but only if either of the following fields are blank:
-
   + `GSI Hash Key Update Value(FOR USER)`
-
   + `GSI Range Key Update Value(FOR USER)`
 
   If either of these fields are non\-blank, then `Delete Blank Attribute When Updating(Y/N)` has no effect\.
@@ -178,9 +151,7 @@ The violation records in the file might not be in sorted order\.
 To correct index key violations, use Violation Detector with the `--correct` command line option\. In correction mode, Violation Detector reads the input file specified by the `correctionInputPath` parameter\. This file has the same format as the `detectionOutputPath` file, so that you can use the output from detection as input for correction\.
 
 Violation Detector provides two different ways to correct index key violations:
-
 + **Delete violations**—delete the table items that have violating attribute values\.
-
 + **Update violations**—update the table items, replacing the violating attributes with non\-violating values\.
 
 In either case, you can use the output file from detection mode as input for correction mode\.

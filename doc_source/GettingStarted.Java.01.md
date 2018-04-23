@@ -1,9 +1,7 @@
 # Step 1: Create a Table<a name="GettingStarted.Java.01"></a>
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
-
 + `year` – The partition key\. The `ScalarAttributeType` is `N` for number\.
-
 + `title` – The sort key\. The `ScalarAttributeType` is `S` for string\.
 
 1. Copy and paste the following program into your Java development environment:

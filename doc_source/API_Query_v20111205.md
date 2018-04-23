@@ -190,5 +190,4 @@ content-length: 119
 ```
 
 ## Related Actions<a name="API_Query_Related_Actions"></a>
-
 +  [Scan](API_Scan_v20111205.md) 

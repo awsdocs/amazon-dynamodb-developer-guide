@@ -1,6 +1,6 @@
 # Step 1: Deploy and Test Locally<a name="TicTacToe.Phase1"></a>
 
-
+**Topics**
 + [1\.1: Download and Install Required Packages](#TicTacToe.Phase1.InstallApp)
 + [1\.2: Test the Game Application](#TicTacToe.RunAppLocally)
 
@@ -9,15 +9,10 @@ In this step you download, deploy, and test the Tic\-Tac\-Toe game application o
 ## 1\.1: Download and Install Required Packages<a name="TicTacToe.Phase1.InstallApp"></a>
 
 You will need the following to test this application locally:
-
 + Python 
-
 + Flask \(a microframework for Python\)
-
 + AWS SDK for Python \(Boto\)
-
 + DynamoDB running on your computer
-
 + Git 
 
 To get these tools, do the following:
@@ -27,7 +22,6 @@ To get these tools, do the following:
    The Tic\-Tac\-Toe application has been tested using Python version 2\.7\. 
 
 1. Install Flask and AWS SDK for Python \(Boto\) using the Python Package Installer \(PIP\):
-
    + Install PIP\. 
 
      For instructions, go to [Install PIP](http://pip.readthedocs.org/en/stable/installing/)\. On the installation page, choose the **get\-pip\.py** link, and then save the file\. Then open a command terminal as an administrator, and type the following at the command prompt:
@@ -37,7 +31,6 @@ To get these tools, do the following:
      ```
 
       On Linux, you don't specify the `.exe` extension\. You only specify `python get-pip.py`\. 
-
    + Using PIP, install the Flask and Boto packages using the following code:
 
      ```
@@ -83,19 +76,19 @@ To test the Tic\-Tac\-Toe application, you need to run DynamoDB locally on your 
    ```
 
    The browser shows the home page:  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-ddb-local-play-5.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Type **user1** in the **Log in** box to log in as user1\.
 **Note**  
 This example application does not perform any user authentication\. The user ID is only used to identify players\. If two players log in with the same alias, the application works as if you are playing in two different browsers\.
 
 1. If this is your first time playing the game, a page appears requesting you to create the required table \(Games\) in DynamoDB\. Choose **CREATE TABLE**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-ddb-local-play-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Choose **CREATE** to create the first tic\-tac\-toe game\.
 
 1. Type **user2** in the **Choose an Opponent** box, and choose **Create Game\!**  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-ddb-local-play-20.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    Doing this creates the game by adding an item in the Games table\. It sets the game status to `PENDING`\. 
 
@@ -110,10 +103,10 @@ This example application does not perform any user authentication\. The user ID 
 1. Log in as user2\.
 
    A page appears that shows a pending invitation from user1\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-ddb-local-play-30.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Choose **accept** to accept the invitation\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-ddb-local-play-40.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    The game page appears with an empty tic\-tac\-toe grid\. The page also shows relevant game information such as the game ID, whose turn it is, and game status\. 
 

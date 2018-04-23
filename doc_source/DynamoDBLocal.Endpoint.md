@@ -20,9 +20,7 @@ The AWS CLI can't use the downloadable version of DynamoDB as a default endpoint
 ## AWS SDKs<a name="w3ab1b9b9c11b9"></a>
 
 The way you specify an endpoint depends on the programming language and AWS SDK you're using\. The following sections describe how to do this:
-
 + [Java: Setting the AWS Region and Endpoint](CodeSamples.Java.md#CodeSamples.Java.RegionAndEndpoint)
-
 + [\.NET: Setting the AWS Region and Endpoint](CodeSamples.DotNet.md#CodeSamples.DotNet.RegionAndEndpoint)
 
 **Note**  

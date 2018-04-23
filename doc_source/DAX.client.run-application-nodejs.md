@@ -1,9 +1,6 @@
-# Step 4b: \(Node\.js\) Run the Sample Application<a name="DAX.client.run-application-nodejs"></a>
+# Node\.js and DAX<a name="DAX.client.run-application-nodejs"></a>
 
-**Note**  
-This section covers the DAX client for Node\.js\. If you prefer using Java, skip this section and go to [Step 4a: \(Java\) Run the Sample Application](DAX.client.run-application-java.md)\.
-
- To help you test DAX functionality, we have provided some Node\.js programs that you can run on your Amazon EC2 instance\.
+To run the Node\.js sample application on your Amazon EC2 instance, follow this proceedure:
 
 1. Set up Node\.js on your Amazon EC2 instance:
 
@@ -75,13 +72,11 @@ This section covers the DAX client for Node\.js\. If you prefer using Java, skip
 1. In the previous step, you ran the programs against the DynamoDB endpoint\. You will now run the programs again, but this time the `GetItem`, `Query` and `Scan` operations will be processed by your DAX cluster\.
 
    To determine the endpoint for your DAX cluster, choose one of the following:
-
    + **Using the DynamoDB console**—choose your DAX cluster\. The cluster endpoint is shown in the console\. For example: 
 
      ```
      mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
      ```
-
    + **Using the AWS CLI**—type the following command:
 
      ```
@@ -114,15 +109,9 @@ This section covers the DAX client for Node\.js\. If you prefer using Java, skip
    ```
 
 For more information about these programs, see the following sections:
-
 + [01\-create\-table\.js](DAX.client.run-application-nodejs.01-create-table.md)
-
 + [02\-write\-data\.js](DAX.client.run-application-nodejs.02-write-data.md)
-
 + [03\-getitem\-test\.js](DAX.client.run-application-nodejs.03-getitem-test.md)
-
 + [04\-query\-test\.js](DAX.client.run-application-nodejs.04-query-test.md)
-
 + [05\-scan\-test\.js](DAX.client.run-application-nodejs.05-scan-test.md)
-
 + [06\-delete\-table\.js](DAX.client.run-application-nodejs.06-delete-table.md)

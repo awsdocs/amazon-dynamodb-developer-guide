@@ -2,7 +2,7 @@
 
 This section addresses some of the common management tasks for DAX clusters\.
 
-
+**Topics**
 + [IAM Permissions for Managing a DAX Cluster](#DAX.cluster-management.iam-permissions)
 + [Customizing DAX Cluster Settings](#DAX.cluster-management.custom-settings)
 + [Configuring TTL Settings](#DAX.cluster-management.custom-settings.ttl)
@@ -117,21 +117,14 @@ The following example policy shows this approach\. Note how the `DAXDataAPIs` st
 ## Customizing DAX Cluster Settings<a name="DAX.cluster-management.custom-settings"></a>
 
 When you create a DAX cluster, the following default settings are used:
-
 + Automatic cache eviction enabled with TTL of 5 minutes
-
 + No preference for availability zones
-
 + No preference for maintenance windows
-
 + Notifications disabled
 
 You cannot change these settings on a DAX cluster that is currently running\. However, for new clusters, you can customize the settings at creation time\. To do this in the AWS Management Console, deselect **Use default settings** to modify the following settings:
-
 + **Network and Security**—allows you to run individual DAX cluster nodes in different Availability Zones \(AZs\) within the current AWS region\. If you choose **No Preference**, the nodes will be distributed among AZs automatically\.
-
 + **Parameter Group**—a named set of parameters that are applied to every node in the cluster\. You can use a parameter group to specify cache time\-to\-live \(TTL\) behavior\.
-
 + **Maintenance Window**—a weekly time period during which software upgrades and patches are applied to the nodes in the cluster\. You can choose the start day, start time, and duration of the maintenance window\. If you choose **No Preference**, the maintenance window will be selected at random from an 8\-hour block of time per region\. \(For more information, see [Maintenance Window](DAX.concepts.cluster.md#DAX.concepts.maintenance-window)\.\) 
 
 When a maintenance event occurs, DAX can notify you using Amazon Simple Notification Service \(Amazon SNS\)\. To configure notifications, choose an option from the **Topic for SNS notification** selector\. You can create a new Amazon SNS topic, or use an existing topic\. \(For more information on setting up and subscribing to an Amazon SNS topic, see [Getting Started with Amazon Simple Notification Service](http://docs.aws.amazon.com/sns/latest/dg/GettingStarted.html) in the Amazon Simple Notification Service Developer Guide\.\)
@@ -172,14 +165,12 @@ You can create a new DAX cluster using the AWS Management Console or the AWS CLI
 ## Configuring TTL Settings<a name="DAX.cluster-management.custom-settings.ttl"></a>
 
 DAX maintains two caches for data that it reads from DynamoDB:
-
 + **Item cache**—for items retrieved using GetItem or BatchGetItem\.
-
 + **Query cache**—for result sets retrieved using Query or Scan\.
 
 For more information, see [Item Cache](DAX.concepts.md#DAX.concepts.item-cache) and [Query Cache](DAX.concepts.md#DAX.concepts.query-cache)
 
-The default time to live \(TTL\) for each of these caches is 5 minutes\. If you want to use different TTL settings, you can launch a DAX cluster using a custom parameter group\. To do this in the AWS Management Console, choose **DAX | Parameter groups** in the navigation pane\.
+The default time to live \(TTL\) for each of these caches is 5 minutes\. If you want to use different TTL settings, you can launch a DAX cluster using a custom parameter group\. To do this in the AWS Management Console, choose **DAX \| Parameter groups** in the navigation pane\.
 
 You can also perform these tasks using the AWS CLI\. The following example shows how to launch a new DAX cluster using a custom parameter group\. In this example, the item cache TTL will be set to 10 minutes and the query cache TTL will be set to 3 minutes\.
 

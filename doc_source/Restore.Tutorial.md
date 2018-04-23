@@ -2,29 +2,28 @@
 
 This section describes how to restore a table from a backup using the DynamoDB console or the AWS Command Line Interface\. \(If you want to use the AWS CLI, you need to configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.\)
 
-
+**Topics**
 + [Restoring a Table from a Backup \(Console\)](#restoretable_console)
 + [Restoring a Table from a Backup \(AWS CLI\)](#restoretable_cli)
 
 ## Restoring a Table from a Backup \(Console\)<a name="restoretable_console"></a>
 
-The following procedure shows how to restore the `MusicCollection` table by using the `MusicCollectionBackup` file that is created in the [Backing Up a DynamoDB Table](Backup.Tutorial.md) tutorial\.
+The following procedure shows how to restore the `MusicCollection` table by using the `MusicCollectionBackup` file that is created in the [Backing Up a DynamoDB Table](Backup.Tutorial.md) tutorial\. 
+**Note**  
+ This procedure assumes the `MusicCollection` table no longer exists before restoring it using the `MusicCollectionBackup`\. 
 
 1. Sign in to the AWS Management Console and open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
 1. In the navigation pane on the left side of the console, choose **Backups**\.
 
 1. In the list of backups, choose `MusicCollectionBackup`\.  
-![\[Screenshot of the backups list and the create backup
-                            button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/select_musicbackup.png)
+![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/select_musicbackup.png)
 
 1. Choose **Restore backup**\.  
-![\[Screenshot of the backups list with the restore backup button
-                            highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/choose_restore.png)
+![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/choose_restore.png)
 
 1. Type **MusicCollection** as the new table name\. Confirm the backup name and other backup details\. Then choose **Restore table** to start the restore process\.  
-![\[Screenshot of the restore table from backup screen with backup table
-                            details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)
+![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)
 
    The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `MusicCollection` table changes to **Active**\.  
 ![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_complete.png)
@@ -63,5 +62,5 @@ aws dynamodb describe-table --table-name MusicCollection
 The table that is being restored from the backup is shown with the status **Creating**\. After the restore process is finished, the status of the `MusicCollection` table changes to **Active**\.
 
 **Important**  
-While a restore is in progress, do not modify or delete your IAM role policy; otherwise, unexpected behavior can result\. For example, suppose that you removed write permissions for a table while that table is being restored\. In this case, the underlying `RestoreTableFromBackup` operation would not be able to write any of the restored data to the table\.   
+While a restore is in progress, do not modify or delete your IAM role policy; otherwise, unexpected behavior can result\. For example, suppose that you removed write permissions for a table while that table is being restored\. In this case, the underlying `RestoreTableFromBackup` operation would not be able to write any of the restored data to the table\. Note that IAM policies involving source IP restrictions for accessing the target restore table may similarly cause issues\.  
 After the restore operation is complete, you can modify or delete your IAM role policy\.

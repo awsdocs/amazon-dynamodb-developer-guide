@@ -2,7 +2,7 @@
 
 In this step, you populate the `Movies` table with sample data\.
 
-
+**Topics**
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.Ruby.02.01)
 + [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.Ruby.02.02)
 
@@ -27,9 +27,7 @@ You use a sample data file that contains information about a few thousand movies
 ```
 
 In the JSON data, note the following:
-
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-
 + You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
 
  The following is an example of movie data:
@@ -87,14 +85,14 @@ After you download the sample data, you can run the following program to populat
    
    dynamodb = Aws::DynamoDB::Client.new
    
-   tableName = 'Movies'
+   table_name = 'Movies'
    
    file = File.read('moviedata.json')
    movies = JSON.parse(file)
    movies.each{|movie|
    
        params = {
-           table_name: tableName,
+           table_name: table_name,
            item: movie
        }
    

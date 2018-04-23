@@ -1,6 +1,6 @@
 # Java: DynamoDBMapper<a name="DynamoDBMapper"></a>
 
-
+**Topics**
 + [Supported Data Types](DynamoDBMapper.DataTypes.md)
 + [Java Annotations for DynamoDB](DynamoDBMapper.Annotations.md)
 + [The `DynamoDBMapper` Class](DynamoDBMapper.Methods.md)
@@ -47,7 +47,7 @@ public class CatalogItem {
     
     @DynamoDBHashKey(attributeName="Id")  
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public void setId(Integer id) {this.id = id; }
     
     @DynamoDBAttribute(attributeName="Title")  
     public String getTitle() {return title; }
@@ -71,7 +71,7 @@ In the preceding code, the `@DynamoDBTable` annotation maps the `CatalogItem` cl
 
 By default, the class properties map to the same name attributes in the table\. The properties `Title` and `ISBN` map to the same name attributes in the table\. 
 
-The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the `attributeName` parameter to specify which DynamoDB attribute this property corresponds to\. In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Sample Data](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
+The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the attributeName\(\) parameter to specify which DynamoDB attribute this property corresponds to\. In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Sample Data](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
 
 Your class definition can have properties that don't map to any attributes in the table\. You identify these properties by adding the `@DynamoDBIgnore` annotation\. In the preceding example, the `SomeProp` property is marked with the `@DynamoDBIgnore` annotation\. When you upload a `CatalogItem` instance to the table, your `DynamoDBMapper` instance does not include `SomeProp` property\. In addition, the mapper does not return this attribute when you retrieve an item from the table\. 
 

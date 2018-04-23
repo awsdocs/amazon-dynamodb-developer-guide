@@ -20,7 +20,7 @@ Within each clause are one or more actions, separated by commas\. Each action re
 
 The examples in this section are based on the *ProductCatalog* item shown in [Projection Expressions](Expressions.ProjectionExpressions.md)\.
 
-
+**Topics**
 + [*SET*—Modifying or Adding Item Attributes](#Expressions.UpdateExpressions.SET)
 + [*REMOVE*—Deleting Attributes From An Item](#Expressions.UpdateExpressions.REMOVE)
 + [*ADD*—Updating Numbers and Sets](#Expressions.UpdateExpressions.ADD)
@@ -33,9 +33,7 @@ Use the `SET` action in an update expression to add one or more attributes to an
 You can also use `SET` to add or subtract from an attribute that is of type Number\. To perform multiple `SET` actions, separate them by commas\.
 
 In the following syntax summary:
-
 + The *path* element is the document path to the item\.
-
 + An **operand** element can be either a document path to an item, or a function\.
 
 ```
@@ -71,7 +69,7 @@ The arguments for `--item` are stored in the file `item.json`\. \(For simplicity
 }
 ```
 
-
+**Topics**
 + [Modifying Attributes](#Expressions.UpdateExpressions.SET.ModifyingAttributes)
 + [Adding Lists and Maps](#Expressions.UpdateExpressions.SET.AddingListsAndMaps)
 + [Adding Elements To a List](#Expressions.UpdateExpressions.SET.AddingListElements)
@@ -220,7 +218,6 @@ To increase the *Price*, you would use the `+` operator in the update expression
 ### Appending Elements To a List<a name="Expressions.UpdateExpressions.SET.UpdatingListElements"></a>
 
 You can add elements to the end of a list,\. To do this, use `SET` with the `list_append` function\. \(The function name is case\-sensitive\.\) The `list_append` function is specific to the `SET` action, and can only be used in an update expression\. The syntax is:
-
 + `list_append (list1, list2)`
 
 The function takes two lists as input, and appends `list2` to ` list1`\.
@@ -265,7 +262,6 @@ The resulting `RelatedItems` attribute now contains five elements, in the follow
 ### Preventing Overwrites of an Existing Attribute<a name="Expressions.UpdateExpressions.SET.PreventingAttributeOverwrites"></a>
 
 If you want to avoid overwriting an existing attribute, you can use `SET` with the `if_not_exists` function\. \(The function name is case\-sensitive\.\) The `if_not_exists` function is specific to the `SET` action, and can only be used in an update expression\. The syntax is:
-
 + `if_not_exists (path, value)`
 
 If the item does not contain an attribute at the specified `path`, then `if_not_exists` evaluates to `value`; otherwise, it evaluates to `path`\. 
@@ -310,15 +306,10 @@ You can use `REMOVE` to delete individual elements from a list\.
 
 **Example**  
 In [Appending Elements To a List](#Expressions.UpdateExpressions.SET.UpdatingListElements), we modified a list attribute \(`RelatedItems`\) so that it contained five elements:   
-
 + `[0]`—`Chisel`
-
 + `[1]`—`Hammer`
-
 + `[2]`—`Nails`
-
 + `[3]`—`Screwdriver`
-
 + `[4]`—`Hacksaw`
 The following AWS CLI example deletes `Hammer` and `Nails` from the list\.  
 
@@ -330,11 +321,8 @@ aws dynamodb update-item \
     --return-values ALL_NEW
 ```
 After removing `Hammer` and `Nails`, the remaining elements are shifted\. The list now contains the following:  
-
 + `[0]`—`Chisel`
-
 + `[1]`—`Screwdriver`
-
 + `[2]`—`Hacksaw`
 
 ## *ADD*—Updating Numbers and Sets<a name="Expressions.UpdateExpressions.ADD"></a>
@@ -345,9 +333,7 @@ In general, we recommend using `SET` rather than `ADD`\.
 Use the `ADD` action in an update expression to add a new attribute and its value\(s\) to an item\.
 
 If the attribute already exists, then the behavior of `ADD` depends on the attribute's data type:
-
 + If the attribute is a number, and the value you are adding is also a number, then the value is mathematically added to the existing attribute\. \(If the value is a negative number, then it is subtracted from the existing attribute\.\)
-
 + If the attribute is a set, and the value you are adding is also a set, then the value is appended to the existing set\.
 
 **Note**  
@@ -356,9 +342,7 @@ The `ADD` action only supports number and set data types\.
 To perform multiple `ADD` actions, separate them by commas\.
 
 In the following syntax summary:
-
 + The *path* element is the document path to an attribute\. The attribute must be either a Number or a set data type\. 
-
 + The *value* element is a number that you want to add to the attribute \(for Number data types\), or a set to append to the attribute \(for set types\)\.
 
 ```
@@ -413,9 +397,7 @@ The `DELETE` action only supports Set data types\.
 Use the `DELETE` action in an update expression to remove one or more elements from a set\. To perform multiple `DELETE` actions, separate them by commas\.
 
 In the following syntax summary:
-
 + The *path* element is the document path to an attribute\. The attribute must be a set data type\.
-
 + The *subset* is one or more elements that you want to delete from *path*\. that you want to delete\. You must specify *subset* as a set type\.
 
 ```

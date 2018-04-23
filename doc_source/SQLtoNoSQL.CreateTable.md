@@ -62,13 +62,9 @@ Use the `CreateTable` action to create a table, specifying parameters as shown f
 The primary key for this table consists of *Artist* \(partition key\) and *SongTitle* \(sort key\)\.
 
 You must provide the following parameters to `CreateTable`:
-
 + `TableName` – Name of the table\.
-
 + `KeySchema` – Attributes that are used for the primary key\. For more information, see [Tables, Items, and Attributes](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.TablesItemsAttributes) and [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
-
 + `AttributeDefinitions` – Data types for the key schema attributes\.
-
 + `ProvisionedThroughput` – Number of reads and writes per second that you need for this table\. DynamoDB reserves sufficient storage and system resources so that your throughput requirements are always met\. You can use the `UpdateTable` action to change these later, if necessary\. You do not need to specify a table's storage requirements because storage allocation is managed entirely by DynamoDB\.
 
 **Note**  

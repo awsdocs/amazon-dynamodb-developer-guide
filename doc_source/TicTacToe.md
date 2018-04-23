@@ -1,6 +1,6 @@
 # DynamoDB Example Application Using AWS SDK for Python \(Boto\): Tic\-Tac\-Toe<a name="TicTacToe"></a>
 
-
+**Topics**
 + [Step 1: Deploy and Test Locally](TicTacToe.Phase1.md)
 + [Step 2: Examine the Data Model and Implementation Details](TicTacToe.Phase2.md)
 + [Step 3: Deploy in Production Using the DynamoDB Service](TicTacToe.Phase3.md)
@@ -23,11 +23,7 @@ You play the Tic\-Tac\-Toe application on the web as follows:
 1. The game ends with a win or a draw, which sets the game status to `FINISHED`\.
 
 The end\-to\-end application building exercise is described in steps:
-
 + **[Step 1: Deploy and Test Locally](TicTacToe.Phase1.md)** – In this section, you download, deploy, and test the application on your local computer\. You will create the required tables in the downloadable version of DynamoDB\.
-
 + **[Step 2: Examine the Data Model and Implementation Details ](TicTacToe.Phase2.md)** – This section first describes in detail the data model, including the indexes and the use of the concatenated value attribute\. Then the section explains how the application works\. 
-
 + **[Step 3: Deploy in Production Using the DynamoDB Service](TicTacToe.Phase3.md)** – This section focuses on deployment considerations in production\. In this step, you create a table using the Amazon DynamoDB service and deploy the application using AWS Elastic Beanstalk\. When you have the application in production, you also grant appropriate permissions so the application can access the DynamoDB table\. The instructions in this section walk you through the end\-to\-end production deployment\.
-
 + **[Step 4: Clean Up Resources](TicTacToe.AppClosure.md)** – This section highlights areas that are not covered by this example\. The section also provides steps for you to remove the AWS resources you created in the preceding steps so that you avoid incurring any charges\.

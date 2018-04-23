@@ -41,9 +41,7 @@ for (Map<String, AttributeValue> item : result.getItems()){
 The `scan` method supports several optional parameters\. For example, you can optionally use a filter expression to filter the scan result\. In a filter expression, you can specify a condition and attribute names and values on which you want the condition evaluated\. For more information, see [Scan](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
 The following Java snippet scans the ProductCatalog table to find items that are priced less than 0\. The snippet specifies the following optional parameters:
-
 + A filter expression to retrieve only the items priced less than 0 \(error condition\)\. 
-
 + A list of attributes to retrieve for items in the query results\.
 
 **Example**  
@@ -124,10 +122,10 @@ public class DocumentAPIScan {
 
     public static void main(String[] args) throws Exception {
 
-        findProductsForPriceLessThanZero();
+        findProductsForPriceLessThanOneHundred();
     }
 
-    private static void findProductsForPriceLessThanZero() {
+    private static void findProductsForPriceLessThanOneHundred() {
 
         Table table = dynamoDB.getTable(tableName);
 

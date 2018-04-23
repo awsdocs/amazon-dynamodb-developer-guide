@@ -3,15 +3,10 @@
 ## Batch Write: Putting and Deleting Multiple Items<a name="DotNetDynamoDBContext.BatchWrite"></a>
 
 To put or delete multiple objects from a table in a single request, do the following:
-
 + Execute `CreateBatchWrite` method of the `DynamoDBContext` and create an instance of the `BatchWrite` class\.
-
 + Specify the items you want to put or delete\.
-
   + To put one or more items, use either the `AddPutItem` or the `AddPutItems` method\.
-
   + To delete one or more items, you can either specify the primary key of the item or a client\-side object that maps to the item you want to delete\. Use the `AddDeleteItem`, `AddDeleteItems`, and the `AddDeleteKey` methods to specify the list of items to delete\.
-
 + Call the `BatchWrite.Execute` method to put and delete all the specified items from the table\.
 
 **Note**  
@@ -51,17 +46,11 @@ bookBatch.Execute();
 ```
 
 To put or delete objects from multiple tables, do the following:
-
 + Create one instance of the `BatchWrite` class for each type and specify the items you want to put or delete as described in the preceding section\.
-
 + Create an instance of `MultiTableBatchWrite` using one of the following methods:
-
   + Execute the `Combine` method on one of the `BatchWrite` objects that you created in the preceding step\. 
-
   + Create an instance of the `MultiTableBatchWrite` type by providing a list of `BatchWrite` objects\.
-
   + Execute the `CreateMultiTableBatchWrite` method of `DynamoDBContext` and pass in your list of `BatchWrite` objects\.
-
 + Call the `Execute` method of `MultiTableBatchWrite`, which performs the specified put and delete operations on various tables\.
 
 Suppose that you have defined Forum and Thread C\# classes that map to the Forum and Thread tables in DynamoDB\. Also, suppose that the Thread class has versioning enabled\. Because versioning is not supported when using batch operations, you must explicitly disable versioning as shown in the following C\# code snippet\. The code snippet uses the `MultiTableBatchWrite` object to perform a multi\-table update\. 
@@ -112,11 +101,8 @@ DynamoDB batch API limits the number of writes in batch and also limits the size
 ## Batch Get: Getting Multiple Items<a name="DotNetDynamoDBContext.BatchGet"></a>
 
 To retrieve multiple items from a table in a single request, do the following:
-
 + Create an instance of the `CreateBatchGet` class\.
-
 + Specify a list of primary keys to retrieve\.
-
 + Call the `Execute` method\. The response returns the items in the `Results` property\.
 
 The following C\# code sample retrieves three items from the ProductCatalog table\. The items in the result are not necessarily in the same order in which you specified the primary keys\.
@@ -138,17 +124,11 @@ Book book3 = bookBatch.Results[2];
 ```
 
 To retrieve objects from multiple tables, do the following:
-
 + For each type, create an instance of the `CreateBatchGet` type and provide the primary key values you want to retrieve from each table\. 
-
 + Create an instance of the `MultiTableBatchGet` class using one of the following methods:
-
   + Execute the `Combine` method on one of the `BatchGet` objects you created in the preceding step\. 
-
   + Create an instance of the `MultiBatchGet` type by providing a list of `BatchGet` objects\.
-
   + Execute the `CreateMultiTableBatchGet` method of `DynamoDBContext` and pass in your list of `BatchGet` objects\.
-
 + Call the `Execute` method of `MultiTableBatchGet` which returns the typed results in the individual `BatchGet` objects\.
 
  The following C\# code snippet retrieves multiple items from the Order and OrderDetail tables using the CreateBatchGet method\. 

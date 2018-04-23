@@ -4,7 +4,7 @@ In this step, you perform read and write operations on an item in the `Movies` t
 
 To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
 
-
+**Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.NodeJs.03.01)
 + [Step 3\.2: Read an Item](#GettingStarted.NodeJs.03.02)
 + [Step 3\.3: Update an Item](#GettingStarted.NodeJs.03.03)
@@ -121,9 +121,7 @@ You can use the `get` method to read the item from the `Movies` table\. You must
 You can use the `update` method to modify an existing item\. You can update values of existing attributes, add new attributes, or remove attributes\.
 
 In this example, you perform the following updates:
-
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
-
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
 The item changes from this:

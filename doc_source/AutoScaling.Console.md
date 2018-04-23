@@ -1,6 +1,6 @@
 # Using the AWS Management Console With DynamoDB Auto Scaling<a name="AutoScaling.Console"></a>
 
-
+**Topics**
 + [Before You Begin: Grant User Permissions for DynamoDB Auto Scaling](#AutoScaling.Permissions)
 + [Creating a New Table with Auto Scaling Enabled](#AutoScaling.Console.NewTable)
 + [Enabling DynamoDB Auto Scaling on Existing Tables](#AutoScaling.Console.ExistingTable)
@@ -8,6 +8,9 @@
 + [Modifying or Disabling DynamoDB Auto Scaling Settings](#AutoScaling.Console.Modifying)
 
 When you use the AWS Management Console to create a new table, DynamoDB auto scaling is enabled for that table by default\. You can also use the console to enable auto scaling for existing tables, modify auto scaling settings, or disable auto scaling\.
+
+**Note**  
+ For more advanced features like setting scale in and scale out cooldown times use the AWS Command Line Interface \(AWS CLI\) to manage DynamoDB auto scaling\. 
 
 ## Before You Begin: Grant User Permissions for DynamoDB Auto Scaling<a name="AutoScaling.Permissions"></a>
 
@@ -32,43 +35,10 @@ To set up an IAM user for DynamoDB console access and DynamoDB auto scaling, add
 
 1. Choose **Add permissions**\.
 
-**To add a custom inline policy**
-
-1. On the IAM console dashboard, choose **Users**, and then choose your IAM user from the list\.
-
-1. On the **Summary** page, choose **Add inline policy**\.
-
-1. On the **Set Permissions** page, choose **Custom Policy**, and then choose **Select**\.
-
-1. On the **Review Policy** page, do the following:
-
-   1. **Policy Name**—type a name for the policy\. For example: *MyDynamoDBAutoscalingPolicy*
-
-   1. **Policy Document**—copy and paste the following:
-
-      ```
-      {
-          "Version": "2012-10-17",
-          "Statement": [
-              {
-                  "Effect": "Allow",
-                  "Action": [
-                      "iam:AttachRolePolicy",
-                      "iam:CreatePolicy",
-                      "iam:CreateRole"
-                  ],
-                  "Resource": "*"
-              }
-          ]
-      }
-      ```
-
-1. After you have done this, choose **Apply Policy**\.
-
 ## Creating a New Table with Auto Scaling Enabled<a name="AutoScaling.Console.NewTable"></a>
 
 **Note**  
-DynamoDB auto scaling requires the presence of a role \(*DynamoDBAutoscaleRole*\) that performs auto scaling actions on your behalf\. You do not need to create this role yourself\. Instead, the DynamoDB console creates the role automatically, when you create a new table with auto scaling for the first time\.
+DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-autoscaling-service-linked-roles.html)\. 
 
 **To create a new table with auto scaling enabled**
 
@@ -78,24 +48,21 @@ DynamoDB auto scaling requires the presence of a role \(*DynamoDBAutoscaleRole*\
 
 1. On the **Create DynamoDB table** page, enter a **Table name** and **Primary key** details\.
 
-1. If you see the following message, then your AWS account does not currently have the *DynamoDBAutoscaleRole*:  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+1.  Ensure that **Use default settings** is selected\. \(Your AWS account already has *AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\.\) 
 
-   In this case, do the following:
+    Otherwise, for custom settings: 
 
    1. Deselect **Use default settings**\.
 
-   1. In the **Auto scaling** section, ensure that **New role: DynamoDBAutoscaleRole** is selected\.
+   1. In the **Auto scaling** section, set the parameter settings and ensure that `AWSServiceRoleForApplicationAutoScaling_DynamoDBTable` is selected\.
 
-   Otherwise, simply ensure that **Use default settings** is selected\. \(Your AWS account already has *DynamoDBAutoscaleRole*\.\)
-
-1. When the settings are as you want them, choose **Create**\. Your table will be created with default auto scaling parameters\.
+1. When the settings are as you want them, choose **Create**\. Your table will be created with the auto scaling parameters\.
 
 ## Enabling DynamoDB Auto Scaling on Existing Tables<a name="AutoScaling.Console.ExistingTable"></a>
 
 **Note**  
-DynamoDB auto scaling requires the presence of a role \(*DynamoDBAutoscaleRole*\) that performs auto scaling actions on your behalf\. The DynamoDB console will create the role for you when you create a new table with auto scaling for the first time\.  
-If you have never used DynamoDB auto scaling before, see [Creating a New Table with Auto Scaling Enabled](#AutoScaling.Console.NewTable)\. The DynamoDB console creates *DynamoDBAutoscaleRole* automatically, when you create a new table with auto scaling for the first time\.
+DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-autoscaling-service-linked-roles.html)\.  
+If you have never used DynamoDB auto scaling before, see [Creating a New Table with Auto Scaling Enabled](#AutoScaling.Console.NewTable)\.
 
 To enable DynamoDB auto scaling for an existing table, do the following:
 
@@ -106,13 +73,9 @@ To enable DynamoDB auto scaling for an existing table, do the following:
 1. In the **Auto Scaling** section, do the following:
 
    1. Select **Read capacity**, **Write capacity**, or both\. \(For write capacity, note that you can choose **Same settings as read**\.\) For each of these, do the following:
-
      + **Target utilization**—Type your target utilization percentage for the table\.
-
      + **Minimum provisioned capacity**—Type your lower boundary for the auto scaling range\.
-
      + **Maximum provisioned capacity**—Type your upper boundary for the auto scaling range\.
-
      + **Apply same settings to global secondary indexes**—Leave this option at its default setting \(enabled\)\. 
 **Note**  
 For best performance, we recommend that you enable **Apply same settings to global secondary indexes**\. This option allows DynamoDB auto scaling to uniformly scale all the global secondary indexes on the base table\. This includes existing global secondary indexes, and any others that you create for this table in the future\.  
@@ -120,7 +83,7 @@ With this option enabled, you can't set a scaling policy on an individual global
 
      \(For **Write capacity**, note that you can choose **Same settings as read**\.\)
 
-     In the **IAM Role** section, ensure that **Existing role with pre\-defined policies** is selected, and that **Role Name** is set to **DynamoDBAutoscaleRole**\.
+     In the **IAM Role** section, ensure that **AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable** is selected\.
 
 1. When the settings are as you want them, choose **Save**\.
 

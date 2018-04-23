@@ -2,7 +2,7 @@
 
 In this step, you populate the `Movies` table with sample data\.
 
-
+**Topics**
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.Js.02.01)
 + [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.Js.02.02)
 
@@ -27,9 +27,7 @@ This scenario uses a sample data file that contains information about a few thou
 ```
 
 In the JSON data, note the following:
-
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-
 + The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
 
  The following is an example of movie data:
