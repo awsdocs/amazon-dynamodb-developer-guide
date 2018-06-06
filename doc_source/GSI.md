@@ -75,11 +75,9 @@ When you create a secondary index, you need to specify the attributes that will 
 + *INCLUDE* – In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non\-key attributes that you specify\.
 + *ALL* – The secondary index includes all of the attributes from the source table\. Because all of the table data is duplicated in the index, an `ALL` projection results in the largest possible secondary index\.
 
-In the diagram above, *GameTitleIndex* does not have any additional projected attributes\. An application can use *GameTitle* and *TopScore* in queries; however, it is not possible to efficiently determine which user has the highest score for a particular game, or the highest ratio of wins vs\. losses\. The most efficient way to support queries on this data would be to project these attributes from the base table into the global secondary index, as shown in this diagram:
+In the diagram above, *GameTitleIndex* has only one projected attribute: *UserId*\. So, while an application can efficiently determine the *UserId* of the top scorers for each game using *GameTitle* and *TopScore* in queries, it can't efficiently determine the highest ratio of wins vs\. losses\ for the top scorers. To do so, it would have to perform an additional query on the base table to fetch the wins and losses for each of the top scorers. A more efficient way to support queries on this data would be to project these attributes from the base table into the global secondary index, as shown in this diagram:
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_06.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
-
-Because the non\-key attributes Wins and Losses are projected into the index, an application can determine the wins vs\. losses ratio for any game, or for any combination of game and user ID\.
 
 When you choose the attributes to project into a global secondary index, you must consider the tradeoff between provisioned throughput costs and storage costs:
 + If you need to access just a few attributes with the lowest possible latency, consider projecting only those attributes into a global secondary index\. The smaller the index, the less that it will cost to store it, and the less your write costs will be\.
