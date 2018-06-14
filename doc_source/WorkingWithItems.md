@@ -11,6 +11,7 @@
 + [Time To Live](TTL.md)
 + [Working with Items: Java](JavaDocumentAPIItemCRUD.md)
 + [Working with Items: \.NET](LowLevelDotNetItemCRUD.md)
++ [Working with Items: Python](PythonDocumentAPIItemCRUD.md)
 
 In DynamoDB, an *item* is a collection of attributes\. Each attribute has a name and a value\. An attribute value can be a scalar, a set, or a document type\. For more information, see [Amazon DynamoDB: How It Works](HowItWorks.md)\.
 
