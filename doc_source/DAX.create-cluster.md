@@ -30,7 +30,7 @@ Otherwise, you will need to add the following permissions to your IAM policy so 
 You should attach these permissions to the user that is attempting to perform the action\.
 
 **Note**  
-The `iam:CreateRole`, i`am:CreatePolicy`, `iam:AttachPolicy` and `iam:PassRole` permissions are not included in the AWS\-managed policies for DynamoDB\. This is by design, because these permissions provide the possibility of privilege escalation: A user could use these permissions to create a new administrator policy, and then attach that policy to an existing role\. For this reason, you \(the administrator of your DAX cluster\) must explicitly add these permissions to your policy\. 
+The `iam:CreateRole`, `iam:CreatePolicy`, `iam:AttachPolicy` and `iam:PassRole` permissions are not included in the AWS\-managed policies for DynamoDB\. This is by design, because these permissions provide the possibility of privilege escalation: A user could use these permissions to create a new administrator policy, and then attach that policy to an existing role\. For this reason, you \(the administrator of your DAX cluster\) must explicitly add these permissions to your policy\. 
 
 ### Troubleshooting<a name="DAX.create-cluster.iam-permissions.troubleshooting"></a>
 
