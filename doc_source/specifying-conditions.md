@@ -80,7 +80,7 @@ In addition to granting permissions for specific DynamoDB actions \(`Action` ele
 When an IAM policy is evaluated, the result is always either true \(access is allowed\) or false \(access is denied\)\. If any part of the `Condition` element is false, the entire policy evaluates to false and access is denied\. 
 
 **Important**  
-If you use `dynamodb:Attributes`, you must specify the names of all of the primary key and index key attributes for the table and any secondary indexes that are listed the in the policy\. Otherwise, DynamoDB can't use these key attributes to perform the requested action\.
+If you use `dynamodb:Attributes`, you must specify the names of all of the primary key and index key attributes for the table and any secondary indexes that are listed in the policy\. Otherwise, DynamoDB can't use these key attributes to perform the requested action\.
 
 IAM policy documents can contain only the following Unicode characters: horizontal tab \(U\+0009\), linefeed \(U\+000A\), carriage return \(U\+000D\), and characters in the range U\+0020 to U\+00FF\.
 
