@@ -19,7 +19,7 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
    1. Use nvm to install Node\.js:
 
       ```
-      nvm install 4.8.4
+      nvm install 8.11.3
       ```
 
    1. Test that Node\.js is installed and running correctly:
@@ -30,7 +30,7 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
 
       This should display the following message:
 
-      `Running Node.js v4.8.4`
+      `Running Node.js v8.11.3`
 
 1. Install the DAX Node\.js client using the node package manager \(npm\):
 
