@@ -17,7 +17,7 @@ Well\-designed sort keys have two key benefits:
 ## Using Sort Keys for Version Control<a name="bp-sort-keys-version-control"></a>
 
 Many applications need to maintain a history of item\-level revisions for audit or compliance purposes and to be able to retrieve the most recent version easily\. There is an effective design pattern that accomplishes this using sort key prefixes:
-+ For each new item, create two copies of the item: One copy should have a version\-number prefix of zero \(such as `v0_`\) at the beginning of the sort key, and one should have a version\-number prefix of one \(such as `v001_`\)\.
++ For each new item, create two copies of the item: One copy should have a version\-number prefix of zero \(such as `v0_`\) at the beginning of the sort key, and one should have a version\-number prefix of one \(such as `v1_`\)\.
 + Every time the item is updated, use the next higher version\-prefix in the sort key of the updated version, and copy the updated contents into the item with version\-prefix zero\. This means that the latest version of any item can be located easily using the zero prefix\.
 
 For example, a parts manufacturer might use a schema like the one illustrated below\.
