@@ -10,7 +10,7 @@ You define the following entities, which support the relational order entry sche
 
 1.  HR\-Region \- PK: RegionID, SK: Region Name 
 
-1.  HR\-Country \- PK: CountyId, SK: Country Name 
+1.  HR\-Country \- PK: CountryId, SK: Country Name 
 
 1.  HR\-Location \- PK: LocationID, SK: Country Name 
 
