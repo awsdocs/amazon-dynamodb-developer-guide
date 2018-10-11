@@ -7,7 +7,7 @@ Document interfaces are available in the AWS SDKs for Java, \.NET, Node\.js, and
 
 The following Java program uses the document interface of the AWS SDK for Java\. The program creates a `Table` object that represents the *Music* table, and then asks that object to use `GetItem` to retrieve a song\. The program then prints the year that the song was released\.
 
-The `com.amazonaws.services.dynamodbv2.document.DynamoDB` class implements the DynamoDB document interface\. Note how `DynamoDB` acts as a wrapper around the low\-level client \(`AmazonDynamoDB`\)\.
+Note how `DynamoDB` acts as a wrapper around the low\-level client \(`AmazonDynamoDB`\)\.
 
 ```
 package com.amazonaws.codesamples.gsg;
