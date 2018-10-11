@@ -158,7 +158,7 @@ In this code snippet, the `try-catch` construct handles two different kinds of e
 
 Numerous components on a network, such as DNS servers, switches, load balancers, and others can generate errors anywhere in the life of a given request\. The usual technique for dealing with these error responses in a networked environment is to implement retries in the client application\. This technique increases the reliability of the application and reduces operational costs for the developer\.
 
-Each AWS SDK implements retry logic, automatically\. You can modify the retry parameters to your needs\. For example, consider a Java application that requires a fail\-fast strategy, with no retries allowed in case of an error\. With the AWS SDK for Java, you could use the `ClientConfiguration` class and provide a `maxErrorRetry` value of `0` to turn off the retries\. For more information, see the AWS SDK documentation for your programming language
+Each AWS SDK implements retry logic automatically\. You can modify the retry parameters to your needs\. For example, consider a Java application that requires a fail\-fast strategy, with no retries allowed in case of an error\. With the AWS SDK for Java, you could use the `ClientConfiguration` class and provide a `maxErrorRetry` value of `0` to turn off the retries\. For more information, see the AWS SDK documentation for your programming language
 
 If you're not using an AWS SDK, you should retry original requests that receive server errors \(5xx\)\. However, client errors \(4xx, other than a `ThrottlingException` or a `ProvisionedThroughputExceededException`\) indicate you need to revise the request itself to correct the problem before trying again\. 
 
