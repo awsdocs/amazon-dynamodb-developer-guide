@@ -8,6 +8,7 @@
 + [Capacity Units Consumed by *Scan*](#Scan.CapacityUnits)
 + [Read Consistency for *Scan*](#Scan.ReadConsistency)
 + [Parallel Scan](#Scan.ParallelScan)
++ [Parallel Scan Performance](#Scan.ParallelScanPerformance)
 + [Scanning Tables and Indexes: Java](ScanJavaDocumentAPI.md)
 + [Scanning Tables and Indexes: \.NET](LowLevelDotNetScanning.md)
 
