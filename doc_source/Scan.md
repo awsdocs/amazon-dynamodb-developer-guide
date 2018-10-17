@@ -169,4 +169,10 @@ A parallel scan with a large number of workers can easily consume all of the pro
 
 To control the amount of data returned per request, use the `Limit` parameter\. This can help prevent situations where one worker consumes all of the provisioned throughput, at the expense of all other workers\.
 
-Parallel scan segments map very closely to the underlying storage for DynamoDB tables\. This means that if many clients scan many sequential segments in parallel with a very large number of total segments, the segments all map onto keys that are stored on the same underlying storage\. This can cause throttling and an inability to take advantage of all provisioned throughput, as all data is mapping to a single portion of the DynamoDB service\. An example of this is scanning segments 0, 1, 2, 3, 4 and 5 of 1,000,000 total segments simultaniously. Instead, split the segment space into equal portions per thread - for example with 2 threads, split the total segment space into ranges from 0 to 499999 and 500000 to 999999 and scan those spaces individually, so segments 0 and 500000 are scanned first, then 1 and 500001, and so on\.
+## Parallel Scan Performance<a name="Scan.ParallelScanPerformance"></a>
+
+Parallel scan segments map very closely to the underlying storage for DynamoDB tables\. This means that if many clients scan many sequential segments in parallel with a very large number of total segments, the segments all map onto keys that are stored on the same underlying storage\. This can cause throttling and an inability to take advantage of all provisioned throughput, as all data is mapping to a single portion of the DynamoDB service\.
+
+An example of this is scanning segments 0, 1, 2, 3, 4 and 5 of 1,000,000 total segments simultaniously.
+
+Instead, split the segment space into equal portions per thread - for example with 2 threads, split the total segment space into ranges from 0 to 499999 and 500000 to 999999 and scan those spaces individually, so segments 0 and 500000 are scanned first, then 1 and 500001, and so on\.
