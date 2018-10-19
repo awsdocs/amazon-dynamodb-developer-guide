@@ -12,7 +12,7 @@ DynamoDB supports *eventually consistent* and *strongly consistent* reads\.
 When you read data from a DynamoDB table, the response might not reflect the results of a recently completed write operation\. The response might include some stale data\. If you repeat your read request after a short time, the response should return the latest data\.
 
 **Strongly Consistent Reads**  
-When you request a strongly consistent read, DynamoDB returns a response with the most up\-to\-date data, reflecting the updates from all prior write operations that were successful\. A strongly consistent read might not be available if there is a network delay or outage\.
+When you request a strongly consistent read, DynamoDB returns a response with the most up\-to\-date data, reflecting the updates from all prior write operations that were successful\. A strongly consistent read might not be available if there is a network delay or outage\. Consistent reads are not supported on global secondary indexes (GSI)\.
 
 **Note**  
 DynamoDB uses eventually consistent reads, unless you specify otherwise\. Read operations \(such as `GetItem`, `Query`, and `Scan`\) provide a `ConsistentRead` parameter\. If you set this parameter to true, DynamoDB uses strongly consistent reads during the operation\.
