@@ -116,7 +116,7 @@ OK to retry? Yes
 
 ## Error Handling in Your Application<a name="Programming.Errors.Handling"></a>
 
-For your application to run smoothly, you will need to add logic to catch and respond to errors\. Typical approaches include using `try-catch` blocks or an `if-then` statements\.
+For your application to run smoothly, you will need to add logic to catch and respond to errors\. Typical approaches include using `try-catch` blocks or `if-then` statements\.
 
 The AWS SDKs perform their own retries and error checking\. If you encounter an error while using one of the AWS SDKs, the error code and description can help you troubleshoot it\. 
 
