@@ -26,6 +26,7 @@ var pk = 5;
 var sk1 = 2;
 var sk2 = 9;
 var iterations = 5;
+var remaining = iterations;
 
 var params = {
     TableName: tableName,
@@ -46,10 +47,18 @@ for (var i = 0; i < iterations; i++) {
         } else {
             // Query succeeded
         }
+
+        remaining = remaining - 1;
+
+        if(remaining <= 0) {
+            var endTime = new Date().getTime();
+            console.log("\tTotal time: ", (endTime - startTime) , "ms - Avg time: ", (endTime - startTime) / iterations, "ms");
+        }
     });
 
-    var endTime = new Date().getTime();
-    console.log("\tTotal time: ", (endTime - startTime) , "ms - Avg time: ", (endTime - startTime) / iterations, "ms");
-
 }
+
+(function wait () {
+   if (remaining >= 0) setImmediate(wait);
+})();
 ```

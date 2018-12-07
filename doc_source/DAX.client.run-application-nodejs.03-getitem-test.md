@@ -26,6 +26,7 @@ var tableName = "TryDaxTable";
 var pk = 1;
 var sk = 10;
 var iterations = 5;
+var promises = [];
 
 for (var i = 0; i < iterations; i++) {
 
@@ -48,12 +49,20 @@ for (var i = 0; i < iterations; i++) {
                 } else {
                     // GetItem succeeded
                 }
+
+                remaining = remaining - 1;
+
+                if(remaining <= 0) {
+                    var endTime = new Date().getTime();
+                    console.log("\tTotal time: ", (endTime - startTime) , "ms - Avg time: ", (endTime - startTime) / iterations, "ms");
+                }
             });
         }
     }
-    
-    var endTime = new Date().getTime();
-    console.log("\tTotal time: ", (endTime - startTime) , "ms - Avg time: ", (endTime - startTime) / iterations, "ms");
 
 }
+
+(function wait () {
+   if (remaining >= 0) setImmediate(wait);
+})();
 ```
