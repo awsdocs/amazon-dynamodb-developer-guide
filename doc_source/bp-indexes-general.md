@@ -48,6 +48,6 @@ An *item collection* is all the items in a table and its local secondary indexes
 
 When you add or update a table item, DynamoDB updates all local secondary indexes that are affected\. If the indexed attributes are defined in the table, the local secondary indexes grow too\.
 
-When you create a local secondary index, think about how much data will be written to it, and how many of those data items will have the same partition key value\. If you expect that the sum of table and index items for a particular partition key value might exceed 10 GB,consider whether you should avoid creating the index\.
+When you create a local secondary index, think about how much data will be written to it, and how many of those data items will have the same partition key value\. If you expect that the sum of table and index items for a particular partition key value might exceed 10 GB, consider whether you should avoid creating the index\.
 
 If you can't avoid creating the local secondary index, you must anticipate the item collection size limit and take action before you exceed it\. For strategies on working within the limit and taking corrective action, see [Item Collection Size Limit](LSI.md#LSI.ItemCollections.SizeLimit)\.
