@@ -15,7 +15,7 @@ The downloadable version of DynamoDB is intended for development and testing pur
 
 The downloadable version of DynamoDB differs from the web service in the following ways:
 + Regions and distinct AWS accounts are not supported at the client level\.
-+ Transactiosn are not supported\.
++ Transactions are not supported\.
 + Provisioned throughput settings are ignored in downloadable DynamoDB, even though the `CreateTable` operation requires them\. For `CreateTable`, you can specify any numbers you want for provisioned read and write throughput, even though these numbers are not used\. You can call `UpdateTable` as many times as you want per day\. However, any changes to provisioned throughput values are ignored\.
 + `Scan` operations are performed sequentially\. Parallel scans are not supported\. The `Segment` and `TotalSegments` parameters of the `Scan` operation are ignored\.
 + The speed of read and write operations on table data is limited only by the speed of your computer\. `CreateTable`, `UpdateTable`, and `DeleteTable` operations occur immediately, and table state is always ACTIVE\. `UpdateTable` operations that change only the provisioned throughput settings on tables or global secondary indexes occur immediately\. If an `UpdateTable` operation creates or deletes any global secondary indexes, then those indexes transition through normal states \(such as CREATING and DELETING, respectively\) before they become an ACTIVE state\. The table remains ACTIVE during this time\.
