@@ -1,6 +1,6 @@
 # Creating a Table<a name="SQLtoNoSQL.CreateTable"></a>
 
-Tables are the fundamental data structures in relational databases and in DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any attributes or data types at table creation time\.
+Tables are the fundamental data structures in relational databases and in DynamoDB\. A relational database management system (RDBMS) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any attributes or data types when you create a table\.
 
 ## SQL<a name="SQLtoNoSQL.CreateTable.SQL"></a>
 
@@ -27,7 +27,7 @@ Many SQL implementations let you define storage specifications for your table, a
 
 ## DynamoDB<a name="SQLtoNoSQL.CreateTable.DynamoDB"></a>
 
-Use the `CreateTable` action to create a table, specifying parameters as shown following:
+Use the `CreateTable` action to create a table, specifying parameters as shown in the following example.
 
 ```
 {
