@@ -24,7 +24,7 @@ WHERE Genre = 'Country' AND Price < 0.50;
 
 ## DynamoDB<a name="SQLtoNoSQL.Indexes.QueryAndScan.DynamoDB"></a>
 
-In DynamoDB, you perform `Query` operations directly on the index, in the same way that you would do so on a table\. You must specify both `TableName` and `IndexName`\.
+In DynamoDB, you perform `Query` operations directly on the index, in the same way that you would on a table\. You must specify both `TableName` and `IndexName`\.
 
 The following are some queries on *GenreAndPriceIndex* in DynamoDB\. \(The key schema for this index consists of *Genre* and *Price*\.\)
 
@@ -58,7 +58,7 @@ The following are some queries on *GenreAndPriceIndex* in DynamoDB\. \(The key s
 
 This example uses a `ProjectionExpression` to indicate that we only want some of the attributes, rather than all of them, to appear in the results\.
 
-You can also perform `Scan` operations on a secondary index, in the same way that you would do so on a table\. The following is a scan on *GenreAndPriceIndex*:
+You can also perform `Scan` operations on a secondary index, in the same way that you would on a table\. The following is a scan on *GenreAndPriceIndex*:
 
 ```
 // Return all of the data in the index
