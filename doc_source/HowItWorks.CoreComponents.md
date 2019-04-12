@@ -1,6 +1,6 @@
 # DynamoDB Core Components<a name="HowItWorks.CoreComponents"></a>
 
-In DynamoDB, tables, items, and attributes are the core components that you work with\. A *table* is a collection of *items*, and each item is a collection of *attributes*\. DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility\. You can use DynamoDB Streams to capture data modification events in DynamoDB tables\.
+In Amazon DynamoDB, tables, items, and attributes are the core components that you work with\. A *table* is a collection of *items*, and each item is a collection of *attributes*\. DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility\. You can use DynamoDB Streams to capture data modification events in DynamoDB tables\.
 
  There are limits in DynamoDB\. For more information, see [Limits in DynamoDB](Limits.md)\. 
 
@@ -13,26 +13,26 @@ In DynamoDB, tables, items, and attributes are the core components that you work
 ## Tables, Items, and Attributes<a name="HowItWorks.CoreComponents.TablesItemsAttributes"></a>
 
 The following are the basic DynamoDB components:
-+ **Tables** – Similar to other database systems, DynamoDB stores data in tables\. A *table* is a collection of data\. For example, see the example table called *People* that you could use to store personal contact information about friends, family, or anyone else of interest\. You could also have a *Cars* table to store information about vehicles that people drive\.
-+ **Items** – Each table contains zero or more items\. An *item* is a group of attributes that is uniquely identifiable among all of the other items\. In a *People* table, each item represents a person\. For a *Cars* table, each item represents one vehicle\. Items in DynamoDB are similar in many ways to rows, records, or tuples in other database systems\. In DynamoDB, there is no limit to the number of items you can store in a table\.
-+ **Attributes** – Each item is composed of one or more attributes\. An *attribute* is a fundamental data element, something that does not need to be broken down any further\. For example, an item in a *People* table contains attributes called *PersonID*, *LastName*, *FirstName*, and so on\. For a *Department* table, an item might have attributes such as *DepartmentID*, *Name*,*Manager*, and so on\. Attributes in DynamoDB are similar in many ways to fields or columns in other database systems\.
++ **Tables** – Similar to other database systems, DynamoDB stores data in tables\. A *table* is a collection of data\. For example, you could use the following example table called *People* to store personal contact information about friends, family, or anyone else of interest\. You also could have a *Cars* table to store information about vehicles that people drive\.
++ **Items** – Each table contains zero or more items\. An *item* is a group of attributes that is uniquely identifiable among all of the other items\. In the following example table called *People* table, each item represents a person\. For a *Cars* table, each item could represent one vehicle\. Items in DynamoDB are similar in many ways to rows, records, or tuples in other database systems\. In DynamoDB, there is no limit to the number of items you can store in a table\.
++ **Attributes** – Each item is composed of one or more attributes\. An *attribute* is a fundamental data element, something that does not need to be broken down any further\. For example, an item in the following example *People* table contains attributes called *PersonID*, *LastName*, *FirstName*, and so on\. For a *Department* table, an item could have attributes such as *DepartmentID*, *Name*, *Manager*, and so on\. Attributes in DynamoDB are similar in many ways to fields or columns in other database systems\.
 
-The following diagram shows a table named *People* with some example items and attributes\.
+The following example table called *People* includes some example items and attributes\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksPeople.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-Note the following about the *People* table:
+Note the following about the preceding *People* table:
 + Each item in the table has a unique identifier, or primary key, that distinguishes the item from all of the others in the table\. In the *People* table, the primary key consists of one attribute \(*PersonID*\)\.
 + Other than the primary key, the *People* table is schemaless, which means that neither the attributes nor their data types need to be defined beforehand\. Each item can have its own distinct attributes\.
-+ Most of the attributes are *scalar*, which means that they can have only one value\. Strings and numbers are common examples of scalars\.
++ Most of the attributes are *scalar*, which means they can have only one value\. Strings and numbers are common examples of scalars\.
 + Some of the items have a nested attribute \(*Address*\)\. DynamoDB supports nested attributes up to 32 levels deep\.
 
-The following is another example table named *Music* that you could use to keep track of your music collection\.
+The following is another example table called *Music* that you could use to keep track of your music collection\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksMusic.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-Note the following about the *Music* table:
-+ The primary key for *Music* consists of two attributes \(*Artist* and *SongTitle*\)\. Each item in the table must have these two attributes\. The combination of *Artist* and *SongTitle* distinguishes each item in the table from all of the others\.
+Note the following about the preceding *Music* table:
++ The primary key for *Music* consists of two attributes \(*Artist* and *SongTitle*\)\. Each item in the table must have these two attributes\. The combination of *Artist* and *SongTitle* distinguishes each item in the table from all the others\.
 + Other than the primary key, the *Music* table is schemaless, which means that neither the attributes nor their data types need to be defined beforehand\. Each item can have its own distinct attributes\. 
 + One of the items has a nested attribute \(*PromotionInfo*\), which contains other nested attributes\. DynamoDB supports nested attributes up to 32 levels deep\.
 
@@ -40,7 +40,7 @@ Note the following about the *Music* table:
 
 ## Primary Key<a name="HowItWorks.CoreComponents.PrimaryKey"></a>
 
-When you create a table, in addition to the table name, you must specify the primary key of the table\. The primary key uniquely identifies each item in the table, so that no two items can have the same key\.
+When you create a table, in addition to the table name, you must specify the primary key of the table\. The primary key uniquely identifies each item in the table so that no two items can have the same key\.
 
 DynamoDB supports two different kinds of primary keys:
 + **Partition key** – A simple primary key, composed of one attribute known as the *partition key*\. 
@@ -74,7 +74,7 @@ DynamoDB supports two kinds of indexes:
 + Global secondary index – An index with a partition key and sort key that can be different from those on the table\.
 + Local secondary index – An index that has the same partition key as the table, but a different sort key\.
 
-You can define up to 5 global secondary indexes and 5 local secondary indexes per table\.
+You can define up to five global secondary indexes and five local secondary indexes per table\.
 
 In the example *Music* table shown previously, you can query data items by *Artist* \(partition key\) or by *Artist* and *SongTitle* \(partition key and sort key\)\. What if you also wanted to query the data by *Genre* and *AlbumTitle*? To do this, you could create an index on *Genre* and *AlbumTitle*, and then query the index in much the same way as you'd query the *Music* table\.
 
@@ -93,7 +93,7 @@ You can query the *GenreAlbumTitle* index to find all albums of a particular gen
 
 ## DynamoDB Streams<a name="HowItWorks.CoreComponents.Streams"></a>
 
-DynamoDB Streams is an optional feature that captures data modification events in DynamoDB tables\. The data about these events appear in the stream in near real time, and in the order that the events occurred\.
+DynamoDB Streams is an optional feature that captures data modification events in DynamoDB tables\. The data about these events appear in the stream in near-real time, and in the order that the events occurred\.
 
 Each event is represented by a *stream record*\. If you enable a stream on a table, DynamoDB Streams writes a stream record whenever one of the following events occurs:
 + A new item is added to the table: The stream captures an image of the entire item, including all of its attributes\.
@@ -102,13 +102,13 @@ Each event is represented by a *stream record*\. If you enable a stream on a tab
 
 Each stream record also contains the name of the table, the event timestamp, and other metadata\. Stream records have a lifetime of 24 hours; after that, they are automatically removed from the stream\.
 
-You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that executes automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a "welcome" email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would execute whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an *EmailAddress* attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
+You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that executes automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a welcome email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would execute whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an *EmailAddress* attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksStreams.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 **Note**  
-In this example, the last customer, Craig Roe, will not receive an email because he doesn't have an *EmailAddress*\.
+In this example, the last customer, Craig Roe, would not receive an email because he doesn't have an *EmailAddress*\.
 
-In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
+In addition to triggers, DynamoDB Streams enables powerful solutions including data replication within and across AWS Regions, materialized views of data in DynamoDB tables, and data analysis using Amazon Kinesis materialized views\.
 
  For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. 
