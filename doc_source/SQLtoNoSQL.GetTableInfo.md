@@ -4,7 +4,7 @@ You can verify that a table has been created according to your specifications\. 
 
 ## SQL<a name="SQLtoNoSQL.GetTableInfo.SQL"></a>
 
-Most relational database management system \(RDBMS\) allow you to describe a table's structure—columns, data types, primary key definition, and so on\. There is no standard way to do this in SQL\. However, many database systems provide a `DESCRIBE` command\. Here is an example from MySQL:
+Most relational database management systems \(RDBMSs\) allow you to describe a table's structure—columns, data types, primary key definition, and so on\. There is no standard way to do this in SQL\. However, many database systems provide a `DESCRIBE` command\. Here is an example from MySQL:
 
 ```
 DESCRIBE Music;
@@ -30,7 +30,7 @@ The primary key for this table consists of *Artist* and *SongTitle*\.
 
 ## DynamoDB<a name="SQLtoNoSQL.GetTableInfo.DynamoDB"></a>
 
-DynamoDB has a `DescribeTable` action, which is similar\. The only parameter is the table name, as shown following:
+DynamoDB has a `DescribeTable` action, which is similar\. The only parameter is the table name.
 
 ```
 {
@@ -38,7 +38,7 @@ DynamoDB has a `DescribeTable` action, which is similar\. The only parameter is 
 }
 ```
 
-The reply from `DescribeTable` looks like this:
+The reply from `DescribeTable` looks like the following.
 
 ```
 {
