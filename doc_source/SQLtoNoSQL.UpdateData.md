@@ -1,6 +1,6 @@
 # Modifying Data in a Table<a name="SQLtoNoSQL.UpdateData"></a>
 
-The SQL language provides the `UPDATE` statement for modifying data\. DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
+The SQL language provides the `UPDATE` statement for modifying data\. Amazon DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
 
 ## SQL<a name="SQLtoNoSQL.UpdateData.SQL"></a>
 
