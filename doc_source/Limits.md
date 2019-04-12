@@ -1,6 +1,6 @@
 # Limits in DynamoDB<a name="Limits"></a>
 
-This section describes current limits within Amazon DynamoDB \(or no limit, in some cases\)\. Each limit listed below applies on a per\-region basis unless otherwise specified\.
+This section describes current limits within Amazon DynamoDB \(or no limit, in some cases\)\. Each limit applies on a per\-region basis unless otherwise specified\.
 
 **Topics**
 + [Capacity Units and Provisioned Throughput](#default-limits-capacity-units-provisioned-throughput)
@@ -28,38 +28,39 @@ One write capacity unit = one write per second, for items up to 1 KB in size\.
 
 For any table or global secondary index, the minimum settings for provisioned throughput are 1 read capacity unit and 1 write capacity unit\.
 
-AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 + US East \(N\. Virginia\) Region:
   + Per table – 40,000 read capacity units and 40,000 write capacity units
   + Per account – 80,000 read capacity units and 80,000 write capacity units
 + All Other Regions:
   + Per table – 10,000 read capacity units and 10,000 write capacity units
   + Per account – 20,000 read capacity units and 20,000 write capacity units
+  
 **Note**  
  All the account's available throughput can be applied to a single table or across multiple tables\. 
 
 The provisioned throughput limit includes the sum of the capacity of the table together with the capacity of all of its global secondary indexes\.
 
-In the AWS Management Console, you can see what your current provisioned capacity is in a given region and make sure you are not too close to the limits\. If you increased your default limits, you can use the [DescribeLimits](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html) operation to see the current limit values\.
+In the AWS Management Console, you can see what your current provisioned capacity is in a given AWS Region and make sure you are not too close to the limits\. If you increased your default limits, you can use the [DescribeLimits](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html) operation to see the current limit values\.
 
 ### Increasing Provisioned Throughput<a name="limits-increasing-provisioned-throughput"></a>
 
 You can increase `ReadCapacityUnits` or `WriteCapacityUnits` as often as necessary, using the AWS Management Console or the `UpdateTable` operation\. In a single call, you can increase the provisioned throughput for a table, for any global secondary indexes on that table, or for any combination of these\. The new settings do not take effect until the `UpdateTable` operation is complete\.
 
-You cannot exceed your per\-account limits when you add provisioned capacity, and DynamoDB will not permit you to increase provisioned capacity extremely rapidly\. Aside from these restrictions, you can increase the provisioned capacity for your tables as high as you need\. For more information about per\-account limits, see the preceding section [Provisioned Throughput Default Limits](#default-limits-throughput)\.
+You cannot exceed your per\-account limits when you add provisioned capacity, and DynamoDB will not permit you to increase provisioned capacity extremely rapidly\. Aside from these restrictions, you can increase the provisioned capacity for your tables as high as you need\. For more information about per\-account limits, see the preceding section, [Provisioned Throughput Default Limits](#default-limits-throughput)\.
 
 ### Decreasing Provisioned Throughput<a name="limits-decreasing-provisioned-throughput"></a>
 
-For every table and global secondary index in an UpdateTable operation, you can decrease `ReadCapacityUnits` or `WriteCapacityUnits` \(or both\)\. The new settings do not take effect until the `UpdateTable` operation is complete\. A decrease is allowed up to four times any time per day\. A day is defined according to the GMT time zone\. Additionally, if there was no decrease in the past hour, an additional decrease is allowed, effectively bringing the maximum number of decreases in a day to 27 times \(4 decreases in the first hour, and 1 decrease for each of the subsequent 1\-hour windows in a day\)\. 
+For every table and global secondary index in an `UpdateTable` operation, you can decrease `ReadCapacityUnits` or `WriteCapacityUnits` \(or both\)\. The new settings do not take effect until the `UpdateTable` operation is complete\. A decrease is allowed up to four times any time per day\. A day is defined according to the GMT time zone\. Additionally, if there was no decrease in the past hour, an additional decrease is allowed, effectively bringing the maximum number of decreases in a day to 27 times \(4 decreases in the first hour, and 1 decrease for each of the subsequent 1\-hour windows in a day\)\. 
 
 **Important**  
-Table and GSI decrease limits are decoupled, so any GSI\(s\) for a particular table have their own decrease limits\. However, if a single request decreases the throughput for a table and a GSI, it will be rejected if either exceeds the current limits\. A request will not be partially processed\. 
+Table and global secondary index decrease limits are decoupled, so any global secondary indexes for a particular table have their own decrease limits\. However, if a single request decreases the throughput for a table and a global secondary index, it will be rejected if either exceeds the current limits\. A request will not be partially processed\. 
 
 **Example**  
- A table with a GSI, in the first 4 hours of a day, can be modified as follows:   
-+  Decrease the table's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
-+  Decrease the GSI's WriteCapacityUnits or ReadCapacityUnits \(or both\) 4 times\. 
- At the end of that same day the table and the GSI's throughput can potentially be decreased a total of 9 times each\. 
+ A table with a global secondary index, in the first four hours of a day, can be modified as follows:   
++  Decrease the table's WriteCapacityUnits or ReadCapacityUnits \(or both\) four times\. 
++  Decrease the global secondary index's WriteCapacityUnits or ReadCapacityUnits \(or both\) four times\. 
+ At the end of that same day the table and the global secondary index's throughput can potentially be decreased a total of nine times each\. 
 
 ## Tables<a name="limits-tables"></a>
 
@@ -69,15 +70,15 @@ There is no practical limit on a table's size\. Tables are unconstrained in term
 
 ### Tables Per Account<a name="limits-tables-per-account"></a>
 
-For any AWS account, there is an initial limit of 256 tables per region\.
+For any AWS account, there is an initial limit of 256 tables per AWS Region\.
 
-To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 
 ## Secondary Indexes<a name="limits-secondary-indexes"></a>
 
 ### Secondary Indexes Per Table<a name="limits-tables-secondary-indexes"></a>
 
-You can define a maximum of 5 local secondary indexes and 5 global secondary indexes per table\.
+You can define a maximum of five local secondary indexes and five global secondary indexes per table\.
 
 ### Projected Secondary Index Attributes Per Table<a name="limits-tables-projected-secondary-index-attributes"></a>
 
@@ -111,7 +112,7 @@ The exception is for tables with local secondary indexes\. With a local secondar
 
 ### Table Names and Secondary Index Names<a name="limits-naming-rules-tables-secondary-indexes"></a>
 
-Names for tables and secondary indexes must be at least 3 characters long, but no greater than 255 characters long\. Allowed characters are:
+Names for tables and secondary indexes must be at least three characters long, but no greater than 255 characters long\. Allowed characters are:
 + `A-Z`
 + `a-z`
 + `0-9`
@@ -121,12 +122,12 @@ Names for tables and secondary indexes must be at least 3 characters long, but n
 
 ### Attribute Names<a name="limits-naming-rules-attributes"></a>
 
-In general, an attribute name must be at least 1 character long, but no greater than 64 KB long\.
+In general, an attribute name must be at least one character long, but no greater than 64 KB long\.
 
 The exceptions are listed below\. These attribute names must be no greater than 255 characters long:
 + Secondary index partition key names\.
 + Secondary index sort key names\.
-+ The names of any user\-specified projected attributes \(applicable only to local secondary indexes\)\. In a `CreateTable` operation, if you specify a `ProjectionType` of `INCLUDE`, then the names of the attributes in the `NonKeyAttributes` parameter are length\-restricted\. The `KEYS_ONLY` and `ALL` projection types are not affected\. 
++ The names of any user\-specified projected attributes \(applicable only to local secondary indexes\)\. In a `CreateTable` operation, if you specify a `ProjectionType` of `INCLUDE`,  the names of the attributes in the `NonKeyAttributes` parameter are length\-restricted\. The `KEYS_ONLY` and `ALL` projection types are not affected\. 
 
 These attribute names must be encoded using UTF\-8, and the total size of each name \(after encoding\) cannot exceed 255 bytes\.
 
