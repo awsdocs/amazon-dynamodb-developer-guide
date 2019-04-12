@@ -2,15 +2,13 @@
 
 Relational database tables contain *rows* of data\. Rows are composed of *columns*\. 
 
-DynamoDB tables contain *items*\. Items are composed of *attributes*\.
-
-This section describes how to write one row \(or item\) to a table\.
+DynamoDB tables contain *items*\, which are composed of *attributes*\. This section describes how to write one row \(or item\) to a table\.
 
 ## SQL<a name="SQLtoNoSQL.WriteData.SQL"></a>
 
-A table in a relational database is a two\-dimensional data structure composed of rows and columns\. Some database management systems also provide support for semi\-structured data, usually with native JSON or XML data types\. However, the implementation details vary among vendors\.
+A table in a relational database is a two\-dimensional data structure composed of rows and columns\. Some database management systems also provide support for semistructured data, usually with native JSON or XML data types\. However, the implementation details vary among vendors\.
 
-In SQL, you use the `INSERT` statement to add a row to a table:
+In SQL, you use the `INSERT` statement to add a row to a table.
 
 ```
 INSERT INTO Music 
@@ -27,11 +25,11 @@ VALUES(
 The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these columns\.
 
 **Note**  
-In this example, we are using the *Tags* column to store semi\-structured data about the songs in the *Music* table\. We have defined the *Tags* column as type TEXT, which can store up to 65535 characters in MySQL\. 
+In this example table, we use the *Tags* column to store semistructured data about the songs in the *Music* table\. We have defined the *Tags* column as type TEXT, which can store up to 65535 characters in MySQL\. 
 
 ## DynamoDB<a name="SQLtoNoSQL.WriteData.DynamoDB"></a>
 
-In Amazon DynamoDB, you use the `PutItem` action to add an item to a table:
+In Amazon DynamoDB, you use the `PutItem` action to add an item to a table.
 
 ```
 {
@@ -58,9 +56,9 @@ In Amazon DynamoDB, you use the `PutItem` action to add an item to a table:
 The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
 
 Here are some key things to know about this `PutItem` example:
-+ DynamoDB provides native support for documents, using JSON\. This makes DynamoDB ideal for storing semi\-structured data, such as *Tags*\. You can also retrieve and manipulate data from within JSON documents\.
++ DynamoDB provides native support for documents, using JSON\. This makes DynamoDB ideal for storing semistructured data, such as *Tags*\. You also can retrieve and manipulate data from within JSON documents\.
 + The *Music* table does not have any predefined attributes, other than the primary key \(*Artist* and *SongTitle*\)\.
-+ Most SQL databases are transaction\-oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
++ Most SQL databases are transaction oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
 
 **Note**  
 For code samples using `PutItem`, see [Getting Started with DynamoDB](GettingStarted.md)\.
@@ -132,4 +130,4 @@ The following are some other `PutItem` examples\.
 ```
 
 **Note**  
-In addition to `PutItem`, Amazon DynamoDB supports a `BatchWriteItem` action for writing multiple items at the same time\.
+In addition to `PutItem`, DynamoDB supports a `BatchWriteItem` action for writing multiple items at the same time\.
