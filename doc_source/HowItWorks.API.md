@@ -11,9 +11,9 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 
 *Control plane* operations let you create and manage DynamoDB tables\. They also let you work with indexes, streams, and other objects that are dependent on tables\.
 +  `CreateTable` – Creates a new table\. Optionally, you can create one or more secondary indexes, and enable DynamoDB Streams for the table\.
-+ `DescribeTable`– Returns information about a table, such as its primary key schema, throughput settings, index information, and so on\.
++ `DescribeTable`– Returns information about a table, such as its primary key schema, throughput settings, and index information\.
 + `ListTables` – Returns the names of all of your tables in a list\.
-+ `UpdateTable` – Modifies the settings of a table or its indexes, creates or remove new indexes on a table, or modifies DynamoDB Streams settings for a table\.
++ `UpdateTable` – Modifies the settings of a table or its indexes, creates or removes new indexes on a table, or modifies DynamoDB Streams settings for a table\.
 + `DeleteTable` – Removes a table and all of its dependent objects from DynamoDB\.
 
 ## Data Plane<a name="HowItWorks.API.DataPlane"></a>
@@ -27,11 +27,11 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 ### Reading Data<a name="HowItWorks.API.DataPlane.Read"></a>
 + `GetItem` – Retrieves a single item from a table\. You must specify the primary key for the item that you want\. You can retrieve the entire item, or just a subset of its attributes\.
 + `BatchGetItem` – Retrieves up to 100 items from one or more tables\. This is more efficient than calling `GetItem` multiple times because your application only needs a single network round trip to read the items\.
-+ `Query` – Retrieves all items that have a specific partition key\. You must specify the partition key value\. You can retrieve entire items, or just a subset of their attributes\. Optionally, you can apply a condition to the sort key values, so that you only retrieve a subset of the data that has the same partition key\. You can use this operation on a table, provided that the table has both a partition key and a sort key\. You can also use this operation on an index, provided that the index has both a partition key and a sort key\.
++ `Query` – Retrieves all items that have a specific partition key\. You must specify the partition key value\. You can retrieve entire items, or just a subset of their attributes\. Optionally, you can apply a condition to the sort key values so that you only retrieve a subset of the data that has the same partition key\. You can use this operation on a table, if the table has both a partition key and a sort key\. You can also use this operation on an index, if the index has both a partition key and a sort key\.
 + `Scan` – Retrieves all items in the specified table or index\. You can retrieve entire items, or just a subset of their attributes\. Optionally, you can apply a filtering condition to return only the values that you are interested in and discard the rest\.
 
 ### Updating Data<a name="HowItWorks.API.DataPlane.Update"></a>
-+ `UpdateItem` – Modifies one or more attributes in an item\. You must specify the primary key for the item that you want to modify\. You can add new attributes and modify or remove existing attributes\. You can also perform conditional updates, so that the update is only successful when a user\-defined condition is met\. Optionally, you can implement an atomic counter, which increments or decrements a numeric attribute without interfering with other write requests\.
++ `UpdateItem` – Modifies one or more attributes in an item\. You must specify the primary key for the item that you want to modify\. You can add new attributes and modify or remove existing attributes\. You also can perform conditional updates so that the update is only successful when a user\-defined condition is met\. Optionally, you can implement an atomic counter, which increments or decrements a numeric attribute without interfering with other write requests\.
 
 ### Deleting Data<a name="HowItWorks.API.DataPlane.Delete"></a>
 + `DeleteItem` – Deletes a single item from a table\. You must specify the primary key for the item that you want to delete\.
