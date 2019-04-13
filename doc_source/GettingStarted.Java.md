@@ -12,7 +12,7 @@ As you work through this tutorial, you can refer to the [AWS SDK for Java API Re
 ## Tutorial Prerequisites<a name="GettingStarted.Java.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
 
-  DynamoDB \(Downloadable Version\) is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
+  DynamoDB \(downloadable version\) is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
 **Note**  
 You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary](GettingStarted.Java.Summary.md)\.
 + Set up an AWS access key to use the AWS SDKs\. For more information, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
