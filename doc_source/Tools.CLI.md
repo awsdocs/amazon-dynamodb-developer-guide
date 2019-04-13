@@ -1,10 +1,10 @@
 # Using the CLI<a name="Tools.CLI"></a>
 
- You can use the AWS Command Line Interface \(AWS CLI\) to control multiple AWS services from the command line and automate them through scripts\. You can use the AWS CLI for ad hoc operations, such as creating a table\. You can also use it to embed DynamoDB operations within utility scripts\.
+ You can use the AWS Command Line Interface \(AWS CLI\) to control multiple AWS services from the command line and automate them through scripts\. You can use the AWS CLI for ad hoc operations, such as creating a table\. You can also use it to embed Amazon DynamoDB operations within utility scripts\.
 
  Before you can use the AWS CLI with DynamoDB, you must get an access key ID and secret access key\. For more information, see [Getting an AWS Access Key](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.GetCredentials)\. 
 
-For a complete listing of all the commands available for DynamoDB in the AWS CLI, go to [http://docs\.aws\.amazon\.com/cli/latest/reference/dynamodb/index\.html](http://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
+For a complete listing of all the commands available for DynamoDB in the AWS CLI, see the [AWS CLI Command Reference](http://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
 
 **Topics**
 + [Downloading and Configuring the AWS CLI](#Tools.CLI.DownloadingAndRunning)
@@ -21,7 +21,7 @@ The AWS CLI is available at [http://aws\.amazon\.com/cli](https://aws.amazon.com
 
 ## Using the AWS CLI with DynamoDB<a name="Tools.CLI.UsingWithDDB"></a>
 
-The command line format consists of a DynamoDB operation name, followed by the parameters for that operation\. The AWS CLI supports a shorthand syntax for the parameter values, as well as JSON\.
+The command line format consists of a DynamoDB operation name followed by the parameters for that operation\. The AWS CLI supports a shorthand syntax for the parameter values, as well as JSON\.
 
 For example, the following command creates a table named *Music*\. The partition key is *Artist*, and the sort key is *SongTitle*\. \(For easier readability, long commands in this section are broken into separate lines\.\)
 
@@ -53,7 +53,7 @@ aws dynamodb put-item \
     --return-consumed-capacity TOTAL
 ```
 
-On the command line, it can be difficult to compose valid JSON\. However, the AWS CLI can read JSON files\. For example, consider the following JSON snippet, which is stored in a file named *key\-conditions\.json*:
+On the command line, it can be difficult to compose valid JSON\. However, the AWS CLI can read JSON files\. For example, consider the following JSON code snippet, which is stored in a file named *key\-conditions\.json*:
 
 ```
 {
@@ -84,11 +84,11 @@ aws dynamodb query --table-name Music --key-conditions file://key-conditions.jso
 
 ## Using the AWS CLI with Downloadable DynamoDB<a name="Tools.CLI.UsingWithDDBLocal"></a>
 
-The AWS CLI can also interact with DynamoDB \(Downloadable Version\) that runs on your computer\. To enable this, add the following parameter to each command:
+The AWS CLI can also interact with DynamoDB \(downloadable version\) that runs on your computer\. To enable this, add the following parameter to each command.
 
 `--endpoint-url http://localhost:8000`
 
-Here is an example that uses the AWS CLI to list the tables in a local database:
+The following example uses the AWS CLI to list the tables in a local database.
 
 ```
 aws dynamodb list-tables --endpoint-url http://localhost:8000
