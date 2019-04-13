@@ -46,9 +46,9 @@ The only time that you can view or download the secret access keys is when you c
    + Access key ID: AKIAIOSFODNN7EXAMPLE
    + Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
-1. To download the key pair, choose **Download \.csv file**\. Store the keys in a secure location\.
+1. To download the key pair, choose **Download \.csv file**\. Store the access keys in a secure location\.
 
-   Keep the keys confidential in order to protect your AWS account, and never email them\. Do not share them outside your organization, even if an inquiry appears to come from AWS or Amazon\.com\. No one who legitimately represents Amazon will ever ask you for your secret key\.
+   Keep the access keys confidential in order to protect your AWS account, and never email them\. Do not share them outside your organization, even if an inquiry appears to come from AWS or Amazon\.com\. No one who legitimately represents Amazon will ever ask you for your access keys\.
 
 **Related topics**
 + [What Is IAM?](http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) in the *IAM User Guide*
@@ -58,6 +58,6 @@ The only time that you can view or download the secret access keys is when you c
 
 Before you can access DynamoDB programmatically or through the AWS CLI, you must configure your credentials to enable authorization for your applications\.
 
- There are several ways to do this\. For example, you can manually create the credentials file to store your AWS access key ID and secret access key\. You can also use the `aws configure` command of the AWS CLI to automatically create the file\. Alternatively, you can use environment variables\. For more information on configuring your credentials, see the programming\-specific AWS SDK developer guide\.
+ There are several ways to do this\. For example, you can manually create the credentials file to store your access key ID and secret access key\. You also can use the `aws configure` command of the AWS CLI to automatically create the file\. Alternatively, you can use environment variables\. For more information about configuring your credentials, see the programming\-specific AWS SDK developer guide\.
 
  To install and configure the AWS CLI, see [Using the CLI](Tools.CLI.md)\. 
