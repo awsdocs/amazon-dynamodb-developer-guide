@@ -6,7 +6,7 @@ In this step, you populate the `Movies` table with sample data\.
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.Java.02.01)
 + [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.Java.02.02)
 
-This scenario uses a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\. The movie data is in JSON format, as shown in the following example\. For each movie, there is a `year`, a `title`, and a JSON map named `info`\. 
+This scenario uses a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\. The movie data is in JSON format, as shown in the following code example\. For each movie, there is a `year`, a `title`, and a JSON map named `info`\. 
 
 ```
 [
@@ -28,9 +28,9 @@ This scenario uses a sample data file that contains information about a few thou
 
 In the JSON data, note the following:
 + You use the `year` and `title` as the primary key attribute values for the `Movies` table\.
-+ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\. 
++ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\. 
 
- The following is an example of movie data:
+ The following is a code example of movie data.
 
 ```
 {
@@ -72,7 +72,7 @@ In the JSON data, note the following:
 
 After you download the sample data, you can run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
