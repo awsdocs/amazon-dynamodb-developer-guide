@@ -4,7 +4,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 + `year` – The partition key\. The `ScalarAttributeType` is `N` for number\.
 + `title` – The sort key\. The `ScalarAttributeType` is `S` for string\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
