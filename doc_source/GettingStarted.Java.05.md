@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
