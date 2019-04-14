@@ -71,13 +71,13 @@ In this step, you add a new item to the `Movies` table\.
    }
    ```
 **Note**  
-The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores sample JSON that provides more information about the movie\.
+The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores JSON example code that provides more information about the movie\.
 
 1. Compile and run the program\.
 
 ## Step 3\.2: Read an Item<a name="GettingStarted.Java.03.02"></a>
 
-In the previous program, you added the following item to the table:
+In the previous program, you added the following item to the table.
 
 ```
 {
@@ -90,9 +90,9 @@ In the previous program, you added the following item to the table:
 }
 ```
 
-You can use the `getItem` method to read the item from the `Movies` table\. You must specify the primary key values, so you can read any item from `Movies` if you know its `year` and `title`\.
+You can use the `getItem` method to read the item from the `Movies` table\. You must specify the primary key values so that you can read any item from `Movies` if you know its `year` and `title`\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -163,7 +163,7 @@ The item changes from this:
 }
 ```
 
-To the following:
+To this:
 
 ```
 {
@@ -177,7 +177,7 @@ To the following:
 }
 ```
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -232,17 +232,17 @@ To the following:
    ```
 **Note**  
 This program uses an `UpdateExpression` to describe all updates you want to perform on the specified item\.  
-The `ReturnValues` parameter instructs DynamoDB to return only the updated attributes \(`UPDATED_NEW`\)\.
+The `ReturnValues` parameter instructs Amazon DynamoDB to return only the updated attributes \(`UPDATED_NEW`\)\.
 
 1. Compile and run the program\.
 
 ## Step 3\.4: Increment an Atomic Counter<a name="GettingStarted.Java.03.04"></a>
 
-DynamoDB supports atomic counters, where you use the `updateItem` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\) 
+DynamoDB supports atomic counters. Use the `updateItem` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\) 
 
 The following program shows how to increment the `rating` for a movie\. Each time you run it, the program increments this attribute by one\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -301,7 +301,7 @@ The following program shows how to use `UpdateItem` with a condition\. If the co
 
 In this case, the movie item is updated only if there are more than three actors\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -357,13 +357,13 @@ In this case, the movie item is updated only if there are more than three actors
 
 1. Compile and run the program\.
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
    This is because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
 
-1. Modify the program so that the `ConditionExpression` looks like this:
+1. Modify the program so that the `ConditionExpression` looks like the following.
 
    ```
    .withConditionExpression("size(info.actors) >= :num")
@@ -379,7 +379,7 @@ You can use the `deleteItem` method to delete one item by specifying its primary
 
 In the following example, you try to delete a specific movie item if its rating is 5 or less\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy and paste the following program into your Java development environment.
 
    ```
    // Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -432,7 +432,7 @@ In the following example, you try to delete a specific movie item if its rating 
 
 1. Compile and run the program\.
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
