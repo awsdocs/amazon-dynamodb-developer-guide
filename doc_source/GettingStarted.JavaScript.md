@@ -21,6 +21,7 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
  The version of AWS SDK for JavaScript might have been updated\. For the latest version, see the [AWS SDK for JavaScript API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\. 
 + Enable [cross\-origin resource sharing \(CORS\)](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cors.html) so your computer's browser can communicate with the downloadable version of DynamoDB\.
 
+
 **To enable CORS**
 
   1.  Download the free ModHeader Chrome browser extension \(or any other browser extension that allows you to modify HTTP response headers\)\. 
