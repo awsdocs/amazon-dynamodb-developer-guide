@@ -8,7 +8,7 @@ The primary key for the `Movies` table is composed of the following:
 
 To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\); for example, to find movies released in 2014 that have a title starting with the letter "A"\.
 
-In addition to `query`, there is also a `scan` method that can retrieve all the table data\.
+In addition to the `query` method, you can use the `scan` method to retrieve all the table data\.
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
 
@@ -21,7 +21,7 @@ To learn more about querying and scanning data, see [Working with Queries](Query
 
 The program included in this step retrieves all movies released in the `year` 1985\.
 
-1. Copy and paste the following program into a file named `MoviesQuery01.html`:
+1. Copy and paste the following program into a file named `MoviesQuery01.html`.
 
    ```
    <html>
@@ -33,10 +33,10 @@ The program included in this step retrieves all movies released in the `year` 19
      region: "us-west-2",
      endpoint: 'http://localhost:8000',
      // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      accessKeyId: "fakeMyKeyId",
      // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      secretAccessKey: "fakeSecretAccessKey"
    });
    
@@ -77,7 +77,7 @@ The program included in this step retrieves all movies released in the `year` 19
    </html>
    ```
 **Note**  
-`ExpressionAttributeNames` provides name substitution\. This is used because `year` is a reserved word in DynamoDB—you can't use it directly in any expression, including `KeyConditionExpression`\. For this reason, you use the expression attribute name `#yr`\.  
+`ExpressionAttributeNames` provides name substitution\. This is used because `year` is a reserved word in Amazon DynamoDB—you can't use it directly in any expression, including `KeyConditionExpression`\. For this reason, you use the expression attribute name `#yr`\.  
 `ExpressionAttributeValues` provides value substitution\. This is used because you can't use literals in any expression, including `KeyConditionExpression`\. For this reason, you use the expression attribute value `:yyyy`\.
 
 1. Open the `MoviesQuery01.html` file in your browser\.
@@ -89,9 +89,9 @@ The preceding program shows how to query a table by its primary key attributes\.
 
 ## Step 4\.2: Query \- All Movies Released in a Year with Certain Titles<a name="GettingStarted.Js.04.Query.02"></a>
 
-The program included in this step retrieves all movies released in `year` 1992, with `title` beginning with the letter "A" through the letter "L"\.
+The program included in this step retrieves all movies released in `year` 1992 with `title` beginning with the letter "A" through the letter "L"\.
 
-1. Copy and paste the following program into a file named `MoviesQuery02.html`:
+1. Copy and paste the following program into a file named `MoviesQuery02.html`.
 
    ```
    <html>
@@ -103,17 +103,17 @@ The program included in this step retrieves all movies released in `year` 1992, 
      region: "us-west-2",
      endpoint: 'http://localhost:8000',
      // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      accessKeyId: "fakeMyKeyId",
      // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      secretAccessKey: "fakeSecretAccessKey"
    });
    
    var docClient = new AWS.DynamoDB.DocumentClient();
    
    function queryData() {
-       document.getElementById('textarea').innerHTML += "Querying for movies from 1985.";
+       document.getElementById('textarea').innerHTML += "Querying for movies from 1992.";
    
        var params = {
            TableName : "Movies",
@@ -150,7 +150,7 @@ The program included in this step retrieves all movies released in `year` 1992, 
    </html>
    ```
 
-1. Open the `MoviesQuery02.html` file on your browser\.
+1. Open the `MoviesQuery02.html` file in your browser\.
 
 1. Choose **Query**\.
 
@@ -160,7 +160,7 @@ The `scan` method reads every item in the entire table, and returns all the data
 
 The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\), and discard all the others\.
 
-1. Copy and paste the following program into a file named `MoviesScan.html`:
+1. Copy and paste the following program into a file named `MoviesScan.html`.
 
    ```
    <html>
@@ -172,10 +172,10 @@ The following program scans the entire `Movies` table, which contains approximat
      region: "us-west-2",
      endpoint: 'http://localhost:8000',
      // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      accessKeyId: "fakeMyKeyId",
      // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      secretAccessKey: "fakeSecretAccessKey"
    });
    
@@ -209,7 +209,7 @@ The following program scans the entire `Movies` table, which contains approximat
                    document.getElementById('textarea').innerHTML += movie.year + ": " + movie.title + " - rating: " + movie.info.rating + "\n";
                });
    
-               // Continue scanning if we have more movies (per scan 1MB limitation)
+               // Continue scanning if we have more movies (per scan 1 MB limitation)
                document.getElementById('textarea').innerHTML += "Scanning for more..." + "\n";
                params.ExclusiveStartKey = data.LastEvaluatedKey;
                docClient.scan(params, onScan);            
@@ -238,4 +238,4 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Choose **Scan**\.
 
 **Note**  
-You can also use the `Scan` operation with any secondary indexes that you create on the table\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+You also can use the `Scan` operation with any secondary indexes that you create on the table\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
