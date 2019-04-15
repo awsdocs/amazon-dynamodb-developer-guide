@@ -41,11 +41,11 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    });
    ```
 **Note**  
-You set the endpoint to indicate that you are creating the table in DynamoDB on your computer\.
-In the `createTable` call, you specify table name, primary key attributes, and its data types\.
-The `ProvisionedThroughput` parameter is required, but the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this exercise\.\)
+You set the endpoint to indicate that you are creating the table in Amazon DynamoDB on your computer\.
+In the `createTable` call, you specify the table name, primary key attributes, and its data types\.
+The `ProvisionedThroughput` parameter is required, but the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this tutorial\.\)
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `node MoviesCreateTable.js`
 
