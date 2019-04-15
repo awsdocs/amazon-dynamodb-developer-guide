@@ -8,7 +8,7 @@ In this step, you populate the `Movies` table with sample data\.
 
 This scenario uses a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\.
 
-The movie data is encoded as JSON\. For each movie, the JSON defines a `year` name\-value pair, a `title` name\-value pair, and a complex `info` object, as shown in the following example: 
+The movie data is encoded as JSON\. For each movie, the JSON defines a `year` name\-value pair, a `title` name\-value pair, and a complex `info` object, as shown in the following example.
 
 ```
 {
@@ -52,13 +52,13 @@ Build a program that loads movie data into the table you created in Step 1\.
 
 1. This program uses the open source Newtonsoft `Json.NET` library for deserializing JSON data, licensed under the MIT License \(MIT\) \(see [https://github\.com/JamesNK/Newtonsoft\.Json/blob/master/LICENSE\.md](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md)\)\.
 
-   To load the `Json.NET` library into your project, in Visual Studio, open the **NuGet Package Manager Console** from the **Tools** menu\. Then type the following command at the `PM>` prompt:
+   To load the `Json.NET` library into your project, in Visual Studio open the **NuGet Package Manager Console** from the **Tools** menu\. Then type the following command at the `PM>` prompt.
 
    ```
    PM> Install-Package Newtonsoft.Json
    ```
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -82,7 +82,7 @@ Build a program that loads movie data into the table you created in Step 1\.
        {
            public static Table GetTableObject(string tableName)
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -96,7 +96,7 @@ Build a program that loads movie data into the table you created in Step 1\.
                    return (null);
                }
    
-               // Now, create a Table object for the specified table
+               // Now, create a table object for the specified table
                Table table;
                try
                {
@@ -112,7 +112,7 @@ Build a program that loads movie data into the table you created in Step 1\.
    
            public static void Main(string[] args)
            {
-               // First, read in the JSON data from the moviedate.json file
+               // First, read in the JSON data from the moviedata.json file
                StreamReader sr = null;
                JsonTextReader jtr = null;
                JArray movieArray = null;
@@ -136,7 +136,7 @@ Build a program that loads movie data into the table you created in Step 1\.
                        sr.Close();
                }
    
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject("Movies");
                if (table == null)
                {
