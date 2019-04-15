@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.html`:
+1. Copy and paste the following program into a file named `MoviesDeleteTable.html`.
 
    ```
    <html>
@@ -14,10 +14,10 @@
      region: "us-west-2",
      endpoint: 'http://localhost:8000',
      // accessKeyId default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      accessKeyId: "fakeMyKeyId",
      // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
-     // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+     // For security reasons, do not store AWS credentials in your files. Use Amazon Cognito instead.
      secretAccessKey: "fakeSecretAccessKey"
    });
    
