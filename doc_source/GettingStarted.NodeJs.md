@@ -13,7 +13,7 @@ As you work through this tutorial, you can refer to the [AWS SDK for JavaScript 
 You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary](GettingStarted.NodeJs.Summary.md)\. 
 + Set up an AWS access key to use the AWS SDKs\. For more information, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
 + Set up the AWS SDK for JavaScript:
-  + Go to [http://nodejs\.org](http://nodejs.org) and install Node\.js\.
-  + Go to [https://aws\.amazon\.com/sdk\-for\-node\-js](https://aws.amazon.com/sdk-for-node-js) and install the AWS SDK for JavaScript\.
+  + Install [Node\.js](http://nodejs.org)\.
+  + Install the [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-node-js)\.
 
   For more information, see the [AWS SDK for JavaScript Getting Started Guide](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/browser-intro.html)\.
