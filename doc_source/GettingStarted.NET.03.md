@@ -16,7 +16,7 @@ To learn more about reading and writing data, see [Working with Items in DynamoD
 
 In this step, you add a new item to the `Movies` table\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -35,7 +35,7 @@ In this step, you add a new item to the `Movies` table\.
        {
            static void Main(string[] args)
            {
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject("Movies");
                if (table == null)
                {
@@ -43,13 +43,13 @@ In this step, you add a new item to the `Movies` table\.
                    return;
                }
    
-               // Create a Document representing the movie item to be written to the table
+               // Create a document representing the movie item to be written to the table
                Document document = new Document();
                document["year"] = 2015;
                document["title"] = "The Big New Movie";
                document["info"] = Document.FromJson("{\"plot\" : \"Nothing happens at all.\",\"rating\" : 0}");
    
-               // Use Table.PutItem to write the document item to the table
+               // Use table.PutItem to write the document item to the table
                try
                {
                    table.PutItem(document);
@@ -65,7 +65,7 @@ In this step, you add a new item to the `Movies` table\.
    
            public static Table GetTableObject(string tableName)
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -79,7 +79,7 @@ In this step, you add a new item to the `Movies` table\.
                    return (null);
                }
    
-               // Now, create a Table object for the specified table
+               // Now, create a table object for the specified table
                Table table = null;
                try
                {
@@ -111,7 +111,7 @@ This code writes an item to the table that has the two primary key attributes \(
 
 ## Step 3\.2: Read an Item<a name="GettingStarted.NET.03.02"></a>
 
-In the previous program, you added the following item to the table:
+In the previous program, you added the following item to the table.
 
 ```
 {
@@ -126,7 +126,7 @@ In the previous program, you added the following item to the table:
 
 You can use the `GetItem` method to read the item from the `Movies` table\. You must specify the primary key values so that you can read any item from `Movies` if you know its `year` and `title`\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -145,7 +145,7 @@ You can use the `GetItem` method to read the item from the `Movies` table\. You 
        {
            static void Main(string[] args)
            {
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject("Movies");
                if (table == null)
                {
@@ -169,7 +169,7 @@ You can use the `GetItem` method to read the item from the `Movies` table\. You 
    
            public static Table GetTableObject(string tableName)
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -183,7 +183,7 @@ You can use the `GetItem` method to read the item from the `Movies` table\. You 
                    return (null);
                }
    
-               // Now, create a Table object for the specified table
+               // Now, create a table object for the specified table
                Table table = null;
                try
                {
@@ -231,7 +231,7 @@ The item changes from this:
 }
 ```
 
-To the following:
+To this:
 
 ```
 {
@@ -245,7 +245,7 @@ To the following:
 }
 ```
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -324,7 +324,7 @@ To the following:
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -342,7 +342,7 @@ To the following:
    
            public static void DisplayMovieItem(AmazonDynamoDBClient client, string year, string title)
            {
-               // Create Primitives for the HASH and RANGE portions of the primary key
+               // Create primitives for the HASH and RANGE portions of the primary key
                Primitive hash = new Primitive(year, true);
                Primitive range = new Primitive(title, false);
    
@@ -382,13 +382,13 @@ By setting the `ReturnValues` field to `"UPDATED_NEW"`, you are requesting that 
 
 DynamoDB supports atomic counters, where you use the `UpdateItem` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\)
 
-The following program increments the `rating` for a movie\. Each time you run it, the program increments this attribute by one\. Again, it is the `UpdateExpression` that determines what happens:
+The following program increments the `rating` for a movie\. Each time you run it, the program increments this attribute by one\. Again, it is the `UpdateExpression` that determines what happens.
 
 ```
 UpdateExpression = "SET info.rating = info.rating + :inc",
 ```
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -461,7 +461,7 @@ UpdateExpression = "SET info.rating = info.rating + :inc",
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -479,7 +479,7 @@ UpdateExpression = "SET info.rating = info.rating + :inc",
    
            public static void DisplayMovieItem(AmazonDynamoDBClient client, string year, string title)
            {
-               // Create Primitives for the HASH and RANGE portions of the primary key
+               // Create primitives for the HASH and RANGE portions of the primary key
                Primitive hash = new Primitive(year, true);
                Primitive range = new Primitive(title, false);
    
@@ -514,9 +514,9 @@ UpdateExpression = "SET info.rating = info.rating + :inc",
 
 The following program shows how to use `UpdateItem` with a condition\. If the condition evaluates to true, the update succeeds; otherwise, the update is not performed\.
 
-In this case, the item is only updated if there are more than three actors in the movie\.
+In this case, the item is only updated if there are greater than three actors in the movie\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -595,7 +595,7 @@ In this case, the item is only updated if there are more than three actors in th
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -613,7 +613,7 @@ In this case, the item is only updated if there are more than three actors in th
    
            public static void DisplayMovieItem(AmazonDynamoDBClient client, string year, string title)
            {
-               // Create Primitives for the HASH and RANGE portions of the primary key
+               // Create primitives for the HASH and RANGE portions of the primary key
                Primitive hash = new Primitive(year, true);
                Primitive range = new Primitive(title, false);
    
@@ -644,13 +644,13 @@ In this case, the item is only updated if there are more than three actors in th
 
 1. Compile and run the program\.
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
    This is because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
 
-1. Modify the program so that the number of actors that the `ConditionExpression` uses is 2 instead of 3:
+1. Modify the program so that the number of actors that the `ConditionExpression` uses is 2 instead of 3.
 
    ```
    { ":n", new AttributeValue { N = "2" } }
@@ -662,11 +662,11 @@ In this case, the item is only updated if there are more than three actors in th
 
 ## Step 3\.6: Delete an Item<a name="GettingStarted.NET.03.06"></a>
 
-You can use the `Table.DeleteItem` operation to delete an item by specifying its primary key\. You can optionally provide a condition in the `DeleteItemOperationConfig` parameter, to prevent the item from being deleted if the condition is not met\.
+You can use the `Table.DeleteItem` operation to delete an item by specifying its primary key\. You can optionally provide a condition in the `DeleteItemOperationConfig` parameter to prevent the item from being deleted if the condition is not met\.
 
 In the following example, you try to delete a specific movie item if its rating is 5 or less\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -686,7 +686,7 @@ In the following example, you try to delete a specific movie item if its rating 
        {
            static void Main(string[] args)
            {
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject("Movies");
                if (table == null)
                    return;
@@ -724,7 +724,7 @@ In the following example, you try to delete a specific movie item if its rating 
    
            public static Table GetTableObject(string tableName)
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -738,7 +738,7 @@ In the following example, you try to delete a specific movie item if its rating 
                    return (null);
                }
    
-               // Now, create a Table object for the specified table
+               // Now, create a table object for the specified table
                Table table = null;
                try
                {
@@ -757,13 +757,13 @@ In the following example, you try to delete a specific movie item if its rating 
 
 1. Compile and run the program\.
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
    This is because the rating for this particular move is greater than 5\.
 
-1. Modify the program to remove the `DeleteItemOperationConfig` named `opConfig` from the call to `table.DeleteItem`:
+1. Modify the program to remove the `DeleteItemOperationConfig` named `opConfig` from the call to `table.DeleteItem`.
 
    ```
    try { table.DeleteItem( 2015, "The Big New Movie" ); }
