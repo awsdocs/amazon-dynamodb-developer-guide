@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.js`:
+1. Copy and paste the following program into a file named `MoviesDeleteTable.js`.
 
    ```
    var AWS = require("aws-sdk");
@@ -27,6 +27,6 @@
    });
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `node MoviesDeleteTable.js`
