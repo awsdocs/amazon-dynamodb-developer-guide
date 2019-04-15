@@ -6,7 +6,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -25,7 +25,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
        {
            public static void Main(string[] args)
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -104,10 +104,10 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    }
    ```
 **Note**  
-In the `AmazonDynamoDBConfig`, you set the `ServiceURL` to "http://localhost:8000" to create the table in the downloadable version of DynamoDB running on your computer\.
-In the `CreateTableRequest`, you specify the table name, along with primary key attributes and their data types\.
+In `AmazonDynamoDBConfig`, you set the `ServiceURL` to "http://localhost:8000" to create the table in the downloadable version of DynamoDB running on your computer\.
+In `CreateTableRequest`, you specify the table name, along with primary key attributes and their data types\.
 The partition\-key portion of the primary key, which determines the logical partition where DynamoDB stores an item, is identified in its `KeySchemaElement` in the `CreateTableRequest` as having `KeyType` "HASH"\.
-The sort\-key portion of the primary key, which determines the ordering of items having the same partition\-key value, is identified in its `KeySchemaElement` in the `CreateTableRequest` as having `KeyType` "RANGE"\.
+The sort\-key portion of the primary key, which determines the ordering of items having the same partition\-key value, is identified in its `KeySchemaElement` in `CreateTableRequest` as having `KeyType` "RANGE"\.
 The `ProvisionedThroughput` field is required, even though the downloadable version of DynamoDB ignores it\.
 
 1. Compile and run the program\.
