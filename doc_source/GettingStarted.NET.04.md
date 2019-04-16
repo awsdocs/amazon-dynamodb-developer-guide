@@ -8,7 +8,7 @@ The primary key for the `Movies` table is composed of the following:
 
 To find all movies released during a year, you need to specify only the `year` partition\-key attribute\. You can add the `title` sort\-key attribute to retrieve a subset of movies based on some condition \(on the sort\-key attribute\), such as finding movies released in 2014 that have a title starting with the letter "A"\.
 
-In addition to `Query`, there is also a `Scan` method that can retrieve all of the table data\.
+In addition to the `Query` method, you can use the `Scan` method to retrieve all of the table data\.
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
 
@@ -19,10 +19,10 @@ To learn more about querying and scanning data, see [Working with Queries](Query
 ## Step 4\.1: Query<a name="GettingStarted.NET.04.Query"></a>
 
 The C\# code included in this step performs the following queries:
-+ Retrieves all movies release in `year` 1985\.
-+ Retrieves all movies released in `year` 1992, with `title` beginning with the letter "A" through the letter "L"\.
++ Retrieves all movies released in `year` 1985\.
++ Retrieves all movies released in `year` 1992 with a `title` beginning with the letter "A" through the letter "L"\.
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -48,7 +48,7 @@ The C\# code included in this step performs the following queries:
                // Get an AmazonDynamoDBClient for the local DynamoDB database
                AmazonDynamoDBClient client = GetLocalClient();
    
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject(client, "Movies");
                if (table == null)
                {
@@ -221,7 +221,7 @@ The C\# code included in this step performs the following queries:
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -271,7 +271,7 @@ In the third query, you use the low\-level AWS SDK for \.NET API, which gives mo
 1. Compile and run the program\.
 
 **Note**  
-The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you can also optionally create one or more secondary indexes on a table, and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you also can optionally create one or more secondary indexes on a table, and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
 
 ## Step 4\.2: Scan<a name="GettingStarted.NET.04.Scan"></a>
 
@@ -279,7 +279,7 @@ The `Scan` method reads every item in the table and returns all the data in the 
 
 The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\) and discard all the others\. 
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -302,7 +302,7 @@ The following program scans the entire `Movies` table, which contains approximat
                // Get an AmazonDynamoDBClient for the local DynamoDB database
                AmazonDynamoDBClient client = GetLocalClient();
    
-               // Get a Table object for the table that you created in Step 1
+               // Get a table object for the table that you created in Step 1
                Table table = GetTableObject(client, "Movies");
                if (table == null)
                {
@@ -312,8 +312,8 @@ The following program scans the entire `Movies` table, which contains approximat
    
    
                /*-----------------------------------------------------------------------
-                *  4.2a:  Call Table.Scan to return the movies released in the 1950's,
-                *         displaying title, year, lead actor and lead director.
+                *  4.2a:  Call Table.Scan to return the movies released in the 1950s,
+                *         displaying title, year, lead actor, and lead director.
                 *-----------------------------------------------------------------------*/
                ScanFilter filter = new ScanFilter();
                filter.AddCondition("year", ScanOperator.Between, new DynamoDBEntry[] { 1950, 1959 });
@@ -325,7 +325,7 @@ The following program scans the entire `Movies` table, which contains approximat
                Search search = table.Scan(filter);
    
                // Display the movie information returned by this query
-               Console.WriteLine("\n\n Movies released in the 1950's (Document Model):" +
+               Console.WriteLine("\n\n Movies released in the 1950s (Document Model):" +
                           "\n--------------------------------------------------");
                List<Document> docList = new List<Document>();
                Document infoDoc;
@@ -355,8 +355,8 @@ The following program scans the entire `Movies` table, which contains approximat
    
                /*-----------------------------------------------------------------------
                 *  4.2b:  Call AmazonDynamoDBClient.Scan to return all movies released
-                *         in the 1960's, only downloading the title, year, lead
-                *         actor and lead director attributes.
+                *         in the 1960s, only downloading the title, year, lead
+                *         actor, and lead director attributes.
                 *-----------------------------------------------------------------------*/
                ScanRequest sRequest = new ScanRequest
                {
@@ -391,7 +391,7 @@ The following program scans the entire `Movies` table, which contains approximat
                }
    
                // Display the movie information returned by this scan
-               Console.WriteLine("\n\n Movies released in the 1960's (low-level):" +
+               Console.WriteLine("\n\n Movies released in the 1960s (low-level):" +
                           "\n-------------------------------------------");
                foreach (Dictionary<string, AttributeValue> item in sResponse.Items)
                {
@@ -406,7 +406,7 @@ The following program scans the entire `Movies` table, which contains approximat
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
@@ -456,4 +456,4 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Compile and run the program\.
 
 **Note**  
-You can also use the `Scan` operation with any secondary indexes that you have created on the table\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+You can also use the `Scan` operation with any secondary indexes you have created on the table\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
