@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+1. Copy and paste the following program into the `Program.cs` file, replacing its current contents.
 
    ```
    using System;
@@ -37,7 +37,7 @@
    
            public static AmazonDynamoDBClient GetLocalClient()
            {
-               // First, set up a DynamoDB client for DynamoDB Local
+               // First, set up a DynamoDB client for DynamoDB local
                AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                ddbConfig.ServiceURL = "http://localhost:8000";
                AmazonDynamoDBClient client;
