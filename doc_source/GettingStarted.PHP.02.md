@@ -28,9 +28,9 @@ This scenario uses a sample data file that contains information about a few thou
 
 In the JSON data, note the following:
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-+ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
++ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\.
 
- The following is an example of movie data:
+ The following is an example of movie data.
 
 ```
 {
@@ -72,7 +72,7 @@ In the JSON data, note the following:
 
 After you download the sample data, you can run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesLoadData.php`:
+1. Copy and paste the following program into a file named `MoviesLoadData.php`.
 
    ```
    <?php
@@ -129,6 +129,6 @@ After you download the sample data, you can run the following program to populat
 **Note**  
 The [DynamoDB Marshaler class](http://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.DynamoDb.Marshaler.html) has methods for converting JSON documents and PHP arrays to the DynamoDB format\. In this program, `$marshaler->marshalJson($json)` takes a JSON document and converts it into a DynamoDB item\.
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `php MoviesLoadData.php`
