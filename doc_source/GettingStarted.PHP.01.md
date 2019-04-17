@@ -4,7 +4,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-1. Copy and paste the following program into a file named `MoviesCreateTable.php`:
+1. Copy and paste the following program into a file named `MoviesCreateTable.php`.
 
    ```
    <?php
@@ -64,11 +64,11 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    ?>
    ```
 **Note**  
-You set the endpoint to indicate that you are creating the table in DynamoDB on your computer\.
-In the `createTable` call, you specify table name, primary key attributes, and its data types\.
+You set the endpoint to indicate that you are creating the table in Amazon DynamoDB on your computer\.
+In the `createTable` call, you specify the table name, primary key attributes, and its data types\.
 The `ProvisionedThroughput` parameter is required, but the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this exercise\.\)
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `php MoviesCreateTable.php`
 
