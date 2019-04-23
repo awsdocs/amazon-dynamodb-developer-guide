@@ -28,7 +28,7 @@ This procedure assumes that you have enabled point\-in\-time recovery\. To enabl
 **Note**  
 You can restore to any point in time within **Earliest restore date** and **Latest restore date**\. DynamoDB restores your table data to the state based on the selected date and time \(day:hour:minute:second\)\. 
 
-   The table that is being restored is shown with the status **Restoring**\. After the restore process is finished, the status of the `MusicCollection` table changes to **Active**\.
+   The table that is being restored is shown with the status **Restoring**\. After the restore process is finished, the status of the `MusicCollectionMinutesAgo` table changes to **Active**\.
 
 ## Restoring a Table to a Point in Time \(AWS CLI\)<a name="restorepointintime_cli"></a>
 
