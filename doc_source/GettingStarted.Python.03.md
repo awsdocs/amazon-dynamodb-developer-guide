@@ -16,7 +16,7 @@ To learn more about reading and writing data, see [Working with Items in DynamoD
 
 In this step, you add a new item to the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps01.py`:
+1. Copy and paste the following program into a file named `MoviesItemOps01.py`.
 
    ```
    from __future__ import print_function # Python 2/3 compatibility
@@ -57,15 +57,15 @@ In this step, you add a new item to the `Movies` table\.
    ```
 **Note**  
 The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores sample JSON that provides more information about the movie\.
-The `DecimalEncoder` class is used to print out numbers stored using the `Decimal` class\. The Boto SDK uses the `Decimal` class to hold DynamoDB number values\.
+The `DecimalEncoder` class is used to print out numbers stored using the `Decimal` class\. The Boto SDK uses the `Decimal` class to hold Amazon DynamoDB number values\.
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps01.py`
 
 ## Step 3\.2: Read an Item<a name="GettingStarted.Python.03.02"></a>
 
-In the previous program, you added the following item to the table:
+In the previous program, you added the following item to the table.
 
 ```
 {
@@ -78,7 +78,7 @@ In the previous program, you added the following item to the table:
 }
 ```
 
-You can use the `get_item` method to read the item from the `Movies` table\. You must specify the primary key values, so you can read any item from `Movies` if you know its `year` and `title`\.
+You can use the `get_item` method to read the item from the `Movies` table\. You must specify the primary key values so that you can read any item from `Movies` if you know its `year` and `title`\.
 
 1. Copy and paste the following program into a file named `MoviesItemOps02.py`\.
 
@@ -122,7 +122,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
        print(json.dumps(item, indent=4, cls=DecimalEncoder))
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps02.py`
 
@@ -134,7 +134,7 @@ In this example, you perform the following updates:
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
-The item changes from this:
+The item changes from how it appears in the following code.
 
 ```
 {
@@ -147,7 +147,7 @@ The item changes from this:
 }
 ```
 
-To the following:
+The item changes to the following code. 
 
 ```
 {
@@ -161,7 +161,7 @@ To the following:
 }
 ```
 
-1. Copy and paste the following program into a file named `MoviesItemOps03.py`:
+1. Copy and paste the following program into a file named `MoviesItemOps03.py`.
 
    ```
    from __future__ import print_function # Python 2/3 compatibility
@@ -207,17 +207,17 @@ To the following:
 This program uses `UpdateExpression` to describe all updates you want to perform on the specified item\.  
 The `ReturnValues` parameter instructs DynamoDB to return only the updated attributes \(`UPDATED_NEW`\)\.
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps03.py`
 
 ## Step 3\.4: Increment an Atomic Counter<a name="GettingStarted.Python.03.04"></a>
 
-DynamoDB supports atomic counters, where you use the `update_item` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\)
+DynamoDB supports atomic counters, which use the `update_item` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\)
 
-The following program shows how to increment the `rating` for a movie\. Each time you run it, the program increments this attribute by one\. 
+The following program shows how to increment the `rating` for a movie\. Each time you run the program, it increments this attribute by one\. 
 
-1. Copy and paste the following program into a file named `MoviesItemOps04.py`:
+1. Copy and paste the following program into a file named `MoviesItemOps04.py`.
 
    ```
    from __future__ import print_function # Python 2/3 compatibility
@@ -258,7 +258,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
    print(json.dumps(response, indent=4, cls=DecimalEncoder))
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps04.py`
 
@@ -268,7 +268,7 @@ The following program shows how to use `UpdateItem` with a condition\. If the co
 
 In this case, the item is updated only if there are more than three actors\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps05.py`:
+1. Copy and paste the following program into a file named `MoviesItemOps05.py`.
 
    ```
    from __future__ import print_function # Python 2/3 compatibility
@@ -320,17 +320,17 @@ In this case, the item is updated only if there are more than three actors\.
        print(json.dumps(response, indent=4, cls=DecimalEncoder))
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps05.py`
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
-   This is because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
+   The program fails because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
 
-1. Modify the program so that the `ConditionExpression` looks like this:
+1. Modify the program so that the `ConditionExpression` looks like the following.
 
    ```
    ConditionExpression="size(info.actors) >= :num", 
@@ -342,11 +342,11 @@ In this case, the item is updated only if there are more than three actors\.
 
 ## Step 3\.6: Delete an Item<a name="GettingStarted.Python.03.06"></a>
 
-You can use the `delete_item` method to delete one item by specifying its primary key\. You can optionally provide a `ConditionExpression` to prevent the item from being deleted if the condition is not met\.
+You can use the `delete_item` method to delete one item by specifying its primary key\. Optionally, you can provide a `ConditionExpression` to prevent the item from being deleted if the condition is not met\.
 
 In the following example, you try to delete a specific movie item if its rating is 5 or less\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps06.py`:
+1. Copy and paste the following program into a file named `MoviesItemOps06.py`.
 
    ```
    from __future__ import print_function # Python 2/3 compatibility
@@ -395,17 +395,17 @@ In the following example, you try to delete a specific movie item if its rating 
        print(json.dumps(response, indent=4, cls=DecimalEncoder))
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `python MoviesItemOps06.py`
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
-   This is because the rating for this particular move is greater than 5\.
+   The program fails because the rating for this particular move is greater than 5\.
 
-1. Modify the program to remove the condition in `table.delete_item`:
+1. Modify the program to remove the condition in `table.delete_item`.
 
    ```
    response = table.delete_item(
