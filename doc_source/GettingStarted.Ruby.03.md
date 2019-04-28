@@ -16,7 +16,7 @@ To learn more about reading and writing data, see [Working with Items in DynamoD
 
 In this step, you add a new item to the table\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps01.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps01.rb`.
 
    ```
    require "aws-sdk"
@@ -59,13 +59,13 @@ In this step, you add a new item to the table\.
 **Note**  
 The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores a map that provides more information about the movie\.
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps01.rb`
 
 ## Step 3\.2: Read an Item<a name="GettingStarted.Ruby.03.02"></a>
 
-In the previous program, you added the following item to the table:
+In the previous program, you added the following item to the table.
 
 ```
 {
@@ -78,9 +78,9 @@ In the previous program, you added the following item to the table:
 }
 ```
 
-You can use the `get_item` method to read the item from the `Movies` table\. You must specify the primary key values, so you can read any item from `Movies` if you know its `year` and `title`\.
+You can use the `get_item` method to read the item from the `Movies` table\. You must specify the primary key values so that you can read any item from `Movies` if you know its `year` and `title`\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps02.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps02.rb`.
 
    ```
    require "aws-sdk"
@@ -124,7 +124,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    end
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps02.rb`
 
@@ -136,7 +136,7 @@ In this example, you perform the following updates:
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
-The item changes from this:
+The item changes from the following.
 
 ```
 {
@@ -149,7 +149,7 @@ The item changes from this:
 }
 ```
 
-To the following:
+The preceding code changes to the following.
 
 ```
 {
@@ -163,7 +163,7 @@ To the following:
 }
 ```
 
-1. Copy and paste the following program into a file named `MoviesItemOps03.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps03.rb`.
 
    ```
    require "aws-sdk"
@@ -206,19 +206,19 @@ To the following:
    ```
 **Note**  
 This program uses `update_expression` to describe all updates you want to perform on the specified item\.  
-The `return_values` parameter instructs DynamoDB to return only the updated attributes \(`UPDATED_NEW`\)\.
+The `return_values` parameter instructs Amazon DynamoDB to return only the updated attributes \(`UPDATED_NEW`\)\.
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps03.rb`
 
 ## Step 3\.4: Increment an Atomic Counter<a name="GettingStarted.Ruby.03.04"></a>
 
-DynamoDB supports atomic counters, where you use the `update_item` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\)
+DynamoDB supports atomic counters, which use the `update_item` method to increment or decrement the value of an existing attribute without interfering with other write requests\. \(All write requests are applied in the order in which they are received\.\)
 
-The following program shows how to increment the `rating` for a movie\. Each time you run it, the program increments this attribute by one\. 
+The following program shows how to increment the `rating` for a movie\. Each time you run the program, it increments this attribute by one\. 
 
-1. Copy and paste the following program into a file named `MoviesItemOps04.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps04.rb`.
 
    ```
    require "aws-sdk"
@@ -264,7 +264,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
    end
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps04.rb`
 
@@ -272,9 +272,9 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 
 The following program shows how to use `update_item` with a condition\. If the condition evaluates to true, the update succeeds; otherwise, the update is not performed\. 
 
-In this case, the item is updated only if there are more than three actors\.
+In this case, the item is updated only if the number of actors is greater than three\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps05.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps05.rb`.
 
    ```
    require "aws-sdk"
@@ -322,7 +322,7 @@ In this case, the item is updated only if there are more than three actors\.
    end
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps05.rb`
 
@@ -330,9 +330,9 @@ In this case, the item is updated only if there are more than three actors\.
 
    `The conditional request failed`
 
-   This is because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
+   The program fails because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
 
-1. Modify the program so that the `ConditionExpression` looks like this:
+1. Modify the program so that the `ConditionExpression` looks like the following.
 
    ```
    condition_expression: "size(info.actors) >= :num", 
@@ -348,7 +348,7 @@ You can use the `delete_item` method to delete one item by specifying its primar
 
 In the following example, you try to delete a specific movie item if its rating is 5 or less\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps06.rb`:
+1. Copy and paste the following program into a file named `MoviesItemOps06.rb`.
 
    ```
    require "aws-sdk"
@@ -387,17 +387,17 @@ In the following example, you try to delete a specific movie item if its rating 
    end
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesItemOps06.rb`
 
-   The program should fail with the following message:
+   The program should fail with the following message.
 
    `The conditional request failed`
 
-   This is because the rating for this particular move is greater than 5\.
+   The program fails because the rating for this particular move is greater than 5\.
 
-1. Modify the program to remove the condition:
+1. Modify the program to remove the condition.
 
    ```
    params = {
