@@ -9,7 +9,7 @@
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.DDBLowLevelAPI.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-The DynamoDB *low\-level API* is the protocol\-level interface for Amazon DynamoDB\. At this level, every HTTP\(S\) request must be correctly formatted and carry a valid digital signature\. 
+The Amazon DynamoDB *low\-level API* is the protocol\-level interface for DynamoDB\. At this level, every HTTP\(S\) request must be correctly formatted and carry a valid digital signature\. 
 
 The AWS SDKs construct low\-level DynamoDB API requests on your behalf and process the responses from DynamoDB\. This lets you focus on your application logic, instead of low\-level details\. However, you can still benefit from a basic knowledge of how the low\-level DynamoDB API works\.
 
@@ -19,18 +19,18 @@ For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
 For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
 
-The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy, so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
+The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 
-DynamoDB uses JSON only as a transport protocol, not as a storage format\. The AWS SDKs use JSON to send data to DynamoDB, and DynamoDB responds with JSON, but DynamoDB does not store data persistently in JSON format\.
+DynamoDB uses JSON only as a transport protocol, not as a storage format\. The AWS SDKs use JSON to send data to DynamoDB, and DynamoDB responds with JSON. DynamoDB does not store data persistently in JSON format\.
 
 **Note**  
-For more information about JSON, see the [Introducing JSON](http://json.org) at the JSON\.org website\.
+For more information about JSON, see [Introducing JSON](http://json.org) at the JSON\.org website\.
 
 ## Request Format<a name="Programming.LowLevelAPI.RequestFormat"></a>
 
 The DynamoDB low\-level API accepts HTTP\(S\) `POST` requests as input\. The AWS SDKs construct these requests for you\.
 
-Suppose that you have a table named *Pets*, with a key schema consisting of `AnimalType` \(partition key\) and `Name` \(sort key\)\. Both of these attributes are of type string\. To retrieve an item from *Pets*, the AWS SDK constructs a request as shown following:
+Suppose that you have a table named *Pets*, with a key schema consisting of `AnimalType` \(partition key\) and `Name` \(sort key\)\. Both of these attributes are of type string\. To retrieve an item from *Pets*, the AWS SDK constructs the following request.
 
 ```
 POST / HTTP/1.1
@@ -55,11 +55,11 @@ X-Amz-Target: DynamoDB_20120810.GetItem
 Note the following about this request:
 + The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API Requests](http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 Signing Process](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
 + The `X-Amz-Target` header contains the name of a DynamoDB operation: `GetItem`\. \(This is also accompanied by the low\-level API version, in this case `20120810`\.\)
-+ The payload \(body\) of the request contains the parameters for the operation, in JSON format\. For the `GetItem` operation, the parameters are `TableName` and `Key`\.
++ The payload \(body\) of the request contains the parameters for the operation in JSON format\. For the `GetItem` operation, the parameters are `TableName` and `Key`\.
 
 ## Response Format<a name="Programming.LowLevelAPI.ResponseFormat"></a>
 
-Upon receipt of the request, DynamoDB processes it and returns a response\. For the request shown above, the HTTP\(S\) response payload contains the results from the operation, as in this example:
+Upon receipt of the request, DynamoDB processes it and returns a response\. For the request shown previously, the HTTP\(S\) response payload contains the results from the operation, as shown in the following example.
 
 ```
 HTTP/1.1 200 OK
@@ -100,7 +100,7 @@ Date: <Date>
 At this point, the AWS SDK returns the response data to your application for further processing\.
 
 **Note**  
-If DynamoDB cannot process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application, in the form of exceptions\. For more information, see [Error Handling](Programming.Errors.md)\.
+If DynamoDB cannot process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application in the form of exceptions\. For more information, see [Error Handling](Programming.Errors.md)\.
 
 ## Data Type Descriptors<a name="Programming.LowLevelAPI.DataTypeDescriptors"></a>
 
@@ -125,9 +125,9 @@ The following is a complete list of DynamoDB data type descriptors:
 
 ## Numeric Data<a name="Programming.LowLevelAPI.Numbers"></a>
 
-Different programming languages offer different levels of support for JSON\. In some cases, you might decide to use a third party library for validating and parsing JSON documents\.
+Different programming languages offer different levels of support for JSON\. In some cases, you might decide to use a third-party library for validating and parsing JSON documents\.
 
-Some third party libraries build upon the JSON number type, providing their own types such as `int`, `long` or `double`\. However, the native number data type in DynamoDB does not map exactly to these other data types, so these type distinctions can cause conflicts\. In addition, many JSON libraries do not handle fixed\-precision numeric values, and they automatically infer a double data type for digit sequences that contain a decimal point\.
+Some third-party libraries build upon the JSON number type, providing their own types such as `int`, `long` or `double`\. However, the native number data type in DynamoDB does not map exactly to these other data types, so these type distinctions can cause conflicts\. In addition, many JSON libraries do not handle fixed\-precision numeric values, and they automatically infer a double data type for digit sequences that contain a decimal point\.
 
 To solve these problems, DynamoDB provides a single numeric type with no data loss\. To avoid unwanted implicit conversions to a double value, DynamoDB uses strings for the data transfer of numeric values\. This approach provides flexibility for updating attribute values while maintaining proper sorting semantics, such as putting the values "01", "2", and "03" in the proper sequence\.
 
