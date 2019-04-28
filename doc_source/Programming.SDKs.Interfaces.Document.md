@@ -1,6 +1,6 @@
 # Document Interfaces<a name="Programming.SDKs.Interfaces.Document"></a>
 
-Many AWS SDKs provide a document interface, allowing you to perform data plane operations \(create, read, update, delete\) on tables and indexes\. With a document interface, you do not need to specify [Data Type Descriptors](Programming.LowLevelAPI.md#Programming.LowLevelAPI.DataTypeDescriptors); the data types are implied by the semantics of the data itself\. These AWS SDKs also provide methods to easily convert JSON documents to and from native DynamoDB data types\.
+Many AWS SDKs provide a document interface, allowing you to perform data plane operations \(create, read, update, delete\) on tables and indexes\. With a document interface, you do not need to specify [Data Type Descriptors](Programming.LowLevelAPI.md#Programming.LowLevelAPI.DataTypeDescriptors); the data types are implied by the semantics of the data itself\. These AWS SDKs also provide methods to easily convert JSON documents to and from native Amazon DynamoDB data types\.
 
 **Note**  
 Document interfaces are available in the AWS SDKs for Java, \.NET, Node\.js, and JavaScript in the Browser\.
