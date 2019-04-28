@@ -1,8 +1,8 @@
 # Step 5: \(Optional\) Delete the Table<a name="GettingStarted.Ruby.05"></a>
 
- To delete the `Movies` table: 
+ Do the following to delete the `Movies` table.
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.rb`:
+1. Copy and paste the following program into a file named `MoviesDeleteTable.rb`.
 
    ```
    require "aws-sdk"
@@ -28,6 +28,6 @@
    end
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesDeleteTable.rb`
