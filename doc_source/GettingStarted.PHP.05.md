@@ -1,8 +1,8 @@
 # Step 5: \(Optional\) Delete the Table<a name="GettingStarted.PHP.05"></a>
 
- To delete the `Movies` table: 
+ Do the following to delete the `Movies` table.
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.php`:
+1. Copy and paste the following program into a file named `MoviesDeleteTable.php`.
 
    ```
    <?php
@@ -36,6 +36,6 @@
    ?>
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `php MoviesDeleteTable.php`
