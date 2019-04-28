@@ -2,7 +2,7 @@
 
 This section describes the supported primitive Java data types, collections, and arbitrary data types\. 
 
-DynamoDB supports the following primitive data types and primitive wrapper classes\. 
+Amazon DynamoDB supports the following primitive data types and primitive wrapper classes\. 
 + `String`
 + `Boolean`, `boolean`
 + `Byte`, `byte`
@@ -16,7 +16,7 @@ DynamoDB supports the following primitive data types and primitive wrapper class
 + `BigInteger`
 
 **Note**  
- For more information on the DynamoDB naming rules and the various supported data types see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
+ For more information about the DynamoDB naming rules and the various supported data types, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
 
 DynamoDB supports the Java [Set](http://docs.oracle.com/javase/6/docs/api/java/util/Set.html) collection types\. If your mapped collection property is not a Set, then an exception is thrown\.
 
