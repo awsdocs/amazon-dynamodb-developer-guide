@@ -28,9 +28,9 @@ You use a sample data file that contains information about a few thousand movies
 
 In the JSON data, note the following:
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-+ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
++ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\.
 
- The following is an example of movie data:
+ The following is an example of movie data.
 
 ```
 {
@@ -70,9 +70,9 @@ In the JSON data, note the following:
 
 ## Step 2\.2: Load the Sample Data into the Movies Table<a name="GettingStarted.Ruby.02.02"></a>
 
-After you download the sample data, you can run the following program to populate the `Movies` table\.
+After you download the sample data, run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesLoadData.rb`:
+1. Copy and paste the following program into a file named `MoviesLoadData.rb`.
 
    ```
    require "aws-sdk"
@@ -107,6 +107,6 @@ After you download the sample data, you can run the following program to populat
    }
    ```
 
-1. To run the program, type the following command:
+1. To run the program, type the following command.
 
    `ruby MoviesLoadData.rb`
