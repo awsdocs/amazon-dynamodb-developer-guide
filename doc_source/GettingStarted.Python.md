@@ -5,7 +5,7 @@ In this tutorial, you use the AWS SDK for Python \(Boto 3\) to write simple prog
 + Perform create, read, update, and delete operations on the table\.
 + Run simple queries\.
 
-**As you work through this tutorial, you can refer to the AWS SDK for Python \(Boto\) documentation\. The following sections are specific to DynamoDB:
+As you work through this tutorial, you can refer to the AWS SDK for Python \(Boto\) documentation\. The following sections are specific to DynamoDB:
 + [DynamoDB tutorial](http://boto3.readthedocs.org/en/latest/guide/dynamodb.html)
 + [DynamoDB low\-level client](http://boto3.readthedocs.org/en/latest/reference/services/dynamodb.html)
 
