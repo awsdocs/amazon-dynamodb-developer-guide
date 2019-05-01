@@ -1,15 +1,15 @@
-# Example: Batch Operations Using AWS SDK for \.NET Document Model API<a name="example-batch-operations-net-doc-model"></a>
+# Example: Batch Operations Using the AWS SDK for \.NET Document Model API<a name="example-batch-operations-net-doc-model"></a>
 
 **Topics**
 + [Example: Batch Write Using AWS SDK for \.NET Document Model](#example-batchwrite-NetDocumentAPI)
 
-## Example: Batch Write Using AWS SDK for \.NET Document Model<a name="example-batchwrite-NetDocumentAPI"></a>
+## Example: Batch Write Using the AWS SDK for \.NET Document Model<a name="example-batchwrite-NetDocumentAPI"></a>
 
- The following C\# code example illustrates single table and multi\-table batch write operations\. The example performs the following tasks:
-+ To illustrate a single table batch write, it adds two items to the ProductCatalog table\. 
-+ To illustrate a multi\-table batch write, it adds an item to both the Forum and Thread tables and deletes and item from the Thread table\.
+ The following C\# code example illustrates single-table and multi\-table batch write operations\. The example performs the following tasks:
++ Illustrate a single table batch write. It adds two items to the ProductCatalog table\. 
++ Illustrate a multi\-table batch write. It adds an item to both the Forum and Thread tables and deletes an item from the Thread table\.
 
-If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the ProductCatalog, Forum and Thread tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\.
+If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the ProductCatalog, Forum, and Thread tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions to test the following example, see [\.NET Code Samples](CodeSamples.DotNet.md)\.
 
 **Example**  
 
@@ -57,7 +57,7 @@ namespace com.amazonaws.codesamples
             book1["QuantityOnHand"] = new DynamoDBNull(); //Quantity is unknown at this time
 
             batchWrite.AddDocumentToPut(book1);
-            // Specify delete item using overload that takes PK.
+            // Specify delete item using overload that takes product key.
             batchWrite.AddKeyToDelete(12345);
             Console.WriteLine("Performing batch write in SingleTableBatchWrite()");
             batchWrite.Execute();
@@ -65,7 +65,7 @@ namespace com.amazonaws.codesamples
 
         private static void MultiTableBatchWrite()
         {
-            // 1. Specify item to add in the Forum table.
+            // 1. Specify the item to add to the Forum table.
             Table forum = Table.LoadTable(client, "Forum");
             var forumBatchWrite = forum.CreateBatchWrite();
 
@@ -75,7 +75,7 @@ namespace com.amazonaws.codesamples
             forumBatchWrite.AddDocumentToPut(forum1);
 
 
-            // 2a. Specify item to add in the Thread table.
+            // 2a. Specify the item to add to the Thread table.
             Table thread = Table.LoadTable(client, "Thread");
             var threadBatchWrite = thread.CreateBatchWrite();
 
@@ -86,7 +86,7 @@ namespace com.amazonaws.codesamples
             thread1["KeywordTags"] = new List<string> { "S3", "Bucket" };
             threadBatchWrite.AddDocumentToPut(thread1);
 
-            // 2b. Specify item to delete from the Thread table.
+            // 2b. Specify the item to delete from the Thread table.
             threadBatchWrite.AddKeyToDelete("someForumName", "someSubject");
 
             // 3. Create multi-table batch.
