@@ -3,10 +3,10 @@
  The following C\# code example performs the following actions:
 + Create a book item in the ProductCatalog table\. 
 + Retrieve the book item\.
-+ Update the book item\. The code example shows a normal update that adds new attributes and updates existing attributes\. It also shows a conditional update which updates the book price only if the existing price value is as specified in the code\.
++ Update the book item\. The code example shows a normal update that adds new attributes and updates existing attributes\. It also shows a conditional update that updates the book price only if the existing price value is as specified in the code\.
 + Delete the book item\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions to test the following example, see [\.NET Code Samples](CodeSamples.DotNet.md)\.
 
 **Example**  
 
@@ -24,7 +24,7 @@ namespace com.amazonaws.codesamples
     {
         private static AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         private static string tableName = "ProductCatalog";
-        // The sample uses the following id PK value to add book item.
+        // The example uses the following id product key value to add a book item.
         private static int sampleBookId = 555;
 
         static void Main(string[] args)
@@ -34,7 +34,7 @@ namespace com.amazonaws.codesamples
                 Table productCatalog = Table.LoadTable(client, tableName);
                 CreateBookItem(productCatalog);
                 RetrieveBook(productCatalog);
-                // Couple of sample updates.
+                // A couple of sample updates.
                 UpdateMultipleAttributes(productCatalog);
                 UpdateBookPriceConditionally(productCatalog);
 
@@ -89,7 +89,7 @@ namespace com.amazonaws.codesamples
 
             var book = new Document();
             book["Id"] = partitionKey;
-            // List of attribute updates.
+            // A list of attribute updates.
             // The following replaces the existing authors list.
             book["Authors"] = new List<string> { "Author x", "Author y" };
             book["newAttribute"] = "New Value";
@@ -98,7 +98,7 @@ namespace com.amazonaws.codesamples
             // Optional parameters.
             UpdateItemOperationConfig config = new UpdateItemOperationConfig
             {
-                // Get updated item in response.
+                // Get the updated item in response.
                 ReturnValues = ReturnValues.AllNewAttributes
             };
             Document updatedBook = productCatalog.UpdateItem(book, config);
