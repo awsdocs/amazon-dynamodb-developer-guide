@@ -1,8 +1,8 @@
-# Optimistic Locking With Version Number<a name="DynamoDBMapper.OptimisticLocking"></a>
+# Optimistic Locking with Version Number<a name="DynamoDBMapper.OptimisticLocking"></a>
 
-*Optimistic locking* is a strategy to ensure that the client\-side item that you are updating \(or deleting\) is the same as the item in DynamoDB\. If you use this strategy, then your database writes are protected from being overwritten by the writes of others — and vice\-versa\.
+*Optimistic locking* is a strategy to ensure that the client\-side item that you are updating \(or deleting\) is the same as the item in Amazon DynamoDB\. If you use this strategy, your database writes are protected from being overwritten by the writes of others—and vice\-versa\.
 
-With optimistic locking, each item has an attribute that acts as a version number\. If you retrieve an item from a table, the application records the version number of that item\. You can update the item, but only if the version number on the server side has not changed\. If there is a version mismatch, it means that someone else has modified the item before you did; the update attempt fails, because you have a stale version of the item\. If this happens, you simply try again by retrieving the item and then attempting to update it\. Optimistic locking prevents you from accidentally overwriting changes that were made by others; it also prevents others from accidentally overwriting your changes\.
+With optimistic locking, each item has an attribute that acts as a version number\. If you retrieve an item from a table, the application records the version number of that item\. You can update the item, but only if the version number on the server side has not changed\. If there is a version mismatch, it means that someone else has modified the item before you did; the update attempt fails because you have a stale version of the item\. If this happens, you simply try again by retrieving the item and then attempting to update it\. Optimistic locking prevents you from accidentally overwriting changes that were made by others. It also prevents others from accidentally overwriting your changes\.
 
 To support optimistic locking, the AWS SDK for Java provides the `@DynamoDBVersionAttribute` annotation\. In the mapping class for your table, you designate one property to store the version number, and mark it using this annotation\. When you save an object, the corresponding item in the DynamoDB table will have an attribute that stores the version number\. The `DynamoDBMapper` assigns a version number when you first save the object, and it automatically increments the version number each time you update the item\. Your update or delete requests will succeed only if the client\-side object version matches the corresponding version number of the item in the DynamoDB table\.
 
@@ -10,7 +10,7 @@ To support optimistic locking, the AWS SDK for Java provides the `@DynamoDBVersi
 +  You use optimistic locking with `@DynamoDBVersionAttribute` and the version value on the server is different from the value on the client side\. 
 +  You specify your own conditional constraints while saving data by using `DynamoDBMapper` with `DynamoDBSaveExpression` and these constraints failed\. 
 
-For example, the following Java code snippet defines a `CatalogItem` class that has several properties\. The `Version` property is tagged with the `@DynamoDBVersionAttribute` annotation\.
+For example, the following Java code example defines a `CatalogItem` class that has several properties\. The `Version` property is tagged with the `@DynamoDBVersionAttribute` annotation\.
 
 **Example**  
 
@@ -54,8 +54,8 @@ public class CatalogItem {
 You can apply the `@DynamoDBVersionAttribute` annotation to nullable types provided by the primitive wrappers classes that provide a nullable type, such as `Long` and `Integer`\. 
 
 Optimistic locking has the following impact on these `DynamoDBMapper` methods:
-+ `save` — For a new item, the `DynamoDBMapper` assigns an initial version number 1\. If you retrieve an item, update one or more of its properties and attempt to save the changes, the save operation succeeds only if the version number on the client\-side and the server\-side match\. The `DynamoDBMapper` increments the version number automatically\.
-+ `delete` — The `delete` method takes an object as parameter and the `DynamoDBMapper` performs a version check before deleting the item\. The version check can be disabled if `DynamoDBMapperConfig.SaveBehavior.CLOBBER` is specified in the request\.
++ `save` — For a new item, the `DynamoDBMapper` assigns an initial version number of 1\. If you retrieve an item, update one or more of its properties, and attempt to save the changes, the save operation succeeds only if the version number on the client side and the server side match\. The `DynamoDBMapper` increments the version number automatically\.
++ `delete` — The `delete` method takes an object as a parameter and the `DynamoDBMapper` performs a version check before deleting the item\. The version check can be disabled if `DynamoDBMapperConfig.SaveBehavior.CLOBBER` is specified in the request\.
 
   The internal implementation of optimistic locking within `DynamoDBMapper` uses conditional update and conditional delete support provided by DynamoDB\. 
 
