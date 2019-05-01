@@ -1,6 +1,6 @@
 # Table\.Query Method in the AWS SDK for \.NET<a name="QueryMidLevelDotNet"></a>
 
-The `Query` method enables you to query your tables\. You can only query the tables that have a composite primary key \(partition key and sort key\)\. If your table's primary key is made of only a partition key, then the `Query` operation is not supported\. By default, `Query` internally performs queries that are eventually consistent\. To learn about the consistency model, see [Read Consistency](HowItWorks.ReadConsistency.md)\. 
+The `Query` method enables you to query your tables\. You can query only the tables that have a composite primary key \(partition key and sort key\)\. If your table's primary key is made of only a partition key, the `Query` operation is not supported\. By default, `Query` internally performs queries that are eventually consistent\. To learn about the consistency model, see [Read Consistency](HowItWorks.ReadConsistency.md)\. 
 
 The `Query` method provides two overloads\. The minimum required parameters to the `Query` method are a partition key value and a sort key filter\. You can use the following overload to provide these minimum required parameters\.
 
@@ -10,7 +10,7 @@ The `Query` method provides two overloads\. The minimum required parameters to t
 Query(Primitive partitionKey, RangeFilter Filter);
 ```
 
-For example, the following C\# code snippet queries for all forum replies that were posted in the last 15 days\. 
+For example, the following C\# code example queries for all forum replies that were posted in the last 15 days\. 
 
 **Example**  
 
@@ -23,7 +23,7 @@ RangeFilter filter = new RangeFilter(QueryOperator.GreaterThan, twoWeeksAgoDate)
 Search search = table.Query("DynamoDB Thread 2", filter);
 ```
 
-This creates a `Search` object\. You can now call the `Search.GetNextSet` method iteratively to retrieve one page of results at a time as shown in the following C\# code snippet\. The code prints the attribute values for each item that the query returns\.
+This example creates a `Search` object\. You can now call the `Search.GetNextSet` method iteratively to retrieve one page of results at a time, as shown in the following C\# code example\. The code prints the attribute values for each item that the query returns\.
 
 **Example**  
 
@@ -56,7 +56,7 @@ do
 
 ## Specifying Optional Parameters<a name="QueryMidLevelDotNetOptions"></a>
 
-You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\. 
+You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\. For a complete list of parameters, see [Query](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\. 
 
 **Example**  
 
@@ -64,7 +64,7 @@ You can also specify optional parameters for `Query`, such as specifying a list 
 Query(QueryOperationConfig config);
 ```
 
-Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code snippet constructs the request using the `QueryOperationConfig` object\. 
+Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\. 
 
 **Example**  
 
@@ -85,17 +85,17 @@ Search search = table.Query(config);
 
 ## Example: Query using the Table\.Query method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
 
-The following C\# code example uses the `Table.Query` method to execute the following sample queries:
+The following C\# code example uses the `Table.Query` method to execute the following example queries:
 + The following queries are executed against the Reply table\.
   + Find forum thread replies that were posted in the last 15 days\.
 
     This query is executed twice\. In the first Table\.Query call, the example provides only the required query parameters\. In the second Table\.Query call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
   + Find forum thread replies posted during a period of time\.
 
-    This query uses the Between query operator to find replies posted in between two dates\.
+    This query uses the Between query operator to find replies posted between two dates\.
 + Get a product from the ProductCatalog table\.
 
-  Because the ProductCatalog table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item Id\.
+  Because the ProductCatalog table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item `Id`\.
 
 **Example**  
 
@@ -126,7 +126,7 @@ namespace com.amazonaws.codesamples
                 FindRepliesInLast15DaysWithConfig(replyTable, forumName, threadSubject);
                 FindRepliesPostedWithinTimePeriod(replyTable, forumName, threadSubject);
 
-                // Get Example.
+                // Get example.
                 Table productCatalogTable = Table.LoadTable(client, "ProductCatalog");
                 int productId = 101;
                 GetProduct(productCatalogTable, productId);
@@ -213,7 +213,7 @@ namespace com.amazonaws.codesamples
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
             QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadName);
             filter.AddCondition("ReplyDateTime", QueryOperator.GreaterThan, twoWeeksAgoDate);
-            // You are specifying optional parameters so use QueryOperationConfig.
+            // You are specifying optional parameters, so use QueryOperationConfig.
             QueryOperationConfig config = new QueryOperationConfig()
             {
                 Filter = filter,
