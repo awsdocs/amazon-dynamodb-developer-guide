@@ -1,25 +1,25 @@
 # Example: Query and Scan<a name="DynamoDBMapper.QueryScanExample"></a>
 
-The Java example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating sample tables, see [Creating Tables and Loading Sample Data](SampleData.md)\.
-+ `Book` class maps to ProductCatalog table
-+ `Forum`, `Thread` and `Reply` classes maps to the same name tables\.
+The Java example in this section defines the following classes and maps them to tables in DynamoDB\. For more information about creating sample tables, see [Creating Tables and Loading Sample Data](SampleData.md)\.
++ The `Book` class maps to ProductCatalog table.
++ The `Forum`, `Thread`, and `Reply` classes maps to the tables of the same names\.
 
 The example then executes the follow query and scan operations using a `DynamoDBMapper` instance\.
 + Get a book by Id\. 
 
-  The ProductCatalog table has Id as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its id value\. 
+  The ProductCatalog table has Id as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its Id value\. 
 + Execute the following queries against the Reply table\.
 
-  The Reply table's primary key is composed of Id and ReplyDateTime attributes\. The ReplyDateTime is a sort key\. Therefore, you can query this table\.
-  + Find replies to a forum thread posted in the last 15 days
-  + Find replies to a forum thread posted in a specific date range
+  The Reply table's primary key is composed of `Id` and `ReplyDateTime` attributes\. `ReplyDateTime` is a sort key\. Therefore, you can query this table\.
+  + Find replies to a forum thread posted in the last 15 days.
+  + Find replies to a forum thread posted in a specific date range.
 + Scan ProductCatalog table to find books whose price is less than a specified value\.
 
-  For performance reasons, you should use query instead of the scan operation\. However, there are times you might need to scan a table\. Suppose there was a data entry error and one of the book prices was set to less than 0\. This example scans the ProductCategory table to find book items \(ProductCategory is book\) and price is less than 0\.
+  For performance reasons, you should use the query operation instead of the scan operation\. However, there are times you might need to scan a table\. Suppose there was a data entry error and one of the book prices was set to less than 0\. This example scans the ProductCategory table to find book items \(ProductCategory is book\) whose price is less than 0\.
 + Perform a parallel scan of the ProductCatalog table to find bicycles of a specific type\.
 
 **Note**  
-This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Samples](CodeSamples.Java.md)\.
 
 **Example**  
@@ -66,7 +66,7 @@ public class DynamoDBMapperQueryScanExample {
             FindRepliesInLast15Days(mapper, forumName, threadSubject);
             FindRepliesPostedWithinTimePeriod(mapper, forumName, threadSubject);
 
-            // Scan a table and find book items priced less than specified
+            // Scan a table and find book items priced less than the specified
             // value.
             FindBooksPricedLessThanSpecifiedValue(mapper, "20");
 
