@@ -1,11 +1,11 @@
 # Mapping Arbitrary Data<a name="DynamoDBMapper.ArbitraryDataMapping"></a>
 
-In addition to the supported Java types \(see [Supported Data Types](DynamoDBMapper.DataTypes.md)\), you can use types in your application for which there is no direct mapping to the DynamoDB types\. To map these types, you must provide an implementation that converts your complex type to a DynamoDB supported type and vice\-versa, and annotate the complex type accessor method using the `@DynamoDBTypeConverted` annotation\. The converter code transforms data when objects are saved or loaded\. It is also used for all operations that consume complex types\. Note that when comparing data during query and scan operations, the comparisons are made against the data stored in DynamoDB\.
+In addition to the supported Java types \(see [Supported Data Types](DynamoDBMapper.DataTypes.md)\), you can use types in your application for which there are no direct mapping to the Amazon DynamoDB types\. To map these types, you must provide an implementation that converts your complex type to a DynamoDB supported type and vice versa, and annotate the complex type accessor method by using the `@DynamoDBTypeConverted` annotation\. The converter code transforms data when objects are saved or loaded\. It is also used for all operations that consume complex types\. Note that when comparing data during query and scan operations, the comparisons are made against the data stored in DynamoDB\.
 
-For example, consider the following `CatalogItem` class that defines a property, `Dimension`, that is of `DimensionType`\. This property stores the item dimensions, as height, width, and thickness\. Assume that you decide to store these item dimensions as a string \(such as 8\.5x11x\.05\) in DynamoDB\. The following example provides converter code that converts the `DimensionType` object to a string and a string to the `DimensionType`\.
+For example, consider the following `CatalogItem` class that defines a property, `Dimension`, that is of `DimensionType`\. This property stores the item dimensions as height, width, and thickness\. Assume that you decide to store these item dimensions as a string \(such as 8\.5x11x\.05\) in DynamoDB\. The following example provides converter code that converts the `DimensionType` object to a string and a string to the `DimensionType`\.
 
 **Note**  
-This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Samples](CodeSamples.Java.md)\.
 
 **Example**  
@@ -34,7 +34,7 @@ public class DynamoDBMapperExample {
 
     public static void main(String[] args) throws IOException {
 
-        // Set the AWS region you want to access.
+        // Set the AWS Region you want to access.
         Regions usWest2 = Regions.US_WEST_2;
         client = AmazonDynamoDBClientBuilder.standard().withRegion(usWest2).build();
 
@@ -161,7 +161,7 @@ public class DynamoDBMapperExample {
         }
     }
 
-    // Converts the complex type DimensionType to a string and vice-versa.
+    // Converts the complex type DimensionType to a string and vice versa.
     static public class DimensionTypeConverter implements DynamoDBTypeConverter<String, DimensionType> {
 
         @Override
