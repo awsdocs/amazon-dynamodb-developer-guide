@@ -1,15 +1,15 @@
 # Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model<a name="orm-dotnet-batchoperations-example"></a>
 
-The following C\# code example declares Book, Forum, Thread, and Reply classes and maps them to the DynamoDB tables using the object persistence model attributes\. 
+The following C\# code example declares `Book`, `Forum`, `Thread`, and `Reply` classes and maps them to Amazon DynamoDB tables by using  object persistence model attributes\. 
 
-The code example then uses the `DynamoDBContext` to illustrate the following batch write operations\. 
+The code example then uses `DynamoDBContext` to illustrate the following batch write operations\:
 + `BatchWrite` object to put and delete book items from the ProductCatalog table\. 
-+ `MultiTableBatchWrite` object to put and delete items from the Forum and the Thread tables\. 
++ `MultiTableBatchWrite` object to put and delete items from the Forum and Thread tables\. 
 
-For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following example, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
 
 **Note**  
- The following example does not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](http://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The following example does not work with the \.NET core because it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](http://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
 
 **Example**  
 
@@ -130,7 +130,7 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // Property to store version number for optimistic locking.
+        // Property to store the version number for optimistic locking.
         [DynamoDBVersion]
         public int? Version
         {
@@ -141,7 +141,7 @@ namespace com.amazonaws.codesamples
     [DynamoDBTable("Thread")]
     public class Thread
     {
-        // PK mapping.
+        // Partition key mapping.
         [DynamoDBHashKey]      //Partition key
         public string ForumName
         {
@@ -177,13 +177,13 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // Explicit mapping (property and table attribute names are different.
+        // Explicit mapping (property and table attribute names are different).
         [DynamoDBProperty("Tags")]
         public List<string> KeywordTags
         {
             get; set;
         }
-        // Property to store version number for optimistic locking.
+        // Property to store the version number for optimistic locking.
         [DynamoDBVersion]
         public int? Version
         {
@@ -199,8 +199,8 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // All the following properties are explicitly mapped,
-        // only to show how to provide mapping.
+        // The following properties are explicitly mapped
+        // to show how to provide mapping.
         [DynamoDBProperty]
         public int Threads
         {
