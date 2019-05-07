@@ -1,6 +1,6 @@
-# Creating Tables and Loading Sample Data<a name="SampleData"></a>
+# Creating Tables and Loading Example Data<a name="SampleData"></a>
 
-In this section, you will use the AWS Management Console to create tables in DynamoDB\. You will then load data into these tables using the AWS Command Line Interface \(AWS CLI\)\.
+In this section, you use the AWS Management Console to create tables in Amazon DynamoDB\. You then load data into these tables by using the AWS Command Line Interface \(AWS CLI\)\.
 
 These tables and their data are used as examples throughout this Developer Guide\.
 
