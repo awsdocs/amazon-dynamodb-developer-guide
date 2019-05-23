@@ -6,12 +6,16 @@ When you create a global table for the first time, DynamoDB automatically create
 
 Do not delete this service\-linked role\. If you do, then all of your global tables will no longer function\.
 
-\(For more information about service\-linked roles, see [Using Service\-Linked Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.\)
+\(For more information about service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.\)
 
 To create and maintain global tables in DynamoDB, you must have the `dynamodb:CreateGlobalTable` permission to access each of the following:
 + The replica table you want to add\.
 + Each existing replica that's already part of the global table\.
 + The global table itself\.
+
+To update the settings \(`UpdateGlobalTableSettings`\) for a global table in DynamoDB, you must have the `dynamodb:UpdateGlobalTable`, `dynamodb:DescribeLimits`, `application-autoscaling:DeleteScalingPolicy` and `application-autoscaling:DeregisterScalableTarget` permissions\. 
+
+ The `application-autoscaling:DeleteScalingPolicy` and `application-autoscaling:DeregisterScalableTarget` permissions are required when updating an existing scaling policy in order for the global tables service to remove the old scaling policy before attaching the new policy to the table or secondary index\. 
 
 If you use an IAM policy to manage access to one replica table, then you should apply an identical policy to all of the other replicas within that global table\. This practice will help you maintain a consistent permissions model across all of the replica tables\.
 
@@ -31,6 +35,51 @@ The following IAM policy grants permissions to allow the `CreateGlobalTable` act
              "Effect": "Allow",
              "Action": ["dynamodb:CreateGlobalTable"],
              "Resource": "*"
+         }
+     ]
+ }
+```
+
+## Example: Allow the `UpdateGlobalTable`, `DescribeLimits`, `application-autoscaling:DeleteScalingPolicy` and `application-autoscaling:DeregisterScalableTarget` Actions<a name="access-policy-gt-example2"></a>
+
+To update the settings \(`UpdateGlobalTableSettings`\) for a global table in DynamoDB, you must have the `dynamodb:UpdateGlobalTable`, `dynamodb:DescribeLimits`, `application-autoscaling:DeleteScalingPolicy` and `application-autoscaling:DeregisterScalableTarget` permissions\. 
+
+The following IAM policy grants permissions to allow the `UpdateGlobalTableSettings` action on all tables:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateGlobalTable",
+                "dynamodb:DescribeLimits",
+                "application-autoscaling:DeleteScalingPolicy",
+                "application-autoscaling:DeregisterScalableTarget"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+## Example: Allow the `CreateGlobalTable` Action for a specific global table name with replicas allowed in certain regions only<a name="access-policy-gt-example3"></a>
+
+The following IAM policy grants permissions to allow the `CreateGlobalTable` action to create a global table called Customers with replicas in two regions:
+
+```
+{
+     "Version": "2012-10-17",
+     "Statement": [
+         {
+            "Effect": "Allow",
+            "Action": "dynamodb:CreateGlobalTable",
+            "Resource": [
+                "arn:aws:dynamodb::123456789012:global-table/Customers",
+                "arn:aws:dynamodb:us-east-1:123456789012:table/Customers",
+                "arn:aws:dynamodb:us-west-1:123456789012:table/Customers"
+            ]
          }
      ]
  }

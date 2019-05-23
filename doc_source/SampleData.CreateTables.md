@@ -1,6 +1,6 @@
 # Step 1: Create Example Tables<a name="SampleData.CreateTables"></a>
 
-In this section, you will use the AWS Management Console to create tables in Amazon DynamoDB for two simple use cases\.
+In this section, you use the AWS Management Console to create tables in DynamoDB for two simple use cases\.
 
 ## Use Case 1: Product Catalog<a name="SampleData.CreateTables1"></a>
 
@@ -17,7 +17,7 @@ You can create a *ProductCatalog* table, where each item is uniquely identified 
 
 ## Use Case 2: Forum Application<a name="SampleData.CreateTables2"></a>
 
-Suppose you want to build an application for message boards or discussion forums\. Amazon Web Services [Discussion Forums](https://forums.aws.amazon.com/) represent one example of such an application: Customers can engage with the developer community, ask questions, or reply to other customers' posts\. Each AWS service has a dedicated forum\. Anyone can start a new discussion thread by posting a message in a forum\. Each thread might receive any number of replies\.
+Suppose you want to build an application for message boards, or discussion forums\. Amazon Web Services [Discussion Forums](https://forums.aws.amazon.com/) represent one example of such an application: Customers can engage with the developer community, ask questions, or reply to other customers' posts\. Each AWS service has a dedicated forum\. Anyone can start a new discussion thread by posting a message in a forum\. Each thread might receive any number of replies\.
 
 You can model this application by creating three tables: *Forum*, *Thread*, and *Reply*\.
 
@@ -41,13 +41,13 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
 
 ## Create the ProductCatalog Table<a name="SampleData.CreateTablesSteps.ProductCatalog"></a>
 
-1. Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/)\.
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
 1. Choose **Create Table**\.
 
-1. On the **Create DynamoDB table** screen, do the following:
+1. In the **Create DynamoDB table** screen, do the following:
 
-   1. In the **Table** name box, type `ProductCatalog`\.
+   1. On the **Table** name box, type `ProductCatalog`\.
 
    1. For the **Primary key**, in the **Partition key** box, type `Id`\. Set the data type to **Number**\.
 
@@ -55,11 +55,11 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
 
 ## Create the Forum Table<a name="SampleData.CreateTablesSteps.Forum"></a>
 
-1. Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/)\.
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
 1. Choose **Create Table**\.
 
-1. On the **Create DynamoDB table** screen, do the following:
+1. In the **Create DynamoDB table** screen, do the following:
 
    1. In the **Table** name box, type `Forum`\.
 
@@ -69,11 +69,11 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
 
 ## Create the Thread Table<a name="SampleData.CreateTablesSteps.Thread"></a>
 
-1. Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/)\.
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
 1. Choose **Create Table**\.
 
-1. On the **Create DynamoDB table** screen, do the following:
+1. In the **Create DynamoDB table** screen, do the following:
 
    1. In the **Table name** box, type `Thread`\.
 
@@ -86,11 +86,11 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
 
 ## Create the Reply Table<a name="SampleData.CreateTablesSteps.Reply"></a>
 
-1. Navigate to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/)\.
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
 1. Choose **Create Table**\.
 
-1. On the **Create DynamoDB table** screen, do the following:
+1. In the **Create DynamoDB table** screen, do the following:
 
    1. In the **Table name** box, type `Reply`\.
 
@@ -99,7 +99,7 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
       + Choose **Add sort key**\.
       + In the **Sort key** box, type `ReplyDateTime`\. Set the data type to **String**\.
 
-   1. In the **Table settings** section, clear the **Use default settings** check box\.
+   1. In the **Table settings** section, clear **Use default settings**\.
 
    1. In the **Secondary indexes** section, choose **Add index**\.
 

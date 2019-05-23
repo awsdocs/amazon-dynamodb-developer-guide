@@ -7,7 +7,7 @@ The number of mapper tasks used in a Hadoop job are influenced by *input splits*
 
 ## Increasing the Number of Mappers<a name="EMRforDynamoDB.PerformanceTuning.Mappers.Increasing"></a>
 
-Each mapper in an Amazon EMR has a maximum read rate of 1 MiB per second\. The number of mappers in a cluster depends on the size of the nodes in your cluster\. \(For information about node sizes and the number of mappers per node, see [Task Configuration](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.\) 
+Each mapper in an Amazon EMR has a maximum read rate of 1 MiB per second\. The number of mappers in a cluster depends on the size of the nodes in your cluster\. \(For information about node sizes and the number of mappers per node, see [Task Configuration](https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.\) 
 
 If your DynamoDB table has ample throughput capacity for reads, you can try increasing the number of mappers by doing one of the following:
 + Increase the size of the nodes in your cluster\. For example, if your cluster is using *m1\.large* nodes \(three mappers per node\), you can try upgrading to *m1\.xlarge* nodes \(eight mappers per node\)\.
@@ -17,7 +17,7 @@ You can use the AWS Management Console to manage the size or the number of nodes
 
 Another way to increase the number of mappers is to modify the `mapred.tasktracker.map.tasks.maximum` Hadoop configuration parameter\. \(This is a Hadoop parameter, not a Hive parameter\. You cannot modify it interactively from the command prompt\.\)\. If you increase the value of `mapred.tasktracker.map.tasks.maximum`, you can increase the number of mappers without increasing the size or number of nodes\. However, it is possible for the cluster nodes to run out of memory if you set the value too high\.
 
-You set the value for `mapred.tasktracker.map.tasks.maximum` as a bootstrap action when you first launch your Amazon EMR cluster\. For more information, see [\(Optional\) Create Bootstrap Actions to Install Additional Software](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-plan-bootstrap.html) in the *Amazon EMR Management Guide*\. 
+You set the value for `mapred.tasktracker.map.tasks.maximum` as a bootstrap action when you first launch your Amazon EMR cluster\. For more information, see [\(Optional\) Create Bootstrap Actions to Install Additional Software](https://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-plan-bootstrap.html) in the *Amazon EMR Management Guide*\. 
 
 ## Decreasing the Number of Mappers<a name="EMRforDynamoDB.PerformanceTuning.Mappers.Decreasing"></a>
 

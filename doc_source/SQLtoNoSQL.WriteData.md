@@ -63,7 +63,7 @@ Here are some key things to know about this `PutItem` example:
 + Most SQL databases are transaction\-oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
 
 **Note**  
-For code samples using `PutItem`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `PutItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
 
 The following are some other `PutItem` examples\.
 

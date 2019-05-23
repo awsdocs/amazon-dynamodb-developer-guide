@@ -127,7 +127,7 @@ These examples are based on the item shown in [Specifying Item Attributes](Expre
 
 ## Specifying Optional Parameters<a name="PutMidLevelDotNetOptions"></a>
 
-You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code snippet puts an item in the ProductCatalog table\. It specifies the following optional parameter:
+You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code snippet puts an item in the ProductCatalog table\. It specifies the following optional parameter:
 +  The `ConditionalExpression` parameter to make this a conditional put request\. The example creates an expression that specifies the ISBN attribute must have a specific value that has to be present in the item that you are replacing\. 
 
 **Example**  

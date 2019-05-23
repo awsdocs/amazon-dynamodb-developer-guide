@@ -7,7 +7,7 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
 1. Download the sample data archive \(`features.zip`\):
 
    ```
-   wget http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/features.zip
+   wget https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/features.zip
    ```
 
 1. Extract the `features.txt` file from the archive:

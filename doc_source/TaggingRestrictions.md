@@ -8,5 +8,4 @@
 +  Allowed characters are letters, whitespace, and numbers, plus the following special characters: \+ \- = \. \_ : / 
 +  Maximum number of tags per resource: 50 
 +  AWS\-assigned tag names and values are automatically assigned the aws: prefix, which you cannot assign\. AWS\-assigned tag names do not count toward the tag limit of 50\. User\-assigned tag names have the prefix `user:` in the cost allocation report\. 
-+  You cannot tag a resource at the same time you create it\. Tagging is a separate action that can be performed only after the resource is created\. 
 +  You cannot backdate the application of a tag\. 

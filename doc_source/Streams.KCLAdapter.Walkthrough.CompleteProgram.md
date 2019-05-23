@@ -24,8 +24,21 @@ The source code consists of four `.java` files:
 ## *StreamsAdapterDemo\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemo"></a>
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -40,7 +53,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.DeleteTableRequest;
 import com.amazonaws.services.dynamodbv2.model.DescribeTableResult;
 import com.amazonaws.services.dynamodbv2.streamsadapter.AmazonDynamoDBStreamsAdapterClient;
-import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory;
+import com.amazonaws.services.dynamodbv2.streamsadapter.StreamsWorkerFactory;
+import com.amazonaws.services.kinesis.clientlibrary.interfaces.v2.IRecordProcessorFactory;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.InitialPositionInStream;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.KinesisClientLibConfiguration;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.Worker;
@@ -58,7 +72,6 @@ public class StreamsAdapterDemo {
     private static String tablePrefix = "KCL-Demo";
     private static String streamArn;
 
-    # Change this to the specific region you want to create your DynamoDB tables in.
     private static Regions awsRegion = Regions.US_EAST_2;
 
     private static AWSCredentialsProvider awsCredentialsProvider = DefaultAWSCredentialsProviderChain.getInstance();
@@ -94,7 +107,7 @@ public class StreamsAdapterDemo {
                 .withInitialPositionInStream(InitialPositionInStream.TRIM_HORIZON);
 
         System.out.println("Creating worker for stream: " + streamArn);
-        worker = new Worker(recordProcessorFactory, workerConfig, adapterClient, dynamoDBClient, cloudWatchClient);
+        worker = StreamsWorkerFactory.createDynamoDbStreamsWorker(recordProcessorFactory, workerConfig, adapterClient, dynamoDBClient, cloudWatchClient);
         System.out.println("Starting worker...");
         Thread t = new Thread(worker);
         t.start();
@@ -172,19 +185,33 @@ public class StreamsAdapterDemo {
 ## *StreamsRecordProcessor\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessor"></a>
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.streamsadapter.model.RecordAdapter;
-import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
-import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorCheckpointer;
+import com.amazonaws.services.kinesis.clientlibrary.interfaces.v2.IRecordProcessor;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
+import com.amazonaws.services.kinesis.clientlibrary.types.InitializationInput;
+import com.amazonaws.services.kinesis.clientlibrary.types.ProcessRecordsInput;
+import com.amazonaws.services.kinesis.clientlibrary.types.ShutdownInput;
 import com.amazonaws.services.kinesis.model.Record;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 public class StreamsRecordProcessor implements IRecordProcessor {
     private Integer checkpointCounter;
@@ -198,13 +225,13 @@ public class StreamsRecordProcessor implements IRecordProcessor {
     }
 
     @Override
-    public void initialize(String shardId) {
+    public void initialize(InitializationInput initializationInput) {
         checkpointCounter = 0;
     }
 
     @Override
-    public void processRecords(List<Record> records, IRecordProcessorCheckpointer checkpointer) {
-        for (Record record : records) {
+    public void processRecords(ProcessRecordsInput processRecordsInput) {
+        for (Record record : processRecordsInput.getRecords()) {
             String data = new String(record.getData().array(), Charset.forName("UTF-8"));
             System.out.println(data);
             if (record instanceof RecordAdapter) {
@@ -225,40 +252,54 @@ public class StreamsRecordProcessor implements IRecordProcessor {
             checkpointCounter += 1;
             if (checkpointCounter % 10 == 0) {
                 try {
-                    checkpointer.checkpoint();
+                    processRecordsInput.getCheckpointer().checkpoint();
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-
+        
     }
 
     @Override
-    public void shutdown(IRecordProcessorCheckpointer checkpointer, ShutdownReason reason) {
-        if (reason == ShutdownReason.TERMINATE) {
+    public void shutdown(ShutdownInput shutdownInput) {
+        if (shutdownInput.getShutdownReason() == ShutdownReason.TERMINATE) {
             try {
-                checkpointer.checkpoint();
+                shutdownInput.getCheckpointer().checkpoint();
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    }
+        
+    }    
 }
 ```
 
 ## *StreamsRecordProcessorFactory\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessorFactory"></a>
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
-import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory;
+import com.amazonaws.services.kinesis.clientlibrary.interfaces.v2.IRecordProcessor;
+import com.amazonaws.services.kinesis.clientlibrary.interfaces.v2.IRecordProcessorFactory;
 
 public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
     private final String tableName;
@@ -279,9 +320,26 @@ public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
 ## *StreamsAdapterDemoHelper\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemoHelper"></a>
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.AttributeAction;
@@ -304,11 +362,8 @@ import com.amazonaws.services.dynamodbv2.model.StreamSpecification;
 import com.amazonaws.services.dynamodbv2.model.StreamViewType;
 import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class StreamsAdapterDemoHelper {
+
     /**
      * @return StreamArn
      */
@@ -317,17 +372,18 @@ public class StreamsAdapterDemoHelper {
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("Id").withAttributeType("N"));
 
         java.util.List<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
-        keySchema.add(new KeySchemaElement().withAttributeName("Id").withKeyType(KeyType.HASH)); // Partition key
+        keySchema.add(new KeySchemaElement().withAttributeName("Id").withKeyType(KeyType.HASH)); // Partition
+                                                                                                 // key
 
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(2L)
-                                                                                 .withWriteCapacityUnits(2L);
+            .withWriteCapacityUnits(2L);
 
         StreamSpecification streamSpecification = new StreamSpecification();
         streamSpecification.setStreamEnabled(true);
         streamSpecification.setStreamViewType(StreamViewType.NEW_IMAGE);
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-                                                                        .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
-                                                                        .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
+            .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
+            .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
 
         try {
             System.out.println("Creating table " + tableName);
@@ -358,7 +414,7 @@ public class StreamsAdapterDemoHelper {
     }
 
     public static void putItem(AmazonDynamoDB dynamoDBClient, String tableName,
-                               java.util.Map<String, AttributeValue> items) {
+        java.util.Map<String, AttributeValue> items) {
         PutItemRequest putItemRequest = new PutItemRequest().withTableName(tableName).withItem(items);
         dynamoDBClient.putItem(putItemRequest);
     }
@@ -369,11 +425,11 @@ public class StreamsAdapterDemoHelper {
 
         Map<String, AttributeValueUpdate> attributeUpdates = new HashMap<String, AttributeValueUpdate>();
         AttributeValueUpdate update = new AttributeValueUpdate().withAction(AttributeAction.PUT)
-                                                                .withValue(new AttributeValue().withS(val));
+            .withValue(new AttributeValue().withS(val));
         attributeUpdates.put("attribute-2", update);
 
         UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-                                                                     .withAttributeUpdates(attributeUpdates);
+            .withAttributeUpdates(attributeUpdates);
         dynamoDBClient.updateItem(updateItemRequest);
     }
 
@@ -384,5 +440,6 @@ public class StreamsAdapterDemoHelper {
         DeleteItemRequest deleteItemRequest = new DeleteItemRequest().withTableName(tableName).withKey(key);
         dynamoDBClient.deleteItem(deleteItemRequest);
     }
+
 }
 ```

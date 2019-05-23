@@ -7,7 +7,7 @@ In this tutorial, you use the AWS SDK for Java to write simple programs to perfo
 
  The SDK for Java offers several programming models for different use cases\. In this exercise, the Java code uses the document model that provides a level of abstraction that makes it easier for you to work with JSON documents\.
 
-As you work through this tutorial, you can refer to the [AWS SDK for Java API Reference](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
+As you work through this tutorial, you can refer to the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
 
 ## Tutorial Prerequisites<a name="GettingStarted.Java.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
@@ -21,4 +21,4 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
   + Install the AWS SDK for Java\.
   + Set up your AWS security credentials for use with the SDK for Java\.
 
-  For instructions, see [Getting Started](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/getting-started.html) in the *AWS SDK for Java Developer Guide*\.
+  For instructions, see [Getting Started](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/getting-started.html) in the *AWS SDK for Java Developer Guide*\.

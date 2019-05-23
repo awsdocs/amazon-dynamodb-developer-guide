@@ -5,7 +5,7 @@ An *expression attribute name* is a placeholder that you use in an expression, a
 This section describes several situations in which you will need to use expression attribute names\.
 
 **Note**  
-The examples in this section use the AWS CLI\. For programming language\-specific code samples, see [Getting Started with DynamoDB](GettingStarted.md)\.
+The examples in this section use the AWS CLI\. For programming language\-specific code samples, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
 
 **Topics**
 + [Reserved Words](#Expressions.ExpressionAttributeNames.ReservedWords)

@@ -165,7 +165,8 @@ If *BobUserRole* requires read\-write access to DynamoDB, the following policy w
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
-                "dynamodb:BatchWriteItem"
+                "dynamodb:BatchWriteItem",
+                "dynamodb:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/Books"
         }
@@ -190,6 +191,9 @@ The following DAX\-specific actions correspond to their similarly\-named counter
 + `dax:UpdateItem`
 + `dax:DeleteItem`
 + `dax:BatchWriteItem`
++ `dax:ConditionCheckItem`
+
+The same is true for the `dax:EnclosingOperation` condition key\.
 
 In addition, there are four other DAX\-specific actions that do not correspond to any DynamoDB APIs:
 + `dax:DefineAttributeList`
@@ -299,7 +303,8 @@ The following example policy document for *BobUserRole* would confer this acce
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
                 "dynamodb:BatchWriteItem",
-                "dynamodb:DescribeTable"
+                "dynamodb:DescribeTable",
+                "dynamodb:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/Books"
         }
@@ -352,7 +357,8 @@ Now suppose that Bob required read\-write access to the Books table, directly fr
                 "dax:DefineKeySchema",
                 "dax:DefineAttributeList",
                 "dax:DefineAttributeListId",
-                "dax:Endpoints"
+                "dax:Endpoints",
+                "dax:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
         },
@@ -368,7 +374,8 @@ Now suppose that Bob required read\-write access to the Books table, directly fr
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
                 "dynamodb:BatchWriteItem",
-                "dynamodb:DescribeTable"
+                "dynamodb:DescribeTable",
+                "dynamodb:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/Books"
         }
@@ -431,7 +438,8 @@ If you are currently using IAM roles and policies to restrict access to DynamoDB
                 "dax:DefineKeySchema",
                 "dax:DefineAttributeList",
                 "dax:DefineAttributeListId",
-                "dax:Endpoints"
+                "dax:Endpoints",
+                "dax:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
         }
@@ -459,7 +467,8 @@ Together with *BobAccessPolicy*, the following *DAXAccessPolicy* would give *Bo
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
                 "dynamodb:BatchWriteItem",
-                "dynamodb:DescribeTable"
+                "dynamodb:DescribeTable",
+                "dynamodb:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/Books"
         }

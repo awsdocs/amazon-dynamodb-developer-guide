@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_BatchWriteItems_Description"></a>
 

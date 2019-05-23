@@ -27,4 +27,4 @@ You must activate both types of tags separately before they can appear in Cost E
 **Note**  
  Currently, any data transferred out from DynamoDB won't be broken down by tags on cost allocation reports\. 
 
- For more information, see [Using Cost Allocation Tags](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)\. 
+ For more information, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)\. 

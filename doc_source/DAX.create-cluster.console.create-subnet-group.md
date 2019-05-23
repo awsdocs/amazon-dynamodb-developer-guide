@@ -3,7 +3,7 @@
 **Note**  
 If you have already created a subnet group for your default VPC, you can skip this step\.
 
-DAX is designed to run within an Amazon Virtual Private Cloud environment \(Amazon VPC\)\. If you created your AWS account after 2013\-12\-04, then you already have a default VPC in each AWS region\. For more information, see [Your Default VPC and Subnets](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html) in the Amazon VPC User Guide\.
+DAX is designed to run within an Amazon Virtual Private Cloud environment \(Amazon VPC\)\. If you created your AWS account after 2013\-12\-04, then you already have a default VPC in each AWS region\. For more information, see [Your Default VPC and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the Amazon VPC User Guide\.
 
 As part of the creation process for a DAX cluster, you must specify a subnet group\. A *subnet group* is a collection of one or more subnets within your VPC\. When you create your DAX cluster, the nodes will be deployed to the subnets within the subnet group\.
 

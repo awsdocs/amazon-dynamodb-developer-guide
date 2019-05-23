@@ -13,11 +13,11 @@ The DynamoDB *low\-level API* is the protocol\-level interface for Amazon Dynamo
 
 The AWS SDKs construct low\-level DynamoDB API requests on your behalf and process the responses from DynamoDB\. This lets you focus on your application logic, instead of low\-level details\. However, you can still benefit from a basic knowledge of how the low\-level DynamoDB API works\.
 
-For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.
+For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.
 
 **Note**  
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
-For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
+For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
 
 The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy, so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 
@@ -53,7 +53,7 @@ X-Amz-Target: DynamoDB_20120810.GetItem
 ```
 
 Note the following about this request:
-+ The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API Requests](http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 Signing Process](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
++ The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
 + The `X-Amz-Target` header contains the name of a DynamoDB operation: `GetItem`\. \(This is also accompanied by the low\-level API version, in this case `20120810`\.\)
 + The payload \(body\) of the request contains the parameters for the operation, in JSON format\. For the `GetItem` operation, the parameters are `TableName` and `Key`\.
 

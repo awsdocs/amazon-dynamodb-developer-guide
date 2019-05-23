@@ -24,7 +24,7 @@ The scenario for this tutorial is Woofer, a simple social network\. Woofer users
 1. The message is received by subscribers to the Amazon SNS topic\. \(In this tutorial, the only subscriber is an email address\.\)
 
 **Before You Begin**  
-This tutorial uses the AWS Command Line Interface\. If you have not done so already, follow the instructions in the [AWS Command Line Interface User Guide](http://docs.aws.amazon.com/cli/latest/userguide/) install and configure the AWS CLI\.
+This tutorial uses the AWS Command Line Interface\. If you have not done so already, follow the instructions in the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/) install and configure the AWS CLI\.
 
 ## Step 1: Create a DynamoDB Table With a Stream Enabled<a name="Streams.Lambda.Tutorial.CreateTable"></a>
 

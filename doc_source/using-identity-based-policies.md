@@ -47,7 +47,7 @@ You don't need to allow minimum console permissions for users that are making ca
 
 ## AWS Managed \(Predefined\) Policies for Amazon DynamoDB<a name="access-policy-examples-aws-managed"></a>
 
-AWS addresses many common use cases by providing standalone IAM policies that are created and administered by AWS\. These AWS managed policies grant necessary permissions for common use cases so that you can avoid having to investigate what permissions are needed\. For more information, see [AWS Managed Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\. 
+AWS addresses many common use cases by providing standalone IAM policies that are created and administered by AWS\. These AWS managed policies grant necessary permissions for common use cases so that you can avoid having to investigate what permissions are needed\. For more information, see [AWS Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\. 
 
 The following AWS managed policies, which you can attach to users in your account, are specific to DynamoDB and are grouped by use case scenario:
 + **AmazonDynamoDBReadOnlyAccess** – Grants read\-only access to DynamoDB resources by using the AWS Management Console\.
@@ -335,4 +335,4 @@ For example, you can associate the following permissions policy with the executi
 }
 ```
 
-For more information, see [AWS Lambda Permission Model](http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html) in the *AWS Lambda Developer Guide*\.
+For more information, see [AWS Lambda Permission Model](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html) in the *AWS Lambda Developer Guide*\.

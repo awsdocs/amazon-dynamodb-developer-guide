@@ -60,4 +60,4 @@ At runtime, if your app uses web identity federation, it must follow these steps
 
 For example IAM policies where these policy variables are used, see [Example Policies: Using Conditions for Fine\-Grained Access Control](specifying-conditions.md#FGAC_DDB.Examples)\.
 
-For more information about how AWS Security Token Service generates temporary access credentials, see [Requesting Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) in *IAM User Guide*\.
+For more information about how AWS Security Token Service generates temporary access credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) in *IAM User Guide*\.

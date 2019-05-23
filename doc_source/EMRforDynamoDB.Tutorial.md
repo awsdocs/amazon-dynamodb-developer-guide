@@ -7,7 +7,7 @@ In this tutorial, you will launch an Amazon EMR cluster, and then use Apache Hiv
 For more information, see to the [Hive Tutorial](https://cwiki.apache.org/confluence/display/Hive/Tutorial)\.
 
 **Topics**
-+ [Before You Begin](#w3ab1c36c13c11c11)
++ [Before You Begin](#w27aac40c13c11c11)
 + [Step 1: Create an Amazon EC2 Key Pair](EMRforDynamoDB.Tutorial.EC2KeyPair.md)
 + [Step 2: Launch an Amazon EMR Cluster](EMRforDynamoDB.Tutorial.LaunchEMRCluster.md)
 + [Step 3: Connect to the Master Node](EMRforDynamoDB.Tutorial.ConnectToMasterNode.md)
@@ -16,7 +16,7 @@ For more information, see to the [Hive Tutorial](https://cwiki.apache.org/conflu
 + [Step 6: Query the Data in the DynamoDB Table](EMRforDynamoDB.Tutorial.QueryDataInDynamoDB.md)
 + [Step 7: \(Optional\) Clean Up](EMRforDynamoDB.Tutorial.CleanUp.md)
 
-## Before You Begin<a name="w3ab1c36c13c11c11"></a>
+## Before You Begin<a name="w27aac40c13c11c11"></a>
 
 For this tutorial, you will need the following:
 + An AWS account\. If you do not have one, see [Signing Up for AWS](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.SignUpForAWS)\.

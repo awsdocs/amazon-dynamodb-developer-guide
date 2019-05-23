@@ -1,6 +1,6 @@
 # Enabling Time To Live<a name="time-to-live-ttl-how-to"></a>
 
-This section describes how to use the DynamoDB console or CLI to enable Time To Live\. To use the API instead, see [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.
+This section describes how to use the DynamoDB console or CLI to enable Time To Live\. To use the API instead, see [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.
 
 **Topics**
 + [Enable Time To Live \(console\)](#time-to-live-ttl-how-to-enable-console)

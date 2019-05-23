@@ -72,7 +72,7 @@ Now the program begins processing the stream\. The DynamoDB Streams Kinesis Adap
 + It instantiates a new KCL `Worker`, which is associated with the class factory\.
 + It shuts down the `Worker` when record processing is complete\.
 
-To learn more about the KCL interface definition, go to [Developing Amazon Kinesis Consumers Using the Amazon Kinesis Client Library](http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html) in the *Amazon Kinesis Developer Guide*\. 
+To learn more about the KCL interface definition, go to [Developing Amazon Kinesis Consumers Using the Amazon Kinesis Client Library](https://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html) in the *Amazon Kinesis Developer Guide*\. 
 
 The following code snippet shows the main loop in `StreamsRecordProcessor`\. The `case` statement determines what action to perform, based on the `OperationType` that appears in the stream record\.
 

@@ -8,16 +8,22 @@ With DynamoDB, you can create database tables that can store and retrieve any am
 
  Amazon DynamoDB provides on\-demand backup capability\. It allows you to create full backups of your tables for long\-term retention and archival for regulatory compliance needs\. For more information, see [On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\. 
 
+ You can create on\-demand backups as well as enable point\-in\-time recovery for your Amazon DynamoDB tables\. Point\-in\-time recovery helps protect your Amazon DynamoDB tables from accidental write or delete operations\. With point\-in\-time recovery, you can restore that table to any point in time during the last 35 days\. For more information, see [Point\-in\-Time Recovery: How It Works](PointInTimeRecovery_Howitworks.md)\. 
+
  DynamoDB allows you to delete expired items from tables automatically to help you reduce storage usage and the cost of storing data that is no longer relevant\. For more information, see [Time To Live](TTL.md)\. 
+
+## High Availability and Durability<a name="ddb_highavailability"></a>
 
 DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance\. All of your data is stored on solid state disks \(SSDs\) and automatically replicated across multiple Availability Zones in an AWS region, providing built\-in high availability and data durability\. You can use global tables to keep DynamoDB tables in sync across AWS Regions\. For more information, see [Global Tables](GlobalTables.md)\. 
 
+## Getting started with DynamoDB<a name="ddb_getstarted"></a>
+
 We recommend that you begin by reading the following sections:
 + **[Amazon DynamoDB: How It Works](HowItWorks.md)—**To learn essential DynamoDB concepts\.
-+ **[Setting Up DynamoDB](SettingUp.md)—**To learn how to setup DynamoDB \(Downloadable Version or Web Service\)\.
++ **[Setting Up DynamoDBGetting Started with DynamoDB](SettingUp.md)—**To learn how to set up DynamoDB \(Downloadable Version or Web Service\)\.
 + **[Accessing DynamoDB](AccessingDynamoDB.md)—**To learn how to access DynamoDB using the console, CLI, or API\. 
 
- To get started quickly with DynamoDB, see [Getting Started with DynamoDB](GettingStarted.md)\. 
+ To get started quickly with DynamoDB, see [Getting Started with DynamoDB SDK](GettingStarted.md)\. 
 
 To learn more about application development see the following:
 + [Programming with DynamoDB and the AWS SDKs](Programming.md)
@@ -27,4 +33,4 @@ To learn more about application development see the following:
 
 For best practices, how\-to guides and tools, be sure to check the DynamoDB Developer Resources page: [http://aws\.amazon\.com/dynamodb/developer\-resources/](https://aws.amazon.com/dynamodb/developer-resources/)\. 
 
- You can use AWS Database Migration Service to migrate data from a Relational Database or MongoDB to an Amazon DynamoDB table\. For more information, see [AWS Database Migration Service User Guide](http://docs.aws.amazon.com/dms/latest/userguide/)\. To learn how to use MongoDB as a migration source, see [Using MongoDB as a Source for AWS Database Migration Service](http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)\. To learn how to use DynamoDB as a migration target, see [Using an Amazon DynamoDB Database as a Target for AWS Database Migration Service](http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)\. 
+ You can use AWS Database Migration Service to migrate data from a Relational Database or MongoDB to an Amazon DynamoDB table\. For more information, see [AWS Database Migration Service User Guide](https://docs.aws.amazon.com/dms/latest/userguide/)\. To learn how to use MongoDB as a migration source, see [Using MongoDB as a Source for AWS Database Migration Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)\. To learn how to use DynamoDB as a migration target, see [Using an Amazon DynamoDB Database as a Target for AWS Database Migration Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)\. 

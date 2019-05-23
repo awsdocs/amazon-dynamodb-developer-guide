@@ -10,7 +10,7 @@ To put or delete multiple objects from a table in a single request, do the follo
 + Call the `BatchWrite.Execute` method to put and delete all the specified items from the table\.
 
 **Note**  
-When using object persistence model, you can specify any number of operations in a batch\. However, note that DynamoDB limits the number of operations in a batch and the total size of the batch in a batch operation\. For more information about the specific limits, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If the API detects your batch write request exceeded the allowed number of write requests or exceeded the maximum allowed HTTP payload size, it breaks the batch in to several smaller batches\. Additionally, if a response to a batch write returns unprocessed items, the API will automatically send another batch request with those unprocessed items\.
+When using object persistence model, you can specify any number of operations in a batch\. However, note that DynamoDB limits the number of operations in a batch and the total size of the batch in a batch operation\. For more information about the specific limits, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If the API detects your batch write request exceeded the allowed number of write requests or exceeded the maximum allowed HTTP payload size, it breaks the batch in to several smaller batches\. Additionally, if a response to a batch write returns unprocessed items, the API will automatically send another batch request with those unprocessed items\.
 
 Suppose that you have defined a C\# class Book class that maps to the ProductCatalog table in DynamoDB\. The following C\# code snippet uses the `BatchWrite` object to upload two items and delete one item from the ProductCatalog table\. 
 
@@ -96,7 +96,7 @@ superBatch.Execute();
 For a working example, see [Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model](orm-dotnet-batchoperations-example.md)\. 
 
 **Note**  
-DynamoDB batch API limits the number of writes in batch and also limits the size of the batch\. For more information, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. When using the \.NET object persistence model API, you can specify any number of operations\. However, if either the number of operations in a batch or size exceed the limit, the \.NET API breaks the batch write request into smaller batches and sends multiple batch write requests to DynamoDB\.
+DynamoDB batch API limits the number of writes in batch and also limits the size of the batch\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. When using the \.NET object persistence model API, you can specify any number of operations\. However, if either the number of operations in a batch or size exceed the limit, the \.NET API breaks the batch write request into smaller batches and sends multiple batch write requests to DynamoDB\.
 
 ## Batch Get: Getting Multiple Items<a name="DotNetDynamoDBContext.BatchGet"></a>
 

@@ -9,7 +9,9 @@
 + [DAX and DynamoDB Consistency Models](DAX.consistency.md)
 + [Using the DAX Client in an Application](DAX.client.md)
 + [Managing DAX Clusters](DAX.cluster-management.md)
++ [Monitoring DAX](DAX.Monitoring.md)
 + [DAX Access Control](DAX.access-control.md)
++ [DAX Encryption at Rest](DAXEncryptionAtRest.md)
 + [Using Service\-Linked Roles for DAX](using-service-linked-roles.md)
 + [DAX API Reference](DAX.api.md)
 
@@ -22,6 +24,8 @@ DAX is a DynamoDB\-compatible caching service that enables you to benefit from f
 1. DAX reduces operational and application complexity by providing a managed service that is API\-compatible with Amazon DynamoDB, and thus requires only minimal functional changes to use with an existing application\. 
 
 1. For read\-heavy or bursty workloads, DAX provides increased throughput and potential operational cost savings by reducing the need to over\-provision read capacity units\. This is especially beneficial for applications that require repeated reads for individual keys\.
+
+ DAX supports server\-side encryption\. With encryption at rest, the data persisted by DAX on disk will be encrypted\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md)\. 
 
 ## Use Cases for DAX<a name="DAX.use-cases"></a>
 
@@ -41,7 +45,7 @@ DAX is ideal for:
 
 ## Usage Notes<a name="DAX.usage-notes"></a>
 + For a list of AWS regions where DAX is available, refer to [https://aws\.amazon\.com/dynamodb/pricing](https://aws.amazon.com/dynamodb/pricing)\.
-+ DAX supports applications written in Java, Node\.js, \.Python and \.NET, using AWS\-provided clients for those programming languages\.
++ DAX supports applications written in Go, Java, Node\.js, Python and \.NET, using AWS\-provided clients for those programming languages\.
 + DAX does not support Transport Layer Security \(TLS\)\.
 + DAX is only available for the EC2\-VPC platform\. \(There is no support for the EC2\-Classic platform\.\)
 +  DAX clusters maintain metadata about the attribute names of items they store, and that metadata is maintained indefinitely \(even after the item has expired or been evicted from the cache\)\. Applications that use an unbounded number of attribute names can, over time, cause memory exhaustion in the DAX cluster\. This limitation applies only to top\-level attribute names, not nested attribute names\. Examples of problematic top\-level attribute names include timestamps, UUIDs, and session IDs\. 
@@ -50,9 +54,9 @@ DAX is ideal for:
 
   ```
   {
-      “Id”: 123,
-      “Title”: “Bicycle 123”,
-      “CreationDate”: “2017-10-24T01:02:03+00:00”
+      "Id": 123,
+      "Title": "Bicycle 123",
+      "CreationDate": "2017-10-24T01:02:03+00:00"
   }
   ```
 
@@ -60,8 +64,8 @@ DAX is ideal for:
 
   ```
   {
-      “Id”: 123,
-      “Title”: “Bicycle 123”,
-      “2017-10-24T01:02:03+00:00”: “created”
+      "Id": 123,
+      "Title": "Bicycle 123",
+      "2017-10-24T01:02:03+00:00": "created"
   }
   ```

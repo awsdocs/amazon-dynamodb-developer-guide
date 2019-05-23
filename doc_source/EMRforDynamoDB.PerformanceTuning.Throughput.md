@@ -42,6 +42,6 @@ If you notice that Hive is frequently depleting the provisioned write capacity o
 
 When you write data to DynamoDB using Hive, ensure that the number of write capacity units is greater than the number of mappers in the cluster\. For example, consider an Amazon EMR cluster consisting of 10 *m1\.xlarge* nodes\. The *m1\.xlarge* node type provides 8 mapper tasks, so the cluster would have a total of 80 mappers \(10 × 8\)\. If your DynamoDB table has fewer than 80 write capacity units, then a Hive write operation could consume all of the write throughput for that table\.
 
-To determine the number of mappers for Amazon EMR node types, see [Task Configuration](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.
+To determine the number of mappers for Amazon EMR node types, see [Task Configuration](https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.
 
 For more information on mappers, see [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)\.

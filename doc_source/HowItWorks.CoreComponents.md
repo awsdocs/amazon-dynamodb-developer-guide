@@ -15,7 +15,7 @@ In DynamoDB, tables, items, and attributes are the core components that you work
 The following are the basic DynamoDB components:
 + **Tables** – Similar to other database systems, DynamoDB stores data in tables\. A *table* is a collection of data\. For example, see the example table called *People* that you could use to store personal contact information about friends, family, or anyone else of interest\. You could also have a *Cars* table to store information about vehicles that people drive\.
 + **Items** – Each table contains zero or more items\. An *item* is a group of attributes that is uniquely identifiable among all of the other items\. In a *People* table, each item represents a person\. For a *Cars* table, each item represents one vehicle\. Items in DynamoDB are similar in many ways to rows, records, or tuples in other database systems\. In DynamoDB, there is no limit to the number of items you can store in a table\.
-+ **Attributes** – Each item is composed of one or more attributes\. An *attribute* is a fundamental data element, something that does not need to be broken down any further\. For example, an item in a *People* table contains attributes called *PersonID*, *LastName*, *FirstName*, and so on\. For a *Department* table, an item might have attributes such as *DepartmentID*, *Name*,*Manager*, and so on\. Attributes in DynamoDB are similar in many ways to fields or columns in other database systems\.
++ **Attributes** – Each item is composed of one or more attributes\. An *attribute* is a fundamental data element, something that does not need to be broken down any further\. For example, an item in a *People* table contains attributes called *PersonID*, *LastName*, *FirstName*, and so on\. For a *Department* table, an item might have attributes such as *DepartmentID*, *Name*, *Manager*, and so on\. Attributes in DynamoDB are similar in many ways to fields or columns in other database systems\.
 
 The following diagram shows a table named *People* with some example items and attributes\.
 
@@ -52,7 +52,7 @@ DynamoDB supports two different kinds of primary keys:
   The *People* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a simple primary key \(*PersonID*\)\. You can access any item in the *People* table directly by providing the *PersonId* value for that item\.
 + **Partition key and sort key** – Referred to as a *composite primary key*, this type of key is composed of two attributes\. The first attribute is the *partition key*, and the second attribute is the *sort key*\. 
 
-  DynamoDB uses the partition key value as input to an internal hash function\. The output from the hash function determines the partition \(physical storage internal to DynamoDB\) in which the item will be stored\. All items with the same partition key are stored together, in sorted order by sort key value\.
+  DynamoDB uses the partition key value as input to an internal hash function\. The output from the hash function determines the partition \(physical storage internal to DynamoDB\) in which the item will be stored\. All items with the same partition key value are stored together, in sorted order by sort key value\.
 
   In a table that has a partition key and a sort key, it's possible for two items to have the same partition key value\. However, those two items must have different sort key values\.
 
@@ -74,7 +74,7 @@ DynamoDB supports two kinds of indexes:
 + Global secondary index – An index with a partition key and sort key that can be different from those on the table\.
 + Local secondary index – An index that has the same partition key as the table, but a different sort key\.
 
-You can define up to 5 global secondary indexes and 5 local secondary indexes per table\.
+Each table in DynamoDB has a limit of 20 global secondary indexes \(default limit\) and 5 local secondary indexes per table\.
 
 In the example *Music* table shown previously, you can query data items by *Artist* \(partition key\) or by *Artist* and *SongTitle* \(partition key and sort key\)\. What if you also wanted to query the data by *Genre* and *AlbumTitle*? To do this, you could create an index on *Genre* and *AlbumTitle*, and then query the index in much the same way as you'd query the *Music* table\.
 
@@ -109,6 +109,6 @@ You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—co
 **Note**  
 In this example, the last customer, Craig Roe, will not receive an email because he doesn't have an *EmailAddress*\.
 
-In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
+In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS Regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
 
  For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. 

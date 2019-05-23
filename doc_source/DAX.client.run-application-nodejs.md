@@ -1,6 +1,6 @@
 # Node\.js and DAX<a name="DAX.client.run-application-nodejs"></a>
 
-To run the Node\.js sample application on your Amazon EC2 instance, follow this proceedure:
+To run the Node\.js sample application on your Amazon EC2 instance, follow this procedure:
 
 1. Set up Node\.js on your Amazon EC2 instance:
 
@@ -19,7 +19,7 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
    1. Use nvm to install Node\.js:
 
       ```
-      nvm install 4.8.4
+      nvm install 6.4.0
       ```
 
    1. Test that Node\.js is installed and running correctly:
@@ -30,7 +30,7 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
 
       This should display the following message:
 
-      `Running Node.js v4.8.4`
+      `Running Node.js v6.4.0`
 
 1. Install the DAX Node\.js client using the node package manager \(npm\):
 
@@ -75,7 +75,7 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
    + **Using the DynamoDB console**—choose your DAX cluster\. The cluster endpoint is shown in the console\. For example: 
 
      ```
-     mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
+     mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
      ```
    + **Using the AWS CLI**—type the following command:
 
@@ -87,17 +87,17 @@ To run the Node\.js sample application on your Amazon EC2 instance, follow this 
 
      ```
      {
-         "Port": 8111, 
-         "Address":"mycluster.frfx8h.clustercfg.dax.amazonaws.com"
+         "Port": 8111,
+         "Address":"mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com"
      }
      ```
 
    Now run the programs again—but this time, specify the cluster endpoint as a command line parameter:
 
    ```
-   node 03-getitem-test.js mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
-   node 04-query-test.js mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
-   node 05-scan-test.js mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
+   node 03-getitem-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   node 04-query-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   node 05-scan-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
    ```
 
    Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query` and `Scan` should be significantly lower with DAX than with DynamoDB\.

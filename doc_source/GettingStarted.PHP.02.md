@@ -76,6 +76,21 @@ After you download the sample data, you can run the following program to populat
 
    ```
    <?php
+   
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
+   
    require 'vendor/autoload.php';
    
    date_default_timezone_set('UTC');
@@ -124,10 +139,12 @@ After you download the sample data, you can run the following program to populat
    
    }
    
+   
+   
    ?>
    ```
 **Note**  
-The [DynamoDB Marshaler class](http://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.DynamoDb.Marshaler.html) has methods for converting JSON documents and PHP arrays to the DynamoDB format\. In this program, `$marshaler->marshalJson($json)` takes a JSON document and converts it into a DynamoDB item\.
+The [DynamoDB Marshaler class](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.DynamoDb.Marshaler.html) has methods for converting JSON documents and PHP arrays to the DynamoDB format\. In this program, `$marshaler->marshalJson($json)` takes a JSON document and converts it into a DynamoDB item\.
 
 1. To run the program, type the following command:
 

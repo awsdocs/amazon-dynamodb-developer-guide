@@ -2,7 +2,7 @@
 
 This section describes the annotations that are available for mapping your classes and properties to tables and attributes\. 
 
-For the corresponding Javadoc documentation, see [Annotation Types Summary](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/package-summary.html) in the [AWS SDK for Java API Reference](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
+For the corresponding Javadoc documentation, see [Annotation Types Summary](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/package-summary.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
 
 **Note**  
 In the following annotations, only `DynamoDBTable` and the `DynamoDBHashKey` are required\. 
@@ -165,6 +165,8 @@ public class CatalogItem {
 ## `DynamoDBIgnore`<a name="DynamoDBMapper.Annotations.DynamoDBIgnore"></a>
 
 Indicates to the `DynamoDBMapper` instance that the associated property should be ignored\. When saving data to the table, the `DynamoDBMapper` does not save this property to the table\.
+
+ Applied to the getter method or the class field for a non\-modeled property\. If the annotation is applied directly to the class field, the corresponding getter and setter must be declared in the same class\. 
 
 ## `DynamoDBIndexHashKey`<a name="DynamoDBMapper.Annotations.DynamoDBIndexHashKey"></a>
 

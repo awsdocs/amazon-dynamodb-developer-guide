@@ -2,7 +2,7 @@
 
 The `DynamoDBMapper` class is the entry point to DynamoDB\. It provides access to a DynamoDB endpoint and enables you to access your data in various tables, perform various CRUD operations on items, and execute queries and scans against tables\. This class provides the following methods for working with DynamoDB\.
 
-For the corresponding Javadoc documentation, see [DynamoDBMapper](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
+For the corresponding Javadoc documentation, see [DynamoDBMapper](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
 
 **Topics**
 + [`save`](#DynamoDBMapper.Methods.save)
@@ -14,10 +14,12 @@ For the corresponding Javadoc documentation, see [DynamoDBMapper](http://docs.aw
 + [`scanPage`](#DynamoDBMapper.Methods.scanPage)
 + [`parallelScan`](#DynamoDBMapper.Methods.parallelScan)
 + [`batchSave`](#DynamoDBMapper.Methods.batchSave)
-+ [`batchLoad`](#w3ab1c15c17c17c39c29)
++ [`batchLoad`](#w27aac17c17c17c39c29)
 + [`batchDelete`](#DynamoDBMapper.Methods.batchDelete)
 + [`batchWrite`](#DynamoDBMapper.Methods.batchWrite)
-+ [`count`](#w3ab1c15c17c17c39c35)
++ [`transactionWrite`](#DynamoDBMapper.Methods.transactionWrite)
++ [`transactionLoad`](#DynamoDBMapper.Methods.transactionLoad)
++ [`count`](#w27aac17c17c17c39c39)
 + [`generateCreateTableRequest`](#DynamoDBMapper.Methods.generateCreateTableRequest)
 + [`createS3Link`](#DynamoDBMapper.Methods.createS3Link)
 + [`getS3ClientCache`](#DynamoDBMapper.Methods.getS3ClientCache)
@@ -222,7 +224,7 @@ book2.title = "Book 902 Title";
 mapper.batchSave(Arrays.asList(book1, book2));
 ```
 
-## `batchLoad`<a name="w3ab1c15c17c17c39c29"></a>
+## `batchLoad`<a name="w27aac17c17c17c39c29"></a>
 
 Retrieves multiple items from one or more tables using their primary keys\.
 
@@ -280,7 +282,61 @@ List<Book> objectsToDelete = Arrays.asList(book3);
 mapper.batchWrite(objectsToWrite, objectsToDelete);
 ```
 
-## `count`<a name="w3ab1c15c17c17c39c35"></a>
+## `transactionWrite`<a name="DynamoDBMapper.Methods.transactionWrite"></a>
+
+Saves objects to and deletes objects from one or more tables using one call to the `AmazonDynamoDB.transactWriteItems` method\. 
+
+For a list of transaction specific exceptions, see [TransactWriteItems errors](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html#API_TransactWriteItems_Errors)\. 
+
+For more information about DynamoDB transactions and the provided atomicity, consistency, isolation, and durability \(ACID\) guarantees see [Amazon DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\. 
+
+**Note**  
+ This method does not support:   
+[Optimistic Locking With Version Number](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.OptimisticLocking.html)\.
+[DynamoDBMapperConfig\.SaveBehavior](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.OptionalConfig.html)\.
+
+The following Java code snippet writes a new item to each of the Forum and Thread tables, transactionally\.
+
+```
+Thread s3ForumThread = new Thread();
+s3ForumThread.forumName = "S3 Forum";
+s3ForumThread.subject = "Sample Subject 1";
+s3ForumThread.message = "Sample Question 1";
+ 
+Forum s3Forum = new Forum();
+s3Forum.name = "S3 Forum";
+s3Forum.category = "Amazon Web Services";
+s3Forum.threads = 1;
+        
+TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
+transactionWriteRequest.addPut(s3Forum);
+transactionWriteRequest.addPut(s3ForumThread);
+mapper.transactionWrite(transactionWriteRequest);
+```
+
+## `transactionLoad`<a name="DynamoDBMapper.Methods.transactionLoad"></a>
+
+Loads objects from one or more tables using one call to the `AmazonDynamoDB.transactGetItems` method\. 
+
+For a list of transaction specific exceptions, see [TransactGetItems errors](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html#API_TransactGetItems_Errors)\. 
+
+For more information about DynamoDB transactions and the provided atomicity, consistency, isolation, and durability \(ACID\) guarantees see [Amazon DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\. 
+
+The following Java code snippet loads one item from each of the Forum and Thread tables, transactionally\.
+
+```
+Forum dynamodbForum = new Forum();
+dynamodbForum.name = "DynamoDB Forum";
+Thread dynamodbForumThread = new Thread();
+dynamodbForumThread.forumName = "DynamoDB Forum";
+
+TransactionLoadRequest transactionLoadRequest = new TransactionLoadRequest();
+transactionLoadRequest.addLoad(dynamodbForum);
+transactionLoadRequest.addLoad(dynamodbForumThread);
+mapper.transactionLoad(transactionLoadRequest);
+```
+
+## `count`<a name="w27aac17c17c17c39c39"></a>
 
 Evaluates the specified scan expression and returns the count of matching items\. No item data is returned\.
 
@@ -334,7 +390,7 @@ item.getProductImage().uploadFrom(new File("/file/path/book_150_cover.jpg"));
 mapper.save(item);
 ```
 
-The `S3Link` class provides many other methods for manipulating objects in Amazon S3\. For more information, see the [Javadocs for `S3Link`](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/S3Link.html)\.
+The `S3Link` class provides many other methods for manipulating objects in Amazon S3\. For more information, see the [Javadocs for `S3Link`](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/S3Link.html)\.
 
 ## `getS3ClientCache`<a name="DynamoDBMapper.Methods.getS3ClientCache"></a>
 

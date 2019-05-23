@@ -22,6 +22,7 @@ The resulting DynamoDB global table consists of multiple replica tables, one per
 
 **Important**  
  Global Tables automatically creates the following attributes for every item to keep your table data in sync:   
+ aws:rep:deleting 
  aws:rep:updatetime 
  aws:rep:updateregion 
  You should not alter these attributes or create attributes with the same name\. 

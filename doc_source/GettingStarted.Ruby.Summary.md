@@ -25,4 +25,4 @@ After you remove this line, the code can access the DynamoDB service in the Regi
 
 Instead of using the version of DynamoDB on your computer, the program uses the DynamoDB service endpoint in US West \(Oregon\)\.
 
-DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information, see the [AWS SDK for Ruby Getting Started Guide](https://aws.amazon.com/developers/getting-started/ruby)\.
+DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information, see the [AWS SDK for Ruby Getting Started Guide](https://aws.amazon.com/developers/getting-started/ruby)\.

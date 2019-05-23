@@ -12,4 +12,4 @@ For DynamoDB triggers using AWS Lambda, we recommend the following:
 + AWS service clients should be instantiated in the initialization code, not in the handler\. This will allow AWS Lambda to reuse existing connections, for the duration of the container's lifetime\.
 + In general, you do not need to explicitly manage connections or implement connection pooling because AWS Lambda manages this for you\.
 
-For more information, see [Best Practices for Working with AWS Lambda Functions](http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html) in the AWS Lambda Developer Guide\.
+For more information, see [Best Practices for Working with AWS Lambda Functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html) in the AWS Lambda Developer Guide\.

@@ -6,6 +6,7 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 + [Control Plane](#HowItWorks.API.ControlPlane)
 + [Data Plane](#HowItWorks.API.DataPlane)
 + [DynamoDB Streams](#HowItWorks.API.Streams)
++ [Transactions](#HowItWorks.API.Transactions)
 
 ## Control Plane<a name="HowItWorks.API.ControlPlane"></a>
 
@@ -44,3 +45,9 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 + `DescribeStream` – Returns information about a stream, such as its Amazon Resource Name \(ARN\) and where your application can begin reading the first few stream records\.
 + `GetShardIterator` – Returns a *shard iterator*, which is a data structure that your application uses to retrieve the records from the stream\.
 + `GetRecords` – Retrieves one or more stream records, using a given shard iterator\.
+
+## Transactions<a name="HowItWorks.API.Transactions"></a>
+
+*Transactions* provide atomicity, consistency, isolation, and durability \(ACID\) enabling you to maintain data correctness in your applications more easily\. 
++ `TransactWriteItems` – A batch operation that allows `Put`, `Update` and `Delete` operations to multiple items both within and across tables with a guaranteed all\-or\-nothing result\.
++ `TransactGetItems` – A batch operation that allows `Get` operations to retrieves multiple items from one or more tables\.

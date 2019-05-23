@@ -49,8 +49,8 @@ Read replicas serve two additional purposes:
 A DAX cluster can support up to ten nodes per cluster \(the primary node, plus a maximum of nine read replicas\)\.
 
 **Important**  
-A DAX cluster can be deployed with a single node\. While this configuration might be acceptable for development or test workloads, a one\-node cluster is not fault\-tolerant and we do not recommend a one\-node cluster for production use\. If this single node encounters software or hardware errors, the cluster can become unavailable or lose cached data\.  
-For production usage, we strongly recommend using DAX with at least three nodes \(the primary node and at least two read replicas\), where the nodes are placed in different Availability Zones\.
+For production usage, we strongly recommend using DAX with at least three nodes, where each node is placed in different Availability Zones\. Three nodes are required for a DAX cluster to be fault\-tolerant\.  
+A DAX cluster can be deployed with one or two nodes for development or test workloads\. A one and two node clusters are not fault\-tolerant and we do not recommend less than three nodes for production use\. If one or two node clusters encounter software or hardware errors, the cluster can become unavailable or lose cached data\.
 
 ## Regions and Availability Zones<a name="DAX.concepts.regions-and-azs"></a>
 
@@ -60,7 +60,8 @@ Each region is designed to be completely isolated from the other regions\. Withi
 
 **Important**  
 Do not place all of your cluster's nodes in a single Availability Zone\. In this configuration, your DAX cluster will become unavailable in case of an Availability Zone failure\.  
-For production usage, we strongly recommend using DAX with at least three nodes \(the primary node and at least two read replicas\), where the nodes are placed in different Availability Zones\.
+For production usage, we strongly recommend using DAX with at least three nodes, where each node is placed in different Availability Zones\. Three nodes are required for a DAX cluster to be fault\-tolerant\.  
+A DAX cluster can be deployed with one or two nodes for development or test workloads\. A one and two node clusters are not fault\-tolerant and we do not recommend less than three nodes for production use\. If one or two node clusters encounter software or hardware errors, the cluster can become unavailable or lose cached data\.
 
 ## Parameter Groups<a name="DAX.concepts.parameter-groups"></a>
 
@@ -122,8 +123,14 @@ The 60\-minute maintenance window is selected at random from an 8\-hour block of
 | Region Code | Region Name | Maintenance Window | 
 | --- | --- | --- | 
 |  ap\-northeast\-1  |  Asia Pacific \(Tokyo\) Region  |  13:00–21:00 UTC  | 
+|  ap\-southeast\-1  |  Asia Pacific \(Singapore\) Region  |  14:00–22:00 UTC  | 
+|  ap\-southeast\-2  |  Asia Pacific \(Sydney\) Region  |  12:00–20:00 UTC  | 
+|  ap\-south\-1  |  Asia Pacific \(Mumbai\) Region  |  17:30–1:30 UTC  | 
+|  eu\-central\-1  |  EU \(Frankfurt\) Region  |  23:00–07:00 UTC  | 
 |  eu\-west\-1  |  EU \(Ireland\) Region  |  22:00–06:00 UTC  | 
+|  sa\-east\-1  |  South America \(São Paulo\) Region  |  01:00–09:00 UTC  | 
 |  us\-east\-1  |  US East \(N\. Virginia\) Region  |  03:00–11:00 UTC  | 
+|  us\-east\-2 |  US East \(Ohio\) Region  |  23:00–07:00 UTC  | 
 |  us\-west\-1  |  US West \(N\. California\) Region  |  06:00–14:00 UTC  | 
 |  us\-west\-2  |  US West \(Oregon\) Region  |  06:00–14:00 UTC  | 
 

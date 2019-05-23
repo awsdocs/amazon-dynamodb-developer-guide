@@ -7,17 +7,17 @@ The following code snippet creates a `DynamoDBMapper` with custom settings:
 ```
 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
 
-DynamoDBMapperConfig mapperConfig = new DynamoDBMapperConfig(
-    DynamoDBMapperConfig.SaveBehavior.CLOBBER,
-    DynamoDBMapperConfig.ConsistentReads.CONSISTENT,
-    null, //TableNameOverride - leaving this at default setting
-    DynamoDBMapperConfig.PaginationLoadingStrategy.EAGER_LOADING
-    );
+DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
+        .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+        .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+        .withTableNameOverride(null)
+        .withPaginationLoadingStrategy(DynamoDBMapperConfig.PaginationLoadingStrategy.EAGER_LOADING)
+    .build();
         
 DynamoDBMapper mapper = new DynamoDBMapper(client, mapperConfig, cp);
 ```
 
-For more information, see [http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html) in the [AWS SDK for Java API Reference](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
+For more information, see [https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
 
 You can use the following arguments for an instance of `DynamoDBMapperConfig`:
 + A `DynamoDBMapperConfig.ConsistentReads` enumeration value:
@@ -36,6 +36,8 @@ You can use the following arguments for an instance of `DynamoDBMapperConfig`:
   + `CLOBBER`—clears and replaces all attributes, included unmodeled ones, during a save operation\. This is done by deleting the item and re\-creating it\. Versioned field constraints are also disregarded\.
 
    If you do not specify the save behavior for your mapper instance, the default is `UPDATE`\.
+**Note**  
+DynamoDBMapper transactional operations do not support `DynamoDBMapperConfig.SaveBehavior` enumeration\. 
 + A `DynamoDBMapperConfig.TableNameOverride` object—Instructs the mapper instance to ignore the table name specified by a class's `DynamoDBTable` annotation, and instead use a different table name that you supply\. This is useful when partitioning your data into multiple tables at run time\. 
 
 You can override the default configuration object for `DynamoDBMapper` per operation, as needed\.

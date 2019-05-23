@@ -1,8 +1,21 @@
 # 01\-CreateTable\.cs<a name="DAX.client.run-application-dotnet.01-CreateTable"></a>
 
-The `01-CreateTable.cs` program creates a table \(*TryDaxTable*\)\. The remaining \.NET programs in this section depend on this table\.
+The `01-CreateTable.cs` program creates a table \(`TryDaxTable`\)\. The remaining \.NET programs in this section depend on this table\.
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using Amazon.DynamoDBv2.Model;
 using System.Collections.Generic;
 using System;

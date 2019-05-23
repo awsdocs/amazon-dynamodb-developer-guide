@@ -1,187 +1,153 @@
-# Step 2: Load Sample Data<a name="GettingStarted.NET.02"></a>
+# Step 2: Create a Table Using the Low\-Level API<a name="GettingStarted.NET.02"></a>
 
-In this step, you populate the `Movies` table with sample data\.
+The document model in the AWS SDK for \.NET doesn't provide for creating tables, so you have to use the low\-level APIs\. For more information, see [Working with Tables: \.NET](LowLevelDotNetWorkingWithTables.md)\.
 
-**Topics**
-+ [Step 2\.1: Download the Sample Data File](#GettingStarted.NET.02.01)
-+ [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.NET.02.02)
+In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you create a table named `Movies` in Amazon DynamoDB\. The primary key for the table is composed of the following attributes:
++ `year` – The partition key\. The `AttributeType` is `N` for number\.
+**Note**  
+Because "year" is a reserved word in DynamoDB, you need to create an alias for it \(such as `#yr`\) using an `ExpressionAttributeNames` object when referring to it in a low\-level expression\. 
++ `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-This scenario uses a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\.
-
-The movie data is encoded as JSON\. For each movie, the JSON defines a `year` name\-value pair, a `title` name\-value pair, and a complex `info` object, as shown in the following example: 
+The `Main` function in `DynamoDB_intro` does this by waiting on an asynchronous `CreatingTable_async` function implemented in the `02_CreatingTable.cs` file:
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Amazon.DynamoDBv2.Model;
+
+namespace DynamoDB_intro
 {
-    "year" : 2013,
-    "title" : "Turn It Down, Or Else!",
-    "info" : {
-        "directors" : [
-            "Alice Smith",
-            "Bob Jones"
-        ],
-        "release_date" : "2013-01-18T00:00:00Z",
-        "rating" : 6.2,
-        "genres" : [
-            "Comedy",
-            "Drama"
-        ],
-        "image_url" : "http://ia.media-imdb.com/images/N/O9ERWAU7FS797AJ7LU8HN09AMUP908RLlo5JF90EWR7LJKQ7@@._V1_SX400_.jpg",
-        "plot" : "A rock band plays their music at high volumes, annoying the neighbors.",
-        "rank" : 11,
-        "running_time_secs" : 5215,
-        "actors" : [
-            "David Matthewman",
-            "Ann Thomas",
-            "Jonathan G. Neff"
-       ]
+  public static partial class Ddb_Intro
+  {
+    /*--------------------------------------------------------------------------
+     *                       CreatingTable_async
+     *--------------------------------------------------------------------------*/
+    public static async Task CreatingTable_async( string  new_table_name,
+                               List<AttributeDefinition>  table_attributes,
+                               List<KeySchemaElement>     table_key_schema,
+                               ProvisionedThroughput      provisionedThroughput )
+    {
+      Console.WriteLine( "  -- Creating a new table named {0}...", new_table_name );
+      if( await checkingTableExistence_async( new_table_name ) )
+      {
+        Console.WriteLine( "     -- No need to create a new table..." );
+        return;
+      }
+      if( operationFailed )
+        return;
+
+      operationSucceeded = false;
+      Task<bool> newTbl = CreateNewTable_async( new_table_name,
+                                                table_attributes,
+                                                table_key_schema,
+                                                provisionedThroughput );
+      await newTbl;
     }
+
+
+    /*--------------------------------------------------------------------------
+     *                      checkingTableExistence_async
+     *--------------------------------------------------------------------------*/
+    static async Task<bool> checkingTableExistence_async( string tblNm )
+    {
+      DescribeTableResponse descResponse;
+
+      operationSucceeded = false;
+      operationFailed = false;
+      ListTablesResponse tblResponse = await Ddb_Intro.client.ListTablesAsync();
+      if (tblResponse.TableNames.Contains(tblNm))
+      {
+        Console.WriteLine("     A table named {0} already exists in DynamoDB!", tblNm);
+
+        // If the table exists, get its description
+        try
+        {
+          descResponse = await Ddb_Intro.client.DescribeTableAsync(Ddb_Intro.movies_table_name);
+          operationSucceeded = true;
+        }
+        catch (Exception ex)
+        {
+          Console.WriteLine("     However, its description is not available ({0})", ex.Message);
+          Ddb_Intro.moviesTableDescription = null;
+          operationFailed = true;
+          return ( true );
+        }
+        Ddb_Intro.moviesTableDescription = descResponse.Table;
+        return ( true );
+      }
+      return ( false );
+    }
+
+
+    /*--------------------------------------------------------------------------
+     *                CreateNewTable_async
+     *--------------------------------------------------------------------------*/
+    public static async Task<bool> CreateNewTable_async( string  table_name,
+                                                         List<AttributeDefinition> table_attributes,
+                                                         List<KeySchemaElement>    table_key_schema,
+                                                         ProvisionedThroughput     provisioned_throughput )
+    {
+      CreateTableRequest  request;
+      CreateTableResponse response;
+
+      // Build the 'CreateTableRequest' structure for the new table
+      request = new CreateTableRequest
+      {
+        TableName             = table_name,
+        AttributeDefinitions  = table_attributes,
+        KeySchema             = table_key_schema,
+        // Provisioned-throughput settings are always required,
+        // although the local test version of DynamoDB ignores them.
+        ProvisionedThroughput = provisioned_throughput
+      };
+
+      operationSucceeded = false;
+      operationFailed = false;
+      try
+      {
+        Task<CreateTableResponse> makeTbl = Ddb_Intro.client.CreateTableAsync( request );
+        response = await makeTbl;
+        Console.WriteLine( "     -- Created the \"{0}\" table successfully!", table_name );
+        operationSucceeded = true;
+      }
+      catch( Exception ex )
+      {
+        Console.WriteLine( "     FAILED to create the new table, because: {0}.", ex.Message );
+        operationFailed = true;
+        return( false );
+      }
+
+      // Report the status of the new table...
+      Console.WriteLine( "     Status of the new table: '{0}'.", response.TableDescription.TableStatus );
+      Ddb_Intro.moviesTableDescription = response.TableDescription;
+      return ( true );
+    }
+  }
 }
 ```
 
-## Step 2\.1: Download the Sample Data File<a name="GettingStarted.NET.02.01"></a>
+The `CreatingTable_async` function starts by waiting on an asynchronous `checkingTableExistence_async` function to determine whether a table named "Movies" already exists\. If the table exists, `checkingTableExistence_async` retrieves the `TableDescription` for the existing `Table`\.
 
-1. Download the sample data archive: [moviedata\.zip](samples/moviedata.zip)
+If the table doesn't already exist, `CreatingTable_async` waits on `CreateNewTable_async` to create the `Movies` table using the DynamoDB client API `CreateTableAsync`\.
 
-1. Extract the data file \(`moviedata.json`\) from the archive\.
+The `DynamoDB_intro` sample uses asynchronous methods rather than synchronous methods wherever possible\. This is because \.NET core supports only asynchronous methods, and the asynchronous model is generally preferable when performance is crucial\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
-1. Copy and paste the`moviedata.json` file into the `bin/Debug` folder of your `DynamoDB_intro` Visual Studio project\.
+To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
 
-## Step 2\.2: Load the Sample Data into the Movies Table<a name="GettingStarted.NET.02.02"></a>
+## Next Step<a name="GettingStarted.NET.02.NextStep"></a>
 
-Build a program that loads movie data into the table you created in Step 1\.
-
-1. This program uses the open source Newtonsoft `Json.NET` library for deserializing JSON data, licensed under the MIT License \(MIT\) \(see [https://github\.com/JamesNK/Newtonsoft\.Json/blob/master/LICENSE\.md](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md)\)\.
-
-   To load the `Json.NET` library into your project, in Visual Studio, open the **NuGet Package Manager Console** from the **Tools** menu\. Then type the following command at the `PM>` prompt:
-
-   ```
-   PM> Install-Package Newtonsoft.Json
-   ```
-
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
-
-   ```
-   using System;
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Linq;
-   using System.Text;
-   
-   using Amazon;
-   using Amazon.DynamoDBv2;
-   using Amazon.DynamoDBv2.Model;
-   using Amazon.DynamoDBv2.DocumentModel;
-   
-   using Newtonsoft;
-   using Newtonsoft.Json;
-   using Newtonsoft.Json.Linq;
-   
-   namespace DynamoDB_intro
-   {
-       class Program
-       {
-           public static Table GetTableObject(string tableName)
-           {
-               // First, set up a DynamoDB client for DynamoDB Local
-               AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
-               ddbConfig.ServiceURL = "http://localhost:8000";
-               AmazonDynamoDBClient client;
-               try
-               {
-                   client = new AmazonDynamoDBClient(ddbConfig);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine("\n Error: failed to create a DynamoDB client; " + ex.Message);
-                   return (null);
-               }
-   
-               // Now, create a Table object for the specified table
-               Table table;
-               try
-               {
-                   table = Table.LoadTable(client, tableName);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine("\n Error: failed to load the 'Movies' table; " + ex.Message);
-                   return (null);
-               }
-               return (table);
-           }
-   
-           public static void Main(string[] args)
-           {
-               // First, read in the JSON data from the moviedate.json file
-               StreamReader sr = null;
-               JsonTextReader jtr = null;
-               JArray movieArray = null;
-               try
-               {
-                   sr = new StreamReader("moviedata.json");
-                   jtr = new JsonTextReader(sr);
-                   movieArray = (JArray)JToken.ReadFrom(jtr);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine("\n Error: could not read from the 'moviedata.json' file, because: " + ex.Message);
-                   PauseForDebugWindow();
-                   return;
-               }
-               finally
-               {
-                   if (jtr != null)
-                       jtr.Close();
-                   if (sr != null)
-                       sr.Close();
-               }
-   
-               // Get a Table object for the table that you created in Step 1
-               Table table = GetTableObject("Movies");
-               if (table == null)
-               {
-                   PauseForDebugWindow();
-                   return;
-               }
-   
-               // Load the movie data into the table (this could take some time)
-               Console.Write("\n   Now writing {0:#,##0} movie records from moviedata.json (might take 15 minutes)...\n   ...completed: ", movieArray.Count);
-               for (int i = 0, j = 99; i < movieArray.Count; i++)
-               {
-                   try
-                   {
-                       string itemJson = movieArray[i].ToString();
-                       Document doc = Document.FromJson(itemJson);
-                       table.PutItem(doc);
-                   }
-                   catch (Exception ex)
-                   {
-                       Console.WriteLine("\nError: Could not write the movie record #{0:#,##0}, because {1}", i, ex.Message);
-                       PauseForDebugWindow();
-                       return;
-                   }
-                   if (i >= j)
-                   {
-                       j++;
-                       Console.Write("{0,5:#,##0}, ", j);
-                       if (j % 1000 == 0)
-                           Console.Write("\n                 ");
-                       j += 99;
-                   }
-               }
-               Console.WriteLine("\n   Finished writing all movie records to DynamoDB!");
-               PauseForDebugWindow();
-           }
-   
-           public static void PauseForDebugWindow()
-           {
-               // Keep the console open if in Debug mode...
-               Console.Write("\n\n ...Press any key to continue");
-               Console.ReadKey();
-               Console.WriteLine();
-           }
-       }
-   }
-   ```
-
-1. Now compile the project, leaving it in Debug mode, and run it\.
+[Step 3: Load Sample Data into the Movies Table](GettingStarted.NET.03.md)

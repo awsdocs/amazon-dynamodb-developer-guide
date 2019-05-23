@@ -1,6 +1,6 @@
 # Java and DAX<a name="DAX.client.run-application-java"></a>
 
-To run the Java sample on your Amazon EC2 instance, follow this proceedure:
+To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 instance, follow this procedure:
 
 1. Install the Java Development Kit \(JDK\):
 
@@ -21,6 +21,8 @@ To run the Java sample on your Amazon EC2 instance, follow this proceedure:
    ```
    wget http://dax-sdk.s3-website-us-west-2.amazonaws.com/java/DaxJavaClient-latest.jar
    ```
+**Note**  
+ The client for the DAX SDK for Java is available on Apache Maven\. For more information, see [Using client as Apache Maven dependency](#DAXClient.Maven), later in this topic\. 
 
 1. Set your `CLASSPATH` variable:
 
@@ -30,7 +32,7 @@ To run the Java sample on your Amazon EC2 instance, follow this proceedure:
    export CLASSPATH=.:./DaxJavaClient-latest.jar:aws-java-sdk-$SDKVERSION/lib/aws-java-sdk-$SDKVERSION.jar:aws-java-sdk-$SDKVERSION/third-party/lib/*
    ```
 
-   Replace `sdkVersion` with the actual version number of the AWS SDK for Java\. For example: `1.11.112`
+   Replace `sdkVersion` with the actual version number of the AWS SDK for Java, for example: `1.11.112`\.
 
 1. Download the sample program source code \(`.zip` file\):
 
@@ -102,40 +104,61 @@ To run the Java sample on your Amazon EC2 instance, follow this proceedure:
    Successfully deleted table.
    ```
 
-   Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query` and `Scan` tests\.
+   Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query`, and `Scan` tests\.
 
-1. In the previous step, you ran the program against the DynamoDB endpoint\. You will now run the program again, but this time the `GetItem`, `Query` and `Scan` operations will be processed by your DAX cluster\.
+1. In the previous step, you ran the program against the Amazon DynamoDB endpoint\. Now run the program again, but this time the `GetItem`, `Query`, and `Scan` operations are processed by your DAX cluster\.
 
    To determine the endpoint for your DAX cluster, choose one of the following:
-   + **Using the DynamoDB console**—choose your DAX cluster\. The cluster endpoint is shown in the console\. For example: 
+   + **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console; for example: 
 
      ```
-     mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
+     mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
      ```
-   + **Using the AWS CLI**—type the following command:
+   + **Using the AWS CLI** — Type the following command:
 
      ```
      aws dax describe-clusters --query "Clusters[*].ClusterDiscoveryEndpoint"
      ```
 
-     The cluster endpoint port and address are shown in the output\. For example: 
+     The cluster endpoint port and address are shown in the output; for example: 
 
      ```
      {
-         "Port": 8111, 
-         "Address":"mycluster.frfx8h.clustercfg.dax.amazonaws.com"
+         "Port": 8111,
+         "Address":"mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com"
      }
      ```
 
    Now run the program again—but this time, specify the cluster endpoint as a command line parameter:
 
    ```
-   java TryDax mycluster.frfx8h.clustercfg.dax.amazonaws.com:8111
+   java TryDax mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
    ```
 
-   Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query` and `Scan` should be significantly lower with DAX than with DynamoDB\.
+   Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query`, and `Scan` should be significantly lower with DAX than with DynamoDB\.
 
 For more information about this program, see the following sections:
 + [TryDax\.java](DAX.client.run-application-java.TryDax.md)
 + [TryDaxHelper\.java](DAX.client.run-application-java.TryDaxHelper.md)
 + [TryDaxTests\.java](DAX.client.run-application-java.TryDaxTests.md)
+
+## Using client as Apache Maven dependency<a name="DAXClient.Maven"></a>
+
+To use the client for the DAX SDK for Java in your application as a dependency:
+
+1. Download and install Apache Maven\. For more information, see [Downloading Apache Maven](https://maven.apache.org/download.cgi) and [Installing Apache Maven](https://maven.apache.org/install.html)\.
+
+1. Add the client Maven dependency to your application's Project Object Model \(POM\) file:
+
+   ```
+   <!--Dependency:-->
+   <dependencies>
+       <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>amazon-dax-client</artifactId>
+        <version>x.x.x.x</version>
+       </dependency>
+   </dependencies>
+   ```
+
+    Replace x\.x\.x\.x with the actual version number of the client\. For example: 1\.0\.200704\.0\. 

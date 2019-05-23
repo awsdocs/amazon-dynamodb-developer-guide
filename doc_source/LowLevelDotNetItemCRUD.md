@@ -109,7 +109,7 @@ var request = new PutItemRequest
 var response = client.PutItem(request);
 ```
 
-For more information, see [PutItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\.
+For more information, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\.
 
 ## Getting an Item<a name="GetItemLowLevelDotNET"></a>
 
@@ -174,7 +174,7 @@ var result = response.GetItemResult;
 var attributeMap = result.Item;
 ```
 
-For more information, see [GetItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. 
+For more information, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. 
 
 ## Updating an Item<a name="UpdateItemLowLevelDotNet"></a>
 
@@ -270,7 +270,7 @@ var request = new UpdateItemRequest
 var response = client.UpdateItem(request);
 ```
 
-For more information, see [UpdateItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
+For more information, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 
 ## Atomic Counter<a name="AtomicCounterLowLevelDotNet"></a>
 
@@ -359,7 +359,7 @@ var request = new DeleteItemRequest
 var response = client.DeleteItem(request);
 ```
 
-For more information, see [DeleteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)\.
+For more information, see [DeleteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)\.
 
 ## Batch Write: Putting and Deleting Multiple Items<a name="BatchWriteLowLevelDotNet"></a>
 
@@ -371,7 +371,7 @@ Batch write refers to putting and deleting multiple items in a batch\. The `Batc
 
 1. Execute the `BatchWriteItem` method by providing the `BatchWriteItemRequest` object that you created in the preceding step\.
 
-1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput limit or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
+1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput limit or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
 
 The following C\# code snippet demonstrates the preceding steps\. The example creates a `BatchWriteItemRequest` to perform the following write operations:
 + Put an item in Forum table
@@ -582,4 +582,4 @@ var request = new BatchGetItemRequest
 var response = client.BatchGetItem(request);
 ```
 
-For more information, see [BatchGetItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)\. 
+For more information, see [BatchGetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)\. 

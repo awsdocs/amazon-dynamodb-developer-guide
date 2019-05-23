@@ -2,11 +2,11 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_updatetable_Description"></a>
 
-Updates the provisioned throughput for the given table\. Setting the throughput for a table helps you manage performance and is part of the provisioned throughput feature of DynamoDB\. For more information, see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\.
+Updates the provisioned throughput for the given table\. Setting the throughput for a table helps you manage performance and is part of the provisioned throughput feature of DynamoDB\. For more information, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.
 
 The provisioned throughput values can be upgraded or downgraded based on the maximums and minimums listed in [Limits in DynamoDB](Limits.md)\.
 
@@ -34,7 +34,7 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table to update\.  Type: String   |  Yes  | 
-|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\.Type: Array  | Yes | 
+|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.Type: Array  | Yes | 
 | ProvisionedThroughput :ReadCapacityUnits |  Sets the minimum number of consistent `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.  Eventually consistent read operations require less effort than a consistent read operation, so a setting of 50 consistent `ReadCapacityUnits` per second provides 100 eventually consistent `ReadCapacityUnits` per second\. Type: Number  | Yes | 
 | ProvisionedThroughput :WriteCapacityUnits |  Sets the minimum number of `WriteCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | Yes | 
 

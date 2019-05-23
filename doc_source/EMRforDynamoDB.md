@@ -23,11 +23,11 @@ You can choose to launch your Amazon EMR cluster so that it is persistent or tra
 + A *persistent* cluster runs until you shut it down\. Persistent clusters are ideal for data analysis, data warehousing, or any other interactive use\.
 + A *transient* cluster runs long enough to process a job flow, and then shuts down automatically\. Transient clusters are ideal for periodic processing tasks, such as running scripts\.
 
-For information about Amazon EMR architecture and administration, see the [Amazon EMR Management Guide](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide)\.
+For information about Amazon EMR architecture and administration, see the [Amazon EMR Management Guide](https://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide)\.
 
 When you launch an Amazon EMR cluster, you specify the initial number and type of Amazon EC2 instances\. You also specify other distributed applications \(in addition to Hadoop itself\) that you want to run on the cluster\. These applications include Hue, Mahout, Pig, Spark, and more\.
 
-For information about applications for Amazon EMR, see the [Amazon EMR Release Guide](http://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide)\.
+For information about applications for Amazon EMR, see the [Amazon EMR Release Guide](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide)\.
 
 Depending on the cluster configuration, you might have one or more of the following node types:
 + Master node — Manages the cluster, coordinating the distribution of the MapReduce executable and subsets of the raw data, to the core and task instance groups\. It also tracks the status of each task performed and monitors the health of the instance groups\. There is only one master node in a cluster\.

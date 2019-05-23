@@ -1,8 +1,21 @@
 # Example: Create, Update, Delete, and List Tables Using the AWS SDK for \.NET Low\-Level API<a name="LowLevelDotNetTableOperationsExample"></a>
 
-The following C\# example creates, updates, and deletes a table \(ExampleTable\)\. It also lists all the tables in your account and gets the description of a specific table\. The table update increases the provisioned throughput values\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+The following C\# example create,, updates, and deletes a table \(ExampleTable\)\. It also lists all the tables in your account and gets the description of a specific table\. The table update increases the provisioned throughput values\. For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;

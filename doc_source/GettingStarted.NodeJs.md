@@ -5,7 +5,7 @@ In this tutorial, you use the AWS SDK for JavaScript to write simple programs to
 + Perform create, read, update, and delete operations on the table\.
 + Run simple queries\.
 
-As you work through this tutorial, you can refer to the [AWS SDK for JavaScript API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\.
+As you work through this tutorial, you can refer to the [AWS SDK for JavaScript API Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\.
 
 ## Tutorial Prerequisites<a name="GettingStarted.NodeJs.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
@@ -16,4 +16,4 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
   + Go to [http://nodejs\.org](http://nodejs.org) and install Node\.js\.
   + Go to [https://aws\.amazon\.com/sdk\-for\-node\-js](https://aws.amazon.com/sdk-for-node-js) and install the AWS SDK for JavaScript\.
 
-  For more information, see the [AWS SDK for JavaScript Getting Started Guide](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/browser-intro.html)\.
+  For more information, see the [AWS SDK for JavaScript Getting Started Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/guide/browser-intro.html)\.

@@ -12,15 +12,28 @@ The following C\# code example uses the `BatchWriteItem` method to perform the f
 + Put one item in the Forum table
 + Put one item and delete one item from the Thread table\. 
 
-You can specify any number of put and delete requests against one or more tables when creating your batch write request\. However, DynamoDB `BatchWriteItem` limits the size of a batch write request and the number of put and delete operations in a single batch write operation\. For more information, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If your request exceeds these limits, your request is rejected\. If your table does not have sufficient provisioned throughput to serve this request, the unprocessed request items are returned in the response\. 
+You can specify any number of put and delete requests against one or more tables when creating your batch write request\. However, DynamoDB `BatchWriteItem` limits the size of a batch write request and the number of put and delete operations in a single batch write operation\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If your request exceeds these limits, your request is rejected\. If your table does not have sufficient provisioned throughput to serve this request, the unprocessed request items are returned in the response\. 
 
 The following example checks the response to see if it has any unprocessed request items\. If it does, it loops back and resends the `BatchWriteItem` request with unprocessed items in the request\. If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the Forum and Thread tables created\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -169,11 +182,24 @@ The following C\# code example uses the `BatchGetItem` method to retrieve multip
 
 If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have these tables created with sample data\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -319,5 +345,4 @@ namespace com.amazonaws.codesamples
             Console.WriteLine("************************************************");
         }
     }
-}
 ```

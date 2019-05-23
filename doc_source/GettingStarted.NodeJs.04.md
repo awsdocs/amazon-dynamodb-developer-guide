@@ -24,6 +24,19 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy and paste the following program into a file named `MoviesQuery01.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -42,7 +55,7 @@ The program included in this step retrieves all movies released in the `year` 19
            "#yr": "year"
        },
        ExpressionAttributeValues: {
-           ":yyyy":1985
+           ":yyyy": 1985
        }
    };
    
@@ -75,6 +88,19 @@ The program included in this step retrieves all movies released in `year` 1992, 
 1. Copy and paste the following program into a file named `MoviesQuery02.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -94,7 +120,7 @@ The program included in this step retrieves all movies released in `year` 1992, 
            "#yr": "year"
        },
        ExpressionAttributeValues: {
-           ":yyyy":1992,
+           ":yyyy": 1992,
            ":letter1": "A",
            ":letter2": "L"
        }
@@ -127,6 +153,19 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Copy and paste the following program into a file named `MoviesScan.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({

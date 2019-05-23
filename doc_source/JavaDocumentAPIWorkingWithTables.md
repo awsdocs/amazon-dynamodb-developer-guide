@@ -134,7 +134,7 @@ table.waitForDelete();
 
 ## Listing Tables<a name="JavaDocumentAPIListTables"></a>
 
-To list tables in your account, create an instance of `DynamoDB` and execute the `listTables` method\. The [ListTables](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\. 
+To list tables in your account, create an instance of `DynamoDB` and execute the `listTables` method\. The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\. 
 
 **Example**  
 

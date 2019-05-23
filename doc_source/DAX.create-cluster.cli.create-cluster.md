@@ -8,23 +8,24 @@ Follow this procedure to create a DAX cluster in your default Amazon VPC:
 
    ```
    aws iam get-role \
-       --role-name DAXServiceRole \
+       --role-name DAXServiceRoleForDynamoDBAccess \
        --query "Role.Arn" --output text
    ```
 
    In the output, take note of the service role ARN\. For example:
 
-   `arn:aws:iam::123456789012:role/DaxServiceRole`
+   `arn:aws:iam::123456789012:role/DAXServiceRoleForDynamoDBAccess`
 
 1. You are now ready to create your DAX cluster:
 
    ```
    aws dax create-cluster \
        --cluster-name mydaxcluster \
-       --node-type dax.r3.large \
+       --node-type dax.r4.large \
        --replication-factor 3 \
        --iam-role-arn roleARN \
        --subnet-group my-subnet-group \
+       --sse-specification Enabled=true \
        --region us-west-2
    ```
 

@@ -9,6 +9,8 @@ Many applications can benefit from the ability to capture changes to items store
 
 DynamoDB Streams enables solutions such as these, and many others\. DynamoDB Streams captures a time\-ordered sequence of item\-level modifications in any DynamoDB table, and stores this information in a log for up to 24 hours\. Applications can access this log and view the data items as they appeared before and after they were modified, in near real time\.
 
+ Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [Amazon DynamoDB Encryption at Rest](EncryptionAtRest.md)\. 
+
 A *DynamoDB stream* is an ordered flow of information about changes to items in an Amazon DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\.
 
 Whenever an application creates, updates, or deletes items in the table, DynamoDB Streams writes a stream record with the primary key attribute\(s\) of the items that were modified\. A *stream record* contains information about a data modification to a single item in a DynamoDB table\. You can configure the stream so that the stream records capture additional information, such as the "before" and "after" images of modified items\.
@@ -28,7 +30,7 @@ AWS maintains separate endpoints for DynamoDB and DynamoDB Streams\. To work wit
 The naming convention for DynamoDB Streams endpoints is `streams.dynamodb.<region>.amazonaws.com`\. For example, if you use the endpoint `dynamodb.us-west-2.amazonaws.com` to access DynamoDB, you would use the endpoint `streams.dynamodb.us-west-2.amazonaws.com` to access DynamoDB Streams\.
 
 **Note**  
-For a complete list of DynamoDB and DynamoDB Streams regions and endpoints, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the AWS General Reference\.
+For a complete list of DynamoDB and DynamoDB Streams regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the AWS General Reference\.
 
 The AWS SDKs provide separate clients for DynamoDB and DynamoDB Streams\. Depending on your requirements, your application can access a DynamoDB endpoint, a DynamoDB Streams endpoint, or both at the same time\. To connect to both endpoints, your application will need to instantiate two clients \- one for DynamoDB, and one for DynamoDB Streams\.
 
@@ -104,12 +106,12 @@ To access a stream and process the stream records within, you must do the follow
 No more than 2 processes at most should be reading from the same Streams shard at the same time\. Having more than 2 readers per shard may result in throttling\.
 
 The DynamoDB Streams API provides the following actions for use by application programs:
-+  `[ListStreams](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.html)`—returns a list of stream descriptors for the current account and endpoint\. You can optionally request just the stream descriptors for a particular table name\.
-+ `[DescribeStream](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.html)`—returns detailed information about a given stream\. The output includes a list of shards associated with the stream, including the shard IDs\.
-+ `[GetShardIterator](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetShardIterator.html)`—returns a *shard iterator*, which describes a location within a shard\. You can request that the iterator provide access to the oldest point, the newest point, or a particular point in the stream\.
-+ `[GetRecords](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetRecords.html)`—returns the stream records from within a given shard\. You must provide the shard iterator returned from a `GetShardIterator` request\.
++  `[ListStreams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.html)`—returns a list of stream descriptors for the current account and endpoint\. You can optionally request just the stream descriptors for a particular table name\.
++ `[DescribeStream](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.html)`—returns detailed information about a given stream\. The output includes a list of shards associated with the stream, including the shard IDs\.
++ `[GetShardIterator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetShardIterator.html)`—returns a *shard iterator*, which describes a location within a shard\. You can request that the iterator provide access to the oldest point, the newest point, or a particular point in the stream\.
++ `[GetRecords](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetRecords.html)`—returns the stream records from within a given shard\. You must provide the shard iterator returned from a `GetShardIterator` request\.
 
-For complete descriptions of these API actions, including example requests and responses, go to the [Amazon DynamoDB Streams API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
+For complete descriptions of these API actions, including example requests and responses, go to the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
 
 ### Data Retention Limit for DynamoDB Streams<a name="Streams.DataRetention"></a>
 

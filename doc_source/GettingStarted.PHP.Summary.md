@@ -31,4 +31,4 @@ After you remove this line, the code can access the DynamoDB service in the Regi
 
 Instead of using the downloadable version of DynamoDB on your computer, the program now uses the DynamoDB service endpoint in US West \(Oregon\)\.
 
-DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see the [boto: A Python interface to Amazon Web Services](http://boto.readthedocs.org/en/latest/)\.
+DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see the [boto: A Python interface to Amazon Web Services](http://boto.readthedocs.org/en/latest/)\.

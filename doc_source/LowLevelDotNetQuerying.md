@@ -17,7 +17,7 @@ The following C\# code snippet demonstrates the preceding tasks\. The snippet as
 **Example**  
 
 ```
-Reply ( <emphasis role="underline">Id</emphasis>, <emphasis role="underline">ReplyDateTime</emphasis>, ... )
+Reply Id, ReplyDateTime, ... )
 ```
 
 Each forum thread has a unique ID and can have zero or more replies\. Therefore, the primary key is composed of both the Id \(partition key\) and ReplyDateTime \(sort key\)\. 
@@ -48,7 +48,7 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 
 ## Specifying Optional Parameters<a name="LowLevelDotNetQueryingOptions"></a>
 
-The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because Amazon DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
+The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because Amazon DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
 
 The following C\# code snippet retrieves forum thread replies posted in the past 15 days\. The snippet specifies the following optional parameters:
 + A `KeyConditionExpression` to retrieve only the replies in the past 15 days\.
@@ -126,9 +126,9 @@ The following tables store information about a collection of forums\. For more i
 **Example**  
 
 ```
-Forum ( <emphasis role="underline">Name</emphasis>, ... ) 
-Thread ( <emphasis role="underline">ForumName</emphasis>, <emphasis role="underline">Subject</emphasis>, Message, LastPostedBy, LastPostDateTime, ...) 
-Reply ( <emphasis role="underline">Id</emphasis>, <emphasis role="underline">ReplyDateTime</emphasis>, Message, PostedBy, ...)
+Forum ( Name, ... ) 
+Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...) 
+Reply ( Id, ReplyDateTime, Message, PostedBy, ...)
 ```
 
 In this C\# code example, you execute variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
@@ -141,9 +141,22 @@ In this C\# code example, you execute variations of "Find replies for a thread "
 
   Both of the preceding two queries shows how you can specify sort key conditions to narrow query results and use other optional query parameters\. 
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;

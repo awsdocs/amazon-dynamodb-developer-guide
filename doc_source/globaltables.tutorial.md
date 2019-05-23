@@ -27,8 +27,6 @@ Follow these steps to create a global table using the console\. The following ex
 1. Choose **Add region**, and then choose another region where you want to deploy another replica table\. In this case, choose **US West \(Oregon\)**, and then choose **Continue**\. This will start the table creation process in US West \(Oregon\)\.
 
    The console will check to ensure that there is no table with the same name in the selected region\. \(If a table with the same name does exist, then you must delete the existing table before you can create a new replica table in that region\.\)
-**Note**  
-We recommend reviewing the settings of every replica table that you add to a global table, to verify that the provisioning settings are consistent across every replica\. For more information, see [Keep Capacity Settings Consistent](globaltables_reqs_bestpractices.md#globaltables_reqs_bestpractices.tables.consistent-settings)\. 
 
     The **Global Table** tab for the selected table \(and for any other replica tables\) will show that the table is replicated in multiple regions\. 
 

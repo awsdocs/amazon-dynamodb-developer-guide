@@ -18,4 +18,4 @@ AWS.config.update({endpoint: "https://dynamodb.us-west-2.amazonaws.com"});
 
 Instead of using DynamoDB on your computer, the program now uses the DynamoDB web service endpoint in US West \(Oregon\)\. 
 
-Amazon DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see [Setting the Region](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html) in the *AWS SDK for JavaScript Developer Guide*\.
+Amazon DynamoDB is available in several Regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see [Setting the Region](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html) in the *AWS SDK for JavaScript Developer Guide*\.

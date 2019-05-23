@@ -20,13 +20,26 @@ The example then executes the follow query and scan operations using a `DynamoDB
 
 **Note**  
 This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Samples](CodeSamples.Java.md)\.
+For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 **Example**  
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples.datamodeling;
 
 import java.text.SimpleDateFormat;
@@ -87,7 +100,7 @@ public class DynamoDBMapperQueryScanExample {
     private static void GetBook(DynamoDBMapper mapper, int id) throws Exception {
         System.out.println("GetBook: Get book Id='101' ");
         System.out.println("Book table has no sort key. You can do GetItem, but not Query.");
-        Book book = mapper.load(Book.class, 101);
+        Book book = mapper.load(Book.class, id);
         System.out.format("Id = %s Title = %s, ISBN = %s %n", book.getId(), book.getTitle(), book.getISBN());
     }
 

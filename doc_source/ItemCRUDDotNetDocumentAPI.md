@@ -6,11 +6,24 @@
 + Update the book item\. The code example shows a normal update that adds new attributes and updates existing attributes\. It also shows a conditional update which updates the book price only if the existing price value is as specified in the code\.
 + Delete the book item\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using System.Linq;

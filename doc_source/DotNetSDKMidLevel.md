@@ -34,7 +34,7 @@ The GetItem operation returns all the attributes of the item and performs an eve
 
 ### Specifying Optional Parameters<a name="GetMidLevelDotNetOptions"></a>
 
-You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code snippet retrieves an item from the ProductCatalog table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters: 
+You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code snippet retrieves an item from the ProductCatalog table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters: 
 + The `AttributesToGet` parameter to retrieve only the specified attributes\. 
 + The `ConsistentRead` parameter to request the latest values for all the specified attributes\. To learn more about data consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
 
@@ -99,7 +99,7 @@ table.DeleteItem(partitionKey)
 
 ### Specifying Optional Parameters<a name="DeleteItemMidLevelDotNetOptions"></a>
 
-You can configure additional options for the `Delete` operation by adding the `DeleteItemOperationConfig` parameter\. For a complete list of optional parameters, see [DeleteTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)\. The following C\# code snippet specifies the two following optional parameters:
+You can configure additional options for the `Delete` operation by adding the `DeleteItemOperationConfig` parameter\. For a complete list of optional parameters, see [DeleteTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)\. The following C\# code snippet specifies the two following optional parameters:
 +  The `ConditionalExpression` parameter to ensure that the book item being deleted has a specific value for the ISBN attribute\. 
 + The `ReturnValues` parameter to request that the `Delete` method return the item that it deleted\. 
 
@@ -138,10 +138,10 @@ The `UpdateItem` action uses the following guidelines:
   + If the input attribute value is null, it deletes the attributes, if it is present\. 
 
 **Note**  
-This mid\-level `UpdateItem` operation does not support the `Add` action \(see [UpdateItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\) supported by the underlying DynamoDB operation\. 
+This mid\-level `UpdateItem` operation does not support the `Add` action \(see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\) supported by the underlying DynamoDB operation\. 
 
 **Note**  
-The `PutItem` operation \([Putting an Item \- Table\.PutItem Method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also can perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. Note that, if there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the PutItem operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item will remain unchanged\. 
+The `PutItem` operation \([Putting an Item \- Table\.PutItem Method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. Note that, if there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the PutItem operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item will remain unchanged\. 
 
 The following are the steps to update an item using the AWS SDK for \.NET document model\.
 
@@ -178,7 +178,7 @@ table.Update(book);
 
 ### Specifying Optional Parameters<a name="UpdateMidLevelDotNetOptions"></a>
 
-You can configure additional options for the `UpdateItem` operation by adding the `UpdateItemOperationConfig` parameter\. For a complete list of optional parameters, see [UpdateItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
+You can configure additional options for the `UpdateItem` operation by adding the `UpdateItemOperationConfig` parameter\. For a complete list of optional parameters, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 
 The following C\# code snippet updates a book item price to 25\. It specifies the two following optional parameters:
 +  The `ConditionalExpression` parameter that identifies the Price attribute with value 20 that you expect to be present\. 
@@ -196,7 +196,7 @@ book["Price"] = 25;
 
 Expression expr = new Expression();
 expr.ExpressionStatement = "Price = :val";
-expr.ExpressionAttributeValues[":val"] = 20";
+expr.ExpressionAttributeValues[":val"] = "20";
 
 UpdateOperationConfig config = new UpdateOperationConfig()
 {
@@ -219,7 +219,7 @@ Batch write refers to putting and deleting multiple items in a batch\. The opera
 
 1. Call the `DocumentBatchWrite.Execute` method to execute the batch operation\. 
 
-   When using the document model API, you can specify any number of operations in a batch\. However, note that DynamoDB limits the number of operations in a batch and the total size of the batch in a batch operation\. For more information about the specific limits, see [BatchWriteItem](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If the document model API detects your batch write request exceeded the number of allowed write requests or the HTTP payload size of a batch exceeded the limit allowed by `BatchWriteItem`, it breaks the batch in to several smaller batches\. Additionally, if a response to a batch write returns unprocessed items, the document model API will automatically send another batch request with those unprocessed items\.
+   When using the document model API, you can specify any number of operations in a batch\. However, note that DynamoDB limits the number of operations in a batch and the total size of the batch in a batch operation\. For more information about the specific limits, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If the document model API detects your batch write request exceeded the number of allowed write requests or the HTTP payload size of a batch exceeded the limit allowed by `BatchWriteItem`, it breaks the batch in to several smaller batches\. Additionally, if a response to a batch write returns unprocessed items, the document model API will automatically send another batch request with those unprocessed items\.
 
 The following C\# code snippet demonstrates the preceding steps\. The code snippet uses batch write operation to perform two writes; upload a book item and delete another book item\.
 

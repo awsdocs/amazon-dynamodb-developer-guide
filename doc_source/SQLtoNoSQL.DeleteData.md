@@ -51,4 +51,4 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 ```
 
 **Note**  
-For code samples using `DeleteItem`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `DeleteItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

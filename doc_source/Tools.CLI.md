@@ -4,7 +4,7 @@
 
  Before you can use the AWS CLI with DynamoDB, you must get an access key ID and secret access key\. For more information, see [Getting an AWS Access Key](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.GetCredentials)\. 
 
-For a complete listing of all the commands available for DynamoDB in the AWS CLI, go to [http://docs\.aws\.amazon\.com/cli/latest/reference/dynamodb/index\.html](http://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
+For a complete listing of all the commands available for DynamoDB in the AWS CLI, go to [https://docs\.aws\.amazon\.com/cli/latest/reference/dynamodb/index\.html](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
 
 **Topics**
 + [Downloading and Configuring the AWS CLI](#Tools.CLI.DownloadingAndRunning)
@@ -15,9 +15,9 @@ For a complete listing of all the commands available for DynamoDB in the AWS CLI
 
 The AWS CLI is available at [http://aws\.amazon\.com/cli](https://aws.amazon.com/cli)\. It runs on Windows, macOS, or Linux\. After you download the AWS CLI, follow these steps to install and configure it:
 
-1. Go to the [AWS Command Line Interface User Guide](http://docs.aws.amazon.com/cli/latest/userguide/)\.
+1. Go to the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\.
 
-1. Follow the instructions for [Installing the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) and [Configuring the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)\.
+1. Follow the instructions for [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) and [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)\.
 
 ## Using the AWS CLI with DynamoDB<a name="Tools.CLI.UsingWithDDB"></a>
 

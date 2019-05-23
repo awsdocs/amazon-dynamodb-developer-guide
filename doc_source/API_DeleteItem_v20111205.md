@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_DeleteItem_Description"></a>
 
@@ -71,7 +71,7 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | If the `ReturnValues` parameter is provided as `ALL_OLD` in the request, DynamoDB returns an array of attribute name\-value pairs \(essentially, the deleted item\)\. Otherwise, the response contains an empty set\. Type: Array of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_DeleteItem_SpecialErrors"></a>
 

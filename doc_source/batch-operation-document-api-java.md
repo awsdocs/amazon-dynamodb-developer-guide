@@ -19,13 +19,26 @@ You can specify any number of put and delete requests against one or more tables
 
 The following example checks the response to see if it has any unprocessed request items\. If it does, it loops back and resends the `batchWriteItem` request with unprocessed items in the request\. If you followed the [Creating Tables and Loading Sample Data](SampleData.md) section, you should already have created the Forum and Thread tables\. You can also create these tables and upload sample data programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for Java](AppendixSampleDataCodeJava.md)\.
 
-For step\-by\-step instructions to test the following sample, see [Java Code Samples](CodeSamples.Java.md)\. 
+For step\-by\-step instructions to test the following sample, see [Java Code Examples](CodeSamples.Java.md)\. 
 
 **Example**  
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples.document;
 
 import java.io.IOException;
@@ -109,13 +122,26 @@ The following Java code example uses the `batchGetItem` method to retrieve multi
 
 **Note**  
 This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Samples](CodeSamples.Java.md)\.
+For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 **Example**  
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples.document;
 
 import java.io.IOException;

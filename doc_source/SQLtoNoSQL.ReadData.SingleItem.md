@@ -64,4 +64,4 @@ The SQL `SELECT` statement can perform table joins, allowing you to retrieve dat
 DynamoDB is a non\-relational database\. As such, it does not support table joins\. If you are migrating an existing application from a relational database to DynamoDB, you need to denormalize your data model to eliminate the need for joins\.
 
 **Note**  
-For code samples using `GetItem`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `GetItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

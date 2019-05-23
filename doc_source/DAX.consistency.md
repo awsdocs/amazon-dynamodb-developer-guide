@@ -8,13 +8,13 @@ In many use cases, the way that your application uses DAX will affect the consis
 + [Consistency Among DAX Cluster Nodes](#DAX.consistency.nodes)
 + [DAX Item Cache Behavior](#DAX.consistency.item-cache)
 + [DAX Query Cache Behavior](#DAX.consistency.query-cache)
-+ [Strongly Consistent Reads](#DAX.consistency.strongly-consistent-reads)
++ [Strongly Consistent and Transactional Reads](#DAX.consistency.strongly-consistent-reads)
 + [Negative Caching](#DAX.consistency.negative-caching)
 + [Strategies for Writes](#DAX.consistency.strategies-for-writes)
 
 ## Consistency Among DAX Cluster Nodes<a name="DAX.consistency.nodes"></a>
 
-To achieve high availability for your application, we recommend that you provision your DAX cluster with at least two nodes \(ideally three or more\), and place those nodes in multiple availability zones within a region\.
+To achieve high availability for your application, we recommend that you provision your DAX cluster with at least three nodes and place those nodes in multiple availability zones within a region\.
 
 When your DAX cluster is running, it will replicate the data among all of the nodes in the cluster \(assuming that you have provisioned more than one node\)\. Consider an application that performs a successful `UpdateItem` using DAX\. This causes the item cache in the primary node to be modified with the new value; that value will then be replicated to all of the other nodes in the cluster\. This replication is eventually consistent, and usually takes less than one second to complete\.
 
@@ -30,7 +30,7 @@ Every DAX cluster has two distinct caches—an item cache and a query cache\. \(
 
 With Amazon DynamoDB, the `GetItem` operation performs an eventually consistent read by default\. If you use `UpdateItem` with the DynamoDB client, and then attempt to read the same item immediately afterward, you might see the data as it appeared prior to the update\. This is due to propagation delay across all of the DynamoDB storage locations\. Consistency is usually reached within seconds, so if you retry the read, you will likely see the updated item\.
 
-When you use `GetItem` with the DAX client, the operation proceeds as follows:
+When you use `GetItem` with the DAX client, the operation \(in this case, an eventually consistent read\) proceeds as follows:
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-item-cache.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
@@ -55,7 +55,7 @@ In addition to `GetItem`, the DAX client also supports `BatchGetItem` requests\.
 
 DAX is a write\-through cache, which simplifies the process of keeping the DAX item cache consistent with the underlying DynamoDB tables\.
 
-The DAX client supports the same write API operations as DynamoDB \(`PutItem`, `UpdateItem`, `DeleteItem`, and `BatchWriteItem`\)\. When you use these operations with the DAX client, the items are modified in both DAX and DynamoDB\. DAX will update the items in its item cache, regardless of the TTL value for these items\.
+The DAX client supports the same write API operations as DynamoDB \(`PutItem`, `UpdateItem`, `DeleteItem`, and `BatchWriteItem`, and `TransactWriteItems`\)\. When you use these operations with the DAX client, the items are modified in both DAX and DynamoDB\. DAX updates the items in its item cache, regardless of the TTL value for these items\.
 
 For example, suppose you issue a `GetItem` request from the DAX client to read an item from the *ProductCatalog* table\. \(The partition key is *Id*; there is no sort key\.\) You retrieve the item whose *Id* is `101`; the *QuantityOnHand* value for that item is `42`\. DAX stores the item in its item cache with a specific TTL; for this example, let us assume that the TTL is ten minutes\. Three minutes later, another application uses the DAX client to update the same item, so that its *QuantityOnHand* value is now `41`\. Assuming that the item is not updated again, any subsequent reads of the same item during the next ten minutes will return the cached value for *QuantityOnHand* \(`41`\)\.
 
@@ -63,11 +63,19 @@ For example, suppose you issue a `GetItem` request from the DAX client to read a
 
 DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX allows you to issue writes directly, so that your writes are immediately reflected in the item cache\. You do not need to manage cache invalidation logic, because DAX handles it for you\.
 
-DAX supports the following write operations: `PutItem`, `UpdateItem`, `DeleteItem`, and `BatchWriteItem`\. When you send one of these requests to DAX, it does the following:
+DAX supports the following write operations: `PutItem`, `UpdateItem`, `DeleteItem`, `BatchWriteItem`, and `TransactWriteItems`\.
+
+When you send a `PutItem`, `UpdateItem`, `DeleteItem`, or `BatchWriteItem` request to DAX, it does the following:
 + DAX sends the request to DynamoDB\.
 + DynamoDB replies to DAX, confirming that the write succeeded\.
 + DAX writes the item to its item cache\.
 + DAX returns success to the requester\.
+
+When you send a `TransactWriteItems` request to DAX, it does the following:
++ DAX sends the request to DynamoDB\.
++ DynamoDB replies to DAX, confirming that the transaction completed\.
++ DAX returns success to the requester\.
++ In the background, DAX makes a `TransactGetItems` request for each item in the `TransactWriteItems` request to store the item in the item cache\. `TransactGetItems` is used to ensure [serializable isolation](transaction-apis.md#transaction-isolation-serializable)\.
 
 If a write to DynamoDB fails for any reason, including throttling, then the item will not be cached in DAX and the exception for the failure will be returned to the requester\. This ensures that data is not written to the DAX cache unless it is first written successfully to DynamoDB\.
 
@@ -94,9 +102,11 @@ In this scenario, the cached result set for the `Query` issued in step 3 will be
 
 Your application should consider the TTL value for the query cache, and how long your application is able to tolerate inconsistent results between the query cache and the item cache\.
 
-## Strongly Consistent Reads<a name="DAX.consistency.strongly-consistent-reads"></a>
+## Strongly Consistent and Transactional Reads<a name="DAX.consistency.strongly-consistent-reads"></a>
 
-To perform a strongly consistent read request, you set the `ConsistentRead` parameter to true\. DAX passes strongly consistent read requests to DynamoDB\. When it receives a response from DynamoDB, DAX returns the results to the client, but it does not cache the results\. DAX cannot serve strongly consistent reads by itself, because it is not tightly coupled to DynamoDB\. For this reason, any subsequent reads from DAX would have to be eventually consistent reads, and any subsequent strongly consistent reads would have to be passed through to DynamoDB\.
+To perform a strongly consistent `GetItem`, `BatchGetItem`, `Query`, or `Scan` request, you set the `ConsistentRead` parameter to true\. DAX passes strongly consistent read requests to DynamoDB\. When it receives a response from DynamoDB, DAX returns the results to the client, but it does not cache the results\. DAX cannot serve strongly consistent reads by itself, because it is not tightly coupled to DynamoDB\. For this reason, any subsequent reads from DAX would have to be eventually consistent reads, and any subsequent strongly consistent reads would have to be passed through to DynamoDB\.
+
+DAX handles `TransactGetItems` requests the same way it handles strongly consistent reads\. DAX passes all `TransactGetItems` requests to DynamoDB\. When it receives a response from DynamoDB, DAX returns the results to the client, but it does not cache the results\.
 
 ## Negative Caching<a name="DAX.consistency.negative-caching"></a>
 
@@ -140,7 +150,7 @@ If your application needs to write large quantities of data \(such as a bulk dat
 
 If you decide to use a write\-around strategy, remember that DAX will populate its item cache whenever applications use the DAX client to read data\. This can be advantageous in some cases, because it ensures that only the most frequently\-read data is cached \(as opposed to the most\-frequently written data\)\.
 
-Consider a user \(Charlie\) who wants to work with the *GameScores* table using DAX\. The partition key for *GameScores* is `UserId`, so all of Charlie's scores would have the same `UserId`\.
+For example, consider a user \(Charlie\) who wants to work with a different table, the *GameScores* table using DAX\. The partition key for *GameScores* is `UserId`, so all of Charlie's scores would have the same `UserId`\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-consistency-charlie.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 

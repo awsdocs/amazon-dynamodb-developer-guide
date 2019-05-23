@@ -1,15 +1,15 @@
 # Monitoring with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
-You can monitor Amazon DynamoDB using CloudWatch, which collects and processes raw data from Amazon DynamoDB into readable, near real\-time metrics\. These statistics are recorded for a period of two weeks, so that you can access historical information for a better perspective on how your web application or service is performing\. By default, Amazon DynamoDB metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) in the *Amazon CloudWatch User Guide*\.
+You can monitor Amazon DynamoDB using CloudWatch, which collects and processes raw data from DynamoDB into readable, near real\-time metrics\. These statistics are recorded for a period of two weeks, so that you can access historical information for a better perspective on how your web application or service is performing\. By default, DynamoDB metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) in the *Amazon CloudWatch User Guide*\.
 
 **Topics**
-+ [Amazon DynamoDB Metrics and Dimensions](metrics-dimensions.md)
-+ [How Do I Use Amazon DynamoDB Metrics?](#how-to-use-metrics)
-+ [Creating CloudWatch Alarms to Monitor Amazon DynamoDB](creating-alarms.md)
++ [DynamoDB Metrics and Dimensions](metrics-dimensions.md)
++ [How Do I Use DynamoDB Metrics?](#how-to-use-metrics)
++ [Creating CloudWatch Alarms to Monitor DynamoDB](creating-alarms.md)
 
-## How Do I Use Amazon DynamoDB Metrics?<a name="how-to-use-metrics"></a>
+## How Do I Use DynamoDB Metrics?<a name="how-to-use-metrics"></a>
 
-The metrics reported by Amazon DynamoDB provide information that you can analyze in different ways\. The following list shows some common uses for the metrics\. These are suggestions to get you started, not a comprehensive list\.
+The metrics reported by DynamoDB provide information that you can analyze in different ways\. The following list shows some common uses for the metrics\. These are suggestions to get you started, not a comprehensive list\.
 
 
 ****  

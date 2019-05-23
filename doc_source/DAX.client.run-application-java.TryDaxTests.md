@@ -1,15 +1,29 @@
 # TryDaxTests\.java<a name="DAX.client.run-application-java.TryDaxTests"></a>
 
-The `TryDaxTests.java` file contains methods that perform read operations against a test table in DynamoDB\. These methods are not concerned with how they access the data \(using either the DynamoDB client or the DAX client\), so there is no need to modify the application logic\.
+The `TryDaxTests.java` file contains methods that perform read operations against a test table in Amazon DynamoDB\. These methods are not concerned with how they access the data \(using either the DynamoDB client or the DAX client\), so there is no need to modify the application logic\.
 
-You can modify the program in several ways\. For example:
+You can modify the program in several ways; for example:
 + Modify the `queryTest` method so that it uses a different `KeyConditionExpression`\.
 + Add a `ScanFilter` to the `scanTest` method, so that only some of the items are returned to you\.
 
 **Note**  
-To run this program, you must include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
+ To run this program, you can setup Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using client as Apache Maven dependency](DAX.client.run-application-java.md#DAXClient.Maven)\.   
+Alternatively, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 import java.util.HashMap;
 import java.util.Iterator;
 

@@ -38,4 +38,4 @@ To use the DynamoDB service, you must change the endpoint in your application\.
 
 Instead of using DynamoDB on your computer, the program now uses the Amazon DynamoDB web service endpoint in US West \(Oregon\)\.
 
-Amazon DynamoDB is available in several regions worldwide\. For the complete list, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting regions and endpoints in your code, see [AWS Region Selection](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html) in the *AWS SDK for Java Developer Guide*\.
+Amazon DynamoDB is available in several regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting regions and endpoints in your code, see [AWS Region Selection](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html) in the *AWS SDK for Java Developer Guide*\.

@@ -1,44 +1,52 @@
 # Requirements and Best Practices<a name="globaltables_reqs_bestpractices"></a>
 
-A DynamoDB global table keeps your data consistent across regions\. In this environment, it is important that each replica table has identical properties\.
+Using Amazon DynamoDB global tables, you can replicate your table data across AWS Regions\. It is important that the replica tables and secondary indexes in your global table have identical write capacity settings to ensure proper replication of data\.
 
 **Topics**
 + [Requirements for Adding a New Replica Table](#globaltables_reqs_bestpractices.requirements)
-+ [Best Practices for Managing Capacity](#globaltables_reqs_bestpractices.tables)
-+ [Best Practices for Global Secondary Indexes](#globaltables_reqs_bestpractices.gsi)
++ [Best Practices and Requirements for Managing Capacity](#globaltables_reqs_bestpractices.tables)
 
 ## Requirements for Adding a New Replica Table<a name="globaltables_reqs_bestpractices.requirements"></a>
 
 If you want to add a new replica table to a global table, each of the following conditions must be true:
-+ The table must have the same primary key as all of the other replicas\.
++ The table must have the same partition key as all of the other replicas\.
++ The table must have the same write capacity management settings specified\.
 + The table must have the same name as all of the other replicas\.
 + The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item\.
 + None of the replica tables in the global table can contain any data\.
 
-You must also have appropriate IAM permissions\. For more information, see [Using IAM with Global Tables](gt_IAM.md)\.
+ If global secondary indexes are specified, then the following conditions must also be met: 
++  The global secondary indexes must have the same name\. 
++  The global secondary indexes must have the same partition key and sort key \(if present\)\. 
 
-## Best Practices for Managing Capacity<a name="globaltables_reqs_bestpractices.tables"></a>
+**Important**  
+ Write capacity settings should be set consistently across all of your global tables’ replica tables and matching secondary indexes\. To update write capacity settings for your global table, we strongly recommend using the DynamoDB console or the `UpdateGlobalTableSettings` call\. `UpdateGlobalTableSettings` applies changes to write capacity settings to all replica tables and matching secondary indexes in a global table automatically\. If you use the `UpdateTable`, `RegisterScalableTarget`, or `PutScalingPolicy` calls, you should apply the change to each replica table and matching secondary index individually\. For more information, see [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.   
+We strongly recommend enabling auto scaling to manage provisioned write capacity settings\. If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity units to all of your replica tables\. You should also provision equal replicated write capacity units to matching secondary indexes across your global table\.   
+You must also have appropriate AWS Identity and Access Management \(IAM\) permissions\. For more information, see [Using IAM with Global Tables](gt_IAM.md)\.
 
-### Use DynamoDB Auto Scaling \(Recommended\)<a name="globaltables_reqs_bestpractices.tables.autoscaling"></a>
+## Best Practices and Requirements for Managing Capacity<a name="globaltables_reqs_bestpractices.tables"></a>
 
-Using DynamoDB auto scaling is the recommended way to manage capacity unit settings on replica tables, and ensure that the replica tables' settings remain identical\. \(For more information, see [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.\) DynamoDB auto scaling automatically adjusts read capacity units \(RCUs\) and write capacity units \(WCUs\) on each replica table, based upon your actual application workload\.
+Consider the following when managing capacity settings for replica tables in DynamoDB\.
 
-If you create your replica tables using the AWS Management Console, then auto scaling will be enabled by default for each replica table, with default auto scaling settings for managing RCUs and WCUs\.
+### Using DynamoDB Auto Scaling<a name="globaltables_reqs_bestpractices.tables.autoscaling"></a>
 
-If you decide to modify the auto scaling settings on one replica table, you should ensure that you also apply the same auto scaling settings on all of the other replica tables\. This will ensure that capacity unit management is consistent across all of the replica tables\.
+Using DynamoDB auto scaling is the recommended way to manage throughput capacity settings for replica tables that use the provisioned mode\. DynamoDB auto scaling automatically adjusts read capacity units \(RCUs\) and write capacity units \(WCUs\) for each replica table based upon your actual application workload\. For more information, see [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
 
-### Keep Capacity Settings Consistent<a name="globaltables_reqs_bestpractices.tables.consistent-settings"></a>
+If you create your replica tables using the AWS Management Console, auto scaling is enabled by default for each replica table, with default auto scaling settings for managing RCUs and WCUs\.
 
-For a global table, DynamoDB does not require that all of its replicas have the same throughput settings\. However, for optimum performance, we strongly recommend that you keep the read and write capacity consistent across the replica tables\.
+Changes to auto scaling settings for a replica table or secondary index made through the DynamoDB console or using the `UpdateGlobalTableSettings` call are applied to all of the replica tables and matching secondary indexes in the global table automatically\. These changes will overwrite any existing auto scaling settings\. This ensures that provisioned write capacity settings are consistent across the replica tables and secondary indexes in your global table\. If you use the `UpdateTable`, `RegisterScalableTarget`, or `PutScalingPolicy` calls, you should apply the change to each replica table and matching secondary index individually\. 
 
-To illustrate the importance of consistent capacity unit settings, suppose that you create a global table consisting of replicas in US West \(Oregon\) and EU \(Ireland\)\. Now suppose that you set the write capacity units for the US West \(Oregon\) replica to 1000, but only 500 write capacity units for the EU \(Ireland\) replica\. If your application performs more than 500 writes per second to the US West \(Oregon\) replica, then the EU \(Ireland\) replica will not be able to keep up\. The data in these two replica tables will diverge, as EU \(Ireland\) replica falls further behind—perhaps indefinitely\.
+**Note**  
+ If auto scaling doesn't satisfy your application's capacity changes \(unpredictable workload\) or if you don't want to configure its settings \(target settings for minimum, maximum, or utilization threshold\), you can use on\-demand mode to manage capacity for your global tables\. For more information, see [On\-Demand Mode](HowItWorks.ReadWriteCapacityMode.md#HowItWorks.OnDemand)\.   
+If you enable on\-demand mode on a global table, your consumption of replicated write request units \(rWCUs\) will be consistent with how rWCUs are provisioned\. For example, if you perform 10 writes to a local table that is replicated in two additional Regions, you will consume 60 write request units \(10 \+ 10 \+ 10 = 30; 30 x 2 = 60\)\. 
 
-### Manually Managing Capacity<a name="globaltables_reqs_bestpractices.tables.manual-capacity-management"></a>
+### Managing Capacity Manually<a name="globaltables_reqs_bestpractices.tables.manual-capacity-management"></a>
 
-If you decide not to use DynamoDB auto scaling, then you will need to manually set the read capacity and write capacity settings on each replica table\.
+If you decide not to use DynamoDB auto scaling, then you must manually set the read capacity and write capacity settings on each replica table and secondary index\.
 
-Provisioned replicated write capacity units \(rWCUs\) in each region for every replica table should be the total number of rWCUs needed for application writes in all regions multiplied by two\. This will accommodate application writes that occur in the local region; replicated application writes coming from other regions; and at least one additional system write for each application write\. \(DynamoDB performs these system writes on your behalf, to support the "last writer wins" conflict resolution mechanism provided by global tables\.\)
+The provisioned replicated write capacity units \(rWCUs\) on every replica table should be set to the total number of rWCUs needed for application writes across all Regions multiplied by two\. This will accommodate application writes that occur in the local Region and replicated application writes coming from other Regions\. For example, if you expect 5 writes per second to your replica table in Ohio and 5 writes per second to your replica table in N\.Virginia, then you should provision 20 WCUs to each replica table \(5 \+ 5 = 10; 10 x 2 = 20\)\.
 
-## Best Practices for Global Secondary Indexes<a name="globaltables_reqs_bestpractices.gsi"></a>
+ To update write capacity settings for your global table, we strongly recommend using the DynamoDB console or the `UpdateGlobalTableSettings` call\. `UpdateGlobalTableSettings` applies changes to write capacity settings to all replica tables and matching secondary indexes in a global table automatically\. If you use the `UpdateTable`, `RegisterScalableTarget`, or `PutScalingPolicy` calls, you should apply the change to each replica table and matching secondary index individually\. For more information, see [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\. 
 
-For a global table, if you create one or more global secondary indexes on one replica, then you should create identical indexes on every replica\. The read capacity units \(RCUs\) and write capacity units \(WCUs\) for each global secondary index should likewise be identical on every replica\.
+**Note**  
+ To update the settings \(`UpdateGlobalTableSettings`\) for a global table in DynamoDB, you must have the `dynamodb:UpdateGlobalTable`, `dynamodb:DescribeLimits`, `application-autoscaling:DeleteScalingPolicy`, and `application-autoscaling:DeregisterScalableTarget` permissions\. For more information, see [Using IAM with Global Tables](gt_IAM.md)\. 

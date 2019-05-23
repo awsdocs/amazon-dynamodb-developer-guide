@@ -7,23 +7,23 @@
 + [3\.4: Set Up the AWS Elastic Beanstalk Environment](#TicTacToe.DeployInProd.SetUpElasticBeanstalk)
 
 In the preceding sections, you deployed and tested the Tic\-Tac\-Toe application locally on your computer using DynamoDB Local\. Now, you deploy the application in production as follows:
-+ Deploy the application using Elastic Beanstalk, an easy\-to\-use service for deploying and scaling web applications and services\. For more information, go to [ Deploying a Flask Application to AWS Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html)\.
++ Deploy the application using Elastic Beanstalk, an easy\-to\-use service for deploying and scaling web applications and services\. For more information, go to [ Deploying a Flask Application to AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html)\.
 
   Elastic Beanstalk will launch one or more Amazon Elastic Compute Cloud \(Amazon EC2\) instances, which you configure through Elastic Beanstalk, on which your Tic\-Tac\-Toe application will run\.
 + Using the Amazon DynamoDB service, create a Games table that exists on AWS rather than locally on your computer\. 
 
 In addition, you also have to configure permissions\. Any AWS resources you create, such as the Games table in DynamoDB, are private by default\. Only the resource owner, that is the AWS account that created the Games table, can access this table\. Thus, by default your Tic\-Tac\-Toe application cannot update the Games table\. 
 
-To grant necessary permissions, you will create an AWS Identity and Access Management \(IAM\) role and grant this role permissions to access the Games table\. Your Amazon EC2 instance first assumes this role\. In response, AWS returns temporary security credentials that the Amazon EC2 instance can use to update the Games table on behalf of the Tic\-Tac\-Toe application\. When you configure your Elastic Beanstalk application, you specify the IAM role that the Amazon EC2 instance or instances can assume\. For more information about IAM roles, go to [IAM Roles for Amazon EC2](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) in the *Amazon EC2 User Guide for Linux Instances\. *
+To grant necessary permissions, you will create an AWS Identity and Access Management \(IAM\) role and grant this role permissions to access the Games table\. Your Amazon EC2 instance first assumes this role\. In response, AWS returns temporary security credentials that the Amazon EC2 instance can use to update the Games table on behalf of the Tic\-Tac\-Toe application\. When you configure your Elastic Beanstalk application, you specify the IAM role that the Amazon EC2 instance or instances can assume\. For more information about IAM roles, go to [IAM Roles for Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) in the *Amazon EC2 User Guide for Linux Instances\. *
 
 **Note**  
-Before you create Amazon EC2 instances for the Tic\-Tac\-Toe application, you must first decide the AWS region where you want Elastic Beanstalk to create the instances\. After you create the Elastic Beanstalk application, you provide the same region name and endpoint in a configuration file\. The Tic\-Tac\-Toe application uses information in this file to create the Games table and send subsequent requests in a specific AWS region\. Both the DynamoDB Games table and the Amazon EC2 instances that Elastic Beanstalk launches must be in the same AWS region\. For a list of available regions, go to [Amazon DynamoDB ](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+Before you create Amazon EC2 instances for the Tic\-Tac\-Toe application, you must first decide the AWS region where you want Elastic Beanstalk to create the instances\. After you create the Elastic Beanstalk application, you provide the same region name and endpoint in a configuration file\. The Tic\-Tac\-Toe application uses information in this file to create the Games table and send subsequent requests in a specific AWS region\. Both the DynamoDB Games table and the Amazon EC2 instances that Elastic Beanstalk launches must be in the same AWS region\. For a list of available regions, go to [Amazon DynamoDB ](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 In summary, you do the following to deploy the Tic\-Tac\-Toe application in production:
 
 1. Create an IAM role using the AWS IAM service\. You will attach a policy to this role granting permissions for DynamoDB actions to access the Games table\. 
 
-1. Bundle the Tic\-Tac\-Toe application code and a configuration file, and create a `.zip` file\. You use this `.zip` file to give the Tic\-Tac\-Toe application code to Elastic Beanstalk to put on your servers\. For more information on creating a bundle, go to [Creating an Application Source Bundle](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deployment.source.html) in the *AWS Elastic Beanstalk Developer Guide*\.
+1. Bundle the Tic\-Tac\-Toe application code and a configuration file, and create a `.zip` file\. You use this `.zip` file to give the Tic\-Tac\-Toe application code to Elastic Beanstalk to put on your servers\. For more information on creating a bundle, go to [Creating an Application Source Bundle](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deployment.source.html) in the *AWS Elastic Beanstalk Developer Guide*\.
 
    In the configuration file \(`beanstalk.config`\), you provide AWS region and endpoint information\. The Tic\-Tac\-Toe application uses this information to determine which DynamoDB region to talk to\.  
 
@@ -62,7 +62,7 @@ Creating an IAM role of the **Amazon EC2** type will allow the Amazon EC2 instan
 }
 ```
 
-For further instructions, go to [Creating a Role for an AWS Service \(AWS Management Console\)](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide\.*
+For further instructions, go to [Creating a Role for an AWS Service \(AWS Management Console\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide\.*
 
 ## 3\.2: Create the Games Table in Amazon DynamoDB<a name="TicTacToe.DeployInProd.CreateTable"></a>
 
@@ -92,7 +92,7 @@ After you extract all files, note that you will have a `code` folder\. To hand o
    endpoint=dynamodb.us-west-2.amazonaws.com
    ```
 
-   For a list of available regions, go to [Amazon DynamoDB](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference\.* 
+   For a list of available regions, go to [Amazon DynamoDB](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference\.* 
 **Important**  
 The region specified in the configuration file is the location where the Tic\-Tac\-Toe application creates the Games table in DynamoDB\. You must create the Elastic Beanstalk application discussed in the next section in the same region\. 
 **Note**  
@@ -112,7 +112,7 @@ In client\-server communication when the server sends response, for security's s
 
 1. Upload the `.zip` file to an Amazon Simple Storage Service \(Amazon S3\) bucket\. In the next section, you provide this `.zip` file to Elastic Beanstalk to upload on the server or servers\.
 
-   For instructions on how to upload to an Amazon S3 bucket, go to the [Create a Bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) and [Add an Object to a Bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html) topics in the *Amazon Simple Storage Service Getting Started Guide\.*
+   For instructions on how to upload to an Amazon S3 bucket, go to the [Create a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) and [Add an Object to a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html) topics in the *Amazon Simple Storage Service Getting Started Guide\.*
 
 ## 3\.4: Set Up the AWS Elastic Beanstalk Environment<a name="TicTacToe.DeployInProd.SetUpElasticBeanstalk"></a>
 
@@ -129,7 +129,7 @@ In this step, you create an Elastic Beanstalk application, which is a collection
    &instanceType=t1.micro
    ```
 
-   For more information about custom URLs, go to [Constructing a Launch Now URL](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/launch-now-url.html) in the *AWS Elastic Beanstalk Developer Guide\. *For the URL, note the following:
+   For more information about custom URLs, go to [Constructing a Launch Now URL](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/launch-now-url.html) in the *AWS Elastic Beanstalk Developer Guide\. *For the URL, note the following:
    + You will need to provide an AWS region name \(the same as the one you provided in the configuration file\), an Amazon S3 bucket name, and the object name\. 
    + For testing, the URL requests the **SingleInstance** environment type, and **t1\.micro** as the instance type\.
    + The application name must be unique\. Thus, in the preceding URL, we suggest you prepend your name to the `applicationName`\.

@@ -19,6 +19,19 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy and paste the following program into a file named `MoviesItemOps01.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -81,6 +94,19 @@ You can use the `get` method to read the item from the `Movies` table\. You must
 1. Copy and paste the following program into a file named `MoviesItemOps02.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -88,7 +114,7 @@ You can use the `get` method to read the item from the `Movies` table\. You must
      endpoint: "http://localhost:8000"
    });
    
-   var docClient = new AWS.DynamoDB.DocumentClient()
+   var docClient = new AWS.DynamoDB.DocumentClient();
    
    var table = "Movies";
    
@@ -154,6 +180,19 @@ To the following:
 1. Copy and paste the following program into a file named `MoviesItemOps03.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -211,6 +250,19 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy and paste the following program into a file named `MoviesItemOps04.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -235,7 +287,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
        },
        UpdateExpression: "set info.rating = info.rating + :val",
        ExpressionAttributeValues:{
-           ":val":1
+           ":val": 1
        },
        ReturnValues:"UPDATED_NEW"
    };
@@ -263,6 +315,19 @@ In this case, the item is updated only if there are more than three actors in th
 1. Copy and paste the following program into a file named `MoviesItemOps05.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -288,7 +353,7 @@ In this case, the item is updated only if there are more than three actors in th
        UpdateExpression: "remove info.actors[0]",
        ConditionExpression: "size(info.actors) > :num",
        ExpressionAttributeValues:{
-           ":num":3
+           ":num": 3
        },
        ReturnValues:"UPDATED_NEW"
    };
@@ -332,6 +397,19 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy and paste the following program into a file named `MoviesItemOps06.js`:
 
    ```
+   /**
+    * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    *
+    * This file is licensed under the Apache License, Version 2.0 (the "License").
+    * You may not use this file except in compliance with the License. A copy of
+    * the License is located at
+    *
+    * http://aws.amazon.com/apache2.0/
+    *
+    * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    * specific language governing permissions and limitations under the License.
+   */
    var AWS = require("aws-sdk");
    
    AWS.config.update({
@@ -349,8 +427,8 @@ In the following example, you try to delete a specific movie item if its rating 
    var params = {
        TableName:table,
        Key:{
-           "year":year,
-           "title":title
+           "year": year,
+           "title": title
        },
        ConditionExpression:"info.rating <= :val",
        ExpressionAttributeValues: {

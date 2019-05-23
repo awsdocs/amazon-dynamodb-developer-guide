@@ -8,6 +8,7 @@
 + [Example: CRUD Operations](DynamoDBMapper.CRUDExample1.md)
 + [Example: Batch Write Operations](DynamoDBMapper.BatchWriteExample.md)
 + [Example: Query and Scan](DynamoDBMapper.QueryScanExample.md)
++ [Example: Transaction Operations](DynamoDBMapper.Transactions.md)
 + [Optimistic Locking With Version Number](DynamoDBMapper.OptimisticLocking.md)
 + [Mapping Arbitrary Data](DynamoDBMapper.ArbitraryDataMapping.md)
 
@@ -109,4 +110,4 @@ for (int i = 0; i < itemList.size(); i++) {
 }
 ```
 
-`DynamoDBMapper` offers an intuitive, natural way of working with DynamoDB data within Java\. It also provides a number of built\-in features such as optimistic locking, auto\-generated partition key and sort key values, and object versioning\.
+`DynamoDBMapper` offers an intuitive, natural way of working with DynamoDB data within Java\. It also provides a number of built\-in features such as optimistic locking, ACID transactions, auto\-generated partition key and sort key values, and object versioning\.

@@ -19,7 +19,7 @@ readratio 50;
 
 In this example, the source table in DynamoDB is `my-favorite-movies-table`\. The target table in Amazon Redshift is `favoritemovies`\. The `readratio 50` clause regulates the percentage of provisioned throughput that is consumed; in this case, the COPY command will use no more than 50 percent of the read capacity units provisioned for `my-favorite-movies-table`\. We highly recommend setting this ratio to a value less than the average unused provisioned throughput\.
 
-For detailed instructions on loading data from DynamoDB into Amazon Redshift, refer to the following sections in the [http://docs.aws.amazon.com/redshift/latest/dg/](http://docs.aws.amazon.com/redshift/latest/dg/):
-+ [Loading data from a DynamoDB table](http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-dynamodb.html)
-+ [The COPY command](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html)
-+ [COPY examples](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html)
+For detailed instructions on loading data from DynamoDB into Amazon Redshift, refer to the following sections in the [https://docs.aws.amazon.com/redshift/latest/dg/](https://docs.aws.amazon.com/redshift/latest/dg/):
++ [Loading data from a DynamoDB table](https://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-dynamodb.html)
++ [The COPY command](https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html)
++ [COPY examples](https://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html)

@@ -1,12 +1,12 @@
 # Using Service\-Linked Roles for DAX<a name="using-service-linked-roles"></a>
 
-DAX uses AWS Identity and Access Management \(IAM\)[ service\-linked roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role)\. A service\-linked role is a unique type of IAM role that is linked directly to DAX\. Service\-linked roles are predefined by DAX and include all the permissions that the service requires to call other AWS services on your behalf\. 
+DAX uses AWS Identity and Access Management \(IAM\)[ service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role)\. A service\-linked role is a unique type of IAM role that is linked directly to DAX\. Service\-linked roles are predefined by DAX and include all the permissions that the service requires to call other AWS services on your behalf\. 
 
 A service\-linked role makes setting up DAX easier because you don’t have to manually add the necessary permissions\. DAX defines the permissions of its service\-linked roles, and unless defined otherwise, only DAX can assume its roles\. The defined permissions include the trust policy and the permissions policy, and that permissions policy cannot be attached to any other IAM entity\.
 
 You can delete the roles only after first deleting their related resources\. This protects your DAX resources because you can't inadvertently remove permission to access the resources\.
 
-For information about other services that support service\-linked roles, see [AWS Services That Work with IAM](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes **in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
+For information about other services that support service\-linked roles, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes **in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
 
 ## Service\-Linked Role Permissions for DAX<a name="service-linked-role-permissions"></a>
 
@@ -33,7 +33,7 @@ The role permissions policy allows DAX to complete the following actions on the 
   + `ModifyNetworkInterfaceAttribute`
   + `RevokeSecurityGroupIngress`
 
-You must configure permissions to allow an IAM entity \(such as a user, group, or role\) to create, edit, or delete a service\-linked role\. For more information, see [Service\-Linked Role Permissions](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions) in the *IAM User Guide*\.
+You must configure permissions to allow an IAM entity \(such as a user, group, or role\) to create, edit, or delete a service\-linked role\. For more information, see [Service\-Linked Role Permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions) in the *IAM User Guide*\.
 
  **To allow an IAM entity to create AWSServiceRoleForDAX service\-linked roles** 
 
@@ -55,13 +55,13 @@ You must configure permissions to allow an IAM entity \(such as a user, group, o
 You don't need to manually create a service\-linked role\. When you create a cluster, DAX creates the service\-linked role for you\. 
 
 **Important**  
-If you were using the DAX service before February 28, 2018, when it began supporting service\-linked roles, then DAX created the AWSServiceRoleForDAX role in your account\. To learn more, see [A New Role Appeared in My IAM Account](http://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared)\.
+If you were using the DAX service before February 28, 2018, when it began supporting service\-linked roles, then DAX created the AWSServiceRoleForDAX role in your account\. To learn more, see [A New Role Appeared in My IAM Account](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared)\.
 
 If you delete this service\-linked role, and then need to create it again, you can use the same process to recreate the role in your account\. When you create an instance or a cluster, DAX creates the service\-linked role for you again\. 
 
 ## Editing a Service\-Linked Role for DAX<a name="edit-service-linked-role"></a>
 
-DAX does not allow you to edit the AWSServiceRoleForDAX service\-linked role\. After you create a service\-linked role, you cannot change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a Service\-Linked Role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
+DAX does not allow you to edit the AWSServiceRoleForDAX service\-linked role\. After you create a service\-linked role, you cannot change the name of the role because various entities might reference the role\. However, you can edit the description of the role using IAM\. For more information, see [Editing a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
 
 ## Deleting a Service\-Linked Role for DAX<a name="delete-service-linked-role"></a>
 
@@ -100,13 +100,13 @@ Use one of these procedures to delete each of your DAX clusters\.
 1. In the **Delete cluster confirmation** box, choose **Delete**\.
 
 **To delete a DAX cluster \(AWS CLI\)**  
-See `[delete\-cluster](http://docs.aws.amazon.com/cli/latest/reference/dax/delete-cluster.html)` in the *AWS CLI Command Reference*\.
+See `[delete\-cluster](https://docs.aws.amazon.com/cli/latest/reference/dax/delete-cluster.html)` in the *AWS CLI Command Reference*\.
 
 **To delete a DAX cluster \(API\)**  
-See `[DeleteCluster](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteCluster.html)` in the *Amazon DynamoDB API Reference*\.
+See `[DeleteCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteCluster.html)` in the *Amazon DynamoDB API Reference*\.
 
 #### Deleting the Service\-Linked Role<a name="delete-service-linked-role.slr"></a>
 
 **To manually delete the service\-linked role using IAM**
 
-Use the IAM console, the IAM CLI, or the IAM API to delete the AWSServiceRoleForDAX service\-linked role\. For more information, see [Deleting a Service\-Linked Role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
+Use the IAM console, the IAM CLI, or the IAM API to delete the AWSServiceRoleForDAX service\-linked role\. For more information, see [Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.

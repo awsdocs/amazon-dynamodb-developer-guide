@@ -1,4 +1,4 @@
-# Getting Started with DynamoDB<a name="GettingStarted"></a>
+# Getting Started with DynamoDB SDK<a name="GettingStarted"></a>
 
 This section contains hands\-on tutorials to help you learn about Amazon DynamoDB\. We encourage you to work through one of the language\-specific tutorials\. The sample code in these tutorials can run against either the downloadable version of DynamoDB or the Amazon DynamoDB web service\.
 
@@ -9,7 +9,7 @@ This section contains hands\-on tutorials to help you learn about Amazon DynamoD
 + [Java and DynamoDB](GettingStarted.Java.md)
 + [JavaScript and DynamoDB](GettingStarted.JavaScript.md)
 + [Node\.js and DynamoDB](GettingStarted.NodeJs.md)
-+ [\.NET and DynamoDB](GettingStarted.NET.md)
++ [Tutorial: Microsoft \.NET and DynamoDB](GettingStarted.NET.md)
 + [PHP and DynamoDB](GettingStarted.PHP.md)
 + [Python and DynamoDB](GettingStarted.Python.md)
 + [Ruby and DynamoDB](GettingStarted.Ruby.md)

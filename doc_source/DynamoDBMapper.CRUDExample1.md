@@ -4,11 +4,24 @@ The following Java code example declares a `CatalogItem` class that has Id, Titl
 
 **Note**  
 This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Samples](CodeSamples.Java.md)\.
+For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples.datamodeling;
 
 import java.io.IOException;
@@ -108,7 +121,9 @@ public class DynamoDBMapperCRUDExample {
         System.out.println(itemRetrieved);
 
         // Retrieve the updated item.
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+        .build();
         CatalogItem updatedItem = mapper.load(CatalogItem.class, 601, config);
         System.out.println("Retrieved the previously updated item:");
         System.out.println(updatedItem);

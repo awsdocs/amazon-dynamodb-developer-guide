@@ -18,7 +18,7 @@ AWS.config.update({region: "us-west-2"});
 
 The program now uses the Amazon DynamoDB web service region in US West \(Oregon\)\. 
 
-DynamoDB is available in several regions worldwide\. For the complete list, see [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting regions and endpoints in your code, see [Setting the Region](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html) in the *AWS SDK for JavaScript Getting Started Guide*\.
+DynamoDB is available in several regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting regions and endpoints in your code, see [Setting the Region](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html) in the *AWS SDK for JavaScript Getting Started Guide*\.
 
 ## Configuring AWS Credentials in Your Files Using Amazon Cognito<a name="GettingStarted.Js.Conf.Credentials"></a>
 

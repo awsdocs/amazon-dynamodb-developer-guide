@@ -28,7 +28,7 @@ Many applications are built around understanding rankings across peers, common r
 
 ![\[Graph example number 3.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/1513852905360-671.png)
 
-The precending schema shows a graph data structure that is defined by a set of data partitions containing the items that define the edges and nodes of the graph\. Edge items contain a `Target` and a `Type` attribute\. These attributes are used as part of a composite key name "TypeTarget" to identify the item in a partition in the primary table or in a second global secondary index\.
+The preceding schema shows a graph data structure that is defined by a set of data partitions containing the items that define the edges and nodes of the graph\. Edge items contain a `Target` and a `Type` attribute\. These attributes are used as part of a composite key name "TypeTarget" to identify the item in a partition in the primary table or in a second global secondary index\.
 
 The first global secondary index is built on the `Data` attribute\. This attribute uses global secondary index\-overloading as described earlier to index several different attribute types, namely Dates, Names, Places, and Skills\. Here, one global secondary index is effectively indexing four different attributes\.
 
@@ -42,4 +42,4 @@ To maintain some level of consistency, the design could include Amazon DynamoDB 
 
 ![\[Diagram illustrating graph workflow.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/1513856345673-336.png)
 
-IT service\-management \(ITSM\) and security applications generally need to respond in real time to entity state changes composed of complex edge aggregations\. Such applications need a system that can support real\-time multiple node aggregations of second\- and third\-level relationships, or complex edge traversals\. If your use case requires these types of real\-time graph query workflows, we recommend that you consider using [Amazon Neptune](http://docs.aws.amazon.com/neptune/latest/userguide/) to manage these workflows\.
+IT service\-management \(ITSM\) and security applications generally need to respond in real time to entity state changes composed of complex edge aggregations\. Such applications need a system that can support real\-time multiple node aggregations of second\- and third\-level relationships, or complex edge traversals\. If your use case requires these types of real\-time graph query workflows, we recommend that you consider using [Amazon Neptune](https://docs.aws.amazon.com/neptune/latest/userguide/) to manage these workflows\.

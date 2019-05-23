@@ -4,7 +4,7 @@ For security reasons, many AWS customers run their applications within an Amazon
 
 **Note**  
 If you created your AWS account after 2013\-12\-04, then you already have a default VPC in each AWS region\. A default VPC is ready for you to use—you can immediately start using your default VPC without having to perform any additional configuration steps\.  
-For more information, see [Your Default VPC and Subnets](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html) in the Amazon VPC User Guide\.
+For more information, see [Your Default VPC and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the Amazon VPC User Guide\.
 
 In order to access the public Internet, your VPC must have an Internet gateway—a virtual router that connects your VPC to the Internet\. This allows applications running on Amazon EC2 in your VPC to access Internet resources, such as Amazon DynamoDB\.
 
@@ -84,7 +84,7 @@ It will take a few minutes for your Amazon EC2 instance to become available\. Be
 When your Amazon EC2 instance is available, you will be able to log into it and prepare it for first use\.
 
 **Note**  
-The following steps assume that you are connecting to your Amazon EC2 instance from a computer running Linux\. For other ways to connect, see [Connect to Your Linux Instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the Amazon EC2 User Guide for Linux Instances\.
+The following steps assume that you are connecting to your Amazon EC2 instance from a computer running Linux\. For other ways to connect, see [Connect to Your Linux Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the Amazon EC2 User Guide for Linux Instances\.
 
 1. You will need to authorize inbound SSH traffic to your Amazon EC2 instance\. To do this, you will create a new EC2 security group, and then assign the security group to your EC2 instance\.
 
@@ -203,7 +203,7 @@ In this step, you will create a VPC endpoint for DynamoDB and test it to make su
    aws dynamodb list-tables
    ```
 
-   If you want, you can try some other AWS CLI commands for DynamoDB\. For more information, see the [AWS CLI Command Reference](http://docs.aws.amazon.com/cli/latest/reference/)\.
+   If you want, you can try some other AWS CLI commands for DynamoDB\. For more information, see the [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/reference/)\.
 
 ### Step 4: \(Optional\) Clean Up<a name="vpc-endpoints-dynamodb-tutorial.clean-up"></a>
 

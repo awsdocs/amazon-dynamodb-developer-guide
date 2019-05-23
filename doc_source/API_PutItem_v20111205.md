@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_PutItem_Description"></a>
 
@@ -75,7 +75,7 @@ content-length: 85
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | Attribute values before the put operation, but only if the `ReturnValues` parameter is specified as `ALL_OLD` in the request\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_PutItem_SpecialErrors"></a>
 

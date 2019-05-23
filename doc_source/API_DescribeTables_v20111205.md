@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_DescribeTables_Description"></a>
 
@@ -63,7 +63,7 @@ Content-Length: 543
 | CreationDateTime | Date when the table was created in [UNIX epoch time](http://www.epochconverter.com/)\. | 
 |  ItemCount  |  Number of items in the specified table\. DynamoDB updates this value approximately every six hours\. Recent changes might not be reflected in this value\. Type: Number  | 
 |  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the HashKeyElement is required, and a name\-value pair for the RangeKeyElement is optional \(only required for composite primary keys\)\. The maximum hash key size is 2048 bytes\. The maximum range key size is 1024 bytes\. Both limits are enforced separately \(i\.e\. you can have a combined hash \+ range 2048 \+ 1024 key\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \. | 
-| ProvisionedThroughput  | Throughput for the specified table, consisting of values for LastIncreaseDateTime \(if applicable\), LastDecreaseDateTime \(if applicable\), ReadCapacityUnits and WriteCapacityUnits\. If the throughput for the table has never been increased or decreased, DynamoDB does not return values for those elements\. See [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\.Type: Array  | 
+| ProvisionedThroughput  | Throughput for the specified table, consisting of values for LastIncreaseDateTime \(if applicable\), LastDecreaseDateTime \(if applicable\), ReadCapacityUnits and WriteCapacityUnits\. If the throughput for the table has never been increased or decreased, DynamoDB does not return values for those elements\. See [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.Type: Array  | 
 |  TableName  |  The name of the requested table\.  Type: String  | 
 |  TableSizeBytes  |  Total size of the specified table, in bytes\. DynamoDB updates this value approximately every six hours\. Recent changes might not be reflected in this value\. Type: Number  | 
 |  TableStatus  | The current state of the table \(CREATING, ACTIVE, DELETING or UPDATING\)\. Once the table is in the ACTIVE state, you can add data\.  | 

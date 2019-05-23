@@ -13,12 +13,12 @@ If you are an application developer and want to use web identity federation for 
 
    As part of the role creation process, you will need to attach an IAM policy to the role\. Your policy document should define the DynamoDB resources required by your app, and the permissions for accessing those resources\.
 
-For more information, see [About Web Identity Federation](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html) in *IAM User Guide*\. 
+For more information, see [About Web Identity Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html) in *IAM User Guide*\. 
 
 **Note**  
 As an alternative to AWS Security Token Service, you can use Amazon Cognito\. Amazon Cognito is the preferred service for managing temporary credentials for mobile apps\. For more information, see the following pages:  
-[How to Authenticate Users \(AWS Mobile SDK for iOS\)](http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html)
-[How to Authenticate Users \(AWS Mobile SDK for Android\)](http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html)
+[How to Authenticate Users \(AWS Mobile SDK for iOS\)](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html)
+[How to Authenticate Users \(AWS Mobile SDK for Android\)](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html)
 
 ## Generating an IAM Policy Using the DynamoDB Console<a name="WIF.PreparingForUse.DDBConsole"></a>
 

@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_Query_Description"></a>
 
@@ -98,7 +98,7 @@ content-length: 308
 | Items  | Item attributes meeting the query parameters\.Type: Map of attribute names to and their data types and values\. | 
 | Count  |  Number of items in the response\. For more information, see [Counting the Items in the Results](Query.md#Query.Count)\. Type: Number  | 
 | LastEvaluatedKey | Primary key of the item where the query operation stopped, inclusive of the previous result set\. Use this value to start a new operation excluding this value in the new request\.The `LastEvaluatedKey` is `null` when the entire query result set is complete \(i\.e\. the operation processed the “last page”\)\. Type: `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_Query_SpecialErrors"></a>
 

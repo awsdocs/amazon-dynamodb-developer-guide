@@ -56,7 +56,7 @@ do
 
 ## Specifying Optional Parameters<a name="QueryMidLevelDotNetOptions"></a>
 
-You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\. 
+You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\. 
 
 **Example**  
 
@@ -100,6 +100,19 @@ The following C\# code example uses the `Table.Query` method to execute the foll
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -254,5 +267,4 @@ namespace com.amazonaws.codesamples
             }
         }
     }
-}
 ```

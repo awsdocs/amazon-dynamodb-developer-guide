@@ -1,115 +1,111 @@
-# Step 1: Create a Table<a name="GettingStarted.NET.01"></a>
+# Step 1: Create a DynamoDB Client<a name="GettingStarted.NET.01"></a>
 
-The document model in the AWS SDK for \.NET doesn't provide for creating tables, so you have to use the low\-level APIs\. For more information, see [Working with Tables: \.NET](LowLevelDotNetWorkingWithTables.md)\.
+The first step in the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md) is to create a client that gives you access to the Amazon DynamoDB API\. The `Main` function in `DynamoDB_intro` does this by calling a `createClient` function implemented in the `01_CreateClient.cs` file:
 
-In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
-+ `year` – The partition key\. The `AttributeType` is `N` for number\.
-+ `title` – The sort key\. The `AttributeType` is `S` for string\.
+```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+using System;
+using System.Net.Sockets;
+using Amazon.DynamoDBv2;
 
-1. Copy and paste the following program into the `Program.cs` file, replacing its current contents:
+namespace DynamoDB_intro
+{
+  public static partial class Ddb_Intro
+  {
+    /*-----------------------------------------------------------------------------------
+      *  If you are creating a client for the DynamoDB service, make sure your credentials
+      *  are set up first, as explained in:
+      *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html,
+      *
+      *  If you are creating a client for DynamoDBLocal (for testing purposes),
+      *  DynamoDB-Local should be started first. For most simple testing, you can keep
+      *  data in memory only, without writing anything to disk.  To do this, use the
+      *  following command line:
+      *
+      *    java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -inMemory
+      *
+      *  For information about DynamoDBLocal, see:
+      *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html.
+      *-----------------------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------------
+     *          createClient
+     *--------------------------------------------------------------------------*/
+    public static bool createClient( bool useDynamoDBLocal )
+    {
+      if( useDynamoDBLocal )
+      {
+        operationSucceeded = false;
+        operationFailed = false;
 
-   ```
-   using System;
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Text;
-   
-   using Amazon;
-   using Amazon.DynamoDBv2;
-   using Amazon.DynamoDBv2.Model;
-   using Amazon.DynamoDBv2.DocumentModel;
-   
-   namespace DynamoDB_intro
-   {
-       class Program
-       {
-           public static void Main(string[] args)
-           {
-               // First, set up a DynamoDB client for DynamoDB Local
-               AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
-               ddbConfig.ServiceURL = "http://localhost:8000";
-               AmazonDynamoDBClient client;
-               try
-               {
-                   client = new AmazonDynamoDBClient(ddbConfig);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine("\n Error: failed to create a DynamoDB client; " + ex.Message);
-                   PauseForDebugWindow();
-                   return;
-               }
-   
-               // Build a 'CreateTableRequest' for the new table
-               CreateTableRequest createRequest = new CreateTableRequest
-               {
-                   TableName = "Movies",
-                   AttributeDefinitions = new List<AttributeDefinition>()
-               {
-                   new AttributeDefinition
-                   {
-                       AttributeName = "year",
-                       AttributeType = "N"
-                   },
-                   new AttributeDefinition
-                   {
-                       AttributeName = "title",
-                       AttributeType = "S"
-                   }
-               },
-                   KeySchema = new List<KeySchemaElement>()
-               {
-                   new KeySchemaElement
-                   {
-                       AttributeName = "year",
-                       KeyType = "HASH"
-                   },
-                   new KeySchemaElement
-                   {
-                       AttributeName = "title",
-                       KeyType = "RANGE"
-                   }
-               },
-               };
-   
-               // Provisioned-throughput settings are required even though
-               // the local test version of DynamoDB ignores them
-               createRequest.ProvisionedThroughput = new ProvisionedThroughput(1, 1);
-   
-               // Using the DynamoDB client, make a synchronous CreateTable request
-               CreateTableResponse createResponse;
-               try
-               {
-                   createResponse = client.CreateTable(createRequest);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine("\n Error: failed to create the new table; " + ex.Message);
-                   PauseForDebugWindow();
-                   return;
-               }
-   
-               // Report the status of the new table...
-               Console.WriteLine("\n\n Created the \"Movies\" table successfully!\n    Status of the new table: '{0}'", createResponse.TableDescription.TableStatus);
-           }
-   
-           public static void PauseForDebugWindow()
-           {
-               // Keep the console open if in Debug mode...
-               Console.Write("\n\n ...Press any key to continue");
-               Console.ReadKey();
-               Console.WriteLine();
-           }
-       }
-   }
-   ```
-**Note**  
-In the `AmazonDynamoDBConfig`, you set the `ServiceURL` to "http://localhost:8000" to create the table in the downloadable version of DynamoDB running on your computer\.
-In the `CreateTableRequest`, you specify the table name, along with primary key attributes and their data types\.
-The partition\-key portion of the primary key, which determines the logical partition where DynamoDB stores an item, is identified in its `KeySchemaElement` in the `CreateTableRequest` as having `KeyType` "HASH"\.
-The sort\-key portion of the primary key, which determines the ordering of items having the same partition\-key value, is identified in its `KeySchemaElement` in the `CreateTableRequest` as having `KeyType` "RANGE"\.
-The `ProvisionedThroughput` field is required, even though the downloadable version of DynamoDB ignores it\.
+        // First, check to see whether anyone is listening on the DynamoDB local port
+        // (by default, this is port 8000, so if you are using a different port, modify this accordingly)
+        bool localFound = false;
+        try
+        {
+          using (var tcp_client = new TcpClient())
+          {
+            var result = tcp_client.BeginConnect("localhost", 8000, null, null);
+            localFound = result.AsyncWaitHandle.WaitOne(3000); // Wait 3 seconds
+            tcp_client.EndConnect(result);
+          }
+        }
+        catch
+        {
+          localFound =  false;
+        }
+        if( !localFound )
+        {
+          Console.WriteLine("\n      ERROR: DynamoDB Local does not appear to have been started..." +
+                            "\n        (checked port 8000)");
+          operationFailed = true;
+          return (false);
+        }
 
-1. Compile and run the program\.
+      // If DynamoDB-Local does seem to be running, so create a client
+        Console.WriteLine( "  -- Setting up a DynamoDB-Local client (DynamoDB Local seems to be running)" );
+        AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
+        ddbConfig.ServiceURL = "http://localhost:8000";
+        try { client = new AmazonDynamoDBClient( ddbConfig ); }
+        catch( Exception ex )
+        {
+          Console.WriteLine( "     FAILED to create a DynamoDBLocal client; " + ex.Message );
+          operationFailed = true;
+          return false;
+        }
+      }
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+      else
+      {
+        try { client = new AmazonDynamoDBClient( ); }
+        catch( Exception ex )
+        {
+          Console.WriteLine( "     FAILED to create a DynamoDB client; " + ex.Message );
+          operationFailed = true;
+        }
+      }
+      operationSucceeded = true;
+      return true;
+    }
+  }
+}
+```
+
+`Main` calls this function with the *useDynamoDBLocal* parameter set to `true`\. Therefore the local test version of DynamoDB must already be running on your machine using the default port \(8000\), or the call fails\.
+
+Setting the *useDynamoDBLocal* parameter to `false` creates a client for the DynamoDB service itself rather than the local test program\.
+
+## Next Step<a name="GettingStarted.NET.01.NextStep"></a>
+
+[Step 2: Create a Table Using the Low\-Level API](GettingStarted.NET.02.md)

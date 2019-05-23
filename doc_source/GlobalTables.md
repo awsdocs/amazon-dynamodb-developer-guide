@@ -8,21 +8,11 @@ Instead of writing your own code, you could create a global table consisting of 
 
 DynamoDB global tables are ideal for massively scaled applications, with globally dispersed users\. In such an environment, users expect very fast application performance\. Global tables provide automatic multi\-master replication to AWS regions world\-wide, so you can deliver low\-latency data access to your users no matter where they are located\.
 
-For information on pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. 
+For information about the AWS Region availability and pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. 
 
 **Topics**
-+ [Supported Regions](#gt_supported_regions)
 + [Global Tables: How It Works](globaltables_HowItWorks.md)
 + [Requirements and Best Practices](globaltables_reqs_bestpractices.md)
 + [Creating a Global Table](globaltables.tutorial.md)
 + [Monitoring Global Tables](globaltables_monitoring.md)
 + [Using IAM with Global Tables](gt_IAM.md)
-
-## Supported Regions<a name="gt_supported_regions"></a>
-
- The DynamoDB global tables feature is available in the following AWS regions: 
-+  US East \(N\. Virginia\) 
-+  US East \(Ohio\) 
-+  US West \(Oregon\) 
-+  EU \(Ireland\) 
-+  EU \(Frankfurt\) 

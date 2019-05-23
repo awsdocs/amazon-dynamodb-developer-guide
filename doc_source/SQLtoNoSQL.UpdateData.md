@@ -36,8 +36,6 @@ Here is an example:
 
 You must specify the `Key` attributes of the item to be modified, and an `UpdateExpression` to specify attribute values\.
 
-`UpdateItem` replaces the entire item, rather than replacing individual attributes\.
-
 `UpdateItem` behaves like an "upsert" operation: The item is updated if it exists in the table, but if not, a new item is added \(inserted\)\.
 
 `UpdateItem` supports *conditional writes*, where the operation succeeds only if a specific `ConditionExpression` evaluates to true\. For example, the following `UpdateItem` action does not perform the update unless the price of the song is greater than or equal to 2\.00:
@@ -97,4 +95,4 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
 ```
 
 **Note**  
-For code samples using `UpdateItem`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `UpdateItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

@@ -6,16 +6,30 @@ The `getDynamoDBClient` and `getDaxClient` methods provide DynamoDB and DAX clie
 
 The other `TryDaxHelper` methods \(`createTable`, `writeData`, `deleteTable`\) are for setting up and tearing down the DynamoDB table and its data\.
 
-You can modify the program in several ways\. For example:
+You can modify the program in several ways; for example:
 + Use different provisioned throughput settings for the table\.
 + Modify the size of each item written \(see the `stringSize` variable in the `writeData` method\)\.
-+ Modify the number of `GetItem`, `Query` and `Scan` tests, and their parameters\.
-+ Comment out the lines containing `helper.CreateTable` and `helper.DeleteTable` \(if you do not want to create and delete the table each time you run the program\)\.
++ Modify the number of `GetItem`, `Query`, and `Scan` tests and their parameters\.
++ Comment out the lines containing `helper.CreateTable` and `helper.DeleteTable` \(if you don't want to create and delete the table each time you run the program\)\.
 
 **Note**  
-To run this program, you must include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
+ To run this program, you can setup Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using client as Apache Maven dependency](DAX.client.run-application-java.md#DAXClient.Maven)\.   
+Alternatively, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 import java.util.Arrays;
 
 import com.amazon.dax.client.dynamodbv2.AmazonDaxClientBuilder;

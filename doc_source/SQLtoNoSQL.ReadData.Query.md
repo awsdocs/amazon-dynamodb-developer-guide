@@ -107,4 +107,4 @@ Here are some `Query` examples in DynamoDB:
 ```
 
 **Note**  
-For code samples using `Query`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `Query`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

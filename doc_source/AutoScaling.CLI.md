@@ -22,8 +22,8 @@ You need to complete the following tasks before starting the tutorial\.
 ### Install the AWS CLI<a name="AutoScaling.CLI.BeforeYouBegin.InstallCLI"></a>
 
 If you haven't already done so, you must install and configure the AWS CLI\. To do this, go to the AWS Command Line Interface User Guide and follow these instructions:
-+ [Installing the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-+ [Configuring the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
++ [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
++ [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 ### Install Python<a name="AutoScaling.CLI.BeforeYouBegin.InstallPython"></a>
 
@@ -62,7 +62,7 @@ In this step, you use the AWS CLI to create *TestTable*\. The primary key consis
 You will now register the table's write capacity as a scalable target with Application Auto Scaling\. This allows Application Auto Scaling to adjust the provisioned write capacity for *TestTable*, but only within the range of 5 to 10 capacity units\.
 
 **Note**  
-DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-autoscaling-service-linked-roles.html)\. 
+DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html)\. 
 
 1. Type the following command to register the scalable target\. 
 

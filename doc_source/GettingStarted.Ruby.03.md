@@ -19,6 +19,19 @@ In this step, you add a new item to the table\.
 1. Copy and paste the following program into a file named `MoviesItemOps01.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -48,7 +61,7 @@ In this step, you add a new item to the table\.
    }
    
    begin
-       result = dynamodb.put_item(params)
+       dynamodb.put_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -83,6 +96,19 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
 1. Copy and paste the following program into a file named `MoviesItemOps02.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -96,11 +122,6 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    
    year = 2015
    title = "The Big New Movie"
-   
-   key = {
-       year: year,
-       title: title
-   }
    
    params = {
        table_name: table_name,
@@ -166,6 +187,19 @@ To the following:
 1. Copy and paste the following program into a file named `MoviesItemOps03.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -196,7 +230,7 @@ To the following:
    }
    
    begin
-       result = dynamodb.update_item(params)
+       dynamodb.update_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -221,6 +255,19 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy and paste the following program into a file named `MoviesItemOps04.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -277,6 +324,19 @@ In this case, the item is updated only if there are more than three actors\.
 1. Copy and paste the following program into a file named `MoviesItemOps05.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -351,6 +411,19 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy and paste the following program into a file named `MoviesItemOps06.rb`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    require "aws-sdk"
    
    Aws.config.update({
@@ -378,7 +451,7 @@ In the following example, you try to delete a specific movie item if its rating 
    }
    
    begin
-       result = dynamodb.delete_item(params)
+       dynamodb.delete_item(params)
        puts "Deleted item."
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error

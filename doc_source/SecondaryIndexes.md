@@ -48,7 +48,12 @@ For each secondary index, you must specify the following:
   + For a global secondary index, you must specify read and write capacity unit settings\. These provisioned throughput settings are independent of the base table's settings\.
   + For a local secondary index, you do not need to specify read and write capacity unit settings\. Any read and write operations on a local secondary index draw from the provisioned throughput settings of its base table\.
 
-For maximum query flexibility, you can create up to 5 global secondary indexes and up to 5 local secondary indexes per table\. Refer to the design guidance for GSI overloading for examples that show how you can satisfy multiple application access patterns with the limited number of GSIs\. 
+For maximum query flexibility, you can create up to 20 global secondary indexes \(default limit\) and up to 5 local secondary indexes per table\. 
+
+ The limit of global secondary indexes per table is 5 for the following regions: 
++  AWS GovCloud \(US\-East\) 
++  AWS GovCloud \(US\-West\) 
++  EU \(Stockholm\) 
 
 To get a detailed listing of secondary indexes on a table, use the `DescribeTable` operation\. `DescribeTable` will return the name, storage size and item counts for every secondary index on the table\. These values are not updated in real time, but they are refreshed approximately every six hours\.
 

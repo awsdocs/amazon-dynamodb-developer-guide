@@ -19,6 +19,20 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy and paste the following program into a file named `MoviesItemOps01.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -96,6 +110,20 @@ You can use the `get` method to read the item from the `Movies` table\. You must
 1. Copy and paste the following program into a file named `MoviesItemOps02.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -189,6 +217,20 @@ To the following:
 1. Copy and paste the following program into a file named `MoviesItemOps03.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -264,6 +306,20 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy and paste the following program into a file named `MoviesItemOps04.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -334,6 +390,20 @@ In this case, the item is updated only if there are more than three actors in th
 1. Copy and paste the following program into a file named `MoviesItemOps05.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -422,6 +492,20 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy and paste the following program into a file named `MoviesItemOps06.html`:
 
    ```
+   <!--
+   <!-- 
+     Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    
+     This file is licensed under the Apache License, Version 2.0 (the "License").
+     You may not use this file except in compliance with the License. A copy of
+     the License is located at
+    
+     http://aws.amazon.com/apache2.0/
+    
+     This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+     CONDITIONS OF ANY KIND, either express or implied. See the License for the
+     specific language governing permissions and limitations under the License.
+   -->
    <html>
    <head>
    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>

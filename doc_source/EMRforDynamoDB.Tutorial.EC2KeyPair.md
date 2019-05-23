@@ -16,7 +16,7 @@ In this step, you will create the Amazon EC2 key pair you need to connect to an 
 **Important**  
 If you lose the key pair, you cannot connect to the master node of your Amazon EMR cluster\.
 
-   For more information about key pairs, see [Amazon EC2 Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) in the *Amazon EC2 User Guide for Linux Instances*\. 
+   For more information about key pairs, see [Amazon EC2 Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) in the *Amazon EC2 User Guide for Linux Instances*\. 
 
 **Next Step**  
 [Step 2: Launch an Amazon EMR Cluster](EMRforDynamoDB.Tutorial.LaunchEMRCluster.md)

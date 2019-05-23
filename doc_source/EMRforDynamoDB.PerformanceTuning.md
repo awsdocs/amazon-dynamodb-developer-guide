@@ -4,9 +4,9 @@ When you create a Hive external table that maps to a DynamoDB table, you do not 
 
 Apache Hive on Amazon EMR implements its own logic for balancing the I/O load on the DynamoDB table and seeks to minimize the possibility of exceeding the table's provisioned throughput\. At the end of each Hive query, Amazon EMR returns runtime metrics, including the number of times your provisioned throughput was exceeded\. You can use this information, together with CloudWatch metrics on your DynamoDB table, to improve performance in subsequent requests\.
 
-The Amazon EMR console provides basic monitoring tools for your cluster\. For more information, see [View and Monitor a Cluster](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-manage-view.html) in the *Amazon EMR Management Guide*\.
+The Amazon EMR console provides basic monitoring tools for your cluster\. For more information, see [View and Monitor a Cluster](https://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-manage-view.html) in the *Amazon EMR Management Guide*\.
 
-You can also monitor your cluster and Hadoop jobs using web\-based tools, such as Hue, Ganglia, and the Hadoop web interface\. For more information, see [View Web Interfaces Hosted on Amazon EMR Clusters](http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-web-interfaces.html) in the *Amazon EMR Management Guide*\.
+You can also monitor your cluster and Hadoop jobs using web\-based tools, such as Hue, Ganglia, and the Hadoop web interface\. For more information, see [View Web Interfaces Hosted on Amazon EMR Clusters](https://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-web-interfaces.html) in the *Amazon EMR Management Guide*\.
 
 This section describes steps you can take to performance\-tune Hive operations on external DynamoDB tables\. 
 

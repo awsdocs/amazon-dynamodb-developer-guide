@@ -1,79 +1,88 @@
 # Logging DynamoDB Operations by Using AWS CloudTrail<a name="logging-using-cloudtrail"></a>
 
-DynamoDB is integrated with CloudTrail, a service that captures low\-level API requests made by or on behalf of DynamoDB in your AWS account and delivers the log files to an Amazon S3 bucket that you specify\. CloudTrail captures calls made from the DynamoDB console or from the DynamoDB low\-level API\. Using the information collected by CloudTrail, you can determine what request was made to DynamoDB, the source IP address from which the request was made, who made the request, when it was made, and so on\. CloudTrail logging is automatically enabled in your AWS account\. To learn more about CloudTrail, see the [http://docs.aws.amazon.com/awscloudtrail/latest/userguide/](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
+DynamoDB is integrated with AWS CloudTrail, a service that provides a record of actions taken by a user, role, or an AWS service in DynamoDB\. CloudTrail captures all API calls for DynamoDB as events\. The calls captured include calls from the DynamoDB console and code calls to the DynamoDB API operations\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for DynamoDB\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request that was made to DynamoDB, the IP address from which the request was made, who made the request, when it was made, and additional details\. 
+
+To learn more about CloudTrail, including how to configure and enable it, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
 
 ## DynamoDB Information in CloudTrail<a name="service-name-info-in-cloudtrail"></a>
 
-Any low\-level API calls made to DynamoDB actions are tracked in log files\. DynamoDB records are written together with other AWS service records in a log file\. CloudTrail determines when to create and write to a new file based on a time period and file size\.
+CloudTrail is enabled on your AWS account when you create the account\. When supported event activity occurs in DynamoDB, that activity is recorded in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\. 
 
-The following API actions are supported:
+For an ongoing record of events in your AWS account, including events for DynamoDB, create a trail\. A *trail* enables CloudTrail to deliver log files to an Amazon S3 bucket\. By default, when you create a trail in the console, the trail applies to all AWS Regions\. The trail logs events from all Regions in the AWS partition and delivers the log files to the Amazon S3 bucket that you specify\. Additionally, you can configure other AWS services to further analyze and act upon the event data collected in CloudTrail logs\. For more information, see the following: 
++ [Overview for Creating a Trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html)
++ [CloudTrail Supported Services and Integrations](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-aws-service-specific-topics.html#cloudtrail-aws-service-specific-topics-integrations)
++ [Configuring Amazon SNS Notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)
++ [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)
+
+The following API actions are logged as events in CloudTrail files:
 
 ** Amazon DynamoDB **
-+ [CreateBackup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateBackup.html)
-+ [CreateGlobalTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalTable.html)
-+ [CreateTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)
-+ [DeleteBackup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteBackup.html)
-+ [DeleteTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)
-+ [DescribeBackup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeBackup.html)
-+ [DescribeContinuousBackups](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeContinuousBackups.html)
-+ [DescribeGlobalTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTable.html)
-+ [DescribeLimits](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html)
-+ [DescribeTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html)
-+ [DescribeTimeToLive](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTimeToLive.html)
-+ [ListBackups](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListBackups.html)
-+ [ListTables](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html)
-+ [ListTagsOfResource](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.html)
-+ [ListGlobalTables](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListGlobalTables.html)
-+ [RestoreTableFromBackup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html)
-+ [TagResource](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html)
-+ [UntagResource](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html)
-+ [UpdateGlobalTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTable.html)
-+ [UpdateTable](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html)
-+ [UpdateTimeToLive](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html)
++ [CreateBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateBackup.html)
++ [CreateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalTable.html)
++ [CreateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)
++ [DeleteBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteBackup.html)
++ [DeleteTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)
++ [DescribeBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeBackup.html)
++ [DescribeContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeContinuousBackups.html)
++ [DescribeGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTable.html)
++ [DescribeLimits](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html)
++ [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html)
++ [DescribeTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTimeToLive.html)
++ [ListBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListBackups.html)
++ [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html)
++ [ListTagsOfResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.html)
++ [ListGlobalTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListGlobalTables.html)
++ [RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html)
++ [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html)
++ [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html)
++ [UpdateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTable.html)
++ [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html)
++ [UpdateTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html)
 + DescribeReservedCapacity
 + DescribeReservedCapacityOfferings
++ DescribeScalableTargets
++ RegisterScalableTarget
 + PurchaseReservedCapacityOfferings
 
 ** DynamoDB Streams **
-+ [DescribeStream](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.html)
-+ [ListStreams](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.html)
++ [DescribeStream](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.html)
++ [ListStreams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.html)
 
 ** DynamoDB Accelerator \(DAX\) **
-+ [CreateCluster](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateCluster.html)
-+ [CreateParameterGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateParameterGroup.html)
-+ [CreateSubnetGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateSubnetGroup.html)
-+ [DecreaseReplicationFactor](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DecreaseReplicationFactor.html)
-+ [DeleteCluster](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteCluster.html)
-+ [DeleteParameterGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteParameterGroup.html)
-+ [DeleteSubnetGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteSubnetGroup.html)
-+ [DescribeClusters](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeClusters.html)
-+ [DescribeDefaultParameters](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeDefaultParameters.html)
-+ [DescribeEvents](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeEvents.html)
-+ [DescribeParameterGroups](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameterGroups.html)
-+ [DescribeParameters](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameters.html)
-+ [DescribeSubnetGroups](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeSubnetGroups.html)
-+ [IncreaseReplicationFactor](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_IncreaseReplicationFactor.html)
-+ [ListTags](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ListTags.html)
-+ [RebootNode](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_RebootNode.html)
-+ [TagResource](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_TagResource.html)
-+ [UntagResource](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UntagResource.html)
-+ [UpdateCluster](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateCluster.html)
-+ [UpdateParameterGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateParameterGroup.html)
-+ [UpdateSubnetGroup](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateSubnetGroup.html)
++ [CreateCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateCluster.html)
++ [CreateParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateParameterGroup.html)
++ [CreateSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_CreateSubnetGroup.html)
++ [DecreaseReplicationFactor](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DecreaseReplicationFactor.html)
++ [DeleteCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteCluster.html)
++ [DeleteParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteParameterGroup.html)
++ [DeleteSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DeleteSubnetGroup.html)
++ [DescribeClusters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeClusters.html)
++ [DescribeDefaultParameters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeDefaultParameters.html)
++ [DescribeEvents](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeEvents.html)
++ [DescribeParameterGroups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameterGroups.html)
++ [DescribeParameters](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeParameters.html)
++ [DescribeSubnetGroups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_DescribeSubnetGroups.html)
++ [IncreaseReplicationFactor](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_IncreaseReplicationFactor.html)
++ [ListTags](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_ListTags.html)
++ [RebootNode](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_RebootNode.html)
++ [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_TagResource.html)
++ [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UntagResource.html)
++ [UpdateCluster](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateCluster.html)
++ [UpdateParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateParameterGroup.html)
++ [UpdateSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateSubnetGroup.html)
 
-Every log entry contains information about who generated the request\. The user identity information in the log helps you determine whether the request was made with root or IAM user credentials, with temporary security credentials for a role or federated user, or by another AWS service\. For more information, see the **userIdentity** field in the [CloudTrail Event Reference](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference.html)\.
+Every event or log entry contains information about who generated the request\. The identity information helps you determine the following: 
++ Whether the request was made with root or AWS Identity and Access Management \(IAM\) user credentials\.
++ Whether the request was made with temporary security credentials for a role or federated user\.
++ Whether the request was made by another AWS service\.
 
-You can store your log files in your bucket for as long as you want, but you can also define Amazon S3 lifecycle rules to archive or delete log files automatically\. By default, your log files are encrypted by using Amazon S3 server\-side encryption \(SSE\)\.
-
-You can choose to have CloudTrail publish Amazon SNS notifications when new log files are delivered if you want to take quick action upon log file delivery\. For more information, see [Configuring Amazon SNS Notifications](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/configure-sns-notifications-for-cloudtrail.html)\.
-
-You can also aggregate DynamoDB log files from multiple AWS regions and multiple AWS accounts into a single Amazon S3 bucket\. For more information, see [Receiving CloudTrail Log Files from Multiple Regions ](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)\.
+For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
 ## Understanding DynamoDB Log File Entries<a name="understanding-service-name-entries"></a>
 
-CloudTrail log files contain one or more log entries where each entry is made up of multiple JSON\-formatted events\. A log entry represents a single request from any source and includes information about the requested action, any parameters, the date and time of the action, and so on\. The log entries are not guaranteed to be in any particular order\. That is, they are not an ordered stack trace of the low\-level DynamoDB API calls\.
+ A trail is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An event represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files aren't an ordered stack trace of the public API calls, so they don't appear in any specific order\. 
 
-The following example shows a CloudTrail log\.
+The following example shows a CloudTrail log that demostrates the `CreateTable`, `DescribeTable`, `UpdateTable`, `ListTables`, and `DeleteTable` actions\.
 
 ```
 {"Records": [

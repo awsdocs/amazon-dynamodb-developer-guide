@@ -3,6 +3,19 @@
 The `05-scan-test.js` program performs `Scan` operations on *TryDaxTable*\.
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 const AmazonDaxClient = require('amazon-dax-client');
 var AWS = require("aws-sdk");
 
@@ -12,13 +25,15 @@ AWS.config.update({
   region: region
 });
 
-var client = new AWS.DynamoDB.DocumentClient()
+var ddbClient = new AWS.DynamoDB.DocumentClient()
+var daxClient = null;
 
 if (process.argv.length > 2) {
     var dax = new AmazonDaxClient({endpoints: [process.argv[2]], region: region})
-    client = new AWS.DynamoDB.DocumentClient({service: dax });
+    daxClient = new AWS.DynamoDB.DocumentClient({service: dax });
 }
 
+var client = daxClient != null ? daxClient : ddbClient;
 var tableName = "TryDaxTable";
 
 var iterations = 5;
@@ -26,9 +41,8 @@ var iterations = 5;
 var params = {
     TableName: tableName
 };
-
+var startTime = new Date().getTime();
 for (var i = 0; i < iterations; i++) {
-    var startTime = new Date().getTime();
 
     client.scan(params, function(err, data) {
         if (err) {

@@ -34,4 +34,4 @@ The arguments for `--key` are stored in the file `key.json`:
 }
 ```
 
-For programming language\-specific code samples, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For programming language\-specific code examples, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

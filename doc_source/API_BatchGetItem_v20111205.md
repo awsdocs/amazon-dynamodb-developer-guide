@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_BatchGetItem_Description"></a>
 
@@ -14,7 +14,7 @@ If no items could be processed because of insufficient provisioned throughput on
 By default, `BatchGetItem` performs eventually consistent reads on every table in the request\. You can set the `ConsistentRead` parameter to `true`, on a per\-table basis, if you want consistent reads instead\.  
 `BatchGetItem` fetches items in parallel to minimize response latencies\.  
 When designing your application, keep in mind that DynamoDB does not guarantee how attributes are ordered in the returned response\. Include the primary key values in the `AttributesToGet` for the items in your request to help parse the response by item\.   
-If the requested items do not exist, nothing is returned in the response for those items\. Requests for non\-existent items consume the minimum read capacity units according to the type of read\. For more information, see [Item Sizes and Capacity Unit Consumption](CapacityUnitCalculations.md)\.
+If the requested items do not exist, nothing is returned in the response for those items\. Requests for non\-existent items consume the minimum read capacity units according to the type of read\. For more information, see [DynamoDB Item Sizes](CapacityUnitCalculations.md)\.
 
 ## Requests<a name="API_BatchGetItem_RequestParameters"></a>
 
@@ -107,7 +107,7 @@ content-length: 855
 | Responses  | Table names and the respective item attributes from the tables\.Type: Map  | 
 | Table |  The name of the table containing the items\. The entry is simply a string specifying the table with no label\.Type: String  | 
 | Items  | Container for the attribute names and values meeting the operation parameters\.Type: Map of attribute names to and their data types and values\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed, for each table\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed, for each table\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
 | UnprocessedKeys | Contains an array of tables and their respective keys that were not processed with the current response, possibly due to reaching a limit on the response size\. The `UnprocessedKeys` value is in the same form as a `RequestItems` parameter \(so the value can be provided directly to a subsequent `BatchGetItem` operation\)\. For more information, see the above `RequestItems` parameter\.Type: Array  | 
 | UnprocessedKeys: Table: Keys  | The primary key attribute values that define the items and the attributes associated with the items\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Array of attribute name\-value pairs\.  | 
 | UnprocessedKeys: Table: AttributesToGet  |  Attribute names within the specified table\. If attribute names are not specified then all attributes will be returned\. If some attributes are not found, they will not appear in the result\.  Type: Array of attribute names\.  | 
@@ -139,16 +139,16 @@ content-type: application/x-amz-json-1.0
 content-length: 409
 
 {"RequestItems":
-    {"comp2":
-        {"Keys":
-            [{"HashKeyElement":{"S":"Julie"}},{"HashKeyElement":{"S":"Mingus"}}],
-        "AttributesToGet":["user","friends"]},
-    "comp1":
+    {"comp1":
         {"Keys":
             [{"HashKeyElement":{"S":"Casey"},"RangeKeyElement":{"N":"1319509152"}},
             {"HashKeyElement":{"S":"Dave"},"RangeKeyElement":{"N":"1319509155"}},
             {"HashKeyElement":{"S":"Riley"},"RangeKeyElement":{"N":"1319509158"}}],
-        "AttributesToGet":["user","status"]}
+        "AttributesToGet":["user","status"]},
+    "comp2":
+        {"Keys":
+            [{"HashKeyElement":{"S":"Julie"}},{"HashKeyElement":{"S":"Mingus"}}],
+        "AttributesToGet":["user","friends"]}
     }
 }
 ```
@@ -165,7 +165,7 @@ content-length: 373
 Date: Fri, 02 Sep 2011 23:07:39 GMT
 
 {"Responses":
-    {"comp2":
+    {"comp1":
         {"Items":
             [{"status":{"S":"online"},"user":{"S":"Casey"}},
             {"status":{"S":"working"},"user":{"S":"Riley"}},

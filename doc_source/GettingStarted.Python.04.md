@@ -24,6 +24,19 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy and paste the following program into a file named `MoviesQuery01.py`\.
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    from __future__ import print_function # Python 2/3 compatibility
    import boto3
    import json
@@ -55,7 +68,7 @@ The program included in this step retrieves all movies released in the `year` 19
    ```
 **Note**  
 The Boto 3 SDK constructs a `ConditionExpression` for you when you use the `Key` and `Attr` functions imported from `boto3.dynamodb.conditions`\. You can also specify a `ConditionExpression` as a string\.  
-For a list of available conditions for DynamoDB, see the [DynamoDB Conditions](http://boto3.readthedocs.org/en/latest/reference/customizations/dynamodb.html#dynamodb-conditions) in *AWS SDK for Python \(Boto 3\) Getting Started*\.  
+For a list of available conditions for DynamoDB, see the [DynamoDB Conditions](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/customizations/dynamodb.html#dynamodb-conditions) in *AWS SDK for Python \(Boto 3\) Getting Started*\.  
 For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.
 
 1. To run the program, type the following command:
@@ -72,6 +85,19 @@ The program included in this step retrieves all movies released in `year` 1992, 
 1. Copy and paste the following program into a file named `MoviesQuery02.py`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    from __future__ import print_function # Python 2/3 compatibility
    import boto3
    import json
@@ -114,6 +140,19 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Copy and paste the following program into a file named `MoviesScan.py`:
 
    ```
+   #
+   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   #
+   #  This file is licensed under the Apache License, Version 2.0 (the "License").
+   #  You may not use this file except in compliance with the License. A copy of
+   #  the License is located at
+   # 
+   #  http://aws.amazon.com/apache2.0/
+   # 
+   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   #  specific language governing permissions and limitations under the License.
+   #
    from __future__ import print_function # Python 2/3 compatibility
    import boto3
    import json
@@ -134,7 +173,7 @@ The following program scans the entire `Movies` table, which contains approximat
    
    table = dynamodb.Table('Movies')
    
-   fe = Key('year').between(1950, 1959);
+   fe = Key('year').between(1950, 1959)
    pe = "#yr, title, info.rating"
    # Expression Attribute Names for Projection Expression only.
    ean = { "#yr": "year", }

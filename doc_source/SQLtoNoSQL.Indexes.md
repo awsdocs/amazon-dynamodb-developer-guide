@@ -55,7 +55,7 @@ You can add a global secondary index to an existing table, using the `UpdateTabl
                 Projection: {
                     "ProjectionType": "ALL"
                 },
-                ProvisionedThroughput: {
+                ProvisionedThroughput: {                                // Only specified if using provisioned mode
                     "ReadCapacityUnits": 1,"WriteCapacityUnits": 1
                 }
             }
@@ -71,9 +71,9 @@ You must provide the following parameters to `UpdateTable`:
   + `IndexName` – A name for the index\.
   + `KeySchema` – The attributes that are used for the index primary key\.
   + `Projection` – Attributes from the table that are copied to the index\. In this case, `ALL` means that all of the attributes are copied\.
-  + `ProvisionedThroughput` – The number of reads and writes per second that you need for this index\. \(This is separate from the provisioned throughput settings of the table\.\) 
+  + `ProvisionedThroughput (for provisioned tables)` – The number of reads and writes per second that you need for this index\. \(This is separate from the provisioned throughput settings of the table\.\) 
 
 Part of this operation involves backfilling data from the table into the new index\. During backfilling, the table remains available\. However, the index is not ready until its `Backfilling` attribute changes from true to false\. You can use the `DescribeTable` action to view this attribute\.
 
 **Note**  
-For code samples that use `UpdateTable`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples that use `UpdateTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

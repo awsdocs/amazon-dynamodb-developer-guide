@@ -6,14 +6,27 @@ The code example then uses the `DynamoDBContext` to illustrate the following bat
 + `BatchWrite` object to put and delete book items from the ProductCatalog table\. 
 + `MultiTableBatchWrite` object to put and delete items from the Forum and the Thread tables\. 
 
-For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Note**  
- The following example does not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](http://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The following example does not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
 
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;

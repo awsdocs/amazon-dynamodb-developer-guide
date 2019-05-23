@@ -1,6 +1,6 @@
 # Naming Rules and Data Types<a name="HowItWorks.NamingRulesDataTypes"></a>
 
-This section describes the DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to datatypes\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
+This section describes the DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
 
 **Topics**
 + [Naming Rules](#HowItWorks.NamingRules)
@@ -44,23 +44,6 @@ The following are descriptions of each data type, along with examples in JSON fo
 
 The scalar types are number, string, binary, Boolean, and null\.
 
-#### String<a name="HowItWorks.DataTypes.String"></a>
-
-Strings are Unicode with UTF\-8 binary encoding\. The length of a string must be greater than zero and is constrained by the maximum DynamoDB item size limit of 400 KB\.
-
-The following additional constraints apply to primary key attributes that are defined as type string:
-+ For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
-+ For a composite primary key, the maximum length of the second attribute value \(the sort key\) is 1024 bytes\.
-
-DynamoDB collates and compares strings using the bytes of the underlying UTF\-8 string encoding\. For example, "`a`" \(0x61\) is greater than "`A`" \(0x41\), and "`¿`" \(0xC2BF\) is greater than "`z`" \(0x7A\)\.
-
-You can use the string data type to represent a date or a time stamp\. One way to do this is by using ISO 8601 strings, as shown in these examples:
-+ `2016-02-15`
-+ `2015-12-21T17:42:34Z`
-+ `20150311T122706Z`
-
-For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
-
 #### Number<a name="HowItWorks.DataTypes.Number"></a>
 
 Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits precision\. Exceeding this results in an exception\.
@@ -72,15 +55,37 @@ In DynamoDB, numbers are represented as variable length\. Leading and trailing z
 All numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries\. However, DynamoDB treats them as number type attributes for mathematical operations\. 
 
 **Note**  
-If number precision is important, you should pass numbers to DynamoDB using strings that you convert from number type\.
+If number precision is important, you should pass numbers to DynamoDB using strings that you convert from the number type\.
 
-You can use the number data type to represent a date or a time stamp\. One way to do this is by using epoch time—the number of seconds since 00:00:00 UTC on 1 January 1970\. For example, the epoch time `1437136300` represents 12:31:40 PM UTC on 17 July 2015\.
+You can use the number data type to represent a date or a timestamp\. One way to do this is by using epoch time—the number of seconds since 00:00:00 UTC on 1 January 1970\. For example, the epoch time `1437136300` represents 12:31:40 PM UTC on 17 July 2015\.
 
 For more information, see [http://en\.wikipedia\.org/wiki/Unix\_time](http://en.wikipedia.org/wiki/Unix_time)\.
+
+#### String<a name="HowItWorks.DataTypes.String"></a>
+
+Strings are Unicode with UTF\-8 binary encoding\. The length of a string must be greater than zero and is constrained by the maximum DynamoDB item size limit of 400 KB\.
+
+The following additional constraints apply to primary key attributes that are defined as type string:
++ For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
++ For a composite primary key, the maximum length of the second attribute value \(the sort key\) is 1024 bytes\.
+
+DynamoDB collates and compares strings using the bytes of the underlying UTF\-8 string encoding\. For example, "`a`" \(0x61\) is greater than "`A`" \(0x41\), and "`¿`" \(0xC2BF\) is greater than "`z`" \(0x7A\)\.
+
+You can use the string data type to represent a date or a timestamp\. One way to do this is by using ISO 8601 strings, as shown in these examples:
++ `2016-02-15`
++ `2015-12-21T17:42:34Z`
++ `20150311T122706Z`
+
+For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
 
 #### Binary<a name="HowItWorks.DataTypes.Binary"></a>
 
 Binary type attributes can store any binary data, such as compressed text, encrypted data, or images\. Whenever DynamoDB compares binary values, it treats each byte of the binary data as unsigned\.
+
+DynamoDB provides the following mechanisms for managing throughput:
++ DynamoDB auto scaling
++ Provisioned throughput
++ Reserved capacity
 
 The length of a binary attribute must be greater than zero, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 

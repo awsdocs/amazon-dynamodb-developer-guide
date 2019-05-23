@@ -14,7 +14,7 @@ This section addresses some of the common management tasks for DAX clusters\.
 
 When you administer a DAX cluster using the AWS Management Console or the AWS CLI, we strongly recommend that you narrow the scope of actions that users can perform\. By doing so, you help mitigate risk while following the principle of least privilege\.
 
-The following discussion focuses on access control for the DAX management APIs \(see [Amazon DynamoDB Accelerator](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator.html) in the Amazon DynamoDB API Reference\)\.
+The following discussion focuses on access control for the DAX management APIs \(see [Amazon DynamoDB Accelerator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator.html) in the Amazon DynamoDB API Reference\)\.
 
 **Note**  
 For more detailed information about managing IAM permissions, see the following:  
@@ -122,12 +122,12 @@ When you create a DAX cluster, the following default settings are used:
 + No preference for maintenance windows
 + Notifications disabled
 
-You cannot change these settings on a DAX cluster that is currently running\. However, for new clusters, you can customize the settings at creation time\. To do this in the AWS Management Console, deselect **Use default settings** to modify the following settings:
+You cannot change these settings on a DAX cluster that is currently running\. However, for new clusters, you can customize the settings at creation time\. To do this in the AWS Management Console, clear **Use default settings** to modify the following settings:
 + **Network and Security**—allows you to run individual DAX cluster nodes in different Availability Zones \(AZs\) within the current AWS region\. If you choose **No Preference**, the nodes will be distributed among AZs automatically\.
 + **Parameter Group**—a named set of parameters that are applied to every node in the cluster\. You can use a parameter group to specify cache time\-to\-live \(TTL\) behavior\.
 + **Maintenance Window**—a weekly time period during which software upgrades and patches are applied to the nodes in the cluster\. You can choose the start day, start time, and duration of the maintenance window\. If you choose **No Preference**, the maintenance window will be selected at random from an 8\-hour block of time per region\. \(For more information, see [Maintenance Window](DAX.concepts.cluster.md#DAX.concepts.maintenance-window)\.\) 
 
-When a maintenance event occurs, DAX can notify you using Amazon Simple Notification Service \(Amazon SNS\)\. To configure notifications, choose an option from the **Topic for SNS notification** selector\. You can create a new Amazon SNS topic, or use an existing topic\. \(For more information on setting up and subscribing to an Amazon SNS topic, see [Getting Started with Amazon Simple Notification Service](http://docs.aws.amazon.com/sns/latest/dg/GettingStarted.html) in the Amazon Simple Notification Service Developer Guide\.\)
+When a maintenance event occurs, DAX can notify you using Amazon Simple Notification Service \(Amazon SNS\)\. To configure notifications, choose an option from the **Topic for SNS notification** selector\. You can create a new Amazon SNS topic, or use an existing topic\. \(For more information on setting up and subscribing to an Amazon SNS topic, see [Getting Started with Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/GettingStarted.html) in the Amazon Simple Notification Service Developer Guide\.\)
 
 ### Scaling a DAX Cluster<a name="DAX.cluster-management.scaling"></a>
 

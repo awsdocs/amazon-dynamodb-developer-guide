@@ -1,10 +1,10 @@
-# \.NET Code Samples<a name="CodeSamples.DotNet"></a>
+# \.NET Code Examples<a name="CodeSamples.DotNet"></a>
 
 **Topics**
 + [\.NET: Setting Your AWS Credentials](#CodeSamples.DotNet.Credentials)
 + [\.NET: Setting the AWS Region and Endpoint](#CodeSamples.DotNet.RegionAndEndpoint)
 
-This Developer Guide contains \.NET code snippets and ready\-to\-run programs\. You can find these code samples in the following sections:
+This Developer Guide contains \.NET code snippets and ready\-to\-run programs\. You can find these code examples in the following sections:
 + [Working with Items in DynamoDB](WorkingWithItems.md)
 + [Working with Tables in DynamoDB](WorkingWithTables.md)
 + [Working with Queries](Query.md)
@@ -16,7 +16,7 @@ This Developer Guide contains \.NET code snippets and ready\-to\-run programs\. 
 
 You can get started quickly by using the AWS SDK for \.NET with the Toolkit for Visual Studio\.
 
-**To Run the \.NET Code Samples \(using Visual Studio\)**
+**To Run the \.NET Code Examples \(using Visual Studio\)**
 
 1. Download and install [Microsoft Visual Studio](https://www.visualstudio.com)\.
 
@@ -55,7 +55,7 @@ The code samples in this Developer Guide are intended for use with the latest ve
 
 ## \.NET: Setting Your AWS Credentials<a name="CodeSamples.DotNet.Credentials"></a>
 
-The AWS SDK for \.NET requires that you provide AWS credentials to your application at runtime\. The code samples in this Developer Guide assume that you are using the SDK Store to manage your AWS credentials file, as described in [Using the SDK Store](http://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-config-creds.html#sdk-store) in the *AWS SDK for \.NET Developer Guide*\.
+The AWS SDK for \.NET requires that you provide AWS credentials to your application at runtime\. The code examples in this Developer Guide assume that you are using the SDK Store to manage your AWS credentials file, as described in [Using the SDK Store](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-config-creds.html#sdk-store) in the *AWS SDK for \.NET Developer Guide*\.
 
 The Toolkit for Visual Studio supports multiple sets of credentials from any number of accounts\. Each set is referred to as a *profile*\. Visual Studio adds entries to the project's `App.config` file so that your application can find the AWS credentials at runtime\.
 
@@ -71,10 +71,10 @@ The following example shows the default `App.config` file that is generated when
 </configuration>
 ```
 
-At runtime, the program uses the `default` set of AWS credentials, as specified by the `AWSProfileName` entry\. The AWS credentials themselves are kept in the SDK Store, in encrypted form\. The Toolkit for Visual Studio provides a graphical user interface for managing your credentials, all from within Visual Studio\. For more information, see [Specifying Credentials](http://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/tkv_setup.html#creds) in the *AWS Toolkit for Visual Studio User Guide*\.
+At runtime, the program uses the `default` set of AWS credentials, as specified by the `AWSProfileName` entry\. The AWS credentials themselves are kept in the SDK Store, in encrypted form\. The Toolkit for Visual Studio provides a graphical user interface for managing your credentials, all from within Visual Studio\. For more information, see [Specifying Credentials](https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/tkv_setup.html#creds) in the *AWS Toolkit for Visual Studio User Guide*\.
 
 **Note**  
-By default, the code samples access DynamoDB in the US West \(Oregon\) region\. You can change the region by modifying the `AWSRegion` entry in the App\.config file\. You can set `AWSRegion` to any AWS region where Amazon DynamoDB is available\. For a complete list, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+By default, the code samples access DynamoDB in the US West \(Oregon\) region\. You can change the region by modifying the `AWSRegion` entry in the App\.config file\. You can set `AWSRegion` to any AWS region where Amazon DynamoDB is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 ## \.NET: Setting the AWS Region and Endpoint<a name="CodeSamples.DotNet.RegionAndEndpoint"></a>
 
@@ -89,9 +89,9 @@ clientConfig.RegionEndpoint = RegionEndpoint.USEast1;
 AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
 ```
 
-For a complete list of regions, see [AWS Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+For a complete list of regions, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
-If you want to run the code samples using DynamoDB locally on your computer, you need to set the endpoint:
+If you want to run the code examples using DynamoDB locally on your computer, you need to set the endpoint:
 
 ```
 AmazonDynamoDBConfig clientConfig = new AmazonDynamoDBConfig();

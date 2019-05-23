@@ -4,7 +4,7 @@ In addition to using the AWS Management Console and AWS CLI, you can write appli
 + `EnableDynamoDBAutoscaling.java`
 + `DisableDynamoDBAutoscaling.java`
 
-## Enabling Application Auto Scaling for a Table<a name="w3ab1c17b7c17c25b6"></a>
+## Enabling Application Auto Scaling for a Table<a name="w27aac19b7c19c25b6"></a>
 
 The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(*TestTable*\)\. It proceeds as follows:
 + The program registers write capacity units as a scalable target for *TestTable*\. The range for this metric is between 5 and 10 write capacity units\.
@@ -14,9 +14,23 @@ The following program shows an example of setting up an auto scaling policy for 
 The program requires that you supply an ARN for a valid Application Auto Scaling service linked role\. \(For example: `"arn:aws:iam::122517410325:role/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. 
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 package com.amazonaws.codesamples.autoscaling;
 
 import com.amazonaws.services.applicationautoscaling.AWSApplicationAutoScalingClient;
+import com.amazonaws.services.applicationautoscaling.AWSApplicationAutoScalingClientBuilder;
 import com.amazonaws.services.applicationautoscaling.model.DescribeScalableTargetsRequest;
 import com.amazonaws.services.applicationautoscaling.model.DescribeScalableTargetsResult;
 import com.amazonaws.services.applicationautoscaling.model.DescribeScalingPoliciesRequest;
@@ -32,7 +46,7 @@ import com.amazonaws.services.applicationautoscaling.model.TargetTrackingScaling
 
 public class EnableDynamoDBAutoscaling {
 
-    static AWSApplicationAutoScalingClient aaClient = new AWSApplicationAutoScalingClient();
+    static AWSApplicationAutoScalingClient aaClient = (AWSApplicationAutoScalingClient) AWSApplicationAutoScalingClientBuilder.standard().build();
 
     public static void main(String args[]) {
 
@@ -120,11 +134,24 @@ public class EnableDynamoDBAutoscaling {
 }
 ```
 
-## Disabling Application Auto Scaling for a Table<a name="w3ab1c17b7c17c25b8"></a>
+## Disabling Application Auto Scaling for a Table<a name="w27aac19b7c19c25b8"></a>
 
 The following program reverses the previous process\. It removes the auto scaling policy, and then deregisters the scalable target\.
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 package com.amazonaws.codesamples.autoscaling;
 
 import com.amazonaws.services.applicationautoscaling.AWSApplicationAutoScalingClient;

@@ -44,7 +44,7 @@ foreach (Dictionary<string, AttributeValue> item in response.ScanResult.Items)
 
 ## Specifying Optional Parameters<a name="LowLevelDotNetScanningOptions"></a>
 
-The `Scan` method supports several optional parameters\. For example, you can optionally use a scan filter to filter the scan result\. In a scan filter, you can specify a condition and an attribute name on which you want the condition evaluated\. For more information, see [Scan](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
+The `Scan` method supports several optional parameters\. For example, you can optionally use a scan filter to filter the scan result\. In a scan filter, you can specify a condition and an attribute name on which you want the condition evaluated\. For more information, see [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
 The following C\# code scans the ProductCatalog table to find items that are priced less than 0\. The sample specifies the following optional parameters:
 + A `FilterExpression` parameter to retrieve only the items priced less than 0 \(error condition\)\.
@@ -100,9 +100,22 @@ do
 
 The following C\# code example provides a working sample that scans the ProductCatalog table to find items priced less than 0\. 
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -186,16 +199,28 @@ namespace com.amazonaws.codesamples
             Console.WriteLine("************************************************");
         }
     }
-}
 ```
 
 ## Example \- Parallel Scan Using \.NET<a name="LowLevelDotNetParallelScanExample"></a>
 
 The following C\# code example demonstrates a parallel scan\. The program deletes and then re\-creates the ProductCatalog table, then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. Finally, the program prints a summary of run time statistics\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using System.Threading;

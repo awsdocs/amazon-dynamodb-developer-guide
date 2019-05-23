@@ -7,13 +7,26 @@ The code illustrate the following batch write operations:
 + `batchDelete` to delete items from the ProductCatalog table\. 
 + `batchWrite` to put and delete items from the Forum and the Thread tables\.
 
-For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [Java Code Samples](CodeSamples.Java.md)\. 
+For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [Java Code Examples](CodeSamples.Java.md)\. 
 
 **Example**  
 
 ```
-// Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache License, Version 2.0.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+
 package com.amazonaws.codesamples.datamodeling;
 
 import java.text.SimpleDateFormat;
@@ -120,7 +133,10 @@ public class DynamoDBMapperBatchWriteExample {
         List<Object> objectsToWrite = Arrays.asList(forumItem, threadItem);
         List<Book> objectsToDelete = Arrays.asList(book3);
 
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.CLOBBER);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+        .build();
+
         mapper.batchWrite(objectsToWrite, objectsToDelete, config);
     }
 

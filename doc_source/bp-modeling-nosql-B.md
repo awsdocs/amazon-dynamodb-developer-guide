@@ -10,7 +10,7 @@ You define the following entities, which support the relational order entry sche
 
 1.  HR\-Region \- PK: RegionID, SK: Region Name 
 
-1.  HR\-Country \- PK: CountyId, SK: Country Name 
+1.  HR\-Country \- PK: CountryId, SK: Country Name 
 
 1.  HR\-Location \- PK: LocationID, SK: Country Name 
 
@@ -32,7 +32,7 @@ After adding these entity items to the table, you can define the relationships b
 
 In this example, the Employee, Order, and Product Entity partitions on the table have additional edge items that contain pointers to other entity items on the table\. Next, define a few global secondary indexes \(GSIs\) to support all the access patterns defined previously\. The entity items don't all use the same type of value for the primary key or the sort key attribute\. All that is required is to have the primary key and sort key attributes present to be inserted on the table\. 
 
-The fact that some of these entities use proper names and others use other entity IDs as sort key values allows the same global secondary index to support multiple types of queries\. This technique is called GSI overloading\. It effectively eliminates the limit of five global secondary indexes for tables that contain multiple item types\. This is shown in the following diagram as GSI 1:
+The fact that some of these entities use proper names and others use other entity IDs as sort key values allows the same global secondary index to support multiple types of queries\. This technique is called GSI overloading\. It effectively eliminates the default limit of 20 global secondary indexes for tables that contain multiple item types\. This is shown in the following diagram as GSI 1:
 
 ![\[Example table showing global secondary indexes supporting multiple queries.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tablegsi.png)
 

@@ -2,11 +2,24 @@
 
 The following C\# code example illustrates CRUD operations on an item\. The example adds an item to the ProductCatalog table, retrieves it, performs various updates, and finally deletes the item\. If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the ProductCatalog table created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Samples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 
 ```
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;

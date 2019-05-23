@@ -29,4 +29,4 @@ If you define an expression attribute value, you must use it consistently throug
 Expression attribute values are used with condition expressions, update expressions, and filter expressions\.
 
 **Note**  
-For programming language\-specific code samples, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For programming language\-specific code examples, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

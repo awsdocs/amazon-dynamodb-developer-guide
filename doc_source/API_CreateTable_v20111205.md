@@ -2,7 +2,7 @@
 
 **Important**  
 ***This section refers to API version 2011\-12\-05, which is deprecated and should not be used for new applications\.***  
- **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
+ **For documentation on the current low\-level API, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.**
 
 ## Description<a name="API_CreateTable_Description"></a>
 
@@ -40,7 +40,7 @@ content-type: application/x-amz-json-1.0
 | --- | --- | --- | 
 |  TableName  |  The name of the table to create\.Allowed characters are a\-z, A\-Z, 0\-9, '\_' \(underscore\), '\-' \(dash\), and '\.' \(dot\)\. Names can be between 3 and 255 characters long\. Type: String  |  Yes  | 
 |  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Primary key element names can be between 1 and 255 characters long with no character restrictions\. Possible values for the AttributeType are "S" \(string\), "N" \(numeric\), or "B" \(binary\)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | Yes | 
-|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. For details, see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\.  For current maximum/minimum values, see [Limits in DynamoDB](Limits.md)\. Type: Array  | Yes | 
+|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. For details, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.  For current maximum/minimum values, see [Limits in DynamoDB](Limits.md)\. Type: Array  | Yes | 
 | ProvisionedThroughput: ReadCapacityUnits |  Sets the minimum number of consistent `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.  Eventually consistent read operations require less effort than a consistent read operation, so a setting of 50 consistent `ReadCapacityUnits` per second provides 100 eventually consistent `ReadCapacityUnits` per second\. Type: Number  | Yes | 
 | ProvisionedThroughput: WriteCapacityUnits | Sets the minimum number of WriteCapacityUnits consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | Yes | 
 
@@ -75,7 +75,7 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 | TableDescription  | A container for the table properties\. | 
 | CreationDateTime | Date when the table was created in [UNIX epoch time](http://www.epochconverter.com/)\.Type: Number | 
 | KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ProvisionedThroughput  |  Throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\. Type: Array   | 
+| ProvisionedThroughput  |  Throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Array   | 
 | ProvisionedThroughput :ReadCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second before DynamoDB\. balances the load with other operationsType: Number  | 
 | ProvisionedThroughput :WriteCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second before `WriteCapacityUnits`\. balances the load with other operationsType: Number  | 
 |  TableName  |  The name of the created table\. Type: String  | 

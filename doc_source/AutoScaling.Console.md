@@ -19,7 +19,7 @@ In AWS Identity and Access Management \(IAM\), the AWS\-managed policy `DynamoDB
 **Important**  
  `application-autoscaling:*` permissions are required to delete an autoscaling enabled table\. The AWS\-managed policy `DynamoDBFullAccess` attached next includes such permissions\. 
 
-To set up an IAM user for DynamoDB console access and DynamoDB auto scaling, add the following two policies:
+To set up an IAM user for DynamoDB console access and DynamoDB auto scaling, add the following policy:
 
 **To attach the *AmazonDynamoDBFullAccess* policy**
 
@@ -38,7 +38,7 @@ To set up an IAM user for DynamoDB console access and DynamoDB auto scaling, add
 ## Creating a New Table with Auto Scaling Enabled<a name="AutoScaling.Console.NewTable"></a>
 
 **Note**  
-DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-autoscaling-service-linked-roles.html)\. 
+DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html)\. 
 
 **To create a new table with auto scaling enabled**
 
@@ -52,7 +52,7 @@ DynamoDB auto scaling requires the presence of a service linked role \(*AWSServi
 
     Otherwise, for custom settings: 
 
-   1. Deselect **Use default settings**\.
+   1. Clear **Use default settings**\.
 
    1. In the **Auto scaling** section, set the parameter settings and ensure that `AWSServiceRoleForApplicationAutoScaling_DynamoDBTable` is selected\.
 
@@ -61,7 +61,7 @@ DynamoDB auto scaling requires the presence of a service linked role \(*AWSServi
 ## Enabling DynamoDB Auto Scaling on Existing Tables<a name="AutoScaling.Console.ExistingTable"></a>
 
 **Note**  
-DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-autoscaling-service-linked-roles.html)\.  
+DynamoDB auto scaling requires the presence of a service linked role \(*AWSServiceRoleForApplicationAutoScaling\_DynamoDBTable*\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html)\.  
 If you have never used DynamoDB auto scaling before, see [Creating a New Table with Auto Scaling Enabled](#AutoScaling.Console.NewTable)\.
 
 To enable DynamoDB auto scaling for an existing table, do the following:

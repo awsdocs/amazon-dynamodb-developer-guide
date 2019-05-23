@@ -368,9 +368,9 @@ For more information, see [Condition Expressions](Expressions.ConditionExpressio
 
 ### Conditional Write Idempotence<a name="WorkingWithItems.ConditionalWrites.Idempotence"></a>
 
-Conditional writes are *idempotent*\. This means that you can send the same conditional write request to DynamoDB multiple times, but the request will have no further effect on the item after the first time DynamoDB performs the update\. 
+Conditional writes can be *idempotent* if the conditional check is on the same attribute that is being updated\. This means that DynamoDB performs a given write request only if certain attribute values in the item match what you expect them to be at the time of the request\. 
 
-For example, suppose you issue an `UpdateItem` request to increase the `Price` of an item by 3, but only if the `Price` is currently 20\. After you send the request, but before you get the results back, a network error occurs and you don't know whether the request was successful\. Because conditional writes are idempotent, you can retry the same `UpdateItem` request, and DynamoDB will update the item only if the `Price` is currently 20\.
+For example, suppose you issue an `UpdateItem` request to increase the `Price` of an item by 3, but only if the `Price` is currently 20\. After you send the request, but before you get the results back, a network error occurs and you don't know whether the request was successful\. Because this conditional write is idempotent, you can retry the same `UpdateItem` request, and DynamoDB will update the item only if the `Price` is currently 20\.
 
 ### Capacity Units Consumed by Conditional Writes<a name="WorkingWithItems.ConditionalWrites.ReturnConsumedCapacity"></a>
 

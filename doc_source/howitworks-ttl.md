@@ -2,12 +2,10 @@
 
 When Time To Live is enabled on a table, a background job checks the TTL attribute of items to see if they are expired\. 
 
-TTL compares the current time in epoch time format to the time stored in the Time To Live attribute of an item\. If the epoch time value stored in the attribute is less than the current time, the item is marked as expired and subsequently deleted\.
+TTL compares the current time in epoch time format to the time stored in the Time To Live attribute of an item\. If the epoch time value stored in the attribute is less than the current time, the item is marked as expired and subsequently deleted\. This processing takes place automatically in the background and does not affect read or write traffic to the table\.
 
 **Note**  
  The epoch time format is the number of seconds elapsed since 12:00:00 AM January 1st, 1970 UTC\. 
-
-DynamoDB deletes expired items on a best\-effort basis to ensure availability of throughput for other data operations\.  
 
 **Important**  
  DynamoDB typically deletes expired items within 48 hours of expiration\. The exact duration within which an item truly gets deleted after expiration is specific to the nature of the workload and the size of the table\. Items that have expired and not been deleted will still show up in reads, queries, and scans\. These items can still be updated and successful updates to change or remove the expiration attribute will be honored\. 

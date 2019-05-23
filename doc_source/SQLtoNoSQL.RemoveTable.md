@@ -23,4 +23,4 @@ DynamoDB has a similar action: `DeleteTable`\. In the following example, the tab
 ```
 
 **Note**  
-For code samples using `DeleteTable`, see [Getting Started with DynamoDB](GettingStarted.md)\.
+For code examples using `DeleteTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

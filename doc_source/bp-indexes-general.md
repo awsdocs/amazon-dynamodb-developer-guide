@@ -4,7 +4,7 @@ Amazon DynamoDB supports two types of secondary indexes:
 + **Global secondary index—**An index with a partition key and a sort key that can be different from those on the base table\. A global secondary index is considered "global" because queries on the index can span all of the data in the base table, across all partitions\. A global secondary index has no size limitations and has its own provisioned throughput settings for read and write activity that are separate from those of the table\.
 + **Local secondary index—**An index that has the same partition key as the base table, but a different sort key\. A local secondary index is "local" in the sense that every partition of a local secondary index is scoped to a base table partition that has the same partition key value\. As a result, the total size of indexed items for any one partition key value can't exceed 10 GB\. Also, a local secondary index shares provisioned throughput settings for read and write activity with the table it is indexing\.
 
-Each table in DynamoDB is limited to a maximum of five global secondary indexes and five local secondary indexes\. For global secondary indexes, this is less restrictive than it might appear because you can satisfy multiple application access patterns with one global secondary index by overloading it \(see [Overloading Global Secondary Indexes](bp-gsi-overloading.md) for more information\)\.
+Each table in DynamoDB is limited to 20 global secondary indexes \(default limit\) and 5 local secondary indexes\. 
 
 For more information about the differences between global secondary indexes and local secondary indexes, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
 
@@ -17,11 +17,10 @@ The following are some general principles and design patterns to keep in mind wh
 + [Choose Projections Carefully](#bp-indexes-general-projections)
 + [Optimize Frequent Queries to Avoid Fetches](#bp-indexes-general-fetches)
 + [Be Aware of Item\-Collection Size Limits When Creating Local Secondary Indexes](#bp-indexes-general-expanding-collections)
-+ [Take Advantage of Sparse Indexes](bp-indexes-general-sparse-indexes.md)
 
 ## Use Indexes Efficiently<a name="bp-indexes-general-efficiency"></a>
-+ **Keep the number of indexes to a minimum\.** Don't create secondary indexes on attributes that you don't query often\. Indexes that are seldom used contribute to increased storage and I/O costs without improving application performance\.
-+ **Avoid indexing tables that experience heavy write activity\.** In a data capture application, for example, the cost of I/O operations required to maintain an index on a table with a very high write load can be significant\. If you need to index data in such a table, it may be more effective to copy the data to another table that has the necessary indexes and query it there\.
+
+**Keep the number of indexes to a minimum\.** Don't create secondary indexes on attributes that you don't query often\. Indexes that are seldom used contribute to increased storage and I/O costs without improving application performance\. 
 
 ## Choose Projections Carefully<a name="bp-indexes-general-projections"></a>
 

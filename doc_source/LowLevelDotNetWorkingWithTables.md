@@ -7,7 +7,7 @@
 + [Listing Tables](#LowLeveldotNetListTables)
 + [Example: Create, Update, Delete, and List Tables Using the AWS SDK for \.NET Low\-Level API](LowLevelDotNetTableOperationsExample.md)
 
-You can use the AWS SDK for \.NET to create, update, and delete tables, list all the tables in your account, or get information about a specific table\.
+You can use the AWS SDK for \.NET to creates, update, and delete tables, list all the tables in your account, or get information about a specific table\.
 
 The following are the common steps for table operations using the AWS SDK for \.NET\. 
 
@@ -20,7 +20,7 @@ The following are the common steps for table operations using the AWS SDK for \.
 1. Execute the appropriate method provided by the client that you created in the preceding step\. 
 
 **Note**  
- The examples in this section do not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](http://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The examples in this section do not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
 
 ## Creating a Table<a name="LowLeveldotNetCreateTable"></a>
 
@@ -98,7 +98,7 @@ var res = client.DescribeTable(new DescribeTableRequest{TableName = "ProductCata
 
 ## Updating a Table<a name="LowLeveldotNetUpdateTable"></a>
 
-You can update only the provisioned throughput values of an existing table\. Depending on you application requirements, you might need to update these values\. 
+You can update only the provisioned throughput values of an existing table\. Depending on your application requirements, you might need to update these values\. 
 
 **Note**  
 You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information on throughput increases and decreases per day, see [Limits in DynamoDB](Limits.md)\. 
@@ -158,7 +158,7 @@ var response = client.DeleteTable(request);
 
 ## Listing Tables<a name="LowLeveldotNetListTables"></a>
 
-To list tables in your account using the AWS SDK for \.NET low\-level API, create an instance of the `AmazonDynamoDBClient` and execute the `ListTables` method\. The [ListTables](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\. However, you can specify optional parameters\. For example, you can set the `Limit` parameter if you want to use paging to limit the number of table names per page\. This requires you to create a `ListTablesRequest` object and provide optional parameters as shown in the following C\# code snippet\. Along with the page size, the request sets the `ExclusiveStartTableName` parameter\. Initially, `ExclusiveStartTableName` is null, however, after fetching the first page of result, to retrieve the next page of result, you must set this parameter value to the `LastEvaluatedTableName` property of the current result\. 
+To list tables in your account using the AWS SDK for \.NET low\-level API, create an instance of the `AmazonDynamoDBClient` and execute the `ListTables` method\. The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\. However, you can specify optional parameters\. For example, you can set the `Limit` parameter if you want to use paging to limit the number of table names per page\. This requires you to create a `ListTablesRequest` object and provide optional parameters as shown in the following C\# code snippet\. Along with the page size, the request sets the `ExclusiveStartTableName` parameter\. Initially, `ExclusiveStartTableName` is null, however, after fetching the first page of result, to retrieve the next page of result, you must set this parameter value to the `LastEvaluatedTableName` property of the current result\. 
 
 **Example**  
 

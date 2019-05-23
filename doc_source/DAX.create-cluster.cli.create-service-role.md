@@ -1,4 +1,4 @@
-# Step 1: Create a Service Role for DAX<a name="DAX.create-cluster.cli.create-service-role"></a>
+# Step 1: Create an IAM service role for DAX to access DynamoDB<a name="DAX.create-cluster.cli.create-service-role"></a>
 
 Before you can create a DAX cluster, you will need to create a service role for it\. A *service role* is an IAM role that authorizes an AWS service to act on your behalf\. The service role will allow DAX to access your DynamoDB tables, as if you were accessing those tables yourself\. 
 
@@ -25,7 +25,7 @@ In this step, you will create an IAM policy, and then attach that policy to an I
 
    ```
    aws iam create-role \
-       --role-name DAXServiceRole \
+       --role-name DAXServiceRoleForDynamoDBAccess \
        --assume-role-policy-document file://service-trust-relationship.json
    ```
 
@@ -54,19 +54,19 @@ In this step, you will create an IAM policy, and then attach that policy to an I
 
    ```
    aws iam create-policy \
-       --policy-name DAXServicePolicy \
+       --policy-name DAXServicePolicyForDynamoDBAccess \
        --policy-document file://service-role-policy.json
    ```
 
    In the output, take note of the ARN for the policy you created\. For example:
 
-   `arn:aws:iam::123456789012:policy/DAXServicePolicy`
+   `arn:aws:iam::123456789012:policy/DAXServicePolicyForDynamoDBAccess`
 
 1. Attach the policy to the service role:
 
    ```
    aws iam attach-role-policy \
-       --role-name DAXServiceRole \
+       --role-name DAXServiceRoleForDynamoDBAccess \
        --policy-arn arn
    ```
 

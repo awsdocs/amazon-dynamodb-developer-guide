@@ -5,7 +5,7 @@ In this tutorial, you use the AWS SDK for Ruby to write simple programs to perfo
 + Perform create, read, update, and delete operations on the table\.
 + Run simple queries\.
 
-As you work through this tutorial, you can refer to the [AWS SDK for Ruby API Reference](http://docs.aws.amazon.com/sdkforruby/api/index.html)\. The [DynamoDB section](http://docs.aws.amazon.com/sdkforruby/api/Aws/DynamoDB.html) describes the parameters and results for DynamoDB operations\.
+As you work through this tutorial, you can refer to the [AWS SDK for Ruby API Reference](https://docs.aws.amazon.com/sdkforruby/api/index.html)\. The [DynamoDB section](https://docs.aws.amazon.com/sdkforruby/api/Aws/DynamoDB.html) describes the parameters and results for DynamoDB operations\.
 
 ## Tutorial Prerequisites<a name="GettingStarted.Ruby.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
@@ -16,4 +16,4 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
   + Go to [https://www\.ruby\-lang\.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) and install Ruby\.
   + Go to [https://aws\.amazon\.com/sdk\-for\-ruby](https://aws.amazon.com/sdk-for-ruby/) and install the AWS SDK for Ruby\.
 
-  For more information, see [Installation](http://docs.aws.amazon.com/sdkforruby/api/index.html#Installation) in the *AWS SDK for Ruby API Reference*\.
+  For more information, see [Installation](https://docs.aws.amazon.com/sdkforruby/api/index.html#Installation) in the *AWS SDK for Ruby API Reference*\.

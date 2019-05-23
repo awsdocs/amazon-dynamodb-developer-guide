@@ -41,7 +41,7 @@ aws dynamodb scan \
 
 ## Limiting the Number of Items in the Result Set<a name="Scan.Limit"></a>
 
-The `Scan` operation allows you to limit the number of items that it returns in the result\. To do this, set the `Limit` parameter to the maximum number of items that you want\.
+The `Scan` operation allows you to limit the number of items that it returns in the result\. To do this, set the `Limit` parameter to the maximum number of items you wish the `Scan` operation to return, prior to filter expression evaluation\.
 
 For example, suppose you `Scan` a table, with a `Limit` value of `6`, and without a filter expression\. The `Scan` result will contain the first six items from the table that match the key condition expression from the request\.
 
@@ -100,12 +100,12 @@ The absence of `LastEvaluatedKey` indicates that there are no more items to retr
 
 **Note**  
 The AWS SDKs handle the low\-level DynamoDB responses \(including the presence or absence of `LastEvaluatedKey`\), and provide various abstractions for paginating `Scan` results\. For example, the SDK for Java document interface provides `java.util.Iterator` support, so that you can walk through the results one at a time\.  
-For code samples in various programming languages, see the [Amazon DynamoDB Getting Started Guide](http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/) and the AWS SDK documentation for your language\.
+For code examples in various programming languages, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/) and the AWS SDK documentation for your language\.
 
 ## Counting the Items in the Results<a name="Scan.Count"></a>
 
 In addition to the items that match your criteria, the `Scan` response contains the following elements:
-+ `ScannedCount` — the number of items that matched the key condition expression, *before* a filter expression \(if present\) was applied\.
++ `ScannedCount` — the number of items evaluated, before any `ScanFilter` is applied\. A high `ScannedCount` value with few, or no, `Count` results indicates an inefficient Scan operation\. If you did not use a filter in the request, then `ScannedCount` is the same as `Count`\. 
 + `Count` — the number of items that remain, *after* a filter expression \(if present\) was applied\.
 
 **Note**  

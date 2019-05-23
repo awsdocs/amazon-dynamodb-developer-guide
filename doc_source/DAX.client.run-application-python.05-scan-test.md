@@ -1,8 +1,21 @@
 # 05\-scan\-test\.py<a name="DAX.client.run-application-python.05-scan-test"></a>
 
-The `05-scan-test.py` program performs `Scan` operations on *TryDaxTable*\.
+The `05-scan-test.py` program performs `Scan` operations on `TryDaxTable`\.
 
 ```
+#
+#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+#  This file is licensed under the Apache License, Version 2.0 (the "License").
+#  You may not use this file except in compliance with the License. A copy of
+#  the License is located at
+# 
+#  http://aws.amazon.com/apache2.0/
+# 
+#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+#  specific language governing permissions and limitations under the License.
+#
 #!/usr/bin/env python
 from __future__ import print_function
 
@@ -29,11 +42,10 @@ iterations = 5
 params = {
     'TableName': table_name
 }
-
+start = time.time()
 for i in range(iterations):
-    start = time.time()
     result = client.scan(**params)
 
 end = time.time()
-print('Total time: {} ms - Avg time: {} ms'.format(end - start, (end-start)/iterations))
+print('Total time: {} sec - Avg time: {} sec'.format(end - start, (end-start)/iterations))
 ```

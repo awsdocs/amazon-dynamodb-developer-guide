@@ -75,9 +75,11 @@ When you create a secondary index, you need to specify the attributes that will 
 + *INCLUDE* – In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non\-key attributes that you specify\.
 + *ALL* – The secondary index includes all of the attributes from the source table\. Because all of the table data is duplicated in the index, an `ALL` projection results in the largest possible secondary index\.
 
-In the diagram above, *GameTitleIndex* has only one projected attribute: *UserId*\. So, while an application can efficiently determine the *UserId* of the top scorers for each game using *GameTitle* and *TopScore* in queries, it can't efficiently determine the highest ratio of wins vs\. losses\ for the top scorers. To do so, it would have to perform an additional query on the base table to fetch the wins and losses for each of the top scorers. A more efficient way to support queries on this data would be to project these attributes from the base table into the global secondary index, as shown in this diagram:
+In the diagram above, *GameTitleIndex* has only one projected attribute: *UserId*\. So while an application can efficiently determine the *UserId* of the top scorers for each game using *GameTitle* and *TopScore* in queries, it can't efficiently determine the highest ratio of wins vs\. losses for the top scorers\. To do so, it would have to perform an additional query on the base table to fetch the wins and losses for each of the top scorers\. A more efficient way to support queries on this data would be to project these attributes from the base table into the global secondary index, as shown in this diagram: 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GSI_06.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+
+Because the non\-key attributes Wins and Losses are projected into the index, an application can determine the wins vs\. losses ratio for any game, or for any combination of game and user ID\.
 
 When you choose the attributes to project into a global secondary index, you must consider the tradeoff between provisioned throughput costs and storage costs:
 + If you need to access just a few attributes with the lowest possible latency, consider projecting only those attributes into a global secondary index\. The smaller the index, the less that it will cost to store it, and the less your write costs will be\.
@@ -117,6 +119,8 @@ You can use the `Scan` operation to retrieve all of the data from a global secon
 
 DynamoDB automatically synchronizes each global secondary index with its base table\. When an application writes or deletes items in a table, any global secondary indexes on that table are updated asynchronously, using an eventually consistent model\. Applications never write directly to an index\. However, it is important that you understand the implications of how DynamoDB maintains these indexes\.
 
+ Global secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\. 
+
 When you create a global secondary index, you specify one or more index key attributes and their data types\. This means that whenever you write an item to the base table, the data types for those attributes must match the index key schema's data types\. In the case of *GameTitleIndex*, the *GameTitle* partition key in the index is defined as a String data type, and the *TopScore* sort key in the index is of type Number\. If you attempt to add an item to the *GameScores* table and specify a different data type for either *GameTitle* or *TopScore*, DynamoDB will return a `ValidationException` because of the data type mismatch\.
 
 When you put or delete items in a table, the global secondary indexes on that table are updated in an eventually consistent fashion\. Changes to the table data are propagated to the global secondary indexes within a fraction of a second, under normal conditions\. However, in some unlikely failure scenarios, longer propagation delays might occur\. Because of this, your applications need to anticipate and handle situations where a query on a global secondary index returns results that are not up\-to\-date\.
@@ -127,9 +131,12 @@ A table with many global secondary indexes will incur higher costs for write act
 
 ## Provisioned Throughput Considerations for Global Secondary Indexes<a name="GSI.ThroughputConsiderations"></a>
 
-When you create a global secondary index, you must specify read and write capacity units for the expected workload on that index\. The provisioned throughput settings of a global secondary index are separate from those of its base table\. A `Query` operation on a global secondary index consumes read capacity units from the index, not the base table\. When you put, update or delete items in a table, the global secondary indexes on that table are also updated; these index updates consume write capacity units from the index, not from the base table\.
+When you create a global secondary index on a provisioned mode table, you must specify read and write capacity units for the expected workload on that index\. The provisioned throughput settings of a global secondary index are separate from those of its base table\. A `Query` operation on a global secondary index consumes read capacity units from the index, not the base table\. When you put, update or delete items in a table, the global secondary indexes on that table are also updated; these index updates consume write capacity units from the index, not from the base table\.
 
 For example, if you `Query` a global secondary index and exceed its provisioned read capacity, your request will be throttled\. If you perform heavy write activity on the table, but a global secondary index on that table has insufficient write capacity, then the write activity on the table will be throttled\.
+
+**Note**  
+ To avoid potential throttling, the provisioned write capacity for a global secondary index should be equal or greater than the write capacity of the base table since new updates will write to both the base table and global secondary index\. 
 
 To view the provisioned throughput settings for a global secondary index, use the `DescribeTable` operation; detailed information about all of the table's global secondary indexes will be returned\.
 
@@ -137,7 +144,7 @@ To view the provisioned throughput settings for a global secondary index, use th
 
 Global secondary indexes support eventually consistent reads, each of which consume one half of a read capacity unit\. This means that a single global secondary index query can retrieve up to 2 × 4 KB = 8 KB per read capacity unit\.
 
-For global secondary index queries, DynamoDB calculates the provisioned read activity in the same way as it does for queries against tables\. The only difference is that the calculation is based on the sizes of the index entries, rather than the size of the item in the base table\. The number of read capacity units is the sum of all projected attribute sizes across all of the items returned; the result is then rounded up to the next 4 KB boundary\. For more information on how DynamoDB calculates provisioned throughput usage, see [Throughput Settings for Reads and Writes](ProvisionedThroughput.md)\.
+For global secondary index queries, DynamoDB calculates the provisioned read activity in the same way as it does for queries against tables\. The only difference is that the calculation is based on the sizes of the index entries, rather than the size of the item in the base table\. The number of read capacity units is the sum of all projected attribute sizes across all of the items returned; the result is then rounded up to the next 4 KB boundary\. For more information on how DynamoDB calculates provisioned throughput usage, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.
 
 The maximum size of the results returned by a `Query` operation is 1 MB; this includes the sizes of all the attribute names and values across all of the items returned\.
 

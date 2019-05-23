@@ -1,10 +1,10 @@
 # Best Practices for Storing Large Items and Attributes<a name="bp-use-s3-too"></a>
 
-Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Limits in DynamoDB](Limits.md)\). If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes, or you can store them as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
+Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Limits in DynamoDB](Limits.md)\)\. If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes, or you can store them as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
 
 ## Compressing Large Attribute Values<a name="bp-use-s3-too-or-compress"></a>
 
-Compressing large attribute values can let them fit within item limits in DynamoDB reduce your storage costs\. Compression algorithms such as GZIP or LZO produce binary output that you can then store in a `Binary` attribute type\.
+Compressing large attribute values can let them fit within item limits in DynamoDB and reduce your storage costs\. Compression algorithms such as GZIP or LZO produce binary output that you can then store in a `Binary` attribute type\.
 
 For example, the Reply table in the [Creating Tables and Loading Sample Data](SampleData.md) section stores messages written by forum users\. These user replies might consist of long strings of text, which makes them excellent candidates for compression\.
 
@@ -24,4 +24,4 @@ When implementing this strategy, keep the following in mind:
 + DynamoDB doesn't support transactions that cross Amazon S3 and DynamoDB\. Therefore, your application must deal with any failures, which could include cleaning up orphaned Amazon S3 objects\.
 + Amazon S3 limits the length of object identifiers\. So you must organize your data in a way that doesn't generate excessively long object identifiers or violate other Amazon S3 constraints\.
 
-For more information about how to use Amazon S3, see the *[Amazon Simple Storage Service Developer Guide](http://docs.aws.amazon.com/AmazonS3/latest/dev/)*\.
+For more information about how to use Amazon S3, see the *[Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)*\.
