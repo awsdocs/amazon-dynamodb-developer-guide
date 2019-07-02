@@ -14,12 +14,12 @@ For the corresponding Javadoc documentation, see [DynamoDBMapper](https://docs.a
 + [`scanPage`](#DynamoDBMapper.Methods.scanPage)
 + [`parallelScan`](#DynamoDBMapper.Methods.parallelScan)
 + [`batchSave`](#DynamoDBMapper.Methods.batchSave)
-+ [`batchLoad`](#w27aac17c17c17c39c29)
++ [`batchLoad`](#w60aac17c17c17c39c29)
 + [`batchDelete`](#DynamoDBMapper.Methods.batchDelete)
 + [`batchWrite`](#DynamoDBMapper.Methods.batchWrite)
 + [`transactionWrite`](#DynamoDBMapper.Methods.transactionWrite)
 + [`transactionLoad`](#DynamoDBMapper.Methods.transactionLoad)
-+ [`count`](#w27aac17c17c17c39c39)
++ [`count`](#w60aac17c17c17c39c39)
 + [`generateCreateTableRequest`](#DynamoDBMapper.Methods.generateCreateTableRequest)
 + [`createS3Link`](#DynamoDBMapper.Methods.createS3Link)
 + [`getS3ClientCache`](#DynamoDBMapper.Methods.getS3ClientCache)
@@ -224,7 +224,7 @@ book2.title = "Book 902 Title";
 mapper.batchSave(Arrays.asList(book1, book2));
 ```
 
-## `batchLoad`<a name="w27aac17c17c17c39c29"></a>
+## `batchLoad`<a name="w60aac17c17c17c39c29"></a>
 
 Retrieves multiple items from one or more tables using their primary keys\.
 
@@ -336,7 +336,7 @@ transactionLoadRequest.addLoad(dynamodbForumThread);
 mapper.transactionLoad(transactionLoadRequest);
 ```
 
-## `count`<a name="w27aac17c17c17c39c39"></a>
+## `count`<a name="w60aac17c17c17c39c39"></a>
 
 Evaluates the specified scan expression and returns the count of matching items\. No item data is returned\.
 

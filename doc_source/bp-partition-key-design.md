@@ -2,9 +2,9 @@
 
 The primary key that uniquely identifies each item in a DynamoDB table can be simple \(a partition key only\) or composite \(a partition key combined with a sort key\)\.
 
-Generally speaking, you should design your application for uniform activity across all logical partition keys in the Table and its secondary indexes\. You can determine the access patterns that your application requires, and estimate the total RCUs and WCUs that each table and secondary Index requires\.
+Generally speaking, you should design your application for uniform activity across all logical partition keys in the Table and its secondary indexes\. You can determine the access patterns that your application requires, and estimate the total read capacity units and write capacity units that each table and secondary Index requires\.
 
-As traffic starts to flow, DynamoDB automatically supports your access patterns using the throughput you have provisioned, as long as the traffic against a given partition key does not exceed 3000 RCUs or 1000 WCUs\.
+As traffic starts to flow, DynamoDB automatically supports your access patterns using the throughput you have provisioned, as long as the traffic against a given partition key does not exceed 3000 read capacity units or 1000 write capacity units\.
 
 **Topics**
 + [Using Burst Capacity Effectively](#bp-partition-key-throughput-bursting)
@@ -27,7 +27,7 @@ Note that these details of burst capacity might change in the future\.
 
 It's not always possible to distribute read and write activity evenly all the time\. When data access is imbalanced, a "hot" partition can receive such a higher volume of read and write traffic compared to other partitions\. In extreme cases, throttling can occur if a single partition receives more than 3,000 RCUs or 1,000 WCUs\.
 
- To better accommodate uneven access patterns, DynamoDB *adaptive capacity* enables your application to continue reading and writing to hot partitions without being throttled, provided that traffic does not exceed your table’s total provisioned capacity or the partition maximum capacity\. Adaptive capacity works by automatically increasing throughput capacity for partitions that receive more traffic\. 
+ To better accommodate uneven access patterns, DynamoDB *adaptive capacity* enables your application to continue reading and writing to hot partitions without being throttled, provided that traffic does not exceed your table’s total provisioned capacity or the partition maximum capacity\. Adaptive capacity works by automatically and instantly increasing throughput capacity for partitions that receive more traffic\. 
 
 Adaptive capacity is enabled automatically for every DynamoDB table, so you don't need to explicitly enable or disable it\.
 

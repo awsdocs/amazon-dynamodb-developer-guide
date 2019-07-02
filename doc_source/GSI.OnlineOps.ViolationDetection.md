@@ -2,7 +2,7 @@
 
 During the backfill phase of global secondary index creation, DynamoDB examines each item in the table to determine whether it is eligible for inclusion in the index\. Some items might not be eligible because they would cause index key violations\. In these cases, the items will remain in the table, but the index will not have a corresponding entry for that item\.
 
-An *index key violation* occurs if:
+An *index key violation* occurs in the following situations:
 + There is a data type mismatch between an attribute value and the index key schema data type\. For example, suppose one of the items in the *GameScores* table had a *TopScore* value of type String\. If you added a global secondary index with a partition key of *TopScore*, of type Number, the item from the table would violate the index key\.
 + An attribute value from the table exceeds the maximum length for an index key attribute\. The maximum length of a partition key is 2048 bytes, and the maximum length of a sort key is 1024 bytes\. If any of the corresponding attribute values in the table exceed these limits, the item from the table would violate the index key\.
 
@@ -14,12 +14,12 @@ To identify and fix attribute values in a table that violate an index key, use t
 
 ## Downloading and Running Violation Detector<a name="GSI.OnlineOps.ViolationDetection.Running"></a>
 
-Violation Detector is available as an executable Java archive \(`.jar` file\), and will run on Windows, Mac, or Linux computers\. Violation Detector requires Java 1\.7 \(or above\) and Maven\.
+Violation Detector is available as an executable Java Archive \(`.jar` file\), and will run on Windows, macOS, or Linux computers\. Violation Detector requires Java 1\.7 \(or later\) and Apache Maven\.
 + [https://github\.com/awslabs/dynamodb\-online\-index\-violation\-detector](https://github.com/awslabs/dynamodb-online-index-violation-detector)
 
-Follow the instructions in the *README\.md* file to download and install Violation Detector using Maven
+Follow the instructions in the *README\.md* file to download and install Violation Detector using Maven\.
 
-To start Violation Detector, go to the directory where you have built `ViolationDetector.java` and enter the following command:
+To start Violation Detector, go to the directory where you have built `ViolationDetector.java` and enter the following command\.
 
 ```
 java -jar ViolationDetector.jar [options]
@@ -28,8 +28,8 @@ java -jar ViolationDetector.jar [options]
 The Violation Detector command line accepts the following options:
 + `-h | --help` — Prints a usage summary and options for Violation Detector\.
 + `-p | --configFilePath` `value` — The fully qualified name of a Violation Detector configuration file\. For more information, see [The Violation Detector Configuration File](#GSI.OnlineOps.ViolationDetection.ConfigFile) \.
-+ `-t | --detect` `value` — Detect index key violations in the table, and write them to the Violation Detector output file\. If the value of this parameter is set to `keep`, items with key violations will not be modified\. If the value is set to `delete`, items with key violations will be deleted from the table\.
-+ `-c | --correct` `value` — Read index key violations from an input file, and take corrective actions on the items in the table\. If the value of this parameter is set to `update`, items with key violations will be updated with new, non\-violating values\. If the value is set to `delete`, items with key violations will be deleted from the table\.
++ `-t | --detect` `value` — Detect index key violations in the table, and write them to the Violation Detector output file\. If the value of this parameter is set to `keep`, items with key violations are not modified\. If the value is set to `delete`, items with key violations are deleted from the table\.
++ `-c | --correct` `value` — Read index key violations from an input file, and take corrective actions on the items in the table\. If the value of this parameter is set to `update`, items with key violations are updated with new, non\-violating values\. If the value is set to `delete`, items with key violations are deleted from the table\.
 
 ## The Violation Detector Configuration File<a name="GSI.OnlineOps.ViolationDetection.ConfigFile"></a>
 
@@ -41,18 +41,18 @@ At runtime, the Violation Detector tool requires a configuration file\. The para
 | Parameter Name | Description | Required? | 
 | --- | --- | --- | 
 |  `awsCredentialsFile`  |  The fully qualified name of a file containing your AWS credentials\. The credentials file must be in the following format: <pre>accessKey = access_key_id_goes_here<br />secretKey = secret_key_goes_here </pre>  |  Yes  | 
-|  `dynamoDBRegion`  |  The AWS region in which the table resides\. For example: `us-west-2`\.  |  Yes  | 
+|  `dynamoDBRegion`  |  The AWS Region in which the table resides\. For example: `us-west-2`\.  |  Yes  | 
 |  `tableName`  | The name of the DynamoDB table to be scanned\. |  Yes  | 
 |  `gsiHashKeyName`  |  The name of the index partition key\.  |  Yes  | 
 |  `gsiHashKeyType`  |  The data type of the index partition key—String, Number, or Binary: `S \| N \| B`  |  Yes  | 
 |  `gsiRangeKeyName`  |  The name of the index sort key\. Do not specify this parameter if the index only has a simple primary key \(partition key\)\.  |  No  | 
 |  `gsiRangeKeyType`  |  The data type of the index sort key—String, Number, or Binary: `S \| N \| B`  Do not specify this parameter if the index only has a simple primary key \(partition key\)\.  |  No  | 
-|  `recordDetails`  |  Whether to write the full details of index key violations to the output file\. If set to `true` \(the default\), full information about the violating items are reported\. If set to `false`, only the number of violations is reported\.  |  No  | 
+|  `recordDetails`  |  Whether to write the full details of index key violations to the output file\. If set to `true` \(the default\), full information about the violating items is reported\. If set to `false`, only the number of violations is reported\.  |  No  | 
 |  `recordGsiValueInViolationRecord`  |  Whether to write the values of the violating index keys to the output file\. If set to `true` \(default\), the key values are reported\. If set to `false`, the key values are not reported\.  |  No  | 
 |  `detectionOutputPath`  |  The full path of the Violation Detector output file\. This parameter supports writing to a local directory or to Amazon Simple Storage Service \(Amazon S3\)\. The following are examples: `detectionOutputPath = ``//local/path/filename.csv` `detectionOutputPath = ``s3://bucket/filename.csv` Information in the output file appears in CSV format \(comma\-separated values\)\. If you do not set `detectionOutputPath`, then the output file is named `violation_detection.csv` and is written to your current working directory\.  |  No  | 
-|  `numOfSegments`  | The number of parallel scan segments to be used when Violation Detector scans the table\. The default value is 1, meaning that the table will be scanned in a sequential manner\. If the value is 2 or higher, then Violation Detector will divide the table into that many logical segments and an equal number of scan threads\. The maximum setting for `numOfSegments` is 4096\.For larger tables, a parallel scan is generally faster than a sequential scan\. In addition, if the table is large enough to span multiple partitions, a parallel scan will distribute its read activity evenly across multiple partitions\.For more information on parallel scans in DynamoDB, see [Parallel Scan](Scan.md#Scan.ParallelScan)\. |  No  | 
-|  `numOfViolations`  |  The upper limit of index key violations to write to the output file\. If set to `-1` \(the default\), the entire table will be scanned\. If set to a positive integer, then Violation Detector will stop after it encounters that number of violations\.  |  No  | 
-|  `numOfRecords`  |  The number of items in the table to be scanned\. If set to \-1 \(the default\), the entire table will be scanned\. If set to a positive integer, then Violation Detector will stop after it scans that many items in the table\.  |  No  | 
+|  `numOfSegments`  | The number of parallel scan segments to be used when Violation Detector scans the table\. The default value is 1, meaning that the table is scanned in a sequential manner\. If the value is 2 or higher, then Violation Detector divides the table into that many logical segments and an equal number of scan threads\. The maximum setting for `numOfSegments` is 4096\.For larger tables, a parallel scan is generally faster than a sequential scan\. In addition, if the table is large enough to span multiple partitions, a parallel scan distributes its read activity evenly across multiple partitions\.For more information on parallel scans in DynamoDB, see [Parallel Scan](Scan.md#Scan.ParallelScan)\. |  No  | 
+|  `numOfViolations`  |  The upper limit of index key violations to write to the output file\. If set to `-1` \(the default\), the entire table is scanned\. If set to a positive integer, then Violation Detector stops after it encounters that number of violations\.  |  No  | 
+|  `numOfRecords`  |  The number of items in the table to be scanned\. If set to \-1 \(the default\), the entire table is scanned\. If set to a positive integer, then Violation Detector stops after it scans that many items in the table\.  |  No  | 
 |  `readWriteIOPSPercent`  |  Regulates the percentage of provisioned read capacity units that are consumed during the table scan\. Valid values range from `1` to `100`\. The default value \(`25`\) means that Violation Detector will consume no more than 25% of the table's provisioned read throughput\.  |  No  | 
 |  `correctionInputPath`  |  The full path of the Violation Detector correction input file\. If you run Violation Detector in correction mode, the contents of this file are used to modify or delete data items in the table that violate the global secondary index\. The format of the `correctionInputPath` file is the same as that of the `detectionOutputPath` file\. This lets you process the output from detection mode as input in correction mode\.  |  No  | 
 |  `correctionOutputPath`  |  The full path of the Violation Detector correction output file\. This file is created only if there are update errors\. This parameter supports writing to a local directory or to Amazon Simple Storage Service \(Amazon S3\)\. The following are examples: `correctionOutputPath = ``//local/path/filename.csv` `correctionOutputPath = ``s3://bucket/filename.csv` Information in the output file appears in CSV format \(comma\-separated values\)\. If you do not set `correctionOutputPath`, then the output file is named `violation_update_errors.csv` and is written to your current working directory\.  |  No  | 

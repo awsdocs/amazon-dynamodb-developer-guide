@@ -1,0 +1,14 @@
+# Encryption at Rest Usage Notes<a name="encryption.usagenotes"></a>
+
+Consider the following when you are using encryption at rest in Amazon DynamoDB\.
++ Server\-side encryption at rest is enabled on all DynamoDB table data and cannot be disabled\. You cannot encrypt only a subset of items in a table\.
++ DynamoDB has encrypted all existing tables that were previously unencrypted by using the AWS owned customer master key \(CMK\)\.
++  On the AWS Management Console, the encryption type is `KMS` when you use the AWS managed CMK to encrypt your data\. The encryption type is `DEFAULT` when you use the AWS owned CMK\. In the Amazon DynamoDB API, the encryption type is `KMS` when you use the AWS managed CMK\. In the absence of encryption type, your data is encrypted using the AWS owned CMK\. 
++ You can switch between the default encryption key, AWS owned CMK, and AWS managed CMK at any given time\. You can use the console, the AWS Command Line Interface \(AWS CLI\), or the Amazon DynamoDB API to switch the encryption keys\.
++ Encryption at rest only encrypts data while it is static \(at rest\) on a persistent storage media\. If data security is a concern for data in transit or data in use, you need to take additional measures:
+  + Data in transit: All your data in DynamoDB is encrypted in transit \(except the data in DAX\)\. By default, communications to and from DynamoDB use the HTTPS protocol, which protects network traffic by using Secure Sockets Layer \(SSL\)/Transport Layer Security \(TLS\) encryption\.
+  + Data\-in\-use: Protect your data before sending it to DynamoDB using client\-side encryption\. For more information, see [Client\-Side and Server\-Side Encryption](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/client-server-side.html) in the *Amazon DynamoDB Encryption Client Developer Guide*\.
++  You can use streams with encrypted tables\. Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. 
++  You can use global tables with encrypted tables\. Encryption at rest encrypts the data in global tables\. For more information, see [Global Tables](GlobalTables.md)\. 
++ You can use backup and restore features with encrypted tables\. Your backups are encrypted, and the table that is restored from this backup also has encryption enabled\. For more information, see [On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\. 
++  You can enable encryption at rest for your DynamoDB Accelerator \(DAX\) clusters\. For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md)\. 

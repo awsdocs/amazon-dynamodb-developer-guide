@@ -45,4 +45,4 @@ If your user policy is missing the `iam:CreateRole`, `iam:CreatePolicy`, and `ia
 | User: arn:aws:iam::accountID:user/userName is not authorized to perform: iam:CreatePolicy on resource: policy policyName |  Add iam:CreatePolicy to your user policy\. | 
 | User: arn:aws:iam::accountID:user/userName is not authorized to perform: iam:AttachRolePolicy on resource: role daxServiceRole | Add iam:AttachRolePolicy to your user policy\. | 
 
-For more information about IAM policies required for DAX cluster administration, see [DAX Access Control](DAX.access-control.md)\.
+For more information about IAM policies required for DAX cluster administration, see [Identity and Access Management in DAX](DAX.access-control.md)\.

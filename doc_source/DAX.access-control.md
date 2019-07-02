@@ -1,15 +1,15 @@
-# DAX Access Control<a name="DAX.access-control"></a>
+# Identity and Access Management in DAX<a name="DAX.access-control"></a>
 
-DAX is designed to work together with DynamoDB, to seamlessly add a caching layer to your applications\. However, DAX and DynamoDB are separate AWS services\. Even though both services use AWS Identity and Access Management \(IAM\) to implement their respective security policies, the security models for DAX and DynamoDB are different\. 
+DynamoDB Accelerator \(DAX\) is designed to work together with DynamoDB, to seamlessly add a caching layer to your applications\. However, DAX and DynamoDB are separate AWS services\. Both services use AWS Identity and Access Management \(IAM\) to implement their respective security policies, but the security models for DAX and DynamoDB are different\. 
 
 *We highly recommend that you understand both security models*, so that you can implement proper security measures for your applications that use DAX\.
 
-In this section, we describe the access control mechanisms provided by DAX, and provide sample IAM policies that you can tailor to your needs\. 
+This section describes the access control mechanisms provided by DAX and provides sample IAM policies that you can tailor to your needs\. 
 
-With DynamoDB, you can create IAM policies that limit the actions a user can perform on individual DynamoDB resources\. For example, you can create a user role that only allows the user to perform read\-only actions on a particular DynamoDB table\. \(For more information, see [Authentication and Access Control for Amazon DynamoDB](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/authentication-and-access-control.html)\.\) By comparison, the DAX security model focuses on cluster security, and the ability of the cluster to perform DynamoDB API actions on your behalf\.
+With DynamoDB, you can create IAM policies that limit the actions a user can perform on individual DynamoDB resources\. For example, you can create a user role that only allows the user to perform read\-only actions on a particular DynamoDB table\. \(For more information, see [Identity and Access Management in Amazon DynamoDB](authentication-and-access-control.md)\.\) By comparison, the DAX security model focuses on cluster security, and the ability of the cluster to perform DynamoDB API actions on your behalf\.
 
 **Warning**  
-If you are currently using IAM roles and policies to restrict access to DynamoDB tables data, then the use of DAX can **subvert** those policies\. For example, a user could have access to a DynamoDB table via DAX but not have explicit access to the same table accessing DynamoDB directly\. \(For more information, see [Authentication and Access Control for Amazon DynamoDB](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/authentication-and-access-control.html)\.\)  
+If you are currently using IAM roles and policies to restrict access to DynamoDB tables data, then the use of DAX can **subvert** those policies\. For example, a user could have access to a DynamoDB table via DAX but not have explicit access to the same table accessing DynamoDB directly\. For more information, see [Identity and Access Management in Amazon DynamoDB](authentication-and-access-control.md)\.  
 DAX does not enforce user\-level separation on data in DynamoDB\. Instead, users inherit the permissions of the DAX cluster's IAM policy when they access that cluster\. Thus, when accessing DynamoDB tables via DAX, the only access controls that are in effect are the permissions in the DAX cluster's IAM policy\. No other permissions are recognized\.  
 If you require isolation, we recommend that you create additional DAX clusters and scope the IAM policy for each cluster accordingly\. For example, you could create multiple DAX clusters and allow each cluster to access only a single table\.
 
@@ -38,7 +38,7 @@ When you create a service role, you must specify a trust relationship between *
 
 This trust relationship allows a DAX cluster to assume *DAXServiceRole* and perform DynamoDB API calls on your behalf\. 
 
-The DynamoDB API actions that are allowed are described in an IAM policy document, which you attach to *DAXServiceRole*\. The following is an example policy document:
+The DynamoDB API actions that are allowed are described in an IAM policy document, which you attach to *DAXServiceRole*\. The following is an example policy document\.
 
 ```
 {
@@ -58,15 +58,15 @@ The DynamoDB API actions that are allowed are described in an IAM policy documen
 }
 ```
 
-This policy allows DAX to perform all DynamoDB API actions on a DynamoDB table named *Books*, which is in the *us\-west\-2* region and is owned by AWS account ID `123456789012`\.
+This policy allows DAX to perform all DynamoDB API actions on a DynamoDB table named `Books`\. The table is in the us\-west\-2 Region and is owned by AWS account ID `123456789012`\.
 
 ## IAM Policy to Allow DAX Cluster Access<a name="DAX.access-control.iam-allow-dax-cluster-access"></a>
 
-Once you have created a DAX cluster, you need to grant permissions to an IAM user so that the user can access the DAX cluster\.
+After you create a DAX cluster, you need to grant permissions to an IAM user so that the user can access the DAX cluster\.
 
-For example, suppose you want to grant access to *DAXCluster01* to an IAM user named Alice\. You would first create an IAM policy \(*AliceAccessPolicy*\) that defines the DAX clusters and DAX API actions that the recipient can access\. You would then confer access by attaching this policy to user Alice\.
+For example, suppose that you want to grant access to *DAXCluster01* to an IAM user named Alice\. You would first create an IAM policy \(*AliceAccessPolicy*\) that defines the DAX clusters and DAX API actions that the recipient can access\. You would then confer access by attaching this policy to user Alice\.
 
-The following policy document gives the recipient full access on *DAXCluster01*:
+The following policy document gives the recipient full access on *DAXCluster01*\.
 
 ```
 {
@@ -87,41 +87,41 @@ The following policy document gives the recipient full access on *DAXCluster01*:
 
 The policy document allows access to the DAX cluster, but it does not grant any DynamoDB permissions\. \(The DynamoDB permissions are conferred by the DAX service role\.\)
 
-For user Alice, you would first create *AliceAccessPolicy* with the policy document shown above\. You would then attach the policy to Alice\.
+For user Alice, you would first create `AliceAccessPolicy` with the policy document shown previously\. You would then attach the policy to Alice\.
 
 **Note**  
 Instead of attaching the policy to an IAM user, you could attach it to an IAM role\. That way, all of the users who assume that role would have the permissions that you defined in the policy\.
 
-The user policy, in conjunction with the DAX service role, determine the DynamoDB resources and API actions that the recipient can access via DAX\.
+The user policy, together with the DAX service role, determine the DynamoDB resources and API actions that the recipient can access via DAX\.
 
 ## Case Study: Accessing DynamoDB and DAX<a name="DAX.access-control.case-study"></a>
 
-To help further your understanding of IAM policies for use with DAX, we present a common scenario\. \(We will refer to this scenario throughout the rest of this section\.\) The following diagram shows a high\-level overview of the scenario:
+The following scenario can help further your understanding of IAM policies for use with DAX\. \(This scenario is referred to throughout the rest of this section\.\) The following diagram shows a high\-level overview of the scenario\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-scenario.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 In this scenario, there are the following entities:
 + An IAM user \(Bob\)\. 
-+ An IAM role \(*BobUserRole*\)\. Bob assumes this role at runtime\.
-+ An IAM policy \(*BobAccessPolicy*\)\. This policy is attached to *BobUserRole*\. *BobAccessPolicy* defines the DynamoDB and DAX resources that *BobUserRole* is allowed to access\.
-+ A DAX cluster \(*DAXCluster01*\)\.
-+ An IAM service role \(*DAXServiceRole*\)\. This role allows *DAXCluster01* to access DynamoDB\. 
-+ An IAM policy \(*DAXAccessPolicy*\)\. This policy is attached to *DAXServiceRole*\. *DAXAccessPolicy* defines the DynamoDB APIs and resources that *DAXCluster01* is allowed to access\.
-+ A DynamoDB table \(*Books*\)\.
++ An IAM role \(`BobUserRole`\)\. Bob assumes this role at runtime\.
++ An IAM policy \(`BobAccessPolicy`\)\. This policy is attached to `BobUserRole`\. `BobAccessPolicy` defines the DynamoDB and DAX resources that `BobUserRole` is allowed to access\.
++ A DAX cluster \(`DAXCluster01`\)\.
++ An IAM service role \(`DAXServiceRole`\)\. This role allows `DAXCluster01` to access DynamoDB\. 
++ An IAM policy \(`DAXAccessPolicy`\)\. This policy is attached to `DAXServiceRole`\. `DAXAccessPolicy` defines the DynamoDB APIs and resources that `DAXCluster01` is allowed to access\.
++ A DynamoDB table \(`Books`\)\.
 
-The combination of policy statements in *BobAccessPolicy* and *DAXAccessPolicy* determine what Bob can do with the *Books* table\. For example, Bob might be able to access *Books* directly \(using the DynamoDB endpoint\), indirectly \(using the DAX cluster\), or both\. Bob might also be able to read data from *Books*, write data to *Books*, or both\.
+The combination of policy statements in `BobAccessPolicy` and `DAXAccessPolicy` determine what Bob can do with the `Books` table\. For example, Bob might be able to access `Books` directly \(using the DynamoDB endpoint\), indirectly \(using the DAX cluster\), or both\. Bob might also be able to read data from `Books`, write data to `Books`, or both\.
 
-## Access to DynamoDB, But No Access With DAX<a name="DAX.access-control.ddb-yes-dax-no"></a>
+## Access to DynamoDB, But No Access with DAX<a name="DAX.access-control.ddb-yes-dax-no"></a>
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-ddb-only.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-It is possible to allow direct access to a DynamoDB table, while preventing indirect access using a DAX cluster\. For direct access to DynamoDB, the privileges for *BobUserRole* are determined by *BobAccessPolicy* \(which is attached to the role\)\.
+It is possible to allow direct access to a DynamoDB table, while preventing indirect access using a DAX cluster\. For direct access to DynamoDB, the permissions for `BobUserRole` are determined by `BobAccessPolicy` \(which is attached to the role\)\.
 
 ### Read\-Only Access to DynamoDB \(Only\)<a name="DAX.access-control.ddb-yes-dax-no.ddb-read-only"></a>
 
-*Bob* can access DynamoDB with *BobUserRole*\. The IAM policy attached to this role \(*BobAccessPolicy*\) determines the DynamoDB tables that *BobUserRole* can access, and what APIs that *BobUserRole* can invoke\. 
+*Bob* can access DynamoDB with `BobUserRole`\. The IAM policy attached to this role \(`BobAccessPolicy`\) determines the DynamoDB tables that `BobUserRole` can access, and what APIs that `BobUserRole` can invoke\. 
 
-Consider the following policy document for *BobAccessPolicy*:
+Consider the following policy document for `BobAccessPolicy`\.
 
 ```
 {
@@ -142,13 +142,13 @@ Consider the following policy document for *BobAccessPolicy*:
 }
 ```
 
-When this document is attached to *BobAccessPolicy*, it allows *BobUserRole* to access the DynamoDB endpoint and perform read\-only operations on the *Books* table\.
+When this document is attached to `BobAccessPolicy`, it allows `BobUserRole` to access the DynamoDB endpoint and perform read\-only operations on the `Books` table\.
 
 DAX does not appear in this policy, so access via DAX is denied\.
 
-### Read\-Write Access to DynamoDB \(Only\)<a name="DAX.access-control.ddb-yes-dax-no.ddb-read-write"></a>
+### Read/Write Access to DynamoDB \(Only\)<a name="DAX.access-control.ddb-yes-dax-no.ddb-read-write"></a>
 
-If *BobUserRole* requires read\-write access to DynamoDB, the following policy would work:
+If `BobUserRole` requires read/write access to DynamoDB, the following policy would work\.
 
 ```
 {
@@ -182,7 +182,7 @@ Again, DAX does not appear in this policy, so access via DAX is denied\.
 
 To allow access to a DAX cluster, you must include DAX\-specific actions in an IAM policy\.
 
-The following DAX\-specific actions correspond to their similarly\-named counterparts in the DynamoDB API:
+The following DAX\-specific actions correspond to their similarly named counterparts in the DynamoDB API:
 + `dax:GetItem`
 + `dax:BatchGetItem`
 + `dax:Query`
@@ -205,7 +205,7 @@ You must specify all four of these actions in any IAM policy that allows access 
 
 ### Read\-Only Access to DynamoDB and Read\-Only Access to DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-only-dax-read-only"></a>
 
-Suppose that Bob requires read\-only access to the *Books* table, from DynamoDB and from DAX\. The following policy \(attached to *BobUserRole*\) would confer this access:
+Suppose that Bob requires read\-only access to the `Books` table, from DynamoDB and from DAX\. The following policy \(attached to `BobUserRole`\) confers this access\.
 
 ```
 {
@@ -241,9 +241,9 @@ Suppose that Bob requires read\-only access to the *Books* table, from DynamoDB 
 }
 ```
 
-The policy has a statement for DAX access \(`DAXAccessStmt`\) and another statement for DynamoDBaccess \(`DynamoDBAccessStmt`\)\. These statements would allow Bob to send `GetItem`, `BatchGetItem`, `Query`, and `Scan` requests to *DAXCluster01*\.
+The policy has a statement for DAX access \(`DAXAccessStmt`\) and another statement for DynamoDBaccess \(`DynamoDBAccessStmt`\)\. These statements allow Bob to send `GetItem`, `BatchGetItem`, `Query`, and `Scan` requests to `DAXCluster01`\.
 
-However, the service role for *DAXCluster01* would also require read\-only access to the *Books* table in DynamoDB\. The following IAM policy, attached to *DAXServiceRole*, would fulfill this requirement:
+However, the service role for `DAXCluster01` would also require read\-only access to the `Books` table in DynamoDB\. The following IAM policy, attached to `DAXServiceRole`, would fulfill this requirement\.
 
 ```
 {
@@ -264,13 +264,13 @@ However, the service role for *DAXCluster01* would also require read\-only acces
 }
 ```
 
-### Read\-Write Access to DynamoDB and Read\-Only with DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-write-dax-read-only"></a>
+### Read/Write Access to DynamoDB and Read\-Only with DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-write-dax-read-only"></a>
 
-For a given user role, you can provide read\-write access to a DynamoDB table, while also allowing read\-only access via DAX\. 
+For a given user role, you can provide read/write access to a DynamoDB table, while also allowing read\-only access via DAX\. 
 
-For Bob, the IAM policy for *BobUserRole* would need to allow DynamoDB read and write actions on the *Books* table, while also supporting read\-only actions via *DAXCluster01*\.
+For Bob, the IAM policy for `BobUserRole` would need to allow DynamoDB read and write actions on the `Books` table, while also supporting read\-only actions via `DAXCluster01`\.
 
-The following example policy document for *BobUserRole* would confer this access: 
+The following example policy document for `BobUserRole` confers this access\.
 
 ```
 {
@@ -312,7 +312,7 @@ The following example policy document for *BobUserRole* would confer this acce
 }
 ```
 
-In addition, *DAXServiceRole* would require an IAM policy that allows *DAXCluster01* to perform read\-only actions on the *Books* table:
+In addition, `DAXServiceRole` would require an IAM policy that allows `DAXCluster01` to perform read\-only actions on the `Books` table\.
 
 ```
 {
@@ -334,9 +334,9 @@ In addition, *DAXServiceRole* would require an IAM policy that allows *DAXCluste
 }
 ```
 
-### Read\-Write Access to DynamoDB and Read\-Write Access to DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-write-dax-read-write.title"></a>
+### Read/Write Access to DynamoDB and Read/Write Access to DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-write-dax-read-write.title"></a>
 
-Now suppose that Bob required read\-write access to the Books table, directly from DynamoDB or indirectly from *DAXCluster01*\. The following policy document, attached to *BobAccessPolicy*, would confer this access:
+Now suppose that Bob required read/write access to the `Books` table, directly from DynamoDB or indirectly from `DAXCluster01`\. The following policy document, attached to `BobAccessPolicy`, confers this access\.
 
 ```
 {
@@ -383,7 +383,7 @@ Now suppose that Bob required read\-write access to the Books table, directly fr
 }
 ```
 
-In addition, *DAXServiceRole* would require an IAM policy that allows *DAXCluster01* to perform read\-write actions on the *Books* table:
+In addition, `DAXServiceRole` would require an IAM policy that allows `DAXCluster01` to perform read/write actions on the `Books` table\.
 
 ```
 {
@@ -411,13 +411,13 @@ In addition, *DAXServiceRole* would require an IAM policy that allows *DAXCluste
 
 ## Access to DynamoDB Via DAX, But No Direct Access to DynamoDB<a name="DAX.access-control.ddb-no-dax-yes.ddb-read-write-dax-read-write"></a>
 
- In this scenario, Bob can access the *Books* table via DAX, but he does not have direct access to the *Books* table in DynamoDB\. Thus, when Bob gains access to DAX, he also gains access to a DynamoDB table that he otherwise might not be able to access\. When you are configuring an IAM policy for the DAX service role, remember that any user that is given access to the DAX cluster via the user access policy will gain access to the tables specified in that policy\. In this case, *BobAccessPolicy* gains access to the tables specified in *DAXAccessPolicy*\. 
+ In this scenario, Bob can access the `Books` table via DAX, but he does not have direct access to the `Books` table in DynamoDB\. Thus, when Bob gains access to DAX, he also gains access to a DynamoDB table that he otherwise might not be able to access\. When you configure an IAM policy for the DAX service role, remember that any user that is given access to the DAX cluster via the user access policy gains access to the tables specified in that policy\. In this case, `BobAccessPolicy` gains access to the tables specified in `DAXAccessPolicy`\. 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax-access-control-dax-only.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-If you are currently using IAM roles and policies to restrict access to DynamoDB tables and data, then the use of DAX can subvert those policies\. In the policy below, Bob has access to a DynamoDB table via DAX but does not have explicit direct access to the same table in DynamoDB\. 
+If you are currently using IAM roles and policies to restrict access to DynamoDB tables and data, using DAX can subvert those policies\. In the following policy, Bob has access to a DynamoDB table via DAX but does not have explicit direct access to the same table in DynamoDB\. 
 
- The following policy document \(*BobAccessPolicy*\), attached to *BobUserRole*, would confer this access: 
+ The following policy document \(`BobAccessPolicy`\), attached to `BobUserRole`, would confer this access\. 
 
 ```
 {
@@ -447,9 +447,9 @@ If you are currently using IAM roles and policies to restrict access to DynamoDB
 }
 ```
 
-Note that in this access policy, there are no permissions to access DynamoDB directly\. 
+In this access policy, there are no permissions to access DynamoDB directly\. 
 
-Together with *BobAccessPolicy*, the following *DAXAccessPolicy* would give *BobUserRole* access to the DynamoDB table *Books* even though *BobUserRole* cannot directly access the *Books* table: 
+Together with `BobAccessPolicy`, the following `DAXAccessPolicy` gives `BobUserRole` access to the DynamoDB table `Books` even though `BobUserRole` cannot directly access the `Books` table\.
 
 ```
 {
@@ -476,4 +476,4 @@ Together with *BobAccessPolicy*, the following *DAXAccessPolicy* would give *Bo
 }
 ```
 
-As shown in this example, when you configure access control for the user access policy and the DAX cluster access policy, you must fully\-understand the end\-to\-end access to ensure that the principle of least privilege is observed\. You must also ensure that giving a user access to a DAX cluster does not subvert previously established access control policies\.
+As this example shows, when you configure access control for the user access policy and the DAX cluster access policy, you must fully understand the end\-to\-end access to ensure that the principle of least privilege is observed\. Also ensure that giving a user access to a DAX cluster does not subvert previously established access control policies\.

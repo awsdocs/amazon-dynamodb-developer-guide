@@ -1,4 +1,4 @@
-# Amazon DynamoDB Encryption at Rest<a name="EncryptionAtRest"></a>
+# DynamoDB Encryption at Rest<a name="EncryptionAtRest"></a>
 
 All user data stored in Amazon DynamoDB is fully encrypted at rest\. DynamoDB encryption at rest provides enhanced security by encrypting all your data at rest using encryption keys stored in [AWS Key Management Service \(AWS KMS\)](https://aws.amazon.com/kms/)\. This functionality helps reduce the operational burden and complexity involved in protecting sensitive data\. With encryption at rest, you can build security\-sensitive applications that meet strict encryption compliance and regulatory requirements\. 
 
@@ -14,11 +14,11 @@ Encryption at rest integrates with AWS KMS for managing the encryption key that 
 
 For more information, see [Encryption at Rest: How It Works](encryption.howitworks.md) and [Encryption at Rest Usage Notes](encryption.usagenotes.md)\. 
 
-To learn how to create an encrypted table or switch the encryption keys on an existing table using the AWS Management Console, AWS Command Line Interface \(AWS CLI\), or the Amazon DynamoDB API, see [Managing Encrypted Tables](encryption.tutorial.md)\.
+You can create an encrypted table or switch the encryption keys on an existing table using the AWS Management Console, AWS Command Line Interface \(AWS CLI\), or the Amazon DynamoDB API\. To learn how, see [Managing Encrypted Tables](encryption.tutorial.md)\.
 
 **Note**  
-Encryption at rest is generally available in all commercial AWS Regions and AWS GovCloud \(US\), but not currently supported in the following AWS Regions:   
+Encryption at rest is generally available in all commercial AWS Regions and AWS GovCloud \(US\), but is not currently supported in the following AWS Regions:   
 China \(Beijing\)
 China \(Ningxia\)
 
- Encryption at rest using the AWS owned CMK is offered at no additional cost\. However, AWS KMS charges apply for AWS managed CMK\. For more information about pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. 
+ Encryption at rest using the AWS owned CMK is offered at no additional cost\. However, AWS KMS charges apply for an AWS managed CMK\. For more information about pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. 

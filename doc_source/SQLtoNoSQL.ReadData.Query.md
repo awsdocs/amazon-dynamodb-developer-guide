@@ -90,21 +90,5 @@ Here are some `Query` examples in DynamoDB:
 }
 ```
 
-```
-// Return all of the songs by an artist, with a particular word in the title...
-// ...but only if the price is less than 1.00
-
-{
-    TableName: "Music",
-    KeyConditionExpression: "Artist = :a and contains(SongTitle, :t)",
-    FilterExpression: "price < :p",
-    ExpressionAttributeValues: {
-        ":a": "No One You Know",
-        ":t": "Today",
-        ":p": 1.00
-    }
-}
-```
-
 **Note**  
 For code examples using `Query`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

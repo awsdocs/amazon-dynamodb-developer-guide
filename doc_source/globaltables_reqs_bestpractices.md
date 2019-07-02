@@ -13,7 +13,7 @@ If you want to add a new replica table to a global table, each of the following 
 + The table must have the same write capacity management settings specified\.
 + The table must have the same name as all of the other replicas\.
 + The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item\.
-+ None of the replica tables in the global table can contain any data\.
++ None of the new or existing replica tables in the global table can contain any data\.
 
  If global secondary indexes are specified, then the following conditions must also be met: 
 +  The global secondary indexes must have the same name\. 
@@ -32,7 +32,7 @@ Consider the following when managing capacity settings for replica tables in Dyn
 
 Using DynamoDB auto scaling is the recommended way to manage throughput capacity settings for replica tables that use the provisioned mode\. DynamoDB auto scaling automatically adjusts read capacity units \(RCUs\) and write capacity units \(WCUs\) for each replica table based upon your actual application workload\. For more information, see [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
 
-If you create your replica tables using the AWS Management Console, auto scaling is enabled by default for each replica table, with default auto scaling settings for managing RCUs and WCUs\.
+If you create your replica tables using the AWS Management Console, auto scaling is enabled by default for each replica table, with default auto scaling settings for managing read capacity units and write capacity units\.
 
 Changes to auto scaling settings for a replica table or secondary index made through the DynamoDB console or using the `UpdateGlobalTableSettings` call are applied to all of the replica tables and matching secondary indexes in the global table automatically\. These changes will overwrite any existing auto scaling settings\. This ensures that provisioned write capacity settings are consistent across the replica tables and secondary indexes in your global table\. If you use the `UpdateTable`, `RegisterScalableTarget`, or `PutScalingPolicy` calls, you should apply the change to each replica table and matching secondary index individually\. 
 

@@ -9,9 +9,6 @@
 + [DAX and DynamoDB Consistency Models](DAX.consistency.md)
 + [Using the DAX Client in an Application](DAX.client.md)
 + [Managing DAX Clusters](DAX.cluster-management.md)
-+ [Monitoring DAX](DAX.Monitoring.md)
-+ [DAX Access Control](DAX.access-control.md)
-+ [DAX Encryption at Rest](DAXEncryptionAtRest.md)
 + [Using Service\-Linked Roles for DAX](using-service-linked-roles.md)
 + [DAX API Reference](DAX.api.md)
 

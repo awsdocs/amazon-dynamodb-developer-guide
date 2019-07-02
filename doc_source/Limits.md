@@ -45,7 +45,7 @@ Transactional write requests require two write request units to perform one writ
 ### Throughput Default Limits<a name="default-limits-throughput"></a>
 
 AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
-+ US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), EU \(Frankfurt\), EU \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions:    
++ US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), EU \(Frankfurt\), EU \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Mumbai\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
 + All Other Regions:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
@@ -243,10 +243,11 @@ However, if you use a reserved word in an expression parameter, you must also sp
 ## DynamoDB Transactions<a name="limits-dynamodb-transactions"></a>
 
 DynamoDB transactional APIs have the following constraints:
-+ A transaction cannot contain more than 10 unique actions\.
++ A transaction cannot contain more than 25 unique items\.
++ A transaction cannot contain more than 4 MBs of data\.
 + No two actions in a transaction can work against the same item in the same table\. For example, you cannot both `ConditionCheck` and `Update` the same item in one transaction\.
 + A transaction cannot operate on tables in more than one AWS account or Region\.
-+ You currently cannot use transactions with global tables\. If you want to use transactions with global tables, speak with an account representative or contact [Amazon Support](https://aws.amazon.com/support)\.
++ Transactions are not enabled for global tables by default\. If you want to use transactions with global tables, speak with an account representative or contact [Amazon Support](https://aws.amazon.com/support)\.
 
 ## DynamoDB Streams<a name="limits-dynamodb-streams"></a>
 

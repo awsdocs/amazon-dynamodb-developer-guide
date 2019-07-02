@@ -117,7 +117,7 @@ bookBatch.AddKey(102);
 bookBatch.AddKey(103);
 bookBatch.Execute();
 // Process result.
-Console.WriteLine(devBatch.Results.Count);
+Console.WriteLine(bookBatch.Results.Count);
 Book book1 = bookBatch.Results[0];
 Book book2 = bookBatch.Results[1];
 Book book3 = bookBatch.Results[2];

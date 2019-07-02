@@ -1,6 +1,6 @@
 # Writing Your App to Use Web Identity Federation<a name="WIF.RunningYourApp"></a>
 
-To use web identity federation, your app must assume the IAM role that you created; from that point on, the app will honor the access policy that you attached to the role\.
+To use web identity federation, your app must assume the IAM role that you created\. From that point on, the app honors the access policy that you attached to the role\.
 
 At runtime, if your app uses web identity federation, it must follow these steps:
 
@@ -8,12 +8,12 @@ At runtime, if your app uses web identity federation, it must follow these steps
 
    After the identity provider authenticates the user, the provider returns a web identity token to your app\. The format of this token depends on the provider, but is typically a very long string of characters\.
 
-1. **Obtain temporary AWS security credentials\.** To do this, your app sends a `AssumeRoleWithWebIdentity` request to AWS Security Token Service \(AWS STS\)\. This request contains:
+1. **Obtain temporary AWS security credentials\.** To do this, your app sends a `AssumeRoleWithWebIdentity` request to AWS Security Token Service \(AWS STS\)\. This request contains the following:
    + The web identity token from the previous step
    + The app ID from the identity provider
    + The Amazon Resource Name \(ARN\) of the IAM role that you created for this identity provider for this app
 
-   AWS STS returns a set of AWS security credentials that expire after a certain amount of time \(3600 seconds, by default\)\.
+   AWS STS returns a set of AWS security credentials that expire after a certain amount of time \(3,600 seconds, by default\)\.
 
    The following is a sample request and response from a `AssumeRoleWithWebIdentity` action in AWS STS\. The web identity token was obtained from the Login with Amazon identity provider\.
 
@@ -50,14 +50,14 @@ At runtime, if your app uses web identity federation, it must follow these steps
    </AssumeRoleWithWebIdentityResponse>
    ```
 
-1. **Access AWS resources\.** The response from AWS STS contains information that your app will require in order to access DynamoDB resources:
-   + The `AccessKeyID`, `SecretAccessKey` and `SessionToken` fields contain security credentials that are valid for this user and this app only\. 
-   + The `Expiration` field signifies the time limit for these credentials, after which they will no longer be valid\.
-   + The `AssumedRoleId` field contains the name of a session\-specific IAM role that has been assumed by the app\. The app will honor the access controls in the IAM policy document for the duration of this session\.
+1. **Access AWS resources\.** The response from AWS STS contains information that your app requires in order to access DynamoDB resources:
+   + The `AccessKeyID`, `SecretAccessKey`, and `SessionToken` fields contain security credentials that are valid for this user and this app only\. 
+   + The `Expiration` field signifies the time limit for these credentials, after which they are no longer valid\.
+   + The `AssumedRoleId` field contains the name of a session\-specific IAM role that has been assumed by the app\. The app honors the access controls in the IAM policy document for the duration of this session\.
    + The `SubjectFromWebIdentityToken` field contains the unique ID that appears in an IAM policy variable for this particular identity provider\. The following are the IAM policy variables for supported providers, and some example values for them:  
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WIF.RunningYourApp.html)
 
 For example IAM policies where these policy variables are used, see [Example Policies: Using Conditions for Fine\-Grained Access Control](specifying-conditions.md#FGAC_DDB.Examples)\.
 
-For more information about how AWS Security Token Service generates temporary access credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) in *IAM User Guide*\.
+For more information about how AWS STS generates temporary access credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) in *IAM User Guide*\.

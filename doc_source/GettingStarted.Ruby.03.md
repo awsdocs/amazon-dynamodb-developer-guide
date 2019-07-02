@@ -61,7 +61,7 @@ In this step, you add a new item to the table\.
    }
    
    begin
-       dynamodb.put_item(params)
+       result = dynamodb.put_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -122,6 +122,11 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    
    year = 2015
    title = "The Big New Movie"
+   
+   key = {
+       year: year,
+       title: title
+   }
    
    params = {
        table_name: table_name,
@@ -230,7 +235,7 @@ To the following:
    }
    
    begin
-       dynamodb.update_item(params)
+       result = dynamodb.update_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -451,7 +456,7 @@ In the following example, you try to delete a specific movie item if its rating 
    }
    
    begin
-       dynamodb.delete_item(params)
+       result = dynamodb.delete_item(params)
        puts "Deleted item."
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error

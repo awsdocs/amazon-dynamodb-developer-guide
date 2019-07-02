@@ -30,11 +30,11 @@ The following shows an example of a permissions policy\.
 }
 ```
 
- The policy has one statement that grants permissions for three DynamoDB actions \(`dynamodb:DescribeTable`, `dynamodb:Query` and `dynamodb:Scan`\) on a table in the `us-west-2` region, which is owned by the AWS account specified by `account-id`\. The *Amazon Resource Name \(ARN\)* in the `Resource` value specifies the table to which the permissions apply\.
+ The policy has one statement that grants permissions for three DynamoDB actions \(`dynamodb:DescribeTable`, `dynamodb:Query`, and `dynamodb:Scan`\) on a table in the `us-west-2` Region, which is owned by the AWS account specified by `account-id`\. The *Amazon Resource Name \(ARN\)* in the `Resource` value specifies the table to which the permissions apply\.
 
 ## Permissions Required to Use the Amazon DynamoDB Console<a name="console-permissions"></a>
 
-For a user to work with the DynamoDB console, that user must have a minimum set of permissions that allows the user to work with the DynamoDB resources for their AWS account\. In addition to these DynamoDB permissions, the console requires permissions from the following services:
+For a user to work with the DynamoDB console, that user must have a minimum set of permissions that allow the user to work with the DynamoDB resources for their AWS account\. In addition to these DynamoDB permissions, the console requires permissions from the following services:
 + Amazon CloudWatch permissions to display metrics and graphs\.
 + AWS Data Pipeline permissions to export and import DynamoDB data\. 
 +  AWS Identity and Access Management permissions to access roles necessary for exports and imports\.
@@ -64,11 +64,11 @@ You can also create your own custom IAM policies to allow permissions for Dynamo
 In this section, you can find example user policies that grant permissions for various DynamoDB actions\. These policies work when you are using AWS SDKs or the AWS CLI\. When you are using the console, you need to grant additional permissions specific to the console, which is discussed in [Permissions Required to Use the Amazon DynamoDB Console](#console-permissions)\.
 
 **Note**  
-All examples use the us\-west\-2 region and contain fictitious account IDs\.
+All examples use the us\-west\-2 Region and contain fictitious account IDs\.
 
 **Topics**
 + [Example 1: Allow a User to Perform Any DynamoDB Actions on a Table](#access-policy-examples-for-sdk-cli.example1)
-+ [Example 2: Allow Read\-only Access on Items in a Table](#access-policy-examples-for-sdk-cli.example2)
++ [Example 2: Allow Read\-Only Access on Items in a Table](#access-policy-examples-for-sdk-cli.example2)
 + [Example 3: Allow Put, Update, and Delete Operations on a Specific Table](#access-policy-examples-for-sdk-cli.example3)
 + [Example 4: Allow Access to a Specific Table and All of Its Indexes](#access-policy-examples-for-sdk-cli.example4)
 + [Example 5: Set Up Permissions Policies for Separate Test and Production Environments](#access-policy-examples-for-sdk-cli.example5)
@@ -78,7 +78,7 @@ All examples use the us\-west\-2 region and contain fictitious account IDs\.
 
 ### Example 1: Allow a User to Perform Any DynamoDB Actions on a Table<a name="access-policy-examples-for-sdk-cli.example1"></a>
 
-The following permissions policy grants permissions for all DynamoDB actions on a table\. The ARN value specified in the `Resource` identifies a table in a specific region\.
+The following permissions policy grants permissions for all DynamoDB actions on a table\. The ARN value specified in the `Resource` identifies a table in a specific Region\.
 
 ```
 {
@@ -97,7 +97,7 @@ The following permissions policy grants permissions for all DynamoDB actions on 
 **Note**  
 If you replace the table name in the resource ARN \(`Books`\) with a wildcard character \(\*\) , you allow any DynamoDB actions on *all* tables in the account\. Carefully consider the security implications if you decide to do this\.
 
-### Example 2: Allow Read\-only Access on Items in a Table<a name="access-policy-examples-for-sdk-cli.example2"></a>
+### Example 2: Allow Read\-Only Access on Items in a Table<a name="access-policy-examples-for-sdk-cli.example2"></a>
 
 The following permissions policy grants permissions for the `GetItem` and `BatchGetItem` DynamoDB actions only and thereby sets read\-only access to a table\.
 
@@ -165,7 +165,7 @@ The following permissions policy grants permissions for all of the DynamoDB acti
 
 ### Example 5: Set Up Permissions Policies for Separate Test and Production Environments<a name="access-policy-examples-for-sdk-cli.example5"></a>
 
-Suppose you have separate test and production environments where each environment maintains its own version of a table named `ProductCatalog` \. If you create these `ProductCatalog` tables from the same AWS account, testing work might affect the production environment because of the way that permissions are set up \(for example, the limits on concurrent create and delete actions are set at the AWS account level\)\. As a result, each action in the test environment reduces the number of actions that are available in your production environment\. There is also a risk that the code in your test environment might accidentally access tables in the production environment\. To prevent these issues, consider creating separate AWS accounts for your production and test environments\.
+Suppose that you have separate test and production environments where each environment maintains its own version of a table named `ProductCatalog` \. If you create these `ProductCatalog` tables from the same AWS account, testing work might affect the production environment because of the way that permissions are set up\. \(For example, the limits on concurrent create and delete actions are set at the AWS account level\.\) As a result, each action in the test environment reduces the number of actions that are available in your production environment\. There is also a risk that the code in your test environment might accidentally access tables in the production environment\. To prevent these issues, consider creating separate AWS accounts for your production and test environments\.
 
 Suppose further that you have two developers, Bob and Alice, who are testing the `ProductCatalog` table\. Instead of creating a separate AWS account for every developer, your developers can share the same test account\. in this test account, you can create a copy of the same table for each developer to work on, such as `Alice_ProductCatalog` and `Bob_ProductCatalog`\. In this case, you can create IAM users Alice and Bob in the AWS account that you created for the test environment\. You can then grant permissions to these users to perform DynamoDB actions on the tables that they own\. 
 
@@ -221,7 +221,7 @@ To grant these user permissions, you can do either of the following:
 **Note**  
 When using IAM policy variables, you must explicitly specify the `2012-10-17` version of the access policy language in the policy\. The default version of the access policy language \(`2008-10-17`\) does not support policy variables\. 
 
-Note that, instead of identifying a specific table as a resource, you can use a wildcard character \(\*\) to grant permissions on all tables where the name is prefixed with the name of the IAM user that is making the request, as shown following:
+Instead of identifying a specific table as a resource, you can use a wildcard character \(\*\) to grant permissions on all tables where the name is prefixed with the name of the IAM user that is making the request, as shown following\.
 
 ```
 "Resource":"arn:aws:dynamodb:us-west-2:123456789012:table/${aws:username}_*"
@@ -236,7 +236,7 @@ DynamoDB provides the following API operations for controlling access to reserve
 + `dynamodb:DescribeReservedCapacityOfferings` – returns details about the reserved capacity plans that are currently offered by AWS\.
 + `dynamodb:PurchaseReservedCapacityOfferings` – performs an actual purchase of reserved capacity\.
 
-The AWS Management Console uses these API operations to display reserved capacity information and to make purchases\. You cannot call these operations from an application program, because they are only accessible from the Console\. However, you can allow or deny access to these operations in an IAM permissions policy\.
+The AWS Management Console uses these API operations to display reserved capacity information and to make purchases\. You cannot call these operations from an application program, because they can be accessed only from the console\. However, you can allow or deny access to these operations in an IAM permissions policy\.
 
 The following policy allows users to view reserved capacity offerings and current purchases using the AWS Management Console—but new purchases are denied\.
 

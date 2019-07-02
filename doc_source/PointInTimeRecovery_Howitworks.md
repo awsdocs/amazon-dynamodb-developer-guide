@@ -22,7 +22,7 @@ For `EarliestRestorableDateTime`, you can restore your table to any point in tim
 + Provisioned read and write capacity
 + Encryption settings
 **Important**  
- All these settings come from the current settings of the source table at the time of restore and will be applied to the new restored table\. For example, let's say a table's provisioned throughput was just lowered to 50 RCUs and 50 WCUs\. If you restore this table's state to 3 weeks ago, which had its provisioned throughput set at that time at 100 RCUs and 100WCUs, DynamoDB restores your table data to that point in time but utilizes the current table's provisioned throughput at the time of restore \(50 RCUs and 50 WCUs\)\. 
+ All these settings come from the current settings of the source table at the time of restore and will be applied to the new restored table\. For example, let's say a table's provisioned throughput was just lowered to 50 read capacity units and 50 write capacity units\. If you restore this table's state to 3 weeks ago, which had its provisioned throughput set at that time at 100 read capacity units and 100WCUs, DynamoDB restores your table data to that point in time but utilizes the current table's provisioned throughput at the time of restore \(50 read capacity units and 50 write capacity units\)\. 
 
 After restoring a table, you must manually set up the following on the restored table:
 + Auto scaling policies

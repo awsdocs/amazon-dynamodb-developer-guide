@@ -13,7 +13,7 @@ For information about other services that support service\-linked roles, see [AW
 DAX uses the service\-linked role named **AWSServiceRoleForDAX**\. This role allows DAX to call AWS services on behalf of your DAX cluster\.
 
 **Important**  
-The AWSServiceRoleForDAX service\-linked role makes it easier for you to set up and maintain a DAX cluster; however, you must still grant each cluster access to DynamoDB before you can use it\. For more information, see [DAX Access Control](DAX.access-control.md)\.
+The AWSServiceRoleForDAX service\-linked role makes it easier for you to set up and maintain a DAX cluster; however, you must still grant each cluster access to DynamoDB before you can use it\. For more information, see [Identity and Access Management in DAX](DAX.access-control.md)\.
 
 The AWSServiceRoleForDAX service\-linked role trusts the following services to assume the role:
 + `dax.amazonaws.com`

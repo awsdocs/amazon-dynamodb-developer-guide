@@ -381,7 +381,7 @@ If a `ConditionExpression` evaluates to false during a conditional write, Dynamo
 **Note**  
 Write operations consume write capacity units only\. They never consume read capacity units\.
 
-A failed conditional write will return a *ConditionalCheckFailedException*\. When this occurs, you will not receive any information in the response about the write capacity that was consumed\. However, you can view the `ConsumedWriteCapacityUnits` metric for the table in Amazon CloudWatch\. \(For more information, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics) in [Monitoring DynamoDB](MonitoringDynamoDB.md)\.\) 
+A failed conditional write will return a *ConditionalCheckFailedException*\. When this occurs, you will not receive any information in the response about the write capacity that was consumed\. However, you can view the `ConsumedWriteCapacityUnits` metric for the table in Amazon CloudWatch\. \(For more information, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics) in [Logging and Monitoring in DynamoDB](MonitoringDynamoDB.md)\.\) 
 
 To return the number of write capacity units consumed during a conditional write, you use the `ReturnConsumedCapacity` parameter:
 + `TOTAL`—returns the total number of write capacity units consumed\.

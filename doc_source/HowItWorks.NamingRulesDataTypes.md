@@ -82,11 +82,6 @@ For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.w
 
 Binary type attributes can store any binary data, such as compressed text, encrypted data, or images\. Whenever DynamoDB compares binary values, it treats each byte of the binary data as unsigned\.
 
-DynamoDB provides the following mechanisms for managing throughput:
-+ DynamoDB auto scaling
-+ Provisioned throughput
-+ Reserved capacity
-
 The length of a binary attribute must be greater than zero, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
 If you define a primary key attribute as a binary type attribute, the following additional constraints apply:

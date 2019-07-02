@@ -81,7 +81,7 @@ Every DAX cluster is assigned an Amazon Resource Identifier \(ARN\)\. The ARN fo
 arn:aws:dax:region:accountID:cache/clusterName
 ```
 
-You use the cluster ARN in an IAM policy to define permissions for DAX API actions\. For more information, see [DAX Access Control](DAX.access-control.md)\.
+You use the cluster ARN in an IAM policy to define permissions for DAX API actions\. For more information, see [Identity and Access Management in DAX](DAX.access-control.md)\.
 
 ## Cluster Endpoint<a name="DAX.concepts.cluster-endpoint"></a>
 

@@ -3,20 +3,20 @@
 This section describes how to create, modify, and delete global secondary indexes\.
 
 **Topics**
-+ [Creating a Table With Global Secondary Indexes](#GSI.Creating)
++ [Creating a Table with Global Secondary Indexes](#GSI.Creating)
 + [Describing the Global Secondary Indexes on a Table](#GSI.Describing)
-+ [Adding a Global Secondary Index To an Existing Table](#GSI.OnlineOps.Creating)
-+ [Modifying an Index Creation](#GSI.OnlineOps.Creating.Modify)
-+ [Deleting a Global Secondary Index From a Table](#GSI.OnlineOps.Deleting)
++ [Adding a Global Secondary Index to an Existing Table](#GSI.OnlineOps.Creating)
++ [Deleting a Global Secondary Index](#GSI.OnlineOps.Deleting)
++ [Modifying a Global Secondary Index During Creation](#GSI.OnlineOps.Creating.Modify)
 + [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)
 
-## Creating a Table With Global Secondary Indexes<a name="GSI.Creating"></a>
+## Creating a Table with Global Secondary Indexes<a name="GSI.Creating"></a>
 
 To create a table with one or more global secondary indexes, use the `CreateTable` operation with the `GlobalSecondaryIndexes` parameter\. For maximum query flexibility, you can create up to 20 global secondary indexes \(default limit\) per table\. 
 
-You must specify one attribute to act as the index partition key; you can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. For example, in the *GameScores* table \(see [Global Secondary Indexes](GSI.md)\), neither *TopScore* nor *TopScoreDateTime* are key attributes; you could create a global secondary index with a partition key of *TopScore* and a sort key of *TopScoreDateTime*\. You might use such an index to determine whether there is a correlation between high scores and the time of day a game is played\.
+You must specify one attribute to act as the index partition key\. You can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. For example, in the *GameScores* table \(see [Global Secondary Indexes](GSI.md)\), neither *TopScore* nor *TopScoreDateTime* are key attributes\. You could create a global secondary index with a partition key of *TopScore* and a sort key of *TopScoreDateTime*\. You might use such an index to determine whether there is a correlation between high scores and the time of day a game is played\.
 
-Each index key attribute must be a scalar of type String, Number, or Binary\. \(It cannot be a document or a set\.\) You can project attributes of any data type into a global secondary index; this includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
+Each index key attribute must be a scalar of type String, Number, or Binary\. \(It cannot be a document or a set\.\) You can project attributes of any data type into a global secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
 If using provisioned mode, you must provide `ProvisionedThroughput` settings for the index, consisting of `ReadCapacityUnits` and `WriteCapacityUnits`\. These provisioned throughput settings are separate from those of the table, but behave in similar ways\. For more information, see [Provisioned Throughput Considerations for Global Secondary Indexes](GSI.md#GSI.ThroughputConsiderations)\.
 
@@ -34,7 +34,7 @@ The `IndexStatus` for a global secondary index will be one of the following:
 
 When DynamoDB has finished building a global secondary index, the index status changes from `CREATING` to `ACTIVE`\.
 
-## Adding a Global Secondary Index To an Existing Table<a name="GSI.OnlineOps.Creating"></a>
+## Adding a Global Secondary Index to an Existing Table<a name="GSI.OnlineOps.Creating"></a>
 
 To add a global secondary index to an existing table, use the `UpdateTable` operation with the `GlobalSecondaryIndexUpdates` parameter\. You must provide the following:
 + An index name\. The name must be unique among all the indexes on the table\.
@@ -47,9 +47,6 @@ To add a global secondary index to an existing table, use the `UpdateTable` oper
 
 You can only create one global secondary index per `UpdateTable` operation\.
 
-**Note**  
-You cannot cancel an in\-flight global secondary index creation\.
-
 ### Phases of Index Creation<a name="GSI.OnlineOps.Creating.Phases"></a>
 
 When you add a new global secondary index to an existing table, the table continues to be available while the index is being built\. However, the new index is not available for Query operations until its status changes from `CREATING` to `ACTIVE`\.
@@ -59,30 +56,30 @@ Behind the scenes, DynamoDB builds the index in two phases:
 **Resource Allocation**  
 DynamoDB allocates the compute and storage resources that will be needed for building the index\.  
 During the resource allocation phase, the `IndexStatus` attribute is `CREATING` and the `Backfilling` attribute is false\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
-While the index is in the resource allocation phase, you cannot delete its parent table; nor can you modify the provisioned throughput of the index or the table\. You cannot add or delete other indexes on the table; however, you can modify the provisioned throughput of these other indexes\.
+While the index is in the resource allocation phase, you can't delete the index or delete its parent table\. You also can't modify the provisioned throughput of the index or the table\. You cannot add or delete other indexes on the table\. However, you can modify the provisioned throughput of these other indexes\.
 
 **Backfilling**  
 For each item in the table, DynamoDB determines which set of attributes to write to the index based on its projection \(`KEYS_ONLY`, `INCLUDE`, or `ALL`\)\. It then writes these attributes to the index\. During the backfill phase, DynamoDB keeps track of items that are being added, deleted, or updated in the table\. The attributes from these items are also added, deleted, or updated in the index as appropriate\.  
-During the backfilling phase, the `IndexStatus` attribute is `CREATING` and the `Backfilling` attribute is true\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
-While the index is backfilling, you cannot delete its parent table\. However, you can still modify the provisioned throughput of the table and any of its global secondary indexes\.  
-During the backfilling phase, some writes of violating items may succeed while others will be rejected\. After backfilling, all writes to items that violate the new index's key schema will be rejected\. We recommend that you run the Violation Detector tool after the backfill phase completes, to detect and resolve any key violations that may have occurred\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
+During the backfilling phase, the `IndexStatus` attribute is set to `CREATING` and the `Backfilling` attribute is true\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
+While the index is backfilling, you cannot delete its parent table\. However, you can still delete the index or modify the provisioned throughput of the table and any of its global secondary indexes\.  
+During the backfilling phase, some writes of violating items might succeed while others are rejected\. After backfilling, all writes to items that violate the new index's key schema are rejected\. We recommend that you run the Violation Detector tool after the backfill phase finishes to detect and resolve any key violations that might have occurred\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
 
-While the resource allocation and backfilling phases are in progress, the index is in the `CREATING` state\. During this time, DynamoDB performs read operations on the table; you will not be charged for this read activity\.
+While the resource allocation and backfilling phases are in progress, the index is in the `CREATING` state\. During this time, DynamoDB performs read operations on the table\. You are not charged for this read activity\.
 
-When the index build is complete, its status changes to `ACTIVE`\. You will not be able to `Query` or `Scan` the index until it is `ACTIVE`\.
+When the index build is complete, its status changes to `ACTIVE`\. You can't `Query` or `Scan` the index until it is `ACTIVE`\.
 
 **Note**  
-In some cases, DynamoDB will not be able to write data from the table to the index due to index key violations\. This can occur if the data type of an attribute value does not match the data type of an index key schema data type, or if the size of an attribute exceeds the maximum length for an index key attribute\. Index key violations do not interfere with global secondary index creation; however, when the index becomes `ACTIVE`, the violating keys will not be present in the index\.  
+In some cases, DynamoDB can't write data from the table to the index due to index key violations\. This can occur if the data type of an attribute value does not match the data type of an index key schema data type, or if the size of an attribute exceeds the maximum length for an index key attribute\. Index key violations do not interfere with global secondary index creation\. However, when the index becomes `ACTIVE`, the violating keys are not present in the index\.  
 DynamoDB provides a standalone tool for finding and resolving these issues\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
 
-### Adding a Global Secondary Index To a Large Table<a name="GSI.OnlineOps.Creating.LargeTable"></a>
+### Adding a Global Secondary Index to a Large Table<a name="GSI.OnlineOps.Creating.LargeTable"></a>
 
-The time required for building a global secondary index depends on several factors, such as:
+The time required for building a global secondary index depends on several factors, such as the following:
 + The size of the table
 + The number of items in the table that qualify for inclusion in the index
 + The number of attributes projected into the index
 + The provisioned write capacity of the index
-+ Write activity on the main table during index builds\.
++ Write activity on the main table during index builds
 
 If you are adding a global secondary index to a very large table, it might take a long time for the creation process to complete\. To monitor progress and determine whether the index has sufficient write capacity, consult the following Amazon CloudWatch metrics:
 + `OnlineIndexPercentageProgress`
@@ -90,7 +87,7 @@ If you are adding a global secondary index to a very large table, it might take 
 + `OnlineIndexThrottleEvents`
 
 **Note**  
-For more information on CloudWatch metrics related to DynamoDB, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics)\.
+For more information about CloudWatch metrics related to DynamoDB, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics)\.
 
 If the provisioned write throughput setting on the index is too low, the index build will take longer to complete\. To shorten the time it takes to build a new global secondary index, you can increase its provisioned write capacity temporarily\. 
 
@@ -103,24 +100,24 @@ However, it is possible that the volume of incoming write activity might exceed 
 
 After the index has been created, you should set its provisioned write capacity to reflect the normal usage of your application\. 
 
-## Modifying an Index Creation<a name="GSI.OnlineOps.Creating.Modify"></a>
-
-While an index is being built, you can use the `DescribeTable` operation to determine what phase it is in\. The description for the index includes a Boolean attribute, `Backfilling`, to indicate whether DynamoDB is currently loading the index with items from the table\. If `Backfilling` is true, then the resource allocation phase is complete and the index is now backfilling\. 
-
-While the backfill is proceeding, you can update the provisioned throughput parameters for the index\. You might decide to do this in order to speed up the index build: You can increase the write capacity of the index while it is being built, and then decrease it afterward\. To modify the provisioned throughput settings of the index, use the `UpdateTable` operation\. The index status will change to `UPDATING`, and `Backfilling` will be true until the index is ready for use\. 
-
-During the backfilling phase, you cannot add or delete other indexes on the table\.
-
-**Note**  
-For indexes that were created as part of a `CreateTable` operation, the `Backfilling` attribute does not appear in the `DescribeTable` output\. For more information, see [Phases of Index Creation](#GSI.OnlineOps.Creating.Phases)\.
-
-## Deleting a Global Secondary Index From a Table<a name="GSI.OnlineOps.Deleting"></a>
+## Deleting a Global Secondary Index<a name="GSI.OnlineOps.Deleting"></a>
 
 If you no longer need a global secondary index, you can delete it using the `UpdateTable` operation\.
 
 You can only delete one global secondary index per `UpdateTable` operation\.
 
-While the global secondary index, is being deleted, there is no effect on any read or write activity in the parent table\. While the deletion is in progress, you can still modify the provisioned throughput on other indexes
+While the global secondary index, is being deleted, there is no effect on any read or write activity in the parent table\. While the deletion is in progress, you can still modify the provisioned throughput on other indexes\.
 
 **Note**  
 When you delete a table using the `DeleteTable` action, all of the global secondary indexes on that table are also deleted\.  
+
+## Modifying a Global Secondary Index During Creation<a name="GSI.OnlineOps.Creating.Modify"></a>
+
+While an index is being built, you can use the `DescribeTable` operation to determine what phase it is in\. The description for the index includes a Boolean attribute, `Backfilling`, to indicate whether DynamoDB is currently loading the index with items from the table\. If `Backfilling` is true, then the resource allocation phase is complete and the index is now backfilling\. 
+
+While the backfill is proceeding, you can update the provisioned throughput parameters for the index\. You might decide to do this in order to speed up the index build: You can increase the write capacity of the index while it is being built, and then decrease it afterward\. To modify the provisioned throughput settings of the index, use the `UpdateTable` operation\. The index status changes to `UPDATING`, and `Backfilling` is true until the index is ready for use\. 
+
+During the backfilling phase, you can delete the index that is being created\. During this phase, you can't add or delete other indexes on the table\.
+
+**Note**  
+For indexes that were created as part of a `CreateTable` operation, the `Backfilling` attribute does not appear in the `DescribeTable` output\. For more information, see [Phases of Index Creation](#GSI.OnlineOps.Creating.Phases)\.

@@ -14,7 +14,7 @@ With Application Auto Scaling, you create a *scaling policy* for a table or a gl
 
 The scaling policy also contains a *target utilization*—the percentage of consumed provisioned throughput at a point in time\. Application Auto Scaling uses a *target tracking* algorithm to adjust the provisioned throughput of the table \(or index\) upward or downward in response to actual workloads, so that the actual capacity utilization remains at or near your target utilization\.
 
- You can set the auto scaling target utilization values between 20% and 80% for your read and write capacity\. 
+ You can set the auto scaling target utilization values between 20% and 90% for your read and write capacity\. 
 
 **Note**  
 In addition to tables, DynamoDB auto scaling also supports global secondary indexes\. Every global secondary index has its own provisioned throughput capacity, separate from that of its base table\. When you create a scaling policy for a global secondary index, Application Auto Scaling adjusts the provisioned throughput settings for the index to ensure that its actual utilization stays at or near your desired utilization ratio\.

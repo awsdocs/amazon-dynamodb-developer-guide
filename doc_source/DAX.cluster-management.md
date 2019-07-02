@@ -19,7 +19,7 @@ The following discussion focuses on access control for the DAX management APIs \
 **Note**  
 For more detailed information about managing IAM permissions, see the following:  
 IAM and creating DAX clusters: [Creating a DAX Cluster](DAX.create-cluster.md)\.
-IAM and DAX data plane operations:[DAX Access Control](DAX.access-control.md)\.
+IAM and DAX data plane operations:[Identity and Access Management in DAX](DAX.access-control.md)\.
 
 For the DAX management APIs, you cannot scope API actions to a specific resource\. The `Resource` element must be set to `"*"`\. \(Note that this is different from DAX data plane API operations, such as `GetItem`, `Query`, and `Scan`\. Data plane operations are exposed through the DAX client, and those operations *can* be scoped to specific resources\.\)
 

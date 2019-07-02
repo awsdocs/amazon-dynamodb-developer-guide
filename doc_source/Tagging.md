@@ -4,7 +4,7 @@
 +  Quickly identify a resource based on the tags you've assigned to it\. 
 +  See AWS bills broken down by tags\. 
 **Note**  
- Any Local Secondary Indexes \(LSI\) and Global Secondary Indexes \(GSI\) related to tagged tables are labeled with the same tags automatically\. Currently, DynamoDB Streams usage cannot be tagged\. 
+ Any local secondary indexes \(LSI\) and global secondary indexes \(GSI\) related to tagged tables are labeled with the same tags automatically\. Currently, DynamoDB Streams usage cannot be tagged\. 
 
  Tagging is supported by AWS services like Amazon EC2, Amazon S3, DynamoDB, and more\. Efficient tagging can provide cost insights by allowing you to create reports across services that carry a specific tag\. 
 

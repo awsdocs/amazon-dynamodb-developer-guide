@@ -9,7 +9,7 @@ Many applications can benefit from the ability to capture changes to items store
 
 DynamoDB Streams enables solutions such as these, and many others\. DynamoDB Streams captures a time\-ordered sequence of item\-level modifications in any DynamoDB table, and stores this information in a log for up to 24 hours\. Applications can access this log and view the data items as they appeared before and after they were modified, in near real time\.
 
- Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [Amazon DynamoDB Encryption at Rest](EncryptionAtRest.md)\. 
+ Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [DynamoDB Encryption at Rest](EncryptionAtRest.md)\. 
 
 A *DynamoDB stream* is an ordered flow of information about changes to items in an Amazon DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\.
 
