@@ -1,8 +1,8 @@
 # Managing Indexes<a name="SQLtoNoSQL.Indexes"></a>
 
-Indexes give you access to alternate query patterns, and can speed up queries\. This section compares and contrasts index creation and usage in SQL and DynamoDB\.
+Indexes give you access to alternate query patterns, and can speed up queries\. This section compares and contrasts index creation and usage in SQL and Amazon DynamoDB\.
 
-Whether you are using a relational database or DynamoDB, you should be judicious with index creation\. Whenever a write occurs on a table, all of the table's indexes must be updated\. In a write\-heavy environment with large tables, this can consume large amounts of system resources\. In a read\-only or read\-mostly environment, this is not as much of a concern—however, you should ensure that the indexes are actually being used by your application, and not simply taking up space\.
+Whether you are using a relational database or DynamoDB, you should be judicious with index creation\. Whenever a write occurs on a table, all of the table's indexes must be updated\. In a write\-heavy environment with large tables, this can consume large amounts of system resources\. In a read\-only or read\-mostly environment, this is not as much of a concern\. However, you should ensure that the indexes are actually being used by your application, and not simply taking up space\.
 
 **Topics**
 + [Creating an Index](#SQLtoNoSQL.Indexes.Creating)
@@ -16,7 +16,7 @@ In a relational database, an index is a data structure that lets you perform fas
 
 After you create an index, the database maintains it for you\. Whenever you modify data in the table, the index is automatically modified to reflect changes in the table\.
 
-In MySQL, you can create an index like this:
+In MySQL, you can create an index like the following\.
 
 ```
 CREATE INDEX GenreAndPriceIndex 
@@ -27,15 +27,15 @@ ON Music (genre, price);
 
 In DynamoDB, you can create and use a *secondary index* for similar purposes\.
 
-Indexes in DynamoDB are different from their relational counterparts\. When you create a secondary index, you must specify its key attributes – a partition key and a sort key\. After you create the secondary index, you can `Query` it or `Scan` it just as you would with a table\. DynamoDB does not have a query optimizer, so a secondary index is only used when you `Query` it or `Scan` it\.
+Indexes in DynamoDB are different from their relational counterparts\. When you create a secondary index, you must specify its key attributes—a partition key and a sort key\. After you create the secondary index, you can `Query` it or `Scan` it just as you would with a table\. DynamoDB does not have a query optimizer, so a secondary index is only used when you `Query` it or `Scan` it\.
 
 DynamoDB supports two different kinds of indexes:
 + Global secondary indexes – The primary key of the index can be any two attributes from its table\. 
 + Local secondary indexes – The partition key of the index must be the same as the partition key of its table\. However, the sort key can be any other attribute\.
 
-DynamoDB ensures that the data in a secondary index is eventually consistent with its table\. You can request strongly consistent `Query` or `Scan` actions on a table or a local secondary index\. However, global secondary indexes only support eventual consistency\.
+DynamoDB ensures that the data in a secondary index is eventually consistent with its table\. You can request strongly consistent `Query` or `Scan` actions on a table or a local secondary index\. However, global secondary indexes support only eventual consistency\.
 
-You can add a global secondary index to an existing table, using the `UpdateTable` action and specifying `GlobalSecondaryIndexUpdates`:
+You can add a global secondary index to an existing table, using the `UpdateTable` action and specifying `GlobalSecondaryIndexUpdates`\.
 
 ```
 {
@@ -69,7 +69,7 @@ You must provide the following parameters to `UpdateTable`:
 + `AttributeDefinitions` – The data types for the key schema attributes of the index\.
 + `GlobalSecondaryIndexUpdates` – Details about the index you want to create:
   + `IndexName` – A name for the index\.
-  + `KeySchema` – The attributes that are used for the index primary key\.
+  + `KeySchema` – The attributes that are used for the index's primary key\.
   + `Projection` – Attributes from the table that are copied to the index\. In this case, `ALL` means that all of the attributes are copied\.
   + `ProvisionedThroughput (for provisioned tables)` – The number of reads and writes per second that you need for this index\. \(This is separate from the provisioned throughput settings of the table\.\) 
 

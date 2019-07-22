@@ -1,13 +1,13 @@
 # Low\-Level Interfaces<a name="Programming.SDKs.Interfaces.LowLevel"></a>
 
-Every language\-specific AWS SDK provides a low\-level interface for DynamoDB, with methods that closely resemble low\-level DynamoDB API requests\.
+Every language\-specific AWS SDK provides a low\-level interface for Amazon DynamoDB, with methods that closely resemble low\-level DynamoDB API requests\.
 
 In some cases, you will need to identify the data types of the attributes using [Data Type Descriptors](Programming.LowLevelAPI.md#Programming.LowLevelAPI.DataTypeDescriptors), such as `S` for string or `N` for number\.
 
 **Note**  
 A low\-level interface is available in every language\-specific AWS SDK\.
 
-The following Java program uses the low\-level interface of the AWS SDK for Java\. The program issues a `GetItem` request for a song in the `Music` table, and prints the year that the song was released\.
+The following Java program uses the low\-level interface of the AWS SDK for Java\. The program issues a `GetItem` request for a song in the `Music` table and prints the year that the song was released\.
 
 The `com.amazonaws.services.dynamodbv2.AmazonDynamoDB` class implements the DynamoDB low\-level interface\.
 

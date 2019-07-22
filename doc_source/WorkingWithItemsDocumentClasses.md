@@ -4,7 +4,7 @@
 + [Putting an Item \- Table\.PutItem Method](#PutMidLevelDotNet)
 + [Specifying Optional Parameters](#PutMidLevelDotNetOptions)
 
-To perform data operations using the document model, you must first call the `Table.LoadTable` method, which creates an instance of the `Table` class that represents a specific table\. The following C\# snippet creates a `Table` object that represents the ProductCatalog table in DynamoDB\.
+To perform data operations using the document model, you must first call the `Table.LoadTable` method, which creates an instance of the `Table` class that represents a specific table\. The following C\# example creates a `Table` object that represents the `ProductCatalog` table in Amazon DynamoDB\.
 
 **Example**  
 
@@ -15,7 +15,7 @@ Table table = Table.LoadTable(client, "ProductCatalog");
 **Note**  
 In general, you use the `LoadTable` method once at the beginning of your application because it makes a `DescribeTable` call that adds to the round trip to DynamoDB\. 
 
-You can then use the table object to perform various data operations\. Each of these data operations have two types of overloads; one that takes the minimum required parameters and another that also takes operation specific optional configuration information\. For example, to retrieve an item, you must provide the table's primary key value in which case you can use the following `GetItem` overload:
+You can then use the `Table` object to perform various data operations\. Each data operation has two types of overloads: One takes the minimum required parameters and the other takes optional, operation\-specific configuration information\. For example, to retrieve an item, you must provide the table's primary key value, in which case you can use the following `GetItem` overload\.
 
 **Example**  
 
@@ -26,7 +26,7 @@ Table.GetItem(Primitive partitionKey);
 Table.GetItem(Primitive partitionKey, Primitive sortKey);
 ```
 
-You can also pass optional parameters to these methods\. For example, the preceding `GetItem` returns the entire item including all its attributes\. You can optionally specify a list of attributes to retrieve\. In this case, you use the following `GetItem` overload that takes in the operation specific configuration object parameter:
+You also can pass optional parameters to these methods\. For example, the preceding `GetItem` returns the entire item including all its attributes\. You can optionally specify a list of attributes to retrieve\. In this case, you use the following `GetItem` overload that takes in the operation\-specific configuration object parameter\.
 
 **Example**  
 
@@ -43,13 +43,15 @@ Table.GetItem(Primitive partitionKey, GetItemOperationConfig config);
 Table.GetItem(Primitive partitionKey, Primitive sortKey, GetItemOperationConfig config);
 ```
 
-You can use the configuration object to specify several optional parameters such as request a specific list of attributes or specify the page size \(number of items per page\)\. Each data operation method has its own configuration class\. For example, the `GetItemOperationConfig` class enables you to provide options for the `GetItem` operation and the `PutItemOperationConfig` class enables you to provide optional parameters for the `PutItem` operation\. 
+You can use the configuration object to specify several optional parameters such as request a specific list of attributes or specify the page size \(number of items per page\)\. Each data operation method has its own configuration class\. For example, you can use the `GetItemOperationConfig` class to provide options for the `GetItem` operation\. You can use the `PutItemOperationConfig` class to provide optional parameters for the `PutItem` operation\. 
 
 The following sections discuss each of the data operations that are supported by the `Table` class\.
 
 ## Putting an Item \- Table\.PutItem Method<a name="PutMidLevelDotNet"></a>
 
-The `PutItem` method uploads the input `Document` instance to the table\. If an item that has a primary key that is specified in the input `Document` exists in the table, then the `PutItem` operation replaces the entire existing item\. The new item will be identical to the `Document` object that you provided to the `PutItem` method\. Note that this means that if your original item had any extra attributes, they are no longer present in the new item\. The following are the steps to put a new item into a table using the AWS SDK for \.NET document model\. 
+The `PutItem` method uploads the input `Document` instance to the table\. If an item that has a primary key that is specified in the input `Document` exists in the table, the `PutItem` operation replaces the entire existing item\. The new item is identical to the `Document` object that you provided to the `PutItem` method\. If your original item had any extra attributes, they are no longer present in the new item\. 
+
+The following are the steps to put a new item into a table using the AWS SDK for \.NET document model\. 
 
 1. Execute the `Table.LoadTable` method that provides the table name in which you want to put an item\.
 
@@ -57,7 +59,7 @@ The `PutItem` method uploads the input `Document` instance to the table\. If an 
 
 1. Execute `Table.PutItem` by providing the `Document` instance as a parameter\.
 
-The following C\# code snippet demonstrates the preceding tasks\. The example uploads an item to the ProductCatalog table\. 
+The following C\# code example demonstrates the preceding tasks\. The example uploads an item to the `ProductCatalog` table\. 
 
 **Example**  
 
@@ -75,13 +77,13 @@ book["QuantityOnHand"] = new DynamoDBNull();
 table.PutItem(book);
 ```
 
-In the preceding example, the `Document` instance creates an item that has Number, String, String Set, Boolean, and Null attributes\. \(Null is used to indicate that the *QuantityOnHand* for this product is unknown\.\) For Boolean and Null, use the constructor methods `DynamoDBBool` and `DynamoDBNull`\.
+In the preceding example, the `Document` instance creates an item that has `Number`, `String`, `String Set`, `Boolean`, and `Null` attributes\. \(`Null` is used to indicate that the *QuantityOnHand* for this product is unknown\.\) For `Boolean` and `Null`, use the constructor methods `DynamoDBBool` and `DynamoDBNull`\.
 
-In DynamoDB, the List and Map data types can contain elements composed of other data types\. Here is how to map these data types to the document model API:\.
+In DynamoDB, the `List` and `Map` data types can contain elements composed of other data types\. Here is how to map these data types to the document model API:
 + List — use the `DynamoDBList` constructor\.
 + Map — use the `Document` constructor\.
 
-You can modify the preceding example to add a List attribute to the item\. To do this, use a `DynamoDBList` constructor, as shown in the following code snippet:
+You can modify the preceding example to add a `List` attribute to the item\. To do this, use a `DynamoDBList` constructor, as shown in the following code example\.
 
 **Example**  
 
@@ -102,7 +104,7 @@ item.Add("RelatedItems", relatedItems);
 table.PutItem(book);
 ```
 
-To add a Map attribute to the book, you define another `Document`\. The following code snippet illustrates how to do this\.
+To add a `Map` attribute to the book, you define another `Document`\. The following code example illustrates how to do this\.
 
 **Example**  
 
@@ -127,8 +129,8 @@ These examples are based on the item shown in [Specifying Item Attributes](Expre
 
 ## Specifying Optional Parameters<a name="PutMidLevelDotNetOptions"></a>
 
-You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code snippet puts an item in the ProductCatalog table\. It specifies the following optional parameter:
-+  The `ConditionalExpression` parameter to make this a conditional put request\. The example creates an expression that specifies the ISBN attribute must have a specific value that has to be present in the item that you are replacing\. 
+You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code example puts an item in the `ProductCatalog` table\. It specifies the following optional parameter:
++  The `ConditionalExpression` parameter to make this a conditional put request\. The example creates an expression that specifies the `ISBN` attribute must have a specific value that has to be present in the item that you are replacing\. 
 
 **Example**  
 

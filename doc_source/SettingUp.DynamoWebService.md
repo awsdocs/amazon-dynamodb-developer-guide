@@ -58,6 +58,6 @@ The only time that you can view or download the secret access keys is when you c
 
 Before you can access DynamoDB programmatically or through the AWS CLI, you must configure your credentials to enable authorization for your applications\.
 
- There are several ways to do this\. For example, you can manually create the credentials file to store your AWS access key ID and secret access key\. You can also use the `aws configure` command of the AWS CLI to automatically create the file\. Alternatively, you can use environment variables\. For more information on configuring your credentials, see the programming\-specific AWS SDK developer guide\.
+ There are several ways to do this\. For example, you can manually create the credentials file to store your access key ID and secret access key\. You also can use the `aws configure` command of the AWS CLI to automatically create the file\. Alternatively, you can use environment variables\. For more information about configuring your credentials, see the programming\-specific AWS SDK developer guide\.
 
  To install and configure the AWS CLI, see [Using the CLI](Tools.CLI.md)\. 

@@ -1,19 +1,19 @@
 # Example: Query and Scan in DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.QueryScan"></a>
 
 The C\# example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\.
-+ The `Book` class maps to the ProductCatalog table
-+ The `Forum`, `Thread`, and `Reply` classes maps to tables of the same name\.
++ The `Book` class maps to the `ProductCatalog` table\.
++ The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
 The example then executes the following query and scan operations using `DynamoDBContext`\.
-+ Get a book by Id\. 
++ Get a book by `Id`\. 
 
-  The ProductCatalog table has Id as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its Id value\. 
-+ Execute the following queries against the Reply table \(the Reply table's primary key is composed of Id and ReplyDateTime attributes\. The ReplyDateTime is a sort key\. Therefore, you can query this table\)\.
+  The `ProductCatalog` table has `Id` as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its `Id` value\. 
++ Execute the following queries against the `Reply` table\. \(The `Reply` table's primary key is composed of `Id` and `ReplyDateTime` attributes\. The `ReplyDateTime` is a sort key\. Therefore, you can query this table\.\)
   + Find replies to a forum thread posted in the last 15 days\.
   + Find replies to a forum thread posted in a specific date range\.
-+ Scan ProductCatalog table to find books whose price is less than zero\.
++ Scan the `ProductCatalog` table to find books whose price is less than zero\.
 
-  For performance reasons, you should use a query operation instead of a scan operation\. However, there are times you might need to scan a table\. Suppose there was a data entry error and one of the book prices is set to less than 0\. This example scans the ProductCategory table to find book items \(the ProductCategory is book\) at price of less than 0\.
+  For performance reasons, you should use a query operation instead of a scan operation\. However, there are times you might need to scan a table\. Suppose that there was a data entry error and one of the book prices is set to less than 0\. This example scans the `ProductCategory` table to find book items \(the `ProductCategory` is book\) at price of less than 0\.
 
  For instructions about creating a working sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 

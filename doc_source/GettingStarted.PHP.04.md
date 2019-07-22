@@ -3,12 +3,12 @@
 You can use the `query` method to retrieve data from a table\. You must specify a partition key value\. The sort key is optional\.
 
 The primary key for the `Movies` table is composed of the following:
-+ `year` – The partition key\. The attribute type is number\. 
-+ `title` – The sort key\. The attribute type is string\.
++ `year` – The partition key\. The attribute type is `number`\. 
++ `title` – The sort key\. The attribute type is `string`\.
 
 To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\)\. For example, to find movies released in 2014 that have a title starting with the letter "A"\.
 
-In addition to `query`, there is also a `scan` method that can retrieve all of the table data\.
+In addition to the `query` method, you can use the `scan` method to retrieve all of the table data\.
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
 
@@ -21,7 +21,7 @@ To learn more about querying and scanning data, see [Working with Queries](Query
 
 The program included in this step retrieves all movies released in the `year` 1985\.
 
-1. Copy and paste the following program into a file named `MoviesQuery01.php`:
+1. Copy the following program and paste it into a file named `MoviesQuery01.php`\.
 
    ```
    <?php
@@ -96,18 +96,18 @@ The program included in this step retrieves all movies released in the `year` 19
 `ExpressionAttributeNames` provides name substitution\. We use this because `year` is a reserved word in DynamoDB—you can't use it directly in any expression, including `KeyConditionExpression`\. You can use the expression attribute name `#yr` to address this\.
 `ExpressionAttributeValues` provides value substitution\. You use this because you can't use literals in any expression, including `KeyConditionExpression`\. You can use the expression attribute value `:yyyy` to address this\.
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command:
 
    `php MoviesItemQuery01.php`
 
 **Note**  
-The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you can optionally create one or more secondary indexes on a table, and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+The preceding program shows how to query a table by its primary key attributes\. In Amazon DynamoDB, you can optionally create one or more secondary indexes on a table, and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
 
 ## Step 4\.2: Query \- All Movies Released in a Year with Certain Titles<a name="GettingStarted.PHP.04.Query.02"></a>
 
-The program included in this step retrieves all movies released in `year` 1992, with `title` beginning with the letter "A" through the letter "L"\.
+The program included in this step retrieves all movies released in `year` 1992 with `title` beginning with the letter "A" through the letter "L"\.
 
-1. Copy and paste the following program into a file named `MoviesQuery02.php`:
+1. Copy the following program and paste it into a file named `MoviesQuery02.php`\.
 
    ```
    <?php
@@ -189,17 +189,17 @@ The program included in this step retrieves all movies released in `year` 1992, 
    ?>
    ```
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `php MoviesQuery02.php`
 
 ## Step 4\.3: Scan<a name="GettingStarted.PHP.04.Scan"></a>
 
-The `scan` method reads every item in the entire table, and returns all of the data in the table\. You can provide an optional `filter_expression`, so that only the items matching your criteria are returned\. However, the filter is applied only after the entire table has been scanned\.
+The `scan` method reads every item in the entire table, and returns all of the data in the table\. You can provide an optional `filter_expression` so that only the items matching your criteria are returned\. However, the filter is applied only after the entire table has been scanned\.
 
 The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\), and discard all of the others\. 
 
-1. Copy and paste the following program into a file named `MoviesScan.php`:
+1. Copy the following program and paste it into a file named `MoviesScan.php`\.
 
    ```
    <?php
@@ -285,7 +285,7 @@ The following program scans the entire `Movies` table, which contains approximat
    + `ProjectionExpression` specifies the attributes you want in the scan result\.
    + `FilterExpression` specifies a condition that returns only items that satisfy the condition\. All other items are discarded\.
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `php MoviesScan.php`
 

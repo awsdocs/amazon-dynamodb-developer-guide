@@ -1,6 +1,6 @@
 # Step 2: Load Sample Data<a name="GettingStarted.Ruby.02"></a>
 
-In this step, you populate the `Movies` table with sample data\.
+In this step, you populate the `Movies` table in Amazon DynamoDB with sample data\.
 
 **Topics**
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.Ruby.02.01)
@@ -30,7 +30,7 @@ In the JSON data, note the following:
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
 + You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
 
- The following is an example of movie data:
+ The following is an example of movie data\.
 
 ```
 {
@@ -66,13 +66,13 @@ In the JSON data, note the following:
 
 1. Extract the data file \(`moviedata.json`\) from the archive\.
 
-1. Copy and paste the `moviedata.json` file into your current directory\.
+1. Copy the `moviedata.json` file and paste it into your current directory\.
 
 ## Step 2\.2: Load the Sample Data into the Movies Table<a name="GettingStarted.Ruby.02.02"></a>
 
-After you download the sample data, you can run the following program to populate the `Movies` table\.
+After you download the sample data, run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesLoadData.rb`:
+1. Copy the following program and paste it into a file named `MoviesLoadData.rb`\.
 
    ```
    #
@@ -120,6 +120,6 @@ After you download the sample data, you can run the following program to populat
    }
    ```
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `ruby MoviesLoadData.rb`

@@ -1,14 +1,14 @@
 # Managing Throughput Capacity Automatically with DynamoDB Auto Scaling<a name="AutoScaling"></a>
 
 **Note**  
-To get started quickly with DynamoDB auto scaling, see [Using the AWS Management Console With DynamoDB Auto Scaling](AutoScaling.Console.md)\.
+To get started quickly with DynamoDB auto scaling, see [Using the AWS Management Console with DynamoDB Auto Scaling](AutoScaling.Console.md)\.
 
 Many database workloads are cyclical in nature or are difficult to predict in advance\. For example, consider a social networking app where most of the users are active during daytime hours\. The database must be able to handle the daytime activity, but there's no need for the same levels of throughput at night\. Another example might be a new mobile gaming app that is experiencing rapid adoption\. If the game becomes too popular, it could exceed the available database resources, resulting in slow performance and unhappy customers\. These kinds of workloads often require manual intervention to scale database resources up or down in response to varying usage levels\.
 
 *DynamoDB auto scaling* uses the AWS Application Auto Scaling service to dynamically adjust provisioned throughput capacity on your behalf, in response to actual traffic patterns\. This enables a table or a global secondary index to increase its provisioned read and write capacity to handle sudden increases in traffic, without throttling\. When the workload decreases, Application Auto Scaling decreases the throughput so that you don't pay for unused provisioned capacity\.
 
 **Note**  
-If you use the AWS Management Console to create a table or a global secondary index, DynamoDB auto scaling is enabled by default\. You can modify your auto scaling settings at any time\. For more information, see [Using the AWS Management Console With DynamoDB Auto Scaling](AutoScaling.Console.md)\.
+If you use the AWS Management Console to create a table or a global secondary index, DynamoDB auto scaling is enabled by default\. You can modify your auto scaling settings at any time\. For more information, see [Using the AWS Management Console with DynamoDB Auto Scaling](AutoScaling.Console.md)\.
 
 With Application Auto Scaling, you create a *scaling policy* for a table or a global secondary index\. The scaling policy specifies whether you want to scale read capacity or write capacity \(or both\), and the minimum and maximum provisioned capacity unit settings for the table or index\.
 
@@ -22,7 +22,7 @@ In addition to tables, DynamoDB auto scaling also supports global secondary inde
 ## How DynamoDB Auto Scaling Works<a name="AutoScaling.HowItWorks"></a>
 
 **Note**  
-To get started quickly with DynamoDB auto scaling, see [Using the AWS Management Console With DynamoDB Auto Scaling](AutoScaling.Console.md)\.
+To get started quickly with DynamoDB auto scaling, see [Using the AWS Management Console with DynamoDB Auto Scaling](AutoScaling.Console.md)\.
 
 The following diagram provides a high\-level overview of how DynamoDB auto scaling manages throughput capacity for a table:
 

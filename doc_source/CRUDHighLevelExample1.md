@@ -1,11 +1,11 @@
 # Example: CRUD Operations Using the AWS SDK for \.NET Object Persistence Model<a name="CRUDHighLevelExample1"></a>
 
-The following C\# code example declares a `Book` class with Id, title, ISBN, and Authors properties\. It uses the object persistence attributes to map these properties to the ProductCatalog table in DynamoDB\. The code example then uses the `DynamoDBContext` to illustrate typical CRUD operations\. The example creates a sample Book instance and saves it to the ProductCatalog table\. The example then retrieves the book item, and updates its ISBN and Authors properties\. Note that the update replaces the existing authors list\. The example finally deletes the book item\. 
+The following C\# code example declares a `Book` class with `Id`, `Title`, `ISBN`, and `Authors` properties\. The example uses object persistence attributes to map these properties to the `ProductCatalog` table in Amazon DynamoDB\. The example then uses the `DynamoDBContext` to illustrate typical create, read, update, and delete \(CRUD\) operations\. The example creates a sample `Book` instance and saves it to the `ProductCatalog` table\. It then retrieves the book item and updates its `ISBN` and `Authors` properties\. Note that the update replaces the existing authors list\. Finally, the example deletes the book item\. 
 
-For more information about the ProductCatalog table used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For more information about the `ProductCatalog` table used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Note**  
- The following example does not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The following example doesn't work with \.NET core because it doesn't support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
 
 **Example**  
 

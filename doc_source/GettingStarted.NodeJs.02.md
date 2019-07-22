@@ -6,7 +6,7 @@ In this step, you populate the `Movies` table with sample data\.
 + [Step 2\.1: Download the Sample Data File](#GettingStarted.NodeJs.02.01)
 + [Step 2\.2: Load the Sample Data into the Movies Table](#GettingStarted.NodeJs.02.02)
 
-We use a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\. The movie data is in JSON format, as shown in the following example\. For each movie, there is a `year`, a `title`, and a JSON map named `info`\. 
+You use a sample data file that contains information about a few thousand movies from the Internet Movie Database \(IMDb\)\. The movie data is in JSON format, as shown in the following example\. For each movie, there is a `year`, a `title`, and a JSON map named `info`\. 
 
 ```
 [
@@ -28,9 +28,9 @@ We use a sample data file that contains information about a few thousand movies 
 
 In the JSON data, note the following:
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-+ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
++ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\.
 
- The following is an example of movie data:
+ The following is an example of movie data\.
 
 ```
 {
@@ -72,7 +72,7 @@ In the JSON data, note the following:
 
 After you download the sample data, you can run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesLoadData.js`:
+1. Copy the following program and paste it into a file named `MoviesLoadData.js`\.
 
    ```
    /**
@@ -121,6 +121,6 @@ After you download the sample data, you can run the following program to populat
    });
    ```
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `node MoviesLoadData.js`

@@ -1,10 +1,10 @@
 # Step 1: Create a Table<a name="GettingStarted.Ruby.01"></a>
 
-In this step, you create a table named `Movies`\. The primary key for the table is composed of the following two attributes:
+In this step, you create a table named `Movies` in Amazon DynamoDB\. The primary key for the table is composed of the following two attributes:
 + `year` – The partition key\. The `attribute_type` is `N` for number\. 
 + `title` – The sort key\. The `attribute_type` is `S` for string\.
 
-1. Copy and paste the following program into a file named `MoviesCreateTable.rb`:
+1. Copy the following program and paste it into a file named `MoviesCreateTable.rb`\.
 
    ```
    #
@@ -69,11 +69,11 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    end
    ```
 **Note**  
-You set the endpoint to indicate that you are creating the table in the downloadable version of DynamoDB on your computer\.
+You set the endpoint to indicate that you are creating the table in the downloadable version of Amazon DynamoDB on your computer\.
 In the `create_table` call, you specify table name, primary key attributes, and its data types\.
 The `provisioned_throughput` parameter is required\. However, the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this exercise\.\)
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `ruby MoviesCreateTable.rb`
 

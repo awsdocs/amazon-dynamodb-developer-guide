@@ -4,7 +4,7 @@ In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.m
 
 **Topics**
 + [Use a Document Model Search to Scan for 1950s Movies](#GettingStarted.NET.09.a)
-+ [Use a Low\-Level Scan to retrieve 1960s Movies](#GettingStarted.NET.09.b)
++ [Use a Low\-Level Scan to Retrieve 1960s Movies](#GettingStarted.NET.09.b)
 + [Next Step](#GettingStarted.NET.09.NextStep)
 
 ## Use a Document Model Search to Scan for 1950s Movies<a name="GettingStarted.NET.09.a"></a>
@@ -23,9 +23,9 @@ To set up a document model scan for 1950s movies, the `Main` function in `Dynamo
 
 To obtain a `Search` object for the scan, it passes the `ScanOperationConfig` object to `Table.Scan`\. Using the `Search` object, it then waits on `SearchListing_async` \(implemented in `08_Querying.cs`\) to retrieve and display the scan results\.
 
-## Use a Low\-Level Scan to retrieve 1960s Movies<a name="GettingStarted.NET.09.b"></a>
+## Use a Low\-Level Scan to Retrieve 1960s Movies<a name="GettingStarted.NET.09.b"></a>
 
-To set up a low\-level scan for 1960s movies, the `Main` function in `DynamoDB_intro` creates a `ScanRequest` object with various fields:
+To set up a low\-level scan for 1960s movies, the `Main` function in `DynamoDB_intro` creates a `ScanRequest` object with various fields\.
 
 ```
       ScanRequest sRequest = new ScanRequest
@@ -48,7 +48,7 @@ To set up a low\-level scan for 1960s movies, the `Main` function in `DynamoDB_i
 It then waits on the `ClientScanning_async` function implemented in the `09_Scanninging.cs` file\. `ClientScanning_async` waits in turn on the low\-level DynamoDB method `AmazonDynamoDBClient.ScanAsync` to retrieve the query results\.
 
 **Note**  
-Because "year" is a reserved word in DynamoDB, you need to create an alias for it \(here `#yr`\) using `ExpressionAttributeNames` in order to use it in a low\-level expression\. 
+Because "year" is a reserved word in DynamoDB, you must create an alias for it \(here `#yr`\) using `ExpressionAttributeNames` in order to use it in a low\-level expression\. 
 
 ## Next Step<a name="GettingStarted.NET.09.NextStep"></a>
 

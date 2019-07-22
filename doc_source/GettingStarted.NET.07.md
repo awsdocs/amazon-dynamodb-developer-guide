@@ -2,7 +2,7 @@
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you try to delete a movie record with a condition that is not met, and the deletion fails\. Then, when the condition is changed so that it is met, the deletion succeeds\.
 
-The `Main` function in `DynamoDB_intro` starts by creating a condition as follows:
+The `Main` function in `DynamoDB_intro` starts by creating a condition as follows\.
 
 ```
       Expression condition = new Expression();
@@ -10,7 +10,7 @@ The `Main` function in `DynamoDB_intro` starts by creating a condition as follow
       condition.ExpressionStatement = "info.rating <= :val";
 ```
 
-The `Main` function then passes the `Expression` as one of the parameters of `DeletingItem_async` and waits on it\. `DeletingItem_async` is implemented in the `07_DeletingItem.cs` file:
+The `Main` function then passes the `Expression` as one of the parameters of `DeletingItem_async` and waits on it\. `DeletingItem_async` is implemented in the `07_DeletingItem.cs` file\.
 
 ```
 /**

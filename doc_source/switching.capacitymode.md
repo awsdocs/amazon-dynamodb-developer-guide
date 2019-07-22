@@ -22,5 +22,5 @@ Consider the following when you update a table from on\-demand to provisioned mo
 +  If you're using the console, DynamoDB will recommend enabling auto scaling with the following defaults: 
   +  Target utilization: 70% 
   +  Minimum provisioned capacity: 5 units 
-  +  Maximum provisioned capacity: The region maximum 
+  +  Maximum provisioned capacity: The Region maximum 
 +  If you're using the AWS CLI or SDK, your previous auto scaling settings \(if any\) will be preserved\. 

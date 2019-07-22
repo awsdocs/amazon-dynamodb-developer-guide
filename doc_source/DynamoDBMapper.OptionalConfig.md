@@ -38,6 +38,6 @@ You can use the following arguments for an instance of `DynamoDBMapperConfig`:
    If you do not specify the save behavior for your mapper instance, the default is `UPDATE`\.
 **Note**  
 DynamoDBMapper transactional operations do not support `DynamoDBMapperConfig.SaveBehavior` enumeration\. 
-+ A `DynamoDBMapperConfig.TableNameOverride` object—Instructs the mapper instance to ignore the table name specified by a class's `DynamoDBTable` annotation, and instead use a different table name that you supply\. This is useful when partitioning your data into multiple tables at run time\. 
++ A `DynamoDBMapperConfig.TableNameOverride` object—Instructs the mapper instance to ignore the table name specified by a class's `DynamoDBTable` annotation, and instead use a different table name that you supply\. This is useful when partitioning your data into multiple tables at runtime\. 
 
 You can override the default configuration object for `DynamoDBMapper` per operation, as needed\.

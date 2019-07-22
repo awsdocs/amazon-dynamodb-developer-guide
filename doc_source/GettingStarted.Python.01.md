@@ -4,7 +4,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-1. Copy and paste the following program into a file named `MoviesCreateTable.py`\.
+1. Copy the following program and paste it into a file named `MoviesCreateTable.py`\.
 
    ```
    #
@@ -59,11 +59,11 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    ```
 **Note**  
 You set the endpoint to indicate that you are creating the table in the downloadable version of DynamoDB on your computer\.
-In the `create_table` call, you specify table name, primary key attributes, and its data types\.
+In the `create_table` call, you specify the table name, primary key attributes, and its data types\.
 The `ProvisionedThroughput` parameter is required\. However, the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this exercise\.\)
 These examples use the Python 3 style `print` function\. The line `from __future__ import print_function` enables Python 3 printing in Python 2\.6 and later\.
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `python MoviesCreateTable.py`
 

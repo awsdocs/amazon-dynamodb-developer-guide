@@ -1,11 +1,11 @@
 # Step 2: Load Data into Tables<a name="SampleData.LoadData"></a>
 
-In this step, you will load sample data into the tables that you created\. You could enter the data manually into the DynamoDB console; however, to save time, you will use the AWS Command Line Interface instead\.
+In this step, you load sample data into the tables that you created\. You could enter the data manually into the Amazon DynamoDB console\. However, to save time, you use the AWS Command Line Interface \(AWS CLI\) instead\.
 
 **Note**  
 If you have not yet set up the AWS CLI, see [Using the CLI](Tools.CLI.md) for instructions\.
 
-You will download a `.zip` archive that contains JSON files with sample data for each table\. For each file, you will use the AWS CLI to load the data into DynamoDB\. Each successful data load will produce the following output:
+You will download a `.zip` archive that contains JSON files with sample data for each table\. For each file, you use the AWS CLI to load the data into DynamoDB\. Each successful data load produces the following output\.
 
 ```
 {    
@@ -22,21 +22,21 @@ You will download a `.zip` archive that contains JSON files with sample data for
 
 1. Copy the `.json` data files to your current directory\.
 
-## Load the Sample Data Into DynamoDB Tables<a name="SampleData.LoadData.LoadData"></a>
+## Load the Sample Data into DynamoDB Tables<a name="SampleData.LoadData.LoadData"></a>
 
-1. To load the *ProductCatalog* table with data, enter the following command:
+1. To load the `ProductCatalog` table with data, enter the following command\.
 
    `aws dynamodb batch-write-item --request-items file://ProductCatalog.json`
 
-1. To load the *Forum* table with data, enter the following command:
+1. To load the `Forum` table with data, enter the following command\.
 
    `aws dynamodb batch-write-item --request-items file://Forum.json`
 
-1. To load the *Thread* table with data, enter the following command:
+1. To load the `Thread` table with data, enter the following command\.
 
    `aws dynamodb batch-write-item --request-items file://Thread.json`
 
-1. To load the *Reply* table with data, enter the following command:
+1. To load the `Reply` table with data, enter the following command\.
 
    `aws dynamodb batch-write-item --request-items file://Reply.json`
 
@@ -50,7 +50,7 @@ You can use the AWS Management Console to verify the data that you loaded into t
 
 1. In the navigation pane, choose **Tables**\.
 
-1. In the list of tables, choose *ProductCatalog*\.
+1. In the list of tables, choose **ProductCatalog**\.
 
 1. Choose the **Items** tab to view the data that you loaded into the table\.
 
@@ -59,6 +59,6 @@ You can use the AWS Management Console to verify the data that you loaded into t
 1. To return to the list of tables, choose **Cancel**\.
 
 Repeat this procedure for each of the other tables you created:
-+ *Forum*
-+ *Thread*
-+ *Reply*
++ `Forum`
++ `Thread`
++ `Reply`

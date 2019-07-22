@@ -1,6 +1,6 @@
 # Step 5: Read and Display a Record from the Movies Table<a name="GettingStarted.NET.05"></a>
 
-In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you retrieve and display the new movie record that you added in [Step 4](GettingStarted.NET.04.md)\. The `Main` function in `DynamoDB_intro` does this by waiting on `ReadingMovie_async`, which is implemented in the `05_ReadingItem.cs` file:
+In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you retrieve and display the new movie record that you added in [Step 4](GettingStarted.NET.04.md)\. The `Main` function in `DynamoDB_intro` does this by waiting on `ReadingMovie_async`, which is implemented in the `05_ReadingItem.cs` file\.
 
 ```
 /**

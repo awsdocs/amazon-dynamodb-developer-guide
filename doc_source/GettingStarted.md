@@ -1,6 +1,6 @@
 # Getting Started with DynamoDB SDK<a name="GettingStarted"></a>
 
-This section contains hands\-on tutorials to help you learn about Amazon DynamoDB\. We encourage you to work through one of the language\-specific tutorials\. The sample code in these tutorials can run against either the downloadable version of DynamoDB or the Amazon DynamoDB web service\.
+This section contains hands\-on tutorials to help you learn about Amazon DynamoDB\. We encourage you to work through one of the language\-specific tutorials\. The code examples in these tutorials can run against either the downloadable version of DynamoDB or the DynamoDB web service\.
 
 **Note**  
  AWS SDKs are available for a wide variety of languages\. For a complete list, see [Tools for Amazon Web Services](https://aws.amazon.com/tools)\. 

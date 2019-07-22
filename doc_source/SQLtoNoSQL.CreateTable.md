@@ -1,6 +1,6 @@
 # Creating a Table<a name="SQLtoNoSQL.CreateTable"></a>
 
-Tables are the fundamental data structures in relational databases and in DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any attributes or data types at table creation time\.
+Tables are the fundamental data structures in relational databases and in DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any attributes or data types when you create a table\.
 
 ## SQL<a name="SQLtoNoSQL.CreateTable.SQL"></a>
 
@@ -68,4 +68,4 @@ You must provide the following parameters to `CreateTable`:
 + `ProvisionedThroughput (for provisioned tables)` – Number of reads and writes per second that you need for this table\. DynamoDB reserves sufficient storage and system resources so that your throughput requirements are always met\. You can use the `UpdateTable` action to change these later, if necessary\. You do not need to specify a table's storage requirements because storage allocation is managed entirely by DynamoDB\.
 
 **Note**  
-For code examples using `CreateTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `CreateTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

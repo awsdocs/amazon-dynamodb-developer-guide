@@ -4,7 +4,7 @@
 
 1.  Download and install Apache Maven\. For more information, see [Downloading Apache Maven](https://maven.apache.org/download.cgi) and [Installing Apache Maven](https://maven.apache.org/install.html)\.
 
-1.  Add the DynamoDB Maven repository to your application's Project Object Model \(POM\) file:
+1.  Add the DynamoDB Maven repository to your application's Project Object Model \(POM\) file\.
 
    ```
    <!--Dependency:-->
@@ -25,8 +25,8 @@
    </repositories>
    ```
 **Note**  
-Alternatively, you can use one of the following repository URLs, depending on your AWS Region:    
+Alternatively, you can use one of the following repository URLs, depending on your AWS Region\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.Maven.html)
 
- The aws\-dynamodb\-examples repository in GitHub contains examples for [starting and stopping DynamoDB Local](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/DynamoDBLocalFixture.java) inside a Java program and [using DynamoDB Local in JUnit tests](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/local/embedded/DynamoDBEmbeddedTest.java)\. 
+ The `aws-dynamodb-examples` repository in GitHub contains examples for [starting and stopping DynamoDB local](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/DynamoDBLocalFixture.java) inside a Java program and [using DynamoDB local in JUnit tests](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/local/embedded/DynamoDBEmbeddedTest.java)\. 

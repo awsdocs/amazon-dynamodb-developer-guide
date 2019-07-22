@@ -93,7 +93,7 @@ You can query the *GenreAlbumTitle* index to find all albums of a particular gen
 
 ## DynamoDB Streams<a name="HowItWorks.CoreComponents.Streams"></a>
 
-DynamoDB Streams is an optional feature that captures data modification events in DynamoDB tables\. The data about these events appear in the stream in near real time, and in the order that the events occurred\.
+DynamoDB Streams is an optional feature that captures data modification events in DynamoDB tables\. The data about these events appear in the stream in near\-real time, and in the order that the events occurred\.
 
 Each event is represented by a *stream record*\. If you enable a stream on a table, DynamoDB Streams writes a stream record whenever one of the following events occurs:
 + A new item is added to the table: The stream captures an image of the entire item, including all of its attributes\.
@@ -102,12 +102,12 @@ Each event is represented by a *stream record*\. If you enable a stream on a tab
 
 Each stream record also contains the name of the table, the event timestamp, and other metadata\. Stream records have a lifetime of 24 hours; after that, they are automatically removed from the stream\.
 
-You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that executes automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a "welcome" email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would execute whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an *EmailAddress* attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
+You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that executes automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a "welcome" email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would execute whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an `EmailAddress` attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksStreams.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 **Note**  
-In this example, the last customer, Craig Roe, will not receive an email because he doesn't have an *EmailAddress*\.
+In this example, the last customer, Craig Roe, will not receive an email because he doesn't have an `EmailAddress`\.
 
 In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS Regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
 

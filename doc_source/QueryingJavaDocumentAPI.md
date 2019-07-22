@@ -136,7 +136,7 @@ In this Java code example, you execute variations of finding replies for a threa
   Both the preceding two queries shows how you can specify sort key conditions to narrow the query results and use other optional query parameters\. 
 
 **Note**  
-This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```

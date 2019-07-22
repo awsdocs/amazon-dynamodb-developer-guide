@@ -6,7 +6,7 @@
 
 Note that `AttributesToGet` has no effect on provisioned throughput consumption\. DynamoDB determines capacity units consumed based on item size, not on the amount of data that is returned to an application\.
 
-## Use *ProjectionExpression* Instead<a name="w60aac42c23c17b9"></a>
+## Use *ProjectionExpression* Instead<a name="w66aac42c23c17b9"></a>
 
 Suppose you wanted to retrieve an item from the *Music* table, but that you only wanted to return some of the attributes\. You could use a `GetItem` request with an `AttributesToGet` parameter, as in this AWS CLI example:
 

@@ -35,12 +35,12 @@ Item sizes for reads are rounded up to the next 4 KB multiple\. For example, rea
 ### Capacity Unit Consumption for Reads<a name="ItemSizeCalculations.Reads"></a>
 
 The following describes how DynamoDB read operations consume read capacity units:
-+ `GetItem`—Reads a single item from a table\. To determine the number of capacity units `GetItem` will consume, take the item size and round it up to the next 4 KB boundary\. If you specified a strongly consistent read, this is the number of capacity units required\. For an eventually consistent read \(the default\), divide this number by two\.
++ `GetItem`—Reads a single item from a table\. To determine the number of capacity units that `GetItem` will consume, take the item size and round it up to the next 4 KB boundary\. If you specified a strongly consistent read, this is the number of capacity units required\. For an eventually consistent read \(the default\), divide this number by two\.
 
   For example, if you read an item that is 3\.5 KB, DynamoDB rounds the item size to 4 KB\. If you read an item of 10 KB, DynamoDB rounds the item size to 12 KB\.
 + `BatchGetItem`—Reads up to 100 items, from one or more tables\. DynamoDB processes each item in the batch as an individual `GetItem` request, so DynamoDB first rounds up the size of each item to the next 4 KB boundary, and then calculates the total size\. The result is not necessarily the same as the total size of all the items\. For example, if `BatchGetItem` reads a 1\.5 KB item and a 6\.5 KB item, DynamoDB calculates the size as 12 KB \(4 KB \+ 8 KB\), not 8 KB \(1\.5 KB \+ 6\.5 KB\)\. 
-+ `Query`—Reads multiple items that have the same partition key value\. All of the items returned are treated as a single read operation, where DynamoDB computes the total size of all items and then rounds up to the next 4 KB boundary\. For example, suppose your query returns 10 items whose combined size is 40\.8 KB\. DynamoDB rounds the item size for the operation to 44 KB\. If a query returns 1500 items of 64 bytes each, the cumulative size is 96 KB\.
-+ `Scan`—Reads all of the items in a table\. DynamoDB considers the size of the items that are evaluated, not the size of the items returned by the scan\.
++ `Query`—Reads multiple items that have the same partition key value\. All items returned are treated as a single read operation, where DynamoDB computes the total size of all items and then rounds up to the next 4 KB boundary\. For example, suppose your query returns 10 items whose combined size is 40\.8 KB\. DynamoDB rounds the item size for the operation to 44 KB\. If a query returns 1500 items of 64 bytes each, the cumulative size is 96 KB\.
++ `Scan`—Reads all items in a table\. DynamoDB considers the size of the items that are evaluated, not the size of the items returned by the scan\.
 
 If you perform a read operation on an item that does not exist, DynamoDB still consumes provisioned read throughput: A strongly consistent read request consumes one read capacity unit, while an eventually consistent read request consumes 0\.5 of a read capacity unit\.
 
@@ -74,7 +74,7 @@ For `PutItem`, `UpdateItem`, and `DeleteItem` operations, DynamoDB rounds the it
 
 ## Request Throttling and Burst Capacity<a name="ProvisionedThroughput.Throttling"></a>
 
-If your application performs reads or writes at a higher rate than your table can support, DynamoDB will begin to *throttle* those requests\. When DynamoDB throttles a read or write, it returns a `ProvisionedThroughputExceededException` to the caller\. The application can then take appropriate action, such as waiting for a short interval before retrying the request\.
+If your application performs reads or writes at a higher rate than your table can support, DynamoDB begins to *throttle* those requests\. When DynamoDB throttles a read or write, it returns a `ProvisionedThroughputExceededException` to the caller\. The application can then take appropriate action, such as waiting for a short interval before retrying the request\.
 
 **Note**  
 We recommend that you use the AWS SDKs for software development\. The AWS SDKs provide built\-in support for retrying throttled requests; you do not need to write this logic yourself\. For more information, see [Error Retries and Exponential Backoff](Programming.Errors.md#Programming.Errors.RetryAndBackoff)\.

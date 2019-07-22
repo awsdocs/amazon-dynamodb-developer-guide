@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.js`:
+1. Copy the following program and paste it into a file named `MoviesDeleteTable.js`\.
 
    ```
    /**
@@ -40,6 +40,6 @@
    });
    ```
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `node MoviesDeleteTable.js`

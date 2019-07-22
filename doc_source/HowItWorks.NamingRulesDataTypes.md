@@ -1,6 +1,6 @@
 # Naming Rules and Data Types<a name="HowItWorks.NamingRulesDataTypes"></a>
 
-This section describes the DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
+This section describes the Amazon DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
 
 **Topics**
 + [Naming Rules](#HowItWorks.NamingRules)
@@ -25,13 +25,13 @@ The following are the naming rules for DynamoDB:
 
 DynamoDB has a list of reserved words and special characters\. For a complete list of reserved words in DynamoDB, see [Reserved Words in DynamoDB](ReservedWords.md)\. Also, the following characters have special meaning in DynamoDB: **\#** \(hash\) and **:** \(colon\)\.
 
-Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid it because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression Attribute Names](Expressions.ExpressionAttributeNames.md)\.
+Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid doing so because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression Attribute Names](Expressions.ExpressionAttributeNames.md)\.
 
 ## Data Types<a name="HowItWorks.DataTypes"></a>
 
 DynamoDB supports many different data types for attributes within a table\. They can be categorized as follows:
 + **Scalar Types** – A scalar type can represent exactly one value\. The scalar types are number, string, binary, Boolean, and null\.
-+ **Document Types** – A document type can represent a complex structure with nested attributes—such as you would find in a JSON document\. The document types are list and map\.
++ **Document Types** – A document type can represent a complex structure with nested attributes, such as you would find in a JSON document\. The document types are list and map\.
 + **Set Types** – A set type can represent multiple scalar values\. The set types are string set, number set, and binary set\.
 
 When you create a table or a secondary index, you must specify the names and data types of each primary key attribute \(partition key and sort key\)\. Furthermore, each primary key attribute must be defined as type string, number, or binary\.
@@ -46,7 +46,7 @@ The scalar types are number, string, binary, Boolean, and null\.
 
 #### Number<a name="HowItWorks.DataTypes.Number"></a>
 
-Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits precision\. Exceeding this results in an exception\.
+Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits of precision\. Exceeding this results in an exception\.
 + Positive range: 1E\-130 to 9\.9999999999999999999999999999999999999E\+125
 + Negative range: \-9\.9999999999999999999999999999999999999E\+125 to \-1E\-130
 
@@ -90,7 +90,7 @@ If you define a primary key attribute as a binary type attribute, the following 
 
 Your applications must encode binary values in base64\-encoded format before sending them to DynamoDB\. Upon receipt of these values, DynamoDB decodes the data into an unsigned byte array and uses that as the length of the binary attribute\. 
 
-The following example is a binary attribute, using base64\-encoded text:
+The following example is a binary attribute, using base64\-encoded text\.
 
 ```
 dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk
@@ -110,7 +110,7 @@ The document types are list and map\. These data types can be nested within each
 
 There is no limit on the number of values in a list or a map, as long as the item containing the values fits within the DynamoDB item size limit \(400 KB\)\.
 
- An attribute value cannot be an empty String or empty Set \(String Set, Number Set, or Binary Set\)\. However, empty Lists and Maps are allowed\. For more information, see [Attributes](Limits.md#limits-attributes)\. 
+ An attribute value cannot be an empty string or empty set \(string set, number set, or binary set\)\. However, empty lists and maps are allowed\. For more information, see [Attributes](Limits.md#limits-attributes)\. 
 
 #### List<a name="HowItWorks.DataTypes.Document.List"></a>
 
@@ -118,7 +118,7 @@ A list type attribute can store an ordered collection of values\. Lists are encl
 
 A list is similar to a JSON array\. There are no restrictions on the data types that can be stored in a list element, and the elements in a list element do not have to be of the same type\.
 
-The following example shows a list that contains two strings and a number:
+The following example shows a list that contains two strings and a number\.
 
 ```
 FavoriteThings: ["Cookies", "Coffee", 3.14159]
@@ -156,11 +156,11 @@ DynamoDB lets you work with individual elements within maps, even if those eleme
 
 ### Sets<a name="HowItWorks.DataTypes.SetTypes"></a>
 
-DynamoDB supports types that represent sets of Number, String, or Binary values\. All of the elements within a set must be of the same type\. For example, an attribute of type Number Set can only contain numbers; String Set can only contain strings; and so on\.
+DynamoDB supports types that represent sets of number, string, or binary values\. All the elements within a set must be of the same type\. For example, an attribute of type Number Set can only contain numbers; String Set can only contain strings; and so on\.
 
 There is no limit on the number of values in a set, as long as the item containing the values fits within the DynamoDB item size limit \(400 KB\)\.
 
-Each value within a set must be unique\. The order of the values within a set is not preserved; therefore, your applications must not rely on any particular order of elements within the set\. Finally, DynamoDB does not support empty sets\.
+Each value within a set must be unique\. The order of the values within a set is not preserved\. Therefore, your applications must not rely on any particular order of elements within the set\. Finally, DynamoDB does not support empty sets\.
 
 The following example shows a string set, a number set, and a binary set: 
 

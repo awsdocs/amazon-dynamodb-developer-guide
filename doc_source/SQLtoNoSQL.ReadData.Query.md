@@ -4,7 +4,7 @@ Another common access pattern is reading multiple items from a table, based on y
 
 ## SQL<a name="SQLtoNoSQL.ReadData.Query.SQL"></a>
 
-The SQL `SELECT` statement lets you query on key columns, non\-key columns, or any combination\. The `WHERE` clause determines which rows are returned, as shown in the following examples:
+The SQL `SELECT` statement lets you query on key columns, non\-key columns, or any combination\. The `WHERE` clause determines which rows are returned, as shown in the following examples\.
 
 ```
 /* Return a single song, by primary key */
@@ -40,7 +40,7 @@ Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.Query.DynamoDB"></a>
 
-The DynamoDB `Query` action lets you retrieve data in a similar fashion\. The `Query` action provides quick, efficient access to the physical locations where the data is stored\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
+The Amazon DynamoDB `Query` action lets you retrieve data in a similar fashion\. The `Query` action provides quick, efficient access to the physical locations where the data is stored\. For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.
 
 You can use `Query` with any table that has a composite primary key \(partition key and sort key\)\. You must specify an equality condition for the partition key, and you can optionally provide another condition for the sort key\.
 
@@ -50,7 +50,7 @@ In DynamoDB, you must use `ExpressionAttributeValues` as placeholders in express
 
 Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
-Here are some `Query` examples in DynamoDB:
+The following are some DynamoDB `Query` examples\.
 
 ```
 // Return a single song, by primary key
@@ -91,4 +91,4 @@ Here are some `Query` examples in DynamoDB:
 ```
 
 **Note**  
-For code examples using `Query`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `Query`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

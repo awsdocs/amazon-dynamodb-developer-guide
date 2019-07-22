@@ -1,6 +1,6 @@
 # Step 4: Add a New Movie to the Movies Table<a name="GettingStarted.NET.04"></a>
 
-In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you add a new movie record to the `Movies` table in Amazon DynamoDB\. The `Main` function in `DynamoDB_intro` starts by creating a DynamoDB document model `Document` and then waits on `WritingNewMovie_async`, which is implemented in the `04_WritingNewItem.cs` file:
+In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you add a new movie record to the `Movies` table in Amazon DynamoDB\. The `Main` function in `DynamoDB_intro` starts by creating a DynamoDB document model `Document` and then waits on `WritingNewMovie_async`, which is implemented in the `04_WritingNewItem.cs` file\.
 
 ```
 /**

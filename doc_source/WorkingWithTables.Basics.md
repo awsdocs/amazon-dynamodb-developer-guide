@@ -17,7 +17,7 @@ Use the `CreateTable` operation to create a table\. You must provide the followi
 
 ### Example 1: Create a Provisioned Table<a name="create-provisioned-example"></a>
 
-The following AWS CLI example shows how to create a table \(*Music*\)\. The primary key consists of *Artist* \(partition key\) and *SongTitle* \(sort key\), each of which has a data type of String\. The maximum throughput for this table is 10 read capacity units and 5 write capacity units\.
+The following AWS CLI example shows how to create a table \(*Music*\)\. The primary key consists of *Artist* \(partition key\) and *SongTitle* \(sort key\), each of which has a data type of *String*\. The maximum throughput for this table is 10 read capacity units and 5 write capacity units\.
 
 ```
 aws dynamodb create-table \
@@ -32,7 +32,7 @@ aws dynamodb create-table \
         ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
 
-The `CreateTable` operation returns metadata for the table, as shown following:
+The `CreateTable` operation returns metadata for the table, as shown following\.
 
 ```
 {
@@ -77,7 +77,7 @@ The `TableStatus` element indicates the current state of the table \(`CREATING`\
 
 ### Example 2: Create an On\-Demand Table<a name="create-payperrequest-example"></a>
 
-To create the same table `Music` using on\-demand mode:
+To create the same table `Music` using on\-demand mode\.
 
 ```
 aws dynamodb create-table \
@@ -91,7 +91,7 @@ aws dynamodb create-table \
     --billing-mode=PAY_PER_REQUEST
 ```
 
-The `CreateTable` operation returns metadata for the table, as shown following:
+The `CreateTable` operation returns metadata for the table, as shown following\.
 
 ```
 {
@@ -140,7 +140,7 @@ The `CreateTable` operation returns metadata for the table, as shown following:
 
 ## Describing a Table<a name="WorkingWithTables.Basics.DescribeTable"></a>
 
-To view details about a table, use the `DescribeTable` operation\. You must provide the table name\. The output from `DescribeTable` is in the same format as that from `CreateTable`; it includes the timestamp when the table was created, its key schema, its provisioned throughput settings, its estimated size, and any secondary indexes that are present\.
+To view details about a table, use the `DescribeTable` operation\. You must provide the table name\. The output from `DescribeTable` is in the same format as that from `CreateTable`\. It includes the timestamp when the table was created, its key schema, its provisioned throughput settings, its estimated size, and any secondary indexes that are present\.
 
 **Important**  
  When calling `DescribeTable` on an on\-demand table, read capacity units and write capacity units are set to 0\. 
@@ -166,7 +166,7 @@ The `UpdateTable` operation allows you to do one of the following:
 + Enable or disable DynamoDB Streams on the table \(see [Capturing Table Activity with DynamoDB Streams](Streams.md)\)\.
 
 **Example**  
-This AWS CLI example shows how to modify a table's provisioned throughput settings:  
+The following AWS CLI example shows how to modify a table's provisioned throughput settings\.  
 
 ```
 aws dynamodb update-table --table-name Music \
@@ -177,7 +177,7 @@ aws dynamodb update-table --table-name Music \
 When you issue an `UpdateTable` request, the status of the table changes from `AVAILABLE` to `UPDATING`\. The table remains fully available for use while it is `UPDATING`\. When this process is completed, the table status changes from `UPDATING` to `AVAILABLE`\.
 
 **Example**  
-This AWS CLI example shows how to modify a table's read/write capacity mode to on\-demand mode:  
+The following AWS CLI example shows how to modify a table's read/write capacity mode to on\-demand mode\.  
 
 ```
 aws dynamodb update-table --table-name Music \
@@ -189,7 +189,7 @@ aws dynamodb update-table --table-name Music \
 You can remove an unused table with the `DeleteTable` operation\. Deleting a table is an unrecoverable operation\.
 
 **Example**  
-This AWS CLI example shows how to delete a table:  
+The following AWS CLI example shows how to delete a table\.  
 
 ```
 aws dynamodb delete-table --table-name Music
@@ -204,7 +204,7 @@ When the `DeleteTable` operation concludes, the table no longer exists in Dynamo
 The `ListTables` operation returns the names of the DynamoDB tables for the current AWS account and Region\.
 
 **Example**  
-This AWS CLI example shows how to list the DynamoDB table names:  
+The following AWS CLI example shows how to list the DynamoDB table names\.  
 
 ```
 aws dynamodb list-tables
@@ -215,7 +215,7 @@ aws dynamodb list-tables
 The `DescribeLimits` operation returns the current read and write capacity limits for the current AWS account and Region\.
 
 **Example**  
-This AWS CLI example shows how to describe the current provisioned throughput limits:  
+The following AWS CLI example shows how to describe the current provisioned throughput limits\.  
 
 ```
 aws dynamodb describe-limits

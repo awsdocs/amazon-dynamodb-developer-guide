@@ -28,9 +28,9 @@ This scenario uses a sample data file that contains information about a few thou
 
 In the JSON data, note the following:
 + You use the `year` and `title` as the primary key attribute values for the `Movies` table\.
-+ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\. 
++ You store the rest of the `info` values in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\. 
 
- The following is an example of movie data:
+ The following is an example of movie data\.
 
 ```
 {
@@ -72,7 +72,7 @@ In the JSON data, note the following:
 
 After you download the sample data, you can run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy the following program and paste it into your Java development environment\.
 
    ```
    /**

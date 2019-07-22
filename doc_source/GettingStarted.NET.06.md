@@ -13,7 +13,7 @@ In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.m
 
 The `Main` function in `DynamoDB_intro` changes the plot and rating of the movie record that you added in [Step 4](GettingStarted.NET.04.md), and it also adds a list of actors to it\. The document model in the AWS SDK for \.NET doesn't support updating nested attributes such as the items under the `info` attribute\. Because of this, `Main` uses the low\-level client API rather than a document\-model `Table` method\.
 
-It starts by creating a low\-level `UpdateItemRequest` to make this change:
+It starts by creating a low\-level `UpdateItemRequest` to make this change\.
 
 ```
       UpdateItemRequest updateRequest = new UpdateItemRequest()
@@ -42,7 +42,7 @@ It starts by creating a low\-level `UpdateItemRequest` to make this change:
 
 Setting `ReturnValues` to `NONE` specifies that no update information should be returned\. However, when `Main` then waits on `UpdatingMovie_async`, it sets the *report* parameter to `true`\. This causes `UpdatingMovie_async` to change `ReturnValues` to `ALL_NEW`, meaning that the updated item should be returned in its entirety\. 
 
-The `UpdatingMovie_async` is implemented in the `06_UpdatingItem.cs` file:
+The `UpdatingMovie_async` is implemented in the `06_UpdatingItem.cs` file\.
 
 ```
 /**
@@ -115,7 +115,7 @@ Where the document model has a handy `Document.ToJsonPretty( )` method for displ
 
 DynamoDB supports the atomic update of counters, where you use a low\-level update method to increment or decrement the value of an existing attribute without interference from other write requests\. \(All write requests in DynamoDB are applied in the order in which they are received\.\)
 
-To increment the rating value in the movie that you just created, the `Main` function makes the following changes in the `UpdateItemRequest` that it used in the previous update: 
+To increment the rating value in the movie that you just created, the `Main` function makes the following changes in the `UpdateItemRequest` that it used in the previous update\.
 
 ```
       updateRequest.ExpressionAttributeValues = new Dictionary<string, AttributeValue>
@@ -131,7 +131,7 @@ Then, once again, it waits on `UpdatingMovie_async` to make the change\.
 
 You can also add a condition to an update request, so that if the condition is not met, the update does not occur\.
 
-To demonstrate this, the `Main` function makes the following changes to the `UpdateItemRequest` that it just used to increment the movie rating:
+To demonstrate this, the `Main` function makes the following changes to the `UpdateItemRequest` that it just used to increment the movie rating\.
 
 ```
       updateRequest.ExpressionAttributeValues.Add( ":n", new AttributeValue { N = "3" } );

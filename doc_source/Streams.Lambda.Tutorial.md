@@ -232,7 +232,7 @@ The *publishNewBark* function processes only the stream events that correspond t
        --role roleARN \
        --handler publishNewBark.handler \
        --timeout 5 \
-       --runtime nodejs4.3
+       --runtime nodejs10.x
    ```
 
 1. Now you will test *publishNewBark* to verify that it works\. To do this, you will provide input that resembles a real record from DynamoDB Streams\.

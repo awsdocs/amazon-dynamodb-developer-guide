@@ -4,7 +4,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-1. Copy and paste the following program into a file named `MoviesCreateTable.html`:
+1. Copy the following program and paste it into a file named `MoviesCreateTable.html`\.
 
    ```
    <!--
@@ -77,7 +77,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    </html>
    ```
 **Note**  
-You set the endpoint to indicate that you are creating the table in DynamoDB on your computer\.
+You set the endpoint to indicate that you are creating the table in Amazon DynamoDB on your computer\.
 In the `createMovies` function, you specify the table name, primary key attributes, and its data types\.
 The `ProvisionedThroughput` parameter is required, but the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this tutorial\.\)
 

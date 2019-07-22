@@ -1,13 +1,13 @@
 # Example: Batch Write Operations<a name="DynamoDBMapper.BatchWriteExample"></a>
 
-The following Java code example declares Book, Forum, Thread, and Reply classes and maps them to the DynamoDB tables using the `DynamoDBMapper` class\. 
+The following Java code example declares `Book`, `Forum`, `Thread`, and `Reply` classes and maps them to the Amazon DynamoDB tables using the `DynamoDBMapper` class\. 
 
-The code illustrate the following batch write operations:
-+ `batchSave` to put book items in the ProductCatalog table\. 
-+ `batchDelete` to delete items from the ProductCatalog table\. 
-+ `batchWrite` to put and delete items from the Forum and the Thread tables\.
+The code illustrates the following batch write operations:
++ `batchSave` to put book items in the `ProductCatalog` table\. 
++ `batchDelete` to delete items from the `ProductCatalog` table\. 
++ `batchWrite` to put and delete items from the `Forum` and the `Thread` tables\.
 
-For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [Java Code Examples](CodeSamples.Java.md)\. 
+For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions for testing the following example, see [Java Code Examples](CodeSamples.Java.md)\. 
 
 **Example**  
 

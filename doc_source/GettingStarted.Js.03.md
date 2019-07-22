@@ -16,7 +16,7 @@ To learn more about reading and writing data, see [Working with Items in DynamoD
 
 In this step, you add a new item to the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps01.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps01.html`\.
 
    ```
    <!--
@@ -92,7 +92,7 @@ The primary key is required\. This code adds an item that has a primary key \(`y
 
 ## Step 3\.2: Read an Item<a name="GettingStarted.Js.03.02"></a>
 
-In the previous program, you added the following item to the table:
+In the previous program, you added the following item to the table\.
 
 ```
 {
@@ -107,7 +107,7 @@ In the previous program, you added the following item to the table:
 
 You can use the `get` method to read the item from the `Movies` table\. You must specify the primary key values, so you can read any item from `Movies` if you know its `year` and `title`\. 
 
-1. Copy and paste the following program into a file named `MoviesItemOps02.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps02.html`\.
 
    ```
    <!--
@@ -187,7 +187,7 @@ In this example, you perform the following updates:
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
-The item changes from this:
+The item changes from the following:
 
 ```
 {
@@ -200,7 +200,7 @@ The item changes from this:
 }
 ```
 
-To the following:
+To this:
 
 ```
 {
@@ -214,7 +214,7 @@ To the following:
 }
 ```
 
-1. Copy and paste the following program into a file named `MoviesItemOps03.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps03.html`\.
 
    ```
    <!--
@@ -291,7 +291,7 @@ To the following:
    ```
 **Note**  
 This program uses `UpdateExpression` to describe all updates you want to perform on the specified item\.  
-The `ReturnValues` parameter instructs DynamoDB to return only the updated attributes \(`"UPDATED_NEW"`\)\.
+The `ReturnValues` parameter instructs Amazon DynamoDB to return only the updated attributes \(`"UPDATED_NEW"`\)\.
 
 1. Open the `MoviesItemOps03.html` file in your browser\.
 
@@ -303,7 +303,7 @@ DynamoDB supports atomic counters, where you use the `update` method to incremen
 
 The following program shows how to increment the `rating` for a movie\. Each time you run it, the program increments this attribute by one\. 
 
-1. Copy and paste the following program into a file named `MoviesItemOps04.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps04.html`\.
 
    ```
    <!--
@@ -387,7 +387,7 @@ The following program shows how to use `UpdateItem` with a condition\. If the co
 
 In this case, the item is updated only if there are more than three actors in the movie\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps05.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps05.html`\.
 
    ```
    <!--
@@ -469,11 +469,11 @@ In this case, the item is updated only if there are more than three actors in th
 
    The program should fail with the following message:
 
-   `The conditional update failed`
+   The conditional update failed
 
    This is because the movie has three actors in it, but the condition is checking for *greater than* three actors\.
 
-1. Modify the program so that the `ConditionExpression` looks like this:
+1. Modify the program so that the `ConditionExpression` looks like the following\.
 
    ```
    ConditionExpression: "size(info.actors) >= :num", 
@@ -489,7 +489,7 @@ You can use the `delete` method to delete one item by specifying its primary key
 
 In the following example, you try to delete a specific movie item if its rating is 5 or less\.
 
-1. Copy and paste the following program into a file named `MoviesItemOps06.html`:
+1. Copy the following program and paste it into a file named `MoviesItemOps06.html`\.
 
    ```
    <!--
@@ -562,13 +562,13 @@ In the following example, you try to delete a specific movie item if its rating 
    </html>
    ```
 
-1. Open the `MoviesItemOps06.html` file on your browser\.
+1. Open the `MoviesItemOps06.html` file in your browser\.
 
 1. Choose **Conditional Delete**\.
 
    The program should fail with the following message:
 
-   `The conditional delete failed`
+   The conditional delete failed
 
    This is because the rating for this particular movie is greater than 5\.
 

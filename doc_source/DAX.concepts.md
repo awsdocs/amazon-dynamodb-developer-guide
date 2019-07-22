@@ -20,7 +20,7 @@ A DAX cluster consists of one or more nodes\. Each node runs its own instance of
 
 Your application can access DAX by specifying the endpoint for the DAX cluster\. The DAX client software works with the cluster endpoint to perform intelligent load\-balancing and routing, so that incoming requests are evenly distributed across all of the nodes in the cluster\.
 
-### Read Operations<a name="w60aac29c17c14b6"></a>
+### Read Operations<a name="w66aac29c17c14b6"></a>
 
 DAX can respond to the following API calls:
 + `GetItem`
@@ -37,7 +37,7 @@ If there are any read replicas in the cluster, DAX automatically keeps the repli
 
 If the request specifies *strongly consistent reads*, DAX passes the request through to DynamoDB\. The results from DynamoDB are not cached in DAX; instead, they are simply returned to the application\.
 
-### Write Operations<a name="w60aac29c17c14b8"></a>
+### Write Operations<a name="w66aac29c17c14b8"></a>
 
 The following DAX API operations are considered "write\-through":
 + `BatchWriteItem`
@@ -47,7 +47,7 @@ The following DAX API operations are considered "write\-through":
 
 With these operations, data is first written to the DynamoDB table, and then to the DAX cluster\. The operation is successful only if the data is successfully written to *both* the table and to DAX\.
 
-### Other Operations<a name="w60aac29c17c14c10"></a>
+### Other Operations<a name="w66aac29c17c14c10"></a>
 
 DAX does not recognize any DynamoDB operations for managing tables \(such as `CreateTable`, `UpdateTable`, and so on\)\. If your application needs to perform these operations, it will need to access DynamoDB directly rather than using DAX\.
 

@@ -4,7 +4,7 @@ The downloadable version of Amazon DynamoDB is provided as an executable `.jar` 
 
 Follow these steps to set up and run DynamoDB on your computer:
 
-1. Download DynamoDB for free using one of the following links:  
+1. Download DynamoDB for free using one of the following links\.  
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 
@@ -14,7 +14,7 @@ To run DynamoDB on your computer, you must have the Java Runtime Environment \(J
 
 1. After you download the archive, extract the contents and copy the extracted directory to a location of your choice\.
 
-1. To start DynamoDB on your computer, open a command prompt window, navigate to the directory where you extracted `DynamoDBLocal.jar`, and type the following command:
+1. To start DynamoDB on your computer, open a command prompt window, navigate to the directory where you extracted `DynamoDBLocal.jar`, and enter the following command\.
 
    ```
    java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
@@ -23,10 +23,10 @@ To run DynamoDB on your computer, you must have the Java Runtime Environment \(J
  If you're using Windows PowerShell, be sure to enclose the parameter name or the entire name and value like this:   
 `java -D"java.library.path=./DynamoDBLocal_lib" -jar DynamoDBLocal.jar`  
 DynamoDB processes incoming requests until you stop it\. To stop DynamoDB, press Ctrl\+C at the command prompt\.  
-DynamoDB uses port 8000 by default\. If port 8000 is unavailable, this command throws an exception\. For a complete list of DynamoDB runtime options, including `-port` , type this command:  
+DynamoDB uses port 8000 by default\. If port 8000 is unavailable, this command throws an exception\. For a complete list of DynamoDB runtime options, including `-port` , enter this command\.  
 `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -help`
 
-1. Before you can access DynamoDB programmatically or through the AWS Command Line Interface \(AWS CLI\), you must configure your credentials to enable authorization for your applications\. Downloadable DynamoDB requires any credentials to work\. For example: 
+1. Before you can access DynamoDB programmatically or through the AWS Command Line Interface \(AWS CLI\), you must configure your credentials to enable authorization for your applications\. Downloadable DynamoDB requires any credentials to work, as shown in the following example\. 
 
    ```
    AWS Access Key ID: "fakeMyKeyId"
@@ -35,7 +35,7 @@ DynamoDB uses port 8000 by default\. If port 8000 is unavailable, this command t
 
     You can use the `aws configure` command of the AWS CLI to set up credentials\. For more information, see [Using the CLI](Tools.CLI.md)\. 
 
-1. You can start writing applications\. To access DynamoDB running locally, use the `--endpoint-url` parameter\. For example, use the following command to list DynamoDB tables:
+1. You can start writing applications\. To access DynamoDB running locally, use the `--endpoint-url` parameter\. For example, use the following command to list DynamoDB tables\.
 
    ```
    aws dynamodb list-tables --endpoint-url http://localhost:8000

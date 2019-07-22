@@ -2,7 +2,7 @@
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you populate the new `Movies` table in Amazon DynamoDB with sample data from the Internet Movie Database \(IMDb\)\. This data is stored in JSON format in a local text file named `moviedata.json`\.
 
-For each movie, `moviedata.json` defines a `year` name\-value pair, a `title` name\-value pair, and a complex `info` object, as illustrated by the following example: 
+For each movie, `moviedata.json` defines a `year` name\-value pair, a `title` name\-value pair, and a complex `info` object, as illustrated by the following example\.
 
 ```
 {
@@ -32,7 +32,7 @@ For each movie, `moviedata.json` defines a `year` name\-value pair, a `title` na
 }
 ```
 
-Before loading the `moviedata.json` file, the `Main` function in `DynamoDB_intro` checks to determine whether the `Movies` table exists and is still empty\. If so, it waits on an asynchronous `LoadingData_async` function that is implemented in the `03_LoadingData.cs` file:
+Before loading the `moviedata.json` file, the `Main` function in `DynamoDB_intro` checks to determine whether the `Movies` table exists and is still empty\. If so, it waits on an asynchronous `LoadingData_async` function that is implemented in the `03_LoadingData.cs` file\.
 
 ```
 /**

@@ -1,8 +1,8 @@
 # Supported Data Types<a name="DynamoDBMapper.DataTypes"></a>
 
-This section describes the supported primitive Java data types, collections, and arbitrary data types\. 
+This section describes the supported primitive Java data types, collections, and arbitrary data types in Amazon DynamoDB\. 
 
-DynamoDB supports the following primitive Java data types and primitive wrapper classes\. 
+Amazon DynamoDB supports the following primitive Java data types and primitive wrapper classes\. 
 + `String`
 + `Boolean`, `boolean`
 + `Byte`, `byte`
@@ -16,11 +16,9 @@ DynamoDB supports the following primitive Java data types and primitive wrapper 
 + `BigInteger`
 
 **Note**  
- For more information on the DynamoDB naming rules and the various supported data types see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
+ For more information about DynamoDB naming rules and the various supported data types, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
 
-DynamoDB supports the Java [Set](http://docs.oracle.com/javase/6/docs/api/java/util/Set.html), [List](http://docs.oracle.com/javase/6/docs/api/java/util/List.html), and [Map](http://docs.oracle.com/javase/6/docs/api/java/util/Map.html) collection types\.
-
-The following table summarizes how the preceding Java types map to the DynamoDB types\.
+DynamoDB supports the Java [Set](http://docs.oracle.com/javase/6/docs/api/java/util/Set.html), [List](http://docs.oracle.com/javase/6/docs/api/java/util/List.html), and [Map](http://docs.oracle.com/javase/6/docs/api/java/util/Map.html) collection types\. The following table summarizes how these Java types map to the DynamoDB types\.
 
 
 ****  
@@ -29,7 +27,7 @@ The following table summarizes how the preceding Java types map to the DynamoDB 
 | --- | --- | 
 |  All number types  |  `N` \(number type\)  | 
 |  Strings  |  `S` \(string type\)   | 
-| Boolean | BOOL \(boolean type\), 0 or 1\. | 
+| Boolean | BOOL \(Boolean type\), 0 or 1\. | 
 | ByteBuffer | B \(binary type\) | 
 | Date | S \(string type\)\. The Date values are stored as ISO\-8601 formatted strings\. | 
 | [Set](http://docs.oracle.com/javase/6/docs/api/java/util/Set.html) collection types | SS \(string set\) type, NS \(number set\) type, or BS \(binary set\) type\. | 

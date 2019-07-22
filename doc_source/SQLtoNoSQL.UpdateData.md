@@ -1,10 +1,10 @@
 # Modifying Data in a Table<a name="SQLtoNoSQL.UpdateData"></a>
 
-The SQL language provides the `UPDATE` statement for modifying data\. DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
+The SQL language provides the `UPDATE` statement for modifying data\. Amazon DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
 
 ## SQL<a name="SQLtoNoSQL.UpdateData.SQL"></a>
 
-In SQL, you use the `UPDATE` statement to modify one or more rows\. The `SET` clause specifies new values for one or more columns, and the `WHERE` clause determines which rows are modified\. Here is an example:
+In SQL, you use the `UPDATE` statement to modify one or more rows\. The `SET` clause specifies new values for one or more columns, and the `WHERE` clause determines which rows are modified\. The following is an example\.
 
 ```
 UPDATE Music
@@ -18,7 +18,7 @@ If no rows match the `WHERE` clause, the `UPDATE` statement has no effect\.
 
 In DynamoDB, you use the `UpdateItem` action to modify a single item\. \(If you want to modify multiple items, you must use multiple `UpdateItem` operations\.\)
 
-Here is an example:
+The following is an example\.
 
 ```
 {
@@ -34,11 +34,9 @@ Here is an example:
 }
 ```
 
-You must specify the `Key` attributes of the item to be modified, and an `UpdateExpression` to specify attribute values\.
+You must specify the `Key` attributes of the item to be modified and an `UpdateExpression` to specify attribute values\. `UpdateItem` behaves like an "upsert" operation: The item is updated if it exists in the table, but if not, a new item is added \(inserted\)\.
 
-`UpdateItem` behaves like an "upsert" operation: The item is updated if it exists in the table, but if not, a new item is added \(inserted\)\.
-
-`UpdateItem` supports *conditional writes*, where the operation succeeds only if a specific `ConditionExpression` evaluates to true\. For example, the following `UpdateItem` action does not perform the update unless the price of the song is greater than or equal to 2\.00:
+`UpdateItem` supports *conditional writes*, where the operation succeeds only if a specific `ConditionExpression` evaluates to true\. For example, the following `UpdateItem` action does not perform the update unless the price of the song is greater than or equal to 2\.00\.
 
 ```
 {
@@ -56,9 +54,9 @@ You must specify the `Key` attributes of the item to be modified, and an `Update
 }
 ```
 
-`UpdateItem` also supports *atomic counters*, or attributes of type Number that can be incremented or decremented\. Atomic counters are similar in many ways to sequence generators, identity columns, or auto\-increment fields in SQL databases\. 
+`UpdateItem` also supports *atomic counters*, or attributes of type `Number` that can be incremented or decremented\. Atomic counters are similar in many ways to sequence generators, identity columns, or autoincrement fields in SQL databases\. 
 
-The following is an example of an `UpdateItem` action to initialize a new attribute \(*Plays*\) to keep track of the number of times a song has been played:
+The following is an example of an `UpdateItem` action to initialize a new attribute \(*Plays*\) to keep track of the number of times a song has been played\.
 
 ```
 {
@@ -77,7 +75,7 @@ The following is an example of an `UpdateItem` action to initialize a new attrib
 
 The `ReturnValues` parameter is set to `UPDATED_NEW`, which returns the new values of any attributes that were updated\. In this case, it returns 0 \(zero\)\.
 
-Whenever someone plays this song, we can use the following `UpdateItem` action to increment *Plays* by one:
+Whenever someone plays this song, we can use the following `UpdateItem` action to increment *Plays* by one\.
 
 ```
 {
@@ -95,4 +93,4 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
 ```
 
 **Note**  
-For code examples using `UpdateItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `UpdateItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

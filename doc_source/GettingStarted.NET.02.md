@@ -8,7 +8,7 @@ In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.m
 Because "year" is a reserved word in DynamoDB, you need to create an alias for it \(such as `#yr`\) using an `ExpressionAttributeNames` object when referring to it in a low\-level expression\. 
 + `title` – The sort key\. The `AttributeType` is `S` for string\.
 
-The `Main` function in `DynamoDB_intro` does this by waiting on an asynchronous `CreatingTable_async` function implemented in the `02_CreatingTable.cs` file:
+The `Main` function in `DynamoDB_intro` does this by waiting on an asynchronous `CreatingTable_async` function implemented in the `02_CreatingTable.cs` file\.
 
 ```
 /**

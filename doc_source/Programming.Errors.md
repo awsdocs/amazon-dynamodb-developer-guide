@@ -1,6 +1,6 @@
 # Error Handling<a name="Programming.Errors"></a>
 
- This section describes runtime errors and how to handle them\. It also describes error messages and codes that are specific to DynamoDB\.
+ This section describes runtime errors and how to handle them\. It also describes error messages and codes that are specific to Amazon DynamoDB\.
 
 **Topics**
 + [Error Components](#Programming.Errors.Components)
@@ -18,9 +18,9 @@ If the request is unsuccessful, DynamoDB returns an error\. Each error has three
 + An exception name \(such as `ResourceNotFoundException`\)\.
 + An error message \(such as `Requested resource not found: Table: tablename not found`\)\.
 
-The AWS SDKs take care of propagating errors to your application, so that you can take appropriate action\. For example, in a Java program, you can write `try-catch` logic to handle a `ResourceNotFoundException`\.
+The AWS SDKs take care of propagating errors to your application so that you can take appropriate action\. For example, in a Java program, you can write `try-catch` logic to handle a `ResourceNotFoundException`\.
 
-If you are not using an AWS SDK, you will need to parse the content of the low\-level response from DynamoDB\. The following is an example of such a response:
+If you are not using an AWS SDK, you need to parse the content of the low\-level response from DynamoDB\. The following is an example of such a response\.
 
 ```
 HTTP/1.1 400 Bad Request
@@ -35,11 +35,11 @@ Date: Thu, 15 Mar 2012 23:56:23 GMT
 
 ## Error Messages and Codes<a name="Programming.Errors.MessagesAndCodes"></a>
 
-The following is a list of exceptions returned by DynamoDB, grouped by HTTP status code\. If *OK to retry?* is *Yes*, you can submit the same request again\. If *OK to retry?* is *No*, you will need to fix the problem on the client side before you submit a new request\.
+The following is a list of exceptions returned by DynamoDB, grouped by HTTP status code\. If *OK to retry?* is *Yes*, you can submit the same request again\. If *OK to retry?* is *No*, you need to fix the problem on the client side before you submit a new request\.
 
 ### HTTP Status Code 400<a name="Programming.Errors.MessagesAndCodes.http400"></a>
 
-An HTTP `400` status code indicates a problem with your request, such as authentication failure, missing required parameters, or exceeding a table's provisioned throughput\. You will have to fix the issue in your application before submitting the request again\.
+An HTTP `400` status code indicates a problem with your request, such as authentication failure, missing required parameters, or exceeding a table's provisioned throughput\. You have to fix the issue in your application before submitting the request again\.
 
 **AccessDeniedException **  
 Message: *Access denied\.*  
@@ -73,7 +73,7 @@ OK to retry? No
 
 **ProvisionedThroughputExceededException**  
 Message: *You exceeded your maximum allowed provisioned throughput for a table or for one or more global secondary indexes\. To view performance metrics for provisioned throughput vs\. consumed throughput, open the [Amazon CloudWatch console](https://console.aws.amazon.com/cloudwatch/home)\.*  
-Example: Your request rate is too high\. The AWS SDKs for DynamoDB automatically retry requests that receive this exception\. Your request is eventually successful, unless your retry queue is too large to finish\. Reduce the frequency of requests, using [Error Retries and Exponential Backoff](#Programming.Errors.RetryAndBackoff)\.   
+Example: Your request rate is too high\. The AWS SDKs for DynamoDB automatically retry requests that receive this exception\. Your request is eventually successful, unless your retry queue is too large to finish\. Reduce the frequency of requests using [Error Retries and Exponential Backoff](#Programming.Errors.RetryAndBackoff)\.   
 OK to retry? Yes
 
 **RequestLimitExceeded**  
@@ -88,7 +88,7 @@ OK to retry? No
 
 **ResourceNotFoundException **  
 Message: *Requested resource not found\.*  
-Example: Table that is being requested does not exist, or is too early in the `CREATING` state\.  
+Example: The table that is being requested does not exist, or is too early in the `CREATING` state\.  
 OK to retry? No
 
 **ThrottlingException**  
@@ -108,7 +108,7 @@ OK to retry? No
 
 ### HTTP Status Code 5xx<a name="Programming.Errors.MessagesAndCodes.http5xx"></a>
 
-An HTTP `5xx` status code indicates a problem that must be resolved by Amazon Web Services\. This might be a transient error, in which case you can retry your request until it succeeds\. Otherwise, go to the [AWS Service Health Dashboard](http://status.aws.amazon.com/) to see if there are any operational issues with the service\.
+An HTTP `5xx` status code indicates a problem that must be resolved by AWS\. This might be a transient error, in which case you can retry your request until it succeeds\. Otherwise, go to the [AWS Service Health Dashboard](http://status.aws.amazon.com/) to see if there are any operational issues with the service\.
 
 **Internal Server Error \(HTTP 500\)**  
 DynamoDB could not process your request\.  
@@ -121,13 +121,13 @@ OK to retry? Yes
 
 ## Error Handling in Your Application<a name="Programming.Errors.Handling"></a>
 
-For your application to run smoothly, you will need to add logic to catch and respond to errors\. Typical approaches include using `try-catch` blocks or `if-then` statements\.
+For your application to run smoothly, you need to add logic to catch and respond to errors\. Typical approaches include using `try-catch` blocks or `if-then` statements\.
 
 The AWS SDKs perform their own retries and error checking\. If you encounter an error while using one of the AWS SDKs, the error code and description can help you troubleshoot it\. 
 
 You should also see a `Request ID` in the response\. The `Request ID` can be helpful if you need to work with AWS Support to diagnose an issue\.
 
-The following Java code snippet attempts to delete an item from a DynamoDB table, and performs rudimentary error handling\. \(In this case, it simply informs the user that the request failed\.\) 
+The following Java code example tries to delete an item from a DynamoDB table and performs rudimentary error handling\. \(In this case, it simply informs the user that the request failed\.\) 
 
 ```
 Table table = dynamoDB.getTable("Movies");
@@ -155,13 +155,13 @@ try {
 }
 ```
 
-In this code snippet, the `try-catch` construct handles two different kinds of exceptions:
+In this code example, the `try-catch` construct handles two different kinds of exceptions:
 + `AmazonServiceException`—Thrown if the client request was correctly transmitted to DynamoDB, but DynamoDB could not process the request and returned an error response instead\.
 + `AmazonClientException`—Thrown if the client could not get a response from a service, or if the client could not parse the response from a service\.
 
 ## Error Retries and Exponential Backoff<a name="Programming.Errors.RetryAndBackoff"></a>
 
-Numerous components on a network, such as DNS servers, switches, load balancers, and others can generate errors anywhere in the life of a given request\. The usual technique for dealing with these error responses in a networked environment is to implement retries in the client application\. This technique increases the reliability of the application\.
+Numerous components on a network, such as DNS servers, switches, load balancers, and others, can generate errors anywhere in the life of a given request\. The usual technique for dealing with these error responses in a networked environment is to implement retries in the client application\. This technique increases the reliability of the application\.
 
 Each AWS SDK implements retry logic automatically\. You can modify the retry parameters to your needs\. For example, consider a Java application that requires a fail\-fast strategy, with no retries allowed in case of an error\. With the AWS SDK for Java, you could use the `ClientConfiguration` class and provide a `maxErrorRetry` value of `0` to turn off the retries\. For more information, see the AWS SDK documentation for your programming language\.
 
@@ -172,15 +172,15 @@ In addition to simple retries, each AWS SDK implements an exponential backoff al
 **Note**  
 The AWS SDKs implement automatic retry logic and exponential backoff\.
 
-Most exponential backoff algorithms use jitter \(randomized delay\) to prevent successive collisions\. Because you aren't trying to avoid such collisions in these cases, you do not need to use this random number\. However, if you use concurrent clients, jitter can help your requests succeed faster\. For more information, see the blog post for [Exponential Backoff and Jitter](http://www.awsarchitectureblog.com/2015/03/backoff.html)\.
+Most exponential backoff algorithms use jitter \(randomized delay\) to prevent successive collisions\. Because you aren't trying to avoid such collisions in these cases, you do not need to use this random number\. However, if you use concurrent clients, jitter can help your requests succeed faster\. For more information, see the blog post about [Exponential Backoff and Jitter](http://www.awsarchitectureblog.com/2015/03/backoff.html)\.
 
 ## Batch Operations and Error Handling<a name="Programming.Errors.BatchOperations"></a>
 
 The DynamoDB low\-level API supports batch operations for reads and writes\. `BatchGetItem` reads items from one or more tables, and `BatchWriteItem` puts or deletes items in one or more tables\. These batch operations are implemented as wrappers around other non\-batch DynamoDB operations\. In other words, `BatchGetItem` invokes `GetItem` once for each item in the batch\. Similarly,`BatchWriteItem` invokes `DeleteItem` or `PutItem`, as appropriate, for each item in the batch\.
 
-A batch operation can tolerate the failure of individual requests in the batch\. For example, consider a `BatchGetItem` request to read five items\. Even if some of the underlying `GetItem` requests fail, this does not cause the entire `BatchGetItem` operation to fail\. On the other hand, if *all* of the five reads operations fail, then the entire `BatchGetItem` will fail\.
+A batch operation can tolerate the failure of individual requests in the batch\. For example, consider a `BatchGetItem` request to read five items\. Even if some of the underlying `GetItem` requests fail, this does not cause the entire `BatchGetItem` operation to fail\. However, if all five read operations fail, then the entire `BatchGetItem` fails\.
 
-The batch operations return information about individual requests that fail, so that you can diagnose the problem and retry the operation\. For `BatchGetItem`, the tables and primary keys in question are returned in the `UnprocessedKeys` parameter of the request\. For `BatchWriteItem`, similar information is returned in `UnprocessedItems`\. 
+The batch operations return information about individual requests that fail so that you can diagnose the problem and retry the operation\. For `BatchGetItem`, the tables and primary keys in question are returned in the `UnprocessedKeys` parameter of the request\. For `BatchWriteItem`, similar information is returned in `UnprocessedItems`\. 
 
 The most likely cause of a failed read or a failed write is *throttling*\. For `BatchGetItem`, one or more of the tables in the batch request does not have enough provisioned read capacity to support the operation\. For `BatchWriteItem`, one or more of the tables does not have enough provisioned write capacity\.
 

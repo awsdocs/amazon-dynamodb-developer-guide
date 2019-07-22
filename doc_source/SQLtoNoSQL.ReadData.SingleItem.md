@@ -4,7 +4,7 @@ One common access pattern for databases is to read a single item from a table\. 
 
 ## SQL<a name="SQLtoNoSQL.ReadData.SingleItem.SQL"></a>
 
-In SQL, you use the `SELECT` statement to retrieve data from a table\. You can request one or more columns in the result \(or all of them, if you use the `*` operator\)\. The `WHERE` clause determines which row\(s\) to return\.
+In SQL, you use the `SELECT` statement to retrieve data from a table\. You can request one or more columns in the result \(or all of them, if you use the `*` operator\)\. The `WHERE` clause determines which rows to return\.
 
 The following is a `SELECT` statement to retrieve a single row from the *Music* table\. The `WHERE` clause specifies the primary key values\.
 
@@ -14,7 +14,7 @@ FROM Music
 WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
 ```
 
-You can modify this query to retrieve only a subset of the columns:
+You can modify this query to retrieve only a subset of the columns\.
 
 ```
 SELECT AlbumTitle, Year, Price
@@ -40,7 +40,7 @@ By default, `GetItem` returns the entire item with all of its attributes\.
 }
 ```
 
-You can add a `ProjectionExpression` parameter to return only some of the attributes:
+You can add a `ProjectionExpression` parameter to return only some of the attributes\.
 
 ```
 {
@@ -55,13 +55,13 @@ You can add a `ProjectionExpression` parameter to return only some of the attrib
 
 Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
-The DynamoDB `GetItem` action is very efficient: It uses the primary key value\(s\) to determine the exact storage location of the item in question, and retrieves it directly from there\. The SQL `SELECT` statement is similarly efficient, in the case of retrieving items by primary key values\.
+The DynamoDB `GetItem` action is very efficient: It uses the primary key values to determine the exact storage location of the item in question, and retrieves it directly from there\. The SQL `SELECT` statement is similarly efficient, in the case of retrieving items by primary key values\.
 
 The SQL `SELECT` statement supports many kinds of queries and table scans\. DynamoDB provides similar functionality with its `Query` and `Scan` actions, which are described in [Querying a Table](SQLtoNoSQL.ReadData.Query.md) and [Scanning a Table](SQLtoNoSQL.ReadData.Scan.md)\.
 
 The SQL `SELECT` statement can perform table joins, allowing you to retrieve data from multiple tables at the same time\. Joins are most effective where the database tables are normalized and the relationships among the tables are clear\. However, if you join too many tables in one `SELECT` statement application performance can be affected\. You can work around such issues by using database replication, materialized views, or query rewrites\.
 
-DynamoDB is a non\-relational database\. As such, it does not support table joins\. If you are migrating an existing application from a relational database to DynamoDB, you need to denormalize your data model to eliminate the need for joins\.
+DynamoDB is a nonrelational database and doesn't support table joins\. If you are migrating an existing application from a relational database to DynamoDB, you need to denormalize your data model to eliminate the need for joins\.
 
 **Note**  
-For code examples using `GetItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `GetItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.

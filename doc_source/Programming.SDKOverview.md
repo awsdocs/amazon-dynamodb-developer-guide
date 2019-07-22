@@ -1,6 +1,6 @@
 # Overview of AWS SDK Support for DynamoDB<a name="Programming.SDKOverview"></a>
 
-The following diagram provides a high\-level overview of DynamoDB application programming with the AWS SDKs\.
+The following diagram provides a high\-level overview of Amazon DynamoDB application programming using the AWS SDKs\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
@@ -19,7 +19,7 @@ The following diagram provides a high\-level overview of DynamoDB application pr
 Each of the AWS SDKs provides important services to your application, including the following:
 + Formatting HTTP\(S\) requests and serializing request parameters\.
 + Generating a cryptographic signature for each request\.
-+ Forwarding request to a DynamoDB endpoint and receiving responses from DynamoDB\.
++ Forwarding requests to a DynamoDB endpoint and receiving responses from DynamoDB\.
 + Extracting the results from those responses\.
 + Implementing basic retry logic in case of errors\.
 

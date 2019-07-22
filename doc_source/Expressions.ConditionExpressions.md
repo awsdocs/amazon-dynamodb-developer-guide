@@ -126,7 +126,7 @@ In this example, the `ProductCategory` comparison evaluates to true, but the `Pr
 To perform a conditional update, you use an `UpdateItem` operation with a condition expression\. The condition expression must evaluate to true in order for the operation to succeed; otherwise, the operation fails\.
 
 **Note**  
-`UpdateItem` also supports *update expressions*, where you specify the modifications you specify the changes you want to make to an item\. For more information, see [Update Expressions](Expressions.UpdateExpressions.md)\.
+`UpdateItem` also supports *update expressions*, where you specify the modifications you want to make to an item\. For more information, see [Update Expressions](Expressions.UpdateExpressions.md)\.
 
 Suppose that you started with the item shown in [Condition Expressions](#Expressions.ConditionExpressions):
 

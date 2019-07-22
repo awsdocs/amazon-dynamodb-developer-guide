@@ -28,9 +28,9 @@ This scenario uses a sample data file that contains information about a few thou
 
 In the JSON data, note the following:
 + The `year` and `title` are used as the primary key attribute values for the `Movies` table\.
-+ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in a DynamoDB attribute\.
++ The rest of the `info` values are stored in a single attribute called `info`\. This program illustrates how you can store JSON in an Amazon DynamoDB attribute\.
 
- The following is an example of movie data:
+ The following is an example of movie data\.
 
 ```
 {
@@ -66,13 +66,13 @@ In the JSON data, note the following:
 
 1. Extract the data file \(`moviedata.json`\) from the archive\.
 
-1. Copy and paste the `moviedata.json` file into your current directory\.
+1. Copy the `moviedata.json` file into your current directory\.
 
 ## Step 2\.2: Load the Sample Data into the Movies Table<a name="GettingStarted.Python.02.02"></a>
 
 After you download the sample data, you can run the following program to populate the `Movies` table\.
 
-1. Copy and paste the following program into a file named `MoviesLoadData.py`:
+1. Copy the following program and paste it into a file named `MoviesLoadData.py`\.
 
    ```
    #
@@ -115,6 +115,6 @@ After you download the sample data, you can run the following program to populat
            )
    ```
 
-1. To run the program, type the following command:
+1. To run the program, enter the following command\.
 
    `python MoviesLoadData.py`

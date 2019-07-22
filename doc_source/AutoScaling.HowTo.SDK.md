@@ -4,7 +4,7 @@ In addition to using the AWS Management Console and AWS CLI, you can write appli
 + `EnableDynamoDBAutoscaling.java`
 + `DisableDynamoDBAutoscaling.java`
 
-## Enabling Application Auto Scaling for a Table<a name="w60aac19b7c19c25b6"></a>
+## Enabling Application Auto Scaling for a Table<a name="w66aac19b7c19c25b6"></a>
 
 The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(*TestTable*\)\. It proceeds as follows:
 + The program registers write capacity units as a scalable target for *TestTable*\. The range for this metric is between 5 and 10 write capacity units\.
@@ -134,7 +134,7 @@ public class EnableDynamoDBAutoscaling {
 }
 ```
 
-## Disabling Application Auto Scaling for a Table<a name="w60aac19b7c19c25b8"></a>
+## Disabling Application Auto Scaling for a Table<a name="w66aac19b7c19c25b8"></a>
 
 The following program reverses the previous process\. It removes the auto scaling policy, and then deregisters the scalable target\.
 

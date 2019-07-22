@@ -1,9 +1,9 @@
 # Example: Transaction Operations<a name="DynamoDBMapper.Transactions"></a>
 
-The following Java code example declares a Forum and Thread class and maps them to the DynamoDB tables using the `DynamoDBMapper` class\. 
+The following Java code example declares a `Forum` and a `Thread` class and maps them to the DynamoDB tables using the `DynamoDBMapper` class\. 
 
 The code illustrates the following transactional operations:
-+ `transactionWrite` to add, update and delete multiple items from one or more tables in one transaction\. 
++ `transactionWrite` to add, update, and delete multiple items from one or more tables in one transaction\. 
 + `transactionLoad` to retrieve multiple items from one or more tables in one transaction\.
 
 **Example**  
@@ -277,7 +277,7 @@ public class DynamoDBMapperTransactionExample {
         } catch (TransactionCanceledException tce) {
             System.err.println("Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
         } catch (Exception ex) {
-            System.err.println("An exception occured, investigate and configure retry strategy. Error: " + ex.getMessage());
+            System.err.println("An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
         }
         return loadedObjects;
     }
@@ -293,7 +293,7 @@ public class DynamoDBMapperTransactionExample {
         } catch (TransactionCanceledException tce) {
             System.err.println("Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
         } catch (Exception ex) {
-            System.err.println("An exception occured, investigate and configure retry strategy. Error: " + ex.getMessage());
+            System.err.println("An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
         }
     }
     

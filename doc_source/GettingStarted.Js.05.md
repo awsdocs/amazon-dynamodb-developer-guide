@@ -2,7 +2,7 @@
 
  To delete the `Movies` table: 
 
-1. Copy and paste the following program into a file named `MoviesDeleteTable.html`:
+1. Copy the following program and paste it into a file named `MoviesDeleteTable.html`\.
 
    ```
    <!--

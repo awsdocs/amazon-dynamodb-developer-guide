@@ -2,7 +2,7 @@
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you delete the `Movies` table in Amazon DynamoDB\.
 
-The `Main` function in `DynamoDB_intro` waits on `DeletingTable_async`, which is implemented in the `10_DeletingTable.cs` file:
+The `Main` function in `DynamoDB_intro` waits on `DeletingTable_async`, which is implemented in the `10_DeletingTable.cs` file\.
 
 ```
 /**

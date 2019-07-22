@@ -6,9 +6,9 @@ The primary key for the `Movies` table is composed of the following:
 + `year` – The partition key\. The attribute type is number\. 
 + `title` – The sort key\. The attribute type is string\.
 
-To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\); for example, to find movies released in 2014 that have a title starting with the letter "A"\.
+To find all movies released during a year, you need to specify only the `year`\. You can also provide the `title` to retrieve a subset of movies based on some condition \(on the sort key\)\. For example, you can find movies released in 2014 that have a title starting with the letter "A"\.
 
-In addition to `query`, there is also a `scan` method that can retrieve all of the table data\.
+In addition to the `query` method, there is also a `scan` method that can retrieve all of the table data\.
 
 To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\. 
 
@@ -22,7 +22,7 @@ The code included in this step performs the following queries:
 + Retrieve all movies released in the `year` 1985\.
 + Retrieve all movies released in the `year` 1992, with a `title` beginning with the letter "A" through the letter "L"\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy the following program and paste it into your Java development environment\.
 
    ```
    /**
@@ -124,7 +124,7 @@ The code included in this step performs the following queries:
    }
    ```
 **Note**  
-`nameMap` provides name substitution\. This is used because `year` is a reserved word in DynamoDB—you cannot use it directly in any expression, including `KeyConditionExpression`\. You use the expression attribute name `#yr` to address this\.
+`nameMap` provides name substitution\. This is used because `year` is a reserved word in Amazon DynamoDB\. You can't use it directly in any expression, including `KeyConditionExpression`\. You use the expression attribute name `#yr` to address this\.
 `valueMap` provides value substitution\. This is used because you can't use literals in any expression, including `KeyConditionExpression`\. You use the expression attribute value `:yyyy` to address this\.
 
    First, you create the `querySpec` object, which describes the query parameters, and then you pass the object to the `query` method\.
@@ -136,11 +136,11 @@ The preceding program shows how to query a table by its primary key attributes\.
 
 ## Step 4\.2: Scan<a name="GettingStarted.Java.04.Scan"></a>
 
-The `scan` method reads every item in the entire table, and returns all the data in the table\. You can provide an optional `filter_expression` so that only the items matching your criteria are returned\. However, the filter is applied only after the entire table has been scanned\.
+The `scan` method reads every item in the entire table and returns all the data in the table\. You can provide an optional `filter_expression` so that only the items matching your criteria are returned\. However, the filter is applied only after the entire table has been scanned\.
 
-The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\), and discard all the others\.
+The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\) and discard all the others\.
 
-1. Copy and paste the following program into your Java development environment:
+1. Copy the following program and paste it into your Java development environment\.
 
    ```
    /**

@@ -1,12 +1,12 @@
 # Example: CRUD Operations Using the AWS SDK for \.NET Document Model<a name="ItemCRUDDotNetDocumentAPI"></a>
 
  The following C\# code example performs the following actions:
-+ Create a book item in the ProductCatalog table\. 
-+ Retrieve the book item\.
-+ Update the book item\. The code example shows a normal update that adds new attributes and updates existing attributes\. It also shows a conditional update which updates the book price only if the existing price value is as specified in the code\.
-+ Delete the book item\.
++ Creates a book item in the `ProductCatalog` table\. 
++ Retrieves the book item\.
++ Updates the book item\. The code example shows a normal update that adds new attributes and updates existing attributes\. It also shows a conditional update that updates the book price only if the existing price value is as specified in the code\.
++ Deletes the book item\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions to test the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

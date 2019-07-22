@@ -1,15 +1,15 @@
 # Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model<a name="orm-dotnet-batchoperations-example"></a>
 
-The following C\# code example declares Book, Forum, Thread, and Reply classes and maps them to the DynamoDB tables using the object persistence model attributes\. 
+The following C\# code example declares `Book`, `Forum`, `Thread`, and `Reply` classes and maps them to Amazon DynamoDB tables using the object persistence model attributes\. 
 
-The code example then uses the `DynamoDBContext` to illustrate the following batch write operations\. 
-+ `BatchWrite` object to put and delete book items from the ProductCatalog table\. 
-+ `MultiTableBatchWrite` object to put and delete items from the Forum and the Thread tables\. 
+The example then uses the `DynamoDBContext` to illustrate the following batch write operations:
++ `BatchWrite` object to put and delete book items from the `ProductCatalog` table\. 
++ `MultiTableBatchWrite` object to put and delete items from the `Forum` and the `Thread` tables\. 
 
-For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For more information about the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\. For step\-by\-step instructions to test the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Note**  
- The following example does not work with \.NET core as it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The following example doesn't work with \.NET core because it doesn't support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
 
 **Example**  
 

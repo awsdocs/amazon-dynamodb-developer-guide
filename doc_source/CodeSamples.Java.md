@@ -15,19 +15,19 @@ This Developer Guide contains Java code snippets and ready\-to\-run programs\. Y
 
 You can get started quickly by using Eclipse with the [AWS Toolkit for Eclipse](https://aws.amazon.com/eclipse/)\. In addition to a full\-featured IDE, you also get the AWS SDK for Java with automatic updates, and preconfigured templates for building AWS applications\.
 
-**To Run the Java Code Examples \(using Eclipse\)**
+**To run the Java code examples \(using Eclipse\)**
 
 1. Download and install the [Eclipse](http://www.eclipse.org) IDE\.
 
 1. Download and install the [AWS Toolkit for Eclipse](https://aws.amazon.com/eclipse/)\.
 
-1. Start Eclipse and from the **Eclipse** menu, choose **File**, **New**, and then **Other**\.
+1. Start Eclipse, and on the **Eclipse** menu, choose **File**, **New**, and then **Other**\.
 
 1. In **Select a wizard**, choose **AWS**, choose **AWS Java Project**, and then choose **Next**\.
 
 1. In **Create an AWS Java**, do the following:
 
-   1. In **Project name**, type a name for your project\.
+   1. In **Project name**, enter a name for your project\.
 
    1. In **Select Account**, choose your credentials profile from the list\.
 
@@ -37,25 +37,25 @@ You can get started quickly by using Eclipse with the [AWS Toolkit for Eclipse](
 
 1. From the **Eclipse** menu, choose **File**, **New**, and then **Class**\.
 
-1. In **Java Class**, type a name for your class in **Name** \(use the same name as the code sample that you want to run\), and then choose **Finish** to create the class\.
+1. In **Java Class**, enter a name for your class in **Name** \(use the same name as the code example that you want to run\), and then choose **Finish** to create the class\.
 
-1. Copy the code sample from the documentation page you are reading into the Eclipse editor\.
+1. Copy the code example from the documentation page into the Eclipse editor\.
 
-1. To run the code, choose **Run** in the Eclipse menu\.
+1. To run the code, choose **Run** on the Eclipse menu\.
 
 The SDK for Java provides thread\-safe clients for working with DynamoDB\. As a best practice, your applications should create one client and reuse the client between threads\.
 
 For more information, see the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java)\.
 
 **Note**  
-The code examples in this Developer Guide are intended for use with the latest version of the AWS SDK for Java\.  
-If you are using the AWS Toolkit for Eclipse, you can configure automatic updates for the SDK for Java\. To do this in Eclipse, go to **Preferences** and choose **AWS Toolkit** \-\-> **AWS SDK for Java** \-\-> **Download new SDKs automatically**\.
+The code examples in this guide are intended for use with the latest version of the AWS SDK for Java\.  
+If you are using the AWS Toolkit for Eclipse, you can configure automatic updates for the SDK for Java\. To do this in Eclipse, go to **Preferences** and choose **AWS Toolkit**, **AWS SDK for Java**, **Download new SDKs automatically**\.
 
 ## Java: Setting Your AWS Credentials<a name="CodeSamples.Java.Credentials"></a>
 
-The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this Developer Guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
+The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
 
-The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory:
+The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory\.
 
 ```
 [default] 
@@ -65,9 +65,9 @@ aws_secret_access_key = Secret key goes here
 
 ## Java: Setting the AWS Region and Endpoint<a name="CodeSamples.Java.RegionAndEndpoint"></a>
 
-By default, the code examples access DynamoDB in the US West \(Oregon\) region\. You can change the region by modifying the `AmazonDynamoDB` properties\.
+By default, the code examples access DynamoDB in the US West \(Oregon\) Region\. You can change the Region by modifying the `AmazonDynamoDB` properties\.
 
-The following code snippet instantiates a new `AmazonDynamoDB`: 
+The following code example instantiates a new `AmazonDynamoDB`\.
 
 ```
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -79,9 +79,9 @@ AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
 .build();
 ```
 
-You can use the `withRegion` method to run your code against Amazon DynamoDB in any region where it is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+You can use the `withRegion` method to run your code against DynamoDB in any Region where it is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
-If you want to run the code examples using DynamoDB locally on your computer, you need to set the endpoint, like this:
+If you want to run the code examples using DynamoDB locally on your computer, set the endpoint as follows\.
 
 ```
 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(

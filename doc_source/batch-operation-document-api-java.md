@@ -121,7 +121,7 @@ public class DocumentAPIBatchWrite {
 The following Java code example uses the `batchGetItem` method to retrieve multiple items from the Forum and the Thread tables\. The `BatchGetItemRequest` specifies the table names and a list of keys for each item to get\. The example processes the response by printing the items retrieved\.
 
 **Note**  
-This code sample assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 **Example**  

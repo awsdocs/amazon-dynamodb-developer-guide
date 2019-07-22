@@ -10,7 +10,7 @@ The `Query` method provides two overloads\. The minimum required parameters to t
 Query(Primitive partitionKey, RangeFilter Filter);
 ```
 
-For example, the following C\# code snippet queries for all forum replies that were posted in the last 15 days\. 
+For example, the following C\# code queries for all forum replies that were posted in the last 15 days\. 
 
 **Example**  
 
@@ -23,7 +23,7 @@ RangeFilter filter = new RangeFilter(QueryOperator.GreaterThan, twoWeeksAgoDate)
 Search search = table.Query("DynamoDB Thread 2", filter);
 ```
 
-This creates a `Search` object\. You can now call the `Search.GetNextSet` method iteratively to retrieve one page of results at a time as shown in the following C\# code snippet\. The code prints the attribute values for each item that the query returns\.
+This creates a `Search` object\. You can now call the `Search.GetNextSet` method iteratively to retrieve one page of results at a time, as shown in the following C\# code example\. The code prints the attribute values for each item that the query returns\.
 
 **Example**  
 
@@ -64,7 +64,7 @@ You can also specify optional parameters for `Query`, such as specifying a list 
 Query(QueryOperationConfig config);
 ```
 
-Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code snippet constructs the request using the `QueryOperationConfig` object\. 
+Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\. 
 
 **Example**  
 
@@ -83,19 +83,19 @@ QueryOperationConfig config = new QueryOperationConfig()
 Search search = table.Query(config);
 ```
 
-## Example: Query using the Table\.Query method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
+## Example: Query Using the Table\.Query Method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
 
-The following C\# code example uses the `Table.Query` method to execute the following sample queries:
-+ The following queries are executed against the Reply table\.
+The following C\# code example uses the `Table.Query` method to execute the following sample queries\.
++ The following queries are executed against the `Reply` table\.
   + Find forum thread replies that were posted in the last 15 days\.
 
-    This query is executed twice\. In the first Table\.Query call, the example provides only the required query parameters\. In the second Table\.Query call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
+    This query is executed twice\. In the first `Table.Query` call, the example provides only the required query parameters\. In the second `Table.Query` call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
   + Find forum thread replies posted during a period of time\.
 
-    This query uses the Between query operator to find replies posted in between two dates\.
-+ Get a product from the ProductCatalog table\.
+    This query uses the `Between` query operator to find replies posted in between two dates\.
++ Get a product from the `ProductCatalog` table\.
 
-  Because the ProductCatalog table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item Id\.
+  Because the `ProductCatalog` table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item `Id`\.
 
 **Example**  
 

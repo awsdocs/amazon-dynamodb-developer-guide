@@ -13,7 +13,7 @@ As you work through this tutorial, you can refer to the [AWS SDK for PHP Develop
 You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB service, see the [Summary](GettingStarted.PHP.Summary.md)\.
 + Set up an AWS access key to use the AWS SDKs\. For more information, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
 + Set up the AWS SDK for PHP:
-  + Go to [http://php\.net](http://php.net) and install PHP\.
-  + Go to [https://aws\.amazon\.com/sdk\-for\-php](https://aws.amazon.com/sdk-for-php/) and install the SDK for PHP\.
+  + [Install PHP](http://php.net)\.
+  + [Install the SDK for PHP](https://aws.amazon.com/sdk-for-php/)\.
 
   For more information, see [Getting Started](https://docs.aws.amazon.com/aws-sdk-php/v3/guide/getting-started/) in the *AWS SDK for PHP Getting Started Guide*\.
