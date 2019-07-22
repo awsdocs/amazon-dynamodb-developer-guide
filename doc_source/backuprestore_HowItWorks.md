@@ -28,6 +28,7 @@ You must manually set up the following on the restored table:
 + Tags
 + Stream settings
 + Time To Live \(TTL\) settings
++ Point-in-time Recovery settings
 
 While a backup is in progress, you can't do the following:
 + Pause or cancel the backup operation\.
