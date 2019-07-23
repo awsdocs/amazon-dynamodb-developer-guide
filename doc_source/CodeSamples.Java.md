@@ -25,7 +25,7 @@ You can get started quickly by using Eclipse with the [AWS Toolkit for Eclipse](
 
 1. In **Select a wizard**, choose **AWS**, choose **AWS Java Project**, and then choose **Next**\.
 
-1. In **Create an AWS Java**, do the following:
+1. In **Create an AWS Java Project**, do the following:
 
    1. In **Project name**, enter a name for your project\.
 
@@ -53,7 +53,7 @@ If you are using the AWS Toolkit for Eclipse, you can configure automatic update
 
 ## Java: Setting Your AWS Credentials<a name="CodeSamples.Java.Credentials"></a>
 
-The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
+The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
 
 The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory\.
 
@@ -79,7 +79,7 @@ AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
 .build();
 ```
 
-You can use the `withRegion` method to run your code against DynamoDB in any Region where it is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+You can use the `withRegion` method to run your code against DynamoDB in any Region where it is available\. For a complete list, see [AWS Service Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 If you want to run the code examples using DynamoDB locally on your computer, set the endpoint as follows\.
 
