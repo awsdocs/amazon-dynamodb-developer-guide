@@ -4,7 +4,7 @@ These sample tables are used throughout the *Amazon DynamoDB Developer Guide* to
 
 **To delete the sample tables**
 
-1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
+1. Open the [DynamoDB console](https://console.aws.amazon.com/dynamodb/)\.
 
 1. In the navigation pane, choose **Tables**\.
 
