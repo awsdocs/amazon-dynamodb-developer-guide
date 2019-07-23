@@ -1,6 +1,6 @@
 # Working with DynamoDB<a name="WorkingWithDynamo"></a>
 
- This chapter goes into details about the following topics: 
+ This chapter goes into details about the following topics.
 
 **Topics**
 + [Working with Tables in DynamoDB](WorkingWithTables.md)
