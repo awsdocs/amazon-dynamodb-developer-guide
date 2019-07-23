@@ -20,7 +20,7 @@ You can get started quickly by using the AWS SDK for \.NET with the Toolkit for 
 
 1. Download and install [Microsoft Visual Studio](https://www.visualstudio.com)\.
 
-1. Download and install the [Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)\.
+1. Download and install the [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)\.
 
 1. Start Visual Studio\. Choose **File**, **New**, **Project**\.
 
@@ -28,7 +28,7 @@ You can get started quickly by using the AWS SDK for \.NET with the Toolkit for 
 
 1. In **AWS Access Credentials**, choose **Use existing profile**, choose your credentials profile from the list, and then choose **OK**\.
 
-   If this is your first time using Toolkit for Visual Studio, choose **Use a new profile** to set up your AWS credentials\.
+   If this is your first time using the AWS Toolkit for Visual Studio, choose **Use a new profile** to set up your AWS credentials\.
 
 1. In your Visual Studio project, choose the tab for your program's source code \(`Program.cs`\)\. Copy the code example from the documentation page into the Visual Studio editor, replacing any other code that you see in the editor\.
 
@@ -59,7 +59,7 @@ The AWS SDK for \.NET requires that you provide AWS credentials to your applicat
 
 The Toolkit for Visual Studio supports multiple sets of credentials from any number of accounts\. Each set is referred to as a *profile*\. Visual Studio adds entries to the project's `App.config` file so that your application can find the AWS credentials at runtime\.
 
-The following example shows the default `App.config` file that is generated when you create a new project using Toolkit for Visual Studio\.
+The following example shows the default `App.config` file that is generated when you create a new project using the AWS Toolkit for Visual Studio\.
 
 ```
 <?xml version="1.0" encoding="utf-8" ?>
@@ -74,7 +74,7 @@ The following example shows the default `App.config` file that is generated when
 At runtime, the program uses the `default` set of AWS credentials, as specified by the `AWSProfileName` entry\. The AWS credentials themselves are kept in the SDK Store in encrypted form\. The Toolkit for Visual Studio provides a graphical user interface for managing your credentials, all from within Visual Studio\. For more information, see [Specifying Credentials](https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/tkv_setup.html#creds) in the *AWS Toolkit for Visual Studio User Guide*\.
 
 **Note**  
-By default, the code examples access DynamoDB in the US West \(Oregon\) Region\. You can change the Region by modifying the `AWSRegion` entry in the App\.config file\. You can set `AWSRegion` to any Region where DynamoDB is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+By default, the code examples access DynamoDB in the US West \(Oregon\) Region\. You can change the Region by modifying the `AWSRegion` entry in the App\.config file\. You can set `AWSRegion` to any Region where DynamoDB is available\. For a complete list, see [AWS Regions and Endpoints by Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 ## \.NET: Setting the AWS Region and Endpoint<a name="CodeSamples.DotNet.RegionAndEndpoint"></a>
 
@@ -89,7 +89,7 @@ clientConfig.RegionEndpoint = RegionEndpoint.USEast1;
 AmazonDynamoDBClient client = new AmazonDynamoDBClient(clientConfig);
 ```
 
-For a complete list of Regions, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+For a complete list of Regions, see [AWS Regions and Endpoints by Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 If you want to run the code examples using DynamoDB locally on your computer, set the endpoint as follows\.
 
