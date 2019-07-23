@@ -5,7 +5,7 @@ This section describes how to use the AWS CLI and the AWS SDKs to create, update
 **Note**  
 You can also perform these same tasks using the AWS Management Console\. For more information, see [Using the Console](ConsoleDynamoDB.md)\.
 
-This section also provides more information about throughput capacity, using DynamoDB auto scaling or manually setting provisioned throughput\.
+This section also provides more information about throughput capacity by using DynamoDB auto scaling or manually setting provisioned throughput\.
 
 **Topics**
 + [Basic Operations for Tables](WorkingWithTables.Basics.md)
