@@ -80,7 +80,7 @@ The following program retrieves all movies released in the `year` 1985\.
 
 1. To run the program, enter the following command\.
 
-   `ruby MoviesItemQuery01.rb`
+   `ruby MoviesQuery01.rb`
 
 **Note**  
 The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you can optionally create one or more secondary indexes on a table and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
