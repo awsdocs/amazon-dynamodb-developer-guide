@@ -46,7 +46,7 @@ Read replicas serve two additional purposes:
 + **Scalability**\. If you have a large number of application clients that need to access DAX concurrently, you can add more replicas for read\-scaling\. DAX will spread the load evenly across all of the nodes in the cluster\. \(Another way to increase throughput is to use larger cache node types\.\)
 + **High availability**\. In the event of a primary node failure, DAX automatically fails over to a read replica and designates it as the new primary\. If a replica node fails, other nodes in the DAX cluster will still be able to serve requests until the failed node can be recovered\. For maximum fault tolerance, you should deploy read replicas in separate Availability Zones\. This configuration ensures that your DAX cluster can continue to function, even if an entire Availability Zone should become unavailable\. 
 
-A DAX cluster can support up to ten nodes per cluster \(the primary node, plus a maximum of nine read replicas\)\.
+A DAX cluster can support up to eleven nodes per cluster \(the primary node, plus a maximum of ten read replicas\)\.
 
 **Important**  
 For production usage, we strongly recommend using DAX with at least three nodes, where each node is placed in different Availability Zones\. Three nodes are required for a DAX cluster to be fault\-tolerant\.  
