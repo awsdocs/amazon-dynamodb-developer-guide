@@ -85,11 +85,11 @@ Note that the value of the `IndexStatus` field is set to `CREATING`\.
 To verify that DynamoDB has finished creating the `AlbumTitle-index` global secondary index, use the `describe-table` command\. 
 
 ```
- aws dynamodb describe-table --table-name Music | grep IndexStatus
+ aws dynamodb describe-table --table-name Music | head -n 1 | cut -f 8
 ```
 
 This command returns the result shown below\. The index is ready for use when the value of the `IndexStatus` field returned is set to `ACTIVE`\. 
 
 ```
-"IndexStatus": "ACTIVE", 
+"ACTIVE" 
 ```
