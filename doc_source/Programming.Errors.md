@@ -127,7 +127,7 @@ The AWS SDKs perform their own retries and error checking\. If you encounter an 
 
 You should also see a `Request ID` in the response\. The `Request ID` can be helpful if you need to work with AWS Support to diagnose an issue\.
 
-The following Java code example tries to delete an item from a DynamoDB table and performs rudimentary error handling\. \(In this case, it simply informs the user that the request failed\.\) 
+The following Java code example tries to get an item from a DynamoDB table and performs rudimentary error handling\. \(In this case, it simply informs the user that the request failed\.\) 
 
 ```
 Table table = dynamoDB.getTable("Movies");
