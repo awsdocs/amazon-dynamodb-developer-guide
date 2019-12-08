@@ -149,7 +149,7 @@ aws dynamodb update-item \
     --expression-attribute-values file://values.json
 ```
 
-The arguments for `--item` are stored in the file `values.json`:
+The arguments for `--update-expression` and `--condition-expression` are stored in the file `values.json`:
 
 ```
 {
