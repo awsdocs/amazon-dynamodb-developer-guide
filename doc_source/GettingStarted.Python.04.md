@@ -47,7 +47,7 @@ The program included in this step retrieves all movies released in the `year` 19
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -163,7 +163,7 @@ The following program scans the entire `Movies` table, which contains approximat
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)

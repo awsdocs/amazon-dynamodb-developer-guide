@@ -120,7 +120,7 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -212,7 +212,7 @@ The item is updated as follows\.
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -281,7 +281,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -346,7 +346,7 @@ In this case, the item is updated only if there are more than three actors\.
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
@@ -437,7 +437,7 @@ In the following example, you try to delete a specific movie item if its rating 
    class DecimalEncoder(json.JSONEncoder):
        def default(self, o):
            if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
+               if abs(o) % 1 > 0:
                    return float(o)
                else:
                    return int(o)
