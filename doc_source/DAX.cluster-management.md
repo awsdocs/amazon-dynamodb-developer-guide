@@ -170,7 +170,9 @@ DAX maintains two caches for data that it reads from DynamoDB:
 
 For more information, see [Item Cache](DAX.concepts.md#DAX.concepts.item-cache) and [Query Cache](DAX.concepts.md#DAX.concepts.query-cache)
 
-The default time to live \(TTL\) for each of these caches is 5 minutes\. If you want to use different TTL settings, you can launch a DAX cluster using a custom parameter group\. To do this in the AWS Management Console, choose **DAX \| Parameter groups** in the navigation pane\.
+The default time to live \(TTL\) for each of these caches is 5 minutes\. To use an infinite TTL, which disables TTL expiration, set the corresponding "ttl-millis" value to "0".
+
+If you want to use different TTL settings, you can launch a DAX cluster using a custom parameter group\. To do this in the AWS Management Console, choose **DAX \| Parameter groups** in the navigation pane\.
 
 You can also perform these tasks using the AWS CLI\. The following example shows how to launch a new DAX cluster using a custom parameter group\. In this example, the item cache TTL will be set to 10 minutes and the query cache TTL will be set to 3 minutes\.
 
