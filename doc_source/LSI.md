@@ -31,7 +31,7 @@ However, you can specify one or more local secondary indexes on non\-key attribu
 
 A *local secondary index* maintains an alternate sort key for a given partition key value\. A local secondary index also contains a copy of some or all of the attributes from its base table; you specify which attributes are projected into the local secondary index when you create the table\. The data in a local secondary index is organized by the same partition key as the base table, but with a different sort key\. This lets you access data items efficiently across this different dimension\. For greater query or scan flexibility, you can create up to five local secondary indexes per table\. 
 
-Suppose that an application needs to find all of the threads that have been posted within the last three months\. Without a local secondary index, the application would have to `Scan` the entire *Thread* table and discard any posts that were not within the specified time frame\. With a local secondary index, a `Query` operation could use *LastPostDateTime* as a sort key and find the data quickly\.
+Suppose that an application needs to find all of the threads that have been posted within the last three months in a particular forum\. Without a local secondary index, the application would have to `Scan` the entire *Thread* table and discard any posts that were not within the specified time frame\. With a local secondary index, a `Query` operation could use *LastPostDateTime* as a sort key and find the data quickly\.
 
 The following diagram shows a local secondary index named *LastPostIndex*\. Note that the partition key is the same as that of the *Thread* table, but the sort key is *LastPostDateTime*\.
 
