@@ -26,7 +26,10 @@ The following JSON shows the relevant portion of a single Streams record\.
 
         ...
 
-    ]}
+    }
+    
+    ...
+]
 ```
 
 Items deleted by other users will show the `principalId` of the account used to delete the items\.
