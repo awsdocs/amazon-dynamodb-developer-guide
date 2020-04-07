@@ -136,7 +136,7 @@ The following IAM policy grants permissions for the `RestoreTableFromBackup` and
             "Action": [
                 "dynamodb:DeleteBackup"
             ],
-            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/MusicCollection/backup/01489173575360-b308cd7d"
+            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Music/backup/01489173575360-b308cd7d"
         }
     ]
 }

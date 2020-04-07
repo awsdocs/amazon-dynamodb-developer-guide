@@ -15,42 +15,42 @@ aws dynamodb create-table \
         ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
 
-Using `create-table` returns the sample result shown below\.
+Using `create-table` returns the following sample result\.
 
 ```
 {
     "TableDescription": {
-        "TableArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music", 
+        "TableArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music",
         "AttributeDefinitions": [
             {
-                "AttributeName": "Artist", 
+                "AttributeName": "Artist",
                 "AttributeType": "S"
-            }, 
+            },
             {
-                "AttributeName": "SongTitle", 
+                "AttributeName": "SongTitle",
                 "AttributeType": "S"
             }
-        ], 
+        ],
         "ProvisionedThroughput": {
-            "NumberOfDecreasesToday": 0, 
-            "WriteCapacityUnits": 5, 
+            "NumberOfDecreasesToday": 0,
+            "WriteCapacityUnits": 5,
             "ReadCapacityUnits": 10
-        }, 
-        "TableSizeBytes": 0, 
-        "TableName": "Music", 
+        },
+        "TableSizeBytes": 0,
+        "TableName": "Music",
         "TableStatus": "CREATING", 
-        "TableId": "d04c7240-0e46-435d-b231-d54091fe1017", 
+        "TableId": "d04c7240-0e46-435d-b231-d54091fe1017",
         "KeySchema": [
             {
-                "KeyType": "HASH", 
+                "KeyType": "HASH",
                 "AttributeName": "Artist"
-            }, 
+            },
             {
-                "KeyType": "RANGE", 
+                "KeyType": "RANGE",
                 "AttributeName": "SongTitle"
             }
-        ], 
-        "ItemCount": 0, 
+        ],
+        "ItemCount": 0,
         "CreationDateTime": 1558028402.69
     }
 }
@@ -64,7 +64,7 @@ To verify that DynamoDB has finished creating the `Music` table, use the `descri
  aws dynamodb describe-table --table-name Music | grep TableStatus
 ```
 
-This command returns the result shown below\. When DynamoDB has finished creating the table, the value of the `TableStatus` field is set to `ACTIVE`\. 
+This command returns the following result\. When DynamoDB finishes creating the table, the value of the `TableStatus` field is set to `ACTIVE`\. 
 
 ```
 "TableStatus": "ACTIVE",

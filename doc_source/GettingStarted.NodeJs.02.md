@@ -1,4 +1,4 @@
-# Step 2: Load Sample Data<a name="GettingStarted.NodeJs.02"></a>
+# Step 2: Load Sample Data in DynamoDB with AWS SDK for JavaScript<a name="GettingStarted.NodeJs.02"></a>
 
 In this step, you populate the `Movies` table with sample data\.
 
@@ -75,6 +75,7 @@ After you download the sample data, you can run the following program to populat
 1. Copy the following program and paste it into a file named `MoviesLoadData.js`\.
 
    ```
+                       
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *

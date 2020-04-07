@@ -4,6 +4,10 @@ Relational database tables contain *rows* of data\. Rows are composed of *column
 
 This section describes how to write one row \(or item\) to a table\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.WriteData.SQL)
++ [DynamoDB](#SQLtoNoSQL.WriteData.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.WriteData.SQL"></a>
 
 A table in a relational database is a two\-dimensional data structure composed of rows and columns\. Some database management systems also provide support for semistructured data, usually with native JSON or XML data types\. However, the implementation details vary among vendors\.
@@ -11,9 +15,9 @@ A table in a relational database is a two\-dimensional data structure composed o
 In SQL, you use the `INSERT` statement to add a row to a table\.
 
 ```
-INSERT INTO Music 
-    (Artist, SongTitle, AlbumTitle, 
-    Year, Price, Genre, 
+INSERT INTO Music
+    (Artist, SongTitle, AlbumTitle,
+    Year, Price, Genre,
     Tags)
 VALUES(
     'No One You Know', 'Call Me Today', 'Somewhat Famous',
@@ -61,7 +65,7 @@ Here are some key things to know about this `PutItem` example:
 + Most SQL databases are transaction oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
 
 **Note**  
-For code examples using `PutItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples using `PutItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
 
 The following are some other `PutItem` examples\.
 

@@ -1,38 +1,38 @@
-# Tutorial: Processing New Items in a DynamoDB Table<a name="Streams.Lambda.Tutorial"></a>
+# Tutorial: Process New Items with DynamoDB Streams and Lambda<a name="Streams.Lambda.Tutorial"></a>
 
 **Topics**
-+ [Step 1: Create a DynamoDB Table With a Stream Enabled](#Streams.Lambda.Tutorial.CreateTable)
++ [Step 1: Create a DynamoDB Table with a Stream Enabled](#Streams.Lambda.Tutorial.CreateTable)
 + [Step 2: Create a Lambda Execution Role](#Streams.Lambda.Tutorial.CreateRole)
 + [Step 3: Create an Amazon SNS Topic](#Streams.Lambda.Tutorial.SNSTopic)
 + [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction)
 + [Step 5: Create and Test a Trigger](#Streams.Lambda.Tutorial.CreateTrigger)
 
-In this tutorial, you will create an AWS Lambda trigger to process a stream from a DynamoDB table\.
+In this tutorial, you create an AWS Lambda trigger to process a stream from a DynamoDB table\.
 
-The scenario for this tutorial is Woofer, a simple social network\. Woofer users communicate using *barks* \(short text messages\) that are sent to other Woofer users\. The following diagram shows the components and workflow for this application: 
+The scenario for this tutorial is Woofer, a simple social network\. Woofer users communicate using *barks* \(short text messages\) that are sent to other Woofer users\. The following diagram shows the components and workflow for this application\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/StreamsAndTriggers.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-1. A user writes an item to a DynamoDB table \(*BarkTable*\)\. Each item in the table represents a bark\.
+1. A user writes an item to a DynamoDB table \(`BarkTable`\)\. Each item in the table represents a bark\.
 
-1. A new stream record is written to reflect that a new item has been added to *BarkTable*\.
+1. A new stream record is written to reflect that a new item has been added to `BarkTable`\.
 
-1. The new stream record triggers an AWS Lambda function \(*publishNewBark*\)\.
+1. The new stream record triggers an AWS Lambda function \(`publishNewBark`\)\.
 
-1. If the stream record indicates that a new item was added to *BarkTable*, the Lambda function reads the data from the stream record and publishes a message to a topic in Amazon Simple Notification Service \(Amazon SNS\)\.
+1. If the stream record indicates that a new item was added to `BarkTable`, the Lambda function reads the data from the stream record and publishes a message to a topic in Amazon Simple Notification Service \(Amazon SNS\)\.
 
 1. The message is received by subscribers to the Amazon SNS topic\. \(In this tutorial, the only subscriber is an email address\.\)
 
 **Before You Begin**  
-This tutorial uses the AWS Command Line Interface\. If you have not done so already, follow the instructions in the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/) install and configure the AWS CLI\.
+This tutorial uses the AWS Command Line Interface AWS CLI\. If you have not done so already, follow the instructions in the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/) to install and configure the AWS CLI\.
 
-## Step 1: Create a DynamoDB Table With a Stream Enabled<a name="Streams.Lambda.Tutorial.CreateTable"></a>
+## Step 1: Create a DynamoDB Table with a Stream Enabled<a name="Streams.Lambda.Tutorial.CreateTable"></a>
 
-In this step, you will create a DynamoDB table \(*BarkTable*\) to store all of the barks from Woofer users\. The primary key is composed of *Username* \(partition key\) and *Timestamp* \(sort key\)\. Both of these attributes are of type string\.
+In this step, you create a DynamoDB table \(`BarkTable`\) to store all of the barks from Woofer users\. The primary key is composed of `Username` \(partition key\) and `Timestamp` \(sort key\)\. Both of these attributes are of type string\.
 
-*BarkTable* will have a stream enabled\. Later in this tutorial, you will create a trigger by associating an AWS Lambda function with the stream\.
+`BarkTable` has a stream enabled\. Later in this tutorial, you create a trigger by associating an AWS Lambda function with the stream\.
 
-1. Type the following command to create the table:
+1. Enter the following command to create the table\.
 
    ```
    aws dynamodb create-table \
@@ -43,7 +43,7 @@ In this step, you will create a DynamoDB table \(*BarkTable*\) to store all of t
        --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES
    ```
 
-1. In the output, look for the `LatestStreamArn`:
+1. In the output, look for the `LatestStreamArn`\.
 
    ```
     ...
@@ -51,15 +51,15 @@ In this step, you will create a DynamoDB table \(*BarkTable*\) to store all of t
     ...
    ```
 
-   Make a note of the `region` and the `accountID`, because you will need them for the other steps in this tutorial\.
+   Make a note of the `region` and the `accountID`, because you need them for the other steps in this tutorial\.
 
 ## Step 2: Create a Lambda Execution Role<a name="Streams.Lambda.Tutorial.CreateRole"></a>
 
-In this step, you will create an IAM role \(*WooferLambdaRole*\) and assign permissions to it\. This role will be used by the Lambda function that you will create in [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction)\. 
+In this step, you create an AWS Identity and Access Management \(IAM\) role \(`WooferLambdaRole`\) and assign permissions to it\. This role is used by the Lambda function that you create in [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction)\. 
 
-You will also create a policy for the role\. The policy will contain all of the permissions that the Lambda function will need at runtime\.
+You also create a policy for the role\. The policy contains all of the permissions that the Lambda function needs at runtime\.
 
-1. Create a file named `trust-relationship.json` with the following contents:
+1. Create a file named `trust-relationship.json` with the following contents\.
 
    ```
    {
@@ -76,7 +76,7 @@ You will also create a policy for the role\. The policy will contain all of the 
     }
    ```
 
-1. Type the following command to create *WooferLambdaRole*:
+1. Enter the following command to create `WooferLambdaRole`\.
 
    ```
    aws iam create-role --role-name WooferLambdaRole \
@@ -84,7 +84,7 @@ You will also create a policy for the role\. The policy will contain all of the 
        --assume-role-policy-document file://trust-relationship.json
    ```
 
-1. Create a file named `role-policy.json` with the following contents\. \(Replace `region` and `accountID` with your AWS region and account ID\.\)
+1. Create a file named `role-policy.json` with the following contents\. \(Replace `region` and `accountID` with your AWS Region and account ID\.\)
 
    ```
    {
@@ -127,13 +127,13 @@ You will also create a policy for the role\. The policy will contain all of the 
    }
    ```
 
-   The policy has four statements, to allow *WooferLambdaRole* to do the following:
-   + Execute a Lambda function \(publishNewBark\)\. You will create the function later in this tutorial\.
-   + Access CloudWatch Logs\. The Lambda function will write diagnostics to CloudWatch Logs at runtime\.
-   + Read data from the DynamoDB stream for *BarkTable*\.
+   The policy has four statements that allow `WooferLambdaRole` to do the following:
+   + Execute a Lambda function \(`publishNewBark`\)\. You create the function later in this tutorial\.
+   + Access Amazon CloudWatch Logs\. The Lambda function writes diagnostics to CloudWatch Logs at runtime\.
+   + Read data from the DynamoDB stream for `BarkTable`\.
    + Publish messages to Amazon SNS\.
 
-1. Type the following command to attach the policy to *WooferLambdaRole*:
+1. Enter the following command to attach the policy to `WooferLambdaRole`\.
 
    ```
    aws iam put-role-policy --role-name WooferLambdaRole \
@@ -143,15 +143,15 @@ You will also create a policy for the role\. The policy will contain all of the 
 
 ## Step 3: Create an Amazon SNS Topic<a name="Streams.Lambda.Tutorial.SNSTopic"></a>
 
-In this step, you will create an Amazon SNS topic \(*wooferTopic*\) and subscribe an email address to it\. Your Lambda function will use this topic to publish new barks from Woofer users\.
+In this step, you create an Amazon SNS topic \(`wooferTopic`\) and subscribe an email address to it\. Your Lambda function uses this topic to publish new barks from Woofer users\.
 
-1. Type the following command to create a new Amazon SNS topic:
+1. Enter the following command to create a new Amazon SNS topic\.
 
    ```
    aws sns create-topic --name wooferTopic
    ```
 
-1. Type the following command to subscribe an email address to *wooferTopic*\. \(Replace `region` and `accountID` with your AWS region and account ID, and replace `example@example.com` with a valid email address\.\)
+1. Enter the following command to subscribe an email address to `wooferTopic`\. \(Replace `region` and `accountID` with your AWS Region and account ID, and replace `example@example.com` with a valid email address\.\)
 
    ```
    aws sns subscribe \
@@ -160,15 +160,15 @@ In this step, you will create an Amazon SNS topic \(*wooferTopic*\) and subscrib
        --notification-endpoint example@example.com
    ```
 
-1. Amazon SNS will send a confirmation message to your email address\. Click the **Confirm subscription** link in that message to complete the subscription process\.
+1. Amazon SNS sends a confirmation message to your email address\. Choose the **Confirm subscription** link in that message to complete the subscription process\.
 
 ## Step 4: Create and Test a Lambda Function<a name="Streams.Lambda.Tutorial.LambdaFunction"></a>
 
-In this step, you will create an AWS Lambda function \(*publishNewBark*\) to process stream records from *BarkTable*\.
+In this step, you create an AWS Lambda function \(`publishNewBark`\) to process stream records from `BarkTable`\.
 
-The *publishNewBark* function processes only the stream events that correspond to new items in BarkTable\. The function reads data from such an event, and then invokes Amazon SNS to publish it\.
+The `publishNewBark` function processes only the stream events that correspond to new items in `BarkTable`\. The function reads data from such an event, and then invokes Amazon SNS to publish it\.
 
-1. Create a file named `publishNewBark.js` with the following contents:\. \(Replace `region` and `accountID` with your AWS region and account ID\.\)
+1. Create a file named `publishNewBark.js` with the following contents\. Replace `region` and `accountID` with your AWS Region and account ID\.
 
    ```
    'use strict';
@@ -179,13 +179,13 @@ The *publishNewBark* function processes only the stream events that correspond t
    
        event.Records.forEach((record) => {
            console.log('Stream record: ', JSON.stringify(record, null, 2));
-           
+   
            if (record.eventName == 'INSERT') {
                var who = JSON.stringify(record.dynamodb.NewImage.Username.S);
                var when = JSON.stringify(record.dynamodb.NewImage.Timestamp.S);
                var what = JSON.stringify(record.dynamodb.NewImage.Message.S);
                var params = {
-                   Subject: 'A new bark from ' + who, 
+                   Subject: 'A new bark from ' + who,
                    Message: 'Woofer user ' + who + ' barked the following at ' + when + ':\n\n ' + what,
                    TopicArn: 'arn:aws:sns:region:accountID:wooferTopic'
                };
@@ -202,19 +202,19 @@ The *publishNewBark* function processes only the stream events that correspond t
    };
    ```
 
-1. Create a zip file to contain `publishNewBark.js`\. If you have the zip command\-line utility you can type the following command to do this:
+1. Create a zip file to contain `publishNewBark.js`\. If you have the zip command\-line utility, you can enter the following command to do this\.
 
    ```
    zip publishNewBark.zip publishNewBark.js
    ```
 
-1. When you create the Lambda function, you specify the ARN for *WooferLambdaRole*, which you created in [Step 2: Create a Lambda Execution Role](#Streams.Lambda.Tutorial.CreateRole)\. Type the following command to retrieve this ARN:
+1. When you create the Lambda function, you specify the Amazon Resource Name \(ARN\) for `WooferLambdaRole`, which you created in [Step 2: Create a Lambda Execution Role](#Streams.Lambda.Tutorial.CreateRole)\. Enter the following command to retrieve this ARN\.
 
    ```
    aws iam get-role --role-name WooferLambdaRole
    ```
 
-   In the output, look for the ARN for *WooferLambdaRole*:
+   In the output, look for the ARN for `WooferLambdaRole`\.
 
    ```
    ...
@@ -222,7 +222,7 @@ The *publishNewBark* function processes only the stream events that correspond t
    ...
    ```
 
-   Now type the following command to create the Lambda function\. \(Replace *roleARN* with the ARN for *WooferLambdaRole*\.\)
+   Enter the following command to create the Lambda function\. Replace *roleARN* with the ARN for `WooferLambdaRole`\.
 
    ```
    aws lambda create-function \
@@ -235,7 +235,7 @@ The *publishNewBark* function processes only the stream events that correspond t
        --runtime nodejs10.x
    ```
 
-1. Now you will test *publishNewBark* to verify that it works\. To do this, you will provide input that resembles a real record from DynamoDB Streams\.
+1. Now test `publishNewBark` to verify that it works\. To do this, you provide input that resembles a real record from DynamoDB Streams\.
 
    Create a file named `payload.json` with the following contents\.
 
@@ -279,13 +279,13 @@ The *publishNewBark* function processes only the stream events that correspond t
    }
    ```
 
-   Type the following command to test the *publishNewBark* function:
+   Enter the following command to test the `publishNewBark` function\.
 
    ```
    aws lambda invoke  --function-name publishNewBark --payload file://payload.json output.txt
    ```
 
-   If the test was successful, you will see the following output:
+   If the test was successful, you will see the following output\.
 
    ```
    {
@@ -293,7 +293,7 @@ The *publishNewBark* function processes only the stream events that correspond t
    }
    ```
 
-   In addition, the `output.txt` file will contain this text:
+   In addition, the `output.txt` file will contain the following text\.
 
    ```
    "Successfully processed 1 records."
@@ -309,15 +309,15 @@ Choose the latest log stream to view the output \(and errors\) from the function
 
 ## Step 5: Create and Test a Trigger<a name="Streams.Lambda.Tutorial.CreateTrigger"></a>
 
-In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction), you tested the Lambda function to ensure that it ran correctly\. In this step, you will create a *trigger* by associating the Lambda function \(*publishNewBark*\) with an event source \(the *BarkTable* stream\)\.
+In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction), you tested the Lambda function to ensure that it ran correctly\. In this step, you create a *trigger* by associating the Lambda function \(`publishNewBark`\) with an event source \(the `BarkTable` stream\)\.
 
-1. When you create the trigger, you will need to specify the ARN for the *BarkTable* stream\. Type the following command to retrieve this ARN:
+1. When you create the trigger, you need to specify the ARN for the `BarkTable` stream\. Enter the following command to retrieve this ARN\.
 
    ```
    aws dynamodb describe-table --table-name BarkTable
    ```
 
-   In the output, look for the `LatestStreamArn`:
+   In the output, look for the `LatestStreamArn`\.
 
    ```
    ...
@@ -325,7 +325,7 @@ In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFu
    ...
    ```
 
-1. Type the following command to create the trigger\. \(Replace `streamARN` with the actual stream ARN\.\)
+1. Enter the following command to create the trigger\. Replace `streamARN` with the actual stream ARN\.
 
    ```
    aws lambda create-event-source-mapping \
@@ -336,7 +336,7 @@ In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFu
        --starting-position TRIM_HORIZON
    ```
 
-1. You will now test the trigger\. Type the following command to add an item to *BarkTable*:
+1. Test the trigger\. Enter the following command to add an item to `BarkTable`\.
 
    ```
    aws dynamodb put-item \
@@ -346,9 +346,9 @@ In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFu
 
    You should receive a new email message within a few minutes\.
 
-1. Go to the DynamoDB console and add a few more items to *BarkTable*\. You must specify values for the `Username` and `Timestamp` attributes\. \(You should also specify a value for `Message`, even though it is not required\.\) You should receive a new email message for each item you add to *BarkTable*\.
+1. Open the DynamoDB console and add a few more items to `BarkTable`\. You must specify values for the `Username` and `Timestamp` attributes\. \(You should also specify a value for `Message`, even though it is not required\.\) You should receive a new email message for each item you add to `BarkTable`\.
 
-   The Lambda function processes only new items that you add to *BarkTable*\. If you update or delete an item in the table, the function does nothing\.
+   The Lambda function processes only new items that you add to `BarkTable`\. If you update or delete an item in the table, the function does nothing\.
 
 **Note**  
 AWS Lambda writes diagnostic information to Amazon CloudWatch Logs\. If you encounter errors with your Lambda function, you can use these diagnostics for troubleshooting purposes\.  

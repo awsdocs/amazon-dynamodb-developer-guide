@@ -1,11 +1,11 @@
-# Working with DynamoDB<a name="WorkingWithDynamo"></a>
+# Working with Tables, Items, Queries, Scans, and Indexes<a name="WorkingWithDynamo"></a>
 
- This chapter goes into details about the following topics: 
+This section provides details about working with tables, items, queries, and more in Amazon DynamoDB\.
 
 **Topics**
-+ [Working with Tables in DynamoDB](WorkingWithTables.md)
-+ [Working with Items in DynamoDB](WorkingWithItems.md)
-+ [Working with Queries](Query.md)
-+ [Working with Scans](Scan.md)
++ [Working with Tables and Data in DynamoDB](WorkingWithTables.md)
++ [Working with Items and Attributes](WorkingWithItems.md)
++ [Working with Queries in DynamoDB](Query.md)
++ [Working with Scans in DynamoDB](Scan.md)
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
 + [Capturing Table Activity with DynamoDB Streams](Streams.md)

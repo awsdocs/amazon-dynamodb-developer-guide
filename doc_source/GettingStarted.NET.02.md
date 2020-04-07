@@ -1,6 +1,6 @@
-# Step 2: Create a Table Using the Low\-Level API<a name="GettingStarted.NET.02"></a>
+# Step 2: Create a DynamoDB Table Using the Low\-Level API<a name="GettingStarted.NET.02"></a>
 
-The document model in the AWS SDK for \.NET doesn't provide for creating tables, so you have to use the low\-level APIs\. For more information, see [Working with Tables: \.NET](LowLevelDotNetWorkingWithTables.md)\.
+The document model in the AWS SDK for \.NET doesn't provide for creating tables, so you have to use the low\-level APIs\. For more information, see [Working with DynamoDB Tables in \.NET](LowLevelDotNetWorkingWithTables.md)\.
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you create a table named `Movies` in Amazon DynamoDB\. The primary key for the table is composed of the following attributes:
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
@@ -146,8 +146,8 @@ If the table doesn't already exist, `CreatingTable_async` waits on `CreateNewTab
 
 The `DynamoDB_intro` sample uses asynchronous methods rather than synchronous methods wherever possible\. This is because \.NET core supports only asynchronous methods, and the asynchronous model is generally preferable when performance is crucial\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.
 
 ## Next Step<a name="GettingStarted.NET.02.NextStep"></a>
 
-[Step 3: Load Sample Data into the Movies Table](GettingStarted.NET.03.md)
+[Step 3: Load Sample Data into the DynamoDB Table](GettingStarted.NET.03.md)

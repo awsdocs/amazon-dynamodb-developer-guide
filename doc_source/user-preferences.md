@@ -19,7 +19,7 @@ User preferences include the following:
 
 You can view and change your user preferences for the DynamoDB console\. These settings apply only to your IAM user in the DynamoDB console\. They don't affect other IAM users in your AWS account\. 
 
-**To view and save preferences in the DynamoDB console for your IAM user**
+**To view and save preferences on the DynamoDB console for your IAM user**
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
@@ -27,7 +27,7 @@ You can view and change your user preferences for the DynamoDB console\. These s
 
 1. In the title bar navigation, choose **Preferences**\.
 
-1. In **Preferences**, make changes to configure your preferences\.
+1. In **Preferences**, configure your preferences\.
 
    Do one of the following:
    + To save and apply your changes, choose **Save**\.

@@ -1,4 +1,4 @@
-# Prerequisites<a name="GettingStarted.SettingUp.DynamoWebService"></a>
+# Prerequisites \- Getting Started Tutorial<a name="GettingStarted.SettingUp.DynamoWebService"></a>
 
 Before starting the Amazon DynamoDB tutorial, follow the steps in [Setting Up DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)\. Then continue on to [Step 1: Create a Table](getting-started-step-1.md)\.
 

@@ -26,15 +26,21 @@ You cannot enable or disable encryption at rest after a cluster has been created
 
 DAX encryption at rest is offered at no additional cost \(AWS KMS encryption key usage charges apply\)\. For information about pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\.
 
-## Enabling Encryption at Rest \(Console\)<a name="dax.encryption.tutorial-console"></a>
+## Enabling Encryption at Rest Using the AWS Management Console<a name="dax.encryption.tutorial-console"></a>
 
 Follow these steps to enable DAX encryption at rest on a table using the console\.
 
+**To enable DAX encryption at rest**
+
 1. Sign in to the AWS Management Console and open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
-1.  In the navigation pane on the left side of the console under **DAX**, choose **Clusters**\.
+1.  In the navigation pane on the left side of the console, under **DAX**, choose **Clusters**\.
 
-1.  Choose **Create cluster**\. For the **Cluster name**, enter a short name for your cluster\. Choose the **node type** for all of the nodes in the cluster, and for the cluster size, use **3** nodes\. In **Encryption**, make sure that **Enable encryption** is selected\.  
+1.  Choose **Create cluster**\.
+
+1. For **Cluster name**, enter a short name for your cluster\. Choose the **node type** for all of the nodes in the cluster, and for the cluster size, use **3** nodes\.
+
+1. In **Encryption**, make sure that **Enable encryption** is selected\.  
 ![\[Screenshot of cluster settings in the console showing the enable encryption setting.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/dax_encrypt.PNG)
 
 1. After choosing the IAM role, subnet group, security groups, and cluster settings, choose **Launch cluster**\. 

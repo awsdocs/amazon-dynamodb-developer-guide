@@ -1,4 +1,6 @@
-# Basic Operations for Tables<a name="WorkingWithTables.Basics"></a>
+# Basic Operations on DynamoDB Tables<a name="WorkingWithTables.Basics"></a>
+
+Similar to other database systems, Amazon DynamoDB stores data in tables\. You can manage your tables using a few basic operations\.
 
 **Topics**
 + [Creating a Table](#WorkingWithTables.Basics.CreateTable)
@@ -10,14 +12,14 @@
 
 ## Creating a Table<a name="WorkingWithTables.Basics.CreateTable"></a>
 
-Use the `CreateTable` operation to create a table\. You must provide the following information:
-+ **Table name\.** The name must conform to the DynamoDB naming rules, and must be unique for the current AWS account and Region\. For example, you could create a *People* table in US East \(N\. Virginia\) and another *People* table in EU \(Ireland\)\. However, these two tables would be entirely different from each other\. For more information, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\.
+Use the `CreateTable` operation to create a table in Amazon DynamoDB\. To create the table, you must provide the following information:
++ **Table name\.** The name must conform to the DynamoDB naming rules, and must be unique for the current AWS account and Region\. For example, you could create a `People` table in US East \(N\. Virginia\) and another `People` table in Europe \(Ireland\)\. However, these two tables would be entirely different from each other\. For more information, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\.
 + **Primary key\.** The primary key can consist of one attribute \(partition key\) or two attributes \(partition key and sort key\)\. You need to provide the attribute names, data types, and the role of each attribute: `HASH` \(for a partition key\) and `RANGE` \(for a sort key\)\. For more information, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
-+ **Throughput settings \(for provisioned tables\)\.** If using provisioned mode, you must specify the initial read and write throughput settings for the table\. You can modify these settings later, or enable DynamoDB auto scaling to manage the settings for you\. For more information, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md) and [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
++ **Throughput settings \(for provisioned tables\)\.** If using provisioned mode, you must specify the initial read and write throughput settings for the table\. You can modify these settings later, or enable DynamoDB auto scaling to manage the settings for you\. For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md) and [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
 
 ### Example 1: Create a Provisioned Table<a name="create-provisioned-example"></a>
 
-The following AWS CLI example shows how to create a table \(*Music*\)\. The primary key consists of *Artist* \(partition key\) and *SongTitle* \(sort key\), each of which has a data type of *String*\. The maximum throughput for this table is 10 read capacity units and 5 write capacity units\.
+The following AWS CLI example shows how to create a table \(`Music`\)\. The primary key consists of `Artist` \(partition key\) and `SongTitle` \(sort key\), each of which has a data type of `String`\. The maximum throughput for this table is 10 read capacity units and 5 write capacity units\.
 
 ```
 aws dynamodb create-table \
@@ -40,34 +42,34 @@ The `CreateTable` operation returns metadata for the table, as shown following\.
         "TableArn": "arn:aws:dynamodb:us-east-1:123456789012:table/Music",
         "AttributeDefinitions": [
             {
-                "AttributeName": "Artist", 
+                "AttributeName": "Artist",
                 "AttributeType": "S"
-            }, 
+            },
             {
-                "AttributeName": "SongTitle", 
+                "AttributeName": "SongTitle",
                 "AttributeType": "S"
             }
-        ], 
+        ],
         "ProvisionedThroughput": {
-            "NumberOfDecreasesToday": 0, 
-            "WriteCapacityUnits": 5, 
+            "NumberOfDecreasesToday": 0,
+            "WriteCapacityUnits": 5,
             "ReadCapacityUnits": 10
-        }, 
-        "TableSizeBytes": 0, 
-        "TableName": "Music", 
-        "TableStatus": "CREATING", 
-        "TableId": "12345678-0123-4567-a123-abcdefghijkl", 
+        },
+        "TableSizeBytes": 0,
+        "TableName": "Music",
+        "TableStatus": "CREATING",
+        "TableId": "12345678-0123-4567-a123-abcdefghijkl",
         "KeySchema": [
             {
-                "KeyType": "HASH", 
+                "KeyType": "HASH",
                 "AttributeName": "Artist"
-            }, 
+            },
             {
-                "KeyType": "RANGE", 
+                "KeyType": "RANGE",
                 "AttributeName": "SongTitle"
             }
-        ], 
-        "ItemCount": 0, 
+        ],
+        "ItemCount": 0,
         "CreationDateTime": 1542397215.37
     }
 }
@@ -99,37 +101,37 @@ The `CreateTable` operation returns metadata for the table, as shown following\.
         "TableArn": "arn:aws:dynamodb:us-east-1:123456789012:table/Music",
         "AttributeDefinitions": [
             {
-                "AttributeName": "Artist", 
+                "AttributeName": "Artist",
                 "AttributeType": "S"
-            }, 
+            },
             {
-                "AttributeName": "SongTitle", 
+                "AttributeName": "SongTitle",
                 "AttributeType": "S"
             }
-        ], 
+        ],
         "ProvisionedThroughput": {
-            "NumberOfDecreasesToday": 0, 
-            "WriteCapacityUnits": 0, 
+            "NumberOfDecreasesToday": 0,
+            "WriteCapacityUnits": 0,
             "ReadCapacityUnits": 0
-        }, 
-        "TableSizeBytes": 0, 
-        "TableName": "Music", 
+        },
+        "TableSizeBytes": 0,
+        "TableName": "Music",
         "BillingModeSummary": {
             "BillingMode": "PAY_PER_REQUEST"
-        }, 
-        "TableStatus": "CREATING", 
-        "TableId": "12345678-0123-4567-a123-abcdefghijkl", 
+        },
+        "TableStatus": "CREATING",
+        "TableId": "12345678-0123-4567-a123-abcdefghijkl",
         "KeySchema": [
             {
-                "KeyType": "HASH", 
+                "KeyType": "HASH",
                 "AttributeName": "Artist"
-            }, 
+            },
             {
-                "KeyType": "RANGE", 
+                "KeyType": "RANGE",
                 "AttributeName": "SongTitle"
             }
-        ], 
-        "ItemCount": 0, 
+        ],
+        "ItemCount": 0,
         "CreationDateTime": 1542397468.348
     }
 }
@@ -162,7 +164,7 @@ For billing purposes, your DynamoDB storage costs include a per\-item overhead o
 The `UpdateTable` operation allows you to do one of the following:
 + Modify a table's provisioned throughput settings \(for provisioned mode tables\)\.
 + Change the table's read/write capacity mode\.
-+ Manipulate global secondary indexes on the table \(see [Global Secondary Indexes](GSI.md)\)\.
++ Manipulate global secondary indexes on the table \(see [Using Global Secondary Indexes in DynamoDB](GSI.md)\)\.
 + Enable or disable DynamoDB Streams on the table \(see [Capturing Table Activity with DynamoDB Streams](Streams.md)\)\.
 
 **Example**  

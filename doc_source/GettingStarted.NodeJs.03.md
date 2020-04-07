@@ -2,7 +2,7 @@
 
 In this step, you perform read and write operations on an item in the `Movies` table\.
 
-To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+To learn more about reading and writing data, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 **Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.NodeJs.03.01)
@@ -19,6 +19,7 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy the following program and paste it into a file named `MoviesItemOps01.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -70,7 +71,7 @@ In this step, you add a new item to the `Movies` table\.
 **Note**  
 The primary key is required\. This code adds an item that has a primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores sample JSON that provides more information about the movie\.
 
-1. To run the program, enter the following command:
+1. To run the program, enter the following command\.
 
    `node MoviesItemOps01.js`
 
@@ -82,7 +83,7 @@ In the previous program, you added the following item to the table\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
         plot: "Nothing happens at all.",
         rating: 0
    }
@@ -94,6 +95,7 @@ You can use the `get` method to read the item from the `Movies` table\. You must
 1. Copy the following program and paste it into a file named `MoviesItemOps02.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -156,7 +158,7 @@ The following shows the existing item\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
         plot: "Nothing happens at all.",
         rating: 0
    }
@@ -169,7 +171,7 @@ The item is updated as follows\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
            plot: "Everything happens all at once.",
            rating: 5.5,
            actors: ["Larry", "Moe", "Curly"]
@@ -180,6 +182,7 @@ The item is updated as follows\.
 1. Copy the following program and paste it into a file named `MoviesItemOps03.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -250,6 +253,7 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy the following program and paste it into a file named `MoviesItemOps04.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -315,6 +319,7 @@ In this case, the item is updated only if there are more than three actors in th
 1. Copy the following program and paste it into a file named `MoviesItemOps05.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -397,6 +402,7 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy the following program and paste it into a file named `MoviesItemOps06.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *

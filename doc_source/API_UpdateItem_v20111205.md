@@ -30,7 +30,7 @@ If no item matches the specified primary key:
 **Note**  
 If you use `ADD` to increment or decrement a number value for an item that doesn't exist before the update, DynamoDB uses `0` as the initial value\. Also, if you update an item using `ADD` to increment or decrement a number value for an attribute that doesn't exist before the update \(but the item does\) DynamoDB uses `0` as the initial value\. For example, you use `ADD` to add `+3` to an attribute that did not exist before the update\. DynamoDB uses `0` for the initial value, and the value after the update is `3`\. 
 
-For more information about using this operation, see [Working with Items in DynamoDB](WorkingWithItems.md)\. 
+For more information about using this operation, see [Working with Items and Attributes](WorkingWithItems.md)\. 
 
 ## Requests<a name="API_UpdateItem_RequestParameters"></a>
 
@@ -95,7 +95,7 @@ content-length: 140
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | A map of attribute name\-value pairs, but only if the `ReturnValues` parameter is specified as something other than `NONE` in the request\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_UpdateItem_SpecialErrors"></a>
 
@@ -109,7 +109,7 @@ content-length: 140
 
 ## Examples<a name="API_UpdateItem_Examples"></a>
 
-For examples using the AWS SDK, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 ### Sample Request<a name="API_UpdateItem_Examples_Request"></a>
 

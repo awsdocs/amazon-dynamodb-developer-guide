@@ -59,6 +59,6 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 | [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) |  dynamodb:UpdateTable  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 | [UpdateTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html) |  dynamodb:UpdateTimeToLive  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 
-## Related Topics<a name="w66aac31c15b9c15c23"></a>
+## Related Topics<a name="w144aac36c15b9c15c23"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)

@@ -1,4 +1,4 @@
-# Step 8: Query the Movies Table<a name="GettingStarted.NET.08"></a>
+# Step 8: Query a DynamoDB Table with \.NET<a name="GettingStarted.NET.08"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you query the `Movies` table in three different ways\.
 
@@ -169,4 +169,4 @@ Because "year" is a reserved word in DynamoDB, you need to create an alias for i
 
 ## Next Step<a name="GettingStarted.NET.08.NextStep"></a>
 
-[Step 9: Scan the Movies Table](GettingStarted.NET.09.md)
+[Step 9: Scan the Movies Table with \.NET](GettingStarted.NET.09.md)

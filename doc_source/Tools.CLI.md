@@ -1,4 +1,4 @@
-# Using the CLI<a name="Tools.CLI"></a>
+# Using the AWS CLI<a name="Tools.CLI"></a>
 
  You can use the AWS Command Line Interface \(AWS CLI\) to control multiple AWS services from the command line and automate them through scripts\. You can use the AWS CLI for ad hoc operations, such as creating a table\. You can also use it to embed Amazon DynamoDB operations within utility scripts\.
 

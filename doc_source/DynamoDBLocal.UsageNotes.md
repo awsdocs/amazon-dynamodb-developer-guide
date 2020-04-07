@@ -5,7 +5,7 @@ Except for the endpoint, applications that run with the downloadable version of 
 + If you omit `-sharedDb`, the database file is named *myaccesskeyid\_region\.db*, with the AWS access key ID and AWS Region as they appear in your application configuration\. If you delete the file, you lose any data that you have stored in it\.
 + If you use the `-inMemory` option, DynamoDB doesn't write any database files at all\. Instead, all data is written to memory, and the data is not saved when you terminate DynamoDB\.
 + If you use the `-optimizeDbBeforeStartup` option, you must also specify the `-dbPath` parameter so that DynamoDB can find its database file\.
-+ The AWS SDKs for DynamoDB require that your application configuration specify an access key value and an AWS Region value\. Unless you're using the `-sharedDb` or the `-inMemory` option, DynamoDB uses these values to name the local database file\. These values don't have to be valid AWS values to run locally\. However, you might find it convenient to use valid values so that you can run your code in the cloud later simply by changing the endpoint you're using\.
++ The AWS SDKs for DynamoDB require that your application configuration specify an access key value and an AWS Region value\. Unless you're using the `-sharedDb` or the `-inMemory` option, DynamoDB uses these values to name the local database file\. These values don't have to be valid AWS values to run locally\. However, you might find it convenient to use valid values so that you can run your code in the cloud later by changing the endpoint you're using\.
 
 **Topics**
 + [Command Line Options](#DynamoDBLocal.CommandLineOptions)
@@ -17,7 +17,7 @@ Except for the endpoint, applications that run with the downloadable version of 
 You can use the following command line options with the downloadable version of DynamoDB:
 + `-cors` `value` — Enables support for cross\-origin resource sharing \(CORS\) for JavaScript\. You must provide a comma\-separated "allow" list of specific domains\. The default setting for `-cors` is an asterisk \(\*\), which allows public access\.
 + `-dbPath` `value` — The directory where DynamoDB writes its database file\. If you don't specify this option, the file is written to the current directory\. You can't specify both `-dbPath` and `-inMemory` at once\.
-+ `-delayTransientStatuses` — Causes DynamoDB to introduce delays for certain operations\. DynamoDB \(Downloadable Version\) can perform some tasks almost instantaneously, such as create/update/delete operations on tables and indexes\. However, the DynamoDB service requires more time for these tasks\. Setting this parameter helps DynamoDB running on your computer simulate the behavior of the DynamoDB web service more closely\. \(Currently, this parameter introduces delays only for global secondary indexes that are in either *CREATING* or *DELETING* status\.\)
++ `-delayTransientStatuses` — Causes DynamoDB to introduce delays for certain operations\. DynamoDB \(downloadable version\) can perform some tasks almost instantaneously, such as create/update/delete operations on tables and indexes\. However, the DynamoDB service requires more time for these tasks\. Setting this parameter helps DynamoDB running on your computer simulate the behavior of the DynamoDB web service more closely\. \(Currently, this parameter introduces delays only for global secondary indexes that are in either *CREATING* or *DELETING* status\.\)
 + `-help` — Prints a usage summary and options\.
 + `-inMemory` — DynamoDB runs in memory instead of using a database file\. When you stop DynamoDB, none of the data is saved\. You can't specify both `-dbPath` and `-inMemory` at once\.
 + `-optimizeDbBeforeStartup` — Optimizes the underlying database tables before starting DynamoDB on your computer\. You also must specify `-dbPath` when you use this parameter\.
@@ -35,9 +35,9 @@ By default, the AWS SDKs and tools use endpoints for the Amazon DynamoDB web ser
 
 ### AWS Command Line Interface<a name="DynamoDBLocal.Endpoint.CLI"></a>
 
-You can use the AWS Command Line Interface \(AWS CLI\) to interact with downloadable DynamoDB\. For example, you can use it to perform all the steps in [Creating Tables and Loading Sample Data](SampleData.md)\.
+You can use the AWS Command Line Interface \(AWS CLI\) to interact with downloadable DynamoDB\. For example, you can use it to perform all the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
-To access DynamoDB running locally, use the `--endpoint-url` parameter\. The following is an example of using the AWS CLI to list the tables in DynamoDB on your computer:
+To access DynamoDB running locally, use the `--endpoint-url` parameter\. The following is an example of using the AWS CLI to list the tables in DynamoDB on your computer\.
 
 ```
 aws dynamodb list-tables --endpoint-url http://localhost:8000
@@ -53,7 +53,7 @@ The way you specify an endpoint depends on the programming language and AWS SDK 
 + [\.NET: Setting the AWS Region and Endpoint](CodeSamples.DotNet.md#CodeSamples.DotNet.RegionAndEndpoint)
 
 **Note**  
-For examples in other programming languages, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For examples in other programming languages, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
 
 ## Differences Between Downloadable DynamoDB and the DynamoDB Web Service<a name="DynamoDBLocal.Differences"></a>
 
@@ -69,3 +69,4 @@ The downloadable version of DynamoDB differs from the web service in the followi
 + In DynamoDB, there is a 1 MB limit on data returned per result set\. Both the DynamoDB web service and the downloadable version enforce this limit\. However, when querying an index, the DynamoDB service calculates only the size of the projected key and attributes\. By contrast, the downloadable version of DynamoDB calculates the size of the entire item\.
 + If you're using DynamoDB Streams, the rate at which shards are created might differ\. In the DynamoDB web service, shard\-creation behavior is partially influenced by table partition activity\. When you run DynamoDB locally, there is no table partitioning\. In either case, shards are ephemeral, so your application should not be dependent on shard behavior\.
 +  `TransactionConflictExceptions` are not thrown by downloadable DynamoDB for transactional APIs\. We recommend that you use a Java mocking framework to simulate `TransactionConflictExceptions` in the DynamoDB handler to test how your application responds to conflicting transactions\. 
++ In the DynamoDB web service, table names are case sensitive\. A table named `Authors` and one named `authors` can both exist as separate tables\. In the downloadable version, table names are case insensitive, and attempting to create these two tables would result in an error\.

@@ -1,4 +1,4 @@
-# Step 4: Query and Scan the Data<a name="GettingStarted.NodeJs.04"></a>
+# Step 4: Query and Scan Data with AWS SDK for JavaScript in DynamoDB<a name="GettingStarted.NodeJs.04"></a>
 
 You can use the `query` method to retrieve data from a table\. You must specify a partition key value; the sort key is optional\.
 
@@ -10,7 +10,7 @@ To find all movies released during a year, you need to specify only the `year`\.
 
 In addition to the `query` method, you also can use the `scan` method, which can retrieve all the table data\.
 
-To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
+To learn more about querying and scanning data, see [Working with Queries in DynamoDB](Query.md) and [Working with Scans in DynamoDB](Scan.md), respectively\.
 
 **Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.NodeJs.04.Query.01)
@@ -24,6 +24,7 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy the following program and paste it into a file named `MoviesQuery01.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -88,6 +89,7 @@ The program included in this step retrieves all movies released in `year` 1992, 
 1. Copy the following program and paste it into a file named `MoviesQuery02.js`\.
 
    ```
+                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -148,11 +150,12 @@ The program included in this step retrieves all movies released in `year` 1992, 
 
 The `scan` method reads every item in the table and returns all the data in the table\. You can provide an optional `filter_expression`, so that only the items matching your criteria are returned\. However, the filter is applied only after the entire table has been scanned\.
 
-The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\), and discard all of the others\. 
+The following program scans the entire `Movies` table, which contains approximately 5,000 items\. The scan specifies the optional filter to retrieve only the movies from the 1950s \(approximately 100 items\), and discard all of the others\.
 
 1. Copy the following program and paste it into a file named `MoviesScan.js`\.
 
    ```
+                               
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *

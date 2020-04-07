@@ -1,6 +1,6 @@
 # Example: Create, Update, Delete, and List Tables Using the AWS SDK for Java Document API<a name="JavaDocumentAPITablesExample"></a>
 
-The following code sample uses the AWS SDK for Java Document API to create, update, and delete a table \(ExampleTable\)\. As part of the table update, it increases the provisioned throughput values\. The example also lists all the tables in your account and gets the description of a specific table\. For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+The following code example uses the AWS SDK for Java Document API to create, update, and delete an Amazon DynamoDB table \(`ExampleTable`\)\. As part of the table update, it increases the provisioned throughput values\. The example also lists all the tables in your account and gets the description of a specific table\. For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```
 /**

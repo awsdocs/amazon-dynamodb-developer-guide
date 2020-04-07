@@ -9,6 +9,6 @@ In December 2017, AWS began the process of migrating all Amazon DynamoDB endpoin
 + [Overview of AWS SDK Support for DynamoDB](Programming.SDKOverview.md)
 + [Programmatic Interfaces](Programming.SDKs.Interfaces.md)
 + [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)
-+ [Error Handling](Programming.Errors.md)
++ [Error Handling with DynamoDB](Programming.Errors.md)
 + [Higher\-Level Programming Interfaces for DynamoDB](HigherLevelInterfaces.md)
 + [Running the Code Examples in This Developer Guide](CodeSamples.md)

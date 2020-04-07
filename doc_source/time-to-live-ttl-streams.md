@@ -1,10 +1,10 @@
-# DynamoDB Streams and Time To Live<a name="time-to-live-ttl-streams"></a>
+# DynamoDB Streams and Time to Live<a name="time-to-live-ttl-streams"></a>
 
-You can back up, or otherwise process, items deleted by Time To Live by enabling Amazon DynamoDB Streams on the table and processing the Streams records of the expired items\. 
+You can back up, or otherwise process, items that are deleted by Time to Live \(TTL\) by enabling Amazon DynamoDB Streams on the table and processing the streams records of the expired items\. 
 
-The Streams record contains a user identity field `Records[<index>].userIdentity`\.
+The streams record contains a user identity field `Records[<index>].userIdentity`\.
 
-Items that are deleted by the Time To Live process after expiration have the following fields:
+Items that are deleted by the Time to Live process after expiration have the following fields:
 + `Records[<index>].userIdentity.type`
 
   `"Service"`
@@ -12,7 +12,7 @@ Items that are deleted by the Time To Live process after expiration have the fol
 
   `"dynamodb.amazonaws.com"`
 
-The following JSON shows the relevant portion of a single Streams record\.
+The following JSON shows the relevant portion of a single streams record\.
 
 ```
 "Records":[
@@ -28,5 +28,3 @@ The following JSON shows the relevant portion of a single Streams record\.
 
     ]}
 ```
-
-Items deleted by other users will show the `principalId` of the account used to delete the items\.

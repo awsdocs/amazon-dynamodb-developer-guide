@@ -1,6 +1,10 @@
 # Creating a Table<a name="SQLtoNoSQL.CreateTable"></a>
 
-Tables are the fundamental data structures in relational databases and in DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any attributes or data types when you create a table\.
+Tables are the fundamental data structures in relational databases and in Amazon DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any extra attributes or data types when you create a table\.
+
+**Topics**
++ [SQL](#SQLtoNoSQL.CreateTable.SQL)
++ [DynamoDB](#SQLtoNoSQL.CreateTable.DynamoDB)
 
 ## SQL<a name="SQLtoNoSQL.CreateTable.SQL"></a>
 
@@ -8,7 +12,7 @@ Use the `CREATE TABLE` statement to create a table, as shown in the following ex
 
 ```
 CREATE TABLE Music (
-    Artist VARCHAR(20) NOT NULL, 
+    Artist VARCHAR(20) NOT NULL,
     SongTitle VARCHAR(30) NOT NULL,
     AlbumTitle VARCHAR(25),
     Year INT,
@@ -32,28 +36,28 @@ Use the `CreateTable` action to create a provisioned mode table, specifying para
 ```
 {
     TableName : "Music",
-    KeySchema: [       
-        { 
-            AttributeName: "Artist", 
+    KeySchema: [
+        {
+            AttributeName: "Artist",
             KeyType: "HASH", //Partition key
         },
-        { 
-            AttributeName: "SongTitle", 
+        {
+            AttributeName: "SongTitle",
             KeyType: "RANGE" //Sort key
         }
     ],
     AttributeDefinitions: [
-        { 
-            AttributeName: "Artist", 
-            AttributeType: "S" 
+        {
+            AttributeName: "Artist",
+            AttributeType: "S"
         },
-        { 
-            AttributeName: "SongTitle", 
-            AttributeType: "S" 
+        {
+            AttributeName: "SongTitle",
+            AttributeType: "S"
         }
     ],
     ProvisionedThroughput: {       // Only specified if using provisioned mode
-        ReadCapacityUnits: 1, 
+        ReadCapacityUnits: 1,
         WriteCapacityUnits: 1
     }
 }
@@ -68,4 +72,4 @@ You must provide the following parameters to `CreateTable`:
 + `ProvisionedThroughput (for provisioned tables)` – Number of reads and writes per second that you need for this table\. DynamoDB reserves sufficient storage and system resources so that your throughput requirements are always met\. You can use the `UpdateTable` action to change these later, if necessary\. You do not need to specify a table's storage requirements because storage allocation is managed entirely by DynamoDB\.
 
 **Note**  
-For code examples that use `CreateTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `CreateTable`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

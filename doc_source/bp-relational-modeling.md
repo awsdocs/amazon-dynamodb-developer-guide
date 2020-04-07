@@ -1,12 +1,12 @@
 # Best Practices for Modeling Relational Data in DynamoDB<a name="bp-relational-modeling"></a>
 
-Traditional relational database management system \(RDBMS\) platforms store data in a normalized relational structure that reduces hierarchical data structures to a set of common elements that are stored across multiple tables\. The following schema is an example of a generic order\-entry application with supporting HR schema backing the operational and business support systems of a theoretical manufacturer\. 
+Traditional relational database management system \(RDBMS\) platforms store data in a normalized relational structure\. This structure reduces hierarchical data structures to a set of common elements that are stored across multiple tables\. The following schema is an example of a generic order\-entry application with supporting HR schema backing the operational and business support systems of a theoretical manufacturer\. 
 
 ![\[Example RDBMS schema.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/RDBMS.png)
 
 RDBMS platforms use an ad hoc query language \(generally a flavor of SQL\) to generate or materialize views of the normalized data to support application\-layer access patterns\.
 
-For example, to generate a list of purchase order items sorted by the quantity in stock at all warehouses that can ship each item, you could issue the following query against the preceding schema:
+For example, to generate a list of purchase order items sorted by the quantity in stock at all warehouses that can ship each item, you could issue the following query against the preceding schema\.
 
 ```
 SELECT * FROM Orders

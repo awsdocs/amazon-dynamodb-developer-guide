@@ -35,7 +35,7 @@ The following sections show the sample data files that are used for loading the 
 
 Each data file contains multiple `PutRequest` elements, each of which contain a single item\. These `PutRequest` elements are used as input to the `BatchWriteItem` operation, using the AWS Command Line Interface \(AWS CLI\)\.
 
- For more information, see [Step 2: Load Data into Tables](SampleData.LoadData.md) in [Creating Tables and Loading Sample Data](SampleData.md)\.
+ For more information, see [Step 2: Load Data into Tables](SampleData.LoadData.md) in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
 ### *ProductCatalog* Sample Data<a name="AppendixSampleData.ProductCatalog"></a>
 

@@ -1,6 +1,6 @@
 # Scanning Tables and Indexes: Java<a name="ScanJavaDocumentAPI"></a>
 
-The `Scan` operation reads all of the items in a table or index\.
+The `Scan` operation reads all of the items in a table or index in Amazon DynamoDB\.
 
 The following are the steps to scan a table using the AWS SDK for Java Document API\. 
 
@@ -12,7 +12,7 @@ The following are the steps to scan a table using the AWS SDK for Java Document 
 
 1. Execute the `scan` method and provide the `ScanRequest` object that you created in the preceding step\.
 
-The following Reply table stores replies for forum threads\. 
+The following `Reply` table stores replies for forum threads\. 
 
 **Example**  
 
@@ -20,7 +20,7 @@ The following Reply table stores replies for forum threads\.
 Reply ( Id, ReplyDateTime, Message, PostedBy )
 ```
 
-The table maintains all the replies for various forum threads\. Therefore, the primary key is composed of both the Id \(partition key\) and ReplyDateTime \(sort key\)\. The following Java code snippet scans the entire table\. The `ScanRequest` instance specifies the name of the table to scan\.
+The table maintains all the replies for various forum threads\. Therefore, the primary key is composed of both the `Id` \(partition key\) and `ReplyDateTime` \(sort key\)\. The following Java code example scans the entire table\. The `ScanRequest` instance specifies the name of the table to scan\.
 
 **Example**  
 
@@ -40,7 +40,7 @@ for (Map<String, AttributeValue> item : result.getItems()){
 
 The `scan` method supports several optional parameters\. For example, you can optionally use a filter expression to filter the scan result\. In a filter expression, you can specify a condition and attribute names and values on which you want the condition evaluated\. For more information, see [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
-The following Java snippet scans the ProductCatalog table to find items that are priced less than 0\. The snippet specifies the following optional parameters:
+The following Java example scans the `ProductCatalog` table to find items that are priced less than 0\. The example specifies the following optional parameters:
 + A filter expression to retrieve only the items priced less than 0 \(error condition\)\. 
 + A list of attributes to retrieve for items in the query results\.
 
@@ -66,7 +66,7 @@ for (Map<String, AttributeValue> item : result.getItems()) {
 
 You can also optionally limit the page size, or the number of items per page, by using the `withLimit` method of the scan request\. Each time you execute the `scan` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `scan` method again by providing the primary key value of the last item in the previous page so that the `scan` method can return the next set of items\. You provide this information in the request by using the `withExclusiveStartKey` method\. Initially, the parameter of this method can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
-The following Java code snippet scans the ProductCatalog table\. In the request, the `withLimit` and `withExclusiveStartKey` methods are used\. The `do/while` loop continues to scan one page at time until the `getLastEvaluatedKey` method of the result returns a value of null\. 
+The following Java code example scans the `ProductCatalog` table\. In the request, the `withLimit` and `withExclusiveStartKey` methods are used\. The `do/while` loop continues to scan one page at time until the `getLastEvaluatedKey` method of the result returns a value of null\. 
 
 **Example**  
 
@@ -88,13 +88,13 @@ do {
 
 ## Example \- Scan Using Java<a name="DocumentAPIJavaScanExample"></a>
 
-The following Java code example provides a working sample that scans the ProductCatalog table to find items that are priced less than 100\. 
+The following Java code example provides a working sample that scans the `ProductCatalog` table to find items that are priced less than 100\. 
 
 **Note**  
-The SDK for Java also provides an object persistence model, allowing you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
+The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code that you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```
@@ -162,13 +162,13 @@ public class DocumentAPIScan {
 
 ## Example \- Parallel Scan Using Java<a name="DocumentAPIJavaParallelScanExample"></a>
 
-The following Java code example demonstrates a parallel scan\. The program deletes and re\-creates a table named *ParallelScanTest*, and then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel Scan requests\. The program prints run time statistics for each parallel request\.
+The following Java code example demonstrates a parallel scan\. The program deletes and re\-creates a table named `ParallelScanTest`, and then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. The program prints runtime statistics for each parallel request\.
 
 **Note**  
-The SDK for Java also provides an object persistence model, allowing you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
+The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code that you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```

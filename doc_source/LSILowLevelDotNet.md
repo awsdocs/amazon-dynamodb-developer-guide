@@ -1,26 +1,26 @@
 # Working with Local Secondary Indexes: \.NET<a name="LSILowLevelDotNet"></a>
 
 **Topics**
-+ [Create a Table With a Local Secondary Index](#LSILowLevelDotNet.CreateTableWithIndex)
-+ [Describe a Table With a Local Secondary Index](#LSILowLevelDotNet.DescribeTableWithIndex)
++ [Create a Table with a Local Secondary Index](#LSILowLevelDotNet.CreateTableWithIndex)
++ [Describe a Table with a Local Secondary Index](#LSILowLevelDotNet.DescribeTableWithIndex)
 + [Query a Local Secondary Index](#LSILowLevelDotNet.QueryAnIndex)
 + [Example: Local Secondary Indexes Using the AWS SDK for \.NET Low\-Level API](LSILowLevelDotNet.Example.md)
 
-You can use the AWS SDK for \.NET low\-level API to create a table with one or more local secondary indexes, describe the indexes on the table, and perform queries using the indexes\. These operations map to the corresponding low\-level DynamoDB API actions\. For more information, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+You can use the AWS SDK for \.NET low\-level API to create an Amazon DynamoDB table with one or more local secondary indexes, describe the indexes on the table, and perform queries using the indexes\. These operations map to the corresponding low\-level DynamoDB API actions\. For more information, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 The following are the common steps for table operations using the \.NET low\-level API\. 
 
 1. Create an instance of the `AmazonDynamoDBClient` class\.
 
-1. Provide the required and optional parameters for the operation by creating the corresponding request objects\. 
+1. Provide the required and optional parameters for the operation by creating the corresponding request objects\.
 
    For example, create a `CreateTableRequest` object to create a table and an `QueryRequest` object to query a table or an index\. 
 
 1. Execute the appropriate method provided by the client that you created in the preceding step\. 
 
-## Create a Table With a Local Secondary Index<a name="LSILowLevelDotNet.CreateTableWithIndex"></a>
+## Create a Table with a Local Secondary Index<a name="LSILowLevelDotNet.CreateTableWithIndex"></a>
 
-Local secondary indexes must be created at the same time you create a table\. To do this, use `CreateTable` and provide your specifications for one or more local secondary indexes\. The following C\# code snippet creates a table to hold information about songs in a music collection\. The partition key is *Artist* and the sort key is *SongTitle*\. A secondary index, *AlbumTitleIndex*, facilitates queries by album title\. 
+Local secondary indexes must be created at the same time that you create a table\. To do this, use `CreateTable` and provide your specifications for one or more local secondary indexes\. The following C\# code example creates a table to hold information about songs in a music collection\. The partition key is `Artist` and the sort key is `SongTitle`\. A secondary index, `AlbumTitleIndex`, facilitates queries by album title\. 
 
 The following are the steps to create a table with a local secondary index, using the \.NET low\-level API\. 
 
@@ -32,7 +32,7 @@ The following are the steps to create a table with a local secondary index, usin
 
 1. Execute the `CreateTable` method by providing the request object as a parameter\.
 
-The following C\# code snippet demonstrates the preceding steps\. The snippet creates a table \(*Music*\) with a secondary index on the *AlbumTitle* attribute\. The table partition key and sort key, plus the index sort key, are the only attributes projected into the index\.
+The following C\# code example demonstrates the preceding steps\. The code creates a table \(`Music`\) with a secondary index on the `AlbumTitle` attribute\. The table partition key and sort key, plus the index sort key, are the only attributes projected into the index\.
 
 ```
 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -110,7 +110,7 @@ Console.WriteLine(result.CreateTableResult.TableDescription.TableStatus);
 
 You must wait until DynamoDB creates the table and sets the table status to `ACTIVE`\. After that, you can begin putting data items into the table\.
 
-## Describe a Table With a Local Secondary Index<a name="LSILowLevelDotNet.DescribeTableWithIndex"></a>
+## Describe a Table with a Local Secondary Index<a name="LSILowLevelDotNet.DescribeTableWithIndex"></a>
 
 To get information about local secondary indexes on a table, use the `DescribeTable` API\. For each index, you can access its name, key schema, and projected attributes\.
 
@@ -122,7 +122,7 @@ The following are the steps to access local secondary index information a table 
 
 1. Execute the `describeTable` method by providing the request object as a parameter\.
 
-The following C\# code snippet demonstrates the preceding steps\.
+The following C\# code example demonstrates the preceding steps\.
 
 **Example**  
 
@@ -164,7 +164,7 @@ foreach (LocalSecondaryIndexDescription lsiDescription in localSecondaryIndexes)
 
 ## Query a Local Secondary Index<a name="LSILowLevelDotNet.QueryAnIndex"></a>
 
-You can use `Query` on a local secondary index, in much the same way you `Query` a table\. You need to specify the index name, the query criteria for the index sort key, and the attributes that you want to return\. In this example, the index is *AlbumTitleIndex* and the index sort key is AlbumTitle\. 
+You can use `Query` on a local secondary index in much the same way you `Query` a table\. You must specify the index name, the query criteria for the index sort key, and the attributes that you want to return\. In this example, the index is `AlbumTitleIndex`, and the index sort key is `AlbumTitle`\. 
 
 The only attributes returned are those that have been projected into the index\. You could modify this query to select non\-key attributes too, but this would require table fetch activity that is relatively expensive\. For more information about table fetches, see [Attribute Projections](LSI.md#LSI.Projections)
 
@@ -176,7 +176,7 @@ The following are the steps to query a local secondary index using the \.NET low
 
 1. Execute the `query` method by providing the request object as a parameter\.
 
-The following C\# code snippet demonstrates the preceding steps\.
+The following C\# code example demonstrates the preceding steps\.
 
 **Example**  
 

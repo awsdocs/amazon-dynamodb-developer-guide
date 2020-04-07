@@ -7,8 +7,6 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 1. Copy the following program and paste it into a file named `MoviesCreateTable.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -75,10 +73,6 @@ In this step, you create a table named `Movies`\. The primary key for the table 
        echo "Unable to create table:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 **Note**  
 You set the endpoint to indicate that you are creating the table in Amazon DynamoDB on your computer\.
@@ -89,4 +83,4 @@ The `ProvisionedThroughput` parameter is required, but the downloadable version 
 
    `php MoviesCreateTable.php`
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.

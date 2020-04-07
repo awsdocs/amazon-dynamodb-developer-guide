@@ -6,25 +6,25 @@ If you are an application developer, you might have some experience using a rela
 
 **Note**  
 The SQL examples in this section are compatible with the MySQL RDBMS\.  
-The DynamoDB examples in this section show the name of the DynamoDB operation, along with the parameters for that operation in JSON format\. For code examples that use these operations, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+The DynamoDB examples in this section show the name of the DynamoDB operation, along with the parameters for that operation in JSON format\. For code examples that use these operations, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
 
 **Topics**
-+ [SQL or NoSQL?](#SQLtoNoSQL.WhyDynamoDB)
-+ [Accessing the Database](SQLtoNoSQL.Accessing.md)
++ [Relational \(SQL\) or NoSQL?](#SQLtoNoSQL.WhyDynamoDB)
++ [Characteristics of Databases](SQLtoNoSQL.Accessing.md)
 + [Creating a Table](SQLtoNoSQL.CreateTable.md)
 + [Getting Information About a Table](SQLtoNoSQL.GetTableInfo.md)
 + [Writing Data to a Table](SQLtoNoSQL.WriteData.md)
-+ [Reading Data from a Table](SQLtoNoSQL.ReadData.md)
++ [Key Differences When Reading Data from a Table](SQLtoNoSQL.ReadData.md)
 + [Managing Indexes](SQLtoNoSQL.Indexes.md)
 + [Modifying Data in a Table](SQLtoNoSQL.UpdateData.md)
 + [Deleting Data from a Table](SQLtoNoSQL.DeleteData.md)
 + [Removing a Table](SQLtoNoSQL.RemoveTable.md)
 
-## SQL or NoSQL?<a name="SQLtoNoSQL.WhyDynamoDB"></a>
+## Relational \(SQL\) or NoSQL?<a name="SQLtoNoSQL.WhyDynamoDB"></a>
 
 Today's applications have more demanding requirements than ever before\. For example, an online game might start out with just a few users and a very small amount of data\. However, if the game becomes successful, it can easily outstrip the resources of the underlying database management system\. It is common for web\-based applications to have hundreds, thousands, or millions of concurrent users, with terabytes or more of new data generated per day\. Databases for such applications must handle tens \(or hundreds\) of thousands of reads and writes per second\.
 
-Amazon DynamoDB is well\-suited for these kinds of workloads\. As a developer, you can start with a small amount of provisioned throughput and gradually increase it as your application becomes more popular\. DynamoDB scales seamlessly to handle very large amounts of data and very large numbers of users\.
+Amazon DynamoDB is well\-suited for these kinds of workloads\. As a developer, you can start small and gradually increase your utilization as your application becomes more popular\. DynamoDB scales seamlessly to handle very large amounts of data and very large numbers of users\.
 
 The following table shows some high\-level differences between an RDBMS and DynamoDB\.
 

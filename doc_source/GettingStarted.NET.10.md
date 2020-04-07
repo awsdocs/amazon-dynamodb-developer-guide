@@ -1,4 +1,4 @@
-# Step 10: Delete the Movies Table<a name="GettingStarted.NET.10"></a>
+# Step 10: Delete the Movies Table with \.NET<a name="GettingStarted.NET.10"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you delete the `Movies` table in Amazon DynamoDB\.
 
@@ -57,6 +57,6 @@ namespace DynamoDB_intro
 `DeletingTable_async` waits on the low\-level DynamoDB method `AmazonDynamoDBClient.DeleteTableAsync` to delete the table\.
 
 ## For More Information<a name="GettingStarted.NET.10.info"></a>
-+ To learn more about reading and writing data in DynamoDB tables, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
++ To learn more about reading and writing data in DynamoDB tables, see [Working with Items and Attributes](WorkingWithItems.md)\.
 + For more information about the DynamoDB document model API, see [\.NET: Document Model](DotNetSDKMidLevel.md)\.
 + For more information about asynchronous methods, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.

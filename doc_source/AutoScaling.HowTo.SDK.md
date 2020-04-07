@@ -1,17 +1,17 @@
-# Application Programming With DynamoDB Auto Scaling<a name="AutoScaling.HowTo.SDK"></a>
+# Using the AWS SDK to Configure Auto Scaling on Amazon DynamoDB Tables<a name="AutoScaling.HowTo.SDK"></a>
 
-In addition to using the AWS Management Console and AWS CLI, you can write applications that interact with DynamoDB auto scaling\. This section contains two Java programs that you can use to test this functionality:
+In addition to using the AWS Management Console and the AWS Command Line Interface \(AWS CLI\), you can write applications that interact with Amazon DynamoDB auto scaling\. This section contains two Java programs that you can use to test this functionality:
 + `EnableDynamoDBAutoscaling.java`
 + `DisableDynamoDBAutoscaling.java`
 
-## Enabling Application Auto Scaling for a Table<a name="w66aac19b7c19c25b6"></a>
+## Enabling Application Auto Scaling for a Table<a name="AutoScaling.HowTo.SDK-enable"></a>
 
-The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(*TestTable*\)\. It proceeds as follows:
-+ The program registers write capacity units as a scalable target for *TestTable*\. The range for this metric is between 5 and 10 write capacity units\.
+The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(`TestTable`\)\. It proceeds as follows:
++ The program registers write capacity units as a scalable target for `TestTable`\. The range for this metric is between 5 and 10 write capacity units\.
 + After the scalable target is created, the program builds a target tracking configuration\. The policy seeks to maintain a 50 percent target ratio between consumed write capacity and provisioned write capacity\.
 + The program then creates the scaling policy, based on the target tracking configuration\.
 
-The program requires that you supply an ARN for a valid Application Auto Scaling service linked role\. \(For example: `"arn:aws:iam::122517410325:role/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. 
+The program requires that you provide an Amazon Resource Name \(ARN\) for a valid Application Auto Scaling service linked role\. \(For example: `arn:aws:iam::122517410325:role/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. 
 
 ```
 /**
@@ -134,9 +134,9 @@ public class EnableDynamoDBAutoscaling {
 }
 ```
 
-## Disabling Application Auto Scaling for a Table<a name="w66aac19b7c19c25b8"></a>
+## Disabling Application Auto Scaling for a Table<a name="AutoScaling.HowTo.SDK-disable"></a>
 
-The following program reverses the previous process\. It removes the auto scaling policy, and then deregisters the scalable target\.
+The following program reverses the previous process\. It removes the auto scaling policy and then deregisters the scalable target\.
 
 ```
 /**

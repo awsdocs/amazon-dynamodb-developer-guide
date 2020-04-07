@@ -11,20 +11,20 @@ aws dynamodb get-item --consistent-read \
     --key '{ "Artist": {"S": "Acme Band"}, "SongTitle": {"S": "Happy Day"}}'
 ```
 
-Using `get-item` returns the sample result shown below\.
+Using `get-item` returns the following sample result\.
 
 ```
 {
     "Item": {
         "AlbumTitle": {
             "S": "Songs About Life"
-        }, 
+        },
         "Awards": {
             "N": "10"
-        }, 
+        },
         "SongTitle": {
             "S": "Happy Day"
-        }, 
+        },
         "Artist": {
             "S": "Acme Band"
         }

@@ -4,12 +4,12 @@ Now you have completed the Tic\-Tac\-Toe application deployment and testing\. Th
 
 If you are done testing, you can remove the resources you created to test the Tic\-Tac\-Toe application to avoid incurring any charges\.
 
-**To remove resources you created**
+**To remove the resources you created**
 
-1. Remove the Games table you created in DynamoDB\.
+1. Remove the `Games` table that you created in DynamoDB\.
 
 1. Terminate the Elastic Beanstalk environment to free up the Amazon EC2 instances\.
 
-1. Delete the IAM role you created\.
+1. Delete the IAM role that you created\.
 
-1. Remove the object you created in Amazon S3\.
+1. Remove the object that you created in Amazon S3\.

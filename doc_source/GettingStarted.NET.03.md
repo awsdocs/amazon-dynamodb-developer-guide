@@ -1,4 +1,4 @@
-# Step 3: Load Sample Data into the Movies Table<a name="GettingStarted.NET.03"></a>
+# Step 3: Load Sample Data into the DynamoDB Table<a name="GettingStarted.NET.03"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you populate the new `Movies` table in Amazon DynamoDB with sample data from the Internet Movie Database \(IMDb\)\. This data is stored in JSON format in a local text file named `moviedata.json`\.
 
@@ -164,4 +164,4 @@ When the data has been read successfully, `LoadingData_async` waits on `LoadJson
 
 ## Next Step<a name="GettingStarted.NET.03.NextStep"></a>
 
-[Step 4: Add a New Movie to the Movies Table](GettingStarted.NET.04.md)
+[Step 4: Add a Movie to the DynamoDB Table](GettingStarted.NET.04.md)

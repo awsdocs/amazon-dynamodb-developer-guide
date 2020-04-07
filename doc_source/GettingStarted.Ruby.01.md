@@ -77,4 +77,4 @@ The `provisioned_throughput` parameter is required\. However, the downloadable v
 
    `ruby MoviesCreateTable.rb`
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.

@@ -1,6 +1,8 @@
-# DynamoDB \(Downloadable Version\) and Apache Maven<a name="DynamoDBLocal.Maven"></a>
+# Deploying DynamoDB by adding an Apache Maven Repository<a name="DynamoDBLocal.Maven"></a>
 
- To use DynamoDB in your application as a dependency:
+Follow these steps to use Amazon DynamoDB in your application as a dependency\.
+
+**To deploy DynamoDB as an Apache Maven repository**
 
 1.  Download and install Apache Maven\. For more information, see [Downloading Apache Maven](https://maven.apache.org/download.cgi) and [Installing Apache Maven](https://maven.apache.org/install.html)\.
 
@@ -12,7 +14,7 @@
        <dependency>
           <groupId>com.amazonaws</groupId>
           <artifactId>DynamoDBLocal</artifactId>
-          <version>[1.11,2.0)</version>
+          <version>[1.12,2.0)</version>
        </dependency>
    </dependencies>
    <!--Custom repository:-->
@@ -25,7 +27,7 @@
    </repositories>
    ```
 **Note**  
-Alternatively, you can use one of the following repository URLs, depending on your AWS Region\.    
+You can also use one of the following repository URLs, depending on your AWS Region\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.Maven.html)
 

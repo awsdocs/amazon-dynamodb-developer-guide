@@ -1,10 +1,11 @@
-# Limits in DynamoDB<a name="Limits"></a>
+# Service, Account, and Table Limits in Amazon DynamoDB<a name="Limits"></a>
 
 This section describes current limits within Amazon DynamoDB \(or no limit, in some cases\)\. Each limit applies on a per\-Region basis unless otherwise specified\.
 
 **Topics**
 + [Read/Write Capacity Mode and Throughput](#default-limits-throughput-capacity-modes)
 + [Tables](#limits-tables)
++ [Global Tables](#gt-limits-throughput)
 + [Secondary Indexes](#limits-secondary-indexes)
 + [Partition Keys and Sort Keys](#limits-partition-sort-keys)
 + [Naming Rules](#limits-naming-rules)
@@ -45,10 +46,14 @@ Transactional write requests require two write request units to perform one writ
 ### Throughput Default Limits<a name="default-limits-throughput"></a>
 
 AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
-+ US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), EU \(Frankfurt\), EU \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Mumbai\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
-+ All other Regions    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
+
+
+|  | On\-Demand | Provisioned | 
+| --- | --- | --- | 
+| `Per table` | `40,000 read request units and 40,000 write request units` | `40,000 read capacity units and 40,000 write capacity units` | 
+| `Per account` | `Not applicable` | `80,000 read capacity units and 80,000 write capacity units` | 
+| `Minimum throughput for any table or global secondary index` | `Not applicable` | `1 read capacity unit and 1 write capacity unit` | 
+
 **Note**  
  All the account's available throughput can be applied to a single table or across multiple tables\. 
 
@@ -91,6 +96,20 @@ For any AWS account, there is an initial limit of 256 tables per AWS Region\.
 
 To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 
+## Global Tables<a name="gt-limits-throughput"></a>
+
+AWS places some default limits on the throughput you can provision or utilize when using global tables\.
+
+
+|  | On\-Demand | Provisioned | 
+| --- | --- | --- | 
+| `Per table` | `40,000 read request units and 40,000 write request units` | `40,000 read capacity units and 40,000 write capacity units` | 
+| `Per table, per day` | `10 TB for all source tables to which a replica was added` | `10 TB for all source tables to which a replica was added` | 
+
+If you are adding a replica for a table that is configured to use more than 40,000 write capacity units \(WCU\), you must request a service limit increase for your add replica WCU limit\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
+
+Transactional operations provide atomicity, consistency, isolation, and durability \(ACID\) guarantees only within the AWS Region where the write is made originally\. Transactions are not supported across Regions in global tables\. For example, suppose that you have a global table with replicas in the US East \(Ohio\) and US West \(Oregon\) Regions and you perform a TransactWriteItems operation in the US East \(N\. Virginia\) Region\. In this case, you might observe partially completed transactions in the US West \(Oregon\) Region as changes are replicated\. Changes are replicated to other Regions only after they have been committed in the source Region\. 
+
 ## Secondary Indexes<a name="limits-secondary-indexes"></a>
 
 ### Secondary Indexes Per Table<a name="limits-tables-secondary-indexes"></a>
@@ -98,11 +117,6 @@ To request a service limit increase, see [https://aws\.amazon\.com/support](http
 You can define a maximum of 5 local secondary indexes\. 
 
  There is an initial limit of 20 global secondary indexes per table\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
-
- The limit of global secondary indexes per table is five for the following Regions: 
-+  AWS GovCloud \(US\-East\) 
-+  AWS GovCloud \(US\-West\) 
-+  EU \(Stockholm\) 
 
 You can create or delete only one global secondary index per `UpdateTable` operation\.
 
@@ -113,11 +127,6 @@ You can project a total of up to 100 attributes into all of a table's local and 
 In a `CreateTable` operation, if you specify a `ProjectionType` of `INCLUDE`, the total count of attributes specified in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100\. If you project the same attribute name into two different indexes, this counts as two distinct attributes when determining the total\.
 
 This limit does not apply for secondary indexes with a `ProjectionType` of `KEYS_ONLY` or `ALL`\. 
-
- The limit of projected secondary index attributes per table is 20 for the following Regions: 
-+  AWS GovCloud \(US\-East\) 
-+  AWS GovCloud \(US\-West\) 
-+  EU \(Stockholm\) 
 
 ## Partition Keys and Sort Keys<a name="limits-partition-sort-keys"></a>
 
@@ -240,7 +249,7 @@ The maximum number of operands for the `IN` comparator is 100\.
 
 DynamoDB does not prevent you from using names that conflict with reserved words\. \(For a complete list, see [Reserved Words in DynamoDB](ReservedWords.md)\.\)
 
-However, if you use a reserved word in an expression parameter, you must also specify `ExpressionAttributeNames`\. For more information, see [Expression Attribute Names](Expressions.ExpressionAttributeNames.md)\.
+However, if you use a reserved word in an expression parameter, you must also specify `ExpressionAttributeNames`\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
 
 ## DynamoDB Transactions<a name="limits-dynamodb-transactions"></a>
 
@@ -249,7 +258,7 @@ DynamoDB transactional API operations have the following constraints:
 + A transaction cannot contain more than 4 MB of data\.
 + No two actions in a transaction can work against the same item in the same table\. For example, you cannot both `ConditionCheck` and `Update` the same item in one transaction\.
 + A transaction cannot operate on tables in more than one AWS account or Region\.
-+ Transactions are not enabled for global tables by default\. If you want to use transactions with global tables, speak with an account representative, or contact [Amazon Support](https://aws.amazon.com/support)\.
++ Transactional operations provide atomicity, consistency, isolation, and durability \(ACID\) guarantees only within the AWS Region where the write is made originally\. Transactions are not supported across Regions in global tables\. For example, suppose that you have a global table with replicas in the US East \(Ohio\) and US West \(Oregon\) Regions and you perform a `TransactWriteItems` operation in the US East \(N\. Virginia\) Region\. In this case, you might observe partially completed transactions in the US West \(Oregon\) Region as changes are replicated\. Changes are replicated to other Regions only after they have been committed in the source Region\. 
 
 ## DynamoDB Streams<a name="limits-dynamodb-streams"></a>
 
@@ -260,7 +269,7 @@ Do not allow more than two processes to read from the same DynamoDB Streams shar
 ### Maximum Write Capacity for a Table with a Stream Enabled<a name="limits-dynamodb-streams-max-write-capacity"></a>
 
 AWS places some default limits on the write capacity for DynamoDB tables with DynamoDB Streams enabled\. These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
-+ US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), EU \(Frankfurt\), EU \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions:
++ US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), Europe \(Frankfurt\), Europe \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions:
   + Per table – 40,000 write capacity units
 + All other Regions:
   + Per table – 10,000 write capacity units
@@ -302,14 +311,23 @@ A single `BatchGetItem` operation can retrieve a maximum of 100 items\. The tota
 **`BatchWriteItem`**  
 A single `BatchWriteItem` operation can contain up to 25 `PutItem` or `DeleteItem` requests\. The total size of all the items written cannot exceed 16 MB\.
 
+**`DescribeTableReplicaAutoScaling`**  
+`DescribeTableReplicaAutoScaling` method supports only 10 requests per second\.
+
 **`DescribeLimits`**  
 `DescribeLimits` should be called only periodically\. You can expect throttling errors if you call it more than once in a minute\.
+
+**`DescribeContributorInsights`/`ListContributorInsights`/`UpdateContributorInsights`**  
+`DescribeContributorInsights`, `ListContributorInsights` and `UpdateContributorInsights` should be called only periodically\. DynamoDB supports up to five requests per second for each of these APIs\. 
 
 **`Query`**  
 The result set from a `Query` is limited to 1 MB per call\. You can use the `LastEvaluatedKey` from the query response to retrieve more results\.
 
 **`Scan`**  
 The result set from a `Scan` is limited to 1 MB per call\. You can use the `LastEvaluatedKey` from the scan response to retrieve more results\.
+
+**`UpdateTableReplicaAutoScaling`**  
+`UpdateTableReplicaAutoScaling` method supports only 10 requests per second\.
 
 ## DynamoDB Encryption at Rest<a name="limits-dynamodb-encryption"></a>
 

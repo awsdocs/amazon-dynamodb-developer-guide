@@ -1,4 +1,4 @@
-# Tagging Operations<a name="Tagging.Operations"></a>
+# Tagging Resources in DynamoDB<a name="Tagging.Operations"></a>
 
 You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\) to add, list, edit, or delete tags\. You can then activate these user\-defined tags so that they appear on the AWS Billing and Cost Management console for cost allocation tracking\. For more information, see [Cost Allocation Reports](CostAllocationReports.md)\. 
 
@@ -25,9 +25,9 @@ You can use the DynamoDB console to add tags to new tables when you create them,
 
 1. On the **Create DynamoDB table** page, provide a name and primary key\. Choose **Add tags** and enter the tags that you want to use\. 
 
-   For information about tag structure, see [Tagging Restrictions](TaggingRestrictions.md)\. 
+   For information about tag structure, see [Tagging Restrictions in DynamoDB](TaggingRestrictions.md)\. 
 
-   For more information about creating tables, see [Basic Operations for Tables](WorkingWithTables.Basics.md)\.
+   For more information about creating tables, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\.
 
 **To tag existing resources \(console\)**
 

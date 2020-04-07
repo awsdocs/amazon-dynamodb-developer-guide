@@ -1,11 +1,10 @@
-# Step 5: \(Optional\): Delete the Table<a name="GettingStarted.Js.05"></a>
+# Step 5: Delete the Table with JavaScript<a name="GettingStarted.Js.05"></a>
 
  To delete the `Movies` table: 
 
 1. Copy the following program and paste it into a file named `MoviesDeleteTable.html`\.
 
    ```
-   <!--
    <!-- 
      Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     

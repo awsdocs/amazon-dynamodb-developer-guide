@@ -4,4 +4,4 @@ Monitoring is an important part of maintaining the reliability, availability, an
 
 **Topics**
 + [Logging and Monitoring in DynamoDB](MonitoringDynamoDB.md)
-+ [Logging and Monitoring in DAX](DAX.Monitoring.md)
++ [Logging and Monitoring in DynamoDB Accelerator](LoggingMonitoringDAX.md)

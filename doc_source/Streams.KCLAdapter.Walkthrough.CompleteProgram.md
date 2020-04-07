@@ -1,6 +1,6 @@
 # Complete Program: DynamoDB Streams Kinesis Adapter<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram"></a>
 
-Here is the complete Java program that performs the tasks described in this walkthrough\. When you run it, you should see output similar to the following:
+The following is the complete Java program that performs the tasks described in [Walkthrough: DynamoDB Streams Kinesis Adapter](Streams.KCLAdapter.Walkthrough.md)\. When you run it, you should see output similar to the following\.
 
 ```
 Creating table KCL-Demo-src
@@ -13,7 +13,7 @@ Done.
 ```
 
 **Important**  
- To run this program, make sure the client application has access to DynamoDB and CloudWatch using policies\. For more information, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. 
+ To run this program, ensure that the client application has access to DynamoDB and Amazon CloudWatch using policies\. For more information, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. 
 
 The source code consists of four `.java` files:
 + `StreamsAdapterDemo.java`
@@ -21,7 +21,7 @@ The source code consists of four `.java` files:
 + `StreamsRecordProcessorFactory.java`
 + `StreamsAdapterDemoHelper.java`
 
-## *StreamsAdapterDemo\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemo"></a>
+## StreamsAdapterDemo\.java<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemo"></a>
 
 ```
 /**
@@ -182,7 +182,7 @@ public class StreamsAdapterDemo {
 }
 ```
 
-## *StreamsRecordProcessor\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessor"></a>
+## StreamsRecordProcessor\.java<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessor"></a>
 
 ```
 /**
@@ -277,7 +277,7 @@ public class StreamsRecordProcessor implements IRecordProcessor {
 }
 ```
 
-## *StreamsRecordProcessorFactory\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessorFactory"></a>
+## StreamsRecordProcessorFactory\.java<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsRecordProcessorFactory"></a>
 
 ```
 /**
@@ -317,7 +317,7 @@ public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
 }
 ```
 
-## *StreamsAdapterDemoHelper\.java*<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemoHelper"></a>
+## StreamsAdapterDemoHelper\.java<a name="Streams.KCLAdapter.Walkthrough.CompleteProgram.StreamsAdapterDemoHelper"></a>
 
 ```
 /**

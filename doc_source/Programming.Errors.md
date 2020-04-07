@@ -1,4 +1,4 @@
-# Error Handling<a name="Programming.Errors"></a>
+# Error Handling with DynamoDB<a name="Programming.Errors"></a>
 
  This section describes runtime errors and how to handle them\. It also describes error messages and codes that are specific to Amazon DynamoDB\.
 
@@ -136,7 +136,7 @@ try {
     Item item = table.getItem("year", 1978, "title", "Superman");
     if (item != null) {
         System.out.println("Result: " + item);
-    } else { 
+    } else {
         //No such item exists in the table
         System.out.println("Item not found");
     }
@@ -180,7 +180,7 @@ The DynamoDB low\-level API supports batch operations for reads and writes\. `Ba
 
 A batch operation can tolerate the failure of individual requests in the batch\. For example, consider a `BatchGetItem` request to read five items\. Even if some of the underlying `GetItem` requests fail, this does not cause the entire `BatchGetItem` operation to fail\. However, if all five read operations fail, then the entire `BatchGetItem` fails\.
 
-The batch operations return information about individual requests that fail so that you can diagnose the problem and retry the operation\. For `BatchGetItem`, the tables and primary keys in question are returned in the `UnprocessedKeys` parameter of the request\. For `BatchWriteItem`, similar information is returned in `UnprocessedItems`\. 
+The batch operations return information about individual requests that fail so that you can diagnose the problem and retry the operation\. For `BatchGetItem`, the tables and primary keys in question are returned in the `UnprocessedKeys` value of the response\. For `BatchWriteItem`, similar information is returned in `UnprocessedItems`\. 
 
 The most likely cause of a failed read or a failed write is *throttling*\. For `BatchGetItem`, one or more of the tables in the batch request does not have enough provisioned read capacity to support the operation\. For `BatchWriteItem`, one or more of the tables does not have enough provisioned write capacity\.
 

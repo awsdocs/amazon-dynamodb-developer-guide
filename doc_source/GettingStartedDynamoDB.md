@@ -4,9 +4,9 @@ Use the hands\-on tutorials in this section to help you get started and learn mo
 
 **Topics**
 + [Basic Concepts in DynamoDB](GettingStarted.CoreComponents.md)
-+ [Prerequisites](GettingStarted.SettingUp.DynamoWebService.md)
++ [Prerequisites \- Getting Started Tutorial](GettingStarted.SettingUp.DynamoWebService.md)
 + [Step 1: Create a Table](getting-started-step-1.md)
-+ [Step 2: Write Data to a Table](getting-started-step-2.md)
++ [Step 2: Write Data to a Table Using the Console or AWS CLI](getting-started-step-2.md)
 + [Step 3: Read Data from a Table](getting-started-step-3.md)
 + [Step 4: Update Data in a Table](getting-started-step-4.md)
 + [Step 5: Query Data in a Table](getting-started-step-5.md)

@@ -52,12 +52,12 @@ public class DynamoDBMapperTransactionExample {
 
     static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     static DynamoDBMapper mapper;
-    
+
     public static void main(String[] args)  throws Exception {
         try {
- 
+
             mapper = new DynamoDBMapper(client);
- 
+
             testPutAndUpdateInTransactionWrite();
             testPutWithConditionalUpdateInTransactionWrite();
             testPutWithConditionCheckInTransactionWrite();
@@ -65,7 +65,7 @@ public class DynamoDBMapperTransactionExample {
             testTransactionLoadWithSave();
             testTransactionLoadWithTransactionWrite();
             System.out.println("Example complete");
- 
+
         }
         catch (Throwable t) {
             System.err.println("Error running the DynamoDBMapperTransactionWriteExample: " + t);
@@ -80,31 +80,31 @@ public class DynamoDBMapperTransactionExample {
         dynamodbForum.category = "Amazon Web Services";
         dynamodbForum.threads = 0;
         mapper.save(dynamodbForum);
- 
+
         // Add a thread to DynamoDB Forum
         Thread dynamodbForumThread = new Thread();
         dynamodbForumThread.forumName = "DynamoDB Forum";
         dynamodbForumThread.subject = "Sample Subject 1";
         dynamodbForumThread.message = "Sample Question 1";
         mapper.save(dynamodbForumThread);
- 
+
         // Update DynamoDB Forum to reflect updated thread count
         dynamodbForum.threads = 1;
         mapper.save(dynamodbForum);
- 
- 
+
+
         // Read DynamoDB Forum item and Thread item at the same time in a serializable manner
         TransactionLoadRequest transactionLoadRequest = new TransactionLoadRequest();
- 
+
         // Read entire item for DynamoDB Forum
         transactionLoadRequest.addLoad(dynamodbForum);
- 
+
         // Only read subject and message attributes from Thread item
         DynamoDBTransactionLoadExpression loadExpressionForThread = new DynamoDBTransactionLoadExpression()
                                                                 .withProjectionExpression("Subject, Message");
         transactionLoadRequest.addLoad(dynamodbForumThread, loadExpressionForThread);
-        
-        // Loaded objects are guaranteed to be in same order as the order in which they are 
+
+        // Loaded objects are guaranteed to be in same order as the order in which they are
         // added to TransactionLoadRequest
         List<Object> loadedObjects = executeTransactionLoad(transactionLoadRequest);
         Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0); 
@@ -114,7 +114,7 @@ public class DynamoDBMapperTransactionExample {
         System.out.println("Subject: " + loadedDynamodbForumThread.subject);
         System.out.println("Message: " + loadedDynamodbForumThread.message);
     }
- 
+
     private static void testTransactionLoadWithTransactionWrite() {
         // Create new Forum item for DynamoDB using save
         Forum dynamodbForum = new Forum();
@@ -122,10 +122,10 @@ public class DynamoDBMapperTransactionExample {
         dynamodbForum.category = "Amazon Web Services";
         dynamodbForum.threads = 0;
         mapper.save(dynamodbForum);
-        
+
         // Update Forum item for DynamoDB and add a thread to DynamoDB Forum, in
         // an ACID manner using transactionWrite
-        
+
         dynamodbForum.threads = 1;
         Thread dynamodbForumThread = new Thread();
         dynamodbForumThread.forumName = "DynamoDB New Forum";
@@ -135,20 +135,20 @@ public class DynamoDBMapperTransactionExample {
         transactionWriteRequest.addPut(dynamodbForumThread);
         transactionWriteRequest.addUpdate(dynamodbForum);
         executeTransactionWrite(transactionWriteRequest);
- 
- 
+
+
         // Read DynamoDB Forum item and Thread item at the same time in a serializable manner
         TransactionLoadRequest transactionLoadRequest = new TransactionLoadRequest();
- 
+
         // Read entire item for DynamoDB Forum
         transactionLoadRequest.addLoad(dynamodbForum);
- 
+
         // Only read subject and message attributes from Thread item
         DynamoDBTransactionLoadExpression loadExpressionForThread = new DynamoDBTransactionLoadExpression()
                                                                 .withProjectionExpression("Subject, Message");
         transactionLoadRequest.addLoad(dynamodbForumThread, loadExpressionForThread);
- 
-        // Loaded objects are guaranteed to be in same order as the order in which they are 
+
+        // Loaded objects are guaranteed to be in same order as the order in which they are
         // added to TransactionLoadRequest
         List<Object> loadedObjects = executeTransactionLoad(transactionLoadRequest);
         Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0);
@@ -157,8 +157,8 @@ public class DynamoDBMapperTransactionExample {
         Thread loadedDynamodbForumThread = (Thread) loadedObjects.get(1);
         System.out.println("Subject: " + loadedDynamodbForumThread.subject);
         System.out.println("Message: " + loadedDynamodbForumThread.message);
-    }  
-    
+    }
+
     private static void testPutAndUpdateInTransactionWrite() {
         // Create new Forum item for S3 using save
         Forum s3Forum = new Forum();
@@ -166,7 +166,7 @@ public class DynamoDBMapperTransactionExample {
         s3Forum.category = "Core Amazon Web Services";
         s3Forum.threads = 0;
         mapper.save(s3Forum);
- 
+
         // Update Forum item for S3 and Create new Forum item for DynamoDB using transactionWrite
         s3Forum.category = "Amazon Web Services";
         Forum dynamodbForum = new Forum();
@@ -178,7 +178,7 @@ public class DynamoDBMapperTransactionExample {
         transactionWriteRequest.addPut(dynamodbForum);
         executeTransactionWrite(transactionWriteRequest);
     }
- 
+
     private static void testPutWithConditionalUpdateInTransactionWrite() {
         // Create new Thread item for DynamoDB forum and update thread count in DynamoDB forum
         // if the DynamoDB Forum exists
@@ -186,7 +186,7 @@ public class DynamoDBMapperTransactionExample {
         dynamodbForumThread.forumName = "DynamoDB Forum";
         dynamodbForumThread.subject = "Sample Subject 1";
         dynamodbForumThread.message = "Sample Question 1";
- 
+
         Forum dynamodbForum = new Forum();
         dynamodbForum.name = "DynamoDB Forum";
         dynamodbForum.category = "Amazon Web Services";
@@ -194,26 +194,26 @@ public class DynamoDBMapperTransactionExample {
 
         DynamoDBTransactionWriteExpression transactionWriteExpression = new DynamoDBTransactionWriteExpression()
                                                                 .withConditionExpression("attribute_exists(Category)");
-                
+
         TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
         transactionWriteRequest.addPut(dynamodbForumThread);
         transactionWriteRequest.addUpdate(dynamodbForum, transactionWriteExpression);
         executeTransactionWrite(transactionWriteRequest);
     }
- 
+
     private static void testPutWithConditionCheckInTransactionWrite() {
         // Create new Thread item for DynamoDB forum and update thread count in DynamoDB forum if a thread already exists
         Thread dynamodbForumThread2 = new Thread();
         dynamodbForumThread2.forumName = "DynamoDB Forum";
         dynamodbForumThread2.subject = "Sample Subject 2";
         dynamodbForumThread2.message = "Sample Question 2";
- 
+
         Thread dynamodbForumThread1 = new Thread();
         dynamodbForumThread1.forumName = "DynamoDB Forum";
         dynamodbForumThread1.subject = "Sample Subject 1";
         DynamoDBTransactionWriteExpression conditionExpressionForConditionCheck = new DynamoDBTransactionWriteExpression()
                                                                         .withConditionExpression("attribute_exists(Subject)");
- 
+
         Forum dynamodbForum = new Forum();
         dynamodbForum.name = "DynamoDB Forum";
         dynamodbForum.category = "Amazon Web Services";
@@ -225,37 +225,37 @@ public class DynamoDBMapperTransactionExample {
         transactionWriteRequest.addUpdate(dynamodbForum);
         executeTransactionWrite(transactionWriteRequest);
     }
- 
+
     private static void testMixedOperationsInTransactionWrite() {
-        // Create new Thread item for S3 forum and delete "Sample Subject 1" Thread from DynamoDB forum if 
+        // Create new Thread item for S3 forum and delete "Sample Subject 1" Thread from DynamoDB forum if
         // "Sample Subject 2" Thread exists in DynamoDB forum
         Thread s3ForumThread = new Thread();
         s3ForumThread.forumName = "S3 Forum";
         s3ForumThread.subject = "Sample Subject 1";
         s3ForumThread.message = "Sample Question 1";
- 
+
         Forum s3Forum = new Forum();
         s3Forum.name = "S3 Forum";
         s3Forum.category = "Amazon Web Services";
         s3Forum.threads = 1;
-        
- 
+
+
         Thread dynamodbForumThread1 = new Thread();
         dynamodbForumThread1.forumName = "DynamoDB Forum";
         dynamodbForumThread1.subject = "Sample Subject 1";
- 
+
         Thread dynamodbForumThread2 = new Thread();
         dynamodbForumThread2.forumName = "DynamoDB Forum";
         dynamodbForumThread2.subject = "Sample Subject 2";
         DynamoDBTransactionWriteExpression conditionExpressionForConditionCheck = new DynamoDBTransactionWriteExpression()
                                                                         .withConditionExpression("attribute_exists(Subject)");
- 
+
         Forum dynamodbForum = new Forum();
         dynamodbForum.name = "DynamoDB Forum";
         dynamodbForum.category = "Amazon Web Services";
         dynamodbForum.threads = 1;
-        
- 
+
+
         TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
         transactionWriteRequest.addPut(s3ForumThread);
         transactionWriteRequest.addUpdate(s3Forum);
@@ -296,7 +296,7 @@ public class DynamoDBMapperTransactionExample {
             System.err.println("An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
         }
     }
-    
+
     @DynamoDBTable(tableName = "Thread")
     public static class Thread {
         private String forumName;

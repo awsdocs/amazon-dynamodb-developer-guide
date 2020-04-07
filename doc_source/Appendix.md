@@ -4,7 +4,7 @@
 + [Troubleshooting SSL/TLS connection establishment issues](ats-certs.md)
 + [Example Tables and Data](AppendixSampleTables.md)
 + [Creating Example Tables and Uploading Data](AppendixSampleDataCode.md)
-+ [DynamoDB Example Application Using AWS SDK for Python \(Boto\): Tic\-Tac\-Toe](TicTacToe.md)
++ [DynamoDB Example Application Using the AWS SDK for Python \(Boto\): Tic\-Tac\-Toe](TicTacToe.md)
 + [Exporting and Importing DynamoDB Data Using AWS Data Pipeline](DynamoDBPipeline.md)
 + [Amazon DynamoDB Storage Backend for Titan](Tools.TitanDB.md)
 + [Reserved Words in DynamoDB](ReservedWords.md)

@@ -1,4 +1,4 @@
-# Tagging for DynamoDB<a name="Tagging"></a>
+# Adding Tags and Labels to Resources<a name="Tagging"></a>
 
  You can label Amazon DynamoDB resources using *tags*\. Tags let you categorize your resources in different ways, for example, by purpose, owner, environment, or other criteria\. Tags can help you do the following: 
 +  Quickly identify a resource based on the tags that you assigned to it\. 
@@ -10,9 +10,9 @@
 
  To get started with tagging, do the following: 
 
-1.  Understand [Tagging Restrictions](TaggingRestrictions.md)\. 
+1.  Understand [Tagging Restrictions in DynamoDB](TaggingRestrictions.md)\. 
 
-1.  Create tags by using [Tagging Operations](Tagging.Operations.md)\. 
+1.  Create tags by using [Tagging Resources in DynamoDB](Tagging.Operations.md)\. 
 
 1.  Use [Cost Allocation Reports](CostAllocationReports.md) to track your AWS costs per active tag\. 
 

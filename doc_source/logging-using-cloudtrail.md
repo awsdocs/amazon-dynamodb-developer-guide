@@ -33,6 +33,7 @@ The following API actions are logged as events in CloudTrail files:
 + [ListTagsOfResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.html)
 + [ListGlobalTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListGlobalTables.html)
 + [RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html)
++ [RestoreTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableToPointInTime.html)
 + [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html)
 + [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html)
 + [UpdateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTable.html)
@@ -82,7 +83,7 @@ For more information, see the [CloudTrail userIdentity Element](https://docs.aws
 
  A trail is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An event represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files aren't an ordered stack trace of the public API calls, so they don't appear in any specific order\. 
 
-The following example shows a CloudTrail log that demonstrates the `CreateTable`, `DescribeTable`, `UpdateTable`, `ListTables`, and `DeleteTable` actions\.
+The following example shows a CloudTrail log that demonstrates the `CreateTable`, `DescribeTable`, `UpdateTable`, `ListTables`, `DeleteTable`, and `CreateCluster` actions\.
 
 ```
 {"Records": [
@@ -370,6 +371,67 @@ The following example shows a CloudTrail log that demonstrates the `CreateTable`
         "eventID": "a954451c-c2fc-4561-8aea-7a30ba1fdf52",
         "eventType": "AwsApiCall",
         "apiVersion": "2012-08-10",
+        "recipientAccountId": "111122223333"
+    },
+
+    {
+    "eventVersion": "1.05",
+    "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIAVK7DT3VEXAMPLES",
+        "arn": "arn:aws:iam::111122223333:user/bob",
+        "accountId": "111122223333",
+        "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+        "userName": "bob"
+    },
+    "eventTime": "2019-12-17T23:17:34Z",
+    "eventSource": "dax.amazonaws.com",
+    "eventName": "CreateCluster",
+    "awsRegion": "us-west-2",
+    "sourceIPAddress": "205.251.233.48",
+    "userAgent": "aws-cli/1.16.304 Python/3.6.9 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 botocore/1.13.40",
+    "requestParameters": {
+        "sSESpecification": {
+            "enabled": true
+        },
+        "clusterName": "daxcluster",
+        "nodeType": "dax.r4.large",
+        "replicationFactor": 3,
+        "iamRoleArn": "arn:aws:iam::111122223333:role/DAXServiceRoleForDynamoDBAccess"
+    },
+    "responseElements": {
+        "cluster": {
+            "securityGroups": [
+                {
+                    "securityGroupIdentifier": "sg-1af6e36e",
+                    "status": "active"
+                }
+            ],
+            "parameterGroup": {
+                "nodeIdsToReboot": [],
+                "parameterGroupName": "default.dax1.0",
+                "parameterApplyStatus": "in-sync"
+            },
+            "clusterDiscoveryEndpoint": {
+                "port": 8111
+            },
+            "clusterArn": "arn:aws:dax:us-west-2:111122223333:cache/daxcluster",
+            "status": "creating",
+            "subnetGroup": "default",
+            "sSEDescription": {
+                "status": "ENABLED",
+                "kMSMasterKeyArn": "arn:aws:kms:us-west-2:111122223333:key/764898e4-adb1-46d6-a762-e2f4225b4fc4"
+            },
+            "iamRoleArn": "arn:aws:iam::111122223333:role/DAXServiceRoleForDynamoDBAccess",
+            "clusterName": "daxcluster",
+            "activeNodes": 0,
+            "totalNodes": 3,
+            "preferredMaintenanceWindow": "thu:13:00-thu:14:00",
+            "nodeType": "dax.r4.large"
+        }},
+        "requestID": "585adc5f-ad05-4e27-8804-70ba1315f8fd",
+        "eventID": "29158945-28da-4e32-88e1-56d1b90c1a0c",
+        "eventType": "AwsApiCall",
         "recipientAccountId": "111122223333"
     }
 ]}

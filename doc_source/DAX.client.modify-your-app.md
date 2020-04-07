@@ -1,8 +1,8 @@
 # Modifying an Existing Application to Use DAX<a name="DAX.client.modify-your-app"></a>
 
-If you already have a Java application that uses DynamoDB, you will need to modify it so that it can access your DAX cluster\. The DAX Java client is very similar to the DynamoDB low\-level client included in the AWS SDK for Java, so you do not need to rewrite your entire application\.
+If you already have a Java application that uses Amazon DynamoDB, you have to modify it so that it can access your DynamoDB Accelerator \(DAX\) cluster\. You don't have to rewrite the entire application because the DAX Java client is similar to the DynamoDB low\-level client included in the AWS SDK for Java\.
 
-Suppose that you have a DynamoDB table named *Music*\. The partition key for the table is *Artist*, and its sort key is *SongTitle*\. The following program reads an item directly from the *Music* table:
+Suppose that you have a DynamoDB table named `Music`\. The partition key for the table is `Artist`, and its sort key is `SongTitle`\. The following program reads an item directly from the `Music` table\.
 
 ```
 import java.util.HashMap;
@@ -40,14 +40,13 @@ public class GetMusicItem {
 }
 ```
 
-To modify the program, you replace the DynamoDB client with a DAX client:
+To modify the program, replace the DynamoDB client with a DAX client\.
 
 ```
 import java.util.HashMap;
 
-import com.amazon.dax.client.dynamodbv2.AmazonDaxClient;
-import com.amazon.dax.client.dynamodbv2.ClientConfig;
-import com.amazon.dax.client.dynamodbv2.ClusterDaxClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazon.dax.client.dynamodbv2.AmazonDaxClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
@@ -56,10 +55,12 @@ public class GetMusicItem {
 
     public static void main(String[] args) throws Exception {
 
-        // Create a DAX client
-        ClientConfig daxConfig = new ClientConfig()
-            .withEndpoints("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111");
-        AmazonDaxClient client = new ClusterDaxClient(daxConfig);
+    //Create a DAX client
+
+    AmazonDaxClientBuilder daxClientBuilder = AmazonDaxClientBuilder.standard();
+    daxClientBuilder.withRegion("us-east-1").withEndpointConfiguration("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111");
+    AmazonDynamoDB client = daxClientBuilder.build();
+
 
        /*
        ** ...
@@ -73,14 +74,13 @@ public class GetMusicItem {
 
 ## Using the DynamoDB Document API<a name="DAX.client.modify-your-app.document-api"></a>
 
-The AWS SDK for Java provides a document interface for DynamoDB\. The document API acts as a wrapper around the low\-level DynamoDB client\. \(For more information, see [Document Interfaces](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.SDKs.Interfaces.Document.html)\.\)
+The AWS SDK for Java provides a document interface for DynamoDB\. The document API acts as a wrapper around the low\-level DynamoDB client\. For more information, see [Document Interfaces](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.SDKs.Interfaces.Document.html)\.
 
-The document interface can also be used with the low\-level DAX client, as shown below:
+The document interface can also be used with the low\-level DAX client, as shown in the following example\.
 
 ```
-import com.amazon.dax.client.dynamodbv2.AmazonDaxClient;
-import com.amazon.dax.client.dynamodbv2.ClientConfig;
-import com.amazon.dax.client.dynamodbv2.ClusterDaxClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazon.dax.client.dynamodbv2.AmazonDaxClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.GetItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
@@ -89,10 +89,11 @@ public class GetMusicItemWithDocumentApi {
 
     public static void main(String[] args) throws Exception {
 
-        ClientConfig daxConfig = new ClientConfig()
-                .withEndpoints("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111")
-                .withRegion("us-east-1");
-        AmazonDaxClient client = new ClusterDaxClient(daxConfig);
+        //Create a DAX client
+
+        AmazonDaxClientBuilder daxClientBuilder = AmazonDaxClientBuilder.standard();
+        daxClientBuilder.withRegion("us-east-1").withEndpointConfiguration("mydaxcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111");
+        AmazonDynamoDB client = daxClientBuilder.build();
 
         // Document client wrapper
         DynamoDB docClient = new DynamoDB(client);
@@ -117,7 +118,7 @@ public class GetMusicItemWithDocumentApi {
 
 ## DAX Async Client<a name="DAX.client.async"></a>
 
-The `AmazonDaxClient` is synchronous\. For a long\-running DAX API operation, such as a `Scan` of a very large table, this can block program execution until the operation is complete\. If your program needs to perform other work while a DAX API operation is in progress, you can use `ClusterDaxAsyncClient` instead\.
+The `AmazonDaxClient` is synchronous\. For a long\-running DAX API operation, such as a `Scan` of a large table, this can block program execution until the operation is complete\. If your program needs to perform other work while a DAX API operation is in progress, you can use `ClusterDaxAsyncClient` instead\.
 
 The following program shows how to use `ClusterDaxAsyncClient`, along with Java `Future`, to implement a non\-blocking solution\.
 

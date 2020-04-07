@@ -1,5 +1,11 @@
 # Querying and Scanning an Index<a name="SQLtoNoSQL.Indexes.QueryAndScan"></a>
 
+Compare querying and scanning an index using the SELECT statement in SQL with the `Query` and `Scan` operations in Amazon DynamoDB\.
+
+**Topics**
++ [SQL](#SQLtoNoSQL.Indexes.QueryAndScan.SQL)
++ [DynamoDB](#SQLtoNoSQL.Indexes.QueryAndScan.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.Indexes.QueryAndScan.SQL"></a>
 
 In a relational database, you do not work directly with indexes\. Instead, you query tables by issuing `SELECT` statements, and the query optimizer can make use of any indexes\.
@@ -11,14 +17,14 @@ Here are some SQL statements that can use *GenreAndPriceIndex* to improve perfor
 ```
 /* All of the rock songs */
 
-SELECT * FROM Music 
+SELECT * FROM Music
 WHERE Genre = 'Rock';
 ```
 
 ```
 /* All of the cheap country songs */
 
-SELECT Artist, SongTitle, Price FROM Music 
+SELECT Artist, SongTitle, Price FROM Music
 WHERE Genre = 'Country' AND Price < 0.50;
 ```
 

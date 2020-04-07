@@ -5,8 +5,6 @@
 1. Copy the following program and paste it into a file named `MoviesDeleteTable.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -47,10 +45,6 @@
        echo "Unable to delete table:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 
 1. To run the program, enter the following command\.

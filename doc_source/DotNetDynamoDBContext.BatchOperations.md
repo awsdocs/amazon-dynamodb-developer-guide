@@ -93,7 +93,7 @@ var superBatch = new MultiTableBatchWrite(forumBatch, threadBatch);
 superBatch.Execute();
 ```
 
-For a working example, see [Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model](orm-dotnet-batchoperations-example.md)\. 
+For a working example, see [Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model](orm-dotnet-batchoperations-example.md)\.
 
 **Note**  
 The DynamoDB batch API limits the number of writes in a batch and also limits the size of the batch\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. When using the \.NET object persistence model API, you can specify any number of operations\. However, if either the number of operations in a batch or the size exceeds the limit, the \.NET API breaks the batch write request into smaller batches and sends multiple batch write requests to DynamoDB\.

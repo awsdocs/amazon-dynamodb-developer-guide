@@ -4,9 +4,9 @@ In this step, you create a `Music` table in Amazon DynamoDB\. The table has the 
 + Partition key — `Artist`
 + Sort key — `SongTitle`
 
-For more information about table operations, see [Working with Tables in DynamoDB](WorkingWithTables.md)\. 
+For more information about table operations, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\. 
 
 **Note**  
-Before you begin, make sure that you followed the steps in [Prerequisites](GettingStarted.SettingUp.DynamoWebService.md)\.
+Before you begin, make sure that you followed the steps in [Prerequisites \- Getting Started Tutorial](GettingStarted.SettingUp.DynamoWebService.md)\.
 
-After creating the new table, proceed to [Step 2: Write Data to a Table](getting-started-step-2.md)\.
+After creating the new table, proceed to [Step 2: Write Data to a Table Using the Console or AWS CLI](getting-started-step-2.md)\.

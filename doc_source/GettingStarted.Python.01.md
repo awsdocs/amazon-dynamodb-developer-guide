@@ -1,4 +1,4 @@
-# Step 1: Create a Table<a name="GettingStarted.Python.01"></a>
+# Step 1: Create a Table with Python<a name="GettingStarted.Python.01"></a>
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
@@ -58,7 +58,7 @@ In this step, you create a table named `Movies`\. The primary key for the table 
    print("Table status:", table.table_status)
    ```
 **Note**  
-You set the endpoint to indicate that you are creating the table in the downloadable version of DynamoDB on your computer\.
+You set the endpoint to indicate that you are creating the table in the [downloadable version of DynamoDB](DynamoDBLocal) on your computer\.
 In the `create_table` call, you specify the table name, primary key attributes, and its data types\.
 The `ProvisionedThroughput` parameter is required\. However, the downloadable version of DynamoDB ignores it\. \(Provisioned throughput is beyond the scope of this exercise\.\)
 These examples use the Python 3 style `print` function\. The line `from __future__ import print_function` enables Python 3 printing in Python 2\.6 and later\.
@@ -67,4 +67,4 @@ These examples use the Python 3 style `print` function\. The line `from __future
 
    `python MoviesCreateTable.py`
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.

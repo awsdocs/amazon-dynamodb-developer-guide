@@ -3,6 +3,7 @@
 The first step in the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md) is to create a client that gives you access to the Amazon DynamoDB API\. The `Main` function in `DynamoDB_intro` does this by calling a `createClient` function implemented in the `01_CreateClient.cs` file\.
 
 ```
+    
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -102,10 +103,10 @@ namespace DynamoDB_intro
 }
 ```
 
-`Main` calls this function with the *useDynamoDBLocal* parameter set to `true`\. Therefore the local test version of DynamoDB must already be running on your computer using the default port \(8000\), or the call fails\.
+`Main` calls this function with the *useDynamoDBLocal* parameter set to `true`\. Therefore the local test version of DynamoDB must already be running on your computer using the default port \(8000\), or the call fails\. If you do not have it installed yet, see [Running DynamoDB on Your Computer](DynamoDBLocal.md)\.
 
 Setting the *useDynamoDBLocal* parameter to `false` creates a client for the DynamoDB service itself rather than the local test program\.
 
 ## Next Step<a name="GettingStarted.NET.01.NextStep"></a>
 
-[Step 2: Create a Table Using the Low\-Level API](GettingStarted.NET.02.md)
+[Step 2: Create a DynamoDB Table Using the Low\-Level API](GettingStarted.NET.02.md)

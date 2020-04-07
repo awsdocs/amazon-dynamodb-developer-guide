@@ -66,7 +66,7 @@ content-length: 144
 |  Name  |  Description  | 
 | --- | --- | 
 |  Item  | Contains the requested attributes\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_GetItem_SpecialErrors"></a>
 
@@ -74,7 +74,7 @@ No errors specific to this operation\.
 
 ## Examples<a name="API_GetItem_Examples"></a>
 
- For examples using the AWS SDK, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+ For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 ### Sample Request<a name="API_GetItem_Examples_Request"></a>
 

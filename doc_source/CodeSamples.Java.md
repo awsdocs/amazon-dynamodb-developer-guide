@@ -5,10 +5,10 @@
 + [Java: Setting the AWS Region and Endpoint](#CodeSamples.Java.RegionAndEndpoint)
 
 This Developer Guide contains Java code snippets and ready\-to\-run programs\. You can find these code examples in the following sections:
-+ [Working with Items in DynamoDB](WorkingWithItems.md)
-+ [Working with Tables in DynamoDB](WorkingWithTables.md)
-+ [Working with Queries](Query.md)
-+ [Working with Scans](Scan.md)
++ [Working with Items and Attributes](WorkingWithItems.md)
++ [Working with Tables and Data in DynamoDB](WorkingWithTables.md)
++ [Working with Queries in DynamoDB](Query.md)
++ [Working with Scans in DynamoDB](Scan.md)
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
 + [Java: DynamoDBMapper](DynamoDBMapper.md)
 + [Capturing Table Activity with DynamoDB Streams](Streams.md)
@@ -58,8 +58,8 @@ The SDK for Java requires that you provide AWS credentials to your application a
 The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory\.
 
 ```
-[default] 
-aws_access_key_id = AWS access key ID goes here 
+[default]
+aws_access_key_id = AWS access key ID goes here
 aws_secret_access_key = Secret key goes here
 ```
 

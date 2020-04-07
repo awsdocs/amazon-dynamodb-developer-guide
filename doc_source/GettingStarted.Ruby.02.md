@@ -110,7 +110,7 @@ After you download the sample data, run the following program to populate the `M
        }
    
        begin
-           result = dynamodb.put_item(params)
+           dynamodb.put_item(params)
            puts "Added movie: #{movie["year"]} #{movie["title"]}"
    
        rescue  Aws::DynamoDB::Errors::ServiceError => error

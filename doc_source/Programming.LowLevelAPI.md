@@ -17,7 +17,7 @@ For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API
 
 **Note**  
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
-For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)
+For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
 
 The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 
@@ -36,7 +36,7 @@ Suppose that you have a table named `Pets`, with a key schema consisting of `Ani
 POST / HTTP/1.1
 Host: dynamodb.<region>.<domain>;
 Accept-Encoding: identity
-Content-Length: <PayloadSizeBytes>     
+Content-Length: <PayloadSizeBytes>
 User-Agent: <UserAgentString>
 Content-Type: application/x-amz-json-1.0
 Authorization: AWS4-HMAC-SHA256 Credential=<Credential>, SignedHeaders=<Headers>, Signature=<Signature>
@@ -63,11 +63,11 @@ Upon receipt of the request, DynamoDB processes it and returns a response\. For 
 
 ```
 HTTP/1.1 200 OK
-x-amzn-RequestId: <RequestId> 
+x-amzn-RequestId: <RequestId>
 x-amz-crc32: <Checksum>
 Content-Type: application/x-amz-json-1.0
 Content-Length: <PayloadSizeBytes>
-Date: <Date> 
+Date: <Date>
 {
     "Item": {
         "Age": {"N": "8"},
@@ -100,7 +100,7 @@ Date: <Date>
 At this point, the AWS SDK returns the response data to your application for further processing\.
 
 **Note**  
-If DynamoDB can't process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application in the form of exceptions\. For more information, see [Error Handling](Programming.Errors.md)\.
+If DynamoDB can't process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application in the form of exceptions\. For more information, see [Error Handling with DynamoDB](Programming.Errors.md)\.
 
 ## Data Type Descriptors<a name="Programming.LowLevelAPI.DataTypeDescriptors"></a>
 

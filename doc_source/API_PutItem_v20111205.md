@@ -13,7 +13,7 @@ Attribute values may not be null; string and binary type attributes must have le
 **Note**  
 To ensure that a new item does not replace an existing item, use a conditional put operation with `Exists` set to `false` for the primary key attribute, or attributes\.
 
-For more information about using `PutItem`, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+For more information about using `PutItem`, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 ## Requests<a name="API_PutItem_RequestParameters"></a>
 
@@ -75,7 +75,7 @@ content-length: 85
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | Attribute values before the put operation, but only if the `ReturnValues` parameter is specified as `ALL_OLD` in the request\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_PutItem_SpecialErrors"></a>
 
@@ -89,7 +89,7 @@ content-length: 85
 
 ## Examples<a name="API_PutItem_Examples"></a>
 
-For examples using the AWS SDK, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 ### Sample Request<a name="API_PutItem_Examples_Request"></a>
 

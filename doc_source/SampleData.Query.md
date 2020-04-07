@@ -15,7 +15,7 @@ In this step, you try some simple queries against the tables that you created, u
 1. Choose the data filtering link, located just below the **Create item** button\.  
 ![\[Console screenshot showing the data filtering link.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/console-data-filtering-01.png)![\[Console screenshot showing the data filtering link.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Console screenshot showing the data filtering link.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-   When you do this, the console reveals a data filtering pane\.  
+   When you choose the link, the console reveals a data filtering pane\.  
 ![\[Console screenshot showing the data filtering pane.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/console-data-filtering-02.png)![\[Console screenshot showing the data filtering pane.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Console screenshot showing the data filtering pane.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. In the data filtering pane, do the following:

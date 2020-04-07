@@ -1,4 +1,4 @@
-# Reading Data from a Table<a name="SQLtoNoSQL.ReadData"></a>
+# Key Differences When Reading Data from a Table<a name="SQLtoNoSQL.ReadData"></a>
 
 With SQL, you use the `SELECT` statement to retrieve one or more rows from a table\. You use the `WHERE` clause to determine the data that is returned to you\.
 

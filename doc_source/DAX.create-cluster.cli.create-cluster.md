@@ -1,10 +1,10 @@
-# Step 3: Create a DAX Cluster<a name="DAX.create-cluster.cli.create-cluster"></a>
+# Step 3: Create a DAX Cluster Using the AWS CLI<a name="DAX.create-cluster.cli.create-cluster"></a>
 
-Follow this procedure to create a DAX cluster in your default Amazon VPC:
+Follow this procedure to use the AWS Command Line Interface \(AWS CLI\) to create an Amazon DynamoDB Accelerator \(DAX\) cluster in your default Amazon VPC\.
 
-****
+**To create a DAX cluster**
 
-1. Get the Amazon Resource Name \(ARN\) for your service role:
+1. Get the Amazon Resource Name \(ARN\) for your service role\.
 
    ```
    aws iam get-role \
@@ -12,11 +12,11 @@ Follow this procedure to create a DAX cluster in your default Amazon VPC:
        --query "Role.Arn" --output text
    ```
 
-   In the output, take note of the service role ARN\. For example:
+   In the output, note the service role ARN, as in the following example\.
 
    `arn:aws:iam::123456789012:role/DAXServiceRoleForDynamoDBAccess`
 
-1. You are now ready to create your DAX cluster:
+1. Create the DAX cluster\. Replace `roleARN` with the ARN from the previous step\.
 
    ```
    aws dax create-cluster \
@@ -29,18 +29,15 @@ Follow this procedure to create a DAX cluster in your default Amazon VPC:
        --region us-west-2
    ```
 
-   Replace `roleARN` with the ARN from the previous step\.
+   All of the nodes in the cluster are of type `dax.r4.large` \(`--node-type`\)\. There are three nodes \(`--replication-factor`\)—one primary node and two replicas\.
 
-   All of the nodes in the cluster will be of type *dax\.r3\.large* \(`--node-type`\)\. There will be three nodes \(`--replication-factor`\)—one primary node and two replicas\.
-
-To view the cluster status, type the following command:
+To view the cluster status, enter the following command\.
 
 ```
 aws dax describe-clusters
 ```
 
-The status is shown in the output\. For example: `"Status": "creating"`
+The status is shown in the output—for example, `"Status": "creating"`\.
 
 **Note**  
-Creating the cluster will take several minutes\. When the cluster is ready, its status changes to `available`\.  
- In the meantime, you can proceed to [Step 4: Configure Security Group Inbound Rules](DAX.create-cluster.cli.configure-inbound-rules.md) and follow the instructions there\.
+Creating the cluster takes several minutes\. When the cluster is ready, its status changes to `available`\. In the meantime, proceed to [Step 4: Configure Security Group Inbound Rules Using the AWS CLI](DAX.create-cluster.cli.configure-inbound-rules.md) and follow the instructions there\.

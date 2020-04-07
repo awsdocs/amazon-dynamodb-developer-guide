@@ -1,14 +1,16 @@
 # Java and DAX<a name="DAX.client.run-application-java"></a>
 
-To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 instance, follow this procedure:
+Follow this procedure to run the Java sample for Amazon DynamoDB Accelerator \(DAX\) on your Amazon EC2 instance\.
 
-1. Install the Java Development Kit \(JDK\):
+**To run the Java sample for DAX**
+
+1. Install the Java Development Kit \(JDK\)\.
 
    ```
    sudo yum install -y java-devel
    ```
 
-1. Download the AWS SDK for Java \(`.zip` file\), and then extract it:
+1. Download the AWS SDK for Java \(`.zip` file\), and then extract it\.
 
    ```
    wget http://sdk-for-java.amazonwebservices.com/latest/aws-java-sdk.zip
@@ -16,15 +18,15 @@ To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 insta
    unzip aws-java-sdk.zip
    ```
 
-1. Download the latest version of the DAX Java client \(`.jar` file\):
+1. Download the latest version of the DAX Java client \(`.jar` file\)\.
 
    ```
    wget http://dax-sdk.s3-website-us-west-2.amazonaws.com/java/DaxJavaClient-latest.jar
    ```
 **Note**  
- The client for the DAX SDK for Java is available on Apache Maven\. For more information, see [Using client as Apache Maven dependency](#DAXClient.Maven), later in this topic\. 
+The client for the DAX SDK for Java is available on Apache Maven\. For more information, see [Using the Client as an Apache Maven Dependency](#DAXClient.Maven)\.
 
-1. Set your `CLASSPATH` variable:
+1. Set your `CLASSPATH` variable\. In this example, replace `sdkVersion` with the actual version number of the AWS SDK for Java \(for example, `1.11.112`\)\.
 
    ```
    export SDKVERSION=sdkVersion
@@ -32,33 +34,31 @@ To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 insta
    export CLASSPATH=.:./DaxJavaClient-latest.jar:aws-java-sdk-$SDKVERSION/lib/aws-java-sdk-$SDKVERSION.jar:aws-java-sdk-$SDKVERSION/third-party/lib/*
    ```
 
-   Replace `sdkVersion` with the actual version number of the AWS SDK for Java, for example: `1.11.112`\.
-
-1. Download the sample program source code \(`.zip` file\):
+1. Download the sample program source code \(`.zip` file\)\.
 
    ```
    wget http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/TryDax.zip
    ```
 
-   When the download is complete, extract the source files:
+   When the download is complete, extract the source files\.
 
    ```
    unzip TryDax.zip
    ```
 
-1. Compile the code as follows:
+1. Compile the code as follows\.
 
    ```
    javac TryDax*.java
    ```
 
-1. Run the program:
+1. Run the program\.
 
    ```
    java TryDax
    ```
 
-   You should see output similar to the following:
+   You should see output similar to the following\.
 
    ```
    Creating a DynamoDB client
@@ -106,21 +106,21 @@ To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 insta
 
    Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query`, and `Scan` tests\.
 
-1. In the previous step, you ran the program against the Amazon DynamoDB endpoint\. Now run the program again, but this time the `GetItem`, `Query`, and `Scan` operations are processed by your DAX cluster\.
+1. In the previous step, you ran the program against the DynamoDB endpoint\. Now run the program again, but this time, the `GetItem`, `Query`, and `Scan` operations are processed by your DAX cluster\.
 
    To determine the endpoint for your DAX cluster, choose one of the following:
-   + **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console; for example: 
+   + **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console, as in the following example\.
 
      ```
      mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
      ```
-   + **Using the AWS CLI** — Type the following command:
+   + **Using the AWS CLI** — Enter the following command\.
 
      ```
      aws dax describe-clusters --query "Clusters[*].ClusterDiscoveryEndpoint"
      ```
 
-     The cluster endpoint port and address are shown in the output; for example: 
+     The cluster endpoint port and address are shown in the output, as in the following example\.
 
      ```
      {
@@ -129,7 +129,7 @@ To run the Java sample for DynamoDB Accelerator \(DAX\) on your Amazon EC2 insta
      }
      ```
 
-   Now run the program again—but this time, specify the cluster endpoint as a command line parameter:
+   Now run the program again, but this time, specify the cluster endpoint as a command line parameter\.
 
    ```
    java TryDax mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
@@ -142,13 +142,15 @@ For more information about this program, see the following sections:
 + [TryDaxHelper\.java](DAX.client.run-application-java.TryDaxHelper.md)
 + [TryDaxTests\.java](DAX.client.run-application-java.TryDaxTests.md)
 
-## Using client as Apache Maven dependency<a name="DAXClient.Maven"></a>
+## Using the Client as an Apache Maven Dependency<a name="DAXClient.Maven"></a>
 
-To use the client for the DAX SDK for Java in your application as a dependency:
+Follow these steps to use the client for the DAX SDK for Java in your application as a dependency\.
+
+**To use the client as a Maven dependency**
 
 1. Download and install Apache Maven\. For more information, see [Downloading Apache Maven](https://maven.apache.org/download.cgi) and [Installing Apache Maven](https://maven.apache.org/install.html)\.
 
-1. Add the client Maven dependency to your application's Project Object Model \(POM\) file:
+1. Add the client Maven dependency to your application's Project Object Model \(POM\) file\. In this example, replace `x.x.x.x` with the actual version number of the client \(for example, `1.0.200704.0`\)\.
 
    ```
    <!--Dependency:-->
@@ -160,5 +162,3 @@ To use the client for the DAX SDK for Java in your application as a dependency:
        </dependency>
    </dependencies>
    ```
-
-    Replace x\.x\.x\.x with the actual version number of the client\. For example: 1\.0\.200704\.0\. 

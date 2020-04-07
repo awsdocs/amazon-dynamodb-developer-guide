@@ -25,7 +25,7 @@ The following are the naming rules for DynamoDB:
 
 DynamoDB has a list of reserved words and special characters\. For a complete list of reserved words in DynamoDB, see [Reserved Words in DynamoDB](ReservedWords.md)\. Also, the following characters have special meaning in DynamoDB: **\#** \(hash\) and **:** \(colon\)\.
 
-Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid doing so because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression Attribute Names](Expressions.ExpressionAttributeNames.md)\.
+Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid doing so because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
 
 ## Data Types<a name="HowItWorks.DataTypes"></a>
 

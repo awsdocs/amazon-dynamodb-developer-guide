@@ -1,40 +1,40 @@
 # Creating a DAX Cluster<a name="DAX.create-cluster"></a>
 
-This section walks you through first\-time setup and usage of DAX in your default Amazon VPC environment\. You can create your first DAX cluster using either the AWS Command Line Interface \(AWS CLI\) or the AWS Management Console\.
+This section walks you through the first\-time setup and usage of Amazon DynamoDB Accelerator \(DAX\) in your default Amazon Virtual Private Cloud \(Amazon VPC\) environment\. You can create your first DAX cluster using either the AWS Command Line Interface \(AWS CLI\) or the AWS Management Console\.
 
-After you have created your DAX cluster, you will be able to access it from an Amazon EC2 instance running in the same Amazon VPC\. You will then be able to use your DAX cluster with an application program\. \(For more information, see [Using the DAX Client in an Application](DAX.client.md)\.\)
+After you create your DAX cluster, you can access it from an Amazon EC2 instance running in the same VPC\. You can then use your DAX cluster with an application program\. For more information, see [Developing with the DynamoDB Accelerator \(DAX\) Client](DAX.client.md)\.
 
 **Topics**
-+ [Creating an IAM service role for DAX to access DynamoDB](#DAX.create-cluster.iam-permissions)
-+ [AWS CLI](DAX.create-cluster.cli.md)
-+ [AWS Management Console](DAX.create-cluster.console.md)
++ [Creating an IAM Service Role for DAX to Access DynamoDB](#DAX.create-cluster.iam-permissions)
++ [Creating a DAX Cluster Using the AWS CLI](DAX.create-cluster.cli.md)
++ [Creating a DAX Cluster Using the AWS Management Console](DAX.create-cluster.console.md)
 
-## Creating an IAM service role for DAX to access DynamoDB<a name="DAX.create-cluster.iam-permissions"></a>
+## Creating an IAM Service Role for DAX to Access DynamoDB<a name="DAX.create-cluster.iam-permissions"></a>
 
-In order for your DAX cluster to access DynamoDB tables on your behalf, you will need to create a service role\. A *service role* is an IAM role that authorizes an AWS service to act on your behalf\. The service role will allow DAX to access your DynamoDB tables, as if you were accessing those tables yourself\. You need to create the service role before you can create the DAX cluster\.
+For your DAX cluster to access DynamoDB tables on your behalf, you must create a *service role*\. A service role is an AWS Identity and Access Management \(IAM\) role that authorizes an AWS service to act on your behalf\. The service role allows DAX to access your DynamoDB tables, as if you were accessing those tables yourself\. You must create the service role before you can create the DAX cluster\.
 
-If you are using the AWS Management Console, the workflow for creating a cluster checks for the presence of a pre\-existing DAX service role; if none is found, the console creates a new service role for you\. For more information, see [Step 2: Create a DAX Cluster](DAX.create-cluster.console.create-cluster.md) in [AWS Management Console](DAX.create-cluster.console.md)\.
+If you are using the console, the workflow for creating a cluster checks for the presence of a pre\-existing DAX service role\. If none is found, the console creates a new service role for you\. For more information, see [Step 2: Create a DAX Cluster Using the AWS Management Console](DAX.create-cluster.console.create-cluster.md)\.
 
-If you are using the AWS CLI, you will need to specify a DAX service role that you have created previously\. Otherwise, you will need to create a new service role beforehand\. For more information, see [Step 1: Create an IAM service role for DAX to access DynamoDB](DAX.create-cluster.cli.create-service-role.md) in [AWS CLI](DAX.create-cluster.cli.md)\.
+If you are using the AWS CLI, you must specify a DAX service role that you have created previously\. Otherwise, you need to create a new service role beforehand\. For more information, see [Step 1: Create an IAM Service Role for DAX to Access DynamoDB Using the AWS CLI](DAX.create-cluster.cli.create-service-role.md)\.
 
-### Permissions Required for Service Role Creation<a name="DAX.create-cluster.iam-permissions.required"></a>
+### Permissions Required to Create a Service Role<a name="DAX.create-cluster.iam-permissions.required"></a>
 
-The AWS\-managed *AdministratorAccess* policy provides all of the permissions needed for creating a DAX cluster, and for creating a service role\. If your IAM user has *AdministratorAccess* attached, then no further action is needed\. 
+The AWS managed `AdministratorAccess` policy provides all the permissions needed for creating a DAX cluster and a service role\. If your IAM user has `AdministratorAccess` attached, no further action is needed\.
 
-Otherwise, you will need to add the following permissions to your IAM policy so that your IAM user can create the service role:
+Otherwise, you must add the following permissions to your IAM policy so that your IAM user can create the service role:
 + `iam:CreateRole`
 + `iam:CreatePolicy`
 + `iam:AttachRolePolicy`
 + `iam:PassRole`
 
-You should attach these permissions to the user that is attempting to perform the action\.
+Attach these permissions to the user who is trying to perform the action\.
 
 **Note**  
-The `iam:CreateRole`, `iam:CreatePolicy`, `iam:AttachPolicy` and `iam:PassRole` permissions are not included in the AWS\-managed policies for DynamoDB\. This is by design, because these permissions provide the possibility of privilege escalation: A user could use these permissions to create a new administrator policy, and then attach that policy to an existing role\. For this reason, you \(the administrator of your DAX cluster\) must explicitly add these permissions to your policy\. 
+The `iam:CreateRole`, `iam:CreatePolicy`, `iam:AttachPolicy`, and `iam:PassRole` permissions are not included in the AWS managed policies for DynamoDB\. This is by design because these permissions provide the possibility of privilege escalation: That is, a user could use these permissions to create a new administrator policy and then attach that policy to an existing role\. For this reason, you \(the administrator of your DAX cluster\) must explicitly add these permissions to your policy\.
 
 ### Troubleshooting<a name="DAX.create-cluster.iam-permissions.troubleshooting"></a>
 
-If your user policy is missing the `iam:CreateRole`, `iam:CreatePolicy`, and `iam:AttachPolicy` permissions, you will encounter error messages\. The following table shows these messages, and how to correct the problems\.
+If your user policy is missing the `iam:CreateRole`, `iam:CreatePolicy`, and `iam:AttachPolicy` permissions, you will get error messages\. The following table lists these messages and describes how to correct the problems\.
 
 
 ****  
@@ -45,4 +45,4 @@ If your user policy is missing the `iam:CreateRole`, `iam:CreatePolicy`, and `ia
 | User: arn:aws:iam::accountID:user/userName is not authorized to perform: iam:CreatePolicy on resource: policy policyName |  Add iam:CreatePolicy to your user policy\. | 
 | User: arn:aws:iam::accountID:user/userName is not authorized to perform: iam:AttachRolePolicy on resource: role daxServiceRole | Add iam:AttachRolePolicy to your user policy\. | 
 
-For more information about IAM policies required for DAX cluster administration, see [Identity and Access Management in DAX](DAX.access-control.md)\.
+For more information about the IAM policies required for DAX cluster administration, see [DAX Access Control](DAX.access-control.md)\.

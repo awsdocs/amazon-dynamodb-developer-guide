@@ -1,6 +1,6 @@
 # Step 1: Create Example Tables<a name="SampleData.CreateTables"></a>
 
-In this section, you use the AWS Management Console to create tables in DynamoDB for two simple use cases\.
+In this section, you use the AWS Management Console to create tables in Amazon DynamoDB for two simple use cases\.
 
 ## Use Case 1: Product Catalog<a name="SampleData.CreateTables1"></a>
 

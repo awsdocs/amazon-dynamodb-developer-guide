@@ -1,4 +1,4 @@
-# Step 4: Query and Scan the Data<a name="GettingStarted.Js.04"></a>
+# Step 4: Query and Scan the Data with JavaScript and DynamoDB<a name="GettingStarted.Js.04"></a>
 
 You can use the `query` method to retrieve data from a table\. You must specify a partition key value; the sort key is optional\.
 
@@ -10,7 +10,7 @@ To find all movies released during a year, you need to specify only the `year`\.
 
 In addition to the `query` method, you can use the `scan` method to retrieve all the table data\.
 
-To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\.
+To learn more about querying and scanning data, see [Working with Queries in DynamoDB](Query.md) and [Working with Scans in DynamoDB](Scan.md), respectively\.
 
 **Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.Js.04.Query.01)
@@ -24,7 +24,6 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy the following program and paste it into a file named `MoviesQuery01.html`\.
 
    ```
-   <!--
    <!-- 
      Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     
@@ -108,7 +107,6 @@ The program included in this step retrieves all movies released in `year` 1992, 
 1. Copy the following program and paste it into a file named `MoviesQuery02.html`\.
 
    ```
-   <!--
    <!-- 
      Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     
@@ -191,7 +189,6 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Copy the following program and paste it into a file named `MoviesScan.html`\.
 
    ```
-   <!--
    <!-- 
      Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     

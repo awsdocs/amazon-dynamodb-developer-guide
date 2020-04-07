@@ -1,4 +1,4 @@
-# Step 6: Update the New Movie Record<a name="GettingStarted.NET.06"></a>
+# Step 6: Update the New Movie Record in the DynamoDB Table<a name="GettingStarted.NET.06"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you update the new movie record in several different ways\.
 
@@ -141,10 +141,10 @@ To demonstrate this, the `Main` function makes the following changes to the `Upd
 The update can now occur only if there are more than three actors in the movie record being updated\. Because there are only three actors listed, the condition fails when `Main` waits on `UpdatingMovie_async`, and the update does not occur\.
 
 ## For More Information<a name="GettingStarted.NET.06.d"></a>
-+ To learn more about reading and writing data in DynamoDB tables, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
++ To learn more about reading and writing data in DynamoDB tables, see [Working with Items and Attributes](WorkingWithItems.md)\.
 + For more information about the DynamoDB document model API, see [\.NET: Document Model](DotNetSDKMidLevel.md)\.
 + For more information about asynchronous methods, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
 ## Next Step<a name="GettingStarted.NET.06.NextStep"></a>
 
-[Step 7: Try to Conditionally Delete the Movie](GettingStarted.NET.07.md)
+[Step 7: Conditionally Delete](GettingStarted.NET.07.md)

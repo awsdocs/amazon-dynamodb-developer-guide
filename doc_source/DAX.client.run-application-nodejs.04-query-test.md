@@ -1,6 +1,6 @@
 # 04\-query\-test\.js<a name="DAX.client.run-application-nodejs.04-query-test"></a>
 
-The `04-query-test.js` program performs `Query` operations on *TryDaxTable*\.
+The `04-query-test.js` program performs `Query` operations on `TryDaxTable`\.
 
 ```
 /**

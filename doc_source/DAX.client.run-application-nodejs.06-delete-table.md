@@ -1,6 +1,6 @@
 # 06\-delete\-table\.js<a name="DAX.client.run-application-nodejs.06-delete-table"></a>
 
-The `06-delete-table.js` program deletes *TryDaxTable*\. Run this program after you are done testing\.
+The `06-delete-table.js` program deletes `TryDaxTable`\. Run this program after you have finished testing\.
 
 ```
 /**

@@ -1,22 +1,22 @@
 # Managing Global Secondary Indexes<a name="GSI.OnlineOps"></a>
 
-This section describes how to create, modify, and delete global secondary indexes\.
+This section describes how to create, modify, and delete global secondary indexes in Amazon DynamoDB\.
 
 **Topics**
 + [Creating a Table with Global Secondary Indexes](#GSI.Creating)
 + [Describing the Global Secondary Indexes on a Table](#GSI.Describing)
 + [Adding a Global Secondary Index to an Existing Table](#GSI.OnlineOps.Creating)
 + [Deleting a Global Secondary Index](#GSI.OnlineOps.Deleting)
-+ [Modifying a Global Secondary Index During Creation](#GSI.OnlineOps.Creating.Modify)
++ [Modifying a Global Secondary Index during Creation](#GSI.OnlineOps.Creating.Modify)
 + [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)
 
 ## Creating a Table with Global Secondary Indexes<a name="GSI.Creating"></a>
 
 To create a table with one or more global secondary indexes, use the `CreateTable` operation with the `GlobalSecondaryIndexes` parameter\. For maximum query flexibility, you can create up to 20 global secondary indexes \(default limit\) per table\. 
 
-You must specify one attribute to act as the index partition key\. You can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. For example, in the *GameScores* table \(see [Global Secondary Indexes](GSI.md)\), neither *TopScore* nor *TopScoreDateTime* are key attributes\. You could create a global secondary index with a partition key of *TopScore* and a sort key of *TopScoreDateTime*\. You might use such an index to determine whether there is a correlation between high scores and the time of day a game is played\.
+You must specify one attribute to act as the index partition key\. You can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. For example, in the *GameScores* table \(see [Using Global Secondary Indexes in DynamoDB](GSI.md)\), neither `TopScore` nor `TopScoreDateTime` are key attributes\. You could create a global secondary index with a partition key of `TopScore` and a sort key of `TopScoreDateTime`\. You might use such an index to determine whether there is a correlation between high scores and the time of day a game is played\.
 
-Each index key attribute must be a scalar of type String, Number, or Binary\. \(It cannot be a document or a set\.\) You can project attributes of any data type into a global secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
+Each index key attribute must be a scalar of type `String`, `Number`, or `Binary`\. \(It cannot be a document or a set\.\) You can project attributes of any data type into a global secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
 If using provisioned mode, you must provide `ProvisionedThroughput` settings for the index, consisting of `ReadCapacityUnits` and `WriteCapacityUnits`\. These provisioned throughput settings are separate from those of the table, but behave in similar ways\. For more information, see [Provisioned Throughput Considerations for Global Secondary Indexes](GSI.md#GSI.ThroughputConsiderations)\.
 
@@ -27,10 +27,10 @@ If using provisioned mode, you must provide `ProvisionedThroughput` settings for
 To view the status of all the global secondary indexes on a table, use the `DescribeTable` operation\. The `GlobalSecondaryIndexes` portion of the response shows all of the indexes on the table, along with the current status of each \( `IndexStatus`\)\.
 
 The `IndexStatus` for a global secondary index will be one of the following:
-+ `CREATING`—The index is currently being created, and is not yet available for use\.
-+ `ACTIVE`—The index is ready for use, and applications can perform `Query` operations on the index
-+ `UPDATING`—The provisioned throughput settings of the index are being changed\.
-+ `DELETING`—The index is currently being deleted, and can no longer be used\.
++ `CREATING` — The index is currently being created, and is not yet available for use\.
++ `ACTIVE` — The index is ready for use, and applications can perform `Query` operations on the index\.
++ `UPDATING` — The provisioned throughput settings of the index are being changed\.
++ `DELETING` — The index is currently being deleted, and can no longer be used\.
 
 When DynamoDB has finished building a global secondary index, the index status changes from `CREATING` to `ACTIVE`\.
 
@@ -38,11 +38,11 @@ When DynamoDB has finished building a global secondary index, the index status c
 
 To add a global secondary index to an existing table, use the `UpdateTable` operation with the `GlobalSecondaryIndexUpdates` parameter\. You must provide the following:
 + An index name\. The name must be unique among all the indexes on the table\.
-+ The key schema of the index\. You must specify one attribute for the index partition key; you can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. The data types for each schema attribute must be scalar: String, Number, or Binary\.
++ The key schema of the index\. You must specify one attribute for the index partition key; you can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. The data types for each schema attribute must be scalar: `String`, `Number`, or `Binary`\.
 + The attributes to be projected from the table into the index:
-  + `KEYS_ONLY` – Each item in the index consists only of the table partition key and sort key values, plus the index key values\. 
-  + `INCLUDE` – In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non\-key attributes that you specify\.
-  + `ALL` – The index includes all of the attributes from the source table\.
+  + `KEYS_ONLY` — Each item in the index consists only of the table partition key and sort key values, plus the index key values\. 
+  + `INCLUDE` — In addition to the attributes described in `KEYS_ONLY`, the secondary index includes other non\-key attributes that you specify\.
+  + `ALL` — The index includes all of the attributes from the source table\.
 + The provisioned throughput settings for the index, consisting of `ReadCapacityUnits` and `WriteCapacityUnits`\. These provisioned throughput settings are separate from those of the table\.
 
 You can only create one global secondary index per `UpdateTable` operation\.
@@ -54,13 +54,13 @@ When you add a new global secondary index to an existing table, the table contin
 Behind the scenes, DynamoDB builds the index in two phases:
 
 **Resource Allocation**  
-DynamoDB allocates the compute and storage resources that will be needed for building the index\.  
+DynamoDB allocates the compute and storage resources that are needed for building the index\.  
 During the resource allocation phase, the `IndexStatus` attribute is `CREATING` and the `Backfilling` attribute is false\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
 While the index is in the resource allocation phase, you can't delete the index or delete its parent table\. You also can't modify the provisioned throughput of the index or the table\. You cannot add or delete other indexes on the table\. However, you can modify the provisioned throughput of these other indexes\.
 
 **Backfilling**  
-For each item in the table, DynamoDB determines which set of attributes to write to the index based on its projection \(`KEYS_ONLY`, `INCLUDE`, or `ALL`\)\. It then writes these attributes to the index\. During the backfill phase, DynamoDB keeps track of items that are being added, deleted, or updated in the table\. The attributes from these items are also added, deleted, or updated in the index as appropriate\.  
-During the backfilling phase, the `IndexStatus` attribute is set to `CREATING` and the `Backfilling` attribute is true\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
+For each item in the table, DynamoDB determines which set of attributes to write to the index based on its projection \(`KEYS_ONLY`, `INCLUDE`, or `ALL`\)\. It then writes these attributes to the index\. During the backfill phase, DynamoDB tracks the items that are being added, deleted, or updated in the table\. The attributes from these items are also added, deleted, or updated in the index as appropriate\.  
+During the backfilling phase, the `IndexStatus` attribute is set to `CREATING`, and the `Backfilling` attribute is true\. Use the `DescribeTable` operation to retrieve the status of a table and all of its secondary indexes\.  
 While the index is backfilling, you cannot delete its parent table\. However, you can still delete the index or modify the provisioned throughput of the table and any of its global secondary indexes\.  
 During the backfilling phase, some writes of violating items might succeed while others are rejected\. After backfilling, all writes to items that violate the new index's key schema are rejected\. We recommend that you run the Violation Detector tool after the backfill phase finishes to detect and resolve any key violations that might have occurred\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
 
@@ -92,7 +92,7 @@ For more information about CloudWatch metrics related to DynamoDB, see [DynamoDB
 If the provisioned write throughput setting on the index is too low, the index build will take longer to complete\. To shorten the time it takes to build a new global secondary index, you can increase its provisioned write capacity temporarily\. 
 
 **Note**  
-As a general rule, we recommend setting the provisioned write capacity of the index to 1\.5 times the write capacity of the table\. This is a good setting for many use cases; however, your actual requirements may be higher or lower\. 
+As a general rule, we recommend setting the provisioned write capacity of the index to 1\.5 times the write capacity of the table\. This is a good setting for many use cases\. However, your actual requirements might be higher or lower\. 
 
 While an index is being backfilled, DynamoDB uses internal system capacity to read from the table\. This is to minimize the impact of the index creation and to assure that your table does not run out of read capacity\.
 
@@ -104,16 +104,16 @@ After the index has been created, you should set its provisioned write capacity 
 
 If you no longer need a global secondary index, you can delete it using the `UpdateTable` operation\.
 
-You can only delete one global secondary index per `UpdateTable` operation\.
+You can delete only one global secondary index per `UpdateTable` operation\.
 
-While the global secondary index, is being deleted, there is no effect on any read or write activity in the parent table\. While the deletion is in progress, you can still modify the provisioned throughput on other indexes\.
+While the global secondary index is being deleted, there is no effect on any read or write activity in the parent table\. While the deletion is in progress, you can still modify the provisioned throughput on other indexes\.
 
 **Note**  
-When you delete a table using the `DeleteTable` action, all of the global secondary indexes on that table are also deleted\.  
+When you delete a table using the `DeleteTable` action, all of the global secondary indexes on that table are also deleted\.
 
-## Modifying a Global Secondary Index During Creation<a name="GSI.OnlineOps.Creating.Modify"></a>
+## Modifying a Global Secondary Index during Creation<a name="GSI.OnlineOps.Creating.Modify"></a>
 
-While an index is being built, you can use the `DescribeTable` operation to determine what phase it is in\. The description for the index includes a Boolean attribute, `Backfilling`, to indicate whether DynamoDB is currently loading the index with items from the table\. If `Backfilling` is true, then the resource allocation phase is complete and the index is now backfilling\. 
+While an index is being built, you can use the `DescribeTable` operation to determine what phase it is in\. The description for the index includes a Boolean attribute, `Backfilling`, to indicate whether DynamoDB is currently loading the index with items from the table\. If `Backfilling` is true, the resource allocation phase is complete and the index is now backfilling\. 
 
 While the backfill is proceeding, you can update the provisioned throughput parameters for the index\. You might decide to do this in order to speed up the index build: You can increase the write capacity of the index while it is being built, and then decrease it afterward\. To modify the provisioned throughput settings of the index, use the `UpdateTable` operation\. The index status changes to `UPDATING`, and `Backfilling` is true until the index is ready for use\. 
 

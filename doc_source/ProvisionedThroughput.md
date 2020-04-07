@@ -1,14 +1,6 @@
-# Managing Throughput Settings on Provisioned Tables<a name="ProvisionedThroughput"></a>
+# Managing Settings on DynamoDB Provisioned Capacity Tables<a name="ProvisionedThroughput"></a>
 
-**Topics**
-+ [Read Capacity Units](#ProvisionedThroughput.CapacityUnits.Read)
-+ [Write Capacity Units](#ProvisionedThroughput.CapacityUnits.Write)
-+ [Request Throttling and Burst Capacity](#ProvisionedThroughput.Throttling)
-+ [Request Throttling and Adaptive Capacity](#ProvisionedThroughput.AdaptiveCapacity)
-+ [Choosing Initial Throughput Settings](#ProvisionedThroughput.CapacityUnits.InitialSettings)
-+ [Modifying Throughput Settings](#ProvisionedThroughput.CapacityUnits.Modifying)
-
-When you create a new provisioned table in DynamoDB, you must specify its *provisioned throughput capacity*—the amount of read and write activity that the table will be able to support\. DynamoDB uses this information to reserve sufficient system resources to meet your throughput requirements\.
+When you create a new provisioned table in Amazon DynamoDB, you must specify its *provisioned throughput capacity*\. This is the amount of read and write activity that the table can support\. DynamoDB uses this information to reserve sufficient system resources to meet your throughput requirements\.
 
 **Note**  
  You can create an on\-demand mode table instead so that you don't have to manage any capacity settings for servers, storage, or throughput\. DynamoDB instantly accommodates your workloads as they ramp up or down to any previously reached traffic level\. If a workload’s traffic level hits a new peak, DynamoDB adapts rapidly to accommodate the workload\. For more information, see [On\-Demand Mode](HowItWorks.ReadWriteCapacityMode.md#HowItWorks.OnDemand)\. 
@@ -18,6 +10,14 @@ You can optionally allow DynamoDB auto scaling to manage your table's throughput
 As your application data and access requirements change, you might need to adjust your table's throughput settings\. If you're using DynamoDB auto scaling, the throughput settings are automatically adjusted in response to actual workloads\. You can also use the `UpdateTable` operation to manually adjust your table's throughput capacity\. You might decide to do this if you need to bulk\-load data from an existing data store into your new DynamoDB table\. You could create the table with a large write throughput setting and then reduce this setting after the bulk data load is complete\.
 
 You specify throughput requirements in terms of *capacity units*—the amount of data your application needs to read or write per second\. You can modify these settings later, if needed, or enable DynamoDB auto scaling to modify them automatically\.
+
+**Topics**
++ [Read Capacity Units](#ProvisionedThroughput.CapacityUnits.Read)
++ [Write Capacity Units](#ProvisionedThroughput.CapacityUnits.Write)
++ [Request Throttling and Burst Capacity](#ProvisionedThroughput.Throttling)
++ [Request Throttling and Adaptive Capacity](#ProvisionedThroughput.AdaptiveCapacity)
++ [Choosing Initial Throughput Settings](#ProvisionedThroughput.CapacityUnits.InitialSettings)
++ [Modifying Throughput Settings](#ProvisionedThroughput.CapacityUnits.Modifying)
 
 ## Read Capacity Units<a name="ProvisionedThroughput.CapacityUnits.Read"></a>
 
@@ -44,7 +44,7 @@ The following describes how DynamoDB read operations consume read capacity units
 
 If you perform a read operation on an item that does not exist, DynamoDB still consumes provisioned read throughput: A strongly consistent read request consumes one read capacity unit, while an eventually consistent read request consumes 0\.5 of a read capacity unit\.
 
-For any operation that returns items, you can request a subset of attributes to retrieve; however, doing so has no impact on the item size calculations\. In addition, `Query` and `Scan` can return item counts instead of attribute values\. Getting the count of items uses the same quantity of read capacity units and is subject to the same item size calculations\. This is because DynamoDB has to read each item in order to increment the count\.
+For any operation that returns items, you can request a subset of attributes to retrieve\. However, doing so has no impact on the item size calculations\. In addition, `Query` and `Scan` can return item counts instead of attribute values\. Getting the count of items uses the same quantity of read capacity units and is subject to the same item size calculations\. This is because DynamoDB has to read each item in order to increment the count\.
 
 #### Read Operations and Read Consistency<a name="ItemSizeCalculations.Reads.Consistency"></a>
 
@@ -64,7 +64,7 @@ The following describes how DynamoDB write operations consume write capacity uni
 + `PutItem`—Writes a single item to a table\. If an item with the same primary key exists in the table, the operation replaces the item\. For calculating provisioned throughput consumption, the item size that matters is the larger of the two\.
 + `UpdateItem`—Modifies a single item in the table\. DynamoDB considers the size of the item as it appears before and after the update\. The provisioned throughput consumed reflects the larger of these item sizes\. Even if you update just a subset of the item's attributes, `UpdateItem` will still consume the full amount of provisioned throughput \(the larger of the "before" and "after" item sizes\)\. 
 + `DeleteItem`—Removes a single item from a table\. The provisioned throughput consumption is based on the size of the deleted item\.
-+ `BatchWriteItem`—Writes up to 25 items to one or more tables\. DynamoDB processes each item in the batch as an individual `PutItem` or `DeleteItem` request \(updates are not supported\)\. So DynamoDB first rounds up the size of each item to the next 1 KB boundary, and then calculates the total size\. The result is not necessarily the same as the total size of all the items\. For example, if `BatchWriteItem` writes a 500 byte item and a 3\.5 KB item, DynamoDB calculates the size as 5 KB \(1 KB \+ 4 KB\), not 4 KB \(500 bytes \+ 3\.5 KB\)\.
++ `BatchWriteItem`—Writes up to 25 items to one or more tables\. DynamoDB processes each item in the batch as an individual `PutItem` or `DeleteItem` request \(updates are not supported\)\. So DynamoDB first rounds up the size of each item to the next 1 KB boundary, and then calculates the total size\. The result is not necessarily the same as the total size of all the items\. For example, if `BatchWriteItem` writes a 500\-byte item and a 3\.5 KB item, DynamoDB calculates the size as 5 KB \(1 KB \+ 4 KB\), not 4 KB \(500 bytes \+ 3\.5 KB\)\.
 
 For `PutItem`, `UpdateItem`, and `DeleteItem` operations, DynamoDB rounds the item size up to the next 1 KB\. For example, if you put or delete an item of 1\.6 KB, DynamoDB rounds the item size up to 2 KB\.
 
@@ -113,4 +113,4 @@ For recommendations on provisioned throughput and related topics, see [Best Prac
 
 If you have enabled DynamoDB auto scaling for a table, then its throughput capacity is dynamically adjusted in response to actual usage\. No manual intervention is required\.
 
-You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation\. For more information about throughput increases and decreases per day, see [Limits in DynamoDB](Limits.md)\.
+You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)\.

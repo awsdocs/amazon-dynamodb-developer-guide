@@ -56,7 +56,7 @@ Optimistic locking has the following impact on `DynamoDBContext` operations:
 
 To disable optimistic locking, you use the `SkipVersionCheck` configuration property\. You can set this property when creating `DynamoDBContext`\. In this case, optimistic locking is disabled for any requests that you make using the context\. For more information, see [Specifying Optional Parameters for DynamoDBContext ](DotNetDynamoDBContext.md#OptionalConfigParams)\. 
 
-Instead of setting the property at the context level, you can disable optimistic locking for a specific operation, as shown in the following C\# code example\. The example uses the context to delete a book item\. The `Delete` method sets the optional `SkipVersionCheck` property to true, disabling version checking\. 
+Instead of setting the property at the context level, you can disable optimistic locking for a specific operation, as shown in the following C\# code example\. The example uses the context to delete a book item\. The `Delete` method sets the optional `SkipVersionCheck` property to true, disabling version checking\.
 
 **Example**  
 

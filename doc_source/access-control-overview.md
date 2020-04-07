@@ -8,13 +8,13 @@ An *account administrator* \(or administrator user\) is a user with administrato
 When granting permissions, you decide who is getting the permissions, the resources they get permissions for, and the specific actions that you want to allow on those resources\.
 
 **Topics**
-+ [Amazon DynamoDB Resources and Operations](#access-control-resources)
++ [DynamoDB Resources and Operations](#access-control-resources)
 + [Understanding Resource Ownership](#access-control-resource-ownership)
 + [Managing Access to Resources](#access-control-manage-access-intro)
 + [Specifying Policy Elements: Actions, Effects, and Principals](#specify-policy-elements)
 + [Specifying Conditions in a Policy](#specifying-conditions-overview)
 
-## Amazon DynamoDB Resources and Operations<a name="access-control-resources"></a>
+## DynamoDB Resources and Operations<a name="access-control-resources"></a>
 
  In DynamoDB, the primary resources are *tables*\. DynamoDB also supports additional resource types, *indexes*, and *streams*\. However, you can create indexes and streams only in the context of an existing DynamoDB table\. These are referred to as *subresources*\. 
 
@@ -91,10 +91,10 @@ Other services, such as Amazon S3, also support resource\-based permissions poli
 
 ## Specifying Policy Elements: Actions, Effects, and Principals<a name="specify-policy-elements"></a>
 
-For each DynamoDB resource, the service defines a set of API operations\. To grant permissions for these API operations, DynamoDB defines a set of actions that you can specify in a policy\. Some API operations can require permissions for more than one action in order to perform the API operation\. For more information about resources and API operations, see [Amazon DynamoDB Resources and Operations](#access-control-resources) and DynamoDB [Actions](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html)\.
+For each DynamoDB resource, the service defines a set of API operations\. To grant permissions for these API operations, DynamoDB defines a set of actions that you can specify in a policy\. Some API operations can require permissions for more than one action in order to perform the API operation\. For more information about resources and API operations, see [DynamoDB Resources and Operations](#access-control-resources) and DynamoDB [Actions](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html)\.
 
 The following are the most basic policy elements:
-+ **Resource** – You use an Amazon Resource Name \(ARN\) to identify the resource that the policy applies to\. For more information, see [Amazon DynamoDB Resources and Operations](#access-control-resources)\.
++ **Resource** – You use an Amazon Resource Name \(ARN\) to identify the resource that the policy applies to\. For more information, see [DynamoDB Resources and Operations](#access-control-resources)\.
 + **Action** – You use action keywords to identify resource operations that you want to allow or deny\. For example, `dynamodb:Query` allows the user permissions to perform the DynamoDB `Query` operation\.
 + **Effect** – You specify the effect, either allow or deny, when the user requests the specific action\. If you don't explicitly grant access to \(allow\) a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even if a different policy grants access\.
 + **Principal** – In identity\-based policies \(IAM policies\), the user that the policy is attached to is the implicit principal\. For resource\-based policies, you specify the user, account, service, or other entity that you want to receive permissions \(applies to resource\-based policies only\)\. DynamoDB doesn't support resource\-based policies\.

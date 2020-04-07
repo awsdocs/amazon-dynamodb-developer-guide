@@ -1,6 +1,10 @@
 # Monitoring Tools<a name="dax-monitoring-automated-manual"></a>
 
-AWS provides tools that you can use to monitor DynamoDB Accelerator \(DAX\)\. You can configure some of these tools to do the monitoring for you, and some require manual intervention\. We recommend that you automate monitoring tasks as much as possible\.
+AWS provides tools that you can use to monitor Amazon DynamoDB Accelerator \(DAX\)\. You can configure some of these tools to do the monitoring for you, and some require manual intervention\. We recommend that you automate monitoring tasks as much as possible\.
+
+**Topics**
++ [Automated Monitoring Tools](#dax-monitoring-automated_tools)
++ [Manual Monitoring Tools](#dax-monitoring-manual-tools)
 
 ## Automated Monitoring Tools<a name="dax-monitoring-automated_tools"></a>
 

@@ -1,14 +1,14 @@
 # Using Write Sharding to Distribute Workloads Evenly<a name="bp-partition-key-sharding"></a>
 
-One way to better distribute writes across a partition key space in DynamoDB is to expand the space\. You can do this in several different ways\. You can add a random number to the partition key values to distribute the items among partitions, or you can use a number that is calculated based on something that you are querying on\.
+One way to better distribute writes across a partition key space in Amazon DynamoDB is to expand the space\. You can do this in several different ways\. You can add a random number to the partition key values to distribute the items among partitions\. Or you can use a number that is calculated based on something that you're querying on\.
 
 ## Sharding Using Random Suffixes<a name="bp-partition-key-sharding-random"></a>
 
 One strategy for distributing loads more evenly across a partition key space is to add a random number to the end of the partition key values\. Then you randomize the writes across the larger space\.
 
-For example, in the case of a partition key that represents today's date, you might choose a random number between `1` and `200` and concatenate it as a suffix to the date\. This yields partition key values like `2014-07-09.1`, `2014-07-09.2`, and so on, through `2014-07-09.200`\. Because you are randomizing the partition key, the writes to the table on each day are spread evenly across multiple partitions\. This results in better parallelism and higher overall throughput\.
+For example, for a partition key that represents today's date, you might choose a random number between `1` and `200` and concatenate it as a suffix to the date\. This yields partition key values like `2014-07-09.1`, `2014-07-09.2`, and so on, through `2014-07-09.200`\. Because you are randomizing the partition key, the writes to the table on each day are spread evenly across multiple partitions\. This results in better parallelism and higher overall throughput\.
 
-However, to read all the items for a given day, you would have to query the items for all the suffixes and then merge the results\. For example, you would first issue a `Query` request for the partition key value `2014-07-09.1`, then another `Query` for `2014-07-09.2`, and so on, through `2014-07-09.200`\. Finally, your application would have to merge the results from all those `Query` requests\.
+However, to read all the items for a given day, you would have to query the items for all the suffixes and then merge the results\. For example, you would first issue a `Query` request for the partition key value `2014-07-09.1`\. Then issue another `Query` for `2014-07-09.2`, and so on, through `2014-07-09.200`\. Finally, your application would have to merge the results from all those `Query` requests\.
 
 ## Sharding Using Calculated Suffixes<a name="bp-partition-key-sharding-calculated"></a>
 
@@ -18,9 +18,9 @@ Consider the previous example, in which a table uses today's date in the partiti
 
 A simple calculation would likely suffice, such as the product of the UTF\-8 code point values for the characters in the order ID, modulo 200, \+ 1\. The partition key value would then be the date concatenated with the calculation result\.
 
-With this strategy, the writes are spread evenly across the partition\-key values, and thus across the physical partitions\. You can easily perform a `GetItem` operation for a particular item and date because you can calculate the partition\-key value for a specific `OrderId` value\.
+With this strategy, the writes are spread evenly across the partition key values, and thus across the physical partitions\. You can easily perform a `GetItem` operation for a particular item and date because you can calculate the partition key value for a specific `OrderId` value\.
 
 To read all the items for a given day, you still must `Query` each of the `2014-07-09.N` keys \(where `N` is 1–200\), and your application then has to merge all the results\. The benefit is that you avoid having a single "hot" partition key value taking all of the workload\.
 
 **Note**  
-For an even more efficient strategy specifically designed to handle high\-volume time\-series data, see [Time\-Series Data](bp-time-series.md)\.
+For a more efficient strategy specifically designed to handle high\-volume time series data, see [Time Series Data](bp-time-series.md)\.

@@ -1,6 +1,6 @@
 # 02\-write\-data\.js<a name="DAX.client.run-application-nodejs.02-write-data"></a>
 
-The `02-write-data.js` program writes test data to *TryDaxTable*\.
+The `02-write-data.js` program writes test data to `TryDaxTable`\.
 
 ```
 /**

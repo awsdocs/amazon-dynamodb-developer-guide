@@ -1,3 +1,3 @@
 # Cross\-Region Replication<a name="Streams.CrossRegionRepl"></a>
 
- You can create tables that are automatically replicated across two or more AWS Regions, with full support for multi\-master writes\. This gives you the ability to build fast, massively scaled applications for a global user base without having to manage the replication process\. For more information, see [Global Tables](GlobalTables.md)\. 
+ You can create tables that are automatically replicated across two or more AWS Regions, with full support for multimaster writes\. This gives you the ability to build fast, massively scaled applications for a global user base without having to manage the replication process\. For more information, see [Global Tables: Multi\-Region Replication with DynamoDB](GlobalTables.md)\. 

@@ -1,4 +1,4 @@
-# Java and DynamoDB<a name="GettingStarted.Java"></a>
+# Getting Started with Java and DynamoDB<a name="GettingStarted.Java"></a>
 
 In this tutorial, you use the AWS SDK for Java to write simple programs to perform the following Amazon DynamoDB operations:
 + Create a table called `Movies` and load sample data in JSON format\.
@@ -7,7 +7,7 @@ In this tutorial, you use the AWS SDK for Java to write simple programs to perfo
 
  The SDK for Java offers several programming models for different use cases\. In this exercise, the Java code uses the document model that provides a level of abstraction that makes it easier for you to work with JSON documents\.
 
-As you work through this tutorial, you can refer to the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
+As you work through this tutorial, you can refer to the [AWS SDK for Java Documentation](https://docs.aws.amazon.com/sdk-for-java/index.html)\.
 
 ## Tutorial Prerequisites<a name="GettingStarted.Java.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 

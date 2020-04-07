@@ -11,7 +11,7 @@ The application has three DynamoDB tables in the backend:
 
 The following code snippets illustrate how to use DynamoDB transactions to coordinate the multiple steps that are required to create and process an order\. Using a single all\-or\-nothing operation ensures that if any part of the transaction fails, no actions in the transaction are executed and no changes are made\.
 
-In this example, you set up an order from a customer whose `customerId` is `09e8e9c8-ec48` and then execute it as a single transaction using the following simple order\-processing workflow:
+In this example, you set up an order from a customer whose `customerId` is `09e8e9c8-ec48`\. You then execute it as a single transaction using the following simple order\-processing workflow:
 
 1. Determine that the customer ID is valid\.
 
@@ -21,7 +21,7 @@ In this example, you set up an order from a customer whose `customerId` is `09e8
 
 ### Validate the Customer<a name="transaction-example-order-part-a"></a>
 
-First, define an action to verify that a customer with `customerId` equal to `09e8e9c8-ec48` exists in the customers table\.
+First, define an action to verify that a customer with `customerId` equal to `09e8e9c8-ec48` exists in the customer table\.
 
 ```
     final String CUSTOMER_TABLE_NAME = "Customers";
@@ -30,7 +30,7 @@ First, define an action to verify that a customer with `customerId` equal to `09
     final HashMap<String, AttributeValue> customerItemKey = new HashMap<>();
     customerItemKey.put(CUSTOMER_PARTITION_KEY, new AttributeValue(customerId));
 
-    ConditionCheck checkItem = new ConditionCheck()
+    ConditionCheck checkCustomerValid = new ConditionCheck()
         .withTableName(CUSTOMER_TABLE_NAME)
         .withKey(customerItemKey)
         .withConditionExpression("attribute_exists(" + CUSTOMER_PARTITION_KEY + ")");
@@ -83,13 +83,13 @@ Lastly, create the order as long as an order with that `OrderId` does not alread
 
 ### Execute the Transaction<a name="transaction-example-order-part-d"></a>
 
-The following code snippet illustrates how to execute the actions defined previously as a single all\-or\-nothing operation\.
+The following example illustrates how to execute the actions defined previously as a single all\-or\-nothing operation\.
 
 ```
     Collection<TransactWriteItem> actions = Arrays.asList(
         new TransactWriteItem().withConditionCheck(checkCustomerValid),
-        new TransactWriteItem().withPut(createOrder),
-        new TransactWriteItem().withUpdate(markItemSold));
+        new TransactWriteItem().withUpdate(markItemSold),
+        new TransactWriteItem().withPut(createOrder));
 
     TransactWriteItemsRequest placeOrderTransaction = new TransactWriteItemsRequest()
         .withTransactItems(actions)
@@ -111,7 +111,7 @@ The following code snippet illustrates how to execute the actions defined previo
 
 ## Reading the Order Details<a name="transaction-example-read-order"></a>
 
-The following code snippet shows how to read the completed order transactionally across the `Orders` and `ProductCatalog` tables\.
+The following example shows how to read the completed order transactionally across the `Orders` and `ProductCatalog` tables\.
 
 ```
     HashMap<String, AttributeValue> productItemKey = new HashMap<>();

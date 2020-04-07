@@ -2,6 +2,10 @@
 
 The SQL language provides the `UPDATE` statement for modifying data\. Amazon DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.UpdateData.SQL)
++ [DynamoDB](#SQLtoNoSQL.UpdateData.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.UpdateData.SQL"></a>
 
 In SQL, you use the `UPDATE` statement to modify one or more rows\. The `SET` clause specifies new values for one or more columns, and the `WHERE` clause determines which rows are modified\. The following is an example\.
@@ -28,7 +32,7 @@ The following is an example\.
         "SongTitle":"Call Me Today"
     },
     UpdateExpression: "SET RecordLabel = :label",
-    ExpressionAttributeValues: { 
+    ExpressionAttributeValues: {
         ":label": "Global Records"
     }
 }
@@ -47,7 +51,7 @@ You must specify the `Key` attributes of the item to be modified and an `UpdateE
     },
     UpdateExpression: "SET RecordLabel = :label",
     ConditionExpression: "Price >= :p",
-    ExpressionAttributeValues: { 
+    ExpressionAttributeValues: {
         ":label": "Global Records",
         ":p": 2.00
     }
@@ -66,7 +70,7 @@ The following is an example of an `UpdateItem` action to initialize a new attrib
         "SongTitle":"Call Me Today"
     },
     UpdateExpression: "SET Plays = :val",
-    ExpressionAttributeValues: { 
+    ExpressionAttributeValues: {
         ":val": 0
     },
     ReturnValues: "UPDATED_NEW"
@@ -85,7 +89,7 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
         "SongTitle":"Call Me Today"
     },
     UpdateExpression: "SET Plays = Plays + :incr",
-    ExpressionAttributeValues: { 
+    ExpressionAttributeValues: {
         ":incr": 1
     },
     ReturnValues: "UPDATED_NEW"
@@ -93,4 +97,4 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
 ```
 
 **Note**  
-For code examples that use `UpdateItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `UpdateItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

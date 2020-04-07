@@ -1,4 +1,4 @@
-# Step 1: Create a Table<a name="GettingStarted.NodeJs.01"></a>
+# Step 1: Create a Table with in DynamoDB with AWS SDK for JavaScript<a name="GettingStarted.NodeJs.01"></a>
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
@@ -62,4 +62,4 @@ The `ProvisionedThroughput` parameter is required, but the downloadable version 
 
    `node MoviesCreateTable.js`
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.

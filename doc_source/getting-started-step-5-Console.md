@@ -8,9 +8,9 @@ Follow these steps to use the DynamoDB console to query data in the `Music` tabl
 
 1. Choose the **Music** table from the table list\.
 
-1. Choose the **Items** tab for the Music table\.
+1. Choose the **Items** tab for the `Music` table\.
 
-1. In the dropdown list, choose **Query**\.  
+1. In the drop\-down list, choose **Query**\.  
 ![\[Console screenshot showing the dropdown list with Query selected on the Items tab.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/QueryClickQuery.png)
 
 1. For **Partition key**, enter **Acme Band**, and then choose **Start search**\.  

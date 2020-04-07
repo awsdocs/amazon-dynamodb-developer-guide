@@ -1,8 +1,8 @@
-# Accessing the Database<a name="SQLtoNoSQL.Accessing"></a>
+# Characteristics of Databases<a name="SQLtoNoSQL.Accessing"></a>
 
 Before your application can access a database, it must be *authenticated* to ensure that the application is allowed to use the database\. It must be *authorized* so that the application can perform only the actions for which it has permissions\.
 
-The following diagram shows a client's interaction with a relational database, and with DynamoDB\.
+The following diagram shows a client's interaction with a relational database and with Amazon DynamoDB\.
 
 ![\[Interaction with relational and NoSQL databases.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SQLtoNoSQL.png)![\[Interaction with relational and NoSQL databases.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Interaction with relational and NoSQL databases.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 

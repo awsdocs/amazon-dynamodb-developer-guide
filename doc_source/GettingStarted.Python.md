@@ -1,4 +1,4 @@
-# Python and DynamoDB<a name="GettingStarted.Python"></a>
+# Getting Started Developing with Python and DynamoDB<a name="GettingStarted.Python"></a>
 
 In this tutorial, you use the AWS SDK for Python \(Boto 3\) to write simple programs to perform the following Amazon DynamoDB operations:
 + Create a table called `Movies` and load sample data in JSON format\.

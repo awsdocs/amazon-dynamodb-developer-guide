@@ -1,6 +1,6 @@
-# AWS Management Console<a name="DAX.create-cluster.console"></a>
+# Creating a DAX Cluster Using the AWS Management Console<a name="DAX.create-cluster.console"></a>
 
-This section describes how to create a DAX cluster using the AWS Management Console\.
+This section describes how to create an Amazon DynamoDB Accelerator \(DAX\) cluster using the AWS Management Console\.
 
 **Topics**
 + [Step 1: Create a Subnet Group](DAX.create-cluster.console.create-subnet-group.md)

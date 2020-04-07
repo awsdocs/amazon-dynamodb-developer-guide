@@ -4,6 +4,7 @@
 
 **Topics**
 + [Using the Console](ConsoleDynamoDB.md)
-+ [Using the CLI](Tools.CLI.md)
++ [Using the AWS CLI](Tools.CLI.md)
 + [Using the API](Using.API.md)
++ [Using the NoSQL Workbench for DynamoDB](Using.Workbench.md)
 + [IP Address Ranges](Using.IPRanges.md)

@@ -13,7 +13,7 @@
 
 The AWS SDK for \.NET provides document model classes that wrap some of the low\-level Amazon DynamoDB operations, further simplifying your coding\. In the document model, the primary classes are `Table` and `Document`\. The `Table` class provides data operation methods such as `PutItem`, `GetItem`, and `DeleteItem`\. It also provides the `Query` and the `Scan` methods\. The `Document` class represents a single item in a table\.
 
-The preceding document model classes are available in the `Amazon.DynamoDBv2.DocumentModel` namespace\. 
+The preceding document model classes are available in the `Amazon.DynamoDBv2.DocumentModel` namespace\.
 
 ## Operations Not Supported by the Document Model<a name="MidLevelAPILimitations"></a>
 
@@ -34,8 +34,8 @@ The `GetItem` operation returns all the attributes of the item and performs an e
 
 ### Specifying Optional Parameters<a name="GetMidLevelDotNetOptions"></a>
 
-You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code example retrieves an item from the `ProductCatalog` table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters: 
-+ The `AttributesToGet` parameter to retrieve only the specified attributes\. 
+You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code example retrieves an item from the `ProductCatalog` table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters:
++ The `AttributesToGet` parameter to retrieve only the specified attributes\.
 + The `ConsistentRead` parameter to request the latest values for all the specified attributes\. To learn more about data consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
 
 **Example**  
@@ -143,7 +143,7 @@ This midlevel `UpdateItem` operation does not support the `Add` action \(see [Up
 **Note**  
 The `PutItem` operation \([Putting an Item \- Table\.PutItem Method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the `PutItem` operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
 
-The following are the steps to update an item using theAWS SDK for \.NET document model:
+The following are the steps to update an item using the AWS SDK for \.NET document model:
 
 1. Execute the `Table.LoadTable` method by providing the name of the table in which you want to perform the update operation\.
 

@@ -11,70 +11,70 @@ aws dynamodb update-table \
     \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
 
-Using `update-table` returns the sample result shown below\.
+Using `update-table` returns the following sample result\.
 
 ```
 {
     "TableDescription": {
-        "TableArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music", 
+        "TableArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music",
         "AttributeDefinitions": [
             {
-                "AttributeName": "AlbumTitle", 
+                "AttributeName": "AlbumTitle",
                 "AttributeType": "S"
-            }, 
+            },
             {
-                "AttributeName": "Artist", 
+                "AttributeName": "Artist",
                 "AttributeType": "S"
-            }, 
+            },
             {
-                "AttributeName": "SongTitle", 
+                "AttributeName": "SongTitle",
                 "AttributeType": "S"
             }
-        ], 
+        ],
         "GlobalSecondaryIndexes": [
             {
-                "IndexSizeBytes": 0, 
-                "IndexName": "AlbumTitle-index", 
+                "IndexSizeBytes": 0,
+                "IndexName": "AlbumTitle-index",
                 "Projection": {
                     "ProjectionType": "ALL"
-                }, 
+                },
                 "ProvisionedThroughput": {
-                    "NumberOfDecreasesToday": 0, 
-                    "WriteCapacityUnits": 5, 
+                    "NumberOfDecreasesToday": 0,
+                    "WriteCapacityUnits": 5,
                     "ReadCapacityUnits": 10
-                }, 
+                },
                 "IndexStatus": "CREATING", 
-                "Backfilling": false, 
+                "Backfilling": false,
                 "KeySchema": [
                     {
-                        "KeyType": "HASH", 
+                        "KeyType": "HASH",
                         "AttributeName": "AlbumTitle"
                     }
-                ], 
-                "IndexArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music/index/AlbumTitle-index", 
+                ],
+                "IndexArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music/index/AlbumTitle-index",
                 "ItemCount": 0
             }
-        ], 
+        ],
         "ProvisionedThroughput": {
-            "NumberOfDecreasesToday": 0, 
-            "WriteCapacityUnits": 5, 
+            "NumberOfDecreasesToday": 0,
+            "WriteCapacityUnits": 5,
             "ReadCapacityUnits": 10
-        }, 
-        "TableSizeBytes": 0, 
-        "TableName": "Music", 
-        "TableStatus": "UPDATING", 
-        "TableId": "d04c7240-0e46-435d-b231-d54091fe1017", 
+        },
+        "TableSizeBytes": 0,
+        "TableName": "Music",
+        "TableStatus": "UPDATING",
+        "TableId": "d04c7240-0e46-435d-b231-d54091fe1017",
         "KeySchema": [
             {
-                "KeyType": "HASH", 
+                "KeyType": "HASH",
                 "AttributeName": "Artist"
-            }, 
+            },
             {
-                "KeyType": "RANGE", 
+                "KeyType": "RANGE",
                 "AttributeName": "SongTitle"
             }
-        ], 
-        "ItemCount": 0, 
+        ],
+        "ItemCount": 0,
         "CreationDateTime": 1558028402.69
     }
 }
@@ -88,8 +88,8 @@ To verify that DynamoDB has finished creating the `AlbumTitle-index` global seco
  aws dynamodb describe-table --table-name Music | grep IndexStatus
 ```
 
-This command returns the result shown below\. The index is ready for use when the value of the `IndexStatus` field returned is set to `ACTIVE`\. 
+This command returns the following result\. The index is ready for use when the value of the `IndexStatus` field returned is set to `ACTIVE`\. 
 
 ```
-"IndexStatus": "ACTIVE", 
+"IndexStatus": "ACTIVE",
 ```

@@ -1,18 +1,18 @@
 # Best Practices for Using Sort Keys to Organize Data<a name="bp-sort-keys"></a>
 
-In a DynamoDB table, the primary key that uniquely identifies each item in the table can be composed not only of a partition key, but also of a sort key\.
+In an Amazon DynamoDB table, the primary key that uniquely identifies each item in the table can be composed not only of a partition key, but also of a sort key\.
 
 Well\-designed sort keys have two key benefits:
-+ They gather related information together in one place where it can be queried efficiently\. Careful design of the sort key lets you retrieve commonly needed groups of related items using range queries with operators such as `starts-with`, `between`, `>`, `<`, and so on\.
++ They gather related information together in one place where it can be queried efficiently\. Careful design of the sort key lets you retrieve commonly needed groups of related items using range queries with operators such as `begins_with`, `between`, `>`, `<`, and so on\.
 + Composite sort keys let you define hierarchical \(one\-to\-many\) relationships in your data that you can query at any level of the hierarchy\.
 
-  For example, in a table listing geographical locations, you might structure the sort key as follows:
+  For example, in a table listing geographical locations, you might structure the sort key as follows\.
 
   ```
   [country]#[region]#[state]#[county]#[city]#[neighborhood]
   ```
 
-  This would let you make efficient range queries for a list of locations at any one of these levels of aggregation, from `country` all the way down to a `neighborhood`, and everything in between\.
+  This would let you make efficient range queries for a list of locations at any one of these levels of aggregation, from `country`, to a `neighborhood`, and everything in between\.
 
 ## Using Sort Keys for Version Control<a name="bp-sort-keys-version-control"></a>
 
@@ -26,9 +26,9 @@ For example, a parts manufacturer might use a schema like the one illustrated be
 
 The `Equipment_1` item goes through a sequence of audits by various auditors\. The results of each new audit are captured in a new item in the table, starting with version number one, and then incrementing the number for each successive revision\.
 
-When each new revision is added, the application layer replaces the contents of the zero\-version item \(having sort\-key equal to `v0_Audit`\) with the contents of the new revision\.
+When each new revision is added, the application layer replaces the contents of the zero\-version item \(having sort key equal to `v0_Audit`\) with the contents of the new revision\.
 
-Whenever the application needs to retrieve for the most recent audit status, it can query for the sort\-key prefix of `v0_`\.
+Whenever the application needs to retrieve for the most recent audit status, it can query for the sort key prefix of `v0_`\.
 
 If the application needs to retrieve the entire revision history, it can query all the items under the item's partition key and filter out the `v0_` item\.
 

@@ -1,8 +1,8 @@
-# Step 3: Create, Read, Update, and Delete an Item<a name="GettingStarted.Python.03"></a>
+# Step 3: Create, Read, Update, and Delete an Item with Python<a name="GettingStarted.Python.03"></a>
 
 In this step, you perform read and write operations on an item in the `Movies` table\.
 
-To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+To learn more about reading and writing data, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 **Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.Python.03.01)
@@ -84,7 +84,7 @@ In the previous program, you added the following item to the table\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
         plot: "Nothing happens at all.",
         rating: 0
    }
@@ -166,7 +166,7 @@ The following shows the existing item\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
         plot: "Nothing happens at all.",
         rating: 0
    }
@@ -179,7 +179,7 @@ The item is updated as follows\.
 {
    year: 2015,
    title: "The Big New Movie",
-   info: { 
+   info: {
            plot: "Everything happens all at once.",
            rating: 5.5,
            actors: ["Larry", "Moe", "Curly"]

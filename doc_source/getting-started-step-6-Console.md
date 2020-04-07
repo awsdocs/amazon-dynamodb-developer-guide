@@ -1,6 +1,6 @@
 # AWS Management Console<a name="getting-started-step-6-Console"></a>
 
-To use the DynamoDB console to create a global secondary index `AlbumTitle-index` for the `Music` table:
+To use the Amazon DynamoDB console to create a global secondary index `AlbumTitle-index` for the `Music` table:
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 

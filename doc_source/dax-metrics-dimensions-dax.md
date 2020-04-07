@@ -1,6 +1,6 @@
 # Viewing DAX Metrics and Dimensions<a name="dax-metrics-dimensions-dax"></a>
 
-When you interact with DynamoDB, it sends metrics and dimensions to Amazon CloudWatch\. You can use the following procedures to view the metrics for DynamoDB Accelerator \(DAX\)\.
+When you interact with Amazon DynamoDB, it sends metrics and dimensions to Amazon CloudWatch\. You can use the following procedures to view the metrics for DynamoDB Accelerator \(DAX\)\.
 
 **To view metrics \(console\)**
 
@@ -13,7 +13,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
 1. Select the **DAX** namespace\.
 
 **To view metrics \(AWS CLI\)**
-+ At a command prompt, use the following command:
++ At a command prompt, use the following command\.
 
   ```
   1. aws cloudwatch list-metrics --namespace "AWS/DAX"
@@ -30,6 +30,8 @@ The following metrics are available from DAX\. DAX sends metrics to CloudWatch o
 **Note**  
 CloudWatch aggregates the following DAX metrics at one\-minute intervals:  
 `CPUUtilization`
+`NetworkBytesIn`
+`NetworkBytesOut`
 `NetworkPacketsIn`
 `NetworkPacketsOut`
 `GetItemRequestCount`
@@ -64,6 +66,8 @@ Not all statistics, such as `Average` or `Sum`, are applicable for every metric\
 | Metric | Description | 
 | --- | --- | 
 | CPUUtilization |  The percentage of CPU utilization of the node or cluster\. Units: `Percent` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| NetworkBytesIn |  The number of bytes received on all network interfaces by the node or cluster\. Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| NetworkBytesOut |  The number of bytes sent out on all network interfaces by the node or cluster\. This metric identifies the volume of outgoing traffic in terms of the number of bytes on a single node or cluster\. Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | NetworkPacketsIn |  The number of packets received on all network interfaces by the node or cluster\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | NetworkPacketsOut |  The number of packets sent out on all network interfaces by the node or cluster\. This metric identifies the volume of outgoing traffic in terms of the number of packets on a single node or cluster\. Units: `Count` Valid Statistics:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | GetItemRequestCount |  The number of `GetItem` requests handled by the node or cluster\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
@@ -81,7 +85,8 @@ Not all statistics, such as `Average` or `Sum`, are applicable for every metric\
 | ScanCacheHits |  The number of times a scan result was returned from the node or cluster cache\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | ScanCacheMisses |  The number of times a scan result was not in the node or cluster cache, and had to be retrieved from DynamoDB\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | TotalRequestCount |  Total number of requests handled by the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
-| ErrorRequestCount |  Total number of requests that resulted in a user error reported by the node or cluster\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| ErrorRequestCount |  Total number of requests that resulted in a user error reported by the node or cluster\. Requests that were throttled by the node or cluster are included\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| ThrottledRequestCount |  Total number of requests throttled by the node or cluster\. Requests that were throttled by DynamoDB are not included, and can be monitored using [DynamoDB Metrics](metrics-dimensions.md)\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | FaultRequestCount |  Total number of requests that resulted in an internal error reported by the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | FailedRequestCount |  Total number of requests that resulted in an error reported by the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | QueryRequestCount |  The number of query requests handled by the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 

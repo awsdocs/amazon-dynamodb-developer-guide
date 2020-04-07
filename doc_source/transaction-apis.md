@@ -19,7 +19,7 @@ With Amazon DynamoDB transactions, you can group multiple actions together and s
 
  A `TransactWriteItems` operation differs from a `BatchWriteItem` operation in that all the actions it contains must be completed successfully, or no changes are made at all\. With a `BatchWriteItem` operation, it is possible that only some of the actions in the batch succeed while the others do not\.
 
-You cannot target the same item with multiple operations within the same transaction\. For example, you cannot perform a `ConditionCheck` and also an `Update` action on the same item in the same transaction\.
+You can't target the same item with multiple operations within the same transaction\. For example, you can't perform a `ConditionCheck` and also an `Update` action on the same item in the same transaction\.
 
 You can add the following types of actions to a transaction:
 + `Put` — Initiates a `PutItem` operation to create a new item or replace an old item with a new item, conditionally or without specifying any condition\.
@@ -27,13 +27,13 @@ You can add the following types of actions to a transaction:
 + `Delete` — Initiates a `DeleteItem` operation to delete a single item in a table identified by its primary key\.
 + `ConditionCheck` — Checks that an item exists or checks the condition of specific attributes of the item\.
 
-Changes made with transactions are propagated to global secondary indexes \(GSIs\), DynamoDB streams, and backups eventually, after the transaction completes successfully\. Because of eventual consistency, tables restored from an on\-demand or point\-in\-time\-recovery \(PITR\) backup might contain some but not all of the changes made by a recent transaction\.
+Once a transaction completes, the changes made within that transaction are propagated to global secondary indexes \(GSIs\), streams, and backups\. Since propagation is not immediate or instantaneous, if a table is restored from backup to a point mid\-propagation, it might contain some but not all of the changes made during a recent transaction\.
 
 ### Idempotency<a name="transaction-apis-txwriteitems-idempotency"></a>
 
 You can optionally include a client token when you make a `TransactWriteItems` call to ensure that the request is *idempotent*\. Making your transactions idempotent helps prevent application errors if the same operation is submitted multiple times due to a connection time\-out or other connectivity issue\.
 
-If the original `TransactWriteItems` call was successful, then subsequent `TransactWriteItems` calls with the same client token return successfully without making any changes\. If the `ReturnConsumedCapacity` parameter is set, then the initial `TransactWriteItems` call returns the number of write capacity units consumed in making the changes\. Subsequent `TransactWriteItems` calls with the same client token return the number of read capacity units consumed in reading the item\.
+If the original `TransactWriteItems` call was successful, the subsequent `TransactWriteItems` calls with the same client token return successfully without making any changes\. If the `ReturnConsumedCapacity` parameter is set, the initial `TransactWriteItems` call returns the number of write capacity units consumed in making the changes\. Subsequent `TransactWriteItems` calls with the same client token return the number of read capacity units consumed in reading the item\.
 
 **Important Points about Idempotency**
 + A client token is valid for 10 minutes after the request that uses it finishes\. After 10 minutes, any request that uses the same client token is treated as a new request\. You should not reuse the same client token for the same request after 10 minutes\.
@@ -49,11 +49,11 @@ Write transactions don't succeed under the following circumstances:
 + When an item size becomes too large \(larger than 400 KB\), or a local secondary index \(LSI\) becomes too large, or a similar validation error occurs because of changes made by the transaction\.
 + When there is a user error, such as an invalid data format\.
 
- For more details on how conflicts with `TransactWriteItems` operations are handled, see [Transaction Conflict Handling in DynamoDB](#transaction-conflict-handling)\.
+ For more information about how conflicts with `TransactWriteItems` operations are handled, see [Transaction Conflict Handling in DynamoDB](#transaction-conflict-handling)\.
 
 ## TransactGetItems API<a name="transaction-apis-txgetitems"></a>
 
-`TransactGetItems` is a synchronous read operation that groups up to 25 `Get` actions together\. These actions can target up to 25 distinct items in one or more DynamoDB tables within the same AWS account and Region\. The aggregate size of the items in the transaction cannot exceed 4 MB\. 
+`TransactGetItems` is a synchronous read operation that groups up to 25 `Get` actions together\. These actions can target up to 25 distinct items in one or more DynamoDB tables within the same AWS account and Region\. The aggregate size of the items in the transaction can't exceed 4 MB\. 
 
 The `Get` actions are performed atomically so that either all of them succeed or all of them fail:
 + `Get` — Initiates a `GetItem` operation to retrieve a set of attributes for the item with the given primary key\. If no matching item is found, `Get` does not return any data\.
@@ -65,11 +65,11 @@ Read transactions don't succeed under the following circumstances:
 + When there is insufficient provisioned capacity for the transaction to be completed\.
 + When there is a user error, such as an invalid data format\.
 
- For more details on how conflicts with `TransactGetItems` operations are handled, see [Transaction Conflict Handling in DynamoDB](#transaction-conflict-handling)\.
+ For more information about how conflicts with `TransactGetItems` operations are handled, see [Transaction Conflict Handling in DynamoDB](#transaction-conflict-handling)\.
 
 ## Isolation Levels for DynamoDB Transactions<a name="transaction-isolation"></a>
 
-The isolation levels of transactional operations \(`TransactWriteItems` or `TransactGetItems`\) and other operations are as follows:
+The isolation levels of transactional operations \(`TransactWriteItems` or `TransactGetItems`\) and other operations are as follows\.
 
 ### SERIALIZABLE<a name="transaction-isolation-serializable"></a>
 
@@ -90,7 +90,7 @@ Similarly, the isolation level between a transactional operation and individual 
 
 The isolation level is read\-committed between any transactional operation and any read operation that involves multiple standard reads \(`BatchGetItem`, `Query`, or `Scan`\)\. If a transactional write updates an item in the middle of a `BatchGetItem`, `Query`, or `Scan` operation, the read operation returns the new committed value\.
 
-### Summary Table<a name="transaction-isolation-table"></a>
+### Operation Summary<a name="transaction-isolation-table"></a>
 
 To summarize, the following table shows the isolation levels between a transaction operation \(`TransactWriteItems` or `TransactGetItems`\) and other operations\.
 
@@ -128,7 +128,7 @@ The [TransactionConflict CloudWatch metric](https://docs.aws.amazon.com/amazondy
 
 `TransactWriteItems` and `TransactGetItems` are both supported in DynamoDB Accelerator \(DAX\) with the same isolation levels as in DynamoDB\.
 
-`TransactWriteItems` writes through DAX\. DAX passes a `TransactWriteItems` call to DynamoDB and returns the response\. To populate the cache after the write, DAX calls `TransactGetItems` in the background for each item in the `TransactWriteItems` operation, which consumes additional read capacity units\. \(For more information, see [Capacity Management for Transactions](#transaction-capacity-handling)\.\) This functionality enables you to keep your application logic simple and use DAX for both transactional operations and non\-transactional ones\.
+`TransactWriteItems` writes through DAX\. DAX passes a `TransactWriteItems` call to DynamoDB and returns the response\. To populate the cache after the write, DAX calls `TransactGetItems` in the background for each item in the `TransactWriteItems` operation, which consumes additional read capacity units\. \(For more information, see [Capacity Management for Transactions](#transaction-capacity-handling)\.\) This functionality enables you to keep your application logic simple and use DAX for both transactional operations and nontransactional ones\.
 
 `TransactGetItems` calls are passed through DAX without the items being cached locally\. This is the same behavior as for strongly consistent read APIs in DAX\.
 
@@ -136,7 +136,7 @@ The [TransactionConflict CloudWatch metric](https://docs.aws.amazon.com/amazondy
 
 There is no additional cost to enable transactions for your DynamoDB tables\. You pay only for the reads or writes that are part of your transaction\. DynamoDB performs two underlying reads or writes of every item in the transaction: one to prepare the transaction and one to commit the transaction\. The two underlying read/write operations are visible in your Amazon CloudWatch metrics\.
 
-Plan for the additional reads and writes required by transactional APIs when you are provisioning capacity to your tables\. For example, suppose that your application executes one transaction per second, and each transaction writes three 500\-byte items in your table\. Each item requires two write capacity units \(WCUs\): one to prepare the transaction and one to commit the transaction\. Therefore, you would need to provision six WCUs to the table\. 
+Plan for the additional reads and writes that are required by transactional APIs when you are provisioning capacity to your tables\. For example, suppose that your application executes one transaction per second, and each transaction writes three 500\-byte items in your table\. Each item requires two write capacity units \(WCUs\): one to prepare the transaction and one to commit the transaction\. Therefore, you would need to provision six WCUs to the table\. 
 
 If you were using DynamoDB Accelerator \(DAX\) in the previous example, you would also use two read capacity units \(RCUs\) for each item in the `TransactWriteItems` call\. So you would need to provision six additional RCUs to the table\.
 
@@ -156,7 +156,7 @@ Consider the following recommended practices when using DynamoDB transactions\.
 
 ## Using Transactional APIs with Global Tables<a name="transaction-integration"></a>
 
-Transactional operations are disabled for global tables by default\. Contact [AWS Support](https://aws.amazon.com/support) if you want to enable transactions on global tables\.
+Transactional operations provide atomicity, consistency, isolation, and durability \(ACID\) guarantees only within the region where the write is made originally\. Transactions are not supported across regions in global tables\. For example, if you have a global table with replicas in the US East \(Ohio\) and US West \(Oregon\) regions and perform a TransactWriteItems operation in the US East \(N\. Virginia\) Region, you may observe partially completed transactions in US West \(Oregon\) Region as changes are replicated\. Changes will only be replicated to other regions once they have been committed in the source region\.
 
 ## DynamoDB Transactions vs\. the AWSLabs Transactions Client Library<a name="transaction-vs-library"></a>
 

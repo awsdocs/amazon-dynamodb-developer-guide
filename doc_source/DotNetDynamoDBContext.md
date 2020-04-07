@@ -2,58 +2,58 @@
 
 The `DynamoDBContext` class is the entry point to the Amazon DynamoDB database\. It provides a connection to DynamoDB and enables you to access your data in various tables, perform various CRUD operations, and execute queries\. The `DynamoDBContext` class provides the following methods\.
 
-## Create​MultiTable​BatchGet<a name="w66aac17c17c21c35b5"></a>
+## Create​MultiTable​BatchGet<a name="w144aac17c17c21c35b5"></a>
 
-Creates a `MultiTableBatchGet` object, composed of multiple individual `BatchGet` objects\. Each of these `BatchGet` objects can be used for retrieving items from a single DynamoDB table\. 
+Creates a `MultiTableBatchGet` object, composed of multiple individual `BatchGet` objects\. Each of these `BatchGet` objects can be used for retrieving items from a single DynamoDB table\.
 
 To retrieve the items from tables, use the `ExecuteBatchGet` method, passing the `MultiTableBatchGet` object as a parameter\.
 
-## Create​MultiTable​BatchWrite<a name="w66aac17c17c21c35b7"></a>
+## Create​MultiTable​BatchWrite<a name="w144aac17c17c21c35b7"></a>
 
-Creates a `MultiTableBatchWrite` object, composed of multiple individual `BatchWrite` objects\. Each of these `BatchWrite` objects can be used for writing or deleting items in a single DynamoDB table\. 
+Creates a `MultiTableBatchWrite` object, composed of multiple individual `BatchWrite` objects\. Each of these `BatchWrite` objects can be used for writing or deleting items in a single DynamoDB table\.
 
 To write to tables, use the `ExecuteBatchWrite` method, passing the `MultiTableBatchWrite` object as a parameter\.
 
-## Create​Batch​Get<a name="w66aac17c17c21c35b9"></a>
+## Create​Batch​Get<a name="w144aac17c17c21c35b9"></a>
 
 Creates a `BatchGet` object that you can use to retrieve multiple items from a table\. For more information, see [Batch Get: Getting Multiple Items ](DotNetDynamoDBContext.BatchOperations.md#DotNetDynamoDBContext.BatchGet)\.
 
-## Create​Batch​Write<a name="w66aac17c17c21c35c11"></a>
+## Create​Batch​Write<a name="w144aac17c17c21c35c11"></a>
 
-Creates a `BatchWrite` object that you can use to put multiple items into a table, or to delete multiple items from a table\. For more information, see [Batch Write: Putting and Deleting Multiple Items ](DotNetDynamoDBContext.BatchOperations.md#DotNetDynamoDBContext.BatchWrite)\. 
+Creates a `BatchWrite` object that you can use to put multiple items into a table, or to delete multiple items from a table\. For more information, see [Batch Write: Putting and Deleting Multiple Items ](DotNetDynamoDBContext.BatchOperations.md#DotNetDynamoDBContext.BatchWrite)\.
 
-## Delete<a name="w66aac17c17c21c35c13"></a>
+## Delete<a name="w144aac17c17c21c35c13"></a>
 
-Deletes an item from the table\. The method requires the primary key of the item you want to delete\. You can provide either the primary key value or a client\-side object containing a primary key value as a parameter to this method\. 
-+ If you specify a client\-side object as a parameter and you have enabled optimistic locking, the delete succeeds only if the client\-side and the server\-side versions of the object match\. 
-+ If you specify only the primary key value as a parameter, the delete succeeds regardless of whether you have enabled optimistic locking or not\. 
+Deletes an item from the table\. The method requires the primary key of the item you want to delete\. You can provide either the primary key value or a client\-side object containing a primary key value as a parameter to this method\.
++ If you specify a client\-side object as a parameter and you have enabled optimistic locking, the delete succeeds only if the client\-side and the server\-side versions of the object match\.
++ If you specify only the primary key value as a parameter, the delete succeeds regardless of whether you have enabled optimistic locking or not\.
 
 **Note**  
 To perform this operation in the background, use the `DeleteAsync` method instead\.
 
-## Dispose<a name="w66aac17c17c21c35c15"></a>
+## Dispose<a name="w144aac17c17c21c35c15"></a>
 
 Disposes of all managed and unmanaged resources\.
 
-## Execute​Batch​Get<a name="w66aac17c17c21c35c17"></a>
+## Execute​Batch​Get<a name="w144aac17c17c21c35c17"></a>
 
 Reads data from one or more tables, processing all of the `BatchGet` objects in a `MultiTableBatchGet`\.
 
 **Note**  
 To perform this operation in the background, use the `ExecuteBatchGetAsync` method instead\.
 
-## Execute​Batch​Write<a name="w66aac17c17c21c35c19"></a>
+## Execute​Batch​Write<a name="w144aac17c17c21c35c19"></a>
 
-Writes or deletes data in one or more tables, processing all of the `BatchWrite` objects in a `MultiTableBatchWrite`\. 
+Writes or deletes data in one or more tables, processing all of the `BatchWrite` objects in a `MultiTableBatchWrite`\.
 
 **Note**  
 To perform this operation in the background, use the `ExecuteBatchWriteAsync` method instead\.
 
-## FromDocument<a name="w66aac17c17c21c35c21"></a>
+## FromDocument<a name="w144aac17c17c21c35c21"></a>
 
-Given an instance of a `Document`, the `FromDocument` method returns an instance of a client\-side class\. 
+Given an instance of a `Document`, the `FromDocument` method returns an instance of a client\-side class\.
 
-This is helpful if you want to use the document model classes along with the object persistence model to perform any data operations\. For more information about the document model classes provided by the AWS SDK for \.NET, see [\.NET: Document Model](DotNetSDKMidLevel.md)\. 
+This is helpful if you want to use the document model classes along with the object persistence model to perform any data operations\. For more information about the document model classes provided by the AWS SDK for \.NET, see [\.NET: Document Model](DotNetSDKMidLevel.md)\.
 
 Suppose that you have a `Document` object named `doc`, that contains a representation of a `Forum` item\. \(To see how to construct this object, see the description for the `ToDocument` method later in this topic\.\) You can use `FromDocument` to retrieve the `Forum` item from the `Document`, as shown in the following C\# code example\.
 
@@ -66,25 +66,25 @@ forum101 = context.FromDocument<Forum>(101);
 **Note**  
 If your `Document` object implements the `IEnumerable` interface, you can use the `FromDocuments` method instead\. This allows you to iterate over all of the class instances in the `Document`\.
 
-## FromQuery<a name="w66aac17c17c21c35c23"></a>
+## FromQuery<a name="w144aac17c17c21c35c23"></a>
 
 Executes a `Query` operation, with the query parameters defined in a `QueryOperationConfig` object\.
 
 **Note**  
 To perform this operation in the background, use the `FromQueryAsync` method instead\.
 
-## FromScan<a name="w66aac17c17c21c35c25"></a>
+## FromScan<a name="w144aac17c17c21c35c25"></a>
 
 Executes a `Scan` operation, with the scan parameters defined in a `ScanOperationConfig` object\.
 
 **Note**  
 To perform this operation in the background, use the `FromScanAsync` method instead\.
 
-## Get​Target​Table<a name="w66aac17c17c21c35c27"></a>
+## Get​Target​Table<a name="w144aac17c17c21c35c27"></a>
 
 Retrieves the target table for the specified type\. This is useful if you are writing a custom converter for mapping arbitrary data to a DynamoDB table, and you need to determine which table is associated with a custom data type\.
 
-## Load<a name="w66aac17c17c21c35c29"></a>
+## Load<a name="w144aac17c17c21c35c29"></a>
 
 Retrieves an item from a table\. The method requires only the primary key of the item you want to retrieve\. 
 
@@ -93,13 +93,13 @@ By default, DynamoDB returns the item with values that are eventually consistent
 **Note**  
 To perform this operation in the background, use the `LoadAsync` method instead\.
 
-## Query<a name="w66aac17c17c21c35c31"></a>
+## Query<a name="w144aac17c17c21c35c31"></a>
 
 Queries a table based on query parameters you provide\. 
 
-You can query a table only if it has a composite primary key \(partition key and sort key\)\. When querying, you must specify a partition key and a condition that applies to the sort key\. 
+You can query a table only if it has a composite primary key \(partition key and sort key\)\. When querying, you must specify a partition key and a condition that applies to the sort key\.
 
-Suppose that you have a client\-side `Reply` class mapped to the `Reply` table in DynamoDB\. The following C\# code example queries the `Reply` table to find forum thread replies posted in the past 15 days\. The `Reply` table has a primary key that has the `Id` partition key and the `ReplyDateTime` sort key\. For more information about the `Reply` table, see [Creating Tables and Loading Sample Data](SampleData.md)\. 
+Suppose that you have a client\-side `Reply` class mapped to the `Reply` table in DynamoDB\. The following C\# code example queries the `Reply` table to find forum thread replies posted in the past 15 days\. The `Reply` table has a primary key that has the `Id` partition key and the `ReplyDateTime` sort key\. For more information about the `Reply` table, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
 **Example**  
 
@@ -120,7 +120,7 @@ If your table has a simple primary key \(partition key\), you can't use the `Que
 **Note**  
 To perform this operation in the background, use the `QueryAsync` method instead\.
 
-## Save<a name="w66aac17c17c21c35c33"></a>
+## Save<a name="w144aac17c17c21c35c33"></a>
 
 Saves the specified object to the table\. If the primary key specified in the input object doesn't exist in the table, the method adds a new item to the table\. If the primary key exists, the method updates the existing item\. 
 
@@ -129,7 +129,7 @@ If you have optimistic locking configured, the update succeeds only if the clien
 **Note**  
 To perform this operation in the background, use the `SaveAsync` method instead\.
 
-## Scan<a name="w66aac17c17c21c35c35"></a>
+## Scan<a name="w144aac17c17c21c35c35"></a>
 
 Performs an entire table scan\. 
 
@@ -151,7 +151,7 @@ For performance reasons, you should query your tables and avoid a table scan\.
 **Note**  
 To perform this operation in the background, use the `ScanAsync` method instead\.
 
-## ToDocument<a name="w66aac17c17c21c35c37"></a>
+## ToDocument<a name="w144aac17c17c21c35c37"></a>
 
 Returns an instance of the `Document` document model class from your class instance\. 
 

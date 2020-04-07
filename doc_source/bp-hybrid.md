@@ -1,6 +1,6 @@
 # Best Practices for Implementing a Hybrid Database System<a name="bp-hybrid"></a>
 
-In some circumstances, migrating from one or more relational database management systems \(RDBMS\) to DynamoDB might not be advantageous\. In these cases, it might be preferable to create a hybrid system\.
+In some circumstances, migrating from one or more relational database management systems \(RDBMS\) to Amazon DynamoDB might not be advantageous\. In these cases, it might be preferable to create a hybrid system\.
 
 ## If You Don't Want to Migrate Everything to DynamoDB<a name="bp-hybrid-problems"></a>
 
@@ -18,12 +18,12 @@ DynamoDB can take advantage of DynamoDB Streams and AWS Lambda to integrate seam
 
 ![\[Diagram illustrating how to integrate DynamoDB with existing SQL systems.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/DynamoDB-SQL_01.png)
 
-A system that integrates DynamoDB Streams and AWS Lambda can provides several advantages:
+A system that integrates DynamoDB Streams and AWS Lambda can provide several advantages:
 + It can operate as a persisted cache of materialized views\.
-+ It can be set up to fill gradually with data as that data is queried for, and as data is modified in the SQL system\. This means that the entire view does not need to be pre\-populated, which in turn means that provisioned throughput capacity is more likely to be utilized efficiently\.
++ It can be set up to fill gradually with data as that data is queried for, and as data is modified in the SQL system\. This means that the entire view does not need to be pre\-populated\. This in turn means that provisioned throughput capacity is more likely to be used efficiently\.
 + It has low administrative costs and is highly available and reliable\.
 
-For this kind of integration to be implemented, essentially three kinds of interoperation must be provided:
+For this kind of integration to be implemented, essentially three kinds of interoperation must be provided\.
 
 ![\[Coding needed to integrate DynamoDB with existing SQL systems.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/DynamoDB-SQL_02.png)
 
@@ -31,7 +31,7 @@ For this kind of integration to be implemented, essentially three kinds of inter
 
 1. **Write through a DynamoDB cache\.** When a customer changes a value in DynamoDB, a Lambda function is triggered to write the new data back to the SQL system\.
 
-1. **Update DynamoDB from the SQL system\.** When internal processes such as inventory management or pricing change a value in the SQL system, a stored procedures is triggered to propagate the change to the DynamoDB materialized view\.
+1. **Update DynamoDB from the SQL system\.** When internal processes such as inventory management or pricing change a value in the SQL system, a stored procedure is triggered to propagate the change to the DynamoDB materialized view\.
 
 These operations are straightforward, and not all of them are needed for every scenario\.
 

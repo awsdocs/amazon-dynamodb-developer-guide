@@ -8,7 +8,7 @@ You can use the DynamoDB console to update data in the `Music` table\.
 
 1. Choose the **Music** table from the table list\.
 
-1. Choose the **Items** tab for the Music table\.
+1. Choose the **Items** tab for the `Music` table\.
 
 1. Choose the item whose `Artist` value is **Acme Band** and `SongTitle` value is **Happy Day**\.
 

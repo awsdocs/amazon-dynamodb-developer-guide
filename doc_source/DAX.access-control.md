@@ -1,6 +1,6 @@
-# Identity and Access Management in DAX<a name="DAX.access-control"></a>
+# DAX Access Control<a name="DAX.access-control"></a>
 
-DynamoDB Accelerator \(DAX\) is designed to work together with DynamoDB, to seamlessly add a caching layer to your applications\. However, DAX and DynamoDB are separate AWS services\. Both services use AWS Identity and Access Management \(IAM\) to implement their respective security policies, but the security models for DAX and DynamoDB are different\. 
+DynamoDB Accelerator \(DAX\) is designed to work together with DynamoDB, to seamlessly add a caching layer to your applications\. However, DAX and DynamoDB have separate access control mechanisms\. Both services use AWS Identity and Access Management \(IAM\) to implement their respective security policies, but the security models for DAX and DynamoDB are different\.
 
 *We highly recommend that you understand both security models*, so that you can implement proper security measures for your applications that use DAX\.
 
@@ -48,7 +48,16 @@ The DynamoDB API actions that are allowed are described in an IAM policy documen
             "Sid": "DaxAccessPolicy",
             "Effect": "Allow",
             "Action": [
-                "dynamodb:*"
+                "dynamodb:DescribeTable",
+                "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:BatchGetItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:ConditionCheckItem"
             ],
             "Resource": [
                 "arn:aws:dynamodb:us-west-2:123456789012:table/Books"
@@ -58,7 +67,7 @@ The DynamoDB API actions that are allowed are described in an IAM policy documen
 }
 ```
 
-This policy allows DAX to perform all DynamoDB API actions on a DynamoDB table named `Books`\. The table is in the us\-west\-2 Region and is owned by AWS account ID `123456789012`\.
+This policy allows DAX to perform necessary DynamoDB API actions on a DynamoDB table\. The `dynamodb:DescribeTable` action is required for DAX to maintain metadata about the table, and the others are read and write actions performed on items in the table\. The table, named `Books`, is in the us\-west\-2 Region and is owned by AWS account ID `123456789012`\.
 
 ## IAM Policy to Allow DAX Cluster Access<a name="DAX.access-control.iam-allow-dax-cluster-access"></a>
 

@@ -8,7 +8,7 @@ To delete the `Music` table using the console:
 
 1. Choose the **Music** table from the table list\.
 
-1. Choose the **Indexes** tab for the Music table\.
+1. Choose the **Indexes** tab for the `Music` table\.
 
 1. Choose **Delete table**\.  
 ![\[Console screenshot showing the Delete table button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/DeleteTable.png)

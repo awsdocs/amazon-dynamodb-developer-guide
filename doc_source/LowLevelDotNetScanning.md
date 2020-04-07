@@ -1,8 +1,8 @@
 # Scanning Tables and Indexes: \.NET<a name="LowLevelDotNetScanning"></a>
 
-The `Scan` operation reads all of the items in a table or index\.
+The `Scan` operation reads all of the items in a table or index in Amazon DynamoDB\.
 
-The following are the steps to scan a table using the AWS SDK for NET low\-level API:
+The following are the steps to scan a table using the AWS SDK for \.NET low\-level API:
 
 1. Create an instance of the `AmazonDynamoDBClient` class\.
 
@@ -12,7 +12,7 @@ The following are the steps to scan a table using the AWS SDK for NET low\-level
 
 1. Execute the `Scan` method and provide the `QueryRequest` object that you created in the preceding step\.
 
-The following Reply table stores replies for forum threads\. 
+The following `Reply` table stores replies for forum threads\.
 
 **Example**  
 
@@ -20,7 +20,7 @@ The following Reply table stores replies for forum threads\.
 >Reply ( <emphasis role="underline">Id</emphasis>, <emphasis role="underline">ReplyDateTime</emphasis>, Message, PostedBy )
 ```
 
-The table maintains all the replies for various forum threads\. Therefore, the primary key is composed of both the Id \(partition key\) and ReplyDateTime \(sort key\)\. The following C\# code snippet scans the entire table\. The `ScanRequest` instance specifies the name of the table to scan\.
+The table maintains all the replies for various forum threads\. Therefore, the primary key is composed of both the `Id` \(partition key\) and `ReplyDateTime` \(sort key\)\. The following C\# code example scans the entire table\. The `ScanRequest` instance specifies the name of the table to scan\.
 
 **Example**  
 
@@ -46,11 +46,11 @@ foreach (Dictionary<string, AttributeValue> item in response.ScanResult.Items)
 
 The `Scan` method supports several optional parameters\. For example, you can optionally use a scan filter to filter the scan result\. In a scan filter, you can specify a condition and an attribute name on which you want the condition evaluated\. For more information, see [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
-The following C\# code scans the ProductCatalog table to find items that are priced less than 0\. The sample specifies the following optional parameters:
+The following C\# code scans the `ProductCatalog` table to find items that are priced less than 0\. The sample specifies the following optional parameters:
 + A `FilterExpression` parameter to retrieve only the items priced less than 0 \(error condition\)\.
 + A `ProjectionExpression` parameter to specify the attributes to retrieve for items in the query results\.
 
-The following C\# code snippet scans the ProductCatalog table to find all items priced less than 0\. 
+The following C\# example scans the `ProductCatalog` table to find all items priced less than 0\.
 
 **Example**  
 
@@ -67,9 +67,9 @@ var forumScanRequest = new ScanRequest
  };
 ```
 
-You can also optionally limit the page size, or the number of items per page, by adding the optional `Limit` parameter\. Each time you execute the `Scan` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `Scan` method again by providing the primary key value of the last item in the previous page so that the `Scan` method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
+You can also optionally limit the page size or the number of items per page, by adding the optional `Limit` parameter\. Each time you execute the `Scan` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `Scan` method again by providing the primary key value of the last item in the previous page so that the `Scan` method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
-The following C\# code snippet scans the ProductCatalog table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\. 
+The following C\# code example scans the `ProductCatalog` table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\.
 
 **Example**  
 
@@ -98,9 +98,9 @@ do
 
 ## Example \- Scan Using \.NET<a name="LowLevelDotNetScanExample"></a>
 
-The following C\# code example provides a working sample that scans the ProductCatalog table to find items priced less than 0\. 
+The following C\# code provides a working example that scans the `ProductCatalog` table to find items priced less than 0\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 ```
 /**
@@ -203,9 +203,9 @@ namespace com.amazonaws.codesamples
 
 ## Example \- Parallel Scan Using \.NET<a name="LowLevelDotNetParallelScanExample"></a>
 
-The following C\# code example demonstrates a parallel scan\. The program deletes and then re\-creates the ProductCatalog table, then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. Finally, the program prints a summary of run time statistics\.
+The following C\# code example demonstrates a parallel scan\. The program deletes and then re\-creates the `ProductCatalog` table and then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. Finally, the program prints a summary of runtime statistics\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 ```
 /**

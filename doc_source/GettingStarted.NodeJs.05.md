@@ -1,4 +1,4 @@
-# Step 5: \(Optional\): Delete the Table<a name="GettingStarted.NodeJs.05"></a>
+# Step 5: \(Optional\): Delete the Table using AWS SDK for JavaScript<a name="GettingStarted.NodeJs.05"></a>
 
  To delete the `Movies` table: 
 

@@ -1,4 +1,4 @@
-# Tagging Restrictions<a name="TaggingRestrictions"></a>
+# Tagging Restrictions in DynamoDB<a name="TaggingRestrictions"></a>
 
  Each tag consists of a key and a value, both of which you define\. The following restrictions apply: 
 +  Each DynamoDB table can have only one tag with the same key\. If you try to add an existing tag \(same key\), the existing tag value is updated to the new value\. 

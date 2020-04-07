@@ -1,13 +1,13 @@
 # Example: Global Secondary Indexes Using the AWS SDK for \.NET Low\-Level API<a name="GSILowLevelDotNet.Example"></a>
 
-The following C\# code example shows how to work with global secondary indexes\. The example creates a table named Issues, which might be used in a simple bug tracking system for software development\. The partition key is IssueId and the sort key is Title\. There are three global secondary indexes on this table:
-+ *CreateDateIndex*—the partition key is CreateDate and the sort key is IssueId\. In addition to the table keys, the attributes Description and Status are projected into the index\.
-+ *TitleIndex*—the partition key is `Title` and the sort key is `IssueId`\. No attributes other than the table keys are projected into the index\.
-+ *DueDateIndex*—the partition key is DueDate, and there is no sort key\. All of the table attributes are projected into the index\.
+The following C\# code example shows how to work with global secondary indexes\. The example creates a table named `Issues`, which might be used in a simple bug tracking system for software development\. The partition key is `IssueId` and the sort key is `Title`\. There are three global secondary indexes on this table:
++ `CreateDateIndex` — The partition key is `CreateDate` and the sort key is `IssueId`\. In addition to the table keys, the attributes `Description` and `Status` are projected into the index\.
++ `TitleIndex` — The partition key is `Title` and the sort key is `IssueId`\. No attributes other than the table keys are projected into the index\.
++ `DueDateIndex` — The partition key is `DueDate`, and there is no sort key\. All of the table attributes are projected into the index\.
 
-After the Issues table is created, the program loads the table with data representing software bug reports, and then queries the data using the global secondary indexes\. Finally, the program deletes the Issues table\.
+After the `Issues` table is created, the program loads the table with data representing software bug reports\. It then queries the data using the global secondary indexes\. Finally, the program deletes the `Issues` table\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

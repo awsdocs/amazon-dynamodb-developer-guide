@@ -3,12 +3,12 @@
 In this step, you load sample data into the tables that you created\. You could enter the data manually into the Amazon DynamoDB console\. However, to save time, you use the AWS Command Line Interface \(AWS CLI\) instead\.
 
 **Note**  
-If you have not yet set up the AWS CLI, see [Using the CLI](Tools.CLI.md) for instructions\.
+If you have not yet set up the AWS CLI, see [Using the AWS CLI](Tools.CLI.md) for instructions\.
 
 You will download a `.zip` archive that contains JSON files with sample data for each table\. For each file, you use the AWS CLI to load the data into DynamoDB\. Each successful data load produces the following output\.
 
 ```
-{    
+{
     "UnprocessedItems": {}
 }
 ```

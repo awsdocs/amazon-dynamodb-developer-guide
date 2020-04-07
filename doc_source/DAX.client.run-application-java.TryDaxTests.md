@@ -2,13 +2,13 @@
 
 The `TryDaxTests.java` file contains methods that perform read operations against a test table in Amazon DynamoDB\. These methods are not concerned with how they access the data \(using either the DynamoDB client or the DAX client\), so there is no need to modify the application logic\.
 
-You can modify the program in several ways; for example:
+You can modify the program in several ways:
 + Modify the `queryTest` method so that it uses a different `KeyConditionExpression`\.
-+ Add a `ScanFilter` to the `scanTest` method, so that only some of the items are returned to you\.
++ Add a `ScanFilter` to the `scanTest` method so that only some of the items are returned to you\.
 
 **Note**  
- To run this program, you can setup Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using client as Apache Maven dependency](DAX.client.run-application-java.md#DAXClient.Maven)\.   
-Alternatively, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
+ To run this program, you can set up Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using the Client as an Apache Maven Dependency](DAX.client.run-application-java.md#DAXClient.Maven)\.   
+Or, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```
 /**

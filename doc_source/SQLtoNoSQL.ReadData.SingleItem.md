@@ -2,6 +2,10 @@
 
 One common access pattern for databases is to read a single item from a table\. You have to specify the primary key of the item you want\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.ReadData.SingleItem.SQL)
++ [DynamoDB](#SQLtoNoSQL.ReadData.SingleItem.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.ReadData.SingleItem.SQL"></a>
 
 In SQL, you use the `SELECT` statement to retrieve data from a table\. You can request one or more columns in the result \(or all of them, if you use the `*` operator\)\. The `WHERE` clause determines which rows to return\.
@@ -9,8 +13,8 @@ In SQL, you use the `SELECT` statement to retrieve data from a table\. You can r
 The following is a `SELECT` statement to retrieve a single row from the *Music* table\. The `WHERE` clause specifies the primary key values\.
 
 ```
-SELECT * 
-FROM Music 
+SELECT *
+FROM Music
 WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
 ```
 
@@ -18,7 +22,7 @@ You can modify this query to retrieve only a subset of the columns\.
 
 ```
 SELECT AlbumTitle, Year, Price
-FROM Music 
+FROM Music
 WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
 ```
 
@@ -64,4 +68,4 @@ The SQL `SELECT` statement can perform table joins, allowing you to retrieve dat
 DynamoDB is a nonrelational database and doesn't support table joins\. If you are migrating an existing application from a relational database to DynamoDB, you need to denormalize your data model to eliminate the need for joins\.
 
 **Note**  
-For code examples that use `GetItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `GetItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

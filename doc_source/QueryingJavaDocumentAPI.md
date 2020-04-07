@@ -1,9 +1,9 @@
 # Querying Tables and Indexes: Java<a name="QueryingJavaDocumentAPI"></a>
 
-The `Query` operation enables you to query a table or a secondary index\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
+The `Query` operation enables you to query a table or a secondary index in Amazon DynamoDB\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
 
 **Note**  
-The SDK for Java also provides an object persistence model, allowing you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
+The AWS SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 The following are the steps to retrieve an item using the AWS SDK for Java Document API\. 
 
@@ -11,17 +11,17 @@ The following are the steps to retrieve an item using the AWS SDK for Java Docum
 
 1. Create an instance of the `Table` class to represent the table you want to work with\.
 
-1. Call the `query` method of the `Table` instance\. You must specify the partition key value of the item\(s\) that you want to retrieve, along with any optional query parameters\.
+1. Call the `query` method of the `Table` instance\. You must specify the partition key value of the items that you want to retrieve, along with any optional query parameters\.
 
 The response includes an `ItemCollection` object that provides all items returned by the query\.
 
-The following Java code snippet demonstrates the preceding tasks\. The snippet assumes you have a Reply table that stores replies for forum threads\. For more information, see [Creating Tables and Loading Sample Data](SampleData.md)\.
+The following Java code example demonstrates the preceding tasks\. The example assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
  ` Reply ( Id, ReplyDateTime, ... ) ` 
 
-Each forum thread has a unique ID and can have zero or more replies\. Therefore, the Id attribute of the Reply table is composed of both the forum name and forum subject\. Id \(partition key\) and ReplyDateTime \(sort key\) make up the composite primary key for the table\.
+Each forum thread has a unique ID and can have zero or more replies\. Therefore, the `Id` attribute of the `Reply` table is composed of both the forum name and forum subject\. `Id` \(partition key\) and `ReplyDateTime` \(sort key\) make up the composite primary key for the table\.
 
-The following query retrieves all replies for a specific thread subject\. The query requires both the table name and the Subject value\.
+The following query retrieves all replies for a specific thread subject\. The query requires both the table name and the `Subject` value\.
 
 **Example**  
 
@@ -51,13 +51,13 @@ while (iterator.hasNext()) {
 
 The `query` method supports several optional parameters\. For example, you can optionally narrow the results from the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\.
 
-The following Java code snippet retrieves forum thread replies posted in the past 15 days\. The snippet specifies optional parameters using:
+The following Java code example retrieves forum thread replies posted in the past 15 days\. The example specifies optional parameters using the following:
 + A `KeyConditionExpression` to retrieve the replies from a specific discussion forum \(partition key\) and, within that set of items, replies that were posted within the last 15 days \(sort key\)\.
 + A `FilterExpression` to return only the replies from a specific user\. The filter is applied after the query is processed, but before the results are returned to the user\.
 + A `ValueMap` to define the actual values for the `KeyConditionExpression` placeholders\.
 + A `ConsistentRead` setting of true, to request a strongly consistent read\.
 
-This snippet uses a `QuerySpec` object which gives access to all of the low\-level Query input parameters\.
+This example uses a `QuerySpec` object that gives access to all of the low\-level `Query` input parameters\.
 
 **Example**  
 
@@ -87,9 +87,9 @@ while (iterator.hasNext()) {
 }
 ```
 
-You can also optionally limit the number of items per page by using the `withMaxPageSize` method\. When time you call the `query` method, you get an `ItemCollection` that contains the resulting items\. You can then step through the results, processing one page at a time, until there are no more pages\.
+You can also optionally limit the number of items per page by using the `withMaxPageSize` method\. When you call the `query` method, you get an `ItemCollection` that contains the resulting items\. You can then step through the results, processing one page at a time, until there are no more pages\.
 
-The following Java code snippet modifies the query specification shown above\. This time, the query spec uses the `withMaxPageSize` method\. The `Page` class provides an Iterator that allows the code to process the items on each page\.
+The following Java code example modifies the query specification shown previously\. This time, the query spec uses the `withMaxPageSize` method\. The `Page` class provides an iterator that allows the code to process the items on each page\.
 
 **Example**  
 
@@ -101,7 +101,7 @@ ItemCollection<QueryOutcome> items = table.query(spec);
 // Process each page of results
 int pageNum = 0;
 for (Page<Item, QueryOutcome> page : items.pages()) {
-        
+
     System.out.println("\nPage: " + ++pageNum);
 
     // Process each item on the current page
@@ -114,29 +114,29 @@ for (Page<Item, QueryOutcome> page : items.pages()) {
 
 ## Example \- Query Using Java<a name="DocumentAPIJavaQueryExample"></a>
 
-The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Sample Data](SampleData.md)\.
+The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
 **Note**  
-The SDK for Java also provides an object persistence model, allowing you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
+The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 **Example**  
 
 ```
-Forum ( Name, ... ) 
-Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...) 
+Forum ( Name, ... )
+Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...)
 Reply ( Id, ReplyDateTime, Message, PostedBy, ...)
 ```
 
-In this Java code example, you execute variations of finding replies for a thread 'DynamoDB Thread 1' in forum 'DynamoDB'\. 
+In this Java code example, you execute variations of finding replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\. 
 + Find replies for a thread\.
-+ Find replies for a thread, specifying a limit on the number of items per page of results\. If the number of items in the result set exceeds the page size, you get only the first page of results\. This coding pattern ensures your code processes all the pages in the query result\.
++ Find replies for a thread, specifying a limit on the number of items per page of results\. If the number of items in the result set exceeds the page size, you get only the first page of results\. This coding pattern ensures that your code processes all the pages in the query result\.
 + Find replies in the last 15 days\.
 + Find replies in a specific date range\. 
 
-  Both the preceding two queries shows how you can specify sort key conditions to narrow the query results and use other optional query parameters\. 
+  The preceding two queries show how you can specify sort key conditions to narrow the query results and use other optional query parameters\. 
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Sample Data](SampleData.md) section\.  
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
 
 ```

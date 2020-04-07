@@ -20,7 +20,7 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
        --statistic Sum \
        --threshold 8 \
        --comparison-operator GreaterThanOrEqualToThreshold \
-       --period 60 \                           
+       --period 60 \
        --evaluation-periods 1 \
        --alarm-actions arn:aws:sns:us-west-2:522194210714:QueryMissAlarm
    ```

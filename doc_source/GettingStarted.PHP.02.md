@@ -75,8 +75,6 @@ After you download the sample data, you can run the following program to populat
 1. Copy the following program and paste it into a file named `MoviesLoadData.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -138,10 +136,6 @@ After you download the sample data, you can run the following program to populat
        }
    
    }
-   
-   
-   
-   ?>
    ```
 **Note**  
 The [DynamoDB Marshaler class](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.DynamoDb.Marshaler.html) has methods for converting JSON documents and PHP arrays to the DynamoDB format\. In this program, `$marshaler->marshalJson($json)` takes a JSON document and converts it into a DynamoDB item\.

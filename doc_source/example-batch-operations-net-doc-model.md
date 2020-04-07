@@ -9,7 +9,7 @@
 + Illustrates a single table batch write\. It adds two items to the `ProductCatalog` table\. 
 + Illustrates a multi\-table batch write\. It adds an item to both the `Forum` and `Thread` tables and deletes an item from the `Thread` table\.
 
-If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the `ProductCatalog`, `Forum`, and `Thread` tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+If you followed the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), you already have the `ProductCatalog`, `Forum`, and `Thread` tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

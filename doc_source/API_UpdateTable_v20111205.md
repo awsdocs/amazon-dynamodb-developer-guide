@@ -6,9 +6,9 @@
 
 ## Description<a name="API_updatetable_Description"></a>
 
-Updates the provisioned throughput for the given table\. Setting the throughput for a table helps you manage performance and is part of the provisioned throughput feature of DynamoDB\. For more information, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.
+Updates the provisioned throughput for the given table\. Setting the throughput for a table helps you manage performance and is part of the provisioned throughput feature of DynamoDB\. For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.
 
-The provisioned throughput values can be upgraded or downgraded based on the maximums and minimums listed in [Limits in DynamoDB](Limits.md)\.
+The provisioned throughput values can be upgraded or downgraded based on the maximums and minimums listed in [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)\.
 
 The table must be in the `ACTIVE` state for this operation to succeed\. UpdateTable is an asynchronous operation; while executing the operation, the table is in the `UPDATING` state\. While the table is in the `UPDATING` state, the table still has the provisioned throughput from before the call\. The new provisioned throughput setting is in effect only when the table returns to the `ACTIVE` state after the UpdateTable operation\. 
 
@@ -34,7 +34,7 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table to update\.  Type: String   |  Yes  | 
-|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.Type: Array  | Yes | 
+|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.Type: Array  | Yes | 
 | ProvisionedThroughput :ReadCapacityUnits |  Sets the minimum number of consistent `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.  Eventually consistent read operations require less effort than a consistent read operation, so a setting of 50 consistent `ReadCapacityUnits` per second provides 100 eventually consistent `ReadCapacityUnits` per second\. Type: Number  | Yes | 
 | ProvisionedThroughput :WriteCapacityUnits |  Sets the minimum number of `WriteCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | Yes | 
 

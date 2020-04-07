@@ -13,9 +13,9 @@ The AWS SDKs provide broad support for Amazon DynamoDB in the following language
 + [Android](https://aws.amazon.com/mobile/sdk/)
 + [iOS](https://aws.amazon.com/mobile/sdk/)
 
-To get started quickly with these languages, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+To get started quickly with these languages, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
 
-The code examples in this Developer Guide provide more in\-depth coverage of DynamoDB operations, using the following programming languages:
+The code examples in this developer guide provide more in\-depth coverage of DynamoDB operations, using the following programming languages:
 + [Java Code Examples](CodeSamples.Java.md)
 + [\.NET Code Examples](CodeSamples.DotNet.md)
 

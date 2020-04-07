@@ -2,6 +2,10 @@
 
 In SQL, the `DELETE` statement removes one or more rows from a table\. Amazon DynamoDB uses the `DeleteItem` operation to delete one item at a time\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.DeleteData.SQL)
++ [DynamoDB](#SQLtoNoSQL.DeleteData.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.DeleteData.SQL"></a>
 
 In SQL, you use the `DELETE` statement to delete one or more rows\. The `WHERE` clause determines the rows that you want to modify\. The following is an example\.
@@ -28,7 +32,7 @@ In DynamoDB, you use the `DeleteItem` action to delete data from a table, one it
 {
     TableName: "Music",
     Key: {
-        Artist: "The Acme Band", 
+        Artist: "The Acme Band",
         SongTitle: "Look Out, World"
     }
 }
@@ -43,7 +47,7 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 {
     TableName: "Music",
     Key: {
-        Artist: "The Acme Band", 
+        Artist: "The Acme Band",
         SongTitle: "Look Out, World"
     },
    ConditionExpression: "attribute_exists(RecordLabel)"
@@ -51,4 +55,4 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 ```
 
 **Note**  
-For code examples that use `DeleteItem`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `DeleteItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

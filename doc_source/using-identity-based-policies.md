@@ -95,7 +95,7 @@ The following permissions policy grants permissions for all DynamoDB actions on 
 ```
 
 **Note**  
-If you replace the table name in the resource ARN \(`Books`\) with a wildcard character \(\*\) , you allow any DynamoDB actions on *all* tables in the account\. Carefully consider the security implications if you decide to do this\.
+If you replace the table name in the resource ARN \(`Books`\) with a wildcard character \(\*\), you allow any DynamoDB actions on *all* tables in the account\. Carefully consider the security implications if you decide to do this\.
 
 ### Example 2: Allow Read\-Only Access on Items in a Table<a name="access-policy-examples-for-sdk-cli.example2"></a>
 
@@ -165,9 +165,9 @@ The following permissions policy grants permissions for all of the DynamoDB acti
 
 ### Example 5: Set Up Permissions Policies for Separate Test and Production Environments<a name="access-policy-examples-for-sdk-cli.example5"></a>
 
-Suppose that you have separate test and production environments where each environment maintains its own version of a table named `ProductCatalog` \. If you create these `ProductCatalog` tables from the same AWS account, testing work might affect the production environment because of the way that permissions are set up\. \(For example, the limits on concurrent create and delete actions are set at the AWS account level\.\) As a result, each action in the test environment reduces the number of actions that are available in your production environment\. There is also a risk that the code in your test environment might accidentally access tables in the production environment\. To prevent these issues, consider creating separate AWS accounts for your production and test environments\.
+Suppose that you have separate test and production environments where each environment maintains its own version of a table named `ProductCatalog`\. If you create these `ProductCatalog` tables from the same AWS account, testing work might affect the production environment because of the way that permissions are set up\. \(For example, the limits on concurrent create and delete actions are set at the AWS account level\.\) As a result, each action in the test environment reduces the number of actions that are available in your production environment\. There is also a risk that the code in your test environment might accidentally access tables in the production environment\. To prevent these issues, consider creating separate AWS accounts for your production and test environments\.
 
-Suppose further that you have two developers, Bob and Alice, who are testing the `ProductCatalog` table\. Instead of creating a separate AWS account for every developer, your developers can share the same test account\. in this test account, you can create a copy of the same table for each developer to work on, such as `Alice_ProductCatalog` and `Bob_ProductCatalog`\. In this case, you can create IAM users Alice and Bob in the AWS account that you created for the test environment\. You can then grant permissions to these users to perform DynamoDB actions on the tables that they own\. 
+Suppose further that you have two developers, Bob and Alice, who are testing the `ProductCatalog` table\. Instead of creating a separate AWS account for every developer, your developers can share the same test account\. In this test account, you can create a copy of the same table for each developer to work on, such as `Alice_ProductCatalog` and `Bob_ProductCatalog`\. In this case, you can create IAM users Alice and Bob in the AWS account that you created for the test environment\. You can then grant permissions to these users to perform DynamoDB actions on the tables that they own\. 
 
 To grant these user permissions, you can do either of the following:
 + Create a separate policy for each user and then attach each policy to its user separately\. For example, you can attach the following policy to user Alice to allow her access to all DynamoDB actions on the `Alice_ProductCatalog` table: 

@@ -1,7 +1,7 @@
-# Node\.js and DynamoDB<a name="GettingStarted.NodeJs"></a>
+# Getting Started with Node\.js and DynamoDB<a name="GettingStarted.NodeJs"></a>
 
-In this tutorial, you use the AWS SDK for JavaScript to write simple programs to perform the following Amazon DynamoDB operations:
-+ Create a table called `Movies` and load sample data in JSON format\.
+In this tutorial, you use the AWS SDK for JavaScript to write simple applications to perform the following Amazon DynamoDB operations:
++ Create a table named `Movies` and load sample data in JSON format\.
 + Perform create, read, update, and delete operations on the table\.
 + Run simple queries\.
 

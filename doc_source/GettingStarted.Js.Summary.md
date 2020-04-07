@@ -1,4 +1,4 @@
-# Summary<a name="GettingStarted.Js.Summary"></a>
+# Summary and Review of JavaScript and DynamoDB Tutorial<a name="GettingStarted.Js.Summary"></a>
 
 In this tutorial, you created the `Movies` table in Amazon DynamoDB on your computer and performed basic operations\. The downloadable version of DynamoDB is useful during application development and testing\. However, when you're ready to run your application in a production environment, you must modify your code so that it uses the DynamoDB web service\. 
 
@@ -24,4 +24,4 @@ DynamoDB is available in AWS Regions worldwide\. For the complete list, see [Reg
 
  The recommended way to obtain AWS credentials for your web and mobile applications is to use Amazon Cognito\. Amazon Cognito helps you avoid hardcoding your AWS credentials in your files\. Amazon Cognito uses AWS Identity and Access Management \(IAM\) roles to generate temporary credentials for your application's authenticated and unauthenticated users\.
 
- For more information, see [Configure AWS Credentials in Your Files Using Amazon Cognito](Cognito.Credentials.md)\.
+ For more information, see [Configuring AWS Credentials in Your Files Using Amazon Cognito](Cognito.Credentials.md)\.

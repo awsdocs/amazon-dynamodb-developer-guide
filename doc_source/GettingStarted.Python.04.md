@@ -10,7 +10,7 @@ To find all movies released during a year, you need to specify only the `year`\.
 
 In addition to the `query` method, you can use the `scan` method to retrieve all the table data\.
 
-To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\. 
+To learn more about querying and scanning data, see [Working with Queries in DynamoDB](Query.md) and [Working with Scans in DynamoDB](Scan.md), respectively\. 
 
 **Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.Python.04.Query.01)
@@ -76,7 +76,7 @@ For more information, see [Condition Expressions](Expressions.ConditionExpressio
    `python MoviesQuery01.py`
 
 **Note**  
-The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you can optionally create one or more secondary indexes on a table and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+The preceding program shows how to query a table by its primary key attributes\. In DynamoDB, you can optionally create one or more secondary indexes on a table and query those indexes in the same way that you query a table\. Secondary indexes give your applications additional flexibility by allowing queries on non\-key attributes\. For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
 
 ## Step 4\.2: Query \- All Movies Released in a Year with Certain Titles<a name="GettingStarted.Python.04.Query.02"></a>
 

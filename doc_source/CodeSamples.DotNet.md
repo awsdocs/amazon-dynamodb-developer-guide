@@ -5,10 +5,10 @@
 + [\.NET: Setting the AWS Region and Endpoint](#CodeSamples.DotNet.RegionAndEndpoint)
 
 This guide contains \.NET code snippets and ready\-to\-run programs\. You can find these code examples in the following sections:
-+ [Working with Items in DynamoDB](WorkingWithItems.md)
-+ [Working with Tables in DynamoDB](WorkingWithTables.md)
-+ [Working with Queries](Query.md)
-+ [Working with Scans](Scan.md)
++ [Working with Items and Attributes](WorkingWithItems.md)
++ [Working with Tables and Data in DynamoDB](WorkingWithTables.md)
++ [Working with Queries in DynamoDB](Query.md)
++ [Working with Scans in DynamoDB](Scan.md)
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
 + [\.NET: Document Model](DotNetSDKMidLevel.md)
 + [\.NET: Object Persistence Model](DotNetSDKHighLevel.md)

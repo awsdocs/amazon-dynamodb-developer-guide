@@ -1,6 +1,6 @@
 # Monitoring with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
-You can monitor Amazon DynamoDB using CloudWatch, which collects and processes raw data from DynamoDB into readable, near real\-time metrics\. These statistics are recorded for a period of two weeks, so that you can access historical information for a better perspective on how your web application or service is performing\. By default, DynamoDB metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) in the *Amazon CloudWatch User Guide*\.
+You can monitor Amazon DynamoDB using CloudWatch, which collects and processes raw data from DynamoDB into readable, near real\-time metrics\. These statistics are retained for a period of time, so that you can access historical information for a better perspective on how your web application or service is performing\. By default, DynamoDB metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) and [Metrics Retention](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#metrics-retention) in the *Amazon CloudWatch User Guide*\.
 
 **Topics**
 + [DynamoDB Metrics and Dimensions](metrics-dimensions.md)

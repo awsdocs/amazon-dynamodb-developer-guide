@@ -71,7 +71,7 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | If the `ReturnValues` parameter is provided as `ALL_OLD` in the request, DynamoDB returns an array of attribute name\-value pairs \(essentially, the deleted item\)\. Otherwise, the response contains an empty set\. Type: Array of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
 
 ## Special Errors<a name="API_DeleteItem_SpecialErrors"></a>
 

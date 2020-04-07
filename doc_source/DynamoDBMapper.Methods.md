@@ -70,8 +70,8 @@ Assume that you created a mapping between a `Reply` class and the corresponding 
 **Example**  
 
 ```
-String forumName = "DynamoDB";
-String forumSubject = "DynamoDB Thread 1";
+String forumName = "&DDB;";
+String forumSubject = "&DDB; Thread 1";
 String partitionKey = forumName + "#" + forumSubject;
 
 long twoWeeksAgoMilli = (new Date()).getTime() - (14L*24L*60L*60L*1000L);
@@ -105,13 +105,13 @@ public class PostedByMessage {
 
     @DynamoDBIndexHashKey(globalSecondaryIndexName = "PostedBy-Message-Index", attributeName = "PostedBy")
     public String getPostedBy() { return postedBy; }
-    public void setPostedBy(String postedBy) { this.postedBy = postedBy; } 
+    public void setPostedBy(String postedBy) { this.postedBy = postedBy; }
 
     @DynamoDBIndexRangeKey(globalSecondaryIndexName = "PostedBy-Message-Index", attributeName = "Message")
     public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; } 
+    public void setMessage(String message) { this.message = message; }
 
-   // Additional properties go here. 
+   // Additional properties go here.
 }
 ```
 
@@ -156,7 +156,7 @@ If you mapped a Java class to the `Reply` table, you can use the `DynamoDBMapper
 ```
 HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 eav.put(":v1", new AttributeValue().withS("2015"));
-       
+
 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
     .withFilterExpression("begins_with(ReplyDateTime,:v1)")
     .withExpressionAttributeValues(eav);
@@ -181,7 +181,7 @@ DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
 
 ## scanPage<a name="DynamoDBMapper.Methods.scanPage"></a>
 
-Scans a table or secondary index and returns a single page of matching results\. As with the `scan` method, you can optionally specify a `FilterExpression` to filter the result set\. However, `scanPage` only returns the first "page" of data, that is, the amount of data that fits within 1 MB 
+Scans a table or secondary index and returns a single page of matching results\. As with the `scan` method, you can optionally specify a `FilterExpression` to filter the result set\. However, `scanPage` only returns the first "page" of data, that is, the amount of data that fits within 1 MB\.
 
 ## parallelScan<a name="DynamoDBMapper.Methods.parallelScan"></a>
 
@@ -192,11 +192,11 @@ The following Java code example performs a parallel scan on the `Product` table\
 ```
 int numberOfThreads = 4;
 
-Map<String, AttributeValue> eav = new HashMap<String, AttributeValue> ();
+Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 eav.put(":n", new AttributeValue().withN("100"));
 
 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-    .withFilterExpression("Price >= :n")
+    .withFilterExpression("Price <= :n")
     .withExpressionAttributeValues(eav);
 
 List<Product> scanResult = mapper.parallelScan(Product.class, scanExpression, numberOfThreads);
@@ -267,12 +267,12 @@ The following Java code writes a new item to the `Forum` table, writes a new ite
 // Create a Forum item to save
 Forum forumItem = new Forum();
 forumItem.name = "Test BatchWrite Forum";
-        
+
 // Create a Thread item to save
 Thread threadItem = new Thread();
 threadItem.forumName = "AmazonDynamoDB";
 threadItem.subject = "My sample question";
-        
+
 // Load a ProductCatalog item to delete
 Book book3 = mapper.load(Book.class, 903);
         
@@ -292,7 +292,6 @@ For more information about DynamoDB transactions and the provided atomicity, con
 
 **Note**  
  This method does not support the following:  
-[Optimistic Locking With Version Number](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.OptimisticLocking.html)\.
 [DynamoDBMapperConfig\.SaveBehavior](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.OptionalConfig.html)\.
 
 The following Java code writes a new item to each of the `Forum` and `Thread` tables, transactionally\.
@@ -302,12 +301,12 @@ Thread s3ForumThread = new Thread();
 s3ForumThread.forumName = "S3 Forum";
 s3ForumThread.subject = "Sample Subject 1";
 s3ForumThread.message = "Sample Question 1";
- 
+
 Forum s3Forum = new Forum();
 s3Forum.name = "S3 Forum";
 s3Forum.category = "Amazon Web Services";
 s3Forum.threads = 1;
-        
+
 TransactionWriteRequest transactionWriteRequest = new TransactionWriteRequest();
 transactionWriteRequest.addPut(s3Forum);
 transactionWriteRequest.addPut(s3ForumThread);
@@ -353,7 +352,7 @@ To use `createS3Link`, your mapper class must define getter and setter methods\.
 ```
 @DynamoDBTable(tableName="ProductCatalog")
 public class CatalogItem {
-    
+
     ...
 
     public S3Link productImage;
@@ -373,7 +372,7 @@ public class CatalogItem {
 }
 ```
 
-The following Java code defines a new item to be written to the `Product` table\. The item includes a link to a product image; the image data is uploaded to Amazon S3\. 
+The following Java code defines a new item to be written to the `Product` table\. The item includes a link to a product image; the image data is uploaded to Amazon S3\.
 
 ```
 CatalogItem item = new CatalogItem();

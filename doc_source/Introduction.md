@@ -10,11 +10,11 @@ DynamoDB provides on\-demand backup capability\. It allows you to create full ba
 
  You can create on\-demand backups and enable point\-in\-time recovery for your Amazon DynamoDB tables\. Point\-in\-time recovery helps protect your tables from accidental write or delete operations\. With point\-in\-time recovery, you can restore that table to any point in time during the last 35 days\. For more information, see [Point\-in\-Time Recovery: How It Works](PointInTimeRecovery_Howitworks.md)\. 
 
- DynamoDB allows you to delete expired items from tables automatically to help you reduce storage usage and the cost of storing data that is no longer relevant\. For more information, see [Time To Live](TTL.md)\. 
+ DynamoDB allows you to delete expired items from tables automatically to help you reduce storage usage and the cost of storing data that is no longer relevant\. For more information, see [Expiring Items Using Time to Live \(TTL\)](TTL.md)\. 
 
 ## High Availability and Durability<a name="ddb_highavailability"></a>
 
-DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance\. All of your data is stored on solid\-state disks \(SSDs\) and is automatically replicated across multiple Availability Zones in an AWS Region, providing built\-in high availability and data durability\. You can use global tables to keep DynamoDB tables in sync across AWS Regions\. For more information, see [Global Tables](GlobalTables.md)\. 
+DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance\. All of your data is stored on solid\-state disks \(SSDs\) and is automatically replicated across multiple Availability Zones in an AWS Region, providing built\-in high availability and data durability\. You can use global tables to keep DynamoDB tables in sync across AWS Regions\. For more information, see [Global Tables: Multi\-Region Replication with DynamoDB](GlobalTables.md)\. 
 
 ## Getting Started with DynamoDB<a name="ddb_getstarted"></a>
 
@@ -23,13 +23,13 @@ We recommend that you begin by reading the following sections:
 + **[Setting Up DynamoDB](SettingUp.md)—**To learn how to set up DynamoDB \(the downloadable version or the web service\)\.
 + **[Accessing DynamoDB](AccessingDynamoDB.md)—**To learn how to access DynamoDB using the console, AWS CLI, or API\. 
 
- To get started quickly with DynamoDB, see [Getting Started with DynamoDB SDK](GettingStarted.md)\. 
+ To get started quickly with DynamoDB, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\. 
 
 To learn more about application development, see the following:
 + [Programming with DynamoDB and the AWS SDKs](Programming.md)
-+ [Working with DynamoDB](WorkingWithDynamo.md)
++ [Working with Tables, Items, Queries, Scans, and Indexes](WorkingWithDynamo.md)
 
- To quickly find recommendations for maximizing performance and minimizing throughput costs, see [Best Practices for DynamoDB](best-practices.md)\. To learn how to tag DynamoDB resources, see [Tagging for DynamoDB](Tagging.md)\. 
+ To quickly find recommendations for maximizing performance and minimizing throughput costs, see [Best Practices for Designing and Architecting with DynamoDB](best-practices.md)\. To learn how to tag DynamoDB resources, see [Adding Tags and Labels to Resources](Tagging.md)\. 
 
 For best practices, how\-to guides, and tools, see [Amazon DynamoDB resources](https://aws.amazon.com/dynamodb/resources/)\. 
 

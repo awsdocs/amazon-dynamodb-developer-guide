@@ -78,7 +78,7 @@ The `Value` and `Exists` parameters are incompatible with `AttributeValueList` a
 **Note**  
 This parameter does not support attributes of type List or Map\.
 
-## Use *ConditionExpression* Instead<a name="w66aac42c23c23c21"></a>
+## Use *ConditionExpression* Instead<a name="w144aac47c23c23c21"></a>
 
 Suppose you wanted to modify an item in the *Music* table, but only if a certain condition was true\. You could use an `UpdateItem` request with an `Expected` parameter, as in this AWS CLI example:
 

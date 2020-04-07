@@ -2,6 +2,10 @@
 
 Another common access pattern is reading multiple items from a table, based on your query criteria\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.ReadData.Query.SQL)
++ [DynamoDB](#SQLtoNoSQL.ReadData.Query.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.ReadData.Query.SQL"></a>
 
 The SQL `SELECT` statement lets you query on key columns, non\-key columns, or any combination\. The `WHERE` clause determines which rows are returned, as shown in the following examples\.
@@ -28,7 +32,7 @@ WHERE Artist='No One You Know' AND SongTitle LIKE 'Call%';
 ```
 
 ```
-/* Return all of the songs by an artist, with a particular word in the title... 
+/* Return all of the songs by an artist, with a particular word in the title...
 ...but only if the price is less than 1.00 */
 
 SELECT * FROM Music
@@ -91,4 +95,4 @@ The following are some DynamoDB `Query` examples\.
 ```
 
 **Note**  
-For code examples that use `Query`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `Query`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

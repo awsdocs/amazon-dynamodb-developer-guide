@@ -1,6 +1,6 @@
 # Walkthrough: DynamoDB Streams Kinesis Adapter<a name="Streams.KCLAdapter.Walkthrough"></a>
 
-This section is a walkthrough of a Java application that uses the Kinesis Client Library and the DynamoDB Streams Kinesis Adapter\. The application shows an example of data replication, where write activity from one table is applied to a second table, with both tables' contents staying in sync\. For the source code, see [Complete Program: DynamoDB Streams Kinesis Adapter](Streams.KCLAdapter.Walkthrough.CompleteProgram.md)\.
+This section is a walkthrough of a Java application that uses the Amazon Kinesis Client Library and the Amazon DynamoDB Streams Kinesis Adapter\. The application shows an example of data replication, in which write activity from one table is applied to a second table, with both tables' contents staying in sync\. For the source code, see [Complete Program: DynamoDB Streams Kinesis Adapter](Streams.KCLAdapter.Walkthrough.CompleteProgram.md)\.
 
 The program does the following:
 
@@ -10,7 +10,7 @@ The program does the following:
 
 1. Reads the records from the stream, reconstructs them as DynamoDB requests, and applies the requests to the destination table\.
 
-1. Scans the source and destination tables to ensure their contents are identical\.
+1. Scans the source and destination tables to ensure that their contents are identical\.
 
 1. Cleans up by deleting the tables\.
 
@@ -20,15 +20,15 @@ These steps are described in the following sections, and the complete applicatio
 + [Step 1: Create DynamoDB Tables](#Streams.KCLAdapter.Walkthrough.Step1)
 + [Step 2: Generate Update Activity in Source Table](#Streams.KCLAdapter.Walkthrough.Step2)
 + [Step 3: Process the Stream](#Streams.KCLAdapter.Walkthrough.Step3)
-+ [Step 4: Ensure Both Tables Have Identical Contents](#Streams.KCLAdapter.Walkthrough.Step4)
++ [Step 4: Ensure That Both Tables Have Identical Contents](#Streams.KCLAdapter.Walkthrough.Step4)
 + [Step 5: Clean Up](#Streams.KCLAdapter.Walkthrough.Step5)
 + [Complete Program: DynamoDB Streams Kinesis Adapter](Streams.KCLAdapter.Walkthrough.CompleteProgram.md)
 
 ## Step 1: Create DynamoDB Tables<a name="Streams.KCLAdapter.Walkthrough.Step1"></a>
 
-The first step is to create two DynamoDB tables—a source table and a destination table\. The `StreamViewType` on the source table's stream is `NEW_IMAGE`, meaning that whenever an item is modified in this table, the item's "after" image is written to the stream\. In this way, the stream keeps track of all write activity on the table\.
+The first step is to create two DynamoDB tables—a source table and a destination table\. The `StreamViewType` on the source table's stream is `NEW_IMAGE`\. This means that whenever an item is modified in this table, the item's "after" image is written to the stream\. In this way, the stream keeps track of all write activity on the table\.
 
-The following code snippet shows the code used for creating both tables\.
+The following example shows the code that is used for creating both tables\.
 
 ```
 java.util.List<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
@@ -51,9 +51,9 @@ CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(t
 
 ## Step 2: Generate Update Activity in Source Table<a name="Streams.KCLAdapter.Walkthrough.Step2"></a>
 
-The next step is to generate some write activity on the source table\. While this activity is taking place, the source table's stream is also updated in near real time\.
+The next step is to generate some write activity on the source table\. While this activity is taking place, the source table's stream is also updated in near\-real time\.
 
-The application defines a helper class with methods that call the `PutItem`, `UpdateItem`, and `DeleteItem` API actions for writing the data\. The following code snippet shows how these methods are used\.
+The application defines a helper class with methods that call the `PutItem`, `UpdateItem`, and `DeleteItem` API operations for writing the data\. The following code example shows how these methods are used\.
 
 ```
 StreamsAdapterDemoHelper.putItem(dynamoDBClient, tableName, "101", "test1");
@@ -66,15 +66,15 @@ StreamsAdapterDemoHelper.deleteItem(dynamoDBClient, tableName, "102");
 
 ## Step 3: Process the Stream<a name="Streams.KCLAdapter.Walkthrough.Step3"></a>
 
-Now the program begins processing the stream\. The DynamoDB Streams Kinesis Adapter acts as a transparent layer between the KCL and the DynamoDB Streams endpoint, so that the code can fully leverage KCL rather than having to make low\-level DynamoDB Streams calls\. The program performs the following tasks:
+Now the program begins processing the stream\. The DynamoDB Streams Kinesis Adapter acts as a transparent layer between the KCL and the DynamoDB Streams endpoint, so that the code can fully use KCL rather than having to make low\-level DynamoDB Streams calls\. The program performs the following tasks:
 + It defines a record processor class, `StreamsRecordProcessor`, with methods that comply with the KCL interface definition: `initialize`, `processRecords`, and `shutdown`\. The `processRecords` method contains the logic required for reading from the source table's stream and writing to the destination table\.
 + It defines a class factory for the record processor class \(`StreamsRecordProcessorFactory`\)\. This is required for Java programs that use the KCL\.
 + It instantiates a new KCL `Worker`, which is associated with the class factory\.
 + It shuts down the `Worker` when record processing is complete\.
 
-To learn more about the KCL interface definition, go to [Developing Amazon Kinesis Consumers Using the Amazon Kinesis Client Library](https://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html) in the *Amazon Kinesis Developer Guide*\. 
+To learn more about the KCL interface definition, see [Developing Consumers Using the Kinesis Client Library](https://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html) in the *Amazon Kinesis Data Streams Developer Guide*\. 
 
-The following code snippet shows the main loop in `StreamsRecordProcessor`\. The `case` statement determines what action to perform, based on the `OperationType` that appears in the stream record\.
+The following code example shows the main loop in `StreamsRecordProcessor`\. The `case` statement determines what action to perform, based on the `OperationType` that appears in the stream record\.
 
 ```
 for (Record record : records) {
@@ -107,11 +107,11 @@ for (Record record : records) {
 }
 ```
 
-## Step 4: Ensure Both Tables Have Identical Contents<a name="Streams.KCLAdapter.Walkthrough.Step4"></a>
+## Step 4: Ensure That Both Tables Have Identical Contents<a name="Streams.KCLAdapter.Walkthrough.Step4"></a>
 
 At this point, the source and destination tables' contents are in sync\. The application issues `Scan` requests against both tables to verify that their contents are, in fact, identical\.
 
-The `DemoHelper` class contains a `ScanTable` method that calls the low\-level Scan API\. The following code snippet shows how this is used\.
+The `DemoHelper` class contains a `ScanTable` method that calls the low\-level `Scan` API\. The following example shows how this is used\.
 
 ```
 if (StreamsAdapterDemoHelper.scanTable(dynamoDBClient, srcTable).getItems()
@@ -125,9 +125,7 @@ else {
 
 ## Step 5: Clean Up<a name="Streams.KCLAdapter.Walkthrough.Step5"></a>
 
-The demo is complete, so the application deletes the source and destination tables\. See the following code snippet\.
-
-Even after the tables are deleted, their streams remain available for up to 24 hours, after which they are automatically deleted\.
+The demo is complete, so the application deletes the source and destination tables\. See the following code example\. Even after the tables are deleted, their streams remain available for up to 24 hours, after which they are automatically deleted\.
 
 ```
 dynamoDBClient.deleteTable(new DeleteTableRequest().withTableName(srcTable));

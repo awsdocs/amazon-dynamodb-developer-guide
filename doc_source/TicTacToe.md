@@ -1,4 +1,4 @@
-# DynamoDB Example Application Using AWS SDK for Python \(Boto\): Tic\-Tac\-Toe<a name="TicTacToe"></a>
+# DynamoDB Example Application Using the AWS SDK for Python \(Boto\): Tic\-Tac\-Toe<a name="TicTacToe"></a>
 
 **Topics**
 + [Step 1: Deploy and Test Locally](TicTacToe.Phase1.md)

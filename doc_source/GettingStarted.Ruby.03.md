@@ -2,7 +2,7 @@
 
 In this step, you perform read and write operations on an item in the `Movies` table in Amazon DynamoDB\.
 
-To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+To learn more about reading and writing data, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 **Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.Ruby.03.01)
@@ -61,7 +61,7 @@ In this step, you add a new item to the table\.
    }
    
    begin
-       result = dynamodb.put_item(params)
+       dynamodb.put_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -122,11 +122,6 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
    
    year = 2015
    title = "The Big New Movie"
-   
-   key = {
-       year: year,
-       title: title
-   }
    
    params = {
        table_name: table_name,
@@ -235,7 +230,7 @@ The item is updated as follows\.
    }
    
    begin
-       result = dynamodb.update_item(params)
+       dynamodb.update_item(params)
        puts "Added item: #{year}  - #{title}"
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error
@@ -456,7 +451,7 @@ In the following example, you try to delete a specific movie item if its rating 
    }
    
    begin
-       result = dynamodb.delete_item(params)
+       dynamodb.delete_item(params)
        puts "Deleted item."
    
    rescue  Aws::DynamoDB::Errors::ServiceError => error

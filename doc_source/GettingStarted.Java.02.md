@@ -1,4 +1,4 @@
-# Step 2: Load Sample Data<a name="GettingStarted.Java.02"></a>
+# Step 2: Load Sample Data with Java and DynamoDB<a name="GettingStarted.Java.02"></a>
 
 In this step, you populate the `Movies` table with sample data\.
 

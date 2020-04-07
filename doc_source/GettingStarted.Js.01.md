@@ -1,4 +1,4 @@
-# Step 1: Create a Table<a name="GettingStarted.Js.01"></a>
+# Step 1: Create a DynamoDB Table with JavaScript<a name="GettingStarted.Js.01"></a>
 
 In this step, you create a table named `Movies`\. The primary key for the table is composed of the following attributes:
 + `year` – The partition key\. The `AttributeType` is `N` for number\.
@@ -7,7 +7,6 @@ In this step, you create a table named `Movies`\. The primary key for the table 
 1. Copy the following program and paste it into a file named `MoviesCreateTable.html`\.
 
    ```
-   <!--
    <!-- 
      Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     
@@ -85,4 +84,4 @@ The `ProvisionedThroughput` parameter is required, but the downloadable version 
 
 1. Choose **Create Table**\.
 
-To learn more about managing tables, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+To learn more about managing tables, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.

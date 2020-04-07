@@ -1,6 +1,6 @@
 # Exporting and Importing DynamoDB Data Using AWS Data Pipeline<a name="DynamoDBPipeline"></a>
 
-You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket\. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region\. 
+You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket\. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region\.
 
 The ability to export and import data is useful in many scenarios\. For example, suppose you want to maintain a baseline set of data, for testing purposes\. You could put the baseline data into a DynamoDB table and export it to Amazon S3\. Then, after you run an application that modifies the test data, you could "reset" the data set by importing the baseline from Amazon S3 back into the DynamoDB table\. Another example involves accidental deletion of data, or even an accidental `DeleteTable` operation\. In these cases, you could restore the data from a previous export file in Amazon S3\. You can even copy data from a DynamoDB table in one AWS region, store the data in Amazon S3, and then import the data from Amazon S3 to an identical DynamoDB table in a second region\. Applications in the second region could then access their nearest DynamoDB endpoint and work with their own copy of the data, with reduced network latency\.
 
@@ -8,7 +8,7 @@ The following diagram shows an overview of exporting and importing DynamoDB data
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ddb-awsdp-exportimport-overview.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-To export a DynamoDB table, you use the AWS Data Pipeline console to create a new pipeline\. The pipeline launches an Amazon EMR cluster to perform the actual export\. Amazon EMR reads the data from DynamoDB, and writes the data to an export file in an Amazon S3 bucket\. 
+To export a DynamoDB table, you use the AWS Data Pipeline console to create a new pipeline\. The pipeline launches an Amazon EMR cluster to perform the actual export\. Amazon EMR reads the data from DynamoDB, and writes the data to an export file in an Amazon S3 bucket\.
 
 The process is similar for an import, except that the data is read from the Amazon S3 bucket and written to the DynamoDB table\.
 
@@ -16,7 +16,7 @@ The process is similar for an import, except that the data is read from the Amaz
 When you export or import DynamoDB data, you will incur additional costs for the underlying AWS services that are used:  
 **AWS Data Pipeline**— manages the import/export workflow for you\.
 **Amazon S3**— contains the data that you export from DynamoDB, or import into DynamoDB\.
-**Amazon EMR**— runs a managed Hadoop cluster to performs reads and writes between DynamoDB to Amazon S3\. The cluster configuration is one `m3.xlarge` instance master node and one `m3.xlarge` instance core node\.
+**Amazon EMR**— runs a managed Hadoop cluster to perform reads and writes between DynamoDB to Amazon S3\. The cluster configuration is one `m3.xlarge` instance master node and one `m3.xlarge` instance core node\.
 For more information see [AWS Data Pipeline Pricing](https://aws.amazon.com/datapipeline/pricing), [Amazon EMR Pricing](https://aws.amazon.com/elasticmapreduce/pricing), and [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing)\.
 
 ## Prerequisites to Export and Import Data<a name="DataPipelineExportImport.Prereqs"></a>
@@ -32,7 +32,7 @@ The IAM user that performs the exports and imports must have an *active* AWS Acc
 
 In order to use AWS Data Pipeline, the following IAM roles must be present in your AWS account:
 + ***DataPipelineDefaultRole*** — the actions that your pipeline can take on your behalf\.
-+ ***DataPipelineDefaultResourceRole*** — the AWS resources that the pipeline will provision on your behalf\. For exporting and importing DynamoDB data, these resources include an Amazon EMR cluster and the Amazon EC2 instances associated with that cluster\. 
++ ***DataPipelineDefaultResourceRole*** — the AWS resources that the pipeline will provision on your behalf\. For exporting and importing DynamoDB data, these resources include an Amazon EMR cluster and the Amazon EC2 instances associated with that cluster\.
 
 If you have never used AWS Data Pipeline before, you will need to create *DataPipelineDefaultRole* and *DataPipelineDefaultResourceRole* yourself\. Once you have created these roles, you can use them any time you want to export or import DynamoDB data\.
 
@@ -106,30 +106,30 @@ For example, suppose that you want to allow an IAM user to export and import onl
 
       ```
       {
-        "Version": "2012-10-17",
-        "Statement": [
-          {
-            "Action": [
-              "cloudwatch:DeleteAlarms",
-              "cloudwatch:DescribeAlarmHistory",
-              "cloudwatch:DescribeAlarms",
-              "cloudwatch:DescribeAlarmsForMetric",
-              "cloudwatch:GetMetricStatistics",
-              "cloudwatch:ListMetrics",
-              "cloudwatch:PutMetricAlarm",
-              "dynamodb:*",
-              "sns:CreateTopic",
-              "sns:DeleteTopic",
-              "sns:ListSubscriptions",
-              "sns:ListSubscriptionsByTopic",
-              "sns:ListTopics",
-              "sns:Subscribe",
-              "sns:Unsubscribe"
-            ],
-            "Effect": "Allow",
-            "Resource": "*",
-            "Sid": "DDBConsole"
-          },
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Action": [
+                      "cloudwatch:DeleteAlarms",
+                      "cloudwatch:DescribeAlarmHistory",
+                      "cloudwatch:DescribeAlarms",
+                      "cloudwatch:DescribeAlarmsForMetric",
+                      "cloudwatch:GetMetricStatistics",
+                      "cloudwatch:ListMetrics",
+                      "cloudwatch:PutMetricAlarm",
+                      "dynamodb:*",
+                      "sns:CreateTopic",
+                      "sns:DeleteTopic",
+                      "sns:ListSubscriptions",
+                      "sns:ListSubscriptionsByTopic",
+                      "sns:ListTopics",
+                      "sns:Subscribe",
+                      "sns:Unsubscribe"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                  "Sid": "DDBConsole"
+              },
       
       ...remainder of document omitted...
       ```
@@ -137,23 +137,23 @@ For example, suppose that you want to allow an IAM user to export and import onl
       To restrict the policy, first remove the following line:
 
       ```
-              "dynamodb:*",
+                      "dynamodb:*",
       ```
 
       Next, construct a new `Action` that allows access to only the *Forum*, *Thread* and *Reply* tables:
 
       ```
-          {
-            "Action": [
+      {
+          "Action": [
               "dynamodb:*"
-            ],
-            "Effect": "Allow",
-            "Resource": [
+          ],
+          "Effect": "Allow",
+          "Resource": [
               "arn:aws:dynamodb:us-west-2:123456789012:table/Forum",
               "arn:aws:dynamodb:us-west-2:123456789012:table/Thread",
               "arn:aws:dynamodb:us-west-2:123456789012:table/Reply"
-            ]
-          },
+          ]
+      },
       ```
 **Note**  
 Replace `us-west-2` with the region in which your DynamoDB tables reside\. Replace `123456789012` with your AWS account number\.
@@ -162,40 +162,40 @@ Replace `us-west-2` with the region in which your DynamoDB tables reside\. Repla
 
       ```
       {
-        "Version": "2012-10-17",
-        "Statement": [
-          {
-            "Action": [
-              "dynamodb:*"
-            ],
-            "Effect": "Allow",
-            "Resource": [
-              "arn:aws:dynamodb:us-west-2:123456789012:table/Forum",
-              "arn:aws:dynamodb:us-west-2:123456789012:table/Thread",
-              "arn:aws:dynamodb:us-west-2:123456789012:table/Reply"
-            ]
-          },
-          {
-            "Action": [
-              "cloudwatch:DeleteAlarms",
-              "cloudwatch:DescribeAlarmHistory",
-              "cloudwatch:DescribeAlarms",
-              "cloudwatch:DescribeAlarmsForMetric",
-              "cloudwatch:GetMetricStatistics",
-              "cloudwatch:ListMetrics",
-              "cloudwatch:PutMetricAlarm",
-              "sns:CreateTopic",
-              "sns:DeleteTopic",
-              "sns:ListSubscriptions",
-              "sns:ListSubscriptionsByTopic",
-              "sns:ListTopics",
-              "sns:Subscribe",
-              "sns:Unsubscribe"
-            ],
-            "Effect": "Allow",
-            "Resource": "*",
-            "Sid": "DDBConsole"
-          },
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Action": [
+                      "dynamodb:*"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                      "arn:aws:dynamodb:us-west-2:123456789012:table/Forum",
+                      "arn:aws:dynamodb:us-west-2:123456789012:table/Thread",
+                      "arn:aws:dynamodb:us-west-2:123456789012:table/Reply"
+                  ]
+              },
+              {
+                  "Action": [
+                      "cloudwatch:DeleteAlarms",
+                      "cloudwatch:DescribeAlarmHistory",
+                      "cloudwatch:DescribeAlarms",
+                      "cloudwatch:DescribeAlarmsForMetric",
+                      "cloudwatch:GetMetricStatistics",
+                      "cloudwatch:ListMetrics",
+                      "cloudwatch:PutMetricAlarm",
+                      "sns:CreateTopic",
+                      "sns:DeleteTopic",
+                      "sns:ListSubscriptions",
+                      "sns:ListSubscriptionsByTopic",
+                      "sns:ListTopics",
+                      "sns:Subscribe",
+                      "sns:Unsubscribe"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                  "Sid": "DDBConsole"
+              },
       
       ...remainder of document omitted...
       ```
@@ -260,7 +260,7 @@ We will use the term *source table* for the original table from which the data w
 
 The destination table does not have to be empty\. However, the import process will replace any data items in the table that have the same keys as the items in the export file\. For example, suppose you have a *Customer* table with a key of *CustomerId*, and that there are only three items in the table \(*CustomerId* 1, 2, and 3\)\. If your export file also contains data items for *CustomerID* 1, 2, and 3, the items in the destination table will be replaced with those from the export file\. If the export file also contains a data item for *CustomerId* 4, then that item will be added to the table\.
 
-The destination table can be in a different AWS region\. For example, suppose you have a *Customer* table in the US West \(Oregon\) region and export its data to Amazon S3\. You could then import that data into an identical *Customer* table in the EU \(Ireland\) region\. This is referred to as a *cross\-region* export and import\. For a list of AWS regions, go to [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
+The destination table can be in a different AWS region\. For example, suppose you have a *Customer* table in the US West \(Oregon\) region and export its data to Amazon S3\. You could then import that data into an identical *Customer* table in the Europe \(Ireland\) region\. This is referred to as a *cross\-region* export and import\. For a list of AWS regions, go to [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
 
 Note that the AWS Management Console lets you export multiple source tables at once\. However, you can only import one table at a time\.
 

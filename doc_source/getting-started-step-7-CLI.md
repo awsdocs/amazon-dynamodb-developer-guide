@@ -10,28 +10,28 @@ The following AWS CLI example queries a global secondary index `AlbumTitle-index
     --expression-attribute-values  '{":name":{"S":"Somewhat Famous"}}'
 ```
 
-Using `query` returns the sample result shown below\.
+Using `query` returns the following sample result\.
 
 ```
 {
-    "Count": 1, 
+    "Count": 1,
     "Items": [
         {
             "AlbumTitle": {
                 "S": "Somewhat Famous"
-            }, 
+            },
             "Awards": {
                 "N": "1"
-            }, 
+            },
             "SongTitle": {
                 "S": "Call Me Today"
-            }, 
+            },
             "Artist": {
                 "S": "No One You Know"
             }
         }
-    ], 
-    "ScannedCount": 1, 
+    ],
+    "ScannedCount": 1,
     "ConsumedCapacity": null
 }
 ```

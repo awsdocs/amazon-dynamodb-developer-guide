@@ -1,10 +1,10 @@
 # Example: Handling Binary Type Attributes Using the AWS SDK for \.NET Low\-Level API<a name="LowLevelDotNetBinaryTypeExample"></a>
 
-The following C\# code example illustrates the handling of binary type attributes\. The example adds an item to the Reply table\. The item includes a binary type attribute \(`ExtendedMessage`\) that stores compressed data\. The example then retrieves the item and prints all the attribute values\. For illustration, the example uses the `GZipStream` class to compress a sample stream and assigns it to the `ExtendedMessage` attribute, and decompresses it when printing the attribute value\. 
+The following C\# code example illustrates the handling of binary type attributes\. The example adds an item to the `Reply` table\. The item includes a binary type attribute \(`ExtendedMessage`\) that stores compressed data\. The example then retrieves the item and prints all the attribute values\. For illustration, the example uses the `GZipStream` class to compress a sample stream and assigns it to the `ExtendedMessage` attribute, and decompresses it when printing the attribute value\. 
 
-If you followed the steps in [Creating Tables and Loading Sample Data](SampleData.md), you already have the Reply table created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
+If you followed the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), you already have the `Reply` table created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 

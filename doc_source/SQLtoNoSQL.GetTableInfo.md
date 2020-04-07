@@ -1,6 +1,10 @@
 # Getting Information About a Table<a name="SQLtoNoSQL.GetTableInfo"></a>
 
-You can verify that a table has been created according to your specifications\. In a relational database, all of the table's schema is shown\. DynamoDB tables are schemaless, so only the primary key attributes are shown\.
+You can verify that a table has been created according to your specifications\. In a relational database, all of the table's schema is shown\. Amazon DynamoDB tables are schemaless, so only the primary key attributes are shown\.
+
+**Topics**
++ [SQL](#SQLtoNoSQL.GetTableInfo.SQL)
++ [DynamoDB](#SQLtoNoSQL.GetTableInfo.DynamoDB)
 
 ## SQL<a name="SQLtoNoSQL.GetTableInfo.SQL"></a>
 

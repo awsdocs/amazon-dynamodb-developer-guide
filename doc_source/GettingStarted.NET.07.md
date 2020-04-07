@@ -1,4 +1,4 @@
-# Step 7: Try to Conditionally Delete the Movie<a name="GettingStarted.NET.07"></a>
+# Step 7: Conditionally Delete<a name="GettingStarted.NET.07"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you try to delete a movie record with a condition that is not met, and the deletion fails\. Then, when the condition is changed so that it is met, the deletion succeeds\.
 
@@ -80,4 +80,4 @@ Then, when the `Main` function changes the rating threshold in the condition to 
 
 ## Next Step<a name="GettingStarted.NET.07.NextStep"></a>
 
-[Step 8: Query the Movies Table](GettingStarted.NET.08.md)
+[Step 8: Query a DynamoDB Table with \.NET](GettingStarted.NET.08.md)

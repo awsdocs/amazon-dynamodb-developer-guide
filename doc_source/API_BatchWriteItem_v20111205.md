@@ -12,7 +12,7 @@ To upload one item, you can use `PutItem`, and to delete one item, you can use `
 
 If you use languages such as Java, you can use threads to upload items in parallel\. This adds complexity in your application to handle the threads\. Other languages don't support threading\. For example, if you are using PHP, you must upload or delete items one at a time\. In both situations, `BatchWriteItem` provides an alternative where the specified put and delete operations are processed in parallel, giving you the power of the thread pool approach without having to introduce complexity in your application\. 
 
-Note that each individual put and delete specified in a `BatchWriteItem` operation costs the same in terms of consumed capacity units\. However, because `BatchWriteItem` performs the specified operations in parallel, you get lower latency\. Delete operations on non\-existent items consume 1 write capacity unit\. For more information about consumed capacity units, see [Working with Tables in DynamoDB](WorkingWithTables.md)\.
+Note that each individual put and delete specified in a `BatchWriteItem` operation costs the same in terms of consumed capacity units\. However, because `BatchWriteItem` performs the specified operations in parallel, you get lower latency\. Delete operations on non\-existent items consume 1 write capacity unit\. For more information about consumed capacity units, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.
 
 When using `BatchWriteItem`, note the following limitations:
 + **Maximum operations in a single request—**You can specify a total of up to 25 put or delete operations; however, the total request size cannot exceed 1 MB \(the HTTP payload\)\. 
@@ -155,7 +155,7 @@ The following example shows an HTTP POST request and the response of a `BatchWri
 + Put an item and delete an item from the Reply table
 + Put an item into the Thread table
 
-For examples using the AWS SDK, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 ### Sample Request<a name="API_BatchWriteItems_Examples_Request"></a>
 

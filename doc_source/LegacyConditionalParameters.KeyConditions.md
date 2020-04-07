@@ -44,7 +44,7 @@ Each `KeyConditions` element consists of an attribute name to compare, along wit
 
      `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary \(not a set type\)\. A target attribute matches if the target value is greater than, or equal to, the first element and less than, or equal to, the second element\. If an item contains an `AttributeValue` element of a different type than the one provided in the request, the value does not match\. For example, `{"S":"6"}` does not compare to `{"N":"6"}`\. Also, `{"N":"6"}` does not compare to `{"NS":["6", "2", "1"]}` 
 
-## Use *KeyConditionExpression* Instead<a name="w66aac42c23c25c13"></a>
+## Use *KeyConditionExpression* Instead<a name="w144aac47c23c25c13"></a>
 
 Suppose you wanted to retrieve several items with the same partition key from the *Music* table\. You could use a `Query` request with a `KeyConditions` parameter, as in this AWS CLI example:
 

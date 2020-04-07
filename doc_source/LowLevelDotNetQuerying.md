@@ -1,8 +1,8 @@
 # Querying Tables and Indexes: \.NET<a name="LowLevelDotNetQuerying"></a>
 
-The `Query` operation enables you to query a table or a secondary index\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
+The `Query` operation enables you to query a table or a secondary index in Amazon DynamoDB\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
 
-The following are the steps to query a table using low\-level \.NET SDK API\. 
+The following are the steps to query a table using the low\-level AWS SDK for \.NET API\. 
 
 1. Create an instance of the `AmazonDynamoDBClient` class\.
 
@@ -12,7 +12,7 @@ The following are the steps to query a table using low\-level \.NET SDK API\.
 
    The response includes the `QueryResult` object that provides all items returned by the query\.
 
-The following C\# code snippet demonstrates the preceding tasks\. The snippet assumes you have a Reply table stores replies for forum threads\. For more information, see [Creating Tables and Loading Sample Data](SampleData.md)\.
+The following C\# code example demonstrates the preceding tasks\. The code assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
 **Example**  
 
@@ -20,9 +20,9 @@ The following C\# code snippet demonstrates the preceding tasks\. The snippet as
 Reply Id, ReplyDateTime, ... )
 ```
 
-Each forum thread has a unique ID and can have zero or more replies\. Therefore, the primary key is composed of both the Id \(partition key\) and ReplyDateTime \(sort key\)\. 
+Each forum thread has a unique ID and can have zero or more replies\. Therefore, the primary key is composed of both the `Id` \(partition key\) and `ReplyDateTime` \(sort key\)\. 
 
-The following query retrieves all replies for a specific thread subject\. The query requires both the table name and the Subject value\.
+The following query retrieves all replies for a specific thread subject\. The query requires both the table name and the `Subject` value\.
 
 **Example**  
 
@@ -48,9 +48,9 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 
 ## Specifying Optional Parameters<a name="LowLevelDotNetQueryingOptions"></a>
 
-The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because Amazon DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
+The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a *sort key condition*, because DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
 
-The following C\# code snippet retrieves forum thread replies posted in the past 15 days\. The snippet specifies the following optional parameters:
+The following C\# code example retrieves forum thread replies posted in the past 15 days\. The example specifies the following optional parameters:
 + A `KeyConditionExpression` to retrieve only the replies in the past 15 days\.
 + A `ProjectionExpression` parameter to specify a list of attributes to retrieve for items in the query result\.
 + A `ConsistentRead` parameter to perform a strongly consistent read\.
@@ -84,14 +84,14 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 
 You can also optionally limit the page size, or the number of items per page, by adding the optional `Limit` parameter\. Each time you execute the `Query` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `Query` method again by providing the primary key value of the last item in the previous page so that the method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
-The following C\# code snippet queries the Reply table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\. 
+The following C\# example queries the `Reply` table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\. 
 
 **Example**  
 
 ```
 Dictionary<string,AttributeValue> lastKeyEvaluated = null;
 
-do  
+do
 {
     var request = new QueryRequest
     {
@@ -100,7 +100,7 @@ do
         ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
             {":v_Id", new AttributeValue { S =  "Amazon DynamoDB#DynamoDB Thread 2" }}
         },
-       
+
         // Optional parameters.
         Limit = 1,
         ExclusiveStartKey = lastKeyEvaluated
@@ -121,27 +121,27 @@ do
 
 ## Example \- Querying Using the AWS SDK for \.NET<a name="LowLevelDotNetQueryExample"></a>
 
-The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Sample Data](SampleData.md)\.
+The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
 **Example**  
 
 ```
-Forum ( Name, ... ) 
-Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...) 
+Forum ( Name, ... )
+Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...)
 Reply ( Id, ReplyDateTime, Message, PostedBy, ...)
 ```
 
-In this C\# code example, you execute variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
+In this example, you execute variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
 + Find replies for a thread\.
-+ Find replies for a thread\. Specify the Limit query parameter to set page size\. 
++ Find replies for a thread\. Specify the `Limit` query parameter to set page size\. 
 
-  This function illustrate the use of pagination to process multipage result\. Amazon DynamoDB has a page size limit and if your result exceeds the page size, you get only the first page of results\. This coding pattern ensures your code processes all the pages in the query result\.
+  This function illustrates the use of pagination to process multipage result\. DynamoDB has a page size limit and if your result exceeds the page size, you get only the first page of results\. This coding pattern ensures your code processes all the pages in the query result\.
 + Find replies in the last 15 days\.
 + Find replies in a specific date range\. 
 
-  Both of the preceding two queries shows how you can specify sort key conditions to narrow query results and use other optional query parameters\. 
+  The preceding two queries show how you can specify sort key conditions to narrow query results and use other optional query parameters\. 
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 ```
 /**

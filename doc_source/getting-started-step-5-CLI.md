@@ -9,28 +9,28 @@ aws dynamodb query \
     --expression-attribute-values  '{":name":{"S":"Acme Band"}}'
 ```
 
-Using `query` returns the sample result shown below\.
+Using `query` returns the following sample result\.
 
 ```
 {
-    "Count": 1, 
+    "Count": 1,
     "Items": [
         {
             "AlbumTitle": {
                 "S": "Updated Album Title"
-            }, 
+            },
             "Awards": {
                 "N": "10"
-            }, 
+            },
             "SongTitle": {
                 "S": "Happy Day"
-            }, 
+            },
             "Artist": {
                 "S": "Acme Band"
             }
         }
-    ], 
-    "ScannedCount": 1, 
+    ],
+    "ScannedCount": 1,
     "ConsumedCapacity": null
 }
 ```

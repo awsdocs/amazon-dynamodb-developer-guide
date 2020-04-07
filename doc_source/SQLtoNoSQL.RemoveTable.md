@@ -2,6 +2,10 @@
 
 In SQL, you use the `DROP TABLE` statement to remove a table\. In Amazon DynamoDB, you use the `DeleteTable` operation\.
 
+**Topics**
++ [SQL](#SQLtoNoSQL.RemoveTable.SQL)
++ [DynamoDB](#SQLtoNoSQL.RemoveTable.DynamoDB)
+
 ## SQL<a name="SQLtoNoSQL.RemoveTable.SQL"></a>
 
 When you no longer need a table and want to discard it permanently, you use the `DROP TABLE` statement in SQL\.
@@ -23,4 +27,4 @@ DynamoDB has a similar action: `DeleteTable`\. In the following example, the tab
 ```
 
 **Note**  
-For code examples that use `DeleteTable`, see [Getting Started with DynamoDB SDK](GettingStarted.md)\.
+For code examples that use `DeleteTable`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

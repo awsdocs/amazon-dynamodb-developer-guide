@@ -1,4 +1,4 @@
-# Best Practices for DynamoDB<a name="best-practices"></a>
+# Best Practices for Designing and Architecting with DynamoDB<a name="best-practices"></a>
 
 Use this section to quickly find recommendations for maximizing performance and minimizing throughput costs when working with Amazon DynamoDB\.
 
@@ -10,6 +10,8 @@ Use this section to quickly find recommendations for maximizing performance and 
 + [Best Practices for Designing and Using Partition Keys Effectively](bp-partition-key-design.md)
   + [Using Burst Capacity Effectively](bp-partition-key-design.md#bp-partition-key-throughput-bursting)
   + [Understanding DynamoDB Adaptive Capacity](bp-partition-key-design.md#bp-partition-key-partitions-adaptive)
+    + [Boost Throughput Capacity to High\-Traffic Partitions](bp-partition-key-design.md#bp-partition-key-partitions-adaptive-boost)
+    + [Isolate Frequently Accessed Items](bp-partition-key-design.md#bp-partition-key-partitions-adaptive-split)
   + [Designing Partition Keys to Distribute Your Workload Evenly](bp-partition-key-uniform-load.md)
   + [Using Write Sharding to Distribute Workloads Evenly](bp-partition-key-sharding.md)
     + [Sharding Using Random Suffixes](bp-partition-key-sharding.md#bp-partition-key-sharding-random)
@@ -32,9 +34,9 @@ Use this section to quickly find recommendations for maximizing performance and 
 + [Best Practices for Storing Large Items and Attributes](bp-use-s3-too.md)
   + [Compressing Large Attribute Values](bp-use-s3-too.md#bp-use-s3-too-or-compress)
   + [Storing Large Attribute Values in Amazon S3](bp-use-s3-too.md#bp-use-s3-too-large-values)
-+ [Best Practices for Handling Time\-Series Data in DynamoDB](bp-time-series.md)
-  + [Design Pattern for Time\-Series Data](bp-time-series.md#bp-time-series-pattern)
-  + [Time\-Series Table Examples](bp-time-series.md#bp-time-series-examples)
++ [Best Practices for Handling Time Series Data in DynamoDB](bp-time-series.md)
+  + [Design Pattern for Time Series Data](bp-time-series.md#bp-time-series-pattern)
+  + [Time Series Table Examples](bp-time-series.md#bp-time-series-examples)
 + [Best Practices for Managing Many\-to\-Many Relationships](bp-adjacency-graphs.md)
   + [Adjacency List Design Pattern](bp-adjacency-graphs.md#bp-adjacency-lists)
   + [Materialized Graph Pattern](bp-adjacency-graphs.md#bp-graph-pattern)

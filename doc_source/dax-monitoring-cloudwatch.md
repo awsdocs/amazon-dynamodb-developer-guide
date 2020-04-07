@@ -1,6 +1,6 @@
 # Monitoring with Amazon CloudWatch<a name="dax-monitoring-cloudwatch"></a>
 
-You can monitor DynamoDB Accelerator \(DAX\) using Amazon CloudWatch, which collects and processes raw data from DAX into readable, near real\-time metrics\. These statistics are recorded for a period of two weeks\. You can then access historical information for a better perspective on how your web application or service is performing\. By default, DAX metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) in the *Amazon CloudWatch User Guide*\.
+You can monitor Amazon DynamoDB Accelerator \(DAX\) using Amazon CloudWatch, which collects and processes raw data from DAX into readable, near real\-time metrics\. These statistics are recorded for a period of two weeks\. You can then access historical information for a better perspective on how your web application or service is performing\. By default, DAX metric data is sent to CloudWatch automatically\. For more information, see [What Is Amazon CloudWatch?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html) in the *Amazon CloudWatch User Guide*\.
 
 **Topics**
 + [How Do I Use DAX Metrics?](#dax-how-to-use-metrics)

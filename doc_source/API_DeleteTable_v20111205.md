@@ -67,7 +67,7 @@ Date: Sun, 14 Aug 2011 22:56:22 GMT
 | TableDescription  | A container for the table properties\. | 
 | CreationDateTime | Date when the table was created\.Type: Number  | 
 | KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ProvisionedThroughput  | Throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. See [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\. | 
+| ProvisionedThroughput  | Throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. See [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. | 
 | ProvisionedThroughput: ReadCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | 
 | ProvisionedThroughput: WriteCapacityUnits | The minimum number of `WriteCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.Type: Number  | 
 |  TableName  |  The name of the deleted table\. Type: String   | 

@@ -6,7 +6,7 @@ To create a new `Music` table using the DynamoDB console:
 
 1. In the navigation pane on the left side of the console, choose **Dashboard**\. 
 
-1. On the right side of the console choose **Create Table**\.  
+1. On the right side of the console, choose **Create Table**\.  
 ![\[Console screenshot showing the Create table button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/CreateTableDashboard.png)
 
 1. Enter the table details as follows:

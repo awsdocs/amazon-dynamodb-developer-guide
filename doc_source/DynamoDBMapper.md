@@ -15,7 +15,7 @@
 The AWS SDK for Java provides a `DynamoDBMapper` class, allowing you to map your client\-side classes to Amazon DynamoDB tables\. To use `DynamoDBMapper`, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code\. The `DynamoDBMapper` class enables you to access your tables; perform various create, read, update, and delete \(CRUD\) operations; and execute queries\.
 
 **Note**  
-The `DynamoDBMapper` class does not allow you to create, update, or delete tables\. To perform those tasks, use the low\-level SDK for Java interface instead\. For more information, see [Working with Tables: Java](JavaDocumentAPIWorkingWithTables.md)\.
+The `DynamoDBMapper` class does not allow you to create, update, or delete tables\. To perform those tasks, use the low\-level SDK for Java interface instead\. For more information, see [Working with DynamoDB Tables in Java](JavaDocumentAPIWorkingWithTables.md)\.
 
 The SDK for Java provides a set of annotation types so that you can map your classes to tables\. For example, consider a `ProductCatalog` table that has `Id` as the partition key\. 
 
@@ -39,25 +39,25 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName="ProductCatalog")
 public class CatalogItem {
-    
+
     private Integer id;
     private String title;
     private String ISBN;
     private Set<String> bookAuthors;
     private String someProp;
-    
-    @DynamoDBHashKey(attributeName="Id")  
+
+    @DynamoDBHashKey(attributeName="Id")
     public Integer getId() { return id; }
     public void setId(Integer id) {this.id = id; }
-    
-    @DynamoDBAttribute(attributeName="Title")  
+
+    @DynamoDBAttribute(attributeName="Title")
     public String getTitle() {return title; }
     public void setTitle(String title) { this.title = title; }
-    
-    @DynamoDBAttribute(attributeName="ISBN")  
+
+    @DynamoDBAttribute(attributeName="ISBN")
     public String getISBN() { return ISBN; }
     public void setISBN(String ISBN) { this.ISBN = ISBN; }
-    
+
     @DynamoDBAttribute(attributeName="Authors")
     public Set<String> getBookAuthors() { return bookAuthors; }
     public void setBookAuthors(Set<String> bookAuthors) { this.bookAuthors = bookAuthors; }
@@ -74,7 +74,7 @@ By default, the class properties map to the same name attributes in the table\. 
 
 The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the `attributeName()` parameter to specify which DynamoDB attribute this property corresponds to\. 
 
-In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Sample Data](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
+In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
 
 Your class definition can have properties that don't map to any attributes in the table\. You identify these properties by adding the `@DynamoDBIgnore` annotation\. In the preceding example, the `SomeProp` property is marked with the `@DynamoDBIgnore` annotation\. When you upload a `CatalogItem` instance to the table, your `DynamoDBMapper` instance does not include the `SomeProp` property\. In addition, the mapper does not return this attribute when you retrieve an item from the table\. 
 

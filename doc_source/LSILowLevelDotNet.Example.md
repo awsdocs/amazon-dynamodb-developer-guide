@@ -1,16 +1,16 @@
 # Example: Local Secondary Indexes Using the AWS SDK for \.NET Low\-Level API<a name="LSILowLevelDotNet.Example"></a>
 
-The following C\# code example shows how to work with local secondary indexes\. The example creates a table named *CustomerOrders* with a partition key of CustomerId and a sort key of OrderId\. There are two local secondary indexes on this table:
-+ *OrderCreationDateIndex*—the sort key is OrderCreationDate, and the following attributes are projected into the index:
-  + ProductCategory
-  + ProductName
-  + OrderStatus
-  + ShipmentTrackingId
-+ *IsOpenIndex*—the sort key is IsOpen, and all of the table attributes are projected into the index\.
+The following C\# code example shows how to work with local secondary indexes in Amazon DynamoDB\. The example creates a table named `CustomerOrders` with a partition key of `CustomerId` and a sort key of `OrderId`\. There are two local secondary indexes on this table:
++ `OrderCreationDateIndex` — The sort key is `OrderCreationDate`, and the following attributes are projected into the index:
+  + `ProductCategory`
+  + `ProductName`
+  + `OrderStatus`
+  + `ShipmentTrackingId`
++ `IsOpenIndex` — The sort key is `IsOpen`, and all of the table attributes are projected into the index\.
 
-After the *CustomerOrders* table is created, the program loads the table with data representing customer orders, and then queries the data using the local secondary indexes\. Finally, the program deletes the *CustomerOrders* table\.
+After the `CustomerOrders` table is created, the program loads the table with data representing customer orders\. It then queries the data using the local secondary indexes\. Finally, the program deletes the `CustomerOrders` table\.
 
-For step\-by\-step instructions to test the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

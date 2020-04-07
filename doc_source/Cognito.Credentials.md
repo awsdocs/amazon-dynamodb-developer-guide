@@ -1,8 +1,10 @@
-# Configure AWS Credentials in Your Files Using Amazon Cognito<a name="Cognito.Credentials"></a>
+# Configuring AWS Credentials in Your Files Using Amazon Cognito<a name="Cognito.Credentials"></a>
 
-The recommended way to obtain AWS credentials for your web and mobile applications is to use Amazon Cognito\. Amazon Cognito helps you avoid hardcoding your AWS credentials on your files\. Amazon Cognito uses IAM roles to generate temporary credentials for your application's authenticated and unauthenticated users\.
+The recommended way to obtain AWS credentials for your web and mobile applications is to use Amazon Cognito\. Amazon Cognito helps you avoid hardcoding your AWS credentials on your files\. It uses AWS Identity and Access Management \(IAM\) roles to generate temporary credentials for your application's authenticated and unauthenticated users\.
 
- For example, to configure your JavaScript files to use an Amazon Cognito unauthenticated role to access the DynamoDB web service: 
+ For example, to configure your JavaScript files to use an Amazon Cognito unauthenticated role to access the Amazon DynamoDB web service, do the following\.
+
+**To configure credentials to integrate with Amazon Cognito**
 
 1.  Create an Amazon Cognito identity pool that allows unauthenticated identities\. 
 
@@ -18,7 +20,7 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
    }
    ```
 
-1.  Copy the following policy into a file named `myCognitoPolicy.json`\. Modify the identity pool ID \(us\-west\-2:12345678\-1ab2\-123a\-1234\-a12345ab12\) with your own `IdentityPoolId` obtained in the previous step: 
+1.  Copy the following policy into a file named `myCognitoPolicy.json`\. Replace the identity pool ID \(*us\-west\-2:12345678\-1ab2\-123a\-1234\-a12345ab12*\) with your own `IdentityPoolId` obtained in the previous step\.
 
    ```
    {
@@ -50,7 +52,7 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
    --assume-role-policy-document file://PathToFile/myCognitoPolicy.json --output json
    ```
 
-1.  Grant the `Cognito_DynamoPoolUnauth` role full access to the DynamoDB service by attaching a managed policy \(`AmazonDynamoDBFullAccess`\)\. 
+1.  Grant the `Cognito_DynamoPoolUnauth` role full access to DynamoDB by attaching a managed policy \(`AmazonDynamoDBFullAccess`\)\. 
 
    ```
    aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess \
@@ -59,13 +61,13 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
 **Note**  
  Alternatively, you can grant fine\-grained access to DynamoDB\. For more information, see [Using IAM Policy Conditions for Fine\-Grained Access Control](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)\. 
 
-1.  Obtain and copy the IAM role ARN: 
+1.  Obtain and copy the IAM role Amazon Resource Name \(ARN\)\.
 
    ```
    aws iam get-role --role-name Cognito_DynamoPoolUnauth --output json 
    ```
 
-1.  Add the `Cognito_DynamoPoolUnauth` role to the `DynamoPool` identity pool\. The format to specify is `KeyName=string`, where KeyName is `unauthenticated` and the string is the role ARN obtained in the previous step\. 
+1.  Add the `Cognito_DynamoPoolUnauth` role to the `DynamoPool` identity pool\. The format to specify is `KeyName=string`, where `KeyName` is `unauthenticated` and the string is the role ARN obtained in the previous step\. 
 
    ```
    aws cognito-identity set-identity-pool-roles \

@@ -25,12 +25,12 @@ On\-demand mode is a good option if any of the following are true:
 
  The request rate is only limited by the DynamoDB throughput default table limits, but it can be raised upon request\. For more information, see [Throughput Default Limits](Limits.md#default-limits-throughput)\. 
 
- To get started with on\-demand, you can create or update a table to use on\-demand mode\. For more information, see [Basic Operations for Tables](WorkingWithTables.Basics.md)\. 
+ To get started with on\-demand, you can create or update a table to use on\-demand mode\. For more information, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\. 
 
 You can switch between read/write capacity modes once every 24 hours\. For issues you should consider when switching read/write capacity modes, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\. 
 
 **Note**  
- On\-demand is currently not supported by AWS Data Pipeline, the DynamoDB import/export tool, and AWS Glue\. 
+On\-demand is currently not supported by the DynamoDB import/export tool\. 
 
 **Topics**
 + [Read Request Units and Write Request Units](#HowItWorks.requests)
@@ -58,7 +58,7 @@ DynamoDB tables using on\-demand capacity mode automatically adapt to your appli
 
 If you recently switched an existing table to on\-demand capacity mode for the first time, or if you created a new table with on\-demand capacity mode enabled, the table has the following previous peak settings, even though the table has not served traffic previously using on\-demand capacity mode:
 +  ** Newly created table with on\-demand capacity mode:** The previous peak is 2,000 write request units or 6,000 read request units\. You can drive up to double the previous peak immediately, which enables newly created on\-demand tables to serve up to 4,000 write request units or 12,000 read request units, or any linear combination of the two\. 
-+  **Existing table switched to on\-demand capacity mode:** The previous peak is the maximum previous write capacity units and read capacity units provisioned for the table or the settings for a newly created table with on\-demand capacity mode, whichever is higher\. 
++  **Existing table switched to on\-demand capacity mode:** The previous peak is half the previous write capacity units and read capacity units provisioned for the table or the settings for a newly created table with on\-demand capacity mode, whichever is higher\. 
 
 ### Table Behavior while Switching Read/Write Capacity Mode<a name="HowItWorks.SwitchReadWriteCapacityMode"></a>
 
@@ -93,7 +93,7 @@ For example, suppose that you create a provisioned table with 6 read capacity un
 + Write up to 6 KB per second \(1 KB × 6 write capacity units\)\.
 + Perform transactional write requests of up to 3 KB per second\.
 
-For more information, see [Managing Throughput Settings on Provisioned Tables](ProvisionedThroughput.md)\.
+For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.
 
  *Provisioned throughput* is the maximum amount of capacity that an application can consume from a table or index\. If your application exceeds your provisioned throughput capacity on a table or index, it is subject to request throttling\. 
 

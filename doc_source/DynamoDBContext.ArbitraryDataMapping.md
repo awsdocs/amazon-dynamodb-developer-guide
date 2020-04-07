@@ -1,12 +1,12 @@
 # Mapping Arbitrary Data with DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.ArbitraryDataMapping"></a>
 
-In addition to the supported \.NET types \(see [Supported Data Types](DotNetSDKHighLevel.md#DotNetDynamoDBContext.SupportedTypes)\), you can use types in your application for which there is no direct mapping to the Amazon DynamoDB types\. The object persistence model supports storing data of arbitrary types as long as you provide the converter to convert data from the arbitrary type to the DynamoDB type and vice versa\. The converter code transforms data during both the saving and loading of the objects\. 
+In addition to the supported \.NET types \(see [Supported Data Types](DotNetSDKHighLevel.md#DotNetDynamoDBContext.SupportedTypes)\), you can use types in your application for which there is no direct mapping to the Amazon DynamoDB types\. The object persistence model supports storing data of arbitrary types as long as you provide the converter to convert data from the arbitrary type to the DynamoDB type and vice versa\. The converter code transforms data during both the saving and loading of the objects\.
 
-You can create any types on the client\-side\. However the data stored in the tables is one of the DynamoDB types, and during query and scan, any data comparisons made are against the data stored in DynamoDB\. 
+You can create any types on the client\-side\. However the data stored in the tables is one of the DynamoDB types, and during query and scan, any data comparisons made are against the data stored in DynamoDB\.
 
 The following C\# code example defines a `Book` class with `Id`, `Title`, `ISBN`, and `Dimension` properties\. The `Dimension` property is of the `DimensionType` that describes `Height`, `Width`, and `Thickness` properties\. The example code provides the converter methods `ToEntry` and `FromEntry` to convert data between the `DimensionType` and the DynamoDB string types\. For example, when saving a `Book` instance, the converter creates a book `Dimension` string such as "8\.5x11x\.05"\. When you retrieve a book, it converts the string to a `DimensionType` instance\.
 
-The example maps the `Book` type to the `ProductCatalog` table\. It saves a sample `Book` instance, retrieves it, updates its dimensions, and saves the updated `Book` again\. 
+The example maps the `Book` type to the `ProductCatalog` table\. It saves a sample `Book` instance, retrieves it, updates its dimensions, and saves the updated `Book` again\.
 
 For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 

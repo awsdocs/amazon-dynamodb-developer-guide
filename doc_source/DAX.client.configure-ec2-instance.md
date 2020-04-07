@@ -1,23 +1,25 @@
-# Step 3: Configure Your Amazon EC2 Instance<a name="DAX.client.configure-ec2-instance"></a>
+# Step 3: Configure an Amazon EC2 Instance<a name="DAX.client.configure-ec2-instance"></a>
 
 When your Amazon EC2 instance is available, you can log in to the instance and prepare it for use\.
 
 **Note**  
-The following steps assume that you are connecting to your Amazon EC2 instance from a computer running Linux\. For other ways to connect, see [Connect to Your Linux Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the Amazon EC2 User Guide for Linux Instances\.
+The following steps assume that you are connecting to your Amazon EC2 instance from a computer running Linux\. For other ways to connect, see [Connect to Your Linux Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html) in the *Amazon EC2 User Guide for Linux Instances*\.
+
+**To configure the EC2 instance**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. Use the `ssh` command to log in to your Amazon EC2 instance; for example:
+1. Use the `ssh` command to log in to your Amazon EC2 instance, as shown in the following example\.
 
    ```
    ssh -i my-keypair.pem ec2-user@public-dns-name
    ```
 
-   You need to specify your private key file \(*\.pem* file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 Instance](DAX.client.launch-ec2-instance.md)\)\.
+   You need to specify your private key file \(`.pem` file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 Instance](DAX.client.launch-ec2-instance.md)\.\)
 
    The login ID is `ec2-user`\. No password is required\.
 
-1. After you log in to your EC2 instance, you need to configure your AWS credentials as shown following\. Type your AWS access key ID and secret key \(from [Step 2: Create an IAM User and Policy](DAX.client.create-user-policy.md)\), and set the default Region name to your current Region\. \(In the following example, the default Region name is `us-west-2`\.\)
+1. After you log in to your EC2 instance, configure your AWS credentials as shown following\. Enter your AWS access key ID and secret key \(from [Step 2: Create an IAM User and Policy](DAX.client.create-user-policy.md)\), and set the default Region name to your current Region\. \(In the following example, the default Region name is `us-west-2`\.\)
 
    ```
    aws configure

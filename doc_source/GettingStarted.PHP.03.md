@@ -2,7 +2,7 @@
 
 In this step, you perform read and write operations on an item in the `Movies` table\.
 
-To learn more about reading and writing data, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
+To learn more about reading and writing data, see [Working with Items and Attributes](WorkingWithItems.md)\.
 
 **Topics**
 + [Step 3\.1: Create a New Item](#GettingStarted.PHP.03.01)
@@ -19,8 +19,6 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy the following program and paste it into a file named `MoviesItemOps01.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -81,10 +79,6 @@ In this step, you add a new item to the `Movies` table\.
        echo "Unable to add item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 **Note**  
 The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores a map that provides more information about the movie\.
@@ -113,8 +107,6 @@ You can use the `getItem` method to read the item from the `Movies` table\. You 
 1. Copy the following program and paste it into a file named `MoviesItemOps02.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -170,10 +162,6 @@ You can use the `getItem` method to read the item from the `Movies` table\. You 
        echo "Unable to get item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 
 1. To run the program, enter the following command\.
@@ -218,8 +206,6 @@ The item is updated as follows\.
 1. Copy the following program and paste it into a file named `MoviesItemOps03.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -289,10 +275,6 @@ The item is updated as follows\.
        echo "Unable to update item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 **Note**  
 This program uses `UpdateExpression` to describe all updates you want to perform on the specified item\.  
@@ -311,8 +293,6 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy the following program and paste it into a file named `MoviesItemOps04.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -378,10 +358,6 @@ The following program shows how to increment the `rating` for a movie\. Each tim
        echo "Unable to update item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 
 1. To run the program, enter the following command\.
@@ -397,8 +373,6 @@ In this case, the item is updated only if there are more than three actors in th
 1. Copy the following program and paste it into a file named `MoviesItemOps05.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -465,10 +439,6 @@ In this case, the item is updated only if there are more than three actors in th
        echo "Unable to update item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 
 1. To run the program, enter the following command\.
@@ -500,8 +470,6 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy the following program and paste it into a file named `MoviesItemOps06.php`\.
 
    ```
-   <?php
-   
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -565,10 +533,6 @@ In the following example, you try to delete a specific movie item if its rating 
        echo "Unable to delete item:\n";
        echo $e->getMessage() . "\n";
    }
-   
-   
-   
-   ?>
    ```
 
 1. To run the program, enter the following command\.

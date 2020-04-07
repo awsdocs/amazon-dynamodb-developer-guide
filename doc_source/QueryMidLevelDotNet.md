@@ -56,7 +56,7 @@ do
 
 ## Specifying Optional Parameters<a name="QueryMidLevelDotNetOptions"></a>
 
-You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\. 
+You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\.
 
 **Example**  
 
@@ -64,7 +64,7 @@ You can also specify optional parameters for `Query`, such as specifying a list 
 Query(QueryOperationConfig config);
 ```
 
-Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\. 
+Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\.
 
 **Example**  
 

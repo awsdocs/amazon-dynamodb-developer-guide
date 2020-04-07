@@ -10,7 +10,7 @@ To find all movies released during a year, you need to specify only the `year`\.
 
 In addition to the `query` method, you can use the `scan` method to retrieve all of the table data\.
 
-To learn more about querying and scanning data, see [Working with Queries](Query.md) and [Working with Scans](Scan.md), respectively\. 
+To learn more about querying and scanning data, see [Working with Queries in DynamoDB](Query.md) and [Working with Scans in DynamoDB](Scan.md), respectively\. 
 
 **Topics**
 + [Step 4\.1: Query \- All Movies Released in a Year](#GettingStarted.Ruby.04.Query.01)

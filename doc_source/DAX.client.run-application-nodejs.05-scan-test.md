@@ -1,6 +1,6 @@
 # 05\-scan\-test\.js<a name="DAX.client.run-application-nodejs.05-scan-test"></a>
 
-The `05-scan-test.js` program performs `Scan` operations on *TryDaxTable*\.
+The `05-scan-test.js` program performs `Scan` operations on `TryDaxTable`\.
 
 ```
 /**

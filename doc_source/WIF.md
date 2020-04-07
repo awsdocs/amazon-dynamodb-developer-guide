@@ -10,7 +10,6 @@ Web identity federation supports the following identity providers:
 ## Additional Resources for Web Identity Federation<a name="WIF.AdditionalResources"></a>
 
 The following resources can help you learn more about web identity federation:
-+ The [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html) is an interactive website that lets you walk through the process of authenticating via Login with Amazon, Facebook, or Google, getting temporary security credentials, and using those credentials to make a request to AWS\.
 + The post [Web Identity Federation using the AWS SDK for \.NET](http://aws.amazon.com/blogs/developer/web-identity-federation-using-the-aws-sdk-for-net) on the AWS Developer blog walks through how to use web identity federation with Facebook\. It includes code snippets in C\# that show how to assume an IAM role with web identity and how to use temporary security credentials to access an AWS resource\.
 + The [AWS SDK for iOS](https://aws.amazon.com/sdkforios/) and the [AWS SDK for Android](https://aws.amazon.com/sdkforandroid/) contain sample apps\. They include code that shows how to invoke the identity providers, and then how to use the information from these providers to get and use temporary security credentials\.
 + The article [Web Identity Federation with Mobile Applications](https://aws.amazon.com/articles/4617974389850313) discusses web identity federation and shows an example of how to use web identity federation to access an AWS resource\.

@@ -1,6 +1,6 @@
 # Example: Query and Scan in DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.QueryScan"></a>
 
-The C\# example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating the tables used in this example, see [Creating Tables and Loading Sample Data](SampleData.md)\.
+The C\# example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating the tables used in this example, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 + The `Book` class maps to the `ProductCatalog` table\.
 + The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
@@ -15,10 +15,10 @@ The example then executes the following query and scan operations using `DynamoD
 
   For performance reasons, you should use a query operation instead of a scan operation\. However, there are times you might need to scan a table\. Suppose that there was a data entry error and one of the book prices is set to less than 0\. This example scans the `ProductCategory` table to find book items \(the `ProductCategory` is book\) at price of less than 0\.
 
- For instructions about creating a working sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+ For instructions about creating a working sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Note**  
- The following example does not work with \.NET core because it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\. 
+ The following example does not work with \.NET core because it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
 **Example**  
 
@@ -55,7 +55,7 @@ namespace com.amazonaws.codesamples
             try
             {
                 DynamoDBContext context = new DynamoDBContext(client);
-                // Get item.
+                // Get an item.
                 GetBook(context, 101);
 
                 // Sample forum and thread to test queries.
@@ -163,7 +163,7 @@ namespace com.amazonaws.codesamples
     [DynamoDBTable("Thread")]
     public class Thread
     {
-        // PK mapping.
+        // Partition key mapping.
         [DynamoDBHashKey] //Partition key
         public string ForumName
         {
@@ -199,7 +199,7 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // Explicit mapping (property and table attribute names are different.
+        // Explicit mapping (property and table attribute names are different).
         [DynamoDBProperty("Tags")]
         public List<string> KeywordTags
         {
@@ -221,8 +221,8 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // All the following properties are explicitly mapped,
-        // only to show how to provide mapping.
+        // All the following properties are explicitly mapped
+        // to show how to provide mapping.
         [DynamoDBProperty]
         public int Threads
         {

@@ -1,7 +1,7 @@
 # DynamoDB Streams Low\-Level API: Java Example<a name="Streams.LowLevel.Walkthrough"></a>
 
 **Note**  
-The code on this page is not exhaustive and does not handle all scenarios for consuming DynamoDB Streams\. The recommended way to consume Stream records from DynamoDB is through the Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.
+The code on this page is not exhaustive and does not handle all scenarios for consuming Amazon DynamoDB Streams\. The recommended way to consume stream records from DynamoDB is through the Amazon Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.
 
 This section contains a Java program that shows DynamoDB Streams in action\. The program does the following:
 
@@ -9,15 +9,15 @@ This section contains a Java program that shows DynamoDB Streams in action\. The
 
 1. Describes the stream settings for this table\.
 
-1. Modify data in the table\.
+1. Modifies data in the table\.
 
-1. Describe the shards in the stream\.
+1. Describes the shards in the stream\.
 
-1. Read the stream records from the shards\.
+1. Reads the stream records from the shards\.
 
-1. Clean up\.
+1. Cleans up\.
 
-When you run the program, you will see output similar to the following:
+When you run the program, you will see output similar to the following\.
 
 ```
 Issuing CreateTable request for TestTableForStreams

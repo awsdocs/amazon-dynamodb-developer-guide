@@ -12,8 +12,8 @@ Before you can load data from a DynamoDB table, you must first create an Amazon 
 Here is an example COPY command from Amazon Redshift SQL:
 
 ```
-copy favoritemovies from 'dynamodb://my-favorite-movies-table' 
-credentials 'aws_access_key_id=<Your-Access-Key-ID>;aws_secret_access_key=<Your-Secret-Access-Key>' 
+copy favoritemovies from 'dynamodb://my-favorite-movies-table'
+credentials 'aws_access_key_id=<Your-Access-Key-ID>;aws_secret_access_key=<Your-Secret-Access-Key>'
 readratio 50;
 ```
 

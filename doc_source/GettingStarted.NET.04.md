@@ -1,4 +1,4 @@
-# Step 4: Add a New Movie to the Movies Table<a name="GettingStarted.NET.04"></a>
+# Step 4: Add a Movie to the DynamoDB Table<a name="GettingStarted.NET.04"></a>
 
 In this step of the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md), you add a new movie record to the `Movies` table in Amazon DynamoDB\. The `Main` function in `DynamoDB_intro` starts by creating a DynamoDB document model `Document` and then waits on `WritingNewMovie_async`, which is implemented in the `04_WritingNewItem.cs` file\.
 
@@ -62,10 +62,10 @@ namespace DynamoDB_intro
 `WritingNewMovie_async` begins by checking to determine whether the new movie has already been added to the `Movies` table\. If it has not, it waits for the DynamoDB `Table.PutItemAsyn` method to add the new movie record\.
 
 ## For More Information<a name="GettingStarted.NET.04.info"></a>
-+ To learn more about reading and writing data in DynamoDB tables, see [Working with Items in DynamoDB](WorkingWithItems.md)\.
++ To learn more about reading and writing data in DynamoDB tables, see [Working with Items and Attributes](WorkingWithItems.md)\.
 + For more information about the DynamoDB document model API, see [\.NET: Document Model](DotNetSDKMidLevel.md)\.
 + For more information about asynchronous methods, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
 ## Next Step<a name="GettingStarted.NET.04.NextStep"></a>
 
-[Step 5: Read and Display a Record from the Movies Table](GettingStarted.NET.05.md)
+[Step 5: Read and Display a Record from the DynamoDB Table](GettingStarted.NET.05.md)

@@ -1,4 +1,4 @@
-# Compliance Validation for DynamoDB<a name="Compliance"></a>
+# Compliance Validation by Industry for DynamoDB<a name="Compliance"></a>
 
 The security and compliance of DynamoDB is assessed by third\-party auditors as part of multiple AWS compliance programs, including the following:
 + System and Organization Controls \(SOC\)

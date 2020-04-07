@@ -1,4 +1,4 @@
-# JavaScript and DynamoDB<a name="GettingStarted.JavaScript"></a>
+# Getting Started with JavaScript and DynamoDB<a name="GettingStarted.JavaScript"></a>
 
 In this tutorial, you use JavaScript to write simple programs to perform the following Amazon DynamoDB operations:
 + Create a table called `Movies` and load sample data in JSON format\.
@@ -10,7 +10,7 @@ As you work through this tutorial, you can refer to the [AWS SDK for JavaScript 
 ## Tutorial Prerequisites<a name="GettingStarted.Js.Prereqs"></a>
 + Download and run DynamoDB on your computer\. For more information, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\. 
 **Note**  
-You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary](GettingStarted.Js.Summary.md)\. 
+You use the downloadable version of DynamoDB in this tutorial\. For information about how to run the same code against the DynamoDB web service, see the [Summary and Review of JavaScript and DynamoDB Tutorial](GettingStarted.Js.Summary.md)\. 
 + Set up an AWS access key to use AWS SDKs\. For more information, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
 + Set up the AWS SDK for JavaScript\. To do this, add or modify the following script tag to your HTML pages:
 

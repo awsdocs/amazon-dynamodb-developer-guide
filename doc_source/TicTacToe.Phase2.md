@@ -9,26 +9,26 @@
 This example application highlights the following DynamoDB data model concepts:
 + ****Table**** – In DynamoDB, a table is a collection of items \(that is, records\), and each item is a collection of name\-value pairs called attributes\.
 
-  In this Tic\-Tac\-Toe example, the application stores all game data in a table, Games\. The application creates one item in the table per game and stores all game data as attributes\. A tic\-tac\-toe game can have up to nine moves\. Because DynamoDB tables do not have a schema in cases where only the primary key is the required attribute, the application can store varying number of attributes per game item\.
+  In this Tic\-Tac\-Toe example, the application stores all game data in a table, `Games`\. The application creates one item in the table per game and stores all game data as attributes\. A tic\-tac\-toe game can have up to nine moves\. Because DynamoDB tables do not have a schema in cases where only the primary key is the required attribute, the application can store varying number of attributes per game item\.
 
-  The Games table has a simple primary key made of one attribute, `GameId`, of string type\. The application assigns a unique ID to each game\. For more information on DynamoDB primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. 
+  The `Games` table has a simple primary key made of one attribute, `GameId`, of string type\. The application assigns a unique ID to each game\. For more information on DynamoDB primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. 
 
-  When a user initiates a tic\-tac\-toe game by inviting another user to play, the application creates a new item in the Games table with attributes storing game metadata, such as the following:
+  When a user initiates a tic\-tac\-toe game by inviting another user to play, the application creates a new item in the `Games` table with attributes storing game metadata, such as the following:
   + `HostId`, the user who initiated the game\.
   + `Opponent`, the user who was invited to play\.
   + The user whose turn it is to play\. The user who initiated the game plays first\.
   + The user who uses the **O** symbol on the board\. The user who initiates the games uses the **O** symbol\.
 
   In addition, the application creates a `StatusDate` concatenated attribute, marking the initial game state as `PENDING`\. The following screenshot shows an example item as it appears in the DynamoDB console:  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Console screenshot of the attributes table.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-10.png)![\[Console screenshot of the attributes table.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Console screenshot of the attributes table.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-  As the game progresses, the application adds one attribute to the table for each game move\. The attribute name is the board position, for example `TopLeft` or `BottomRight`\. For example, a move might have a `TopLeft` attribute with the value `O`, a `TopRight` attribute with the value `O`, and a `BottomRight` attribute with the value `X`\. The attribute value is either `O` or `X`, depending on which user made the move\. For example, consider the following board:   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-30.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+  As the game progresses, the application adds one attribute to the table for each game move\. The attribute name is the board position, for example `TopLeft` or `BottomRight`\. For example, a move might have a `TopLeft` attribute with the value `O`, a `TopRight` attribute with the value `O`, and a `BottomRight` attribute with the value `X`\. The attribute value is either `O` or `X`, depending on which user made the move\. For example, consider the following board\.  
+![\[Screenshot showing a finished tic-tac-toe game that ended in a tie.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-30.png)![\[Screenshot showing a finished tic-tac-toe game that ended in a tie.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing a finished tic-tac-toe game that ended in a tie.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 + ****Concatenated value attributes**** – The `StatusDate` attribute illustrates a concatenated value attribute\. In this approach, instead of creating separate attributes to store game status \(`PENDING`, `IN_PROGRESS`, and `FINISHED`\) and date \(when the last move was made\), you combine them as single attribute, for example `IN_PROGRESS_2014-04-30 10:20:32`\.
 
   The application then uses the `StatusDate` attribute in creating secondary indexes by specifying `StatusDate` as a sort key for the index\. The benefit of using the `StatusDate` concatenated value attribute is further illustrated in the indexes discussed next\.
 + ****Global secondary indexes**** – You can use the table's primary key, `GameId`, to efficiently query the table to find a game item\. To query the table on attributes other than the primary key attributes, DynamoDB supports the creation of secondary indexes\. In this example application, you build the following two secondary indexes:   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-indexes-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Screenshot showing the hostStatusDate and oppStatusDate global secondary indexes created in the example application.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-indexes-10.png)![\[Screenshot showing the hostStatusDate and oppStatusDate global secondary indexes created in the example application.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing the hostStatusDate and oppStatusDate global secondary indexes created in the example application.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
   + **HostId\-StatusDate\-index**\. This index has `HostId` as a partition key and `StatusDate` as a sort key\. You can use this index to query on `HostId`, for example to find games hosted by a particular user\. 
   + **OpponentId\-StatusDate\-index**\. This index has `OpponentId` as a partition key and `StatusDate` as a sort key\. You can use this index to query on `Opponent`, for example to find games where a particular user is the opponent\.
 
@@ -56,9 +56,9 @@ Let us see in detail how the application works\.
 
 ### Home Page<a name="TicTacToe.Phase2.AppInAction.HomePage"></a>
 
-After the user logs in, the application displays the following three lists of information: 
+After the user logs in, the application displays the following three lists of information\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-homepage-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-homepage-10.png)![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 + ****Invitations**** – This list shows up to the 10 most recent invitations from others that are pending acceptance by the user who is logged in\. In the preceding screenshot, user1 has invitations from user5 and user2 pending\.
 + ****Games In\-Progress**** – This list shows up to the 10 most recent games that are in progress\. These are games that the user is actively playing, which have the status `IN_PROGRESS`\. In the screenshot, user1 is actively playing a tic\-tac\-toe game with user3 and user4\.
 + ****Recent History**** – This list shows up to the 10 most recent games that the user finished, which have the status `FINISHED`\. In game shown in the screenshot, user1 has previously played with user2\. For each completed game, the list shows the game result\.
@@ -71,13 +71,13 @@ inProgressGames = controller.getGamesWithStatus(session["username"], "IN_PROGRES
 finishedGames   = controller.getGamesWithStatus(session["username"], "FINISHED")
 ```
 
-Each of these calls return a list of items from DynamoDB that are wrapped by the `Game` objects\. It is easy to extract data from these objects in the view\. The index function passes these object lists to the view to render the HTML\.
+Each of these calls returns a list of items from DynamoDB that are wrapped by the `Game` objects\. It is easy to extract data from these objects in the view\. The index function passes these object lists to the view to render the HTML\.
 
 ```
-return render_template("index.html", 
-                       user=session["username"], 
-                       invites=inviteGames, 
-                       inprogress=inProgressGames, 
+return render_template("index.html",
+                       user=session["username"],
+                       invites=inviteGames,
+                       inprogress=inProgressGames,
                        finished=finishedGames)
 ```
 
@@ -89,7 +89,7 @@ Let us review the three functions and how they query the Games table using globa
 
 #### Using getGameInvites to Get the List of Pending Game Invitations<a name="TicTacToe.Phase2.GameInAction.ListInvitations"></a>
 
-The `getGameInvites` function retrieves the list of the 10 most recent pending invitations\. These games have been created by users, but the opponents have not accepted the game invitations\. For these games, the status remains `PENDING` until the opponent accepts the invite\. If the opponent declines the invite, the application remove the corresponding item from the table\. 
+The `getGameInvites` function retrieves the list of the 10 most recent pending invitations\. These games have been created by users, but the opponents have not accepted the game invitations\. For these games, the status remains `PENDING` until the opponent accepts the invite\. If the opponent declines the invite, the application removes the corresponding item from the table\. 
 
 The function specifies the query as follows:
 + It specifies the `OpponentId-StatusDate-index` index to use with the following index key values and comparison operators:
@@ -101,9 +101,9 @@ The function specifies the query as follows:
 
 ```
 gameInvitesIndex = self.cm.getGamesTable().query(
-                                            Opponent__eq=user, 
-                                            StatusDate__beginswith="PENDING_", 
-                                            index="OpponentId-StatusDate-index", 
+                                            Opponent__eq=user,
+                                            StatusDate__beginswith="PENDING_",
+                                            index="OpponentId-StatusDate-index",
                                             limit=10)
 ```
 
@@ -127,7 +127,7 @@ A list of in\-progress games for a given user includes both the following:
 + In\-progress games where the user is the opponent 
 
 The `getGamesWithStatus` function runs the following two queries, each time using the appropriate secondary index\. 
-+ The function queries the Games table using the `HostId-StatusDate-index` index\. For the index, the query specifies primary key values—both the partition key \(`HostId`\) and sort key \(`StatusDate`\) values, along with comparison operators\. 
++ The function queries the `Games` table using the `HostId-StatusDate-index` index\. For the index, the query specifies primary key values—both the partition key \(`HostId`\) and sort key \(`StatusDate`\) values, along with comparison operators\. 
 
   ```
   hostGamesInProgress = self.cm.getGamesTable ().query(HostId__eq=user,
@@ -139,7 +139,7 @@ The `getGamesWithStatus` function runs the following two queries, each time usin
   Note the Python syntax for comparison operators:
   + `HostId__eq=user` specifies the equality comparison operator\.
   + `StatusDate__beginswith=status` specifies the `BEGINS_WITH` comparison operator\.
-+ The function queries the Games table using the `OpponentId-StatusDate-index` index\. 
++ The function queries the `Games` table using the `OpponentId-StatusDate-index` index\. 
 
   ```
   oppGamesInProgress = self.cm.getGamesTable().query(Opponent__eq=user,
@@ -159,7 +159,7 @@ The `getGamesWithStatus` function runs the following two queries, each time usin
 
 The game page is where the user plays tic\-tac\-toe games\. It shows the game grid along with game\-relevant information\. The following screenshot shows an example game in progress:
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-example-board-10.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+![\[Screenshot showing a tic-tac-toe game in progress.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-example-board-10.png)![\[Screenshot showing a tic-tac-toe game in progress.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing a tic-tac-toe game in progress.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 The application displays the game page in the following situations:
 + The user creates a game inviting another user to play\. 
@@ -167,7 +167,7 @@ The application displays the game page in the following situations:
   In this case, the page shows the user as host and the game status as `PENDING`, waiting for the opponent to accept\.
 + The user accepts one of the pending invitations on the home page\. 
 
-  In this case, the page show the user as the opponent and game status as `IN_PROGRESS`\.
+  In this case, the page shows the user as the opponent and game status as `IN_PROGRESS`\.
 
 A user selection on the board generates a form `POST` request to the application\. That is, Flask calls the `selectSquare` function \(in `application.py`\) with the HTML form data\. This function, in turn, calls the `updateBoardAndTurn` function \(in `gameController.py`\) to update the game item as follows:
 + It adds a new attribute specific to the move\.
@@ -178,12 +178,12 @@ controller.updateBoardAndTurn(item, value, session["username"])
 ```
 
 The function returns true if the item update was successful; otherwise, it returns false\. Note the following about the `updateBoardAndTurn` function:
-+ The function calls the `update_item` function of the AWS SDK for Python to make a finite set of updates to an existing item\. The function maps to the `UpdateItem` operation in DynamoDB\. For more information, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
++ The function calls the `update_item` function of the SDK for Python to make a finite set of updates to an existing item\. The function maps to the `UpdateItem` operation in DynamoDB\. For more information, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 **Note**  
 The difference between the `UpdateItem` and `PutItem` operations is that `PutItem` replaces the entire item\. For more information, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\.
 
 For the `update_item` call, the code identifies the following:
-+ The primary key of the Games table \(that is, `ItemId`\)\.
++ The primary key of the `Games` table \(that is, `ItemId`\)\.
 
   ```
   key = { "GameId" : { "S" : gameId } }
@@ -191,12 +191,12 @@ For the `update_item` call, the code identifies the following:
 + The new attribute to add, specific to the current user move, and its value \(for example, `TopLeft="X"`\)\.
 
   ```
-   attributeUpdates = { 
-                    position : { 
-                       "Action" : "PUT", 
-                       "Value" : { "S" : representation } 
-                       } 
-                    }
+  attributeUpdates = {
+      position : {
+          "Action" : "PUT",
+          "Value" : { "S" : representation }
+      }
+  }
   ```
 + Conditions that must be true for the update to take place:
   + The game must be in progress\. That is, the `StatusDate` attribute value must begin with `IN_PROGRESS`\.
@@ -204,24 +204,24 @@ For the `update_item` call, the code identifies the following:
   + The square that the user chose must be available\. That is, the attribute corresponding to the square must not exist\.
 
   ```
-  expectations = {"StatusDate" : {"AttributeValueList": [{"S" : "IN_PROGRESS_"}], 
-                                   "ComparisonOperator": "BEGINS_WITH"}, 
-                   "Turn" : {"Value" : {"S" : current_player}}, 
-                   position : {"Exists" : False}}
+  expectations = {"StatusDate" : {"AttributeValueList": [{"S" : "IN_PROGRESS_"}],
+      "ComparisonOperator": "BEGINS_WITH"},
+      "Turn" : {"Value" : {"S" : current_player}},
+      position : {"Exists" : False}}
   ```
 
 Now the function calls `update_item` to update the item\.
 
 ```
- self.cm.db.update_item("Games", key=key, 
-                        attribute_updates=attributeUpdates, 
-                        expected=expectations)
+self.cm.db.update_item("Games", key=key,
+    attribute_updates=attributeUpdates,
+    expected=expectations)
 ```
 
-After the function returns, the `selectSquare` function calls redirect as shown in the following example:
+After the function returns, the `selectSquare` function calls redirect, as shown in the following example\.
 
 ```
 redirect("/game="+gameId) 
 ```
 
-This call causes the browser to refresh\. As part of this refresh, the application checks to see if the game has ended in a win or draw\. If it has, the application will update the game item accordingly\. 
+This call causes the browser to refresh\. As part of this refresh, the application checks to see if the game has ended in a win or draw\. If it has, the application updates the game item accordingly\. 

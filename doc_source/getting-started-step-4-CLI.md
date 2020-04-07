@@ -11,20 +11,20 @@ aws dynamodb update-item \
     --return-values ALL_NEW
 ```
 
-Using `update-item` returns the sample result shown below\.
+Using `update-item` returns the following sample result\.
 
 ```
 {
     "Attributes": {
         "AlbumTitle": {
             "S": "Updated Album Title"
-        }, 
+        },
         "Awards": {
             "N": "10"
-        }, 
+        },
         "SongTitle": {
             "S": "Happy Day"
-        }, 
+        },
         "Artist": {
             "S": "Acme Band"
         }
