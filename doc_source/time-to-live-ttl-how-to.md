@@ -71,6 +71,6 @@ This example starts with the current date and adds 5 days to it to create an exp
 
 It is fairly simple to get the current time in epoch time format, as in the following examples\.
 + Linux Terminal: `date +%s`
-+ Python: `import time; long(time.time())`
++ Python: `import time; int(time.time())`
 + Java: `System.currentTimeMillis() / 1000L`
 + JavaScript: `Math.floor(Date.now() / 1000)`
