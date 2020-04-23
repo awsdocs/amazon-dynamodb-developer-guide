@@ -50,4 +50,4 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 
 *Transactions* provide atomicity, consistency, isolation, and durability \(ACID\) enabling you to maintain data correctness in your applications more easily\. 
 + `TransactWriteItems` – A batch operation that allows `Put`, `Update`, and `Delete` operations to multiple items both within and across tables with a guaranteed all\-or\-nothing result\.
-+ `TransactGetItems` – A batch operation that allows `Get` operations to retrieves multiple items from one or more tables\.
++ `TransactGetItems` – A batch operation that allows `Get` operations to retrieve multiple items from one or more tables\.
