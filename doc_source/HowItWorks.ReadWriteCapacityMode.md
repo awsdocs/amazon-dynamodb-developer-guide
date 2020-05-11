@@ -58,7 +58,7 @@ DynamoDB tables using on\-demand capacity mode automatically adapt to your appli
 
 If you recently switched an existing table to on\-demand capacity mode for the first time, or if you created a new table with on\-demand capacity mode enabled, the table has the following previous peak settings, even though the table has not served traffic previously using on\-demand capacity mode:
 +  ** Newly created table with on\-demand capacity mode:** The previous peak is 2,000 write request units or 6,000 read request units\. You can drive up to double the previous peak immediately, which enables newly created on\-demand tables to serve up to 4,000 write request units or 12,000 read request units, or any linear combination of the two\. 
-+  **Existing table switched to on\-demand capacity mode:** The previous peak is half the previous write capacity units and read capacity units provisioned for the table or the settings for a newly created table with on\-demand capacity mode, whichever is higher\. 
++  **Existing table switched to on\-demand capacity mode:** The previous peak is half the maximum write capacity units and read capacity units provisioned since the table was created, or the settings for a newly created table with on\-demand capacity mode, whichever is higher\. In other words, your table will deliver at least as much throughput as it did prior to switching to on\-demand capacity mode\. 
 
 ### Table Behavior while Switching Read/Write Capacity Mode<a name="HowItWorks.SwitchReadWriteCapacityMode"></a>
 

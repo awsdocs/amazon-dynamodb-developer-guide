@@ -9,7 +9,7 @@ In addition to the AWS\-wide condition keys, DynamoDB has its own specific keys 
 **Note**  
 To specify an action, use the `dynamodb:` prefix followed by the API operation name \(for example, `dynamodb:CreateTable`\)\.
 
-If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.
+Use the scroll bars to see the rest of the table\.
 
 
 **Amazon DynamoDB API and Required Permissions for Actions**  
@@ -49,7 +49,7 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 | [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html) | dynamodb:Query | To query a table:arn:aws:dynamodb:region:account\-id:table/table\-nameor:arn:aws:dynamodb:region:account\-id:table/\*To query an index:arn:aws:dynamodb:region:account\-id:table/table\-name/index/index\-nameor:arn:aws:dynamodb:region:account\-id:table/table\-name/index/\* | 
 | [RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html) | dynamodb:RestoreTableFromBackup |  arn:aws:dynamodb:region:account\-id:table/table\-name/backup/backup\-name or arn:aws:dynamodb:region:account\-id:table/table\-name/backup/\* and arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 | [RestoreTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableToPointInTime.html) | dynamodb:RestoreTableToPointInTime |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html) |  dynamodb:Scan  | To scan a table:arn:aws:dynamodb:region:account\-id:table/table\-nameor:arn:aws:dynamodb:region:account\-id:table/\*To scan an index:arn:aws:dynamodb:region:account\-id:table/table\-name/index/index\-nameor:arn:aws:dynamodb:region:account\-id:table/table\-name/index/\* | 
+| [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html) |  dynamodb:Scan  | To scan a table:arn:aws:dynamodb:region:account\-id:table/table\-nameor:arn:aws:dynamodb:region:account\-id:table/\*To scan an index \(must also have scan access to base table\):arn:aws:dynamodb:region:account\-id:table/table\-name/index/index\-nameor:arn:aws:dynamodb:region:account\-id:table/table\-name/index/\* | 
 | [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html) |  dynamodb:TagResource  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 | [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html) |  dynamodb:UntagResource  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 | [UpdateContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateContinuousBackups.html) |  dynamodb:UpdateContinuousBackups  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
@@ -59,6 +59,6 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 | [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) |  dynamodb:UpdateTable  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 | [UpdateTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html) |  dynamodb:UpdateTimeToLive  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
 
-## Related Topics<a name="w144aac36c15b9c15c23"></a>
+## Related Topics<a name="w148aac36c15b9c15c23"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)

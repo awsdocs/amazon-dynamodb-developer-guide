@@ -23,7 +23,7 @@ NoSQL design requires a different mindset than RDBMS design\. For an RDBMS, you 
 
 **How NoSQL design is different**
 + By contrast, you shouldn't start designing your schema for DynamoDB until you know the questions it will need to answer\. Understanding the business problems and the application use cases up front is essential\.
-+ You should maintain as few tables as possible in a DynamoDB application\. Most well designed applications require only *one* table\.
++ You should maintain as few tables as possible in a DynamoDB application\.
 
 ## Approaching NoSQL Design<a name="bp-general-nosql-design-approach"></a>
 
@@ -37,7 +37,7 @@ In particular, it is important to understand three fundamental properties of you
 After you identify specific query requirements, you can organize data according to general principles that govern performance:
 + **Keep related data together\.**   Research on routing\-table optimization 20 years ago found that "locality of reference" was the single most important factor in speeding up response time: keeping related data together in one place\. This is equally true in NoSQL systems today, where keeping related data in close proximity has a major impact on cost and performance\. Instead of distributing related data items across multiple tables, you should keep related items in your NoSQL system as close together as possible\.
 
-  As a general rule, you should maintain as few tables as possible in a DynamoDB application\. As emphasized earlier, most well\-designed applications require *only one table*, unless there is a specific reason for using multiple tables\.
+  As a general rule, you should maintain as few tables as possible in a DynamoDB application\.
 
   Exceptions are cases where high\-volume time series data are involved, or datasets that have very different access patterns\. A single table with inverted indexes can usually enable simple queries to create and retrieve the complex hierarchical data structures required by your application\.
 + **Use sort order\.**   Related items can be grouped together and queried efficiently if their key design causes them to sort together\. This is an important NoSQL design strategy\.

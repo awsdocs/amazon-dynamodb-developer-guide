@@ -16,4 +16,5 @@ NoSQL Workbench provides a rich graphical user interface for you to develop and 
 + [Building Data Models with NoSQL Workbench](workbench.Modeler.md)
 + [Visualizing Data Access Patterns](workbench.Visualizer.md)
 + [Exploring Datasets and Building Operations with NoSQL Workbench](workbench.querybuilder.md)
++ [Sample Data Models for NoSQL Workbench](workbench.SampleModels.md)
 + [Release History for NoSQL Workbench](WorkbenchDocumentHistory.md)

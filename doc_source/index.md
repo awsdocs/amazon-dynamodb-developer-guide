@@ -339,6 +339,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Exploring Datasets and Building Operations with NoSQL Workbench](workbench.querybuilder.md)
       + [Exploring Datasets](workbench.querybuilder.connect.md)
       + [Building Complex Operations](workbench.querybuilder.operationbuilder.md)
+   + [Sample Data Models for NoSQL Workbench](workbench.SampleModels.md)
    + [Release History for NoSQL Workbench](WorkbenchDocumentHistory.md)
 + [Analyzing Data Access Using CloudWatch Contributor Insights for DynamoDB](contributorinsights.md)
    + [CloudWatch Contributor Insights for DynamoDB: How It Works](contributorinsights_HowItWorks.md)

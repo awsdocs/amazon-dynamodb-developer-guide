@@ -34,6 +34,8 @@ If your table or global secondary index has a sort key, DynamoDB also creates th
 You can't use the CloudWatch console or APIs to directly modify or delete the rules created by CloudWatch Contributor Insights for DynamoDB\. Disabling CloudWatch Contributor Insights for DynamoDB on a table or global secondary index automatically deletes the rules created for that table or global secondary index\.
 When you use the [GetInsightRuleReport](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetInsightRuleReport.html) operation with CloudWatch Contributor Insights rules that are created by DynamoDB, only `MaxContributorValue` and `Maximum` return useful statistics\. The other statistics in this list don't return meaningful values\.
 
+You can create CloudWatch Alarms using the CloudWatch Contributor Insights for DynamoDB [rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html)\. This allows you to be notified when any item exceed or meets a specific threshold for `ConsumedThroughputUnits` or `ThrottleCount`\. For more information, see [Setting an Alarm on Contributor Insights Metric Data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-GraphReportData.html#ContributorInsights-GraphReportData-Alarm)\.
+
 ## Understanding CloudWatch Contributor Insights for DynamoDB Graphs<a name="contributorinsights_HowItWorks.Graphs"></a>
 
 CloudWatch Contributor Insights for DynamoDB displays two types of graphs on both the DynamoDB and CloudWatch consoles: *Most Accessed Items* and *Most Throttled Items*\.

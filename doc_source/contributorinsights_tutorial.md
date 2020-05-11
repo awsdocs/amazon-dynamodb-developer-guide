@@ -32,6 +32,33 @@ In the following examples, you use the DynamoDB table that is defined in the [Ge
 1. The Contributor Insights graphs are now visible on the **Contributor Insights** tab for the `Music` table\.   
 ![\[Console screenshot showing Contributor Insights tab with several graphs for the music table.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/CI_Graphs.png)
 
+### Creating CloudWatch Alarms<a name="usecontributorinsights_console_alarms"></a>
+
+Follow these steps to create a CloudWatch alarm and be notified when any partition key consumes more than 50,000 [ConsumedThroughputUnits](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/contributorinsights_HowItWorks.html#contributorinsights_HowItWorks.Graphs.most-accessed)\.
+
+1. Sign in to the AWS Management Console and open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)
+
+1. In the navigation pane on the left side of the console, choose **Contributor Insights**\.
+
+1. Choose the **DynamoDBContributorInsights\-PKC\-Music** rule\.
+
+1. Choose the **Actions** drop down\.
+
+1. Choose **View in metrics**\.
+
+1. Choose **Max Contributor Value**\.
+**Note**  
+Only `Max Contributor Value` and `Maximum` return useful statistics\. The other statistics in this list don't return meaningful values\.  
+![\[Console screenshot showing Contributor Insights tab and button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/CI_AlarmsViewinMetrics.png)
+
+1. On the **Actions** column, Choose **Create Alarm**\.  
+![\[Console screenshot showing Contributor Insights status list options.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/CI_AlarmsSetAlarm.png)
+
+1. Enter a value of 50000 for **threshold** and choose **Next**\.  
+![\[Console screenshot showing Contributor Insights tab and button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/CI_AlarmsSetAlarmThreashold.png)
+
+1.  See [Using Amazon CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) for details on how to configure the notification for the alarm\.
+
 ## Using Contributor Insights \(AWS CLI\)<a name="usecontributorinsights_cli"></a>
 
 1. Enable CloudWatch Contributor Insights for DynamoDB on the `Music` base table\.
