@@ -152,7 +152,7 @@ In this example, you perform the following updates:
 + Change the value of the existing attributes \(`rating`, `plot`\)\. 
 + Add a new list attribute \(`actors`\) to the existing `info` map\.
 
-The following shows the existing item\.
+Previously, you added the following item to the table\.
 
 ```
 {
