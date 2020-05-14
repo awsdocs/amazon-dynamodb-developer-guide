@@ -155,10 +155,10 @@ In this step, you will create a VPC endpoint for DynamoDB and test it to make su
 
    In the example output, the VPC ID is `vpc-0bbc736e`\.
 
-1. Create the VPC endpoint\. For the `--vpc-id` parameter, specify the VPC ID from the previous step\.
+1. Create the VPC endpoint\. For the `--vpc-id` parameter, specify the VPC ID from the previous step\. Use the `--route-table-ids` parameter to associate the endpoint with your route tables\.
 
    ```
-   aws ec2 create-vpc-endpoint --vpc-id vpc-0bbc736e --service-name com.amazonaws.us-east-1.dynamodb
+   aws ec2 create-vpc-endpoint --vpc-id vpc-0bbc736e --service-name com.amazonaws.us-east-1.dynamodb --route-table-ids rtb-11aa22bb
     
    {
        "VpcEndpoint": {
@@ -166,7 +166,9 @@ In this step, you will create a VPC endpoint for DynamoDB and test it to make su
            "VpcId": "vpc-0bbc736e", 
            "State": "available", 
            "ServiceName": "com.amazonaws.us-east-1.dynamodb", 
-           "RouteTableIds": [], 
+           "RouteTableIds": [
+               "rtb-11aa22bb"
+           ],
            "VpcEndpointId": "vpce-9b15e2f2", 
            "CreationTimestamp": "2017-07-26T22:00:14Z"
        }

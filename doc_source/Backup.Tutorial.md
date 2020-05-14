@@ -19,12 +19,12 @@ Follow these steps to create a backup named `MusicBackup` for an existing `Music
    + In the navigation pane on the left side of the console, choose **Backups**\. Then choose **Create backup**\.
 
 1. Make sure that `Music` is the table name, and enter **MusicBackup** for the backup name\. Then, choose **Create** to create the backup\.  
-![\[Screenshot of create table backup screen with table name and backup name filled in.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/confirm_createbackup.png)
+![\[Screenshot of create table backup screen with table name and backup name filled in.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/confirm_createbackup.png)![\[Screenshot of create table backup screen with table name and backup name filled in.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of create table backup screen with table name and backup name filled in.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 **Note**  
 If you create backups using the **Backups** section in the navigation pane, the table isn't preselected for you\. You have to manually choose the source table name for the backup\.
 
    While the backup is being created, the backup status is set to **Creating**\. After the backup is complete, the backup status changes to **Available**\.  
-![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/confirm_backup.png)
+![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/confirm_backup.png)![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Creating a Table Backup \(AWS CLI\)<a name="backup_cli"></a>
 

@@ -15,10 +15,10 @@ Follow these steps to enable Time to Live using the DynamoDB console:
 1. Choose **Tables**, and then choose the table that you want to modify\.
 
 1. In **Table details**, next to **TTL attribute**, choose **Manage TTL**\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_table.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_table.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. In the **Manage TTL** dialog box, choose **Enable TTL**, and then enter the **TTL attribute** name\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_manage.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_manage.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    There are three settings in **Manage TTL**:
    + **Enable TTL** – Choose this to either enable or disable TTL on the table\. It can take up to one hour for the change to fully process\.
@@ -35,7 +35,7 @@ Now that TTL is enabled, the TTL attribute is marked **TTL** when you view items
 
 You can view the date and time that an item expires by hovering your pointer over the attribute\.
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_items.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_items.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Enable Time to Live \(AWS CLI\)<a name="time-to-live-ttl-how-to-enable-cli-sdk"></a>
 

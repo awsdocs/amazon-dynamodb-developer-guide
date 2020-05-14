@@ -87,7 +87,7 @@ For detailed information about the consistency of the item cache in DAX, see [DA
 
 DAX also maintains a *query cache* to store the results from `Query` and `Scan` operations\. The items in this cache represent result sets from queries and scans on DynamoDB tables\. These result sets are stored by their parameter values\.
 
-When an application sends a `Query` or `Scan` request, DAX tries to read a matching result set from the query cache using the specified parameter values\. If the result set is found \(cache hit\), DAX returns it to the application immediately\. If the result set is not found \(cache miss\), DAX sends the request to DynamoDB\. DynamoDB processes the requests using eventually consistent reads and returns the result set to DAX\. DAX stores it in the item cache and then returns it to the application\.
+When an application sends a `Query` or `Scan` request, DAX tries to read a matching result set from the query cache using the specified parameter values\. If the result set is found \(cache hit\), DAX returns it to the application immediately\. If the result set is not found \(cache miss\), DAX sends the request to DynamoDB\. DynamoDB processes the requests using eventually consistent reads and returns the result set to DAX\. DAX stores it in the query cache and then returns it to the application\.
 
 **Note**  
 You can specify the TTL setting for the query cache when you create a new DAX cluster\. For more information, see [Managing DAX Clusters ](DAX.cluster-management.md)\.

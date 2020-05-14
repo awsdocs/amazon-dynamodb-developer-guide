@@ -20,13 +20,13 @@ The following procedure shows how to use the console to delete the `MusicBackup`
 1. In the navigation pane on the left side of the console, choose **Backups**\.
 
 1. In the list of backups, choose `MusicBackup`\.  
-![\[Screenshot showing the MusicBackup with status as available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackup.png)
+![\[Screenshot showing the MusicBackup with status as available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackup.png)![\[Screenshot showing the MusicBackup with status as available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing the MusicBackup with status as available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Choose **Delete backup**:  
-![\[Screenshot of the backups list with delete backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackupSelected.png)
+![\[Screenshot of the backups list with delete backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/deleteBackupSelected.png)![\[Screenshot of the backups list with delete backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the backups list with delete backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    Choose **Delete** to delete the backup\.  
-![\[Screenshot of the delete backup screen.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ConfirmDeleteBackup.png)
+![\[Screenshot of the delete backup screen.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ConfirmDeleteBackup.png)![\[Screenshot of the delete backup screen.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the delete backup screen.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Deleting a Table Backup \(AWS CLI\)<a name="deletebackup_cli"></a>
 

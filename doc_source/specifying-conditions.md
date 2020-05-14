@@ -88,9 +88,6 @@ IAM policy documents can contain only the following Unicode characters: horizont
 
 AWS provides a set of predefined condition keys \(AWS\-wide condition keys\) for all AWS services that support IAM for access control\. For example, you can use the `aws:SourceIp` condition key to check the requester's IP address before allowing an action to be performed\. For more information and a list of the AWS\-wide keys, see [Available Keys for Conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#AvailableKeys) in the IAM User Guide\.
 
-**Note**  
-Condition keys are case\-sensitive\.
-
 The following table shows the DynamoDB service\-specific condition keys that apply to DynamoDB\.
 
 

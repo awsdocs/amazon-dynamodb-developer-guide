@@ -9,19 +9,13 @@ Follow these steps to run the Node\.js sample application on your Amazon EC2 ins
    1. Install node version manager \(`nvm`\)\.
 
       ```
-      curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
-      ```
-
-   1. Activate nvm\.
-
-      ```
-      . ~/.nvm/nvm.sh
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
       ```
 
    1. Use nvm to install Node\.js\.
 
       ```
-      nvm install 6.4.0
+      nvm install 12.16.3
       ```
 
    1. Test that Node\.js is installed and running correctly\.
@@ -32,7 +26,7 @@ Follow these steps to run the Node\.js sample application on your Amazon EC2 ins
 
       This should display the following message\.
 
-      `Running Node.js v6.4.0`
+      `Running Node.js v12.16.3`
 
 1. Install the DAX Node\.js client using the node package manager \(`npm`\)\.
 

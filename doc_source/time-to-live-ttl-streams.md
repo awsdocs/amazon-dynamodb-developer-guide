@@ -26,5 +26,6 @@ The following JSON shows the relevant portion of a single streams record\.
 
         ...
 
-    ]}
+    }
+]
 ```

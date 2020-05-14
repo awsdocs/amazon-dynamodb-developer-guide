@@ -23,18 +23,18 @@ This procedure assumes that the `Music` table no longer exists before restoring 
 1. In the navigation pane on the left side of the console, choose **Backups**\.
 
 1. In the list of backups, choose `MusicBackup`\.  
-![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/select_musicbackup.png)
+![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/select_musicbackup.png)![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Choose **Restore backup**\.  
-![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/choose_restore.png)
+![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/choose_restore.png)![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Enter **Music** as the new table name\. Confirm the backup name and other backup details\. Then choose **Restore table** to start the restore process\.
 **Note**  
 You can restore the table to the same AWS Region or to a different Region from where the backup resides\. You can also exclude secondary indexes from being created on the new restored table\. In addition, you can specify a different encryption mode\.  
-![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)
+![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `Music` table changes to **Active**\.  
-![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_complete.png)
+![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_complete.png)![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Restoring a Table from a Backup \(AWS CLI\)<a name="restoretable_cli"></a>
 
