@@ -159,7 +159,7 @@ You can `Query` any table or secondary index, provided that it has a composite p
 | --- | --- | 
 | Table | The table's provisioned read capacity\. | 
 | Global secondary index | The index's provisioned read capacity\. | 
-| Local secondary index | The base table's provisioned read capacity\. | 
+| Local secondary index | The table's provisioned read capacity\. | 
 
 By default, a `Query` operation does not return any data on how much read capacity it consumes\. However, you can specify the `ReturnConsumedCapacity` parameter in a `Query` request to obtain this information\. The following are the valid settings for `ReturnConsumedCapacity`:
 + `NONE` — No consumed capacity data is returned\. \(This is the default\.\)
