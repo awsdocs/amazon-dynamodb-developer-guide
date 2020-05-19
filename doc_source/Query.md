@@ -129,11 +129,11 @@ A filter expression removes items from the `Query` result set\. If possible, avo
 
 ## Limiting the Number of Items in the Result Set<a name="Query.Limit"></a>
 
-The `Query` operation allows you to limit the number of items that it returns in the result\. To do this, set the `Limit` parameter to the maximum number of items that you want\.
+The `Query` operation allows you to limit the number of items that it reads\. To do this, set the `Limit` parameter to the maximum number of items that you want\.
 
 For example, suppose that you `Query` a table, with a `Limit` value of `6`, and without a filter expression\. The `Query` result contains the first six items from the table that match the key condition expression from the request\.
 
-Now suppose that you add a filter expression to the `Query`\. In this case, DynamoDB applies the filter expression to the six items that were returned, discarding those that do not match\. The final `Query` result contains six items or fewer, depending on the number of items that were filtered\.
+Now suppose that you add a filter expression to the `Query`\. In this case, DynamoDB only reads up to six items, and then returns those that match the filter expression\. The final `Query` result contains six items or fewer, even if more items would have matched the filter expression if DynamoDB kept reading more items\.
 
 ## Counting the Items in the Results<a name="Query.Count"></a>
 
