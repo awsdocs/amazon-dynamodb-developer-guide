@@ -221,7 +221,7 @@ There is no limit on the number of values in a List, a Map, or a Set, as long as
 
 ### Attribute Values<a name="limits-attributes-values"></a>
 
-An attribute value cannot be an empty String or empty Set \(String Set, Number Set, or Binary Set\)\. However, empty Lists and Maps are allowed\.
+Empty String and Binary attribute values are allowed, if the attribute is not used as a key attribute for a table or index\. Empty String and Binary values are allowed inside Set, List, and Map types\. An attribute value cannot be an an empty Set \(String Set, Number Set, or Binary Set\)\. However, empty Lists and Maps are allowed\.
 
 ### Nested Attribute Depth<a name="limits-attributes-nested-depth"></a>
 

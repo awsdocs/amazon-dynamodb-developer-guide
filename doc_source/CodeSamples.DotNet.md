@@ -55,7 +55,7 @@ The code examples in this guide are intended for use with the latest version of 
 
 ## \.NET: Setting Your AWS Credentials<a name="CodeSamples.DotNet.Credentials"></a>
 
-The AWS SDK for \.NET requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using the SDK Store to manage your AWS credentials file, as described in [Using the SDK Store](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/net-dg-config-creds.html#sdk-store) in the *AWS SDK for \.NET Developer Guide*\.
+The AWS SDK for \.NET requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using the SDK Store to manage your AWS credentials file, as described in [Using the SDK Store](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-creds.html#sdk-store) in the *AWS SDK for \.NET Developer Guide*\.
 
 The Toolkit for Visual Studio supports multiple sets of credentials from any number of accounts\. Each set is referred to as a *profile*\. Visual Studio adds entries to the project's `App.config` file so that your application can find the AWS credentials at runtime\.
 

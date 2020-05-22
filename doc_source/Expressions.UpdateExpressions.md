@@ -220,7 +220,7 @@ To increase the `Price`, you would use the `+` operator in the update expression
 You can add elements to the end of a list\. To do this, use `SET` with the `list_append` function\. \(The function name is case sensitive\.\) The `list_append` function is specific to the `SET` action and can only be used in an update expression\. The syntax is as follows\.
 + `list_append (list1, list2)`
 
-The function takes two lists as input and appends `list2` to ` list1`\.
+The function takes two lists as input and appends all elements from `list2` to ` list1`\.
 
 **Example**  
 In [Adding Elements to a List](#Expressions.UpdateExpressions.SET.AddingListElements), you create the `RelatedItems` list and populate it with two elements: `Hammer` and `Nails`\. Now you append two more elements to the end of `RelatedItems`\.  

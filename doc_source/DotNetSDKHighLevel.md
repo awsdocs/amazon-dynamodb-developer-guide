@@ -98,3 +98,7 @@ The following table summarizes the mapping of the preceding \.NET types to the D
 | DateTime | S \(string type\)\. The DateTime values are stored as ISO\-8601 formatted strings\. | 
 
 The object persistence model also supports arbitrary data types\. However, you must provide converter code to map the complex types to the DynamoDB types\.
+
+**Note**  
+Empty binary values are supported\.
+Reading of empty string values is supported\. Empty string attribute values are supported within attribute values of string Set type while writing to DynamoDB\. Empty string attribute values of string type and empty string values contained within List or Map type are dropped from write requests

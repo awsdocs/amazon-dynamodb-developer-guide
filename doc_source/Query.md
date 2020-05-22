@@ -133,7 +133,7 @@ The `Query` operation allows you to limit the number of items that it reads\. To
 
 For example, suppose that you `Query` a table, with a `Limit` value of `6`, and without a filter expression\. The `Query` result contains the first six items from the table that match the key condition expression from the request\.
 
-Now suppose that you add a filter expression to the `Query`\. In this case, DynamoDB only reads up to six items, and then returns those that match the filter expression\. The final `Query` result contains six items or fewer, even if more items would have matched the filter expression if DynamoDB kept reading more items\.
+Now suppose that you add a filter expression to the `Query`\. In this case, DynamoDB reads up to six items, and then returns only those that match the filter expression\. The final `Query` result contains six items or fewer, even if more items would have matched the filter expression if DynamoDB had kept reading more items\.
 
 ## Counting the Items in the Results<a name="Query.Count"></a>
 

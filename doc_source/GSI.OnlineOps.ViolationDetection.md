@@ -6,6 +6,10 @@ An *index key violation* occurs in the following situations:
 + There is a data type mismatch between an attribute value and the index key schema data type\. For example, suppose that one of the items in the `GameScores` table had a `TopScore` value of type `String`\. If you added a global secondary index with a partition key of `TopScore`, of type `Number`, the item from the table would violate the index key\.
 + An attribute value from the table exceeds the maximum length for an index key attribute\. The maximum length of a partition key is 2048 bytes, and the maximum length of a sort key is 1024 bytes\. If any of the corresponding attribute values in the table exceed these limits, the item from the table would violate the index key\.
 
+**Note**  
+If a String or Binary attribute value is set for an attribute that is used as an index key, then the attribute value must have a length greater than zero;, otherwise, the item from the table would violate the index key\.  
+This tool does not flag this index key violation, at this time\.
+
 If an index key violation occurs, the backfill phase continues without interruption\. However, any violating items are not included in the index\. After the backfill phase completes, all writes to items that violate the new index's key schema will be rejected\.
 
 To identify and fix attribute values in a table that violate an index key, use the Violation Detector tool\. To run Violation Detector, you create a configuration file that specifies the name of a table to be scanned, the names and data types of the global secondary index partition key and sort key, and what actions to take if any index key violations are found\. Violation Detector can run in one of two different modes:

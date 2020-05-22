@@ -69,7 +69,11 @@ While the resource allocation and backfilling phases are in progress, the index 
 When the index build is complete, its status changes to `ACTIVE`\. You can't `Query` or `Scan` the index until it is `ACTIVE`\.
 
 **Note**  
-In some cases, DynamoDB can't write data from the table to the index due to index key violations\. This can occur if the data type of an attribute value does not match the data type of an index key schema data type, or if the size of an attribute exceeds the maximum length for an index key attribute\. Index key violations do not interfere with global secondary index creation\. However, when the index becomes `ACTIVE`, the violating keys are not present in the index\.  
+In some cases, DynamoDB can't write data from the table to the index because of index key violations\. This can occur if:  
+The data type of an attribute value does not match the data type of an index key schema data type\.
+The size of an attribute exceeds the maximum length for an index key attribute\.
+An index key attribute has an empty String or empty Binary attribute value\.
+Index key violations do not interfere with global secondary index creation\. However, when the index becomes `ACTIVE`, the violating keys are not present in the index\.  
 DynamoDB provides a standalone tool for finding and resolving these issues\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
 
 ### Adding a Global Secondary Index to a Large Table<a name="GSI.OnlineOps.Creating.LargeTable"></a>

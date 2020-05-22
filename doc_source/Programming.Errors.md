@@ -93,7 +93,8 @@ OK to retry? No
 
 **ThrottlingException**  
 Message: *Rate of requests exceeds the allowed throughput\.*  
-This exception might be returned if you perform any of the following operations too rapidly: `CreateTable`, `UpdateTable`, `DeleteTable`\.  
+This exception is returned as an AmazonServiceException response with a THROTTLING\_EXCEPTION status code\. This exception might be returned if you perform [control plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.ControlPlane) API operations too rapidly\.  
+For tables using on\-demand mode, this exception might be returned for any [data plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.DataPlane) API operation if your request rate is too high\. To learn more about on\-demand scaling, see [Peak Traffic and Scaling Properties](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.PeakTraffic)   
 OK to retry? Yes
 
 **UnrecognizedClientException**  

@@ -63,7 +63,7 @@ For more information, see [http://en\.wikipedia\.org/wiki/Unix\_time](http://en.
 
 #### String<a name="HowItWorks.DataTypes.String"></a>
 
-Strings are Unicode with UTF\-8 binary encoding\. The length of a string must be greater than zero and is constrained by the maximum DynamoDB item size limit of 400 KB\.
+Strings are Unicode with UTF\-8 binary encoding\. The minimum length of a string can be zero, if the attribute is not used as a key for an index or table, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
 The following additional constraints apply to primary key attributes that are defined as type string:
 + For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
@@ -82,7 +82,7 @@ For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.w
 
 Binary type attributes can store any binary data, such as compressed text, encrypted data, or images\. Whenever DynamoDB compares binary values, it treats each byte of the binary data as unsigned\.
 
-The length of a binary attribute must be greater than zero, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
+The length of a binary attribute can be zero, if the attribute is not used as a key for an index or table, and is constrained by the maximum DynamoDB item size limit of 400 KB\.
 
 If you define a primary key attribute as a binary type attribute, the following additional constraints apply:
 + For a simple primary key, the maximum length of the first attribute value \(the partition key\) is 2048 bytes\.
@@ -110,7 +110,7 @@ The document types are list and map\. These data types can be nested within each
 
 There is no limit on the number of values in a list or a map, as long as the item containing the values fits within the DynamoDB item size limit \(400 KB\)\.
 
- An attribute value cannot be an empty string or empty set \(string set, number set, or binary set\)\. However, empty lists and maps are allowed\. For more information, see [Attributes](Limits.md#limits-attributes)\. 
+ An attribute value can be an empty string or empty binary value if the attribute is not used for a table or index key\. An attribute value cannot be an empty set \(string set, number set, or binary set\), however, empty lists and maps are allowed\. Empty string and binary values are allowed within lists and maps\. For more information, see [Attributes](Limits.md#limits-attributes)\. 
 
 #### List<a name="HowItWorks.DataTypes.Document.List"></a>
 
@@ -160,7 +160,7 @@ DynamoDB supports types that represent sets of number, string, or binary values\
 
 There is no limit on the number of values in a set, as long as the item containing the values fits within the DynamoDB item size limit \(400 KB\)\.
 
-Each value within a set must be unique\. The order of the values within a set is not preserved\. Therefore, your applications must not rely on any particular order of elements within the set\. Finally, DynamoDB does not support empty sets\.
+Each value within a set must be unique\. The order of the values within a set is not preserved\. Therefore, your applications must not rely on any particular order of elements within the set\. DynamoDB does not support empty sets, however, empty string and binary values are allowed within a set\.
 
 The following example shows a string set, a number set, and a binary set: 
 
