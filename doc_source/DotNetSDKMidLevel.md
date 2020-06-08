@@ -2,6 +2,7 @@
 
 **Topics**
 + [Operations Not Supported by the Document Model](#MidLevelAPILimitations)
++ [Supported Data Types](MidLevelAPILimitations.SupportedTypes.md)
 + [Working with Items in DynamoDB Using the AWS SDK for \.NET Document Model](WorkingWithItemsDocumentClasses.md)
 + [Getting an Item \- Table\.GetItem](#GetMidLevelDotNet)
 + [Deleting an Item \- Table\.DeleteItem](#DeleteItemMidLevelDotNet)

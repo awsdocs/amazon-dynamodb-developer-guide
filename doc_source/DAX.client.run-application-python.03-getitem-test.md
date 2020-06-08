@@ -3,60 +3,64 @@
 The `03-getitem-test.py` program performs `GetItem` operations on `TryDaxTable`\.
 
 ```
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-#!/usr/bin/env python
-from __future__ import print_function
-
-import os, sys, time
+import argparse
+import sys
+import time
 import amazondax
-import botocore.session
+import boto3
 
-region = os.environ.get('AWS_DEFAULT_REGION', 'us-west-2')
 
-session = botocore.session.get_session()
-dynamodb = session.create_client('dynamodb', region_name=region) # low-level client
+def get_item_test(key_count, iterations, dyn_resource=None):
+    """
+    Gets items from the table a specified number of times. The time before the
+    first iteration and the time after the last iteration are both captured
+    and reported.
 
-table_name = "TryDaxTable"
+    :param key_count: The number of items to get from the table in each iteration.
+    :param iterations: The number of iterations to run.
+    :param dyn_resource: Either a Boto3 or DAX resource.
+    :return: The start and end times of the test.
+    """
+    if dyn_resource is None:
+        dyn_resource = boto3.resource('dynamodb')
 
-if len(sys.argv) > 1:
-    endpoint = sys.argv[1]
-    dax = amazondax.AmazonDaxClient(session, region_name=region, endpoints=[endpoint])
-    client = dax
-else:
-    client = dynamodb
+    table = dyn_resource.Table('TryDaxTable')
+    start = time.perf_counter()
+    for _ in range(iterations):
+        for partition_key in range(1, key_count + 1):
+            for sort_key in range(1, key_count + 1):
+                table.get_item(Key={
+                    'partition_key': partition_key,
+                    'sort_key': sort_key
+                })
+                print('.', end='')
+                sys.stdout.flush()
+    print()
+    end = time.perf_counter()
+    return start, end
 
-pk = 10
-sk = 10
-iterations = 50
 
-start = time.time()
-for i in range(iterations):
-    for ipk in range(1, pk+1):
-        for isk in range(1, sk+1):
-            params = {
-                'TableName': table_name,
-                'Key': {
-                    "pk": {'N': str(ipk)},
-                    "sk": {'N': str(isk)}
-                }
-            }
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'endpoint_url', nargs='?',
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+    args = parser.parse_args()
 
-            result = client.get_item(**params)
-            print('.', end='', file=sys.stdout); sys.stdout.flush()
-print()
-
-end = time.time()
-print('Total time: {} sec - Avg time: {} sec'.format(end - start, (end-start)/iterations))
+    test_key_count = 10
+    test_iterations = 50
+    if args.endpoint_url:
+        print(f"Getting each item from the table {test_iterations} times, "
+              f"using the DAX client.")
+        # Use a with statement so the DAX client closes the cluster after completion.
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
+            test_start, test_end = get_item_test(
+                test_key_count, test_iterations, dyn_resource=dax)
+    else:
+        print(f"Getting each item from the table {test_iterations} times, "
+              f"using the Boto3 client.")
+        test_start, test_end = get_item_test(
+            test_key_count, test_iterations)
+    print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
+          f"{(test_end - test_start)/ test_iterations}.")
 ```

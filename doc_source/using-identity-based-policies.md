@@ -57,7 +57,7 @@ The following AWS managed policies, which you can attach to users in your accoun
 **Note**  
 You can review these permissions policies by signing in to the IAM console and searching for specific policies there\.
 
-You can also create your own custom IAM policies to allow permissions for DynamoDB actions and resources\. You can attach these custom policies to the IAM users or groups that require those permissions\. 
+We do not recommend using these AWS managed policies for production databases\. Instead, you should create your own custom IAM policies to allow permissions for DynamoDB actions and resources following the [least privilege model](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)\. You can attach these custom policies to the IAM users or groups that require those permissions\.
 
 ## Customer Managed Policy Examples<a name="access-policy-examples-for-sdk-cli"></a>
 

@@ -10,7 +10,7 @@ DynamoDB provides on\-demand backup capability\. It allows you to create full ba
 
  You can create on\-demand backups and enable point\-in\-time recovery for your Amazon DynamoDB tables\. Point\-in\-time recovery helps protect your tables from accidental write or delete operations\. With point\-in\-time recovery, you can restore that table to any point in time during the last 35 days\. For more information, see [Point\-in\-Time Recovery: How It Works](PointInTimeRecovery_Howitworks.md)\. 
 
- DynamoDB allows you to delete expired items from tables automatically to help you reduce storage usage and the cost of storing data that is no longer relevant\. For more information, see [Expiring Items Using Time to Live \(TTL\)](TTL.md)\. 
+ DynamoDB allows you to delete expired items from tables automatically to help you reduce storage usage and the cost of storing data that is no longer relevant\. For more information, see [Expiring Items By Using DynamoDB Time to Live \(TTL\)](TTL.md)\. 
 
 ## High Availability and Durability<a name="ddb_highavailability"></a>
 

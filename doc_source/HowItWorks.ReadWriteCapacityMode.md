@@ -115,7 +115,7 @@ For more information, see [Managing Throughput Capacity Automatically with Dynam
 
 ### Reserved Capacity<a name="HowItWorks.ProvisionedThroughput.ReservedCapacity"></a>
 
-As a DynamoDB customer, you can purchase *reserved capacity* in advance, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. By reserving your read and write capacity units ahead of time, you realize significant cost savings compared to on\-demand provisioned throughput settings\.
+As a DynamoDB customer, you can purchase *reserved capacity* in advance, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. Your reserved capacity is billed at the hourly reserved capacity rate\. By reserving your read and write capacity units ahead of time, you realize significant cost savings compared to on\-demand provisioned throughput settings\. Any capacity that you provision in excess of your reserved capacity is billed at standard provisioned capacity rates\.
 
 **Note**  
  Reserved capacity is not available in on\-demand mode\. 

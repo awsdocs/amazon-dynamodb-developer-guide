@@ -3,49 +3,53 @@
 The `05-scan-test.py` program performs `Scan` operations on `TryDaxTable`\.
 
 ```
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-#!/usr/bin/env python
-from __future__ import print_function
-
-import os, sys, time
+import argparse
+import time
+import sys
 import amazondax
-import botocore.session
+import boto3
 
-region = os.environ.get('AWS_DEFAULT_REGION', 'us-west-2')
 
-session = botocore.session.get_session()
-dynamodb = session.create_client('dynamodb', region_name=region) # low-level client
+def scan_test(iterations, dyn_resource=None):
+    """
+    Scans the table a specified number of times. The time before the
+    first iteration and the time after the last iteration are both captured
+    and reported.
 
-table_name = "TryDaxTable"
+    :param iterations: The number of iterations to run.
+    :param dyn_resource: Either a Boto3 or DAX resource.
+    :return: The start and end times of the test.
+    """
+    if dyn_resource is None:
+        dyn_resource = boto3.resource('dynamodb')
 
-if len(sys.argv) > 1:
-    endpoint = sys.argv[1]
-    dax = amazondax.AmazonDaxClient(session, region_name=region, endpoints=[endpoint])
-    client = dax
-else:
-    client = dynamodb
+    table = dyn_resource.Table('TryDaxTable')
+    start = time.perf_counter()
+    for _ in range(iterations):
+        table.scan()
+        print('.', end='')
+        sys.stdout.flush()
+    print()
+    end = time.perf_counter()
+    return start, end
 
-iterations = 5
 
-params = {
-    'TableName': table_name
-}
-start = time.time()
-for i in range(iterations):
-    result = client.scan(**params)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'endpoint_url', nargs='?',
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+    args = parser.parse_args()
 
-end = time.time()
-print('Total time: {} sec - Avg time: {} sec'.format(end - start, (end-start)/iterations))
+    test_iterations = 100
+    if args.endpoint_url:
+        print(f"Scanning the table {test_iterations} times, using the DAX client.")
+        # Use a with statement so the DAX client closes the cluster after completion.
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
+            test_start, test_end = scan_test(test_iterations, dyn_resource=dax)
+    else:
+        print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
+        test_start, test_end = scan_test(test_iterations)
+    print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
+          f"{(test_end - test_start)/test_iterations}.")
 ```

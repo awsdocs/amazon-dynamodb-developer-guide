@@ -3,27 +3,38 @@
 The `02-write-data.py` program writes test data to `TryDaxTable`\.
 
 ```
-import os
 import boto3
 
-table_name = 'TryDaxTable'
-some_data = 'X' * 1000
-pk_max = 10
-sk_max = 10
 
-region = os.environ.get('AWS_DEFAULT_REGION', 'us-west-2')
-dynamodb = boto3.client('dynamodb', region_name=region)
-for ipk in range(1, pk_max+1):
-    for isk in range(1, sk_max+1):
-        params = {
-            'TableName': table_name,
-            'Item': {
-                'pk': {'N': str(ipk)},
-                'sk': {'N': str(isk)},
-                'someData': {'S': some_data}
-            }
-        }
+def write_data_to_dax_table(key_count, item_size, dyn_resource=None):
+    """
+    Writes test data to the demonstration table.
 
-        dynamodb.put_item(**params)
-        print(f'PutItem ({ipk}, {isk}) succeeded')
+    :param key_count: The number of partition and sort keys to use to populate the
+                      table. The total number of items is key_count * key_count.
+    :param item_size: The size of non-key data for each test item.
+    :param dyn_resource: Either a Boto3 or DAX resource.
+    """
+    if dyn_resource is None:
+        dyn_resource = boto3.resource('dynamodb')
+
+    table = dyn_resource.Table('TryDaxTable')
+    some_data = 'X' * item_size
+
+    for partition_key in range(1, key_count + 1):
+        for sort_key in range(1, key_count + 1):
+            table.put_item(Item={
+                'partition_key': partition_key,
+                'sort_key': sort_key,
+                'some_data': some_data
+            })
+            print(f"Put item ({partition_key}, {sort_key}) succeeded.")
+
+
+if __name__ == '__main__':
+    write_key_count = 10
+    write_item_size = 1000
+    print(f"Writing {write_key_count*write_key_count} items to the table. "
+          f"Each item is {write_item_size} characters.")
+    write_data_to_dax_table(write_key_count, write_item_size)
 ```

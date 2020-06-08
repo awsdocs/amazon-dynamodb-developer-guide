@@ -45,7 +45,7 @@ Changes to auto scaling settings for a replica table or secondary index made thr
 
 **Note**  
  If auto scaling doesn't satisfy your application's capacity changes \(unpredictable workload\), or if you don't want to configure its settings \(target settings for minimum, maximum, or utilization threshold\), you can use on\-demand mode to manage capacity for your global tables\. For more information, see [On\-Demand Mode](HowItWorks.ReadWriteCapacityMode.md#HowItWorks.OnDemand)\.   
-If you enable on\-demand mode on a global table, your consumption of replicated write request units \(rWCUs\) will be consistent with how rWCUs are provisioned\. For example, if you perform 10 writes to a local table that is replicated in two additional Regions, you will consume 60 write request units \(10 \+ 10 \+ 10 = 30; 30 x 2 = 60\)\. 
+If you enable on\-demand mode on a global table, your consumption of replicated write request units \(rWCUs\) will be consistent with how rWCUs are provisioned\. For example, if you perform 10 writes to a local table that is replicated in two additional Regions, you will consume 60 write request units \(10 \+ 10 \+ 10 = 30; 30 x 2 = 60\)\. The consumed 60 write request units include the extra write consumed by global tables Version 2017\.11\.29 to update the `aws:rep:deleting`, `aws:rep:updatetime`, and `aws:rep:updateregion` attributes\. 
 
 ### Managing Capacity Manually<a name="globaltables_reqs_bestpractices.tables.manual-capacity-management"></a>
 

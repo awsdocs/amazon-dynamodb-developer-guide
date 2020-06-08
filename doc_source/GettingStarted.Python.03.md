@@ -19,54 +19,33 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy the following program and paste it into a file named `MoviesItemOps01.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if abs(o) % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def put_movie(title, year, plot, rating, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
-   
-   title = "The Big New Movie"
-   year = 2015
-   
-   response = table.put_item(
-      Item={
-           'year': year,
-           'title': title,
-           'info': {
-               'plot':"Nothing happens at all.",
-               'rating': decimal.Decimal(0)
+       table = dynamodb.Table('Movies')
+       response = table.put_item(
+          Item={
+               'year': year,
+               'title': title,
+               'info': {
+                   'plot': plot,
+                   'rating': rating
+               }
            }
-       }
-   )
+       )
+       return response
    
-   print("PutItem succeeded:")
-   print(json.dumps(response, indent=4, cls=DecimalEncoder))
+   
+   if __name__ == '__main__':
+       movie_resp = put_movie("The Big New Movie", 2015,
+                              "Nothing happens at all.", 0)
+       print("Put movie succeeded:")
+       pprint(movie_resp, sort_dicts=False)
    ```
 **Note**  
 The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores sample JSON that provides more information about the movie\.
@@ -96,56 +75,30 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
 1. Copy the following program and paste it into a file named `MoviesItemOps02.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
-   from boto3.dynamodb.conditions import Key, Attr
    from botocore.exceptions import ClientError
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource("dynamodb", region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def get_movie(title, year, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
    
-   title = "The Big New Movie"
-   year = 2015
+       try:
+           response = table.get_item(Key={'year': year, 'title': title})
+       except ClientError as e:
+           print(e.response['Error']['Message'])
+       else:
+           return response['Item']
    
-   try:
-       response = table.get_item(
-           Key={
-               'year': year,
-               'title': title
-           }
-       )
-   except ClientError as e:
-       print(e.response['Error']['Message'])
-   else:
-       item = response['Item']
-       print("GetItem succeeded:")
-       print(json.dumps(item, indent=4, cls=DecimalEncoder))
+   
+   if __name__ == '__main__':
+       movie = get_movie("The Big New Movie", 2015,)
+       if movie:
+           print("Get movie succeeded:")
+           pprint(movie, sort_dicts=False)
    ```
 
 1. To run the program, enter the following command\.
@@ -190,57 +143,39 @@ The item is updated as follows\.
 1. Copy the following program and paste it into a file named `MoviesItemOps03.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from decimal import Decimal
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def update_movie(title, year, rating, plot, actors, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
    
-   title = "The Big New Movie"
-   year = 2015
+       response = table.update_item(
+           Key={
+               'year': year,
+               'title': title
+           },
+           UpdateExpression="set info.rating=:r, info.plot=:p, info.actors=:a",
+           ExpressionAttributeValues={
+               ':r': Decimal(rating),
+               ':p': plot,
+               ':a': actors
+           },
+           ReturnValues="UPDATED_NEW"
+       )
+       return response
    
-   response = table.update_item(
-       Key={
-           'year': year,
-           'title': title
-       },
-       UpdateExpression="set info.rating = :r, info.plot=:p, info.actors=:a",
-       ExpressionAttributeValues={
-           ':r': decimal.Decimal(5.5),
-           ':p': "Everything happens all at once.",
-           ':a': ["Larry", "Moe", "Curly"]
-       },
-       ReturnValues="UPDATED_NEW"
-   )
    
-   print("UpdateItem succeeded:")
-   print(json.dumps(response, indent=4, cls=DecimalEncoder))
+   if __name__ == '__main__':
+       update_response = update_movie(
+           "The Big New Movie", 2015, 5.5, "Everything happens all at once.",
+           ["Larry", "Moe", "Curly"])
+       print("Update movie succeeded:")
+       pprint(update_response, sort_dicts=False)
    ```
 **Note**  
 This program uses `UpdateExpression` to describe all updates you want to perform on the specified item\.  
@@ -259,55 +194,35 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy the following program and paste it into a file named `MoviesItemOps04.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from decimal import Decimal
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def increase_rating(title, year, rating_increase, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
    
-   title = "The Big New Movie"
-   year = 2015
+       response = table.update_item(
+           Key={
+               'year': year,
+               'title': title
+           },
+           UpdateExpression="set info.rating = info.rating + :val",
+           ExpressionAttributeValues={
+               ':val': Decimal(rating_increase)
+           },
+           ReturnValues="UPDATED_NEW"
+       )
+       return response
    
-   response = table.update_item(
-       Key={
-           'year': year,
-           'title': title
-       },
-       UpdateExpression="set info.rating = info.rating + :val",
-       ExpressionAttributeValues={
-           ':val': decimal.Decimal(1)
-       },
-       ReturnValues="UPDATED_NEW"
-   )
    
-   print("UpdateItem succeeded:")
-   print(json.dumps(response, indent=4, cls=DecimalEncoder))
+   if __name__ == '__main__':
+       update_response = increase_rating("The Big New Movie", 2015, 1)
+       print("Update movie succeeded:")
+       pprint(update_response, sort_dicts=False)
    ```
 
 1. To run the program, enter the following command\.
@@ -323,66 +238,43 @@ In this case, the item is updated only if there are more than three actors\.
 1. Copy the following program and paste it into a file named `MoviesItemOps05.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from pprint import pprint
    import boto3
    from botocore.exceptions import ClientError
-   import json
-   import decimal
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def remove_actors(title, year, actor_count, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
    
-   title = "The Big New Movie"
-   year = 2015
-   
-   # Conditional update (will fail)
-   print("Attempting conditional update...")
-   
-   try:
-       response = table.update_item(
-           Key={
-               'year': year,
-               'title': title
-           },
-           UpdateExpression="remove info.actors[0]",
-           ConditionExpression="size(info.actors) > :num",
-           ExpressionAttributeValues={
-               ':num': 3
-           },
-           ReturnValues="UPDATED_NEW"
-       )
-   except ClientError as e:
-       if e.response['Error']['Code'] == "ConditionalCheckFailedException":
-           print(e.response['Error']['Message'])
+       try:
+           response = table.update_item(
+               Key={
+                   'year': year,
+                   'title': title
+               },
+               UpdateExpression="remove info.actors[0]",
+               ConditionExpression="size(info.actors) > :num",
+               ExpressionAttributeValues={':num': actor_count},
+               ReturnValues="UPDATED_NEW"
+           )
+       except ClientError as e:
+           if e.response['Error']['Code'] == "ConditionalCheckFailedException":
+               print(e.response['Error']['Message'])
+           else:
+               raise
        else:
-           raise
-   else:
-       print("UpdateItem succeeded:")
-       print(json.dumps(response, indent=4, cls=DecimalEncoder))
+           return response
+   
+   
+   if __name__ == '__main__':
+       print("Attempting conditional update (expecting failure)...")
+       update_response = remove_actors("The Big New Movie", 2015, 3)
+       if update_response:
+           print("Update movie succeeded:")
+           pprint(update_response, sort_dicts=False)
    ```
 
 1. To run the program, enter the following command\.
@@ -414,63 +306,44 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy the following program and paste it into a file named `MoviesItemOps06.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from decimal import Decimal
+   from pprint import pprint
    import boto3
    from botocore.exceptions import ClientError
-   import json
-   import decimal
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def delete_underrated_movie(title, year, rating, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
    
-   title = "The Big New Movie"
-   year = 2015
-   
-   print("Attempting a conditional delete...")
-   
-   try:
-       response = table.delete_item(
-           Key={
-               'year': year,
-               'title': title
-           },
-           ConditionExpression="info.rating <= :val",
-           ExpressionAttributeValues= {
-               ":val": decimal.Decimal(5)
-           }
-       )
-   except ClientError as e:
-       if e.response['Error']['Code'] == "ConditionalCheckFailedException":
-           print(e.response['Error']['Message'])
+       try:
+           response = table.delete_item(
+               Key={
+                   'year': year,
+                   'title': title
+               },
+               ConditionExpression="info.rating <= :val",
+               ExpressionAttributeValues={
+                   ":val": Decimal(rating)
+               }
+           )
+       except ClientError as e:
+           if e.response['Error']['Code'] == "ConditionalCheckFailedException":
+               print(e.response['Error']['Message'])
+           else:
+               raise
        else:
-           raise
-   else:
-       print("DeleteItem succeeded:")
-       print(json.dumps(response, indent=4, cls=DecimalEncoder))
+           return response
+   
+   
+   if __name__ == '__main__':
+       print("Attempting a conditional delete...")
+       delete_response = delete_underrated_movie("The Big New Movie", 2015, 5)
+       if delete_response:
+           print("Delete movie succeeded:")
+           pprint(delete_response, sort_dicts=False)
    ```
 
 1. To run the program, enter the following command\.

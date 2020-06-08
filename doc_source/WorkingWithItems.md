@@ -26,7 +26,7 @@ This section describes how to use these operations and includes related topics, 
 + [Atomic Counters](#WorkingWithItems.AtomicCounters)
 + [Conditional Writes](#WorkingWithItems.ConditionalUpdate)
 + [Using Expressions in DynamoDB](Expressions.md)
-+ [Expiring Items Using Time to Live \(TTL\)](TTL.md)
++ [Expiring Items By Using DynamoDB Time to Live \(TTL\)](TTL.md)
 + [Working with Items: Java](JavaDocumentAPIItemCRUD.md)
 + [Working with Items: \.NET](LowLevelDotNetItemCRUD.md)
 

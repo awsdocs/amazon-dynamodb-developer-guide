@@ -24,47 +24,27 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy the following program and paste it into a file named `MoviesQuery01.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
    import boto3
-   import json
-   import decimal
-   from boto3.dynamodb.conditions import Key, Attr
+   from boto3.dynamodb.conditions import Key
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def query_movies(year, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
+       response = table.query(
+           KeyConditionExpression=Key('year').eq(year)
+       )
+       return response['Items']
    
-   print("Movies from 1985")
    
-   response = table.query(
-       KeyConditionExpression=Key('year').eq(1985)
-   )
-   
-   for i in response['Items']:
-       print(i['year'], ":", i['title'])
+   if __name__ == '__main__':
+       query_year = 1985
+       print(f"Movies from {query_year}")
+       movies = query_movies(query_year)
+       for movie in movies:
+           print(movie['year'], ":", movie['title'])
    ```
 **Note**  
 The Boto 3 SDK constructs a `ConditionExpression` for you when you use the `Key` and `Attr` functions imported from `boto3.dynamodb.conditions`\. You can also specify a `ConditionExpression` as a string\.  
@@ -85,46 +65,37 @@ The program included in this step retrieves all movies released in `year` 1992 w
 1. Copy the following program and paste it into a file named `MoviesQuery02.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
-   from boto3.dynamodb.conditions import Key, Attr
+   from boto3.dynamodb.conditions import Key
    
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               return str(o)
-           return super(DecimalEncoder, self).default(o)
    
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+   def query_and_project_movies(year, title_range, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   table = dynamodb.Table('Movies')
+       table = dynamodb.Table('Movies')
+       print(f"Get year, title, genres, and lead actor")
    
-   print("Movies from 1992 - titles A-L, with genres and lead actor")
+       # Expression attribute names can only reference items in the projection expression.
+       response = table.query(
+           ProjectionExpression="#yr, title, info.genres, info.actors[0]",
+           ExpressionAttributeNames={"#yr": "year"},
+           KeyConditionExpression=
+               Key('year').eq(year) & Key('title').between(title_range[0], title_range[1])
+       )
+       return response['Items']
    
-   response = table.query(
-       ProjectionExpression="#yr, title, info.genres, info.actors[0]",
-       ExpressionAttributeNames={ "#yr": "year" }, # Expression Attribute Names for Projection Expression only.
-       KeyConditionExpression=Key('year').eq(1992) & Key('title').between('A', 'L')
-   )
    
-   for i in response[u'Items']:
-       print(json.dumps(i, cls=DecimalEncoder))
+   if __name__ == '__main__':
+       query_year = 1992
+       query_range = ('A', 'L')
+       print(f"Get movies from {query_year} with titles from "
+             f"{query_range[0]} to {query_range[1]}")
+       movies = query_and_project_movies(query_year, query_range)
+       for movie in movies:
+           print(f"\n{movie['year']} : {movie['title']}")
+           pprint(movie['info'])
    ```
 
 1. To run the program, enter the following command\.
@@ -140,65 +111,42 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Copy the following program and paste it into a file named `MoviesScan.py`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   from __future__ import print_function # Python 2/3 compatibility
+   from pprint import pprint
    import boto3
-   import json
-   import decimal
-   from boto3.dynamodb.conditions import Key, Attr
-   
-   # Helper class to convert a DynamoDB item to JSON.
-   class DecimalEncoder(json.JSONEncoder):
-       def default(self, o):
-           if isinstance(o, decimal.Decimal):
-               if o % 1 > 0:
-                   return float(o)
-               else:
-                   return int(o)
-           return super(DecimalEncoder, self).default(o)
-   
-   dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
-   
-   table = dynamodb.Table('Movies')
-   
-   fe = Key('year').between(1950, 1959)
-   pe = "#yr, title, info.rating"
-   # Expression Attribute Names for Projection Expression only.
-   ean = { "#yr": "year", }
-   esk = None
+   from boto3.dynamodb.conditions import Key
    
    
-   response = table.scan(
-       FilterExpression=fe,
-       ProjectionExpression=pe,
-       ExpressionAttributeNames=ean
-       )
+   def scan_movies(year_range, display_movies, dynamodb=None):
+       if not dynamodb:
+           dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
    
-   for i in response['Items']:
-       print(json.dumps(i, cls=DecimalEncoder))
+       table = dynamodb.Table('Movies')
+       scan_kwargs = {
+           'FilterExpression': Key('year').between(*year_range),
+           'ProjectionExpression': "#yr, title, info.rating",
+           'ExpressionAttributeNames': {"#yr": "year"}
+       }
    
-   while 'LastEvaluatedKey' in response:
-       response = table.scan(
-           ProjectionExpression=pe,
-           FilterExpression=fe,
-           ExpressionAttributeNames= ean,
-           ExclusiveStartKey=response['LastEvaluatedKey']
-           )
+       done = False
+       start_key = None
+       while not done:
+           if start_key:
+               scan_kwargs['ExclusiveStartKey'] = start_key
+           response = table.scan(**scan_kwargs)
+           display_movies(response.get('Items', []))
+           start_key = response.get('LastEvaluatedKey', None)
+           done = start_key is None
    
-       for i in response['Items']:
-           print(json.dumps(i, cls=DecimalEncoder))
+   
+   if __name__ == '__main__':
+       def print_movies(movies):
+           for movie in movies:
+               print(f"\n{movie['year']} : {movie['title']}")
+               pprint(movie['info'])
+   
+       query_range = (1950, 1959)
+       print(f"Scanning for movies released from {query_range[0]} to {query_range[1]}...")
+       scan_movies(query_range, print_movies)
    ```
 
    In the code, note the following:
