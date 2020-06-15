@@ -23,6 +23,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Read/Write Capacity Mode](HowItWorks.ReadWriteCapacityMode.md)
       + [Partitions and Data Distribution](HowItWorks.Partitions.md)
    + [From SQL to NoSQL](SQLtoNoSQL.md)
+      + [Relational (SQL) or NoSQL?](SQLtoNoSQL.WhyDynamoDB.md)
       + [Characteristics of Databases](SQLtoNoSQL.Accessing.md)
       + [Creating a Table](SQLtoNoSQL.CreateTable.md)
       + [Getting Information About a Table](SQLtoNoSQL.GetTableInfo.md)
