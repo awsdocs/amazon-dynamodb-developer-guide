@@ -87,7 +87,7 @@ aws dynamodb get-item \
     --expression-attribute-names '{"#pr1star":"ProductReviews.OneStar"}'
 ```
 
-DynamoDB would return an empty result instead of the expected map of one\-star reviews\. This is because DynamoDB interprets a dot in an expression attribute value as a character within an attribute's name\. When DynamoDB evaluates the expression attribute name `#pr1star`, it determines that `ProductReviews.OneStar` refers to a scalar attribute—which is not what was intended\.
+DynamoDB would return an empty result instead of the expected map of one\-star reviews\. This is because DynamoDB interprets a dot in an expression attribute name as a character within an attribute's name\. When DynamoDB evaluates the expression attribute name `#pr1star`, it determines that `ProductReviews.OneStar` refers to a scalar attribute—which is not what was intended\.
 
 The correct approach would be to define an expression attribute name for each element in the document path:
 + `#pr — ProductReviews`
