@@ -23,7 +23,7 @@ On\-demand mode is a good option if any of the following are true:
 + You have unpredictable application traffic\. 
 + You prefer the ease of paying for only what you use\. 
 
- The request rate is only limited by the DynamoDB throughput default table limits, but it can be raised upon request\. For more information, see [Throughput Default Limits](Limits.md#default-limits-throughput)\. 
+ The request rate is only limited by the DynamoDB throughput default table quotas, but it can be raised upon request\. For more information, see [Throughput Default Quotas](Limits.md#default-limits-throughput)\. 
 
  To get started with on\-demand, you can create or update a table to use on\-demand mode\. For more information, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\. 
 

@@ -369,7 +369,7 @@ For more information, see [DeleteItem](https://docs.aws.amazon.com/amazondynamod
 
 1. Execute the `BatchWriteItem` method by providing the `BatchWriteItemRequest` object that you created in the preceding step\.
 
-1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput limit or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
+1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput quota or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
 
 The following C\# code example demonstrates the preceding steps\. The example creates a `BatchWriteItemRequest` to perform the following write operations:
 + Put an item in `Forum` table\.
@@ -456,7 +456,7 @@ The following are the steps to retrieve multiple items using the low\-level AWS 
 
 1. Execute the `BatchGetItem` method by providing the `BatchGetItemRequest` object that you created in the preceding step\.
 
-1. Process the response\. You should check if there were any unprocessed keys, which could happen if you reach the provisioned throughput limit or some other transient error\.
+1. Process the response\. You should check if there were any unprocessed keys, which could happen if you reach the provisioned throughput quota or some other transient error\.
 
 The following C\# code example demonstrates the preceding steps\. The example retrieves items from two tables, `Forum` and `Thread`\. The request specifies two items in the `Forum` and three items in the `Thread` table\. The response includes items from both of the tables\. The code shows how you can process the response\.
 

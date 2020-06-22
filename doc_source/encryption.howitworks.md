@@ -15,7 +15,7 @@ AWS owned CMKs are not stored in your AWS account\. They are part of a collectio
 
 You cannot view, manage, or use AWS owned CMKs, or audit their use\. However, you do not need to do any work or change any programs to protect the keys that encrypt your data\.
 
-You are not charged a monthly fee or a usage fee for use of AWS owned CMKs, and they do not count against AWS KMS limits for your account\.
+You are not charged a monthly fee or a usage fee for use of AWS owned CMKs, and they do not count against AWS KMS quotas for your account\.
 
 ## AWS Managed CMK<a name="managed-cmk-service-default-kms"></a>
 

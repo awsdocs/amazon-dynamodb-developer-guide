@@ -60,6 +60,6 @@ When one of the CloudWatch alarms is triggered, Amazon SNS sends you a notificat
 ### Usage Notes<a name="AutoScaling.UsageNotes"></a>
 
 Before you begin using DynamoDB auto scaling, you should be aware of the following:
-+ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. All DynamoDB limits remain in effect, as described in [Limits in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)\. 
++ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. All DynamoDB quotas remain in effect, as described in [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
 + DynamoDB auto scaling doesn't prevent you from manually modifying provisioned throughput settings\. These manual adjustments don't affect any existing CloudWatch alarms that are related to DynamoDB auto scaling\.
 + If you enable DynamoDB auto scaling for a table that has one or more global secondary indexes, we highly recommend that you also apply auto scaling uniformly to those indexes\. You can do this by choosing **Apply same settings to global secondary indexes** in the AWS Management Console\. For more information, see [Enabling DynamoDB Auto Scaling on Existing Tables](AutoScaling.Console.md#AutoScaling.Console.ExistingTable)\.

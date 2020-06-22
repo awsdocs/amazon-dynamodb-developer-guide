@@ -430,7 +430,7 @@ Amazon's trademarks and trade dress may not be used in
          + [DynamoDB Provisioned Throughput](EMRforDynamoDB.PerformanceTuning.Throughput.md)
          + [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)
          + [Additional Topics](EMRforDynamoDB.PerformanceTuning.Misc.md)
-+ [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)
++ [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)
 + [Low-Level API Reference](CurrentAPI.md)
 + [DynamoDB Appendix](Appendix.md)
    + [Troubleshooting SSL/TLS connection establishment issues](ats-certs.md)

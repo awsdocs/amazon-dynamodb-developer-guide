@@ -1,6 +1,6 @@
 # Overloading Global Secondary Indexes<a name="bp-gsi-overloading"></a>
 
-Although Amazon DynamoDB has a default limit of 20 global secondary indexes per table, in practice, you can index across far more than 20 data fields\. As opposed to a table in a relational database management system \(RDBMS\), in which the schema is uniform, a table in DynamoDB can hold many different types of data items at one time\. In addition, the same attribute in different items can contain entirely different types of information\.
+Although Amazon DynamoDB has a default quota of 20 global secondary indexes per table, in practice, you can index across far more than 20 data fields\. As opposed to a table in a relational database management system \(RDBMS\), in which the schema is uniform, a table in DynamoDB can hold many different types of data items at one time\. In addition, the same attribute in different items can contain entirely different types of information\.
 
 Consider the following example of a DynamoDB table layout that saves a variety of different kinds of data\.
 

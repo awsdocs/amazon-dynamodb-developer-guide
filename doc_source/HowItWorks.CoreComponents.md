@@ -2,7 +2,7 @@
 
 In DynamoDB, tables, items, and attributes are the core components that you work with\. A *table* is a collection of *items*, and each item is a collection of *attributes*\. DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility\. You can use DynamoDB Streams to capture data modification events in DynamoDB tables\.
 
- There are limits in DynamoDB\. For more information, see [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)\. 
+ There are limits in DynamoDB\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\. 
 
 **Topics**
 + [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes)
@@ -74,7 +74,7 @@ DynamoDB supports two kinds of indexes:
 + Global secondary index – An index with a partition key and sort key that can be different from those on the table\.
 + Local secondary index – An index that has the same partition key as the table, but a different sort key\.
 
-Each table in DynamoDB has a limit of 20 global secondary indexes \(default limit\) and 5 local secondary indexes per table\.
+Each table in DynamoDB has a quota of 20 global secondary indexes \(default quota\) and 5 local secondary indexes per table\.
 
 In the example *Music* table shown previously, you can query data items by *Artist* \(partition key\) or by *Artist* and *SongTitle* \(partition key and sort key\)\. What if you also wanted to query the data by *Genre* and *AlbumTitle*? To do this, you could create an index on *Genre* and *AlbumTitle*, and then query the index in much the same way as you'd query the *Music* table\.
 

@@ -1,6 +1,6 @@
-# Service, Account, and Table Limits in Amazon DynamoDB<a name="Limits"></a>
+# Service, Account, and Table Quotas in Amazon DynamoDB<a name="Limits"></a>
 
-This section describes current limits within Amazon DynamoDB \(or no limit, in some cases\)\. Each limit applies on a per\-Region basis unless otherwise specified\.
+This section describes current quotas within Amazon DynamoDB \(or no quota, in some cases\)\. Each quota applies on a per\-Region basis unless otherwise specified\.
 
 **Topics**
 + [Read/Write Capacity Mode and Throughput](#default-limits-throughput-capacity-modes)
@@ -43,9 +43,9 @@ Transactional read requests require two read request units to perform one read f
 
 Transactional write requests require two write request units to perform one write for items up to 1 KB\.
 
-### Throughput Default Limits<a name="default-limits-throughput"></a>
+### Throughput Default Quotas<a name="default-limits-throughput"></a>
 
-AWS places some default limits on the throughput you can provision\. These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+AWS places some default quotas on the throughput you can provision\. These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 
 
 |  | On\-Demand | Provisioned | 
@@ -57,11 +57,11 @@ AWS places some default limits on the throughput you can provision\. These are t
 **Note**  
  All the account's available throughput can be applied to a single table or across multiple tables\. 
 
-The provisioned throughput limit includes the sum of the capacity of the table together with the capacity of all of its global secondary indexes\.
+The provisioned throughput quota includes the sum of the capacity of the table together with the capacity of all of its global secondary indexes\.
 
-On the AWS Management Console, you can use Amazon CloudWatch to see what your current read and write throughput is in a given AWS Region by looking at the `read capacity` and `write capacity graphs` on the **Metrics** tab\. Make sure that you are not too close to the limits\. 
+On the AWS Management Console, you can use Amazon CloudWatch to see what your current read and write throughput is in a given AWS Region by looking at the `read capacity` and `write capacity graphs` on the **Metrics** tab\. Make sure that you are not too close to the quotas\. 
 
- If you increased your provisioned throughput default limits, you can use the [DescribeLimits](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html) operation to see the current limit values\. 
+ If you increased your provisioned throughput default quotas, you can use the [DescribeLimits](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html) operation to see the current quota values\. 
 
 ### Increasing or Decreasing Throughput \(for Provisioned Tables\)<a name="decreasing-increasing-throughput"></a>
 
@@ -69,7 +69,7 @@ On the AWS Management Console, you can use Amazon CloudWatch to see what your cu
 
 You can increase `ReadCapacityUnits` or `WriteCapacityUnits` as often as necessary, using the AWS Management Console or the `UpdateTable` operation\. In a single call, you can increase the provisioned throughput for a table, for any global secondary indexes on that table, or for any combination of these\. The new settings do not take effect until the `UpdateTable` operation is complete\.
 
-You can't exceed your per\-account limits when you add provisioned capacity, and DynamoDB doesn't allow you to increase provisioned capacity very rapidly\. Aside from these restrictions, you can increase the provisioned capacity for your tables as high as you need\. For more information about per\-account limits, see the preceding section, [Throughput Default Limits](#default-limits-throughput)\.
+You can't exceed your per\-account quotas when you add provisioned capacity, and DynamoDB doesn't allow you to increase provisioned capacity very rapidly\. Aside from these restrictions, you can increase the provisioned capacity for your tables as high as you need\. For more information about per\-account quotas, see the preceding section, [Throughput Default Quotas](#default-limits-throughput)\.
 
 #### Decreasing Provisioned Throughput<a name="limits-decreasing-provisioned-throughput"></a>
 
@@ -92,13 +92,13 @@ There is no practical limit on a table's size\. Tables are unconstrained in term
 
 ### Tables Per Account<a name="limits-tables-per-account"></a>
 
-For any AWS account, there is an initial limit of 256 tables per AWS Region\.
+For any AWS account, there is an initial quota of 256 tables per AWS Region\.
 
-To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 
 ## Global Tables<a name="gt-limits-throughput"></a>
 
-AWS places some default limits on the throughput you can provision or utilize when using global tables\.
+AWS places some default quotas on the throughput you can provision or utilize when using global tables\.
 
 
 |  | On\-Demand | Provisioned | 
@@ -106,7 +106,7 @@ AWS places some default limits on the throughput you can provision or utilize wh
 | `Per table` | `40,000 read request units and 40,000 write request units` | `40,000 read capacity units and 40,000 write capacity units` | 
 | `Per table, per day` | `10 TB for all source tables to which a replica was added` | `10 TB for all source tables to which a replica was added` | 
 
-If you are adding a replica for a table that is configured to use more than 40,000 write capacity units \(WCU\), you must request a service limit increase for your add replica WCU limit\. To request a service limit increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
+If you are adding a replica for a table that is configured to use more than 40,000 write capacity units \(WCU\), you must request a service quota increase for your add replica WCU quota\. To request a service quota increase see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
 
 Transactional operations provide atomicity, consistency, isolation, and durability \(ACID\) guarantees only within the AWS Region where the write is made originally\. Transactions are not supported across Regions in global tables\. For example, suppose that you have a global table with replicas in the US East \(Ohio\) and US West \(Oregon\) Regions and you perform a TransactWriteItems operation in the US East \(N\. Virginia\) Region\. In this case, you might observe partially completed transactions in the US West \(Oregon\) Region as changes are replicated\. Changes are replicated to other Regions only after they have been committed in the source Region\. 
 
@@ -116,7 +116,7 @@ Transactional operations provide atomicity, consistency, isolation, and durabili
 
 You can define a maximum of 5 local secondary indexes\. 
 
- There is an initial limit of 20 global secondary indexes per table\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
+ There is an initial quota of 20 global secondary indexes per table\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\. 
 
 You can create or delete only one global secondary index per `UpdateTable` operation\.
 
@@ -268,14 +268,14 @@ Do not allow more than two processes to read from the same DynamoDB Streams shar
 
 ### Maximum Write Capacity for a Table with a Stream Enabled<a name="limits-dynamodb-streams-max-write-capacity"></a>
 
-AWS places some default limits on the write capacity for DynamoDB tables with DynamoDB Streams enabled\. These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+AWS places some default quotas on the write capacity for DynamoDB tables with DynamoDB Streams enabled\. These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 + US East \(N\. Virginia\), US East \(Ohio\), US West \(N\. California\), US West \(Oregon\), South America \(São Paulo\), Europe \(Frankfurt\), Europe \(Ireland\), Asia Pacific \(Tokyo\), Asia Pacific \(Seoul\), Asia Pacific \(Singapore\), Asia Pacific \(Sydney\), China \(Beijing\) Regions:
   + Per table – 40,000 write capacity units
 + All other Regions:
   + Per table – 10,000 write capacity units
 
 **Note**  
- The provisioned throughput limits also apply for DynamoDB tables with DynamoDB Streams enabled\. For more information, see [Throughput Default Limits](#default-limits-throughput)\. 
+ The provisioned throughput quotas also apply for DynamoDB tables with DynamoDB Streams enabled\. For more information, see [Throughput Default Quotas](#default-limits-throughput)\. 
 
 ## DynamoDB Accelerator \(DAX\)<a name="limits-dax"></a>
 
@@ -335,4 +335,4 @@ You can switch from an AWS owned customer master key \(CMK\) to an AWS managed C
 
 You can switch encryption keys to use an AWS owned CMK as often as necessary\.
 
-These are the limits unless you request a higher amount\. To request a service limit increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.

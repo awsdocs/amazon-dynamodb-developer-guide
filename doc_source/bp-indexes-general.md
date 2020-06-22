@@ -4,7 +4,7 @@ Amazon DynamoDB supports two types of secondary indexes:
 + **Global secondary index—**An index with a partition key and a sort key that can be different from those on the base table\. A global secondary index is considered "global" because queries on the index can span all of the data in the base table, across all partitions\. A global secondary index has no size limitations and has its own provisioned throughput settings for read and write activity that are separate from those of the table\.
 + **Local secondary index—**An index that has the same partition key as the base table, but a different sort key\. A local secondary index is "local" in the sense that every partition of a local secondary index is scoped to a base table partition that has the same partition key value\. As a result, the total size of indexed items for any one partition key value can't exceed 10 GB\. Also, a local secondary index shares provisioned throughput settings for read and write activity with the table it is indexing\.
 
-Each table in DynamoDB is limited to 20 global secondary indexes \(default limit\) and 5 local secondary indexes\. 
+Each table in DynamoDB can have up to 20 global secondary indexes \(default quota\) and 5 local secondary indexes\. 
 
 For more information about the differences between global secondary indexes and local secondary indexes, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
 

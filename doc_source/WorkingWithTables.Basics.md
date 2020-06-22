@@ -8,7 +8,7 @@ Similar to other database systems, Amazon DynamoDB stores data in tables\. You c
 + [Updating a Table](#WorkingWithTables.Basics.UpdateTable)
 + [Deleting a Table](#WorkingWithTables.Basics.DeleteTable)
 + [Listing Table Names](#WorkingWithTables.Basics.ListTables)
-+ [Describing Provisioned Throughput Limits](#WorkingWithTables.Basics.DescribeLimits)
++ [Describing Provisioned Throughput Quotas](#WorkingWithTables.Basics.DescribeLimits)
 
 ## Creating a Table<a name="WorkingWithTables.Basics.CreateTable"></a>
 
@@ -212,16 +212,16 @@ The following AWS CLI example shows how to list the DynamoDB table names\.
 aws dynamodb list-tables
 ```
 
-## Describing Provisioned Throughput Limits<a name="WorkingWithTables.Basics.DescribeLimits"></a>
+## Describing Provisioned Throughput Quotas<a name="WorkingWithTables.Basics.DescribeLimits"></a>
 
-The `DescribeLimits` operation returns the current read and write capacity limits for the current AWS account and Region\.
+The `DescribeLimits` operation returns the current read and write capacity quotas for the current AWS account and Region\.
 
 **Example**  
-The following AWS CLI example shows how to describe the current provisioned throughput limits\.  
+The following AWS CLI example shows how to describe the current provisioned throughput quotas\.  
 
 ```
 aws dynamodb describe-limits
 ```
-The output shows the upper limits of read and write capacity units for the current AWS account and Region\.
+The output shows the upper quotas of read and write capacity units for the current AWS account and Region\.
 
-For more information about these limits, and how to request limit increases, see [Throughput Default Limits](Limits.md#default-limits-throughput)\.
+For more information about these quotas, and how to request quota increases, see [Throughput Default Quotas](Limits.md#default-limits-throughput)\.

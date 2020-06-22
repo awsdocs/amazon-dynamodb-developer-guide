@@ -9,7 +9,7 @@ As items are deleted from the table, two background operations happen simultaneo
 + A delete operation for each item enters the DynamoDB Stream, but is tagged as a system delete and not a regular delete\. For more information about how to use this system delete, see [DynamoDB Streams and Time to Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/time-to-live-ttl-streams.html)\. 
 
 **Important**  
-Depending on the size and activity level of a table, the actual delete operation of an expired item can vary\. Because TTL is meant to be a background process, the nature of the capacity used to expire and delete items via TTL is variable \(but free of charge\)\. Deletion of an item can take up to 48 hours\.
+Depending on the size and activity level of a table, the actual delete operation of an expired item can vary\. Because TTL is meant to be a background process, the nature of the capacity used to expire and delete items via TTL is variable \(but free of charge\)\. TTL typically deletes expired items within 48 hours of expiration\.
 Items that have expired, but haven’t yet been deleted by TTL, still appear in reads, queries, and scans\. If you do not want expired items in the result set, you must filter them out\. To do this, use a filter expression that returns only items where the Time to Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression)\.
 Items that are past their expiration, but have not yet been deleted can still be updated, and successful updates to change or remove the expiration attribute will be honored\.
 

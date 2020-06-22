@@ -38,7 +38,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
 **Note**  
 The alarm is activated whenever the consumed read capacity is at least 4 units per second \(80% of provisioned read capacity of 5\) for 1 minute \(60 seconds\)\. So the `threshold` is 240 read capacity units \(4 units/sec \* 60 seconds\)\. Any time the read capacity is updated you should update the alarm calculations appropriately\. You can avoid this process by creating alarms through the DynamoDB Console\. In this way, the alarms are automatically updated for you\. 
 
-## How can I be notified if any requests exceed the provisioned throughput limits of a table?<a name="notify-exceed-throughput"></a>
+## How can I be notified if any requests exceed the provisioned throughput quotas of a table?<a name="notify-exceed-throughput"></a>
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:requests-exceeding-throughput`\.
 
@@ -49,7 +49,7 @@ The alarm is activated whenever the consumed read capacity is at least 4 units p
    ```
    Prompt>aws cloudwatch put-metric-alarm \
        --alarm-name RequestsExceedingThroughputAlarm\
-       --alarm-description "Alarm when my requests are exceeding provisioned throughput limits of a table" \
+       --alarm-description "Alarm when my requests are exceeding provisioned throughput quotas of a table" \
        --namespace AWS/DynamoDB \
        --metric-name ThrottledRequests \
        --dimensions Name=TableName,Value=myTable \

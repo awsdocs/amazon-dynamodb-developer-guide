@@ -47,7 +47,7 @@ DynamoDB adaptive capacity responds by increasing partition 4's capacity so that
 
 ### Isolate Frequently Accessed Items<a name="bp-partition-key-partitions-adaptive-split"></a>
 
-If your application drives disproportionately high traffic to one or more items, adaptive capacity rebalances your partitions such that frequently accessed items don't reside on the same partition\. This isolation of frequently accessed items reduces the likelihood of request throttling due to your workload exceeding the throughput limit on a single partition\. 
+If your application drives disproportionately high traffic to one or more items, adaptive capacity rebalances your partitions such that frequently accessed items don't reside on the same partition\. This isolation of frequently accessed items reduces the likelihood of request throttling due to your workload exceeding the throughput quota on a single partition\. 
 
  If your application drives consistently high traffic to a single item, adaptive capacity might rebalance your data such that a partition contains only that single, frequently accessed item\. In this case, DynamoDB can deliver throughput up to the partition maximum of 3,000 RCUs or 1,000 WCUs to that single item’s primary key\.
 

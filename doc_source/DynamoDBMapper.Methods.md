@@ -95,6 +95,8 @@ The query returns a collection of `Reply` objects\.
 
 By default, the `query` method returns a "lazy\-loaded" collection\. It initially returns only one page of results, and then makes a service call for the next page if needed\. To obtain all the matching items, iterate over the `latestReplies` collection\. 
 
+Note that calling the `size()` method on the collection will load every result in order to provide an accurate count\. This can result in a lot of provisioned throughput being consumed, and on a very large table could even exhaust all the memory in your JVM\.
+
 To query an index, you must first model the index as a mapper class\. Suppose that the `Reply` table has a global secondary index named *PostedBy\-Message\-Index*\. The partition key for this index is `PostedBy`, and the sort key is `Message`\. The class definition for an item in the index would look like the following\.
 
 ```
@@ -165,6 +167,8 @@ List<Reply> replies =  mapper.scan(Reply.class, scanExpression);
 ```
 
 By default, the `scan` method returns a "lazy\-loaded" collection\. It initially returns only one page of results, and then makes a service call for the next page if needed\. To obtain all the matching items, iterate over the `replies` collection\.
+
+Note that calling the `size()` method on the collection will load every result in order to provide an accurate count\. This can result in a lot of provisioned throughput being consumed, and on a very large table could even exhaust all the memory in your JVM\.
 
 To scan an index, you must first model the index as a mapper class\. Suppose that the `Reply` table has a global secondary index named `PostedBy-Message-Index`\. The partition key for this index is `PostedBy`, and the sort key is `Message`\. A mapper class for this index is shown in the [query](#DynamoDBMapper.Methods.query) section\. It uses the `@DynamoDBIndexHashKey` and `@DynamoDBIndexRangeKey` annotations to specify the index partition key and sort key\.
 

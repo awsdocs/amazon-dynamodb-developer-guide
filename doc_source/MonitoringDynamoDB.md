@@ -12,7 +12,7 @@ The next step is to establish a baseline for normal DynamoDB performance in your
 
 To establish a baseline you should, at a minimum, monitor the following items:
 + The number of read or write capacity units consumed over the specified time period, so you can track how much of your provisioned throughput is used\.
-+ Requests that exceeded a table's provisioned write or read capacity during the specified time period, so you can determine which requests exceed the provisioned throughput limits of a table\.
++ Requests that exceeded a table's provisioned write or read capacity during the specified time period, so you can determine which requests exceed the provisioned throughput quotas of a table\.
 + System errors, so you can determine if any requests resulted in an error\.
 
 **Topics**

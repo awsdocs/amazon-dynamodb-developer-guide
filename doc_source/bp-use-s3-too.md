@@ -1,6 +1,6 @@
 # Best Practices for Storing Large Items and Attributes<a name="bp-use-s3-too"></a>
 
-Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)\)\. If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes or breaking the item into multiple items \(efficiently indexed by sort keys\)\. You can also store the item as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
+Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\)\. If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes or breaking the item into multiple items \(efficiently indexed by sort keys\)\. You can also store the item as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
 
 ## Compressing Large Attribute Values<a name="bp-use-s3-too-or-compress"></a>
 

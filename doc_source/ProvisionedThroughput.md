@@ -113,4 +113,4 @@ For recommendations on provisioned throughput and related topics, see [Best Prac
 
 If you have enabled DynamoDB auto scaling for a table, then its throughput capacity is dynamically adjusted in response to actual usage\. No manual intervention is required\.
 
-You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Limits in Amazon DynamoDB](Limits.md)\.
+You can modify your table's provisioned throughput settings using the AWS Management Console or the `UpdateTable` operation\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.

@@ -12,7 +12,7 @@ This section describes how to create, modify, and delete global secondary indexe
 
 ## Creating a Table with Global Secondary Indexes<a name="GSI.Creating"></a>
 
-To create a table with one or more global secondary indexes, use the `CreateTable` operation with the `GlobalSecondaryIndexes` parameter\. For maximum query flexibility, you can create up to 20 global secondary indexes \(default limit\) per table\. 
+To create a table with one or more global secondary indexes, use the `CreateTable` operation with the `GlobalSecondaryIndexes` parameter\. For maximum query flexibility, you can create up to 20 global secondary indexes \(default quota\) per table\. 
 
 You must specify one attribute to act as the index partition key\. You can optionally specify another attribute for the index sort key\. It is not necessary for either of these key attributes to be the same as a key attribute in the table\. For example, in the *GameScores* table \(see [Using Global Secondary Indexes in DynamoDB](GSI.md)\), neither `TopScore` nor `TopScoreDateTime` are key attributes\. You could create a global secondary index with a partition key of `TopScore` and a sort key of `TopScoreDateTime`\. You might use such an index to determine whether there is a correlation between high scores and the time of day a game is played\.
 
