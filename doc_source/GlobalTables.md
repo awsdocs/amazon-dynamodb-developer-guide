@@ -1,11 +1,7 @@
 # Global Tables: Multi\-Region Replication with DynamoDB<a name="GlobalTables"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
+There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\.
 
 Amazon DynamoDB global tables provide a fully managed solution for deploying a multiregion, multi\-master database, without having to build and maintain your own replication solution\. With global tables you can specify the AWS Regions where you want the table to be available\. DynamoDB performs all of the necessary tasks to create identical tables in these Regions and propagate ongoing data changes to all of them\.
 

@@ -1,11 +1,7 @@
 # Version 2019\.11\.21 \(Current\)<a name="globaltables.V2"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](#globaltables.V2) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
+There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](#globaltables.V2) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\.
 
 **Topics**
 + [Global Tables: How It Works](V2globaltables_HowItWorks.md)

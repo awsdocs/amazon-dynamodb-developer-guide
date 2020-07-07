@@ -56,11 +56,11 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
    version: '3.7' 
    services:
     app-node:
-      image: location-of-you-dynamodb-demo-app:latest
+      image: location-of-your-dynamodb-demo-app:latest
       container_name: app-node
       ports:
        - "8080:8080"
-       depends_on:
+      depends_on:
        - "dynamodb-local"
       links:
        - "dynamodb-local"

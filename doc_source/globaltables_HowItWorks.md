@@ -1,11 +1,7 @@
 # Global Tables: How It Works<a name="globaltables_HowItWorks"></a>
 
-
 ****  
-
-|  | 
-| --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
+There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\.
 
  The following sections help you understand the concepts and behavior of global tables in Amazon DynamoDB\. 
 

@@ -48,7 +48,7 @@ The program included in this step retrieves all movies released in the `year` 19
    ```
 **Note**  
 The Boto 3 SDK constructs a `ConditionExpression` for you when you use the `Key` and `Attr` functions imported from `boto3.dynamodb.conditions`\. You can also specify a `ConditionExpression` as a string\.  
-For a list of available conditions for Amazon DynamoDB, see [DynamoDB Conditions](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/customizations/dynamodb.html#dynamodb-conditions) in *AWS SDK for Python \(Boto 3\) Getting Started*\.  
+For a list of available conditions for Amazon DynamoDB, see [DynamoDB Conditions](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/customizations/dynamodb.html#dynamodb-conditions) in *AWS SDK for Python \(Boto3\) Getting Started*\.  
 For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.
 
 1. To run the program, enter the following command\.
