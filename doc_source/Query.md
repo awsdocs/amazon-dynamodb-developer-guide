@@ -100,7 +100,7 @@ A `Query` operation can retrieve a maximum of 1 MB of data\. This limit applies 
 
 A filter expression cannot contain partition key or sort key attributes\. You need to specify those attributes in the key condition expression, not the filter expression\.
 
-The syntax for a filter expression is identical to that of a condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a condition expression, with the addition of the extra not-equals operator (<>)\. For more information, [Condition Expressions](Expressions.ConditionExpressions.md)\.
+The syntax for a filter expression is identical to that of a condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a condition expression, with the addition of the not\-equals operator \(`<>`\)\. For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.
 
 **Example**  
 The following AWS CLI example queries the `Thread` table for a particular `ForumName` \(partition key\) and `Subject` \(sort key\)\. Of the items that are found, only the most popular discussion threads are returned—in other words, only those threads with more than a certain number of `Views`\.  

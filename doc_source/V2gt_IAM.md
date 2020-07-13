@@ -1,7 +1,11 @@
 # Using IAM with Global Tables<a name="V2gt_IAM"></a>
 
+
 ****  
-There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\.
+
+|  | 
+| --- |
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
 
 ## <a name="V2globaltables_reqs_bestpractices.permissions-model"></a>
 
