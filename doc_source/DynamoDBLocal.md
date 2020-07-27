@@ -10,6 +10,6 @@ Having this local version helps you save on throughput, data storage, and data t
 
 **Topics**
 + [Deploying DynamoDB Locally on Your Computer](DynamoDBLocal.DownloadingAndRunning.md)
-+ [Deploying DynamoDB by adding an Apache Maven Repository](DynamoDBLocal.Maven.md)
-+ [Install the DynamoDB Docker Image](DynamoDBLocal.Docker.md)
-+ [DynamoDB Usage Notes](DynamoDBLocal.UsageNotes.md)
++ [Deploying DynamoDB Local by Adding an Apache Maven Repository](DynamoDBLocal.Maven.md)
++ [Install the DynamoDB Local Docker Image](DynamoDBLocal.Docker.md)
++ [DynamoDB Local Usage Notes](DynamoDBLocal.UsageNotes.md)

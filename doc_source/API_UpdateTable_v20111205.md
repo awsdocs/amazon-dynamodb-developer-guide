@@ -18,7 +18,7 @@ The table must be in the `ACTIVE` state for this operation to succeed\. UpdateTa
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateTable
 content-type: application/x-amz-json-1.0
@@ -90,7 +90,7 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateTable
 content-type: application/x-amz-json-1.0

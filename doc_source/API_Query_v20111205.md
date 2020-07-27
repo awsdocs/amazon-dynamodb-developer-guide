@@ -20,7 +20,7 @@ The result can be set for a consistent read using the `ConsistentRead` parameter
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query  
 content-type: application/x-amz-json-1.0
@@ -116,7 +116,7 @@ content-length: 308
 ### Sample Request<a name="API_Query_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// This header is abbreviated. For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query  
 content-type: application/x-amz-json-1.0
@@ -159,7 +159,7 @@ content-length: 308
 ### Sample Request<a name="API_Query_Examples_Request2"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// This header is abbreviated. For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query 
 content-type: application/x-amz-json-1.0

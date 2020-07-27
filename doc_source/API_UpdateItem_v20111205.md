@@ -38,7 +38,7 @@ For more information about using this operation, see [Working with Items and Att
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateItem
 content-type: application/x-amz-json-1.0
@@ -114,7 +114,7 @@ For examples using the AWS SDK, see [Working with Items and Attributes](WorkingW
 ### Sample Request<a name="API_UpdateItem_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// This header is abbreviated. For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateItem
 content-type: application/x-amz-json-1.0 

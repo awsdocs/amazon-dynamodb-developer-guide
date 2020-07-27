@@ -21,7 +21,7 @@ If the requested items do not exist, nothing is returned in the response for tho
 ### Syntax<a name="API_BatchGetItem_RequestParameters.syntax"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// This header is abbreviated. For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 
@@ -132,7 +132,7 @@ The following sample requests attributes from two different tables\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 

@@ -16,7 +16,7 @@ The `GetItem` operation provides an eventually consistent read by default\. If e
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.GetItem
 content-type: application/x-amz-json-1.0 
@@ -80,7 +80,7 @@ No errors specific to this operation\.
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.GetItem
 content-type: application/x-amz-json-1.0 

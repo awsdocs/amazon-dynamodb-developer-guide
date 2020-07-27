@@ -1,4 +1,4 @@
-# Install the DynamoDB Docker Image<a name="DynamoDBLocal.Docker"></a>
+# Install the DynamoDB Local Docker Image<a name="DynamoDBLocal.Docker"></a>
 
 The downloadable version of Amazon DynamoDB is available as a Docker image\. For more information, see [dynamodb\-local](https://hub.docker.com/r/amazon/dynamodb-local)\.
 
@@ -53,7 +53,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
    To use with your own application image, replace the `image` value in the example below with that of your application's:
 
    ```
-   version: '3.7' 
+   version: '3.7'
    services:
     app-node:
       image: location-of-your-dynamodb-demo-app:latest

@@ -191,7 +191,7 @@ DynamoDB dynamoDB = new DynamoDB(client);
 
 Table table = dynamoDB.getTable("ProductCatalog");
 
-Item item = table.getItem("Id", 101);
+Item item = table.getItem("Id", 210);
 ```
 
 ### Specifying Optional Parameters<a name="GetItemJavaDocumentAPIOptions"></a>

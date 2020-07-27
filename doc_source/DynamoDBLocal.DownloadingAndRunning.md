@@ -10,7 +10,7 @@ Follow these steps to set up and run DynamoDB on your computer\.
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 
-   Downloadable DynamoDB is available on Apache Maven\. For more information, see [Deploying DynamoDB by adding an Apache Maven Repository](DynamoDBLocal.Maven.md)\. DynamoDB is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
+   Downloadable DynamoDB is available on Apache Maven\. For more information, see [Deploying DynamoDB Local by Adding an Apache Maven Repository](DynamoDBLocal.Maven.md)\. DynamoDB is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
 **Important**  
 To run DynamoDB on your computer, you must have the Java Runtime Environment \(JRE\) version 6\.x or newer\. The application doesn't run on earlier JRE versions\.
 

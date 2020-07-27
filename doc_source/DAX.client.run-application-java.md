@@ -31,7 +31,7 @@ The client for the DAX SDK for Java is available on Apache Maven\. For more info
    ```
    export SDKVERSION=sdkVersion
    
-   export CLASSPATH=.:./DaxJavaClient-latest.jar:aws-java-sdk-$SDKVERSION/lib/aws-java-sdk-$SDKVERSION.jar:aws-java-sdk-$SDKVERSION/third-party/lib/*
+   export CLASSPATH=$(pwd)/TryDax/java:$(pwd)/DaxJavaClient-latest.jar:$(pwd)/aws-java-sdk-$SDKVERSION/lib/aws-java-sdk-$SDKVERSION.jar:$(pwd)/aws-java-sdk-$SDKVERSION/third-party/lib/*
    ```
 
 1. Download the sample program source code \(`.zip` file\)\.
@@ -46,9 +46,10 @@ The client for the DAX SDK for Java is available on Apache Maven\. For more info
    unzip TryDax.zip
    ```
 
-1. Compile the code as follows\.
+1. Navigate to the Java code directory and compile the code as follows\.
 
    ```
+   cd TryDax/java/
    javac TryDax*.java
    ```
 

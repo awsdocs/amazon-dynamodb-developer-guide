@@ -14,7 +14,7 @@ Returns information about the table, including the current status of the table, 
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DescribeTable
 content-type: application/x-amz-json-1.0
@@ -80,7 +80,7 @@ No errors are specific to this operation\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md).
+// For a sample of a complete header, see .
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DescribeTable
 content-type: application/x-amz-json-1.0

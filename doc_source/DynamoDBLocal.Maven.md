@@ -1,4 +1,4 @@
-# Deploying DynamoDB by adding an Apache Maven Repository<a name="DynamoDBLocal.Maven"></a>
+# Deploying DynamoDB Local by Adding an Apache Maven Repository<a name="DynamoDBLocal.Maven"></a>
 
 Follow these steps to use Amazon DynamoDB in your application as a dependency\.
 

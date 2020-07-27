@@ -93,7 +93,7 @@ The following is an example of a cluster endpoint\.
 
 ## Node Endpoints<a name="DAX.concepts.node-endpoints"></a>
 
-Each of the individual nodes in a DAX cluster has its own hostname and point number\. The following is an example of a *node endpoint*\.
+Each of the individual nodes in a DAX cluster has its own hostname and port number\. The following is an example of a *node endpoint*\.
 
 `myDAXcluster-a.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111 `
 
