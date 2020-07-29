@@ -98,7 +98,7 @@ Stream records are organized into groups, or *shards*\. Each shard acts as a con
 
 Shards are ephemeral: They are created and deleted automatically, as needed\. Any shard can also split into multiple new shards; this also occurs automatically\. \(It's also possible for a parent shard to have just one child shard\.\) A shard might split in response to high levels of write activity on its parent table, so that applications can process records from multiple shards in parallel\.
 
-If you disable a stream, any shards that are open will be closed\.
+If you disable a stream, any shards that are open will be closed and the data in the stream continues to be readable for 24 hours\.
 
 Because shards have a lineage \(parent and children\), an application must always process a parent shard before it processes a child shard\. This helps ensure that the stream records are also processed in the correct order\. \(If you use the DynamoDB Streams Kinesis Adapter, this is handled for you\. Your application processes the shards and stream records in the correct order\. It automatically handles new or expired shards, in addition to shards that split while the application is running\. For more information, see [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.\)
 
