@@ -42,8 +42,6 @@ Amazon's trademarks and trade dress may not be used in
 + [Setting Up DynamoDB](SettingUp.md)
    + [Setting Up DynamoDB Local (Downloadable Version)](DynamoDBLocal.md)
       + [Deploying DynamoDB Locally on Your Computer](DynamoDBLocal.DownloadingAndRunning.md)
-      + [Deploying DynamoDB Local by Adding an Apache Maven Repository](DynamoDBLocal.Maven.md)
-      + [Install the DynamoDB Local Docker Image](DynamoDBLocal.Docker.md)
       + [DynamoDB Local Usage Notes](DynamoDBLocal.UsageNotes.md)
    + [Setting Up DynamoDB (Web Service)](SettingUp.DynamoWebService.md)
 + [Accessing DynamoDB](AccessingDynamoDB.md)

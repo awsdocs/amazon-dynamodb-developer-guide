@@ -5,7 +5,7 @@ DynamoDB *paginates* the results from `Query` operations\. With pagination, the 
 A single `Query` only returns a result set that fits within the 1 MB size limit\. To determine whether there are more results, and to retrieve them one page at a time, applications should do the following: 
 
 1. Examine the low\-level `Query` result:
-   + If the result contains a `LastEvaluatedKey` element, proceed to step 2\.
+   + If the result contains a `LastEvaluatedKey` element and it's non\-null, proceed to step 2\.
    + If there is *not* a `LastEvaluatedKey` in the result, there are no more items to be retrieved\.
 
 1. Construct a new `Query` request, with the same parameters as the previous one\. However, this time, take the `LastEvaluatedKey` value from step 1 and use it as the `ExclusiveStartKey` parameter in the new `Query` request\.

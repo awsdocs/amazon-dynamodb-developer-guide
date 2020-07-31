@@ -25,7 +25,7 @@ You can view and change your user preferences for the DynamoDB console\. These s
 
    Sign in as an IAM user\. You can't configure user preferences for other user types\.
 
-1. In the title bar navigation, choose **Preferences**\.
+1. In the page navigation, choose **Preferences**\.
 
 1. In **Preferences**, configure your preferences\.
 

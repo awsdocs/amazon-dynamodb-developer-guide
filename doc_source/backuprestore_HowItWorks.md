@@ -25,7 +25,7 @@ If you don't want to create scheduling scripts and cleanup jobs, you can use AWS
 If you're using the console, any backups created using AWS Backup are listed on the **Backups** tab with the **Backup type** set to `AWS`\.
 
 **Note**  
-You can't delete backups using the DynamoDB console\. To manage these backups, use the AWS Backup console\.
+You can't delete backups marked with a **Backup type** of AWS using the DynamoDB console\. To manage these backups, use the AWS Backup console\.
 
 To learn how to perform a backup, see [Backing Up a DynamoDB Table](Backup.Tutorial.md)\.
 

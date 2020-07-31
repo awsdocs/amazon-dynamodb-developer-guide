@@ -108,7 +108,7 @@ In an expression, you use a *document path* to tell DynamoDB where to find an at
 The following are some examples of document paths\. \(Refer to the item shown in [Specifying Item Attributes When Using Expressions](#Expressions.Attributes)\.\)
 + A top\-level scalar attribute\.
 
-   `ProductDescription`
+   `Description`
 + A top\-level list attribute\. \(This returns the entire list, not just some of the elements\.\)
 
   `RelatedItems`
