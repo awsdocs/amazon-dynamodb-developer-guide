@@ -1,16 +1,32 @@
 # How It Works: DynamoDB Time to Live \(TTL\)<a name="howitworks-ttl"></a>
 
- When enabling TTL on a DynamoDB table, you must identify a specific attribute name that the service will look for when determining if an item is eligible for expiration\. After you enable TTL on a table, a per\-partition scanner background process automatically and continuously evaluates the expiry status of items in the table\.
+When enabling TTL on a DynamoDB table, you must identify a specific attribute name that the service will look for when determining if an item is eligible for expiration\. After you enable TTL on a table, a per\-partition scanner background process automatically and continuously evaluates the expiry status of items in the table\.
 
- The scanner background process compares the current time, in [Unix epoch time format](https://en.wikipedia.org/wiki/Unix_time) in *seconds*, to the value stored in the user\-defined attribute of an item\. If the attribute is a `Number` data type, the attribute’s value is a timestamp in [Unix epoch time format](https://en.wikipedia.org/wiki/Unix_time) in *seconds*, and it is older than the current time, but not five years or older—in order to avoid a possible accidental deletion due to a malformed TTL value, then the item is set to expired\. For specifics about formatting TTL attributes, see Formatting the item’s TTL attribute\. A second background process scans for expired items and deletes them\. Both processes take place automatically in the background, do not affect read or write traffic to the table, and do not have a monetary cost\. 
+The scanner background process compares the current time, in [Unix epoch time format](https://en.wikipedia.org/wiki/Unix_time) in *seconds*, to the value stored in the user\-defined attribute of an item\. If the attribute is a `Number` data type, the attribute’s value is a timestamp in [Unix epoch time format](https://en.wikipedia.org/wiki/Unix_time) in *seconds*, and the timestamp value is older than the current time but not five years older or more \(in order to avoid a possible accidental deletion due to a malformed TTL value\), then the item is set to expired\. For specifics about formatting TTL attributes, see [Formatting an item’s TTL attribute](time-to-live-ttl-before-you-start.md#time-to-live-ttl-before-you-start-formatting)\. A second background process scans for expired items and deletes them\. Both processes take place automatically in the background, do not affect read or write traffic to the table, and do not have a monetary cost\.
 
 As items are deleted from the table, two background operations happen simultaneously:
 + Items are removed from any local secondary index and global secondary index in the same way as a DeleteItem operation\.
-+ A delete operation for each item enters the DynamoDB Stream, but is tagged as a system delete and not a regular delete\. For more information about how to use this system delete, see [DynamoDB Streams and Time to Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/time-to-live-ttl-streams.html)\. 
++ A delete operation for each item enters the DynamoDB Stream, but is tagged as a system delete and not a regular delete\. For more information about how to use this system delete, see [ DynamoDB Streams and Time to LiveDynamoDB Streams and TTL  Learn how to use an external operation \(e\.g\., a Lambda function\) with DynamoDB Streams to capture when an item is deleted from a table and how to determine if it's a user or TTL expired system delete\.   You can back up, or otherwise process, items that are deleted by Time to Live \(TTL\) by enabling Amazon DynamoDB Streams on the table and processing the streams records of the expired items\.  The streams record contains a user identity field `Records[<index>].userIdentity`\. Items that are deleted by the Time to Live process after expiration have the following fields:   `Records[<index>].userIdentity.type` `"Service"`   `Records[<index>].userIdentity.principalId` `"dynamodb.amazonaws.com"`   The following JSON shows the relevant portion of a single streams record\. 
+
+```
+"Records":[
+    {
+        ...
+
+        "userIdentity":{
+            "type":"Service",
+            "principalId":"dynamodb.amazonaws.com"
+        }
+
+        ...
+
+    }
+]
+``` ](time-to-live-ttl-streams.md)\.
 
 **Important**  
 Depending on the size and activity level of a table, the actual delete operation of an expired item can vary\. Because TTL is meant to be a background process, the nature of the capacity used to expire and delete items via TTL is variable \(but free of charge\)\. TTL typically deletes expired items within 48 hours of expiration\.
-Items that have expired, but haven’t yet been deleted by TTL, still appear in reads, queries, and scans\. If you do not want expired items in the result set, you must filter them out\. To do this, use a filter expression that returns only items where the Time to Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression)\.
+Items that have expired, but haven’t yet been deleted by TTL, still appear in reads, queries, and scans\. If you do not want expired items in the result set, you must filter them out\. To do this, use a filter expression that returns only items where the Time to Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for Scan](Scan.md#Scan.FilterExpression)\.
 Items that are past their expiration, but have not yet been deleted can still be updated, and successful updates to change or remove the expiration attribute will be honored\.
 
 You can monitor TTL rates on the CloudWatch metrics tab for a table, and see when and the rate at which items are deleted\.
@@ -19,7 +35,7 @@ You can monitor TTL rates on the CloudWatch metrics tab for a table, and see whe
 
 ## Time to Live Example<a name="howitworks-ttl-Example"></a>
 
- For example, consider a table named SessionData that tracks the session history of users\. Each item in `SessionData` is identified by the partition key \(`UserName`\) and the sort key \(`SessionId`\)\. Additional attributes like `UserName`, `SessionId`, `CreationTime`, and `ExpirationTime` track the session information\. The `ExpirationTime` attribute is set as the TTL attribute on the table \(not all of the attributes on each item are shown\)\. 
+For example, consider a table named SessionData that tracks the session history of users\. Each item in `SessionData` is identified by the partition key \(`UserName`\) and the sort key \(`SessionId`\)\. Additional attributes like `UserName`, `SessionId`, `CreationTime`, and `ExpirationTime` track the session information\. The `ExpirationTime` attribute is set as the TTL attribute on the table \(not all of the attributes on each item are shown\)\.
 
 
 **SessionData**  
