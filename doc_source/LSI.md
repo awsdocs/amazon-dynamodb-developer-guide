@@ -6,8 +6,7 @@ Some applications only need to query data using the base table's primary key\. H
 + [Scenario: Using a Local Secondary Index](#LSI.Scenario)
 + [Attribute Projections](#LSI.Projections)
 + [Creating a Local Secondary Index](#LSI.Creating)
-+ [Querying a Local Secondary Index](#LSI.Querying)
-+ [Scanning a Local Secondary Index](#LSI.Scanning)
++ [Reading Data from a Local Secondary Index](#LSI.Reading)
 + [Item Writes and Local Secondary Indexes](#LSI.Writes)
 + [Provisioned Throughput Considerations for Local Secondary Indexes](#LSI.ThroughputConsiderations)
 + [Storage Considerations for Local Secondary Indexes](#LSI.StorageConsiderations)
@@ -93,7 +92,11 @@ For tables with local secondary indexes, there is a 10 GB size limit per partiti
 
 You can project attributes of any data type into a local secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
-## Querying a Local Secondary Index<a name="LSI.Querying"></a>
+## Reading Data from a Local Secondary Index<a name="LSI.Reading"></a>
+
+You can retrieve items from a local secondary index using the `Query` and `Scan` operations\. The `GetItem` and `GetBatchItem` operations can't be used on a local secondary index\.
+
+### Querying a Local Secondary Index<a name="LSI.Querying"></a>
 
 In a DynamoDB table, the combined partition key value and sort key value for each item must be unique\. However, in a local secondary index, the sort key value does not need to be unique for a given partition key value\. If there are multiple items in the local secondary index that have the same sort key value, a `Query` operation returns all of the items that have the same partition key value\. In the response, the matching items are not returned in any particular order\.
 
@@ -125,7 +128,7 @@ In this query:
 + The results are returned, sorted by `LastPostDateTime`\. The index entries are sorted by partition key value and then by sort key value, and `Query` returns them in the order they are stored\. \(You can use the `ScanIndexForward` parameter to return the results in descending order\.\)
 Because the `Tags` attribute is not projected into the local secondary index, DynamoDB must consume additional read capacity units to fetch this attribute from the base table\. If you need to run this query often, you should project `Tags` into `LastPostIndex` to avoid fetching from the base table\. However, if you needed to access `Tags` only occasionally, the additional storage cost for projecting `Tags` into the index might not be worthwhile\.
 
-## Scanning a Local Secondary Index<a name="LSI.Scanning"></a>
+### Scanning a Local Secondary Index<a name="LSI.Scanning"></a>
 
 You can use `Scan` to retrieve all of the data from a local secondary index\. You must provide the base table name and the index name in the request\. With a `Scan`, DynamoDB reads all of the data in the index and returns it to the application\. You can also request that only some of the data be returned, and that the remaining data should be discarded\. To do this, use the `FilterExpression` parameter of the `Scan` API\. For more information, see [Filter Expressions for Scan](Scan.md#Scan.FilterExpression)\.
 

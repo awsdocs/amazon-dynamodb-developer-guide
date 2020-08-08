@@ -354,7 +354,7 @@ In the following example, you try to delete a specific movie item if its rating 
 
    The conditional request failed
 
-   The program fails because the rating for this particular move is greater than 5\.
+   The program fails because the rating for this particular movie is greater than 5\.
 
 1. Modify the program to remove the condition in `table.delete_item`\.
 

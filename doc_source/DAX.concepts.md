@@ -25,7 +25,7 @@ Finally, the DAX cluster returns the results to your application\.
 
 A DAX cluster consists of one or more nodes\. Each node runs its own instance of the DAX caching software\. One of the nodes serves as the primary node for the cluster\. Additional nodes \(if present\) serve as read replicas\. For more information, see [Nodes](DAX.concepts.cluster.md#DAX.concepts.nodes)\.
 
-Your application can access DAX by specifying the endpoint for the DAX cluster\. The DAX client software works with the cluster endpoint to perform intelligent load balancing and routing\. Incoming requests are evenly distributed across all of the nodes in the cluster\.
+Your application can access DAX by specifying the endpoint for the DAX cluster\. The DAX client software works with the cluster endpoint to perform intelligent load balancing and routing\. 
 
 ### Read Operations<a name="DAX.concepts.request-processing-read"></a>
 

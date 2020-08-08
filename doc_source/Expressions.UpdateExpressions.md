@@ -406,7 +406,7 @@ delete-action ::=
 ```
 
 **Example**  
-In [Adding Elements to a Set](#Expressions.UpdateExpressions.ADD.Set), you create the `Colors` string set\. This example removes some of the elements from that set\.  
+In [Adding Elements to a Set](#Expressions.UpdateExpressions.ADD.Set), you create the `Color` string set\. This example removes some of the elements from that set\.  
 
 ```
 aws dynamodb update-item \

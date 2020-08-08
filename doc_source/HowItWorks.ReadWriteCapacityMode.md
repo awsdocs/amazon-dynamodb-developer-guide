@@ -4,9 +4,9 @@ Amazon DynamoDB has two read/write capacity modes for processing reads and write
 +  On\-demand 
 +  Provisioned \(default, free\-tier eligible\) 
 
- The read/write capacity mode controls how you are charged for read and write throughput and how you manage capacity\. You can set the read/write capacity mode when creating a table or you can change it later\. 
+The read/write capacity mode controls how you are charged for read and write throughput and how you manage capacity\. You can set the read/write capacity mode when creating a table or you can change it later\.
 
- Global secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\. 
+Local secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\.
 
 **Topics**
 + [On\-Demand Mode](#HowItWorks.OnDemand)

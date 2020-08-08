@@ -5,8 +5,7 @@ Some applications might need to perform many kinds of queries, using a variety o
 **Topics**
 + [Scenario: Using a Global Secondary Index](#GSI.scenario)
 + [Attribute Projections](#GSI.Projections)
-+ [Querying a Global Secondary Index](#GSI.Querying)
-+ [Scanning a Global Secondary Index](#GSI.Scanning)
++ [Reading Data from a Global Secondary Index](#GSI.Reading)
 + [Data Synchronization Between Tables and Global Secondary Indexes](#GSI.Writes)
 + [Provisioned Throughput Considerations for Global Secondary Indexes](#GSI.ThroughputConsiderations)
 + [Storage Considerations for Global Secondary Indexes](#GSI.StorageConsiderations)
@@ -92,7 +91,11 @@ When you choose the attributes to project into a global secondary index, you mus
 + If you need to access most of the non\-key attributes on a frequent basis, you can project these attributes—or even the entire base table— into a global secondary index\. This gives you maximum flexibility\. However, your storage cost would increase, or even double\.
 + If your application needs to query a table infrequently, but must perform many writes or updates against the data in the table, consider projecting `KEYS_ONLY`\. The global secondary index would be of minimal size, but would still be available when needed for query activity\. 
 
-## Querying a Global Secondary Index<a name="GSI.Querying"></a>
+## Reading Data from a Global Secondary Index<a name="GSI.Reading"></a>
+
+You can retrieve items from a global secondary index using the `Query` and `Scan` operations\. The `GetItem` and `GetBatchItem` operations can't be used on a global secondary index\.
+
+### Querying a Global Secondary Index<a name="GSI.Querying"></a>
 
 You can use the `Query` operation to access one or more items in a global secondary index\. The query must specify the name of the base table and the name of the index that you want to use, the attributes to be returned in the query results, and any query conditions that you want to apply\. DynamoDB can return the results in ascending or descending order\.
 
@@ -116,7 +119,7 @@ In this query:
 + Within this game, DynamoDB uses the index to access all of the user IDs and top scores for this game\.
 + The results are returned, sorted in descending order because the `ScanIndexForward` parameter is set to false\.
 
-## Scanning a Global Secondary Index<a name="GSI.Scanning"></a>
+### Scanning a Global Secondary Index<a name="GSI.Scanning"></a>
 
 You can use the `Scan` operation to retrieve all of the data from a global secondary index\. You must provide the base table name and the index name in the request\. With a `Scan`, DynamoDB reads all of the data in the index and returns it to the application\. You can also request that only some of the data be returned, and that the remaining data should be discarded\. To do this, use the `FilterExpression` parameter of the `Scan` operation\. For more information, see [Filter Expressions for Scan](Scan.md#Scan.FilterExpression)\.
 

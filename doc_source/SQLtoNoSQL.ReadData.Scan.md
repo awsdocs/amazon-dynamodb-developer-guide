@@ -43,7 +43,7 @@ DynamoDB provides a `Scan` action that works in a similar way\. The following ar
 }
 ```
 
-The `Scan` action also provides a `FilterExpression` parameter, which you can use to discard items that you do not want to appear in the results\. A `FilterExpression` is applied after the entire table is scanned, but before the results are returned to you\. \(This is not recommended with large tables\. You are still charged for the entire `Scan`, even if only a few matching items are returned\.\)
+The `Scan` action also provides a `FilterExpression` parameter, which you can use to discard items that you do not want to appear in the results\. A `FilterExpression` is applied after the scan is performed, but before the results are returned to you\. \(This is not recommended with large tables\. You are still charged for the entire `Scan`, even if only a few matching items are returned\.\)
 
 **Note**  
 For code examples that use `Scan`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
