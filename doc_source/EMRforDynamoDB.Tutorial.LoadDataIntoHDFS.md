@@ -86,7 +86,7 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
 
    ```
    SELECT state_alpha, COUNT(*) 
-   FROM hive_features 
+   FROM hive_features
    GROUP BY state_alpha;
    ```
 

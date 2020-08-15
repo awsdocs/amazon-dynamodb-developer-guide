@@ -2,15 +2,15 @@
 
 The following examples show some ways that you can use HiveQL to query data stored in DynamoDB\.
 
-These examples refer to the *ddb\_features* table in the tutorial \([Step 5: Copy Data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md) \)\.
+These examples refer to the *ddb\_features* table in the tutorial \([Step 5: Copy Data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md)\)\.
 
 **Topics**
-+ [Using Aggregate Functions](#w180aac41c11c17b9)
-+ [Using the GROUP BY and HAVING Clauses](#w180aac41c11c17c11)
-+ [Joining Two DynamoDB tables](#w180aac41c11c17c13)
-+ [Joining Tables from Different Sources](#w180aac41c11c17c15)
++ [Using Aggregate Functions](#EMRforDynamoDB.Querying.AggregateFunctions)
++ [Using the GROUP BY and HAVING Clauses](#EMRforDynamoDB.Querying.GroupByAndHaving)
++ [Joining Two DynamoDB tables](#EMRforDynamoDB.Querying.JoiningTwoTables)
++ [Joining Tables from Different Sources](#EMRforDynamoDB.Querying.JoiningTablesFromDifferentSources)
 
-## Using Aggregate Functions<a name="w180aac41c11c17b9"></a>
+## Using Aggregate Functions<a name="EMRforDynamoDB.Querying.AggregateFunctions"></a>
 
 HiveQL provides built\-in functions for summarizing data values\. For example, you can use the `MAX` function to find the largest value for a selected column\. The following example returns the elevation of the highest feature in the state of Colorado\.
 
@@ -20,7 +20,7 @@ FROM ddb_features
 WHERE state_alpha = 'CO';
 ```
 
-## Using the GROUP BY and HAVING Clauses<a name="w180aac41c11c17c11"></a>
+## Using the GROUP BY and HAVING Clauses<a name="EMRforDynamoDB.Querying.GroupByAndHaving"></a>
 
 You can use the `GROUP BY` clause to collect data across multiple records\. This is often used with an aggregate function such as `SUM`, `COUNT`, `MIN`, or `MAX`\. You can also use the `HAVING` clause to discard any results that do not meet certain criteria\.
 
@@ -33,7 +33,7 @@ GROUP BY state_alpha
 HAVING count(*) >= 5;
 ```
 
-## Joining Two DynamoDB tables<a name="w180aac41c11c17c13"></a>
+## Joining Two DynamoDB tables<a name="EMRforDynamoDB.Querying.JoiningTwoTables"></a>
 
 The following example maps another Hive table \(*east\_coast\_states*\) to a table in DynamoDB\. The `SELECT` statement is a join across these two tables\. The join is computed on the cluster and returned\. The join does not take place in DynamoDB\. 
 
@@ -77,7 +77,7 @@ GROUP BY ecs.state_name, f.feature_class
 HAVING COUNT(*) >= 3;
 ```
 
-## Joining Tables from Different Sources<a name="w180aac41c11c17c15"></a>
+## Joining Tables from Different Sources<a name="EMRforDynamoDB.Querying.JoiningTablesFromDifferentSources"></a>
 
 In the following example, s3\_east\_coast\_states is a Hive table associated with a CSV file stored in Amazon S3\. The *ddb\_features* table is associated with data in DynamoDB\. The following example joins these two tables, returning the geographic features from states whose names begin with "New\."
 

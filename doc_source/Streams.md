@@ -33,8 +33,6 @@ DynamoDB Streams writes stream records in near\-real time so that you can build 
 
 ## Endpoints for DynamoDB Streams<a name="Streams.Endpoints"></a>
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/streams-endpoints.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
-
 AWS maintains separate endpoints for DynamoDB and DynamoDB Streams\. To work with database tables and indexes, your application must access a DynamoDB endpoint\. To read and process DynamoDB Streams records, your application must access a DynamoDB Streams endpoint in the same Region\.
 
 The naming convention for DynamoDB Streams endpoints is `streams.dynamodb.<region>.amazonaws.com`\. For example, if you use the endpoint `dynamodb.us-west-2.amazonaws.com` to access DynamoDB, you would use the endpoint `streams.dynamodb.us-west-2.amazonaws.com` to access DynamoDB Streams\.

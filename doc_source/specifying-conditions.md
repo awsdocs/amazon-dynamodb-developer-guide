@@ -398,6 +398,6 @@ Note the following:
 + Because the policy allows `UpdateItem`, an application can insert new items, and the hidden attributes will be null in the new items\. If these attributes are projected into `TopScoreDateTimeIndex`, the policy has the added benefit of preventing queries that cause fetches from the table\.
 + Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only whitelisted attributes can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
 
-## Related Topics<a name="w180aac36c15b9c17b9"></a>
+## Related Topics<a name="w182aac36c15b9c17b9"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [DynamoDB API Permissions: Actions, Resources, and Conditions Reference](api-permissions-reference.md)

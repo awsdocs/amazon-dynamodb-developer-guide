@@ -169,7 +169,7 @@ Each field begins with an STX character \(start of text, 0x02\) and ends with an
 With a single HiveQL statement, you can populate the DynamoDB table using the data from Amazon S3:  
 
 ```
-INSERT OVERWRITE TABLE ddb_features_no_mapping 
+INSERT OVERWRITE TABLE ddb_features_no_mapping
 SELECT * FROM s3_features_no_mapping;
 ```
 

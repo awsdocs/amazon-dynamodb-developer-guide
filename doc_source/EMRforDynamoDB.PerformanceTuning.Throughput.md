@@ -17,7 +17,7 @@ You should regularly monitor the CloudWatch metrics for your table\. For a quick
 Amazon EMR manages the request load against your DynamoDB table, according to the table's provisioned throughput settings\. However, if you notice a large number of `ProvisionedThroughputExceeded` messages in the job output, you can adjust the default read rate\. To do this, you can modify the `dynamodb.throughput.read.percent` configuration variable\. You can use the `SET` command to set this variable at the Hive command prompt:
 
 ```
-1. SET dynamodb.throughput.read.percent=1.0;                     
+1. SET dynamodb.throughput.read.percent=1.0;
 ```
 
 This variable persists for the current Hive session only\. If you exit Hive and return to it later, `dynamodb.throughput.read.percent` will return to its default value\.
@@ -31,7 +31,7 @@ If you notice that Hive is frequently depleting the provisioned read capacity of
 Amazon EMR manages the request load against your DynamoDB table, according to the table's provisioned throughput settings\. However, if you notice a large number of `ProvisionedThroughputExceeded` messages in the job output, you can adjust the default write rate\. To do this, you can modify the `dynamodb.throughput.write.percent` configuration variable\. You can use the `SET` command to set this variable at the Hive command prompt:
 
 ```
-1. SET dynamodb.throughput.write.percent=1.0;              
+1. SET dynamodb.throughput.write.percent=1.0;
 ```
 
 This variable persists for the current Hive session only\. If you exit Hive and return to it later, `dynamodb.throughput.write.percent` will return to its default value\.
@@ -42,6 +42,6 @@ If you notice that Hive is frequently depleting the provisioned write capacity o
 
 When you write data to DynamoDB using Hive, ensure that the number of write capacity units is greater than the number of mappers in the cluster\. For example, consider an Amazon EMR cluster consisting of 10 *m1\.xlarge* nodes\. The *m1\.xlarge* node type provides 8 mapper tasks, so the cluster would have a total of 80 mappers \(10 × 8\)\. If your DynamoDB table has fewer than 80 write capacity units, then a Hive write operation could consume all of the write throughput for that table\.
 
-To determine the number of mappers for Amazon EMR node types, see [Task Configuration](https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/TaskConfiguration_H1.0.3.html) in the *Amazon EMR Developer Guide*\.
+To determine the number of mappers for Amazon EMR node types, see [Task Configuration](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html) in the *Amazon EMR Developer Guide*\.
 
 For more information on mappers, see [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)\.

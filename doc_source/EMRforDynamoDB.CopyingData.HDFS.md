@@ -189,7 +189,6 @@ The following steps are written with the assumption you have copied data from Dy
 1. View the contents of the file:
 
    ```
-    
    hadoop fs -cat /user/hadoop/hive-test/000000_0
    ```
 **Note**  
@@ -198,7 +197,6 @@ In this example, the file is relatively small \(approximately 29 KB\)\. Be caref
 1. \(Optional\) You can copy the data file from HDFS to the local file system on the master node\. After you do this, you can use standard Linux command line utilities to work with the data in the file\.
 
    ```
-    
    hadoop fs -get /user/hadoop/hive-test/000000_0
    ```
 
