@@ -1,3 +1,6 @@
+**Important**   
+DynamoDB Backup and Restore is a fully managed feature. You can back up tables from a few megabytes to hundreds of terabytes of data, with no impact on performance and availability to your production applications. You can restore your table with a single click in the AWS Management Console or a single API call. It is highly recommended to use native backup and restore feature of DynamoDB instead of using AWS Data Pipeline. For more information see [On-Demand Backup and Restore for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html).
+
 # Exporting and Importing DynamoDB Data Using AWS Data Pipeline<a name="DynamoDBPipeline"></a>
 
 You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket\. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region\.
