@@ -58,4 +58,4 @@ In this example, each item has an `ExpirationTime` attribute value set when it i
 | --- | --- | --- | --- | --- | --- | 
 | user1 | 74686572652773 | 1571820360 | 1571827560 | \{JSON Document\} | \.\.\. | 
 
-In this example, the item `CreationTime` is set to Wednesday, October 23 08:46 AM UTC 2019, and the `ExpirationTime` is set 2 hours later at Wednesday, October 23 10:46 AM UTC 2019\. The item expires when the current time, in epoch format, is greater than the time in the `ExpirationTime` attribute\. In this case, the item with the key `{ Username: user1, SessionId: 74686572652773}` expires 10:00 AM \(1571827560\)\.
+In this example, the item `CreationTime` is set to Wednesday, October 23 08:46 AM UTC 2019, and the `ExpirationTime` is set 2 hours later at Wednesday, October 23 10:46 AM UTC 2019\. The item expires when the current time, in epoch format, is greater than the time in the `ExpirationTime` attribute\. In this case, the item with the key `{ Username: user1, SessionId: 74686572652773}` expires 10:46 AM \(1571827560\)\.
