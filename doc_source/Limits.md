@@ -327,11 +327,11 @@ The result set from a `Query` is limited to 1 MB per call\. You can use the `Las
 The result set from a `Scan` is limited to 1 MB per call\. You can use the `LastEvaluatedKey` from the scan response to retrieve more results\.
 
 **`UpdateTableReplicaAutoScaling`**  
-`UpdateTableReplicaAutoScaling` method supports only 10 requests per second\.
+`UpdateTableReplicaAutoScaling` method supports only ten requests per second\.
 
 ## DynamoDB Encryption at Rest<a name="limits-dynamodb-encryption"></a>
 
-You can switch from an AWS owned customer master key \(CMK\) to an AWS managed CMK up to four times, anytime per 24\-hour window, starting from when the table was created\. And if there was no change in the past 6 hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight times \(four changes in the first 6 hours, and one change for each of the subsequent 6\-hour windows in a day\)\. 
+You can switch from an AWS owned customer master key \(CMK\) to an AWS managed CMK up to four times, anytime per 24\-hour window, on a per table basis, starting from when the table was created\. If there was no change in the past six hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight times \(four changes in the first six hours, and one change for each of the subsequent six hour windows in a day\)\.
 
 You can switch encryption keys to use an AWS owned CMK as often as necessary\.
 

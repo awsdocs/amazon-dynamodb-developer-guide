@@ -95,11 +95,11 @@ The following table shows the DynamoDB service\-specific condition keys that app
 
 | DynamoDB Condition Key | Description | 
 | --- | --- | 
-| dynamodb:LeadingKeys | Represents the first key attribute of a table—in other words, the partition key\. The key name `LeadingKeys` is plural, even if the key is used with single\-item actions\. In addition, you must use the `ForAllValues` modifier when using `LeadingKeys` in a condition\. | 
-| dynamodb:Select | Represents the `Select` parameter of a `Query` or `Scan` request\. `Select` can be any of the following values: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
-| dynamodb:Attributes | Represents a list of the attribute names in a request, or the attributes that are returned from a request\. `Attributes` values are named the same way and have the same meaning as the parameters for certain DynamoDB API actions, as shown following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
-| dynamodb:ReturnValues | Represents the `ReturnValues` parameter of a request\. `ReturnValues` can be any of the following values:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
-| dynamodb:ReturnConsumedCapacity | Represents the `ReturnConsumedCapacity` parameter of a request\. `ReturnConsumedCapacity` can be one of the following values: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
+| dynamodb:LeadingKeys |  Represents the first key attribute of a table—in other words, the partition key\. The key name `LeadingKeys` is plural, even if the key is used with single\-item actions\. In addition, you must use the `ForAllValues` modifier when using `LeadingKeys` in a condition\.  | 
+| dynamodb:Select |  Represents the `Select` parameter of a `Query` or `Scan` request\. `Select` can be any of the following values: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
+| dynamodb:Attributes |  Represents a list of the attribute names in a request, or the attributes that are returned from a request\. `Attributes` values are named the same way and have the same meaning as the parameters for certain DynamoDB API actions, as shown following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
+| dynamodb:ReturnValues |  Represents the `ReturnValues` parameter of a request\. `ReturnValues` can be any of the following values:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
+| dynamodb:ReturnConsumedCapacity |  Represents the `ReturnConsumedCapacity` parameter of a request\. `ReturnConsumedCapacity` can be one of the following values: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
 
 ### Limiting User Access<a name="FGAC_DDB.LimitingAccess"></a>
 
@@ -398,6 +398,6 @@ Note the following:
 + Because the policy allows `UpdateItem`, an application can insert new items, and the hidden attributes will be null in the new items\. If these attributes are projected into `TopScoreDateTimeIndex`, the policy has the added benefit of preventing queries that cause fetches from the table\.
 + Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only whitelisted attributes can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
 
-## Related Topics<a name="w182aac36c15b9c17b9"></a>
+## Related Topics<a name="w187aac36c15b9c17b9"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [DynamoDB API Permissions: Actions, Resources, and Conditions Reference](api-permissions-reference.md)

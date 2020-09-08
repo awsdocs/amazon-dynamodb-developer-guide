@@ -26,7 +26,7 @@ The filter expression is applied to the `Scan` results, and items that don't mat
 
 If you define an expression attribute value, you must use it consistently throughout the entire expression\. Also, you can't omit the `:` symbol\. 
 
-Expression attribute values are used with condition expressions, update expressions, and filter expressions\.
+Expression attribute values are used with key condition expressions, condition expressions, update expressions, and filter expressions\.
 
 **Note**  
 For programming language\-specific code examples, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.

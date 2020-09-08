@@ -30,6 +30,7 @@ The following metrics are available from DAX\. DAX sends metrics to CloudWatch o
 **Note**  
 CloudWatch aggregates the following DAX metrics at one\-minute intervals:  
 `CPUUtilization`
+`CacheMemoryUtilization`
 `NetworkBytesIn`
 `NetworkBytesOut`
 `NetworkPacketsIn`
@@ -66,6 +67,7 @@ Not all statistics, such as `Average` or `Sum`, are applicable for every metric\
 | Metric | Description | 
 | --- | --- | 
 | CPUUtilization |  The percentage of CPU utilization of the node or cluster\. Units: `Percent` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| CacheMemoryUtilization |  The percentage of available cache memory that is in use by the item cache and query cache on the node or cluster\. Cached data starts to be evicted prior to memory utilization reaching 100% \(see `EvictedSize` metric\)\. If `CacheMemoryUtilization` reaches 100% on any node, write requests will be throttled and you should consider switching to a cluster with a larger node type\. Units: `Percent` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | NetworkBytesIn |  The number of bytes received on all network interfaces by the node or cluster\. Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | NetworkBytesOut |  The number of bytes sent out on all network interfaces by the node or cluster\. This metric identifies the volume of outgoing traffic in terms of the number of bytes on a single node or cluster\. Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | NetworkPacketsIn |  The number of packets received on all network interfaces by the node or cluster\. Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
@@ -93,7 +95,7 @@ Not all statistics, such as `Average` or `Sum`, are applicable for every metric\
 | ScanRequestCount |  The number of scan requests handled by the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | ClientConnections |  The number of simultaneous connections made by clients to the node or cluster\.  Units: `Count` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 | EstimatedDbSize |  An approximation of the amount of data cached in the item cache and the query cache by the node or cluster\.  Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
-| EvictedSize |  The amount of data that was evicted by the node or cluster to make room for newly requested data\. If the hit rates goes up, and you see this metric also growing, it probably means that your working set has increased\. You should consider switching to a cluster with a larger node type\.  Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
+| EvictedSize |  The amount of data that was evicted by the node or cluster to make room for newly requested data\. If the miss rate goes up, and you see this metric also growing, it probably means that your working set has increased\. You should consider switching to a cluster with a larger node type\. Units: `Bytes` Valid Statistics: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-metrics-dimensions-dax.html)  | 
 
 ### Dimensions for DAX Metrics<a name="dax-metric-dimensions"></a>
 

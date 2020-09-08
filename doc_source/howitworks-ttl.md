@@ -6,23 +6,7 @@ The scanner background process compares the current time, in [Unix epoch time fo
 
 As items are deleted from the table, two background operations happen simultaneously:
 + Items are removed from any local secondary index and global secondary index in the same way as a DeleteItem operation\.
-+ A delete operation for each item enters the DynamoDB Stream, but is tagged as a system delete and not a regular delete\. For more information about how to use this system delete, see [ DynamoDB Streams and Time to LiveDynamoDB Streams and TTL  Learn how to use an external operation \(e\.g\., a Lambda function\) with DynamoDB Streams to capture when an item is deleted from a table and how to determine if it's a user or TTL expired system delete\.   You can back up, or otherwise process, items that are deleted by [Time to Live](TTL.md) \(TTL\) by enabling Amazon DynamoDB Streams on the table and processing the streams records of the expired items\. The streams record contains a user identity field `Records[<index>].userIdentity`\. Items that are deleted by the Time to Live process after expiration have the following fields:   `Records[<index>].userIdentity.type` `"Service"`   `Records[<index>].userIdentity.principalId` `"dynamodb.amazonaws.com"`   The following JSON shows the relevant portion of a single streams record\. 
-
-```
-"Records":[
-    {
-        ...
-
-        "userIdentity":{
-            "type":"Service",
-            "principalId":"dynamodb.amazonaws.com"
-        }
-
-        ...
-
-    }
-]
-``` ](time-to-live-ttl-streams.md)\.
++ A delete operation for each item enters the DynamoDB Stream, but is tagged as a system delete and not a regular delete\. For more information about how to use this system delete, see [DynamoDB Streams and Time to Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/time-to-live-ttl-streams.html)\.
 
 **Important**  
 Depending on the size and activity level of a table, the actual delete operation of an expired item can vary\. Because TTL is meant to be a background process, the nature of the capacity used to expire and delete items via TTL is variable \(but free of charge\)\. TTL typically deletes expired items within 48 hours of expiration\.

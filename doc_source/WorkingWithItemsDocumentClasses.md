@@ -99,7 +99,7 @@ var relatedItems = new DynamoDBList();
 relatedItems.Add(341);
 relatedItems.Add(472);
 relatedItems.Add(649);
-item.Add("RelatedItems", relatedItems);
+book.Add("RelatedItems", relatedItems);
 
 table.PutItem(book);
 ```

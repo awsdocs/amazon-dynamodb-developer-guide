@@ -43,7 +43,7 @@ aws dynamodb scan \
 
 The `Scan` operation enables you to limit the number of items that it returns in the result\. To do this, set the `Limit` parameter to the maximum number of items that you want the `Scan` operation to return, prior to filter expression evaluation\.
 
-For example, suppose that you `Scan` a table with a `Limit` value of `6` and without a filter expression\. The `Scan` result contains the first six items from the table that match the key condition expression from the request\.
+For example, suppose that you `Scan` a table with a `Limit` value of `6` and without a filter expression\. The `Scan` result contains the first six items from the table\.
 
 Now suppose that you add a filter expression to the `Scan`\. In this case, DynamoDB applies the filter expression to the six items that were returned, discarding those that do not match\. The final `Scan` result contains six items or fewer, depending on the number of items that were filtered\.
 
