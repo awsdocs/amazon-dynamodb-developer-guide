@@ -64,17 +64,17 @@ namespace DynamoDB_intro
         }
         catch
         {
-          localFound =  false;
+          localFound = false;
         }
         if( !localFound )
         {
           Console.WriteLine("\n      ERROR: DynamoDB Local does not appear to have been started..." +
                             "\n        (checked port 8000)");
           operationFailed = true;
-          return (false);
+          return false;
         }
 
-      // If DynamoDB-Local does seem to be running, so create a client
+        // If DynamoDB-Local does seem to be running, so create a client
         Console.WriteLine( "  -- Setting up a DynamoDB-Local client (DynamoDB Local seems to be running)" );
         AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
         ddbConfig.ServiceURL = "http://localhost:8000";
@@ -86,7 +86,6 @@ namespace DynamoDB_intro
           return false;
         }
       }
-
       else
       {
         try { client = new AmazonDynamoDBClient( ); }
@@ -94,8 +93,10 @@ namespace DynamoDB_intro
         {
           Console.WriteLine( "     FAILED to create a DynamoDB client; " + ex.Message );
           operationFailed = true;
+          return false;
         }
       }
+
       operationSucceeded = true;
       return true;
     }
