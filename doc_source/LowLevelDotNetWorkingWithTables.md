@@ -10,7 +10,7 @@ The following are the common steps for Amazon DynamoDB table operations using th
 
    For example, create a `CreateTableRequest` object to create a table and `UpdateTableRequest` object to update an existing table\.
 
-1. Execute the appropriate method provided by the client that you created in the preceding step\.
+1. Run the appropriate method provided by the client that you created in the preceding step\.
 
 **Note**  
  The examples in this section don't work with \.NET core because it doesn't support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
@@ -34,7 +34,7 @@ To create a table, you must provide the table name, its primary key, and the pro
 
    You must provide the table name, primary key, and the provisioned throughput values\.
 
-1. Execute the `AmazonDynamoDBClient.CreateTable` method by providing the request object as a parameter\.
+1. Run the `AmazonDynamoDBClient.CreateTable` method by providing the request object as a parameter\.
 
 The following C\# example demonstrates the preceding steps\. The sample creates a table \(`ProductCatalog`\) that uses `Id` as the primary key and set of provisioned throughput values\. Depending on your application requirements, you can update the provisioned throughput values by using the `UpdateTable` API\.
 
@@ -111,7 +111,7 @@ You can increase throughput capacity as often as needed, and decrease it within 
 
    You must provide the table name and the new provisioned throughput values\. 
 
-1. Execute the `AmazonDynamoDBClient.UpdateTable` method by providing the request object as a parameter\.
+1. Run the `AmazonDynamoDBClient.UpdateTable` method by providing the request object as a parameter\.
 
 The following C\# example demonstrates the preceding steps\.
 
@@ -144,7 +144,7 @@ Follow these steps to delete a table using the \.NET low\-level API\.
 
 1. Create an instance of the `DeleteTableRequest` class, and provide the table name that you want to delete\.
 
-1. Execute the `AmazonDynamoDBClient.DeleteTable` method by providing the request object as a parameter\.
+1. Run the `AmazonDynamoDBClient.DeleteTable` method by providing the request object as a parameter\.
 
 The following C\# code example demonstrates the preceding steps\.
 
@@ -160,7 +160,7 @@ var response = client.DeleteTable(request);
 
 ## Listing Tables<a name="LowLeveldotNetListTables"></a>
 
-To list tables in your account using the AWS SDK for \.NET low\-level API, create an instance of the `AmazonDynamoDBClient` and execute the `ListTables` method\.
+To list tables in your account using the AWS SDK for \.NET low\-level API, create an instance of the `AmazonDynamoDBClient` and run the `ListTables` method\.
 
 The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\. However, you can specify optional parameters\. For example, you can set the `Limit` parameter if you want to use paging to limit the number of table names per page\. This requires you to create a `ListTablesRequest` object and provide optional parameters as shown in the following C\# example\. Along with the page size, the request sets the `ExclusiveStartTableName` parameter\. Initially, `ExclusiveStartTableName` is null\. However, after fetching the first page of results, to retrieve the next page of results, you must set this parameter value to the `LastEvaluatedTableName` property of the current result\.
 

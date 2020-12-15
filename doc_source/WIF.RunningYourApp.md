@@ -28,6 +28,8 @@ At runtime, if your app uses web identity federation, it must follow these steps
    &WebIdentityToken=Atza|IQEBLjAsAhQluyKqyBiYZ8-kclvGTYM81e...(remaining characters omitted)
    ```
 
+   
+
    ```
    <AssumeRoleWithWebIdentityResponse
      xmlns="https://sts.amazonaws.com/doc/2011-06-15/">

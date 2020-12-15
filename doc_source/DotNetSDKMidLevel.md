@@ -74,7 +74,7 @@ The following code example shows how to retrieve a `List` \(RelatedItems\) and a
 
 ```
 DynamoDBList relatedItems = doc["RelatedItems"].AsDynamoDBList();
-            
+
 Document pictures = doc["Pictures"].AsDocument();
 ```
 
@@ -88,7 +88,7 @@ The `DeleteItem` operation deletes an item from a table\. You can pass the item'
 Table table = Table.LoadTable(client, "ProductCatalog");
 
 // Retrieve a book (a Document instance)
-Document document = table.GetItem(111); 
+Document document = table.GetItem(111);
 
 // 1) Delete using the Document instance.
  table.DeleteItem(document);
@@ -144,9 +144,11 @@ This midlevel `UpdateItem` operation does not support the `Add` action \(see [Up
 **Note**  
 The `PutItem` operation \([Putting an Item \- Table\.PutItem Method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the `PutItem` operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
 
+
+
 The following are the steps to update an item using the AWS SDK for \.NET document model:
 
-1. Execute the `Table.LoadTable` method by providing the name of the table in which you want to perform the update operation\.
+1. Run the `Table.LoadTable` method by providing the name of the table in which you want to perform the update operation\.
 
 1. Create a `Document` instance by providing all the updates that you want to perform\. 
 
@@ -168,9 +170,9 @@ var book = new Document();
 // Set the attributes that you wish to update.
 book["Id"] = 111; // Primary key.
 // Replace the authors attribute.
-book["Authors"] = new List<string> { "Author x", "Author y" }; 
-// Add a new attribute.   
-book["XYZ"] = 12345; 
+book["Authors"] = new List<string> { "Author x", "Author y" };
+// Add a new attribute.
+book["XYZ"] = 12345;
 // Delete the existing PageCount attribute.
 book["PageCount"] = null;
 
@@ -214,11 +216,11 @@ Document d1 = table.Update(book, config);
 
 1. Create a `Table` object by executing the `Table.LoadTable` method by providing the name of the table in which you want to perform the batch operation\.
 
-1. Execute the `CreateBatchWrite` method on the table instance you created in the preceding step and create a `DocumentBatchWrite` object\.
+1. Run the `CreateBatchWrite` method on the table instance you created in the preceding step and create a `DocumentBatchWrite` object\.
 
 1. Use the `DocumentBatchWrite` object methods to specify the documents that you want to upload or delete\. 
 
-1. Call the `DocumentBatchWrite.Execute` method to execute the batch operation\.
+1. Call the `DocumentBatchWrite.Execute` method to run the batch operation\.
 
    When using the document model API, you can specify any number of operations in a batch\. However, DynamoDB limits the number of operations in a batch and the total size of the batch in a batch operation\. For more information about the specific limits, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If the document model API detects that your batch write request exceeded the number of allowed write requests, or the HTTP payload size of a batch exceeded the limit allowed by `BatchWriteItem`, it breaks the batch into several smaller batches\. Additionally, if a response to a batch write returns unprocessed items, the document model API automatically sends another batch request with those unprocessed items\.
 
@@ -237,8 +239,8 @@ book1["InStock"] = new DynamoDBBool(true);
 book1["QuantityOnHand"] = 5;
 
 batchWrite.AddDocumentToPut(book1);
-// specify delete item using overload that takes PK. 
-batchWrite.AddKeyToDelete(12345); 
+// specify delete item using overload that takes PK.
+batchWrite.AddKeyToDelete(12345);
 
 batchWrite.Execute();
 ```
@@ -251,7 +253,7 @@ You can use the `batchWrite` operation to perform put and delete operations on m
 
 1. Create an instance of the `MultiTableDocumentBatchWrite` and add the individual `DocumentBatchWrite` objects to it\.
 
-1. Execute the `MultiTableDocumentBatchWrite.Execute` method\.
+1. Run the `MultiTableDocumentBatchWrite.Execute` method\.
 
 The following C\# code example demonstrates the preceding steps\. The example uses the batch write operation to perform the following write operations:
 + Put a new item in the `Forum` table item\. 
@@ -265,13 +267,13 @@ var forumBatchWrite = forum.CreateBatchWrite();
 var forum1 = new Document();
 forum1["Name"] = "Test BatchWrite Forum";
 forum1["Threads"] = 0;
-forumBatchWrite.AddDocumentToPut(forum1); 
+forumBatchWrite.AddDocumentToPut(forum1);
 
 
 // 2a. Specify item to add in the Thread table.
 Table thread = Table.LoadTable(client, "Thread");
 var threadBatchWrite = thread.CreateBatchWrite();
-  
+
 var thread1 = new Document();
 thread1["ForumName"] = "Amazon S3 forum";
 thread1["Subject"] = "My sample question";

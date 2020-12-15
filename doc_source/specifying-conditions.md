@@ -232,7 +232,7 @@ The following permissions policy allows access to only two specific attributes i
 ```
 
 **Note**  
-The policy takes an *allow list* \(sometimes known as *whitelist*\) approach, which allows access to a named set of attributes\. You can write an equivalent policy that denies access to other attributes instead\. We don't recommend this *deny list* \(or *blacklist*\) approach\. Users can determine the names of these denied attributes by repeatedly issuing requests for all possible attribute names, eventually finding an attribute that they aren't allowed to access\. To avoid this, follow the *principle of least privilege*, as explained in Wikipedia at [http://en\.wikipedia\.org/wiki/Principle\_of\_least\_privilege](http://en.wikipedia.org/wiki/Principle_of_least_privilege), and use an *allow list* approach to enumerate all of the allowed values, rather than specifying the denied attributes\.
+The policy takes an *allow list* approach, which allows access to a named set of attributes\. You can write an equivalent policy that denies access to other attributes instead\. We don't recommend this *deny list* approach\. Users can determine the names of these denied attributes by follow the *principle of least privilege*, as explained in Wikipedia at [http://en\.wikipedia\.org/wiki/Principle\_of\_least\_privilege](http://en.wikipedia.org/wiki/Principle_of_least_privilege), and use an *allow list* approach to enumerate all of the allowed values, rather than specifying the denied attributes\.
 
 This policy doesn't permit `PutItem`, `DeleteItem`, or `BatchWriteItem`\. These actions always replace the entire previous item, which would allow users to delete the previous values for attributes that they are not allowed to access\.
 
@@ -396,8 +396,8 @@ The following permissions policy allows specific DynamoDB actions \(specified in
 Note the following:
 + Write actions allowed by the policy \(`UpdateItem`\) can only modify `attribute-A` or `attribute-B`\.
 + Because the policy allows `UpdateItem`, an application can insert new items, and the hidden attributes will be null in the new items\. If these attributes are projected into `TopScoreDateTimeIndex`, the policy has the added benefit of preventing queries that cause fetches from the table\.
-+ Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only whitelisted attributes can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
++ Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only attributes in the allow list can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
 
-## Related Topics<a name="w187aac36c15b9c17b9"></a>
+## Related Topics<a name="w266aac41c15b9c17b9"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [DynamoDB API Permissions: Actions, Resources, and Conditions Reference](api-permissions-reference.md)

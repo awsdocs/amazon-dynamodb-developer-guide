@@ -13,6 +13,8 @@ Follow this procedure to create an Amazon DynamoDB Accelerator \(DAX\) cluster i
 1. In the **Create cluster** window, do the following:
 
    1. **Cluster name**—Enter a short name for your DAX cluster\.
+**Note**  
+Since `sudo` and `grep` are reserved keywords, you cannot create a DAX cluster with these words in the cluster name\. For example, `sudo` and `sudocluster` are invalid cluster names\.
 
    1. **Cluster description**—Enter a description for the cluster\.
 

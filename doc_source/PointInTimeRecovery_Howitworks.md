@@ -9,7 +9,7 @@ After you enable point\-in\-time recovery, you can restore to any point in time 
 **Note**  
 The point\-in\-time recovery process always restores to a new table\.
 
-For `EarliestRestorableDateTime`, you can restore your table to any point in time during the last 35 days\. The retention period is a fixed 35 days \(5 calendar weeks\) and can't be modified\. Any number of users can execute up to four concurrent restores \(any type of restore\) in a given account\.
+For `EarliestRestorableDateTime`, you can restore your table to any point in time during the last 35 days\. The retention period is a fixed 35 days \(5 calendar weeks\) and can't be modified\. Any number of users can run up to four concurrent restores \(any type of restore\) in a given account\.
 
 **Important**  
 If you disable point\-in\-time recovery and later re\-enable it on a table, you reset the start time for which you can recover that table\. As a result, you can only immediately restore that table using the `LatestRestorableDateTime`\.

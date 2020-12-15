@@ -12,7 +12,7 @@
 + [Optimistic Locking with Version Number](DynamoDBMapper.OptimisticLocking.md)
 + [Mapping Arbitrary Data](DynamoDBMapper.ArbitraryDataMapping.md)
 
-The AWS SDK for Java provides a `DynamoDBMapper` class, allowing you to map your client\-side classes to Amazon DynamoDB tables\. To use `DynamoDBMapper`, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code\. The `DynamoDBMapper` class enables you to access your tables; perform various create, read, update, and delete \(CRUD\) operations; and execute queries\.
+The AWS SDK for Java provides a `DynamoDBMapper` class, allowing you to map your client\-side classes to Amazon DynamoDB tables\. To use `DynamoDBMapper`, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code\. The `DynamoDBMapper` class enables you to access your tables; perform various create, read, update, and delete \(CRUD\) operations; and run queries\.
 
 **Note**  
 The `DynamoDBMapper` class does not allow you to create, update, or delete tables\. To perform those tasks, use the low\-level SDK for Java interface instead\. For more information, see [Working with DynamoDB Tables in Java](JavaDocumentAPIWorkingWithTables.md)\.
@@ -61,7 +61,7 @@ public class CatalogItem {
     @DynamoDBAttribute(attributeName="Authors")
     public Set<String> getBookAuthors() { return bookAuthors; }
     public void setBookAuthors(Set<String> bookAuthors) { this.bookAuthors = bookAuthors; }
-    
+
     @DynamoDBIgnore
     public String getSomeProp() { return someProp; }
     public void setSomeProp(String someProp) { this.someProp = someProp; }

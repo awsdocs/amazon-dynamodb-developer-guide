@@ -16,6 +16,8 @@ When granting permissions, you decide who is getting the permissions, the resour
 
 ## DynamoDB Resources and Operations<a name="access-control-resources"></a>
 
+
+
  In DynamoDB, the primary resources are *tables*\. DynamoDB also supports additional resource types, *indexes*, and *streams*\. However, you can create indexes and streams only in the context of an existing DynamoDB table\. These are referred to as *subresources*\. 
 
 These resources and subresources have unique Amazon Resource Names \(ARNs\) associated with them, as shown in the following table\. 
@@ -83,7 +85,7 @@ The following is an example policy that grants permissions for one DynamoDB acti
 }
 ```
 
-For more information about using identity\-based policies with DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\. 
+For more information about using identity\-based policies with DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\. 
 
 ### Resource\-Based Policies<a name="access-control-manage-access-resource-based"></a>
 

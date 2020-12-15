@@ -33,6 +33,29 @@ This example uses the *Tags* column to store semistructured data about the songs
 
 ## DynamoDB<a name="SQLtoNoSQL.WriteData.DynamoDB"></a>
 
+In Amazon DynamoDB, you use the PartiQL, a SQL compatible query language, or DynamoDB’s classic APIs to add an item to a table\.
+
+### PartiQL<a name="SQLtoNoSQL.WriteData.DynamoDB.partiql"></a>
+
+In Amazon DynamoDB, you use the `ExecuteStatement` action to add an item to a table, using the *Insert* PartiQL statement\.
+
+```
+insert into Music value {  
+    'Artist': 'No One You Know',
+    'SongTitle': 'Call Me Today',
+    'AlbumTitle': 'someonewhat famous',
+    'Year' : true,
+    'Genre' : 'Acme'
+}
+```
+
+The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
+
+**Note**  
+For code examples using `Insert` and `ExecuteStatement`, see [PartiQL Insert Statements for DynamoDB](ql-reference.insert.md)\.
+
+### Classic APIs<a name="SQLtoNoSQL.WriteData.DynamoDB.classic"></a>
+
 In Amazon DynamoDB, you use the `PutItem` action to add an item to a table\.
 
 ```

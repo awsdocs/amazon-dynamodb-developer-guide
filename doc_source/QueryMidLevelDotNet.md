@@ -15,7 +15,7 @@ For example, the following C\# code queries for all forum replies that were post
 **Example**  
 
 ```
-string tableName = "Reply"; 
+string tableName = "Reply";
 Table table = Table.LoadTable(client, tableName);
 
 DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
@@ -64,7 +64,7 @@ You can also specify optional parameters for `Query`, such as specifying a list 
 Query(QueryOperationConfig config);
 ```
 
-Assume that you want to execute the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\.
+Assume that you want to run the query in the preceding example \(retrieve forum replies posted in the last 15 days\)\. However, assume that you want to provide optional query parameters to retrieve only specific attributes and also request a strongly consistent read\. The following C\# code example constructs the request using the `QueryOperationConfig` object\.
 
 **Example**  
 
@@ -74,7 +74,7 @@ DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
 QueryOperationConfig config = new QueryOperationConfig()
 {
   HashKey = "DynamoDB Thread 2", //Partition key
-  AttributesToGet = new List<string> 
+  AttributesToGet = new List<string>
     { "Subject", "ReplyDateTime", "PostedBy" },
   ConsistentRead = true,
   Filter = new RangeFilter(QueryOperator.GreaterThan, twoWeeksAgoDate)
@@ -85,17 +85,19 @@ Search search = table.Query(config);
 
 ## Example: Query Using the Table\.Query Method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
 
-The following C\# code example uses the `Table.Query` method to execute the following sample queries\.
-+ The following queries are executed against the `Reply` table\.
+The following C\# code example uses the `Table.Query` method to run the following sample queries\.
++ The following queries are run against the `Reply` table\.
   + Find forum thread replies that were posted in the last 15 days\.
 
-    This query is executed twice\. In the first `Table.Query` call, the example provides only the required query parameters\. In the second `Table.Query` call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
+    This query is run twice\. In the first `Table.Query` call, the example provides only the required query parameters\. In the second `Table.Query` call, you provide optional query parameters to request a strongly consistent read and a list of attributes to retrieve\.
   + Find forum thread replies posted during a period of time\.
 
     This query uses the `Between` query operator to find replies posted in between two dates\.
 + Get a product from the `ProductCatalog` table\.
 
   Because the `ProductCatalog` table has a primary key that is only a partition key, you can only get items; you cannot query the table\. The example retrieves a specific product item using the item `Id`\.
+
+
 
 **Example**  
 

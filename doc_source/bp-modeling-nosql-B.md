@@ -71,7 +71,7 @@ This breakdown assumes that the access pattern that requires gathering all `OPEN
 
 In this example, the items are randomly distributed across the 15 logical partitions\. This structure works because the access pattern requires a large number of items to be retrieved\. Therefore, it's unlikely that any of the 15 threads will return empty result sets that could potentially represent wasted capacity\. A query always uses 1 read capacity unit \(RCU\) or 1 write capacity unit \(WCU\), even if nothing is returned or no data is written\. 
 
-If the access pattern requires a high velocity query on this global secondary index that returns a sparse result set, it's probably better to use a hash algorithm to distribute the items rather than a random pattern\. In this case, you might select an attribute that is known when the query is executed at runtime and hash that attribute into a 0–14 key space when the items are inserted\. Then they can be efficiently read from the global secondary index\. 
+If the access pattern requires a high velocity query on this global secondary index that returns a sparse result set, it's probably better to use a hash algorithm to distribute the items rather than a random pattern\. In this case, you might select an attribute that is known when the query is run at runtime and hash that attribute into a 0–14 key space when the items are inserted\. Then they can be efficiently read from the global secondary index\. 
 
 Finally, you can revisit the access patterns that were defined earlier\. Following is the list of access patterns and the query conditions that you will use with the new DynamoDB version of the application to accommodate them\.
 

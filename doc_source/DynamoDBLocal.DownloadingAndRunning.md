@@ -15,7 +15,7 @@ Follow these steps to set up and run DynamoDB on your computer\.
 
    DynamoDB is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
 **Important**  
-To run DynamoDB on your computer, you must have the Java Runtime Environment \(JRE\) version 6\.x or newer\. The application doesn't run on earlier JRE versions\.
+To run DynamoDB on your computer, you must have the Java Runtime Environment \(JRE\) version 8\.x or newer\. The application doesn't run on earlier JRE versions\.
 
 1. After you download the archive, extract the contents and copy the extracted directory to a location of your choice\.
 

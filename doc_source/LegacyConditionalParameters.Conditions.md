@@ -71,7 +71,7 @@ The following expressions evaluate to true if:
   ...
       "Price": {
           ComparisonOperator: "GT",
-          AttributeValueList: [ {"N":100"} ]
+          AttributeValueList: [ {"N":"100"} ]
       }
   ...
   ```

@@ -17,4 +17,4 @@ You can specify an encryption key when you create a new table or switch the encr
 
  Encryption at rest using the AWS owned CMK is offered at no additional charge\. However, AWS KMS charges apply for an AWS managed CMK and for a customer managed CMK\. For more information about pricing, see [AWS KMS pricing](https://aws.amazon.com/kms/pricing)\.
 
-DynamoDB encryption at rest is available in all AWS Regions, including the AWS China \(Beijing\) and AWS China \(Ningxia\) Regions and the AWS GovCloud \(US\) Regions\. Encryption at rest support for customer managed CMKs is available in all AWS Regions except the Asia Pacific \(Osaka\-Local\) Region\. For more information, see [Encryption at Rest: How It Works](encryption.howitworks.md) and [DynamoDB Encryption at Rest Usage Notes](encryption.usagenotes.md)\.
+DynamoDB encryption at rest is available in all AWS Regions, including the AWS China \(Beijing\) and AWS China \(Ningxia\) Regions and the AWS GovCloud \(US\) Regions\. For more information, see [Encryption at Rest: How It Works](encryption.howitworks.md) and [DynamoDB Encryption at Rest Usage Notes](encryption.usagenotes.md)\.

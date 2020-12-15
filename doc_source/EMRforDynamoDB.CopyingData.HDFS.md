@@ -6,7 +6,8 @@ You might do this if you are running a MapReduce job that requires data from Dyn
 
 In the following examples, Hive will read from and write to the following HDFS directory: `/user/hadoop/hive-test`
 
-The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and you have an external table that is mastered in DynamoDB \(*ddb\_features*\)\.
+**Note**  
+The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and you have an external table in DynamoDB named *ddb\_features*\. 
 
 **Topics**
 + [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.HDFS.DefaultFormat)
@@ -107,6 +108,8 @@ SELECT * FROM hdfs_features_csv;
 
 You can copy data from DynamoDB in a raw format and write it to HDFS without specifying any data types or column mapping\. You can use this method to create an archive of DynamoDB data and store it in HDFS\.
 
+
+
 **Note**  
 If your DynamoDB table contains attributes of type Map, List, Boolean or Null, then this is the only way you can use Hive to copy data from DynamoDB to HDFS\.
 
@@ -115,16 +118,18 @@ If your DynamoDB table contains attributes of type Map, List, Boolean or Null, t
 1. Create an external table associated with your DynamoDB table\. \(There is no `dynamodb.column.mapping` in this HiveQL statement\.\)
 
    ```
-   CREATE EXTERNAL TABLE ddb_features_no_mapping 
+   CREATE EXTERNAL TABLE ddb_features_no_mapping
        (item MAP<STRING, STRING>)
-   STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler' 
+   STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
    TBLPROPERTIES ("dynamodb.table.name" = "Features");
    ```
+
+   
 
 1. Create another external table associated with your HDFS directory\.
 
    ```
-   CREATE EXTERNAL TABLE hdfs_features_no_mapping 
+   CREATE EXTERNAL TABLE hdfs_features_no_mapping
        (item MAP<STRING, STRING>)
    ROW FORMAT DELIMITED
    FIELDS TERMINATED BY '\t'
@@ -159,9 +164,9 @@ SELECT * FROM hdfs_features_no_mapping;
 
 ## Accessing the Data in HDFS<a name="EMRforDynamoDB.CopyingData.HDFS.ViewingData"></a>
 
-HDFS is a distributed file system, accessible to all of the nodes in the Amazon EMR cluster\. If you use SSH to connect to the master node, you can use command line tools to access the data that Hive wrote to HDFS\.
+HDFS is a distributed file system, accessible to all of the nodes in the Amazon EMR cluster\. If you use SSH to connect to the leader node, you can use command line tools to access the data that Hive wrote to HDFS\.
 
-HDFS is not the same thing as the local file system on the master node\. You cannot work with files and directories in HDFS using standard Linux commands \(such as `cat`, `cp`, `mv`, or `rm`\)\. Instead, you perform these tasks using the `hadoop fs` command\.
+HDFS is not the same thing as the local file system on the leader node\. You cannot work with files and directories in HDFS using standard Linux commands \(such as `cat`, `cp`, `mv`, or `rm`\)\. Instead, you perform these tasks using the `hadoop fs` command\.
 
 The following steps are written with the assumption you have copied data from DynamoDB to HDFS using one of the procedures in this section\.
 
@@ -180,7 +185,7 @@ The following steps are written with the assumption you have copied data from Dy
    The response should look similar to this:
 
    ```
-   Found 1 items 
+   Found 1 items
    -rw-r--r-- 1 hadoop hadoop 29504 2016-06-08 23:40 /user/hadoop/hive-test/000000_0
    ```
 
@@ -194,7 +199,7 @@ The following steps are written with the assumption you have copied data from Dy
 **Note**  
 In this example, the file is relatively small \(approximately 29 KB\)\. Be careful when you use this command with files that are very large or contain non\-printable characters\.
 
-1. \(Optional\) You can copy the data file from HDFS to the local file system on the master node\. After you do this, you can use standard Linux command line utilities to work with the data in the file\.
+1. \(Optional\) You can copy the data file from HDFS to the local file system on the leader node\. After you do this, you can use standard Linux command line utilities to work with the data in the file\.
 
    ```
    hadoop fs -get /user/hadoop/hive-test/000000_0
@@ -202,4 +207,4 @@ In this example, the file is relatively small \(approximately 29 KB\)\. Be caref
 
    This command will not overwrite the file\.
 **Note**  
-The local file system on the master node has limited capacity\. Do not use this command with files that are larger than the available space in the local file system\.
+The local file system on the leader node has limited capacity\. Do not use this command with files that are larger than the available space in the local file system\.

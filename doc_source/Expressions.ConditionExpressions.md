@@ -113,7 +113,7 @@ Suppose that you started with the item shown in [Condition Expressions](#Express
 }
 ```
 
-The following example performs an `UpdateItem` operation\. It tries to reduce the `Price` of a product by 75—but the condition expression prevents the update if the current `Price` is below 500\.
+The following example performs an `UpdateItem` operation\. It tries to reduce the `Price` of a product by 75—but the condition expression prevents the update if the current `Price` is less than or equal to 500\.
 
 ```
 aws dynamodb update-item \
@@ -150,19 +150,19 @@ You can check for the existence \(or nonexistence\) of any attribute\. If the co
 The following example uses `attribute_not_exists` to delete a product only if it does not have a `Price` attribute\.
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "attribute_not_exists(Price)"
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "attribute_not_exists(Price)"
 ```
 
 DynamoDB also provides an `attribute_exists` function\. The following example deletes a product only if it has received poor reviews\.
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "attribute_exists(ProductReviews.OneStar)"
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "attribute_exists(ProductReviews.OneStar)"
 ```
 
 ### Checking for Attribute Type<a name="Expressions.ConditionExpressions.CheckingForAttributeType"></a>
@@ -172,11 +172,11 @@ You can check the data type of an attribute value by using the `attribute_type` 
 The following example uses `attribute_type` to delete a product only if it has a `Color` attribute of type String Set\. 
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "attribute_type(Color, :v_sub)" \
-		--expression-attribute-values file://expression-attribute-values.json
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "attribute_type(Color, :v_sub)" \
+    --expression-attribute-values file://expression-attribute-values.json
 ```
 
 The arguments for `--expression-attribute-values` are stored in the expression\-attribute\-values\.json file\.
@@ -194,11 +194,11 @@ You can check if a String attribute value begins with a particular substring by 
 The following example uses `begins_with` to delete a product only if the `FrontView` element of the `Pictures` map starts with a specific value\.
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "begins_with(Pictures.FrontView, :v_sub)" \
-		--expression-attribute-values file://expression-attribute-values.json
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "begins_with(Pictures.FrontView, :v_sub)" \
+    --expression-attribute-values file://expression-attribute-values.json
 ```
 
 The arguments for `--expression-attribute-values` are stored in the expression\-attribute\-values\.json file\.
@@ -216,11 +216,11 @@ You can check for an element in a set or look for a substring within a string by
 The following example uses `contains` to delete a product only if the `Color` String Set has an element with a specific value\. 
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "contains(Color, :v_sub)" \
-		--expression-attribute-values file://expression-attribute-values.json
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "contains(Color, :v_sub)" \
+    --expression-attribute-values file://expression-attribute-values.json
 ```
 
 The arguments for `--expression-attribute-values` are stored in the expression\-attribute\-values\.json file\.
@@ -238,11 +238,11 @@ You can check for the size of an attribute value by using the `size` function\. 
 The following example uses `size` to delete a product only if the size of the `VideoClip` Binary attribute is greater than `64000` bytes\. 
 
 ```
-	aws dynamodb delete-item \
-		--table-name ProductCatalog \
-		--key '{"Id": {"N": "456"}}' \
-		--condition-expression "size(VideoClip) > :v_sub" \
-		--expression-attribute-values file://expression-attribute-values.json
+aws dynamodb delete-item \
+    --table-name ProductCatalog \
+    --key '{"Id": {"N": "456"}}' \
+    --condition-expression "size(VideoClip) > :v_sub" \
+    --expression-attribute-values file://expression-attribute-values.json
 ```
 
 The arguments for `--expression-attribute-values` are stored in the expression\-attribute\-values\.json file\.

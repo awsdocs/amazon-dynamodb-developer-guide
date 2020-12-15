@@ -65,7 +65,7 @@ For example, suppose that you issue a `GetItem` request from the DAX client to r
 
 #### How DAX Processes Writes<a name="DAX.consistency.item-cache.write-consistency.processing-writes"></a>
 
-DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX allows you to issue writes directly so that your writes are immediately reflected in the item cache\. You don't need to manage cache invalidation logic because DAX handles it for you\.
+DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX passes your writes through to DynamoDB synchronously, then automatically and asynchronously replicates resulting updates to your item cache across all nodes in the cluster\. You don't need to manage cache invalidation logic because DAX handles it for you\.
 
 DAX supports the following write operations: `PutItem`, `UpdateItem`, `DeleteItem`, `BatchWriteItem`, and `TransactWriteItems`\.
 

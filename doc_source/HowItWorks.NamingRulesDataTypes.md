@@ -19,7 +19,12 @@ The following are the naming rules for DynamoDB:
   + `_` \(underscore\)
   + `-` \(dash\)
   + `.` \(dot\)
-+ Attribute names must be between 1 and 255 characters long\.
++ Attribute names must be at least one character long, but no greater than 64 KB long\.
+
+  The following are the exceptions\. These attribute names must be no greater than 255 characters long:
+  + Secondary index partition key names\.
+  + Secondary index sort key names\.
+  + The names of any user\-specified projected attributes \(applicable only to local secondary indexes\)\. 
 
 ### Reserved Words and Special Characters<a name="HowItWorks.NamingRules.Reserved"></a>
 

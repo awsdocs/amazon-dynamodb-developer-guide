@@ -16,7 +16,7 @@ Each DynamoDB endpoint is entirely independent\. For example, if you have two ta
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.ListTables
 content-type: application/x-amz-json-1.0
@@ -68,7 +68,7 @@ The following examples show an HTTP POST request and response using the ListTabl
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.ListTables
 content-type: application/x-amz-json-1.0

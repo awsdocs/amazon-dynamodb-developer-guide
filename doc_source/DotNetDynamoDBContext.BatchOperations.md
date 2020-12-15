@@ -3,7 +3,7 @@
 ## Batch Write: Putting and Deleting Multiple Items<a name="DotNetDynamoDBContext.BatchWrite"></a>
 
 To put or delete multiple objects from a table in a single request, do the following:
-+ Execute the `CreateBatchWrite` method of the `DynamoDBContext`, and create an instance of the `BatchWrite` class\.
++ Run the `CreateBatchWrite` method of the `DynamoDBContext`, and create an instance of the `BatchWrite` class\.
 + Specify the items that you want to put or delete\.
   + To put one or more items, use either the `AddPutItem` or the `AddPutItems` method\.
   + To delete one or more items, you can specify either the primary key of the item or a client\-side object that maps to the item that you want to delete\. Use the `AddDeleteItem`, `AddDeleteItems`, and the `AddDeleteKey` methods to specify the list of items to delete\.
@@ -48,9 +48,9 @@ bookBatch.Execute();
 To put or delete objects from multiple tables, do the following:
 + Create one instance of the `BatchWrite` class for each type and specify the items you want to put or delete as described in the preceding section\.
 + Create an instance of `MultiTableBatchWrite` using one of the following methods:
-  + Execute the `Combine` method on one of the `BatchWrite` objects that you created in the preceding step\. 
+  + Run the `Combine` method on one of the `BatchWrite` objects that you created in the preceding step\. 
   + Create an instance of the `MultiTableBatchWrite` type by providing a list of `BatchWrite` objects\.
-  + Execute the `CreateMultiTableBatchWrite` method of `DynamoDBContext` and pass in your list of `BatchWrite` objects\.
+  + Run the `CreateMultiTableBatchWrite` method of `DynamoDBContext` and pass in your list of `BatchWrite` objects\.
 + Call the `Execute` method of `MultiTableBatchWrite`, which performs the specified put and delete operations on various tables\.
 
 Suppose that you defined `Forum` and `Thread` C\# classes that map to the `Forum` and `Thread` tables in DynamoDB\. Also, suppose that the `Thread` class has versioning enabled\. Because versioning is not supported when using batch operations, you must explicitly disable versioning as shown in the following C\# code example\. The example uses the `MultiTableBatchWrite` object to perform a multi\-table update\. 
@@ -88,7 +88,7 @@ Thread newThread = new Thread
 
 threadBatch.AddPutItem(newThread);
 
-// Now execute multi-table batch write.
+// Now run multi-table batch write.
 var superBatch = new MultiTableBatchWrite(forumBatch, threadBatch);
 superBatch.Execute();
 ```
@@ -126,9 +126,9 @@ Book book3 = bookBatch.Results[2];
 To retrieve objects from multiple tables, do the following:
 + For each type, create an instance of the `CreateBatchGet` type and provide the primary key values you want to retrieve from each table\. 
 + Create an instance of the `MultiTableBatchGet` class using one of the following methods:
-  + Execute the `Combine` method on one of the `BatchGet` objects you created in the preceding step\. 
+  + Run the `Combine` method on one of the `BatchGet` objects you created in the preceding step\. 
   + Create an instance of the `MultiBatchGet` type by providing a list of `BatchGet` objects\.
-  + Execute the `CreateMultiTableBatchGet` method of `DynamoDBContext` and pass in your list of `BatchGet` objects\.
+  + Run the `CreateMultiTableBatchGet` method of `DynamoDBContext` and pass in your list of `BatchGet` objects\.
 + Call the `Execute` method of `MultiTableBatchGet`, which returns the typed results in the individual `BatchGet` objects\.
 
  The following C\# code example retrieves multiple items from the `Order` and `OrderDetail` tables using the `CreateBatchGet` method\. 
@@ -139,19 +139,19 @@ To retrieve objects from multiple tables, do the following:
 var orderBatch = context.CreateBatchGet<Order>();
 orderBatch.AddKey(101);
 orderBatch.AddKey(102);
- 
+
 var orderDetailBatch = context.CreateBatchGet<OrderDetail>();
 orderDetailBatch.AddKey(101, "P1");
 orderDetailBatch.AddKey(101, "P2");
 orderDetailBatch.AddKey(102, "P3");
 orderDetailBatch.AddKey(102, "P1");
- 
+
 var orderAndDetailSuperBatch = orderBatch.Combine(orderDetailBatch);
 orderAndDetailSuperBatch.Execute();
- 
+
 Console.WriteLine(orderBatch.Results.Count);
 Console.WriteLine(orderDetailBatch.Results.Count);
- 
+
 Order order1 = orderBatch.Results[0];
 Order order2 = orderDetailBatch.Results[1];
 OrderDetail orderDetail1 = orderDetailBatch.Results[0];

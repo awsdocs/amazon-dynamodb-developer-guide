@@ -64,6 +64,8 @@ The most efficient way to query this data and to avoid fetch operations would be
 
 ![\[LastPostIndex table containing a list of forum names, last post times, subjects, and replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/LSI_03.png)![\[LastPostIndex table containing a list of forum names, last post times, subjects, and replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[LastPostIndex table containing a list of forum names, last post times, subjects, and replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
+
+
 A *projection* is the set of attributes that is copied from a table into a secondary index\. The partition key and sort key of the table are always projected into the index; you can project other attributes to support your application's query requirements\. When you query an index, Amazon DynamoDB can access any attribute in the projection as if those attributes were in a table of their own\.
 
 When you create a secondary index, you need to specify the attributes that will be projected into the index\. DynamoDB provides three different options for this:

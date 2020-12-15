@@ -34,7 +34,7 @@ DynamoDB rejects the entire batch write operation if any one of the following is
 ### Syntax<a name="API_BatchWriteItems_RequestParameters.syntax"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see .
+// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 
@@ -160,7 +160,7 @@ For examples using the AWS SDK, see [Working with Items and Attributes](WorkingW
 ### Sample Request<a name="API_BatchWriteItems_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see .
+// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 

@@ -6,59 +6,8 @@ You can use AWS\-wide condition keys in your DynamoDB policies to express condit
 
 In addition to the AWS\-wide condition keys, DynamoDB has its own specific keys that you can use in conditions\. For more information, see [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)\.
 
-**Note**  
-To specify an action, use the `dynamodb:` prefix followed by the API operation name \(for example, `dynamodb:CreateTable`\)\.
+For a full list of the actions, resources, and conditions you can use with DynamoDB, see [Actions, resources, and condition keys for Amazon DynamoDB](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazondynamodb.html) in the *IAM User Guide*\.
 
-Use the scroll bars to see the rest of the table\.
-
-
-**Amazon DynamoDB API and Required Permissions for Actions**  
-
-| DynamoDB API Operations | Required Permissions \(API Actions\) | Resources | 
-| --- | --- | --- | 
-|  [BatchGetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html)  | dynamodb:BatchGetItem |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)  |  dynamodb:BatchWriteItem  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  ConditionCheckItem  | dynamodb:ConditionCheckItem |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [CreateBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateBackup.html)  | dynamodb:CreateBackup |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [CreateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateGlobalTable.html)  | dynamodb:CreateGlobalTable |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\* and arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [CreateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)  | dynamodb:CreateTable |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [DeleteBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteBackup.html)  | dynamodb:DeleteBackup |  arn:aws:dynamodb:region:account\-id:table/table\-name/backup/backup\-name or arn:aws:dynamodb:region:account\-id:table/table\-name/backup/\*  | 
-| [DeleteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html) | dynamodb:DeleteItem |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [DeleteTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)  |  dynamodb:DeleteTable  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [DescribeBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeBackup.html)  |  dynamodb:DescribeBackup  |  arn:aws:dynamodb:region:account\-id:table/table\-name/backup/backup\-name or arn:aws:dynamodb:region:account\-id:table/table\-name/backup/\*  | 
-| [DescribeContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeContinuousBackups.html)  |  dynamodb:DescribeContinuousBackups  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [DescribeGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTable.html)  |  dynamodb:DescribeGlobalTable  |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\*  | 
-| [DescribeGlobalTableSettings](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeGlobalTableSettings.html)  |  dynamodb:DescribeGlobalTableSettings  |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\*  | 
-| [DescribeLimits](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeLimits.html) | dynamodb:DescribeLimits | arn:aws:dynamodb:region:account\-id:\* | 
-| DescribeReservedCapacity | dynamodb:DescribeReservedCapacity | arn:aws:dynamodb:region:account\-id:\* | 
-| DescribeReservedCapacityOfferings | dynamodb:DescribeReservedCapacityOfferings | arn:aws:dynamodb:region:account\-id:\* | 
-|  [DescribeStream](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_DescribeStream.html)  | dynamodb:DescribeStream |  arn:aws:dynamodb:region:account\-id:table/table\-name/stream/stream\-label or arn:aws:dynamodb:region:account\-id:table/table\-name/stream/\*  | 
-| [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html) | dynamodb:DescribeTable |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [DescribeTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTimeToLive.html) | dynamodb:DescribeTimeToLive |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [EnclosingOperation](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazondynamodb.html#amazondynamodb-dynamodb_EnclosingOperation)  | dynamodb:EnclosingOperation |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html) | dynamodb:GetItem |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-|  [GetRecords](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetRecords.html)  | dynamodb:GetRecords |  arn:aws:dynamodb:region:account\-id:table/table\-name/stream/stream\-label or arn:aws:dynamodb:region:account\-id:table/table\-name/stream/\*  | 
-|  [GetShardIterator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetShardIterator.html)  | dynamodb:GetShardIterator | arn:aws:dynamodb:region:account\-id:table/table\-name/stream/stream\-label orarn:aws:dynamodb:region:account\-id:table/table\-name/stream/\* | 
-|  [ListBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListBackups.html)  | dynamodb:ListBackups |  arn:aws:dynamodb:region:account\-id:table/table\-name/backup/backup\-name or arn:aws:dynamodb:region:account\-id:table/table\-name/backup/\*  | 
-|  [ListGlobalTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListGlobalTables.html)  | dynamodb:ListGlobalTables |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\*  | 
-|  [ListStreams](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_ListStreams.html)  | dynamodb:ListStreams |  arn:aws:dynamodb:region:account\-id:table/table\-name/stream/\* or arn:aws:dynamodb:region:account\-id:table/\*/stream/\*  | 
-| [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) | dynamodb:ListTables | \*  | 
-| [ListTagsOfResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.html) | dynamodb:ListTagsOfResource |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| PurchaseReservedCapacityOfferings | dynamodb:PurchaseReservedCapacityOfferings | arn:aws:dynamodb:region:account\-id:\* | 
-| [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html) | dynamodb:PutItem |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html) | dynamodb:Query | To query a table:arn:aws:dynamodb:region:account\-id:table/table\-nameor:arn:aws:dynamodb:region:account\-id:table/\*To query an index:arn:aws:dynamodb:region:account\-id:table/table\-name/index/index\-nameor:arn:aws:dynamodb:region:account\-id:table/table\-name/index/\* | 
-| [RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html) | dynamodb:RestoreTableFromBackup |  arn:aws:dynamodb:region:account\-id:table/table\-name/backup/backup\-name or arn:aws:dynamodb:region:account\-id:table/table\-name/backup/\* and arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [RestoreTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableToPointInTime.html) | dynamodb:RestoreTableToPointInTime |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html) |  dynamodb:Scan  | To scan a table:arn:aws:dynamodb:region:account\-id:table/table\-nameor:arn:aws:dynamodb:region:account\-id:table/\*To scan an index \(must also have scan access to base table\):arn:aws:dynamodb:region:account\-id:table/table\-name/index/index\-nameor:arn:aws:dynamodb:region:account\-id:table/table\-name/index/\* | 
-| [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html) |  dynamodb:TagResource  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html) |  dynamodb:UntagResource  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateContinuousBackups](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateContinuousBackups.html) |  dynamodb:UpdateContinuousBackups  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateGlobalTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTable.html) |  dynamodb:UpdateGlobalTable  |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\* and arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateGlobalTableSettings](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateGlobalTableSettings.html) |  dynamodb:UpdateGlobalTableSettings  |  arn:aws:dynamodb::account\-id:global\-table/global\-table\-name or arn:aws:dynamodb::account\-id:global\-table/\* and arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html) |  dynamodb:UpdateItem  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) |  dynamodb:UpdateTable  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-| [UpdateTimeToLive](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html) |  dynamodb:UpdateTimeToLive  |  arn:aws:dynamodb:region:account\-id:table/table\-name or arn:aws:dynamodb:region:account\-id:table/\*  | 
-
-## Related Topics<a name="w187aac36c15b9c15c23"></a>
+## Related Topics<a name="w266aac41c15b9c15c13"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)

@@ -41,9 +41,9 @@ In this step, you will copy data from the Hive table \(`hive_features`\) to a ne
 1. Enter the following HiveQL statement to import data to DynamoDB:
 
    ```
-   INSERT OVERWRITE TABLE ddb_features 
-   SELECT 
-       feature_id, 
+   INSERT OVERWRITE TABLE ddb_features
+   SELECT
+       feature_id,
        feature_name,
        feature_class,
        state_alpha,

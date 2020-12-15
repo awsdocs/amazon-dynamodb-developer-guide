@@ -1,5 +1,7 @@
 # Loading Data From DynamoDB Into Amazon Redshift<a name="RedshiftforDynamoDB"></a>
 
+
+
 Amazon Redshift complements Amazon DynamoDB with advanced business intelligence capabilities and a powerful SQL\-based interface\. When you copy data from a DynamoDB table into Amazon Redshift, you can perform complex data analysis queries on that data, including joins with other tables in your Amazon Redshift cluster\.
 
 In terms of provisioned throughput, a copy operation from a DynamoDB table counts against that table's read capacity\. After the data is copied, your SQL queries in Amazon Redshift do not affect DynamoDB in any way\. This is because your queries act upon a copy of the data from DynamoDB, rather than upon DynamoDB itself\.

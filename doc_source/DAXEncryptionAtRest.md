@@ -16,7 +16,7 @@ DAX encryption at rest is available for the following cluster node types\.
 
 | Family | Node Type | 
 | --- | --- | 
-| Memory\-optimized \(R4\) |  dax\.r4\.large dax\.r4\.xlarge dax\.r4\.2xlarge dax\.r4\.4xlarge dax\.r4\.8xlarge dax\.r4\.16xlarge  | 
+| Memory\-optimized \(R4 and R5\) |  dax\.r4\.large dax\.r4\.xlarge dax\.r4\.2xlarge dax\.r4\.4xlarge dax\.r4\.8xlarge dax\.r4\.16xlarge dax\.r5\.large dax\.r5\.xlarge dax\.r5\.2xlarge dax\.r5\.4xlarge dax\.r5\.8xlarge dax\.r5\.12xlarge dax\.r5\.16xlarge dax\.r5\.24xlarge  | 
 | General purpose \(T2\) |  dax\.t2\.small dax\.t2\.medium  | 
 
 **Important**  

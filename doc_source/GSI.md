@@ -12,6 +12,7 @@ Some applications might need to perform many kinds of queries, using a variety o
 + [Managing Global Secondary Indexes](GSI.OnlineOps.md)
 + [Working with Global Secondary Indexes: Java](GSIJavaDocumentAPI.md)
 + [Working with Global Secondary Indexes: \.NET](GSILowLevelDotNet.md)
++ [Working with global secondary indexes: AWS CLI](GCICli.md)
 
 ## Scenario: Using a Global Secondary Index<a name="GSI.scenario"></a>
 

@@ -10,11 +10,7 @@ Follow these steps to create a new data model in Amazon DynamoDB using NoSQL Wor
 1. Choose **Create data model**\.  
 ![\[Console screenshot showing the Create data model button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerCreateModel.png)
 
-1. Enter a name for the data model, and then choose **Create**\.  
-![\[Console screenshot showing the data model name and create button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerCreateModelName.png)
-
-1. On the newly created model, choose **Open**\.  
-![\[Console screenshot showing the open button in the data modeler.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerOpenDataModel.png)
+1. Enter a name, author and description for the data model, and then choose **Create**\.
 
 1. Choose **Add table**\.  
 ![\[Console screenshot showing the add table button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerAddTableButton.png)

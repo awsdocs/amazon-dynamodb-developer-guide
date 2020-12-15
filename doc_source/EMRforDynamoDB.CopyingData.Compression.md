@@ -12,8 +12,8 @@ The following example compresses data using the Lempel\-Ziv\-Oberhumer \(LZO\) a
  5. CREATE EXTERNAL TABLE lzo_compression_table (line STRING)
  6. ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'
  7. LOCATION 's3://bucketname/path/subpath/';
- 8.                     
- 9. INSERT OVERWRITE TABLE lzo_compression_table SELECT * 
+ 8. 
+ 9. INSERT OVERWRITE TABLE lzo_compression_table SELECT *
 10. FROM hiveTableName;
 ```
 

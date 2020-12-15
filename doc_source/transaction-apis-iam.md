@@ -1,6 +1,6 @@
 # Using IAM with DynamoDB Transactions<a name="transaction-apis-iam"></a>
 
-You can use AWS Identity and Access Management \(IAM\) to restrict the actions that transactional operations can perform in Amazon DynamoDB\. For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\.
+You can use AWS Identity and Access Management \(IAM\) to restrict the actions that transactional operations can perform in Amazon DynamoDB\. For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\.
 
 Permissions for `Put`, `Update`, `Delete`, and `Get` actions are governed by the permissions used for the underlying `PutItem`, `UpdateItem`, `DeleteItem`, and `GetItem` operations\. For the `ConditionCheck` action, you can use the `dynamodb:ConditionCheck` permission in IAM policies\.
 

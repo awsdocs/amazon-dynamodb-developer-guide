@@ -41,7 +41,7 @@ You also can specify optional parameters to `Scan`, such as a specific list of a
 Scan(ScanOperationConfig config);
 ```
 
-The following C\# code example executes the same preceding query \(find forum threads in which the `ForumId` is `101` and the `Tag` attribute contains the "sortkey" keyword\)\. Assume that you want to add an optional parameter to retrieve only a specific attribute list\. In this case, you must create a `ScanOperationConfig` object by providing all the parameters, required and optional parameters, as shown in the following code example\.
+The following C\# code example runs the same preceding query \(find forum threads in which the `ForumId` is `101` and the `Tag` attribute contains the "sortkey" keyword\)\. Assume that you want to add an optional parameter to retrieve only a specific attribute list\. In this case, you must create a `ScanOperationConfig` object by providing all the parameters, required and optional parameters, as shown in the following code example\.
 
 **Example**  
 
@@ -58,13 +58,13 @@ ScanOperationConfig config = new ScanOperationConfig()
   AttributesToGet = new List<string> { "Subject", "Message" } ,
   Filter = scanFilter
 };
-   
+
 Search search = ThreadTable.Scan(config);
 ```
 
 ## Example: Scan Using the Table\.Scan Method<a name="ScanMidLevelDotNetExampleTableScan"></a>
 
-The `Scan` operation performs a full table scan making it a potentially expensive operation\. You should use queries instead\. However, there are times when you might need to execute a scan against a table\. For example, you might have a data entry error in the product pricing, and you must scan the table as shown in the following C\# code example\. The example scans the `ProductCatalog` table to find products for which the price value is less than 0\. The example illustrates the use of the two `Table.Scan` overloads\. 
+The `Scan` operation performs a full table scan making it a potentially expensive operation\. You should use queries instead\. However, there are times when you might need to run a scan against a table\. For example, you might have a data entry error in the product pricing, and you must scan the table as shown in the following C\# code example\. The example scans the `ProductCatalog` table to find products for which the price value is less than 0\. The example illustrates the use of the two `Table.Scan` overloads\. 
 + `Table.Scan` that takes the `ScanFilter` object as a parameter\. 
 
   You can pass the `ScanFilter` parameter when passing in only the required parameters\.

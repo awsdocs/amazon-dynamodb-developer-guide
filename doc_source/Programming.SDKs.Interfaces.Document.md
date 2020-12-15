@@ -24,15 +24,15 @@ public class MusicDocumentDemo {
 
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         DynamoDB docClient = new DynamoDB(client);
-        
+
         Table table = docClient.getTable("Music");
         GetItemOutcome outcome = table.getItemOutcome(
-                "Artist", "No One You Know", 
+                "Artist", "No One You Know",
                 "SongTitle", "Call Me Today");
 
         int year = outcome.getItem().getInt("Year");
         System.out.println("The song was released in " + year);
-       
+
     }
 }
 ```

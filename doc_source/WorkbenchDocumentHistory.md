@@ -7,6 +7,7 @@ The following table describes the important changes in each release of the *NoSQ
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+| Support for PartiQL | NoSQL Workbench for Amazon DynamoDB adds support for building PartiQL statements for DynamoDB\. | December 4, 2020 | 
 | Support for Linux\. | NoSQL Workbench for Amazon DynamoDB is supported on Linux\- Ubuntu , Fedora and Debian\. | May 4, 2020 | 
 | NoSQL Workbench for Amazon DynamoDB – GA\. | NoSQL Workbench for Amazon DynamoDB is generally available\. | March 2, 2020 | 
 | Support for IAM roles and temporary security credentials\. | NoSQL Workbench for Amazon DynamoDB adds support for AWS Identity and Access Management \(IAM\) roles and temporary security credentials\. | December 19, 2019 | 

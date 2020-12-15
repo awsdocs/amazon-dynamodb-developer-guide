@@ -12,7 +12,7 @@ This guide contains \.NET code snippets and ready\-to\-run programs\. You can fi
 + [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
 + [\.NET: Document Model](DotNetSDKMidLevel.md)
 + [\.NET: Object Persistence Model](DotNetSDKHighLevel.md)
-+ [Capturing Table Activity with DynamoDB Streams](Streams.md)
++ [Change Data Capture for DynamoDB Streams](Streams.md)
 
 You can get started quickly by using the AWS SDK for \.NET with the Toolkit for Visual Studio\.
 

@@ -11,7 +11,6 @@ This documentation will help you understand how to apply the shared responsibili
 **Topics**
 + [Data Protection in DynamoDB](data-protection.md)
 + [Identity and Access Management](identity-and-access-mgmt.md)
-+ [Logging and Monitoring](monitoring-security.md)
 + [Compliance Validation by Industry for DynamoDB](Compliance.md)
 + [Resilience and Disaster Recovery in Amazon DynamoDB](disaster-recovery-resiliency.md)
 + [Infrastructure Security in Amazon DynamoDB](network-isolation.md)

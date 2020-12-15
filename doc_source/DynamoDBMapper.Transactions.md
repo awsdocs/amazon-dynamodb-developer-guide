@@ -107,7 +107,7 @@ public class DynamoDBMapperTransactionExample {
         // Loaded objects are guaranteed to be in same order as the order in which they are
         // added to TransactionLoadRequest
         List<Object> loadedObjects = executeTransactionLoad(transactionLoadRequest);
-        Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0); 
+        Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0);
         System.out.println("Forum: " + loadedDynamoDBForum.name);
         System.out.println("Threads: " + loadedDynamoDBForum.threads);
         Thread loadedDynamodbForumThread = (Thread) loadedObjects.get(1);

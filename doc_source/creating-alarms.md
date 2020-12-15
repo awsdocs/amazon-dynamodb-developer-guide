@@ -86,7 +86,7 @@ The alarm is activated whenever the consumed read capacity is at least 4 units p
        --alarm-description "Alarm when system errors occur" \
        --namespace AWS/DynamoDB \
        --metric-name SystemErrors \
-       --dimensions Name=TableName,Value=myTable \
+       --dimensions Name=TableName,Value=myTable Name=Operation,Value=aDynamoDBOperation \
        --statistic Sum \
        --threshold 0 \
        --comparison-operator GreaterThanThreshold \

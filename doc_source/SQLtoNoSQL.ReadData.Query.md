@@ -44,6 +44,22 @@ Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.Query.DynamoDB"></a>
 
+### PartiQL<a name="SQLtoNoSQL.ReadData.Query.DynamoDB.partiql"></a>
+
+DynamoDB provides the `ExecuteStatement` action for retrieving multiple items using the select statement\.
+
+```
+select AlbumTitle, Year, Price
+FROM Music
+WHERE Artist='No One You Know'
+```
+
+Note that this statement will return all items for the specified Artist\. 
+
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+### Classic APIs<a name="SQLtoNoSQL.ReadData.Query.DynamoDB.classic"></a>
+
 The Amazon DynamoDB `Query` action lets you retrieve data in a similar fashion\. The `Query` action provides quick, efficient access to the physical locations where the data is stored\. For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.
 
 You can use `Query` with any table that has a composite primary key \(partition key and sort key\)\. You must specify an equality condition for the partition key, and you can optionally provide another condition for the sort key\.

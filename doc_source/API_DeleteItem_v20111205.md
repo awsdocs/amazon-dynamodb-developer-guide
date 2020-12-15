@@ -20,7 +20,7 @@ You can perform the expected conditional check on one attribute per operation\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteItem 
 content-type: application/x-amz-json-1.0 
@@ -88,7 +88,7 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteItem 
 content-type: application/x-amz-json-1.0

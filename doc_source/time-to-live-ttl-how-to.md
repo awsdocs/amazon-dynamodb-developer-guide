@@ -37,6 +37,8 @@ You can view the date and time that an item expires by hovering your pointer ove
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_items.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
+
+
 ## Enable Time to Live \(AWS CLI\)<a name="time-to-live-ttl-how-to-enable-cli-sdk"></a>
 
 1. Enable TTL on the `TTLExample` table\.

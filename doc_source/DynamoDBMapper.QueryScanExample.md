@@ -1,14 +1,16 @@
 # Example: Query and Scan<a name="DynamoDBMapper.QueryScanExample"></a>
 
+
+
 The Java example in this section defines the following classes and maps them to the tables in Amazon DynamoDB\. For more information about creating sample tables, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 + The `Book` class maps to `ProductCatalog` table
 + The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
-The example then executes the follow query and scan operations using a `DynamoDBMapper` instance\.
+The example then runs the following query and scan operations using a `DynamoDBMapper` instance\.
 + Get a book by `Id`\. 
 
   The `ProductCatalog` table has `Id` as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its `Id` value\. 
-+ Execute the following queries against the `Reply` table\.
++ Run the following queries against the `Reply` table\.
 
   The `Reply` table's primary key is composed of `Id` and `ReplyDateTime` attributes\. `ReplyDateTime` is a sort key\. Therefore, you can query this table\.
   + Find replies to a forum thread posted in the last 15 days\.

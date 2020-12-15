@@ -32,4 +32,4 @@ You can use the Amazon S3 console to view the log files\. For more information, 
 You can use this bucket for purposes in addition to logging\. For example, you can use the bucket as a location for storing a Hive script or as a destination when exporting data from Amazon DynamoDB to Amazon S3\.
 
 **Next Step**  
-[Step 3: Connect to the Master Node](EMRforDynamoDB.Tutorial.ConnectToMasterNode.md)
+[Step 3: Connect to the Leader Node](EMRforDynamoDB.Tutorial.ConnectToLeaderNode.md)

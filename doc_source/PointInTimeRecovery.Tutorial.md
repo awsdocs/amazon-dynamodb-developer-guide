@@ -25,6 +25,8 @@ This procedure assumes that you have enabled point\-in\-time recovery\. To enabl
 
 1. On the **Backups** tab of the `Music` table, in the **Point\-in\-time recovery** section, choose **Restore to point\-in\-time**\.
 
+    
+
 1. For the new table name, enter **MusicMinutesAgo**\.
 **Note**  
 You can restore the table to the same AWS Region or to a different Region from where the source table resides\. You can also exclude secondary indexes from being created on the restored table\. In addition, you can specify a different encryption mode\.
@@ -47,6 +49,8 @@ aws dynamodb update-continuous-backups \
 --table-name Music \
 --point-in-time-recovery-specification PointInTimeRecoveryEnabled=True
 ```
+
+
 
 **To restore a table to a point in time**
 

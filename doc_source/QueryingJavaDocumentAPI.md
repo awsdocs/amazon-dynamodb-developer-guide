@@ -119,6 +119,8 @@ The following tables store information about a collection of forums\. For more i
 **Note**  
 The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
+
+
 **Example**  
 
 ```
@@ -127,7 +129,7 @@ Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...)
 Reply ( Id, ReplyDateTime, Message, PostedBy, ...)
 ```
 
-In this Java code example, you execute variations of finding replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\. 
+In this Java code example, you run variations of finding replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\. 
 + Find replies for a thread\.
 + Find replies for a thread, specifying a limit on the number of items per page of results\. If the number of items in the result set exceeds the page size, you get only the first page of results\. This coding pattern ensures that your code processes all the pages in the query result\.
 + Find replies in the last 15 days\.

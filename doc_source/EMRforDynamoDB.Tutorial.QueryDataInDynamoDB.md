@@ -13,8 +13,8 @@ In this step, you will use HiveQL to query the Features table in DynamoDB\. Try 
 1. All of the lakes that begin with the letter "M":
 
    ```
-   SELECT feature_name, state_alpha 
-   FROM ddb_features 
+   SELECT feature_name, state_alpha
+   FROM ddb_features
    WHERE feature_class = 'Lake'
    AND feature_name LIKE 'M%'
    ORDER BY feature_name;
@@ -23,7 +23,7 @@ In this step, you will use HiveQL to query the Features table in DynamoDB\. Try 
 1. States with at least three features higher than a mile \(5,280 feet\):
 
    ```
-   SELECT state_alpha, feature_class, COUNT(*) 
+   SELECT state_alpha, feature_class, COUNT(*)
    FROM ddb_features
    WHERE elev_in_ft > 5280
    GROUP by state_alpha, feature_class

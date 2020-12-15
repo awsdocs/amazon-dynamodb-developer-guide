@@ -20,7 +20,7 @@ Use the [DescribeTables](API_DescribeTables_v20111205.md) operation to check the
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.CreateTable 
 content-type: application/x-amz-json-1.0 
@@ -99,7 +99,7 @@ The following example creates a table with a composite primary key containing a 
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see .
+// For a sample of a complete header, see DynamoDB Low\-Level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.CreateTable 
 content-type: application/x-amz-json-1.0

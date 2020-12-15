@@ -42,9 +42,9 @@ public class CatalogItem {
     public void setISBN(String ISBN) { this.ISBN = ISBN;}
 
     @DynamoDBAttribute(attributeName = "Authors")
-    public Set<String> getBookAuthors() { return bookAuthors; }    
+    public Set<String> getBookAuthors() { return bookAuthors; }
     public void setBookAuthors(Set<String> bookAuthors) { this.bookAuthors = bookAuthors; }
-    
+
     @DynamoDBIgnore
     public String getSomeProp() { return someProp;}
     public void setSomeProp(String someProp) {this.someProp = someProp;}

@@ -1,4 +1,4 @@
-# NoSQL Workbench for DynamoDB GUI Client<a name="workbench"></a>
+# NoSQL Workbench for DynamoDB<a name="workbench"></a>
 
 NoSQL Workbench for Amazon DynamoDB is a cross\-platform client\-side GUI application for modern database development and operations and is available for Windows, macOS, and Linux\. NoSQL Workbench is a unified visual IDE tool that provides data modeling, data visualization, and query development features to help you design, create, query, and manage DynamoDB tables\.
 

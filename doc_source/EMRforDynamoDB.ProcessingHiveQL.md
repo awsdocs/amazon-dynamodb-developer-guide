@@ -5,9 +5,9 @@ Hive is an application that runs on Hadoop, which is a batch\-oriented framework
 For example, consider the *ddb\_features* table \(from [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md)\)\. The following Hive query prints state abbreviations and the number of summits in each:
 
 ```
-SELECT state_alpha, count(*) 
-FROM ddb_features 
-WHERE feature_class = 'Summit' 
+SELECT state_alpha, count(*)
+FROM ddb_features
+WHERE feature_class = 'Summit'
 GROUP BY state_alpha;
 ```
 

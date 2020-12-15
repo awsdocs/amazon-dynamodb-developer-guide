@@ -12,7 +12,7 @@ The following diagram provides a high\-level overview of Amazon DynamoDB applica
 
 1. The AWS SDK sends the request to the DynamoDB endpoint\.
 
-1. DynamoDB executes the request\. If the request is successful, DynamoDB returns an HTTP 200 response code \(OK\)\. If the request is unsuccessful, DynamoDB returns an HTTP error code and an error message\.
+1. DynamoDB runs the request\. If the request is successful, DynamoDB returns an HTTP 200 response code \(OK\)\. If the request is unsuccessful, DynamoDB returns an HTTP error code and an error message\.
 
 1. The AWS SDK processes the response and propagates it back to your application\.
 

@@ -30,6 +30,6 @@ When you launch an Amazon EMR cluster, you specify the initial number and type o
 For information about applications for Amazon EMR, see the [Amazon EMR Release Guide](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide)\.
 
 Depending on the cluster configuration, you might have one or more of the following node types:
-+ Master node — Manages the cluster, coordinating the distribution of the MapReduce executable and subsets of the raw data, to the core and task instance groups\. It also tracks the status of each task performed and monitors the health of the instance groups\. There is only one master node in a cluster\.
++ Leader node — Manages the cluster, coordinating the distribution of the MapReduce executable and subsets of the raw data, to the core and task instance groups\. It also tracks the status of each task performed and monitors the health of the instance groups\. There is only one leader node in a cluster\.
 + Core nodes — Runs MapReduce tasks and stores data using the Hadoop Distributed File System \(HDFS\)\.
 + Task nodes \(optional\) — Runs MapReduce tasks\.

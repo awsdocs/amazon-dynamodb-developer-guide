@@ -10,7 +10,7 @@ The following are the common steps for table operations using the \.NET low\-lev
 
    For example, create a `CreateTableRequest` object to create a table and `QueryRequest` object to query a table or an index\. 
 
-1. Execute the appropriate method provided by the client that you created in the preceding step\. 
+1. Run the appropriate method provided by the client that you created in the preceding step\. 
 
 **Topics**
 + [Create a Table with a Global Secondary Index](#GSILowLevelDotNet.CreateTableWithIndex)
@@ -30,7 +30,7 @@ The following are the steps to create a table with a global secondary index, usi
 
    You must provide the table name, its primary key, and the provisioned throughput values\. For the global secondary index, you must provide the index name, its provisioned throughput settings, the attribute definitions for the index sort key, the key schema for the index, and the attribute projection\.
 
-1. Execute the `CreateTable` method by providing the request object as a parameter\.
+1. Run the `CreateTable` method by providing the request object as a parameter\.
 
 The following C\# code example demonstrates the preceding steps\. The code creates a table \(`WeatherData`\) with a global secondary index \(`PrecipIndex`\)\. The index partition key is `Date` and its sort key is `Precipitation`\. All of the table attributes are projected into the index\. Users can query this index to obtain weather data for a particular date, optionally sorting the data by precipitation amount\. 
 
@@ -41,8 +41,8 @@ client = new AmazonDynamoDBClient();
 string tableName = "WeatherData";
 
 // Attribute definitions
-var attributeDefinitions = new List<AttributeDefinition>() 
-{ 
+var attributeDefinitions = new List<AttributeDefinition>()
+{
     {new AttributeDefinition{
         AttributeName = "Location",
         AttributeType = "S"}},
@@ -56,7 +56,7 @@ var attributeDefinitions = new List<AttributeDefinition>()
 };
 
 // Table key schema
-var tableKeySchema = new List<KeySchemaElement>() 
+var tableKeySchema = new List<KeySchemaElement>()
 {
     {new KeySchemaElement {
         AttributeName = "Location",
@@ -114,7 +114,7 @@ The following are the steps to access global secondary index information for a t
 
 1. Create an instance of the `AmazonDynamoDBClient` class\.
 
-1. Execute the `describeTable` method by providing the request object as a parameter\.
+1. Run the `describeTable` method by providing the request object as a parameter\.
 
    Create an instance of the `DescribeTableRequest` class to provide the request information\. You must provide the table name\.
 
@@ -128,7 +128,7 @@ string tableName = "WeatherData";
 
 DescribeTableResponse response = client.DescribeTable(new DescribeTableRequest { TableName = tableName});
 
-List<GlobalSecondaryIndexDescription> globalSecondaryIndexes = 
+List<GlobalSecondaryIndexDescription> globalSecondaryIndexes =
 response.DescribeTableResult.Table.GlobalSecondaryIndexes;
 
 // This code snippet will work for multiple indexes, even though
@@ -161,7 +161,7 @@ The following are the steps to query a global secondary index using the \.NET lo
 
 1. Create an instance of the `QueryRequest` class to provide the request information\.
 
-1. Execute the `query` method by providing the request object as a parameter\.
+1. Run the `query` method by providing the request object as a parameter\.
 
 The attribute name `Date` is a DynamoDB reserved word\. Therefore, you must use an expression attribute name as a placeholder in the `KeyConditionExpression`\.
 

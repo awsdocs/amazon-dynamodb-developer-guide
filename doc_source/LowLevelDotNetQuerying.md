@@ -8,7 +8,7 @@ The following are the steps to query a table using the low\-level AWS SDK for \.
 
 1. Create an instance of the `QueryRequest` class and provide query operation parameters\.
 
-1. Execute the `Query` method and provide the `QueryRequest` object that you created in the preceding step\.
+1. Run the `Query` method and provide the `QueryRequest` object that you created in the preceding step\.
 
    The response includes the `QueryResult` object that provides all items returned by the query\.
 
@@ -82,7 +82,7 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 }
 ```
 
-You can also optionally limit the page size, or the number of items per page, by adding the optional `Limit` parameter\. Each time you execute the `Query` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `Query` method again by providing the primary key value of the last item in the previous page so that the method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
+You can also optionally limit the page size, or the number of items per page, by adding the optional `Limit` parameter\. Each time you run the `Query` method, you get one page of results that has the specified number of items\. To fetch the next page, you run the `Query` method again by providing the primary key value of the last item in the previous page so that the method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
 The following C\# example queries the `Reply` table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\. 
 
@@ -123,6 +123,8 @@ do
 
 The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
 
+
+
 **Example**  
 
 ```
@@ -131,7 +133,7 @@ Thread ( ForumName, Subject, Message, LastPostedBy, LastPostDateTime, ...)
 Reply ( Id, ReplyDateTime, Message, PostedBy, ...)
 ```
 
-In this example, you execute variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
+In this example, you run variations of "Find replies for a thread "DynamoDB Thread 1" in forum "DynamoDB"\.
 + Find replies for a thread\.
 + Find replies for a thread\. Specify the `Limit` query parameter to set page size\. 
 

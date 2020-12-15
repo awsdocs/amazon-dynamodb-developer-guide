@@ -19,7 +19,7 @@ The process is similar for an import, except that the data is read from the Amaz
 When you export or import DynamoDB data, you will incur additional costs for the underlying AWS services that are used:  
 **AWS Data Pipeline**— manages the import/export workflow for you\.
 **Amazon S3**— contains the data that you export from DynamoDB, or import into DynamoDB\.
-**Amazon EMR**— runs a managed Hadoop cluster to perform reads and writes between DynamoDB to Amazon S3\. The cluster configuration is one `m3.xlarge` instance master node and one `m3.xlarge` instance core node\.
+**Amazon EMR**— runs a managed Hadoop cluster to perform reads and writes between DynamoDB to Amazon S3\. The cluster configuration is one `m3.xlarge` instance leader node and one `m3.xlarge` instance core node\.
 For more information see [AWS Data Pipeline Pricing](https://aws.amazon.com/datapipeline/pricing), [Amazon EMR Pricing](https://aws.amazon.com/elasticmapreduce/pricing), and [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing)\.
 
 ## Prerequisites to Export and Import Data<a name="DataPipelineExportImport.Prereqs"></a>

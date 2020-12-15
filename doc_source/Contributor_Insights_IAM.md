@@ -22,11 +22,16 @@ The following IAM policy grants permissions to enable or disable CloudWatch Cont
     "Statement": [
         {
             "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "arn:aws:iam::*:role/aws-service-role/contributorinsights.dynamodb.amazonaws.com/AWSServiceRoleForDynamoDBCloudWatchContributorInsights",
+            "Condition": {"StringLike": {"iam:AWSServiceName": "contributorinsights.dynamodb.amazonaws.com"}}
+        },
+        {
+            "Effect": "Allow",
             "Action": [
-                "iam:CreateServiceLinkedRole",
                 "dynamodb:UpdateContributorInsights"
             ],
-            "Resource": "*"
+            "Resource": "arn:aws:dynamodb:*:*:table/*"
         }
     ]
 }
@@ -120,4 +125,4 @@ If the CloudWatch Contributor Insights for DynamoDB service is using the role wh
 
 **To manually delete the service\-linked role using IAM**
 
-Use the IAM console, the AWS CLI, or the AWS API to delete the `AWSServiceRoleForDynamoDBCloudWatchContributorInsights` service\-linked role\. For more information, see [Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/contributorinsights-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
+Use the IAM console, the AWS CLI, or the AWS API to delete the `AWSServiceRoleForDynamoDBCloudWatchContributorInsights` service\-linked role\. For more information, see [Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the *IAM User Guide*\.

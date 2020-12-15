@@ -27,7 +27,7 @@ DynamoDB global tables version 2019\.11\.21 \(current\) introduces the following
 + For new inserts, `aws:rep:*` attributes in the item record are not added\.
 + For updates to items that contain `aws:rep:*` attributes, those attributes are not updated\.
 + DynamoDB mapper must not require the `aws:rep:*` attributes for this table\.
-+ When updating from version 2017\.11\.21 to version 2019\.11\.29, you might see an increase in the `ReplicationLatency` metric\. This is expected because version 2019\.11\.29 \(current\) captures the full end\-to\-end measurement of replication delay between global tables Regions\. For more information, see the `ReplicationLatency` documentation for version [Version 2017\.11\.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables_monitoring.html) and [Version 2019\.11\.29 \(Current\)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_monitoring.html)\.
++ When updating from version 2017\.11\.29 to version 2019\.11\.21, you might see an increase in the `ReplicationLatency` metric\. This is expected because version 2019\.11\.21 \(current\) captures the full end\-to\-end measurement of replication delay between global tables Regions\. For more information, see the `ReplicationLatency` documentation for version [Version 2017\.11\.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables_monitoring.html) and [Version 2019\.11\.21 \(Current\)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_monitoring.html)\.
 
 ### Required Permissions<a name="V2globaltables_upgrade.Notes-permissions"></a>
 

@@ -10,7 +10,7 @@ You can use the AWS SDK for \.NET low\-level API to perform typical create, read
 
    You can use the request object to provide both the required and optional parameters\. 
 
-1. Execute the appropriate method provided by the client by passing in the request object that you created in the preceding step\. 
+1. Run the appropriate method provided by the client by passing in the request object that you created in the preceding step\. 
 
    The `AmazonDynamoDBClient` client provides `PutItem`, `GetItem`, `UpdateItem`, and `DeleteItem` methods for the CRUD operations\.
 
@@ -41,7 +41,7 @@ The following are the steps to upload an item using the low\-level \.NET SDK API
 
    To put an item, you must provide the table name and the item\. 
 
-1. Execute the `PutItem` method by providing the `PutItemRequest` object that you created in the preceding step\.
+1. Run the `PutItem` method by providing the `PutItemRequest` object that you created in the preceding step\.
 
 The following C\# example demonstrates the preceding steps\. The example uploads an item to the `ProductCatalog` table\.
 
@@ -60,9 +60,9 @@ var request = new PutItemRequest
           { "Title", new AttributeValue { S = "Book 201 Title" }},
           { "ISBN", new AttributeValue { S = "11-11-11-11" }},
           { "Price", new AttributeValue { S = "20.00" }},
-          { 
-            "Authors", 
-            new AttributeValue 
+          {
+            "Authors",
+            new AttributeValue
             { SS = new List<string>{"Author1", "Author2"}   }
           }
       }
@@ -89,7 +89,7 @@ var request = new PutItemRequest
                    { "Id", new AttributeValue { N = "104" }},
                    { "Title", new AttributeValue { S = "Book 104  Title" }},
                    { "ISBN", new AttributeValue { S = "444-4444444444" }},
-                   { "Authors", 
+                   { "Authors",
                      new AttributeValue { SS = new List<string>{"Author3"}}}
                },
     // Optional parameters.
@@ -124,7 +124,7 @@ The following are the steps to retrieve an existing item using the low\-level AW
 
    To get an item, you must provide the table name and primary key of the item\. 
 
-1. Execute the `GetItem` method by providing the `GetItemRequest` object that you created in the preceding step\.
+1. Run the `GetItem` method by providing the `GetItemRequest` object that you created in the preceding step\.
 
 The following C\# example demonstrates the preceding steps\. The example retrieves an item from the `ProductCatalog` table\.
 
@@ -197,9 +197,11 @@ The following are the steps to update an existing item using the low\-level \.NE
 
    This is the request object in which you describe all the updates, such as add attributes, update existing attributes, or delete attributes\. To delete an existing attribute, specify the attribute name with null value\. 
 
-1. Execute the `UpdateItem` method by providing the `UpdateItemRequest` object that you created in the preceding step\. 
+1. Run the `UpdateItem` method by providing the `UpdateItemRequest` object that you created in the preceding step\. 
 
 The following C\# code example demonstrates the preceding steps\. The example updates a book item in the `ProductCatalog` table\. It adds a new author to the `Authors` collection, and deletes the existing `ISBN` attribute\. It also reduces the price by one\.
+
+
 
 ```
 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -310,7 +312,7 @@ The following are the steps to delete an item using the low\-level \.NET SDK API
 
     To delete an item, the table name and item's primary key are required\. 
 
-1. Execute the `DeleteItem` method by providing the `DeleteItemRequest` object that you created in the preceding step\. 
+1. Run the `DeleteItem` method by providing the `DeleteItemRequest` object that you created in the preceding step\. 
 
 **Example**  
 
@@ -367,7 +369,7 @@ For more information, see [DeleteItem](https://docs.aws.amazon.com/amazondynamod
 
 1. Describe all the put and delete operations by creating an instance of the `BatchWriteItemRequest` class\.
 
-1. Execute the `BatchWriteItem` method by providing the `BatchWriteItemRequest` object that you created in the preceding step\.
+1. Run the `BatchWriteItem` method by providing the `BatchWriteItemRequest` object that you created in the preceding step\.
 
 1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput quota or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. 
 
@@ -375,7 +377,7 @@ The following C\# code example demonstrates the preceding steps\. The example cr
 + Put an item in `Forum` table\.
 + Put and delete an item from `Thread` table\.
 
-The code then executes `BatchWriteItem` to perform a batch operation\.
+The code runs `BatchWriteItem` to perform a batch operation\.
 
 ```
 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -400,7 +402,7 @@ var request = new BatchWriteItemRequest
                   { "Threads", new AttributeValue { N = "0" }}
                 }
              }
-          } 
+          }
         }
       } ,
       {
@@ -431,7 +433,7 @@ var request = new BatchWriteItemRequest
              }
           }
         }
-      } 
+      }
     }
  };
 response = client.BatchWriteItem(request);
@@ -454,11 +456,13 @@ The following are the steps to retrieve multiple items using the low\-level AWS 
 
    To retrieve multiple items, the table name and a list of primary key values are required\. 
 
-1. Execute the `BatchGetItem` method by providing the `BatchGetItemRequest` object that you created in the preceding step\.
+1. Run the `BatchGetItem` method by providing the `BatchGetItemRequest` object that you created in the preceding step\.
 
 1. Process the response\. You should check if there were any unprocessed keys, which could happen if you reach the provisioned throughput quota or some other transient error\.
 
 The following C\# code example demonstrates the preceding steps\. The example retrieves items from two tables, `Forum` and `Thread`\. The request specifies two items in the `Forum` and three items in the `Thread` table\. The response includes items from both of the tables\. The code shows how you can process the response\.
+
+
 
 ```
 AmazonDynamoDBClient client = new AmazonDynamoDBClient();
@@ -470,7 +474,7 @@ var request = new BatchGetItemRequest
 {
   RequestItems = new Dictionary<string, KeysAndAttributes>()
   {
-    { table1Name, 
+    { table1Name,
       new KeysAndAttributes
       {
         Keys = new List<Dictionary<string, AttributeValue>>()
@@ -540,6 +544,8 @@ foreach (KeyValuePair<string, KeysAndAttributes> pair in unprocessedKeys)
 }
 ```
 
+
+
 ### Specifying Optional Parameters<a name="BatchGetItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `BatchGetItemRequest` object as shown in the following C\# code example\. The example retrieves two items from the `Forum` table\. It specifies the following optional parameter:
@@ -556,7 +562,7 @@ var request = new BatchGetItemRequest
 {
   RequestItems = new Dictionary<string, KeysAndAttributes>()
   {
-    { table1Name, 
+    { table1Name,
       new KeysAndAttributes
       {
         Keys = new List<Dictionary<string, AttributeValue>>()

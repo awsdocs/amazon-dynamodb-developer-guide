@@ -4,6 +4,8 @@
 + [Putting an Item \- Table\.PutItem Method](#PutMidLevelDotNet)
 + [Specifying Optional Parameters](#PutMidLevelDotNetOptions)
 
+
+
 To perform data operations using the document model, you must first call the `Table.LoadTable` method, which creates an instance of the `Table` class that represents a specific table\. The following C\# example creates a `Table` object that represents the `ProductCatalog` table in Amazon DynamoDB\.
 
 **Example**  
@@ -53,11 +55,11 @@ The `PutItem` method uploads the input `Document` instance to the table\. If an 
 
 The following are the steps to put a new item into a table using the AWS SDK for \.NET document model\. 
 
-1. Execute the `Table.LoadTable` method that provides the table name in which you want to put an item\.
+1. Run the `Table.LoadTable` method that provides the table name in which you want to put an item\.
 
 1. Create a `Document` object that has a list of attribute names and their values\.
 
-1. Execute `Table.PutItem` by providing the `Document` instance as a parameter\.
+1. Run `Table.PutItem` by providing the `Document` instance as a parameter\.
 
 The following C\# code example demonstrates the preceding tasks\. The example uploads an item to the `ProductCatalog` table\. 
 

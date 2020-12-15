@@ -128,7 +128,7 @@ You also create a policy for the role\. The policy contains all of the permissio
    ```
 
    The policy has four statements that allow `WooferLambdaRole` to do the following:
-   + Execute a Lambda function \(`publishNewBark`\)\. You create the function later in this tutorial\.
+   + Run a Lambda function \(`publishNewBark`\)\. You create the function later in this tutorial\.
    + Access Amazon CloudWatch Logs\. The Lambda function writes diagnostics to CloudWatch Logs at runtime\.
    + Read data from the DynamoDB stream for `BarkTable`\.
    + Publish messages to Amazon SNS\.

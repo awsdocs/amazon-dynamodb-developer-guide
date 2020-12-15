@@ -4,6 +4,8 @@ In addition to the supported Java types \(see [Supported Data Types](DynamoDBMap
 
 For example, consider the following `CatalogItem` class that defines a property, `Dimension`, that is of `DimensionType`\. This property stores the item dimensions as height, width, and thickness\. Assume that you decide to store these item dimensions as a string \(such as 8\.5x11x\.05\) in DynamoDB\. The following example provides converter code that converts the `DimensionType` object to a string and a string to the `DimensionType`\.
 
+
+
 **Note**  
 This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
 For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.

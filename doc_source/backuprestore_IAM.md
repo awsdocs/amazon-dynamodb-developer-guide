@@ -2,7 +2,7 @@
 
 You can use AWS Identity and Access Management \(IAM\) to restrict Amazon DynamoDB backup and restore actions for some resources\. The `CreateBackup` and `RestoreTableFromBackup` APIs operate on a per\-table basis\.
 
- For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. 
+ For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\. 
 
 The following are examples of IAM policies that you can use to configure specific backup and restore functionality in DynamoDB\.
 

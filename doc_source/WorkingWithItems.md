@@ -390,5 +390,7 @@ To return the number of write capacity units consumed during a conditional write
 + `INDEXES` — Returns the total number of write capacity units consumed, with subtotals for the table and any secondary indexes that were affected by the operation\.
 + `NONE` — No write capacity details are returned\. \(This is the default\.\)
 
+  
+
 **Note**  
 Unlike a global secondary index, a local secondary index shares its provisioned throughput capacity with its table\. Read and write activity on a local secondary index consumes provisioned throughput capacity from the table\.

@@ -1,5 +1,7 @@
 # Scanning Tables and Indexes: Java<a name="ScanJavaDocumentAPI"></a>
 
+
+
 The `Scan` operation reads all of the items in a table or index in Amazon DynamoDB\.
 
 The following are the steps to scan a table using the AWS SDK for Java Document API\. 
@@ -10,7 +12,7 @@ The following are the steps to scan a table using the AWS SDK for Java Document 
 
    The only required parameter is the table name\.
 
-1. Execute the `scan` method and provide the `ScanRequest` object that you created in the preceding step\.
+1. Run the `scan` method and provide the `ScanRequest` object that you created in the preceding step\.
 
 The following `Reply` table stores replies for forum threads\. 
 
@@ -47,10 +49,10 @@ The following Java example scans the `ProductCatalog` table to find items that a
 **Example**  
 
 ```
-Map<String, AttributeValue> expressionAttributeValues = 
+Map<String, AttributeValue> expressionAttributeValues =
     new HashMap<String, AttributeValue>();
-expressionAttributeValues.put(":val", new AttributeValue().withN("0")); 
-        
+expressionAttributeValues.put(":val", new AttributeValue().withN("0"));
+
 ScanRequest scanRequest = new ScanRequest()
     .withTableName("ProductCatalog")
     .withFilterExpression("Price < :val")
@@ -64,7 +66,7 @@ for (Map<String, AttributeValue> item : result.getItems()) {
 }
 ```
 
-You can also optionally limit the page size, or the number of items per page, by using the `withLimit` method of the scan request\. Each time you execute the `scan` method, you get one page of results that has the specified number of items\. To fetch the next page, you execute the `scan` method again by providing the primary key value of the last item in the previous page so that the `scan` method can return the next set of items\. You provide this information in the request by using the `withExclusiveStartKey` method\. Initially, the parameter of this method can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
+You can also optionally limit the page size, or the number of items per page, by using the `withLimit` method of the scan request\. Each time you run the `scan` method, you get one page of results that has the specified number of items\. To fetch the next page, you run the `scan` method again by providing the primary key value of the last item in the previous page so that the `scan` method can return the next set of items\. You provide this information in the request by using the `withExclusiveStartKey` method\. Initially, the parameter of this method can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
 The following Java code example scans the `ProductCatalog` table\. In the request, the `withLimit` and `withExclusiveStartKey` methods are used\. The `do/while` loop continues to scan one page at time until the `getLastEvaluatedKey` method of the result returns a value of null\. 
 

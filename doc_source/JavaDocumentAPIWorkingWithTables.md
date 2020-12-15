@@ -21,7 +21,7 @@ To create a table, you must provide the table name, its primary key, and the pro
 
    You must provide the table name, attribute definitions, key schema, and provisioned throughput values\.
 
-1. Execute the `createTable` method by providing the request object as a parameter\.
+1. Run the `createTable` method by providing the request object as a parameter\.
 
 The following code example demonstrates the preceding steps\.
 
@@ -84,7 +84,7 @@ For more information about throughput increases and decreases per day, see [Serv
 
 1. Create an instance of the `ProvisionedThroughput` class to provide the new throughput values\.
 
-1. Execute the `updateTable` method by providing the `ProvisionedThroughput` instance as a parameter\.
+1. Run the `updateTable` method by providing the `ProvisionedThroughput` instance as a parameter\.
 
 The following code example demonstrates the preceding steps\.
 
@@ -113,7 +113,7 @@ table.waitForActive();
 
 1. Create an instance of the `DeleteTableRequest` class and provide the table name that you want to delete\.
 
-1. Execute the `deleteTable` method by providing the `Table` instance as a parameter\.
+1. Run the `deleteTable` method by providing the `Table` instance as a parameter\.
 
 The following code example demonstrates the preceding steps\.
 
@@ -132,7 +132,7 @@ table.waitForDelete();
 
 ## Listing Tables<a name="JavaDocumentAPIListTables"></a>
 
-To list tables in your account, create an instance of `DynamoDB` and execute the `listTables` method\. The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\.
+To list tables in your account, create an instance of `DynamoDB` and run the `listTables` method\. The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\.
 
 **Example**  
 

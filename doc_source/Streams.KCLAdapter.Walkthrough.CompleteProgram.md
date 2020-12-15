@@ -13,7 +13,7 @@ Done.
 ```
 
 **Important**  
- To run this program, ensure that the client application has access to DynamoDB and Amazon CloudWatch using policies\. For more information, see [Using Identity\-Based Policies \(IAM Policies\) for Amazon DynamoDB](using-identity-based-policies.md)\. 
+ To run this program, ensure that the client application has access to DynamoDB and Amazon CloudWatch using policies\. For more information, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\. 
 
 The source code consists of four `.java` files:
 + `StreamsAdapterDemo.java`

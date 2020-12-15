@@ -102,7 +102,7 @@ Each event is represented by a *stream record*\. If you enable a stream on a tab
 
 Each stream record also contains the name of the table, the event timestamp, and other metadata\. Stream records have a lifetime of 24 hours; after that, they are automatically removed from the stream\.
 
-You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that executes automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a "welcome" email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would execute whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an `EmailAddress` attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
+You can use DynamoDB Streams together with AWS Lambda to create a *trigger*—code that runs automatically whenever an event of interest appears in a stream\. For example, consider a *Customers* table that contains customer information for a company\. Suppose that you want to send a "welcome" email to each new customer\. You could enable a stream on that table, and then associate the stream with a Lambda function\. The Lambda function would run whenever a new stream record appears, but only process new items added to the *Customers* table\. For any item that has an `EmailAddress` attribute, the Lambda function would invoke Amazon Simple Email Service \(Amazon SES\) to send an email to that address\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksStreams.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
@@ -111,4 +111,4 @@ In this example, the last customer, Craig Roe, will not receive an email because
 
 In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS Regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
 
- For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. 
+ For more information, see [Change Data Capture for DynamoDB Streams](Streams.md)\. 

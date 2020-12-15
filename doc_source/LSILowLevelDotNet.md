@@ -16,7 +16,7 @@ The following are the common steps for table operations using the \.NET low\-lev
 
    For example, create a `CreateTableRequest` object to create a table and an `QueryRequest` object to query a table or an index\. 
 
-1. Execute the appropriate method provided by the client that you created in the preceding step\. 
+1. Run the appropriate method provided by the client that you created in the preceding step\. 
 
 ## Create a Table with a Local Secondary Index<a name="LSILowLevelDotNet.CreateTableWithIndex"></a>
 
@@ -30,7 +30,7 @@ The following are the steps to create a table with a local secondary index, usin
 
    You must provide the table name, its primary key, and the provisioned throughput values\. For the local secondary index, you must provide the index name, the name and data type of the index sort key, the key schema for the index, and the attribute projection\.
 
-1. Execute the `CreateTable` method by providing the request object as a parameter\.
+1. Run the `CreateTable` method by providing the request object as a parameter\.
 
 The following C\# code example demonstrates the preceding steps\. The code creates a table \(`Music`\) with a secondary index on the `AlbumTitle` attribute\. The table partition key and sort key, plus the index sort key, are the only attributes projected into the index\.
 
@@ -120,7 +120,7 @@ The following are the steps to access local secondary index information a table 
 
 1. Create an instance of the `DescribeTableRequest` class to provide the request information\. You must provide the table name\.
 
-1. Execute the `describeTable` method by providing the request object as a parameter\.
+1. Run the `describeTable` method by providing the request object as a parameter\.
 
 The following C\# code example demonstrates the preceding steps\.
 
@@ -174,7 +174,7 @@ The following are the steps to query a local secondary index using the \.NET low
 
 1. Create an instance of the `QueryRequest` class to provide the request information\.
 
-1. Execute the `query` method by providing the request object as a parameter\.
+1. Run the `query` method by providing the request object as a parameter\.
 
 The following C\# code example demonstrates the preceding steps\.
 
@@ -186,7 +186,7 @@ QueryRequest queryRequest = new QueryRequest
     TableName = "Music",
     IndexName = "AlbumTitleIndex",
     Select = "ALL_ATTRIBUTES",
-    ScanIndexForward = true, 
+    ScanIndexForward = true,
     KeyConditionExpression = "Artist = :v_artist and AlbumTitle = :v_title",
     ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
     {

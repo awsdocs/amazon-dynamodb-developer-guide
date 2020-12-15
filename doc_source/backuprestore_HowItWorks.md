@@ -18,9 +18,9 @@ While a backup is in progress, you can't do the following:
 + Delete the source table of the backup\.
 + Disable backups on a table if a backup for that table is in progress\.
 
-You can schedule periodic or future backups by using AWS Lambda functions\. For more information, see the blog post [A serverless solution to schedule your Amazon DynamoDB On\-Demand Backup](https://aws.amazon.com/blogs/database/a-serverless-solution-to-schedule-your-amazon-dynamodb-on-demand-backup/)\.
+If you don't want to create scheduling scripts and cleanup jobs, you can use AWS Backup to create backup plans with schedules and retention policies for your DynamoDB tables\. AWS Backup runs the backups and deletes them when they expire\. For more information, see the [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)\.
 
-If you don't want to create scheduling scripts and cleanup jobs, you can use AWS Backup to create backup plans with schedules and retention policies for your DynamoDB tables\. AWS Backup executes the backups and deletes them when they expire\. For more information, see the [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)\.
+You can schedule periodic or future backups by using AWS Lambda functions\. For more information, see the blog post [A serverless solution to schedule your Amazon DynamoDB On\-Demand Backup](https://aws.amazon.com/blogs/database/a-serverless-solution-to-schedule-your-amazon-dynamodb-on-demand-backup/)\.
 
 If you're using the console, any backups created using AWS Backup are listed on the **Backups** tab with the **Backup type** set to `AWS`\.
 
@@ -43,9 +43,6 @@ When you do a full table restore, the destination table is set with the same pro
 
 You can also restore your DynamoDB table data across AWS Regions such that the restored table is created in a different Region from where the backup resides\. You can do cross\-Region restores between AWS commercial Regions, AWS China Regions, and AWS GovCloud \(US\) Regions\. You pay only for the data that you transfer out of the source Region and for restoring to a new table in the destination Region\.
 
-**Note**  
-Cross\-Region restore is not supported if the source or destination Region is Asia Pacific \(Hong Kong\) or Middle East \(Bahrain\)\.
-
 Restores can be faster and more cost\-efficient if you choose to exclude some or all secondary indexes from being created on the new restored table\.
 
 You must manually set up the following on the restored table:
@@ -61,12 +58,9 @@ You can only restore the entire table data to a new table from a backup\. You ca
 **Note**  
  You can't overwrite an existing table during a restore operation\.
 
-The time it takes you to restore a table varies based on multiple factors\. The restore times are not always correlated directly to the size of the table\. For example, because of parallelization, restoring a 300 GB table could take the same amount of time as restoring a 3 GB table\.
-
-The following are some considerations for restore times:
+The time it takes to restore a table varies based on multiple factors, and is not necessarily correlated directly to the size of the table\. DynamoDB uses parallelization to efficiently accommodate workloads with imablanced write patterns and reduce restore times across tables of all sizes and data distributions\. Keep in mind the following considerations for restore times:
 + You restore backups to a new table\. It can take up to 20 minutes \(even if the table is empty\) to perform all the actions to create the new table and initiate the restore process\.
-+ For tables with even data distribution across your primary keys, the restore time is proportional to the largest single partition by item count and not the overall table size\. For the largest partitions with billions of items, a restore could take less than 10 hours\.
-+ If your source table contains data with significant skew, the time to restore might increase\. For example, if your table’s primary key is using the month of the year for partitioning, and all your data is from the month of December, you have skewed data\.
++ If your source table contains data with significant skew and includes secondary indexes, the time to restore might increase\. For example, if your secondary index’s key is using the month of the year for partitioning, and all your data is from the month of December, you have skewed data\. For faster restore times, you can restore your table without including secondary indexes\.
 
 To learn how to perform a restore, see [Restoring a DynamoDB Table from a Backup](Restore.Tutorial.md)\.
 

@@ -15,5 +15,5 @@ Follow these steps to add sample data to a data model using NoSQL Workbench for 
 1. Choose **Add Data**\.  
 ![\[Console screenshot showing the add data button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/VisualizerAddData.png)
 
-1. Enter the sample data into the empty textboxes, and then choose **Save**\.  
+1. Enter the sample data into the empty textboxes, and choose **Add new row** to add additional rows\. When done choose **Save**\.  
 ![\[Console screenshot showing the data fields and the save button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/VisualizerAddDataManual.png)

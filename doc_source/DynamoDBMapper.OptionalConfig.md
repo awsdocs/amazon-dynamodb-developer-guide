@@ -24,7 +24,7 @@ You can use the following arguments for an instance of `DynamoDBMapperConfig`:
   + `EVENTUAL`—the mapper instance uses an eventually consistent read request\.
   + `CONSISTENT`—the mapper instance uses a strongly consistent read request\. You can use this optional setting with `load`, `query`, or `scan` operations\. Strongly consistent reads have implications for performance and billing; see the DynamoDB [product detail page](https://aws.amazon.com/dynamodb) for more information\.
 
-  If you do not specify a read consistency setting for your mapper instance, the default is `CONSISTENT`\.
+  If you do not specify a read consistency setting for your mapper instance, the default is `EVENTUAL`\.
 + A `DynamoDBMapperConfig.PaginationLoadingStrategy` enumeration value—Controls how the mapper instance processes a paginated list of data, such as the results from a `query` or `scan`:
   + `LAZY_LOADING`—the mapper instance loads data when possible, and keeps all loaded results in memory\.
   + `EAGER_LOADING`—the mapper instance loads the data as soon as the list is initialized\.

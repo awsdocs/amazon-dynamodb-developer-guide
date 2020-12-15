@@ -17,7 +17,7 @@ For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API
 
 **Note**  
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
-For more information, see [Capturing Table Activity with DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
+For more information, see [Change Data Capture for DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
 
 The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 

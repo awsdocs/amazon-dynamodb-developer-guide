@@ -4,11 +4,11 @@ The C\# example in this section defines the following classes and maps them to t
 + The `Book` class maps to the `ProductCatalog` table\.
 + The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
-The example then executes the following query and scan operations using `DynamoDBContext`\.
+The example then runs the following query and scan operations using `DynamoDBContext`\.
 + Get a book by `Id`\. 
 
   The `ProductCatalog` table has `Id` as its primary key\. It does not have a sort key as part of its primary key\. Therefore, you cannot query the table\. You can get an item using its `Id` value\. 
-+ Execute the following queries against the `Reply` table\. \(The `Reply` table's primary key is composed of `Id` and `ReplyDateTime` attributes\. The `ReplyDateTime` is a sort key\. Therefore, you can query this table\.\)
++ Run the following queries against the `Reply` table\. \(The `Reply` table's primary key is composed of `Id` and `ReplyDateTime` attributes\. The `ReplyDateTime` is a sort key\. Therefore, you can query this table\.\)
   + Find replies to a forum thread posted in the last 15 days\.
   + Find replies to a forum thread posted in a specific date range\.
 + Scan the `ProductCatalog` table to find books whose price is less than zero\.

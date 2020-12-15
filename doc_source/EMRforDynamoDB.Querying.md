@@ -15,7 +15,7 @@ These examples refer to the *ddb\_features* table in the tutorial \([Step 5: Cop
 HiveQL provides built\-in functions for summarizing data values\. For example, you can use the `MAX` function to find the largest value for a selected column\. The following example returns the elevation of the highest feature in the state of Colorado\.
 
 ```
-SELECT MAX(elev_in_ft) 
+SELECT MAX(elev_in_ft)
 FROM ddb_features
 WHERE state_alpha = 'CO';
 ```
@@ -27,9 +27,9 @@ You can use the `GROUP BY` clause to collect data across multiple records\. This
 The following example returns a list of the highest elevations from states that have more than five features in the *ddb\_features* table\.
 
 ```
-SELECT state_alpha, max(elev_in_ft) 
-FROM ddb_features 
-GROUP BY state_alpha 
+SELECT state_alpha, max(elev_in_ft)
+FROM ddb_features
+GROUP BY state_alpha
 HAVING count(*) >= 5;
 ```
 
@@ -71,9 +71,9 @@ The following join returns the states on the East Coast of the United States tha
 
 ```
 SELECT ecs.state_name, f.feature_class, COUNT(*)
-FROM ddb_east_coast_states ecs 
+FROM ddb_east_coast_states ecs
 JOIN ddb_features f on ecs.state_alpha = f.state_alpha
-GROUP BY ecs.state_name, f.feature_class 
+GROUP BY ecs.state_name, f.feature_class
 HAVING COUNT(*) >= 3;
 ```
 
@@ -82,15 +82,15 @@ HAVING COUNT(*) >= 3;
 In the following example, s3\_east\_coast\_states is a Hive table associated with a CSV file stored in Amazon S3\. The *ddb\_features* table is associated with data in DynamoDB\. The following example joins these two tables, returning the geographic features from states whose names begin with "New\."
 
 ```
-1. create external table s3_east_coast_states (state_name STRING, state_alpha STRING) 
-2. ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+1. create external table s3_east_coast_states (state_name STRING, state_alpha STRING)
+2. ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 3. LOCATION 's3://bucketname/path/subpath/';
 ```
 
 ```
 SELECT ecs.state_name, f.feature_name, f.feature_class
-FROM s3_east_coast_states ecs 
-JOIN ddb_features f   
-ON ecs.state_alpha = f.state_alpha 
+FROM s3_east_coast_states ecs
+JOIN ddb_features f
+ON ecs.state_alpha = f.state_alpha
 WHERE ecs.state_name LIKE 'New%';
 ```

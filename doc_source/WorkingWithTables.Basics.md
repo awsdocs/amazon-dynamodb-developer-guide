@@ -165,7 +165,7 @@ The `UpdateTable` operation allows you to do one of the following:
 + Modify a table's provisioned throughput settings \(for provisioned mode tables\)\.
 + Change the table's read/write capacity mode\.
 + Manipulate global secondary indexes on the table \(see [Using Global Secondary Indexes in DynamoDB](GSI.md)\)\.
-+ Enable or disable DynamoDB Streams on the table \(see [Capturing Table Activity with DynamoDB Streams](Streams.md)\)\.
++ Enable or disable DynamoDB Streams on the table \(see [Change Data Capture for DynamoDB Streams](Streams.md)\)\.
 
 **Example**  
 The following AWS CLI example shows how to modify a table's provisioned throughput settings\.  

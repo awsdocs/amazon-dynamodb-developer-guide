@@ -30,6 +30,25 @@ Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB"></a>
 
+### PartiQL<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB.partiql"></a>
+
+DynamoDB provides the `ExecuteStatement` action for retrieving an item by its primary key using the SELECT statement\.
+
+```
+select AlbumTitle, Year, Price
+FROM Music
+WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
+```
+
+Note that the primary key for this table consists of Artist and SongTitle\. 
+
+**Note**  
+ The select PartiQL statement can be used to also Query or Scan a DynamoDB table
+
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+### Classic APIs<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB.classic"></a>
+
 DynamoDB provides the `GetItem` action for retrieving an item by its primary key\. `GetItem` is highly efficient because it provides direct access to the physical location of the item\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
 
 By default, `GetItem` returns the entire item with all of its attributes\.

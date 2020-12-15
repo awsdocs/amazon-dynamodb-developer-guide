@@ -1,13 +1,6 @@
-# Capturing Table Activity with DynamoDB Streams<a name="Streams"></a>
+# Change Data Capture for DynamoDB Streams<a name="Streams"></a>
 
-Many applications can benefit from the ability to capture changes to items stored in a DynamoDB table, at the point in time when such changes occur\. The following are some example use cases:
-+ An application in one AWS Region modifies the data in a DynamoDB table\. A second application in another Region reads these data modifications and writes the data to another table, creating a replica that stays in sync with the original table\.
-+ A popular mobile app modifies data in a DynamoDB table, at the rate of thousands of updates per second\. Another application captures and stores data about these updates, providing near\-real\-time usage metrics for the mobile app\.
-+ A global multi\-player game has a multi\-master topology, storing data in multiple AWS Regions\. Each master stays in sync by consuming and replaying the changes that occur in the remote Regions\.
-+ An application automatically sends notifications to the mobile devices of all friends in a group as soon as one friend uploads a new picture\.
-+ A new customer adds data to a DynamoDB table\. This event invokes another application that sends a welcome email to the new customer\.
-
-DynamoDB Streams enables solutions such as these, and many others\. DynamoDB Streams captures a time\-ordered sequence of item\-level modifications in any DynamoDB table and stores this information in a log for up to 24 hours\. Applications can access this log and view the data items as they appeared before and after they were modified, in near\-real time\.
+ DynamoDB Streams captures a time\-ordered sequence of item\-level modifications in any DynamoDB table and stores this information in a log for up to 24 hours\. Applications can access this log and view the data items as they appeared before and after they were modified, in near\-real time\.
 
  Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [DynamoDB Encryption at Rest](EncryptionAtRest.md)\.
 
@@ -41,8 +34,6 @@ The naming convention for DynamoDB Streams endpoints is `streams.dynamodb.<regio
 For a complete list of DynamoDB and DynamoDB Streams Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
 
 The AWS SDKs provide separate clients for DynamoDB and DynamoDB Streams\. Depending on your requirements, your application can access a DynamoDB endpoint, a DynamoDB Streams endpoint, or both at the same time\. To connect to both endpoints, your application must instantiate two clients—one for DynamoDB and one for DynamoDB Streams\.
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/streams-endpoints.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 ## Enabling a Stream<a name="Streams.Enabling"></a>
 

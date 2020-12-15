@@ -23,3 +23,4 @@ Data consistency in DynamoDB depends on the order of read and write operations o
 ## Request Time<a name="EMRforDynamoDB.PerformanceTuning.Misc.RequestTime"></a>
 
 Scheduling Hive queries that access a DynamoDB table when there is lower demand on the DynamoDB table improves performance\. For example, if most of your application's users live in San Francisco, you might choose to export daily data at 4:00 A\.M\. PST when the majority of users are asleep and not updating records in your DynamoDB database\. 
+

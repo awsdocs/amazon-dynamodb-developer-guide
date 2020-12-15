@@ -8,6 +8,8 @@ The following C\# code example defines a `Book` class with `Id`, `Title`, `ISBN`
 
 The example maps the `Book` type to the `ProductCatalog` table\. It saves a sample `Book` instance, retrieves it, updates its dimensions, and saves the updated `Book` again\.
 
+
+
 For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
 
 **Example**  

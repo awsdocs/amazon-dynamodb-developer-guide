@@ -160,6 +160,8 @@ The following diagram shows how a multithreaded application performs a parallel 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ParallelScan.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
+
+
 In this diagram, the application spawns three threads and assigns each thread a number\. \(Segments are zero\-based, so the first number is always 0\.\) Each thread issues a `Scan` request, setting `Segment` to its designated number and setting `TotalSegments` to 3\. Each thread scans its designated segment, retrieving data 1 MB at a time, and returns the data to the application's main thread\.
 
 The values for `Segment` and `TotalSegments` apply to individual `Scan` requests, and you can use different values at any time\. You might need to experiment with these values, and the number of workers you use, until your application achieves its best performance\.

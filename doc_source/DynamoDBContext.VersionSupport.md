@@ -20,7 +20,7 @@ The following C\# code example defines a `Book` class with object persistence at
     public string Title { get; set; }
     [DynamoDBProperty]
     public string ISBN { get; set; }
-    [DynamoDBProperty("Authors")]     
+    [DynamoDBProperty("Authors")]
     public List<string> BookAuthors { get; set; }
     [DynamoDBVersion]
     public int? VersionNumber { get; set; }

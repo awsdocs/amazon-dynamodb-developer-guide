@@ -4,7 +4,8 @@ If you have data in a DynamoDB table, you can copy the data to a native Hive tab
 
 You might decide to do this if you need to perform many HiveQL queries, but do not want to consume provisioned throughput capacity from DynamoDB\. Because the data in the native Hive table is a copy of the data from DynamoDB, and not "live" data, your queries should not expect that the data is up\-to\-date\.
 
-The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and have an external table that is mastered in DynamoDB \(*ddb\_features*\)\.
+**Note**  
+The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and have an external table in DynamoDB named *ddb\_features*\. 
 
 **Example From DynamoDB to Native Hive Table**  
 You can create a native Hive table and populate it with data from *ddb\_features*, like this:  

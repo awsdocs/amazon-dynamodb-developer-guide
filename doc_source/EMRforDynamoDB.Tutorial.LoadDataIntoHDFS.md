@@ -59,7 +59,7 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
 1. Enter the following HiveQL statement to create a native Hive table:
 
    ```
-   CREATE TABLE hive_features 
+   CREATE TABLE hive_features
        (feature_id             BIGINT,
        feature_name            STRING ,
        feature_class           STRING ,
@@ -67,7 +67,7 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
        prim_lat_dec            DOUBLE ,
        prim_long_dec           DOUBLE ,
        elev_in_ft              BIGINT)
-       ROW FORMAT DELIMITED 
+       ROW FORMAT DELIMITED
        FIELDS TERMINATED BY '|'
        LINES TERMINATED BY '\n';
    ```
@@ -75,17 +75,17 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
 1. Enter the following HiveQL statement to load the table with data:
 
    ```
-   LOAD DATA 
-   LOCAL 
-   INPATH './features.txt' 
-   OVERWRITE 
+   LOAD DATA
+   LOCAL
+   INPATH './features.txt'
+   OVERWRITE
    INTO TABLE hive_features;
    ```
 
 1. You now have a native Hive table populated with data from the `features.txt` file\. To verify, enter the following HiveQL statement:
 
    ```
-   SELECT state_alpha, COUNT(*) 
+   SELECT state_alpha, COUNT(*)
    FROM hive_features
    GROUP BY state_alpha;
    ```

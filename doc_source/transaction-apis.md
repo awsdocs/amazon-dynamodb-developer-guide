@@ -84,6 +84,24 @@ Although there is serializable isolation between transactional operations, and e
 
 Similarly, the isolation level between a transactional operation and individual `GetItems` in a `BatchGetItem` operation is serializable\. But the isolation level between the transaction and the `BatchGetItem` operation as a unit is *read\-committed*\.
 
+A single `GetItem` request is serializable with respect to a `TransactWriteItems` request in one of two ways, either before or after the `TransactWriteItems` request\. Multiple `GetItem` requests, against keys in a concurrent `TransactWriteItems` requests can be run in any order, and therefore the results are *read\-committed*\. 
+
+For example, if `GetItem` requests for item A and item B are run concurrently with a `TransactWriteItems` request that modifies both item A and item B, there are four possibilities: 
++ Both `GetItem` requests are run before the `TransactWriteItems` request\.
++ Both `GetItem` requests are run after the `TransactWriteItems` request\.
++ `GetItem` request for item A is run before the `TransactWriteItems` request\. For item B the `GetItem` is run after `TransactWriteItems`\.
++ `GetItem` request for item B is run before the `TransactWriteItems` request\. For item A the `GetItem` is run after `TransactWriteItems`\.
+
+ If serializable isolation level is preferred for multiple `GetItem` requests, then please use `TransactGetItems`\. 
+
+`GetItem` requests, then please use `TransactGetItems`\. 
+
+ requests, then please use `TransactGetItems`\. 
+
+`TransactGetItems`\. 
+
+\. 
+
 ### READ\-COMMITTED<a name="transaction-isolation-read-committed"></a>
 
 *Read\-committed* isolation ensures that read operations always return committed values for an item\. Read\-committed isolation does not prevent modifications of the item immediately after the read operation\.
@@ -118,7 +136,7 @@ A transactional conflict can occur during concurrent item\-level requests on an 
 
 **Note**  
 When a `PutItem`, `UpdateItem`, or `DeleteItem` request is rejected, the request fails with a `TransactionConflictException`\. 
-If any item\-level request within `TransactWriteItems` or `TransactGetItems` is rejected, the request fails with a `TransactionCanceledException`\.   
+If any item\-level request within `TransactWriteItems` or `TransactGetItems` is rejected, the request fails with a `TransactionCanceledException`\. If that request fails, AWS SDKs do not retry the request\.  
 If you are using the AWS SDK for Java, the exception contains the list of [CancellationReasons](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CancellationReason.html), ordered according to the list of items in the `TransactItems` request parameter\. For other languages, a string representation of the list is included in the exception’s error message\. 
 If an ongoing `TransactWriteItems` or `TransactGetItems` operation conflicts with a concurrent `GetItem` request, both operations can succeed\.
 
@@ -136,11 +154,11 @@ The [TransactionConflict CloudWatch metric](https://docs.aws.amazon.com/amazondy
 
 There is no additional cost to enable transactions for your DynamoDB tables\. You pay only for the reads or writes that are part of your transaction\. DynamoDB performs two underlying reads or writes of every item in the transaction: one to prepare the transaction and one to commit the transaction\. The two underlying read/write operations are visible in your Amazon CloudWatch metrics\.
 
-Plan for the additional reads and writes that are required by transactional APIs when you are provisioning capacity to your tables\. For example, suppose that your application executes one transaction per second, and each transaction writes three 500\-byte items in your table\. Each item requires two write capacity units \(WCUs\): one to prepare the transaction and one to commit the transaction\. Therefore, you would need to provision six WCUs to the table\. 
+Plan for the additional reads and writes that are required by transactional APIs when you are provisioning capacity to your tables\. For example, suppose that your application runs one transaction per second, and each transaction writes three 500\-byte items in your table\. Each item requires two write capacity units \(WCUs\): one to prepare the transaction and one to commit the transaction\. Therefore, you would need to provision six WCUs to the table\. 
 
 If you were using DynamoDB Accelerator \(DAX\) in the previous example, you would also use two read capacity units \(RCUs\) for each item in the `TransactWriteItems` call\. So you would need to provision six additional RCUs to the table\.
 
-Similarly, if your application executes one read transaction per second, and each transaction reads three 500\-byte items in your table, you would need to provision six read capacity units \(RCUs\) to the table\. Reading each item require two RCUs: one to prepare the transaction and one to commit the transaction\.
+Similarly, if your application runs one read transaction per second, and each transaction reads three 500\-byte items in your table, you would need to provision six read capacity units \(RCUs\) to the table\. Reading each item require two RCUs: one to prepare the transaction and one to commit the transaction\.
 
 Also, default SDK behavior is to retry transactions in case of a `TransactionInProgressException` exception\. Plan for the additional read\-capacity units \(RCUs\) that these retries consume\. The same is true if you are retrying transactions in your own code using a `ClientRequestToken`\.
 

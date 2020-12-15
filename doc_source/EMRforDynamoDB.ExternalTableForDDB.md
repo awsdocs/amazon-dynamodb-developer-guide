@@ -18,11 +18,11 @@ If you no longer need the external table, you can remove it using the `DROP TABL
 The following shows the HiveQL syntax for creating an external Hive table that maps to a DynamoDB table:
 
 ```
-CREATE EXTERNAL TABLE hive_table 
+CREATE EXTERNAL TABLE hive_table
     (hive_column1_name hive_column1_datatype, hive_column2_name hive_column2_datatype...)
-STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler' 
+STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
 TBLPROPERTIES (
-    "dynamodb.table.name" = "dynamodb_table", 
+    "dynamodb.table.name" = "dynamodb_table",
     "dynamodb.column.mapping" = "hive_column1_name:dynamodb_attribute1_name,hive_column2_name:dynamodb_attribute2_name..."
 );
 ```

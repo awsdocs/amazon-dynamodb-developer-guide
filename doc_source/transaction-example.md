@@ -9,9 +9,9 @@ The application has three DynamoDB tables in the backend:
 
 ## Making an Order<a name="transaction-example-write-order"></a>
 
-The following code snippets illustrate how to use DynamoDB transactions to coordinate the multiple steps that are required to create and process an order\. Using a single all\-or\-nothing operation ensures that if any part of the transaction fails, no actions in the transaction are executed and no changes are made\.
+The following code snippets illustrate how to use DynamoDB transactions to coordinate the multiple steps that are required to create and process an order\. Using a single all\-or\-nothing operation ensures that if any part of the transaction fails, no actions in the transaction are run and no changes are made\.
 
-In this example, you set up an order from a customer whose `customerId` is `09e8e9c8-ec48`\. You then execute it as a single transaction using the following simple order\-processing workflow:
+In this example, you set up an order from a customer whose `customerId` is `09e8e9c8-ec48`\. You then run it as a single transaction using the following simple order\-processing workflow:
 
 1. Determine that the customer ID is valid\.
 
@@ -81,9 +81,9 @@ Lastly, create the order as long as an order with that `OrderId` does not alread
       .withConditionExpression("attribute_not_exists(" + ORDER_PARTITION_KEY + ")");
 ```
 
-### Execute the Transaction<a name="transaction-example-order-part-d"></a>
+### Run the Transaction<a name="transaction-example-order-part-d"></a>
 
-The following example illustrates how to execute the actions defined previously as a single all\-or\-nothing operation\.
+The following example illustrates how to run the actions defined previously as a single all\-or\-nothing operation\.
 
 ```
     Collection<TransactWriteItem> actions = Arrays.asList(
@@ -95,7 +95,7 @@ The following example illustrates how to execute the actions defined previously 
         .withTransactItems(actions)
         .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
 
-    // Execute the transaction and process the result.
+    // Run the transaction and process the result.
     try {
         client.transactWriteItems(placeOrderTransaction);
         System.out.println("Transaction Successful");
@@ -135,7 +135,7 @@ The following example shows how to read the completed order transactionally acro
             .withTransactItems(getActions)
             .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
 
-    // Execute the transaction and process the result.
+    // Run the transaction and process the result.
     try {
         TransactGetItemsResult result = client.transactGetItems(readCompletedOrder);
         System.out.println(result.getResponses());

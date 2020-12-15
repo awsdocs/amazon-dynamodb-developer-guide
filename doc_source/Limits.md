@@ -18,6 +18,7 @@ This section describes current quotas within Amazon DynamoDB \(or no quota, in s
 + [DynamoDB Accelerator \(DAX\)](#limits-dax)
 + [API\-Specific Limits](#limits-api)
 + [DynamoDB Encryption at Rest](#limits-dynamodb-encryption)
++ [Table export to Amazon S3](#limits-table-export)
 
 ## Read/Write Capacity Mode and Throughput<a name="default-limits-throughput-capacity-modes"></a>
 
@@ -336,3 +337,7 @@ You can switch from an AWS owned customer master key \(CMK\) to an AWS managed C
 You can switch encryption keys to use an AWS owned CMK as often as necessary\.
 
 These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
+
+## Table export to Amazon S3<a name="limits-table-export"></a>
+
+Up to 300 export tasks, or up to 100 TB of table size, can be exported concurrently\.

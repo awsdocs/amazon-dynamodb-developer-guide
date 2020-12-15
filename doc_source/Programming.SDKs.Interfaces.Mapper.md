@@ -59,7 +59,7 @@ public class MusicMapperDemo {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
 
         DynamoDBMapper mapper = new DynamoDBMapper(client);
-        
+
         MusicItem keySchema = new MusicItem();
         keySchema.setArtist("No One You Know");
         keySchema.setSongTitle("Call Me Today");
@@ -76,8 +76,8 @@ public class MusicMapperDemo {
             System.err.println("Unable to retrieve data: ");
             System.err.println(e.getMessage());
         }
-       
+
     }
-    
+
 }
 ```

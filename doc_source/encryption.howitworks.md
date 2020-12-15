@@ -37,6 +37,7 @@ If you disable your customer managed CMK or schedule it for deletion, your table
 
 **Note**  
 If your customer managed CMK remains inaccessible to the DynamoDB service for longer than seven days, the table is archived and can no longer be accessed\. DynamoDB creates an on\-demand backup of your table, and you are billed for it\. You can use this on\-demand backup to restore your data to a new table\. To initiate the restore, the last customer managed CMK on the table must be enabled, and DynamoDB must have access to it\.
+If your customer managed CMK that was used to encrypt a global table replica is inaccessible DynamoDB will remove this replica from the replication group\. The replica will not be deleted and replication will stop from and to this region, 20 hours after detecting the customer managed CMK as inaccessible\.
 
 ## Notes on Using Managed CMKs<a name="managed-cmk-notes"></a>
 

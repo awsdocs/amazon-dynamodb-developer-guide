@@ -45,7 +45,7 @@ To get these tools, do the following:
 
    1. Install Git\. For instructions, see [git Downloads](http://git-scm.com/downloads)\.
 
-   1. Execute the following code to download the application\.
+   1. Run the following code to download the application\.
 
       ```
       git clone https://github.com/awslabs/dynamodb-tictactoe-example-app.git

@@ -26,6 +26,21 @@ SELECT Artist, Title FROM Music;
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB"></a>
 
+### PartiQL<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB.partiql"></a>
+
+DynamoDB provides the `ExecuteStatement` to return all the contents for a table using the select statement\.
+
+```
+select AlbumTitle, Year, Price
+FROM Music
+```
+
+Note that this statement will return all items for in the Music table\. 
+
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+### Classic APIs<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB.classic"></a>
+
 DynamoDB provides a `Scan` action that works in a similar way\. The following are some examples\.
 
 ```

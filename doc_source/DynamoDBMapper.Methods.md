@@ -1,6 +1,8 @@
 # DynamoDBMapper Class<a name="DynamoDBMapper.Methods"></a>
 
-The `DynamoDBMapper` class is the entry point to Amazon DynamoDB\. It provides access to a DynamoDB endpoint and enables you to access your data in various tables\. It also enables you to perform various create, read, update, and delete \(CRUD\) operations on items, and execute queries and scans against tables\. This class provides the following methods for working with DynamoDB\.
+
+
+The `DynamoDBMapper` class is the entry point to Amazon DynamoDB\. It provides access to a DynamoDB endpoint and enables you to access your data in various tables\. It also enables you to perform various create, read, update, and delete \(CRUD\) operations on items, and run queries and scans against tables\. This class provides the following methods for working with DynamoDB\.
 
 For the corresponding Javadoc documentation, see [DynamoDBMapper](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
 
@@ -43,7 +45,7 @@ If you have versioning enabled, the client\-side and server\-side item versions 
 Retrieves an item from a table\. You must provide the primary key of the item that you want to retrieve\. You can provide optional configuration parameters using the `DynamoDBMapperConfig` object\. For example, you can optionally request strongly consistent reads to ensure that this method retrieves only the latest item values as shown in the following Java statement\. 
 
 ```
-CatalogItem item = mapper.load(CatalogItem.class, item.getId(), 
+CatalogItem item = mapper.load(CatalogItem.class, item.getId(),
                 new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT));
 ```
 
@@ -84,7 +86,7 @@ Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 eav.put(":v1", new AttributeValue().withS(partitionKey));
 eav.put(":v2",new AttributeValue().withS(twoWeeksAgoStr.toString()));
 
-DynamoDBQueryExpression<Reply> queryExpression = new DynamoDBQueryExpression<Reply>() 
+DynamoDBQueryExpression<Reply> queryExpression = new DynamoDBQueryExpression<Reply>()
     .withKeyConditionExpression("Id = :v1 and ReplyDateTime > :v2")
     .withExpressionAttributeValues(eav);
 
@@ -101,7 +103,7 @@ To query an index, you must first model the index as a mapper class\. Suppose th
 
 ```
 @DynamoDBTable(tableName="Reply")
-public class PostedByMessage { 
+public class PostedByMessage {
     private String postedBy;
     private String message;
 
@@ -279,10 +281,10 @@ threadItem.subject = "My sample question";
 
 // Load a ProductCatalog item to delete
 Book book3 = mapper.load(Book.class, 903);
-        
+
 List<Object> objectsToWrite = Arrays.asList(forumItem, threadItem);
-List<Book> objectsToDelete = Arrays.asList(book3); 
-       
+List<Book> objectsToDelete = Arrays.asList(book3);
+
 mapper.batchWrite(objectsToWrite, objectsToDelete);
 ```
 

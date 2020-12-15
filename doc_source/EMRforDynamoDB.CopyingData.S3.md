@@ -22,7 +22,7 @@ If you worked through [Tutorial: Working with Amazon DynamoDB and Apache Hive](E
 For these examples, we will use a subpath within the bucket, as in this example:  
  `s3://aws-logs-123456789012-us-west-2/hive-test`
 
-The following procedures are written with the assumption you followed the steps in the tutorial and have an external table that is mastered in DynamoDB \(*ddb\_features*\)\.
+The following procedures are written with the assumption you followed the steps in the tutorial and have an external table in DynamoDB named *ddb\_features*\.
 
 **Topics**
 + [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.S3.DefaultFormat)
@@ -36,7 +36,7 @@ The following procedures are written with the assumption you followed the steps 
 Use an `INSERT OVERWRITE` statement to write directly to Amazon S3\.  
 
 ```
-INSERT OVERWRITE DIRECTORY 's3://aws-logs-123456789012-us-west-2/hive-test' 
+INSERT OVERWRITE DIRECTORY 's3://aws-logs-123456789012-us-west-2/hive-test'
 SELECT * FROM ddb_features;
 ```
 The data file in Amazon S3 looks like this:  
@@ -90,7 +90,7 @@ If you want to specify your own field separator character, you can create an ext
        prim_lat_dec      DOUBLE,
        prim_long_dec     DOUBLE,
        elev_in_ft        BIGINT)
-   ROW FORMAT DELIMITED 
+   ROW FORMAT DELIMITED
    FIELDS TERMINATED BY ','
    LOCATION 's3://aws-logs-123456789012-us-west-2/hive-test';
    ```
@@ -98,7 +98,7 @@ If you want to specify your own field separator character, you can create an ext
 1. Copy the data from DynamoDB\.
 
    ```
-   INSERT OVERWRITE TABLE s3_features_csv 
+   INSERT OVERWRITE TABLE s3_features_csv
    SELECT * FROM ddb_features;
    ```
 The data file in Amazon S3 looks like this:  
@@ -115,13 +115,15 @@ The data file in Amazon S3 looks like this:
 With a single HiveQL statement, you can populate the DynamoDB table using the data from Amazon S3:  
 
 ```
-INSERT OVERWRITE TABLE ddb_features 
+INSERT OVERWRITE TABLE ddb_features
 SELECT * FROM s3_features_csv;
 ```
 
 ## Copying Data Without a Column Mapping<a name="EMRforDynamoDB.CopyingData.S3.NoColumnMapping"></a>
 
 You can copy data from DynamoDB in a raw format and write it to Amazon S3 without specifying any data types or column mapping\. You can use this method to create an archive of DynamoDB data and store it in Amazon S3\.
+
+
 
 **Note**  
 If your DynamoDB table contains attributes of type Map, List, Boolean or Null, then this is the only way you can use Hive to copy data from DynamoDB to Amazon S3\.
@@ -131,16 +133,18 @@ If your DynamoDB table contains attributes of type Map, List, Boolean or Null, t
 1. Create an external table associated with your DynamoDB table\. \(There is no `dynamodb.column.mapping` in this HiveQL statement\.\)
 
    ```
-   CREATE EXTERNAL TABLE ddb_features_no_mapping 
+   CREATE EXTERNAL TABLE ddb_features_no_mapping
        (item MAP<STRING, STRING>)
-   STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler' 
+   STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
    TBLPROPERTIES ("dynamodb.table.name" = "Features");
    ```
+
+   
 
 1. Create another external table associated with your Amazon S3 bucket\.
 
    ```
-   CREATE EXTERNAL TABLE s3_features_no_mapping 
+   CREATE EXTERNAL TABLE s3_features_no_mapping
        (item MAP<STRING, STRING>)
    ROW FORMAT DELIMITED
    FIELDS TERMINATED BY '\t'
@@ -151,7 +155,7 @@ If your DynamoDB table contains attributes of type Map, List, Boolean or Null, t
 1. Copy the data from DynamoDB to Amazon S3\.
 
    ```
-   INSERT OVERWRITE TABLE s3_features_no_mapping 
+   INSERT OVERWRITE TABLE s3_features_no_mapping
    SELECT * FROM ddb_features_no_mapping;
    ```
 The data file in Amazon S3 looks like this:  
@@ -175,7 +179,7 @@ SELECT * FROM s3_features_no_mapping;
 
 ## Viewing the Data in Amazon S3<a name="EMRforDynamoDB.CopyingData.S3.ViewingData"></a>
 
-If you use SSH to connect to the master node, you can use the AWS Command Line Interface \(AWS CLI\) to access the data that Hive wrote to Amazon S3\.
+If you use SSH to connect to the leader node, you can use the AWS Command Line Interface \(AWS CLI\) to access the data that Hive wrote to Amazon S3\.
 
 The following steps are written with the assumption you have copied data from DynamoDB to Amazon S3 using one of the procedures in this section\.
 
@@ -197,7 +201,7 @@ The following steps are written with the assumption you have copied data from Dy
 
    The file name \(*000000\_0*\) is system\-generated\.
 
-1. \(Optional\) You can copy the data file from Amazon S3 to the local file system on the master node\. After you do this, you can use standard Linux command line utilities to work with the data in the file\.
+1. \(Optional\) You can copy the data file from Amazon S3 to the local file system on the leader node\. After you do this, you can use standard Linux command line utilities to work with the data in the file\.
 
    ```
    aws s3 cp s3://aws-logs-123456789012-us-west-2/hive-test/000000_0 .
@@ -207,4 +211,4 @@ The following steps are written with the assumption you have copied data from Dy
 
    `download: s3://aws-logs-123456789012-us-west-2/hive-test/000000_0 to ./000000_0`
 **Note**  
-The local file system on the master node has limited capacity\. Do not use this command with files that are larger than the available space in the local file system\.
+The local file system on the leader node has limited capacity\. Do not use this command with files that are larger than the available space in the local file system\.

@@ -11,7 +11,7 @@
 + [Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model](orm-dotnet-batchoperations-example.md)
 + [Example: Query and Scan in DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.QueryScan.md)
 
-The AWS SDK for \.NET provides an object persistence model that enables you to map your client\-side classes to Amazon DynamoDB tables\. Each object instance then maps to an item in the corresponding tables\. To save your client\-side objects to the tables, the object persistence model provides the `DynamoDBContext` class, an entry point to DynamoDB\. This class provides you a connection to DynamoDB and enables you to access tables, perform various CRUD operations, and execute queries\.
+The AWS SDK for \.NET provides an object persistence model that enables you to map your client\-side classes to Amazon DynamoDB tables\. Each object instance then maps to an item in the corresponding tables\. To save your client\-side objects to the tables, the object persistence model provides the `DynamoDBContext` class, an entry point to DynamoDB\. This class provides you a connection to DynamoDB and enables you to access tables, perform various CRUD operations, and run queries\.
 
 The object persistence model provides a set of attributes to map client\-side classes to tables, and properties/fields to table attributes\.
 
@@ -32,16 +32,16 @@ Suppose that you have a `Book` class with `Title`, `ISBN`, and `Authors` propert
 [DynamoDBTable("ProductCatalog")]
   public class Book
   {
-    [DynamoDBHashKey]   
+    [DynamoDBHashKey]
     public int Id { get; set; }
 
     public string Title { get; set; }
     public int ISBN { get; set; }
 
-    [DynamoDBProperty("Authors")]    
+    [DynamoDBProperty("Authors")]
     public List<string> BookAuthors { get; set; }
 
-    [DynamoDBIgnore]    
+    [DynamoDBIgnore]
     public string CoverPage { get; set; }
   }
 ```
