@@ -1,6 +1,6 @@
 # DAX: How It Works<a name="DAX.concepts"></a>
 
-Amazon DynamoDB Accelerator \(DAX\) is designed to run within an Amazon Virtual Private Cloud \(Amazon VPC\) environment\. The Amazon VPC service defines a virtual network that closely resembles a traditional data center\. With a VPC, you have control over its IP address range, subnets, routing tables, network gateways, and security settings\. You can launch a DAX cluster in your virtual network and control access to the cluster by using Amazon VPC security groups\.
+Amazon DynamoDB Accelerator \(DAX\) is designed to run within an Amazon Virtual Private Cloud \(Amazon VPC\) environment\. The Amazon VPC service lets you define a virtual network that closely resembles a network that you'd operate in a traditional data center\. With a VPC, you have control over its IP address range, subnets, routing tables, network gateways, and security settings\. You can launch a DAX cluster in your virtual network and control access to the cluster by using Amazon VPC security groups\.
 
 **Note**  
 If you created your AWS account after December 4, 2013, you already have a default VPC in each AWS Region\. The VPC is ready for you to use immediately—without having to perform any additional configuration steps\.  
