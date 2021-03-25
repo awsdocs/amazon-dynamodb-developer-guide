@@ -51,7 +51,7 @@ Use the AWS CLI to create a table with the default AWS owned CMK, the AWS manage
         ReadCapacityUnits=10,WriteCapacityUnits=5
   ```
 **Note**  
- This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\. 
+This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\.
 
 **To create an encrypted table with the AWS managed CMK for DynamoDB**
 + Create the encrypted `Music` table as follows\.
@@ -143,7 +143,7 @@ The following examples show how to update an encrypted table using the AWS CLI\.
     --sse-specification Enabled=false
   ```
 **Note**  
-This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\. 
+This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\.
 
 **To update an encrypted table with the AWS managed CMK for DynamoDB**
 + Update the encrypted `Music` table, as in the following example\.

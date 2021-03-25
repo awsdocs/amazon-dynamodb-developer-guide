@@ -19,7 +19,6 @@ In this step, you add a new item to the `Movies` table\.
 1. Copy the following program and paste it into a file named `MoviesItemOps01.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -95,7 +94,6 @@ You can use the `get` method to read the item from the `Movies` table\. You must
 1. Copy the following program and paste it into a file named `MoviesItemOps02.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -182,7 +180,6 @@ The item is updated as follows\.
 1. Copy the following program and paste it into a file named `MoviesItemOps03.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -253,7 +250,6 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy the following program and paste it into a file named `MoviesItemOps04.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -319,7 +315,6 @@ In this case, the item is updated only if there are more than three actors in th
 1. Copy the following program and paste it into a file named `MoviesItemOps05.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -402,7 +397,6 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy the following program and paste it into a file named `MoviesItemOps06.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *

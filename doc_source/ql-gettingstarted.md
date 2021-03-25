@@ -42,7 +42,7 @@ PartiQL for DynamoDB is only available in the new DynamoDB console\. To use the 
    ```
    SELECT *                                         
    FROM Music  
-   WHERE Artist='?' and SongTitle='?'
+   WHERE Artist=? and SongTitle=?
    ```
 
 1. To specify a value for the `Artist` and `SongTitle` parameters:
@@ -132,74 +132,88 @@ PartiQL for DynamoDB is only available in the new DynamoDB console\. To use the 
 
    ```
    aws dynamodb execute-statement --statement "DELETE  FROM Music  \
-                                                   WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'"
+       WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'"
    ```
 
 ------
 #### [ Java ]
 
 ```
+import java.util.ArrayList;
+import java.util.List;
+
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.amazonaws.services.dynamodbv2.model.ExecuteStatementRequest;
+import com.amazonaws.services.dynamodbv2.model.ExecuteStatementResult;
+import com.amazonaws.services.dynamodbv2.model.InternalServerErrorException;
+import com.amazonaws.services.dynamodbv2.model.ItemCollectionSizeLimitExceededException;
+import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughputExceededException;
+import com.amazonaws.services.dynamodbv2.model.RequestLimitExceededException;
+import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
+import com.amazonaws.services.dynamodbv2.model.TransactionConflictException;
+
 public class DynamoDBPartiQGettingStarted {
 
     public static void main(String[] args) {
         // Create the DynamoDB Client with the region you want
         AmazonDynamoDB dynamoDB = createDynamoDbClient("us-west-1");
-        
+
         try {
             // Create ExecuteStatementRequest
             ExecuteStatementRequest executeStatementRequest = new ExecuteStatementRequest();
             List<AttributeValue> parameters= getPartiQLParameters();
-            
-            //Create an item in the Music table using the INSERT PartiQL statement 
-            processResults(executeStatementRequest(dynamoDB, "INSERT INTO Music value {'Artist':'?','SongTitle':'?'}", parameters));
-             
-            //Retrieve an item from the Music table using the SELECT PartiQL statement.          
-            processResults(executeStatementRequest(dynamoDB, "SELECT * FROM Music  where Artist='?' and SongTitle='?'", parameters));
-            
-            //Update an item in the Music table using the UPDATE PartiQL statement. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='?' and SongTitle='?'", parameters));
-            
-            //Add a list value for an item in the Music table. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist='?' and SongTitle='?'", parameters));
-             
-            //Remove a list value for an item in the Music table. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music REMOVE AwardDetail.Grammys[2]   where Artist='?' and SongTitle='?'", parameters));
-            
-            //Add a new map member for an item in the Music table. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music set AwardDetail.BillBoard=[2020] where Artist='?' and SongTitle='?'", parameters));
-             
-            //Add a new string set attribute for an item in the Music table. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist='?' and SongTitle='?'", parameters));
-             
-            //update a string set attribute for an item in the Music table. 
-            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist='?' and SongTitle='?'", parameters));
-             
-            //Retrieve an item from the Music table using the SELECT PartiQL statement. 
-            processResults(executeStatementRequest(dynamoDB, "SELECT * FROM Music  where Artist='?' and SongTitle='?'", parameters));
-             
+
+            //Create an item in the Music table using the INSERT PartiQL statement
+            processResults(executeStatementRequest(dynamoDB, "INSERT INTO Music value {'Artist':?,'SongTitle':?}", parameters));
+
+            //Retrieve an item from the Music table using the SELECT PartiQL statement.
+            processResults(executeStatementRequest(dynamoDB, "SELECT * FROM Music  where Artist=? and SongTitle=?", parameters));
+
+            //Update an item in the Music table using the UPDATE PartiQL statement.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist=? and SongTitle=?", parameters));
+
+            //Add a list value for an item in the Music table.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?", parameters));
+
+            //Remove a list value for an item in the Music table.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music REMOVE AwardDetail.Grammys[2]   where Artist=? and SongTitle=?", parameters));
+
+            //Add a new map member for an item in the Music table.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music set AwardDetail.BillBoard=[2020] where Artist=? and SongTitle=?", parameters));
+
+            //Add a new string set attribute for an item in the Music table.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters));
+
+            //update a string set attribute for an item in the Music table.
+            processResults(executeStatementRequest(dynamoDB, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?", parameters));
+
+            //Retrieve an item from the Music table using the SELECT PartiQL statement.
+            processResults(executeStatementRequest(dynamoDB, "SELECT * FROM Music  where Artist=? and SongTitle=?", parameters));
+
             //delete an item from the Music Table
-            processResults(executeStatementRequest(dynamoDB, "DELETE  FROM Music  where Artist='?' and SongTitle='?'", parameters));
-   
-
-            
-
+            processResults(executeStatementRequest(dynamoDB, "DELETE  FROM Music  where Artist=? and SongTitle=?", parameters));
         } catch (Exception e) {
             handleExecuteStatementErrors(e);
         }
     }
+
     private static AmazonDynamoDB createDynamoDbClient(String region) {
-      
         return AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
     }
+
     private static List<AttributeValue> getPartiQLParameters() {
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>(); 
+        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
         parameters.add(new AttributeValue("Acme Band"));
         parameters.add(new AttributeValue("PartiQL Rocks"));
         return parameters;
     }
-    
+
     private static ExecuteStatementResult executeStatementRequest(AmazonDynamoDB client, String statement, List<AttributeValue> parameters ) {
-        
         ExecuteStatementRequest request = new ExecuteStatementRequest();
         request.setStatement(statement);
         request.setParameters(parameters);
@@ -207,23 +221,24 @@ public class DynamoDBPartiQGettingStarted {
     }
 
     private static void processResults(ExecuteStatementResult executeStatementResult) {
-         System.out.println("ExecuteStatement successful: "+ executeStatementResult.toString());
-        
+        System.out.println("ExecuteStatement successful: "+ executeStatementResult.toString());
+
     }
-    // Handles errors during ExecuteStatement execution. Use recommendations in error messages below to add error handling specific to 
+
+    // Handles errors during ExecuteStatement execution. Use recommendations in error messages below to add error handling specific to
     // your application use-case.
     private static void handleExecuteStatementErrors(Exception exception) {
         try {
             throw exception;
         } catch (ConditionalCheckFailedException ccfe) {
             System.out.println("Condition check specified in the operation failed, review and update the condition " +
-                "check before retrying. Error: " + ccfe.getErrorMessage());
+                                       "check before retrying. Error: " + ccfe.getErrorMessage());
         } catch (TransactionConflictException tce) {
             System.out.println("Operation was rejected because there is an ongoing transaction for the item, generally " +
-                "safe to retry with exponential back-off. Error: " + tce.getErrorMessage());
+                                       "safe to retry with exponential back-off. Error: " + tce.getErrorMessage());
         } catch (ItemCollectionSizeLimitExceededException icslee) {
             System.out.println("An item collection is too large, you\'re using Local Secondary Index and exceeded " +
-                "size limit of items per partition key. Consider using Global Secondary Index instead. Error: " + icslee.getErrorMessage());
+                                       "size limit of items per partition key. Consider using Global Secondary Index instead. Error: " + icslee.getErrorMessage());
         } catch (Exception e) {
             handleCommonErrors(e);
         }
@@ -235,22 +250,22 @@ public class DynamoDBPartiQGettingStarted {
         } catch (InternalServerErrorException isee) {
             System.out.println("Internal Server Error, generally safe to retry with exponential back-off. Error: " + isee.getErrorMessage());
         } catch (RequestLimitExceededException rlee) {
-            System.out.println("Throughput exceeds the current throughput limit for your account, increase account level throughput before " + 
-                "retrying. Error: " + rlee.getErrorMessage());
+            System.out.println("Throughput exceeds the current throughput limit for your account, increase account level throughput before " +
+                                       "retrying. Error: " + rlee.getErrorMessage());
         } catch (ProvisionedThroughputExceededException ptee) {
             System.out.println("Request rate is too high. If you're using a custom retry strategy make sure to retry with exponential back-off. " +
-                "Otherwise consider reducing frequency of requests or increasing provisioned capacity for your table or secondary index. Error: " + 
-                ptee.getErrorMessage());
+                                       "Otherwise consider reducing frequency of requests or increasing provisioned capacity for your table or secondary index. Error: " +
+                                       ptee.getErrorMessage());
         } catch (ResourceNotFoundException rnfe) {
             System.out.println("One of the tables was not found, verify table exists before retrying. Error: " + rnfe.getErrorMessage());
         } catch (AmazonServiceException ase) {
-            System.out.println("An AmazonServiceException occurred, indicates that the request was correctly transmitted to the DynamoDB " + 
-                "service, but for some reason, the service was not able to process it, and returned an error response instead. Investigate and " +
-                "configure retry strategy. Error type: " + ase.getErrorType() + ". Error message: " + ase.getErrorMessage());
+            System.out.println("An AmazonServiceException occurred, indicates that the request was correctly transmitted to the DynamoDB " +
+                                       "service, but for some reason, the service was not able to process it, and returned an error response instead. Investigate and " +
+                                       "configure retry strategy. Error type: " + ase.getErrorType() + ". Error message: " + ase.getErrorMessage());
         } catch (AmazonClientException ace) {
             System.out.println("An AmazonClientException occurred, indicates that the client was unable to get a response from DynamoDB " +
-                "service, or the client was unable to parse the response from the service. Investigate and configure retry strategy. "+
-                "Error: " + ace.getMessage());
+                                       "service, or the client was unable to parse the response from the service. Investigate and configure retry strategy. "+
+                                       "Error: " + ace.getMessage());
         } catch (Exception e) {
             System.out.println("An exception occurred, investigate and configure retry strategy. Error: " + e.getMessage());
         }

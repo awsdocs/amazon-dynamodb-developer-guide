@@ -22,6 +22,7 @@ DAX supports server\-side encryption\. With encryption at rest, the data persist
 + [Developing with the DynamoDB Accelerator \(DAX\) Client](DAX.client.md)
 + [Managing DAX Clusters](DAX.cluster-management.md)
 + [Monitoring DAX](DAX.Monitoring.md)
++ [DAX T3/T2 Burstable Instances](DAX.Burstable.md)
 + [DAX Access Control](DAX.access-control.md)
 + [DAX Encryption at Rest](DAXEncryptionAtRest.md)
 + [Using Service\-Linked IAM Roles for DAX](using-service-linked-roles.md)

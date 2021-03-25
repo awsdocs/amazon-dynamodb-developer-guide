@@ -58,9 +58,7 @@ You can only restore the entire table data to a new table from a backup\. You ca
 **Note**  
  You can't overwrite an existing table during a restore operation\.
 
-The time it takes to restore a table varies based on multiple factors, and is not necessarily correlated directly to the size of the table\. DynamoDB uses parallelization to efficiently accommodate workloads with imablanced write patterns and reduce restore times across tables of all sizes and data distributions\. Keep in mind the following considerations for restore times:
-+ You restore backups to a new table\. It can take up to 20 minutes \(even if the table is empty\) to perform all the actions to create the new table and initiate the restore process\.
-+ If your source table contains data with significant skew and includes secondary indexes, the time to restore might increase\. For example, if your secondary index’s key is using the month of the year for partitioning, and all your data is from the month of December, you have skewed data\. For faster restore times, you can restore your table without including secondary indexes\.
+Service metrics show that 95 percent of customers' table restores complete in less than one hour\. However, restore times are directly related to the configuration of your tables \(such as the size of your tables and the number of underlying partitions\) and other related variables\. A best practice when planning for disaster recovery is to regularly document average restore completion times and establish how these times affect your overall Recovery Time Objective\.
 
 To learn how to perform a restore, see [Restoring a DynamoDB Table from a Backup](Restore.Tutorial.md)\.
 

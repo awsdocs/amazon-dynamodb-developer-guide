@@ -25,7 +25,7 @@ INSERT INTO table VALUE item
 \(Required\) The table where you want to insert the data\. The table must already exist\. 
 
 ***item***  
-\(Required\) A valid DynamoDB item represented as a [Paritql tuple](https://partiql.org/docs.html)\. You must specify only *one* item and each attribute name in the item is case\-sensitive and can be denoted with *single* quotation marks \(`'...'`\) in PartiQL\.  
+\(Required\) A valid DynamoDB item represented as a [PartiQL tuple](https://partiql.org/docs.html)\. You must specify only *one* item and each attribute name in the item is case\-sensitive and can be denoted with *single* quotation marks \(`'...'`\) in PartiQL\.  
 String values are also denoted with *single* quotation marks \(`'...'`\) in PartiQL\.
 
 ## Return value<a name="ql-reference.insert.return"></a>

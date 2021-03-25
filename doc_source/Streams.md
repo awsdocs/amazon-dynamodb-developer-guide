@@ -21,7 +21,6 @@ DynamoDB Streams writes stream records in near\-real time so that you can build 
 + [DynamoDB Streams and Time to Live](time-to-live-ttl-streams.md)
 + [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)
 + [DynamoDB Streams Low\-Level API: Java Example](Streams.LowLevel.Walkthrough.md)
-+ [Cross\-Region Replication](Streams.CrossRegionRepl.md)
 + [DynamoDB Streams and AWS Lambda Triggers](Streams.Lambda.md)
 
 ## Endpoints for DynamoDB Streams<a name="Streams.Endpoints"></a>

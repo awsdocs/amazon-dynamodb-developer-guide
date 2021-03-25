@@ -33,7 +33,7 @@ The following table summarizes the mapping of the preceding \.NET types to the D
 | Guid | S \(string type\)\. | 
 | Collection types \(List, HashSet, and array\) | BS \(binary set\) type, SS \(string set\) type, and NS \(number set\) type | 
 
-AWS \.NET SDK defines types for mapping DynamoDB's Boolean, null, list and map types to \.NET document model API:
+AWS SDK for \.NET defines types for mapping DynamoDB's Boolean, null, list and map types to \.NET document model API:
 + Use `DynamoDBBool` for Boolean type\.
 + Use `DynamoDBNull` for null type\.
 + Use `DynamoDBList` for list type\.

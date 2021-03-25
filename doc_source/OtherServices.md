@@ -6,3 +6,4 @@ Amazon DynamoDB is integrated with other AWS services, letting you automate repe
 + [Configuring AWS Credentials in Your Files Using Amazon Cognito](Cognito.Credentials.md)
 + [Loading Data From DynamoDB Into Amazon Redshift](RedshiftforDynamoDB.md)
 + [Processing DynamoDB Data With Apache Hive on Amazon EMR](EMRforDynamoDB.md)
++ [Exporting DynamoDB table data to Amazon S3](DataExport.md)

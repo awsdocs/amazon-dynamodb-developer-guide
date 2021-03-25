@@ -9,7 +9,7 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 ------
 #### [ Console ]
 
-1. Sign in to the AWS Management Console and open the Kinesis console at https://console\.aws\.amazon\.com/kinesis/\. 
+1. Sign in to the AWS Management Console and open the Kinesis console at https://console\.aws\.amazon\.com/kinesis/\.
 
 1. Choose **Create data stream** and follow the instructions to create a stream called `samplestream`\. 
 
@@ -37,7 +37,7 @@ All of these examples use the `Music` DynamoDB table that was created as part of
    aws kinesis create-stream --stream-name samplestream --shard-count 3 
    ```
 
-   See [Shard Management Considerations for Amazon Kinesis Data Streams ](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\. 
+   See [Shard Management Considerations for Amazon Kinesis Data Streams](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\. 
 
 1. Check that the Kinesis stream is active and ready for use by using the [describe\-stream command](https://docs.aws.amazon.com/cli/latest/reference/kinesis/describe-stream.html)\.
 
@@ -50,7 +50,7 @@ All of these examples use the `Music` DynamoDB table that was created as part of
    ```
    aws dynamodb enable-kinesis-streaming-destination \
        --table-name Music \
-   	  --stream-arn arn:aws:kinesis:us-west-2:123456789012:stream/samplestream
+       --stream-arn arn:aws:kinesis:us-west-2:123456789012:stream/samplestream
    ```
 
 1. Check if Kinesis streaming is active on the table by using the DynamoDB `describe-kinesis-streaming-destination` command\.
@@ -63,44 +63,44 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 
    ```
    aws dynamodb put-item \
-   --table-name Music  \
-   --item \
-       '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}, "Awards": {"N": "1"}}'
+       --table-name Music  \
+       --item \
+           '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}, "Awards": {"N": "1"}}'
    
    aws dynamodb put-item \
        --table-name Music \
        --item \
-       '{"Artist": {"S": "Acme Band"}, "SongTitle": {"S": "Happy Day"}, "AlbumTitle": {"S": "Songs About Life"}, "Awards": {"N": "10"} }'
+           '{"Artist": {"S": "Acme Band"}, "SongTitle": {"S": "Happy Day"}, "AlbumTitle": {"S": "Songs About Life"}, "Awards": {"N": "10"} }'
    ```
 
 1. Use the Kinesis [get\-records](https://docs.aws.amazon.com/cli/latest/reference/kinesis/get-records.html) CLI command to retrieve the Kinesis stream contents\. Then use the following code snippet to deserialize the stream content\.
 
    ```
+   /**
+    * Takes as input a Record fetched from Kinesis and does arbitrary processing as an example.
+    */
+   public void processRecord(Record kinesisRecord) throws IOException {
+       ByteBuffer kdsRecordByteBuffer = kinesisRecord.getData();
+       JsonNode rootNode = OBJECT_MAPPER.readTree(kdsRecordByteBuffer.array());
+       JsonNode dynamoDBRecord = rootNode.get("dynamodb");
+       JsonNode oldItemImage = dynamoDBRecord.get("OldImage");
+       JsonNode newItemImage = dynamoDBRecord.get("NewImage");
+       Instant recordTimestamp = fetchTimestamp(dynamoDBRecord);
+   
        /**
-            * Takes as input a Record fetched from Kinesis and does arbitrary processing as an example.
-            */
-           public void processRecord(Record kinesisRecord) throws IOException {
-               ByteBuffer kdsRecordByteBuffer = kinesisRecord.getData();
-               JsonNode rootNode = OBJECT_MAPPER.readTree(kdsRecordByteBuffer.array());
-               JsonNode dynamoDBRecord = rootNode.get("dynamodb");
-               JsonNode oldItemImage = dynamoDBRecord.get("OldImage");
-               JsonNode newItemImage = dynamoDBRecord.get("NewImage");
-               Instant recordTimestamp = fetchTimestamp(dynamoDBRecord);
-        
-               /**
-                * Say for example our record contains a String attribute named "stringName" and we want to fetch the value
-                * of this attribute from the new item image. The following code fetches this value.
-                */
-               JsonNode attributeNode = newItemImage.get("stringName");
-               JsonNode attributeValueNode = attributeNode.get("S"); // Using DynamoDB "S" type attribute
-               String attributeValue = attributeValueNode.textValue();
-               System.out.println(attributeValue);
-           }
-        
-           private Instant fetchTimestamp(JsonNode dynamoDBRecord) {
-               JsonNode timestampJson = dynamoDBRecord.get("ApproximateCreationDateTime");
-               return Instant.ofEpochMilli(timestampJson.longValue());
-           }
+        * Say for example our record contains a String attribute named "stringName" and we want to fetch the value
+        * of this attribute from the new item image. The following code fetches this value.
+        */
+       JsonNode attributeNode = newItemImage.get("stringName");
+       JsonNode attributeValueNode = attributeNode.get("S"); // Using DynamoDB "S" type attribute
+       String attributeValue = attributeValueNode.textValue();
+       System.out.println(attributeValue);
+   }
+   
+   private Instant fetchTimestamp(JsonNode dynamoDBRecord) {
+       JsonNode timestampJson = dynamoDBRecord.get("ApproximateCreationDateTime");
+       return Instant.ofEpochMilli(timestampJson.longValue());
+   }
    ```
 
 ------
@@ -108,16 +108,16 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 
 1. Follow the instructions in the Kinesis Data Streams developer guide to [create](https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-create-stream.html) a Kinesis data stream named `samplestream` using Java\.
 
-   See [Shard Management Considerations for Amazon Kinesis Data Streams ](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\. 
+   See [Shard Management Considerations for Amazon Kinesis Data Streams](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\. 
 
 1. Use the code snippet below enable Amazon Kinesis Data Streams for Amazon DynamoDB on the table
 
    ```
    EnableKinesisStreamingDestinationRequest enableKdsRequest = EnableKinesisStreamingDestinationRequest.builder()
-                                                                                                               .tableName(tableName)
-                                                                                                               .streamArn(kdsArn)
-                                                                                                               .build();
-           
+       .tableName(tableName)
+       .streamArn(kdsArn)
+       .build();
+   
    EnableKinesisStreamingDestinationResponse enableKdsResponse = ddbClient.enableKinesisStreamingDestination(enableKdsRequest);
    ```
 
@@ -126,31 +126,31 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 1. Use the code snippet below to de\-serialize the stream content
 
    ```
+   /**
+    * Takes as input a Record fetched from Kinesis and does arbitrary processing as an example.
+    */
+   public void processRecord(Record kinesisRecord) throws IOException {
+       ByteBuffer kdsRecordByteBuffer = kinesisRecord.getData();
+       JsonNode rootNode = OBJECT_MAPPER.readTree(kdsRecordByteBuffer.array());
+       JsonNode dynamoDBRecord = rootNode.get("dynamodb");
+       JsonNode oldItemImage = dynamoDBRecord.get("OldImage");
+       JsonNode newItemImage = dynamoDBRecord.get("NewImage");
+       Instant recordTimestamp = fetchTimestamp(dynamoDBRecord);
+   
        /**
-            * Takes as input a Record fetched from Kinesis and does arbitrary processing as an example.
-            */
-           public void processRecord(Record kinesisRecord) throws IOException {
-               ByteBuffer kdsRecordByteBuffer = kinesisRecord.getData();
-               JsonNode rootNode = OBJECT_MAPPER.readTree(kdsRecordByteBuffer.array());
-               JsonNode dynamoDBRecord = rootNode.get("dynamodb");
-               JsonNode oldItemImage = dynamoDBRecord.get("OldImage");
-               JsonNode newItemImage = dynamoDBRecord.get("NewImage");
-               Instant recordTimestamp = fetchTimestamp(dynamoDBRecord);
-        
-               /**
-                * Say for example our record contains a String attribute named "stringName" and we wanted to fetch the value
-                * of this attribute from the new item image, the below code would fetch this.
-                */
-               JsonNode attributeNode = newItemImage.get("stringName");
-               JsonNode attributeValueNode = attributeNode.get("S"); // Using DynamoDB "S" type attribute
-               String attributeValue = attributeValueNode.textValue();
-               System.out.println(attributeValue);
-           }
-        
-           private Instant fetchTimestamp(JsonNode dynamoDBRecord) {
-               JsonNode timestampJson = dynamoDBRecord.get("ApproximateCreationDateTime");
-               return Instant.ofEpochMilli(timestampJson.longValue());
-           }
+        * Say for example our record contains a String attribute named "stringName" and we wanted to fetch the value
+        * of this attribute from the new item image, the below code would fetch this.
+        */
+       JsonNode attributeNode = newItemImage.get("stringName");
+       JsonNode attributeValueNode = attributeNode.get("S"); // Using DynamoDB "S" type attribute
+       String attributeValue = attributeValueNode.textValue();
+       System.out.println(attributeValue);
+   }
+   
+   private Instant fetchTimestamp(JsonNode dynamoDBRecord) {
+       JsonNode timestampJson = dynamoDBRecord.get("ApproximateCreationDateTime");
+       return Instant.ofEpochMilli(timestampJson.longValue());
+   }
    ```
 
 ------

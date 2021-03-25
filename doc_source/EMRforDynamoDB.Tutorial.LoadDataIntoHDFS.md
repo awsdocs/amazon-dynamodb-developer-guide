@@ -37,8 +37,6 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
    541692|Button Willow Island|Island|LA|31.9579389|-93.0648847|98
    ```
 
-   The data file contains a subset of data provided by the United States Board on Geographic Names \([http://geonames\.usgs\.gov/domestic/download\_data\.htm](http://geonames.usgs.gov/domestic/download_data.htm)\)\.
-
    The `features.txt` file contains a subset of data from the United States Board on Geographic Names \([http://geonames\.usgs\.gov/domestic/download\_data\.htm](http://geonames.usgs.gov/domestic/download_data.htm)\)\. The fields in each line represent the following:
    + Feature ID \(unique identifier\)
    + Name

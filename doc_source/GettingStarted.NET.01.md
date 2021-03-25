@@ -3,7 +3,7 @@
 The first step in the [Microsoft \.NET and DynamoDB Tutorial](GettingStarted.NET.md) is to create a client that gives you access to the Amazon DynamoDB API\. The `Main` function in `DynamoDB_intro` does this by calling a `createClient` function implemented in the `01_CreateClient.cs` file\.
 
 ```
-    using System;
+using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using Amazon.DynamoDBv2;

@@ -9,11 +9,11 @@ Follow these steps to set up and run DynamoDB on your computer\.
 
 **To set up DynamoDB on your computer**
 
-1. Download DynamoDB for free using one of the following links\.  
+1. Download DynamoDB for free from one of the following locations\.  
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 
-   DynamoDB is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit For Eclipse](https://aws.amazon.com/eclipse/)\.
+   DynamoDB is also available as part of the AWS Toolkit for Eclipse\. For more information, see [AWS Toolkit for Eclipse](https://aws.amazon.com/eclipse/)\.
 **Important**  
 To run DynamoDB on your computer, you must have the Java Runtime Environment \(JRE\) version 8\.x or newer\. The application doesn't run on earlier JRE versions\.
 
@@ -44,6 +44,102 @@ DynamoDB uses port 8000 by default\. If port 8000 is unavailable, this command t
 
    ```
    aws dynamodb list-tables --endpoint-url http://localhost:8000
+   ```
+
+------
+#### [ Docker ]
+
+The downloadable version of Amazon DynamoDB is available as a Docker image\. For more information, see [dynamodb\-local](https://hub.docker.com/r/amazon/dynamodb-local)\.
+
+ For an example of using DynamoDB local as part of a REST application built on the AWS Serverless Application Model \(AWS SAM\), see [SAM DynamoDB application for managing orders](https://github.com/aws-samples/aws-sam-java-rest)\. This sample application demonstrates how to use DynamoDB local for testing\. 
+
+If you want to run a multi\-container application that also uses the DynamoDB local container, use Docker Compose to define and run all the services in your application, including DynamoDB local\.
+
+**To install and run DynamoDB local with Docker Compose:**
+
+1. Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)\.
+
+1. Copy the following code to a file and save it as `docker-compose.yml`\.
+
+   ```
+   version: '3.8'
+   services:
+     dynamodb-local:
+       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       image: "amazon/dynamodb-local:latest"
+       container_name: dynamodb-local
+       ports:
+         - "8000:8000"
+       volumes:
+         - "./docker/dynamodb:/home/dynamodblocal/data"
+       working_dir: /home/dynamodblocal
+   ```
+
+   If you want to your application and DynamoDB local to be in separate containers, use the following yaml file\.
+
+   ```
+   version: '3.8'
+   services:
+     dynamodb-local:
+       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       image: "amazon/dynamodb-local:latest"
+       container_name: dynamodb-local
+       ports:
+         - "8000:8000"
+       volumes:
+         - "./docker/dynamodb:/home/dynamodblocal/data"
+       working_dir: /home/dynamodblocal
+     app-node:
+       depends_on:
+         - dynamodb-local
+       image: banst/awscli
+       container_name: app-node
+       ports:
+        - "8080:8080"
+       environment:
+         AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
+         AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
+       command:
+         dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-west-2
+   ```
+
+   This docker\-compose\.yml script creates an `app-node` container and a `dynamodb-local` container\. The script runs a command in the `app-node` container that uses the AWS CLI to connect to the `dynamodb-local` container and describes the account and table limits\.
+
+   To use with your own application image, replace the `image` value in the example below with that of your application\.
+
+   ```
+   version: '3.8'
+   services:
+     dynamodb-local:
+       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       image: "amazon/dynamodb-local:latest"
+       container_name: dynamodb-local
+       ports:
+         - "8000:8000"
+       volumes:
+         - "./docker/dynamodb:/home/dynamodblocal/data"
+       working_dir: /home/dynamodblocal
+     app-node:
+       image: location-of-your-dynamodb-demo-app:latest
+       container_name: app-node
+       ports:
+         - "8080:8080"
+       depends_on:
+         - "dynamodb-local"
+       links:
+         - "dynamodb-local"
+       environment:
+         AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
+         AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
+         REGION: 'eu-west-1'
+   ```
+**Note**  
+The YAML scripts require that you specify an AWS access key and an AWS secret key, but they are not required to be valid AWS keys for you to access DynamoDB Local\.
+
+1. Run the following command\-line command:
+
+   ```
+   docker-compose up
    ```
 
 ------
@@ -79,91 +175,5 @@ Follow these steps to use Amazon DynamoDB in your application as a dependency\.
 You can also use one of the following repository URLs, depending on your AWS Region\.    
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
-
- The `aws-dynamodb-examples` repository in GitHub contains examples for [starting and stopping DynamoDB local](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/DynamoDBLocalFixture.java) inside a Java program and [using DynamoDB local in JUnit tests](https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/local/embedded/DynamoDBEmbeddedTest.java)\. 
-
-------
-#### [ Docker ]
-
-The downloadable version of Amazon DynamoDB is available as a Docker image\. For more information, see [dynamodb\-local](https://hub.docker.com/r/amazon/dynamodb-local)\.
-
- For an example of using DynamoDB local as part of a REST application built on the AWS Serverless Application Model \(AWS SAM\), see [SAM DynamoDB application for managing orders](https://github.com/aws-samples/aws-sam-java-rest)\. This sample application demonstrates how to use DynamoDB local for testing\. 
-
-If you want to run a multi\-container application that also uses the DynamoDB local container, use Docker Compose to define and run all the services in your application, including DynamoDB local\.
-
-**To install and run DynamoDB local with Docker Compose:**
-
-1. Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)\.
-
-1. Copy the following code to a file and save it as docker\-compose\.yml
-
-   ```
-   version: '3.7'
-   services:
-    dynamodb-local:
-      image: amazon/dynamodb-local:latest
-      container_name: dynamodb-local
-      ports:
-       - "8000:8000"
-   ```
-
-   if you want to have your application and DynamoDB local be in separate containers use the following yaml file:
-
-   ```
-   version: '3.7'
-   services:
-     dynamodb-local:
-       image: amazon/dynamodb-local
-       container_name: dynamodb-local
-       ports:
-         - "8000:8000"
-     app-node:
-       depends_on:
-         - dynamodb-local
-       image: banst/awscli
-       container_name: app-node
-       ports:
-        - "8080:8080"
-       environment:
-         AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
-         AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
-       command:
-         dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-west-2
-   ```
-
-   This docker\-compose\.yml script creates an `app-node` container and a `dynamodb-local` container\. The script runs a command in the `app-node` container that uses the AWS CLI to connect to the `dynamodb-local` container and describes the account and table limits\.
-
-   To use with your own application image, replace the `image` value in the example below with that of your application's:
-
-   ```
-   version: '3.7'
-   services:
-    app-node:
-      image: location-of-your-dynamodb-demo-app:latest
-      container_name: app-node
-      ports:
-       - "8080:8080"
-      depends_on:
-       - "dynamodb-local"
-      links:
-       - "dynamodb-local"
-      environment:
-       - AWS_ACCESS_KEY_ID='DUMMYIDEXAMPLE'
-       - AWS_SECRET_ACCESS_KEY='DUMMYEXAMPLEKEY'
-       - REGION='eu-west-1'
-    dynamodb-local:
-      image: amazon/dynamodb-local:latest
-      container_name: dynamodb-local
-      ports:
-       - "8000:8000"
-   ```
-**Note**  
-The yaml scripts require that you specify an AWS access key and an AWS secret key, but they are not required to be valid AWS keys for you to access DynamoDB local\.
-
-1. Run the following command\-line:
-
-   ```
-   docker-compose up
-   ```
 
 ------

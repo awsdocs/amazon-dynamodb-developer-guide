@@ -153,8 +153,8 @@ By default, the `Scan` operation processes data sequentially\. Amazon DynamoDB r
 The larger the table or index being scanned, the more time the `Scan` takes to complete\. In addition, a sequential `Scan` might not always be able to fully use the provisioned read throughput capacity: Even though DynamoDB distributes a large table's data across multiple physical partitions, a `Scan` operation can only read one partition at a time\. For this reason, the throughput of a `Scan` is constrained by the maximum throughput of a single partition\.
 
 To address these issues, the `Scan` operation can logically divide a table or secondary index into multiple *segments*, with multiple application workers scanning the segments in parallel\. Each worker can be a thread \(in programming languages that support multithreading\) or an operating system process\. To perform a parallel scan, each worker issues its own `Scan` request with the following parameters:
-+ `Segment —` A segment to be scanned by a particular worker\. Each worker should use a different value for `Segment`\.
-+ `TotalSegments —` The total number of segments for the parallel scan\. This value must be the same as the number of workers that your application will use\.
++ `Segment` — A segment to be scanned by a particular worker\. Each worker should use a different value for `Segment`\.
++ `TotalSegments` — The total number of segments for the parallel scan\. This value must be the same as the number of workers that your application will use\.
 
 The following diagram shows how a multithreaded application performs a parallel `Scan` with three degrees of parallelism\.
 

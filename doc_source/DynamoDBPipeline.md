@@ -2,6 +2,9 @@
 
 You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket\. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region\.
 
+**Note**  
+ DynamoDB Console now supports its own Export to Amazon S3 flow, however it is not compatible with AWS Data Pipeline import flow\. For more information, see [Exporting DynamoDB table data to Amazon S3](DataExport.md) and the blog post [ Export Amazon DynamoDB Table Data to Your Data Lake in Amazon S3, No Code Writing Required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
+
 The ability to export and import data is useful in many scenarios\. For example, suppose you want to maintain a baseline set of data, for testing purposes\. You could put the baseline data into a DynamoDB table and export it to Amazon S3\. Then, after you run an application that modifies the test data, you could "reset" the data set by importing the baseline from Amazon S3 back into the DynamoDB table\. Another example involves accidental deletion of data, or even an accidental `DeleteTable` operation\. In these cases, you could restore the data from a previous export file in Amazon S3\. You can even copy data from a DynamoDB table in one AWS region, store the data in Amazon S3, and then import the data from Amazon S3 to an identical DynamoDB table in a second region\. Applications in the second region could then access their nearest DynamoDB endpoint and work with their own copy of the data, with reduced network latency\.
 
 **Important**  
@@ -26,7 +29,7 @@ For more information see [AWS Data Pipeline Pricing](https://aws.amazon.com/data
 
 When you use AWS Data Pipeline for exporting and importing data, you must specify the actions that the pipeline is allowed to perform, and which resources the pipeline can consume\. The permitted actions and resources are defined using AWS Identity and Access Management \(IAM\) roles\.
 
-You can also control access by creating IAM policies and attaching them to IAM users or groups \. These policies let you specify which users are allowed to import and export your DynamoDB data\.
+You can also control access by creating IAM policies and attaching them to IAM users, roles or groups\. These policies let you specify which users are allowed to import and export your DynamoDB data\.
 
 **Important**  
 The IAM user that performs the exports and imports must have an *active* AWS Access Key Id and Secret Key\. For more information, see [Administering Access Keys for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the *IAM User Guide*\.
@@ -70,26 +73,69 @@ Now that you have created these roles, you can begin creating pipelines using th
 
 ### Granting IAM Users and Groups Permission to Perform Export and Import Tasks<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers"></a>
 
-If you want to allow other IAM users or groups to export and import your DynamoDB table data, you can create an IAM policy and attach it to the users or groups that you designate\. The policy contains only the necessary permissions for performing these tasks\.
+If you want to allow other IAM users, roles or groups to export and import your DynamoDB table data, you can create an IAM policy and attach it to the users or groups that you designate\. The policy contains only the necessary permissions for performing these tasks\.
 
-#### Granting Full Access Using an AWS Managed Policy<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources"></a>
+#### Granting Full Access<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources"></a>
 
-The following procedure describes how to attach the AWS managed policy `AmazonDynamoDBFullAccesswithDataPipeline` to an IAM user\. This managed policy provides full access to AWS Data Pipeline and to DynamoDB resources\.
+The following procedure describes how to attach the AWS managed policies `AmazonDynamoDBFullAccess`,`AWSDataPipeline_FullAccess` and an Amazon EMR inline policy to an IAM user\. These managed policies provides full access to AWS Data Pipeline and to DynamoDB resources, and used with the Amazon EMR inline policy, allow the user to perform the actions described in this documentation\.
+
+**Note**  
+To limit the scope of the suggested permissions, the inline policy above is enforcing the usage of the tag `dynamodbdatapipeline`\. If you want to utilize this documentation without this limitation, you can remove the `Condition` section of the suggested policy\. 
 
 1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
 1. From the IAM Console Dashboard, click **Users** and select the user you want to modify\.
 
-1. In the **Permissions** tab, click **Attach Policy**\.
+1. In the **Permissions** tab, click **Add Policy**\.
 
-1. In the **Attach Policy** panel, select `AmazonDynamoDBFullAccesswithDataPipeline` and click **Attach Policy**\.
+1. In the **Attach permissions** panel, click **Attach existing policies directly**\.
+
+1. Select both `AmazonDynamoDBFullAccess` and `AWSDataPipeline_FullAccess` and click **Next:Review**\.
+
+1. Click **Add permissions**\.
+
+1. Back on **Permissions** tab, click **Add inline policy**\.
+
+1. In the **Create a policy** page, click **JSON** tab\.
+
+1. Paste the content below\.
+
+   ```
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Sid": "EMR",
+               "Effect": "Allow",
+               "Action": [
+                   "elasticmapreduce:DescribeStep",
+                   "elasticmapreduce:DescribeCluster",
+                   "elasticmapreduce:RunJobFlow",
+                   "elasticmapreduce:TerminateJobFlows"
+               ],
+               "Resource": "*",
+               "Condition": {
+                   "Null": {
+                       "elasticmapreduce:RequestTag/dynamodbdatapipeline": "false"
+                   }
+               }
+           }
+       ]
+   }
+   ```
+
+1. Click **Review policy**\.
+
+1. Type `EMRforDynamoDBDataPipeline` on the name field\.
+
+1. Click **Create policy**\.
 
 **Note**  
-You can use a similar procedure to attach this managed policy to a group, rather than to a user\.
+You can use a similar procedure to attach this managed policy to a role or group, rather than to a user\.
 
 #### Restricting Access to Particular DynamoDB Tables<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.RestrictingAccess"></a>
 
-If you want to restrict access so that a user can only export or import a subset of your tables, you will need to create a customized IAM policy document\. You can use the AWS managed policy `AmazonDynamoDBFullAccesswithDataPipeline` as a starting point for your custom policy, and then modify the policy so that a user can only work with the tables that you specify\.
+If you want to restrict access so that a user can only export or import a subset of your tables, you will need to create a customized IAM policy document\. You can use the process described on [Granting Full Access](#DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources) as a starting point for your custom policy, and then modify the policy so that a user can only work with the tables that you specify\.
 
 For example, suppose that you want to allow an IAM user to export and import only the *Forum*, *Thread*, and *Reply* tables\. This procedure describes how to create a custom policy so that a user can work with those tables, but no others\.
 
@@ -99,7 +145,7 @@ For example, suppose that you want to allow an IAM user to export and import onl
 
 1. In the **Create Policy** panel, go to **Copy an AWS Managed Policy** and click **Select**\.
 
-1. In the **Copy an AWS Managed Policy** panel, go to `AmazonDynamoDBFullAccesswithDataPipeline` and click **Select**\.
+1. In the **Copy an AWS Managed Policy** panel, go to `AmazonDynamoDBFullAccess` and click **Select**\.
 
 1. In the **Review Policy** panel, do the following:
 
@@ -214,7 +260,7 @@ After you have created the policy, you can attach it to an IAM user\.
 1. In the **Attach Policy** panel, select the name of your policy and click **Attach Policy**\.
 
 **Note**  
-You can use a similar procedure to attach your policy to a group, rather than to a user\.
+You can use a similar procedure to attach your policy to a role or group, rather than to a user\.
 
 ## Exporting Data From DynamoDB to Amazon S3<a name="DataPipelineExportImport.Exporting"></a>
 
@@ -246,6 +292,8 @@ If you have never used AWS Data Pipeline before, you will need to set up two IAM
    1. In the **S3 location for logs** text box, enter an Amazon S3 URI where the log file for the export will be written\. For example: `s3://mybucket/logs/`
 
       The URI format for** S3 Log Folder** is the same as for **Output S3 Folder**\. The URI must resolve to a folder; log files cannot be written to the top level of the S3 bucket\.
+
+1. Add a tag with the Key `dynamodbdatapipeline` and the Value `true`\.
 
 1. When the settings are as you want them, click **Activate**\.
 
@@ -293,6 +341,8 @@ Note that the AWS Management Console lets you export multiple source tables at o
 
       The URI format for** S3 Log Folder** is the same as for **Output S3 Folder**\. The URI must resolve to a folder; log files cannot be written to the top level of the S3 bucket\.
 
+   1. Add a tag with the Key `dynamodbdatapipeline` and the Value `true`\.
+
 1. When the settings are as you want them, click **Activate**\.
 
 Your pipeline will now be created; this process can take several minutes to complete\. The import job will begin immediately after the pipeline has been created\.
@@ -307,6 +357,7 @@ Finally, go to your Amazon S3 bucket and look for any export or import log files
 
 The following are some common issues that may cause a pipeline to fail, along with corrective actions\. To diagnose your pipeline, compare the errors you have seen with the issues noted below\.
 + For an import, ensure that the destination table already exists, and the destination table has the same key schema as the source table\. These conditions must be met, or the import will fail\.
++ Ensure that the pipeline has the tag `dynamodbdatapipeline`; otherwise, the Amazon EMR API calls will not succeed\.
 + Ensure that the Amazon S3 bucket you specified has been created, and that you have read and write permissions on it\.
 + The pipeline might have exceeded its execution timeout\. \(You set this parameter when you created the pipeline\.\) For example, you might have set the execution timeout for 1 hour, but the export job might have required more time than this\. Try deleting and then re\-creating the pipeline, but with a longer execution timeout interval this time\.
 + Update the manifest file if you restore from a Amazon S3 bucket that is not the original bucket that the export was performed with \(contains a copy of the export\)\. 
@@ -318,11 +369,14 @@ For more details on troubleshooting a pipeline, go to [Troubleshooting](https://
 
 ## Predefined Templates for AWS Data Pipeline and DynamoDB<a name="DynamoDBPipeline.Templates"></a>
 
-If you would like a deeper understanding of how AWS Data Pipeline works, we recommend that you consult the *AWS Data Pipeline Developer Guide*\. This guide contains step\-by\-step tutorials for creating and working with pipelines; you can use these tutorials as starting points for creating your own pipelines\. We recommend that you read the DynamoDB tutorial, which walks you through the steps required to create an import and export pipeline that you can customize for your requirements\. See [ Tutorial: Amazon DynamoDB Import and Export Using AWS Data Pipeline](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb.html) in the *AWS Data Pipeline Developer Guide*\.
+If you would like a deeper understanding of how AWS Data Pipeline works, we recommend that you consult the *AWS Data Pipeline Developer Guide*\. This guide contains step\-by\-step tutorials for creating and working with pipelines; you can use these tutorials as starting points for creating your own pipelines\. We recommend that you read the AWS Data Pipeline tutorial, which walks you through the steps required to create an import and export pipeline that you can customize for your requirements\. See [ Tutorial: Amazon DynamoDB Import and Export Using AWS Data Pipeline](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb.html) in the *AWS Data Pipeline Developer Guide*\.
 
 AWS Data Pipeline offers several templates for creating pipelines; the following templates are relevant to DynamoDB\.
 
 ### Exporting Data Between DynamoDB and Amazon S3<a name="DynamoDBPipeline.ExportDDBToS3"></a>
+
+**Note**  
+ DynamoDB Console now supports its own Export to Amazon S3 flow, however it is not compatible with AWS Data Pipeline import flow\. For more information, see [Exporting DynamoDB table data to Amazon S3](DataExport.md) and the blog post [ Export Amazon DynamoDB Table Data to Your Data Lake in Amazon S3, No Code Writing Required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
 
 The AWS Data Pipeline console provides two predefined templates for exporting data between DynamoDB and Amazon S3\. For more information about these templates, see the following sections of the *AWS Data Pipeline Developer Guide*:
 + [Export DynamoDB to Amazon S3](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-template-exportddbtos3.html)

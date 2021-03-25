@@ -34,15 +34,15 @@ The following IAM policy grants permissions to allow the `CreateGlobalTable` act
 
 ```
 {
-     "Version": "2012-10-17",
-     "Statement": [
-         {
-             "Effect": "Allow",
-             "Action": ["dynamodb:CreateGlobalTable"],
-             "Resource": "*"
-         }
-     ]
- }
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": ["dynamodb:CreateGlobalTable"],
+            "Resource": "*"
+        }
+    ]
+}
 ```
 
 ## Example: Allow the UpdateGlobalTable, DescribeLimits, application\-autoscaling:DeleteScalingPolicy, and application\-autoscaling:DeregisterScalableTarget Actions<a name="access-policy-gt-example2"></a>
@@ -75,9 +75,9 @@ The following IAM policy grants permissions to allow the `CreateGlobalTable` act
 
 ```
 {
-     "Version": "2012-10-17",
-     "Statement": [
-         {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
             "Effect": "Allow",
             "Action": "dynamodb:CreateGlobalTable",
             "Resource": [
@@ -85,7 +85,7 @@ The following IAM policy grants permissions to allow the `CreateGlobalTable` act
                 "arn:aws:dynamodb:us-east-1:123456789012:table/Customers",
                 "arn:aws:dynamodb:us-west-1:123456789012:table/Customers"
             ]
-         }
-     ]
- }
+        }
+    ]
+}
 ```

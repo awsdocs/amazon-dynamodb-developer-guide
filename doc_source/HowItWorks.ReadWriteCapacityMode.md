@@ -75,14 +75,14 @@ When you switch a table from provisioned capacity mode to on\-demand capacity mo
 
 ### Read Capacity Units and Write Capacity Units<a name="HowItWorks.Provisioned"></a>
 
- For provisioned mode tables, you specify throughput capacity in terms of read capacity units \(RCUs\) and write capacity units \(WCUs\): 
-+ One *read capacity unit* represents one strongly consistent read per second, or two eventually consistent reads per second, for an item up to 4 KB in size\. Transactional read requests require two read capacity units to perform one read per second for items up to 4 KB\. If you need to read an item that is larger than 4 KB, DynamoDB must consume additional read capacity units\. The total number of read capacity units required depends on the item size, and whether you want an eventually consistent or strongly consistent read\. For example, if your item size is 8 KB, you require 2 read capacity units to sustain one strongly consistent read per second, 1 read capacity unit if you choose eventually consistent reads, or 4 read capacity units for a transactional read request\. For more information, see [Capacity Unit Consumption for Reads](ProvisionedThroughput.md#ItemSizeCalculations.Reads)\. 
+ For provisioned mode tables, you specify throughput capacity in terms of read capacity units \(RCUs\) and write capacity units \(WCUs\):
++ One *read capacity unit* represents one strongly consistent read per second, or two eventually consistent reads per second, for an item up to 4 KB in size\. Transactional read requests require two read capacity units to perform one read per second for items up to 4 KB\. If you need to read an item that is larger than 4 KB, DynamoDB must consume additional read capacity units\. The total number of read capacity units required depends on the item size, and whether you want an eventually consistent or strongly consistent read\. For example, if your item size is 8 KB, you require 2 read capacity units to sustain one strongly consistent read per second, 1 read capacity unit if you choose eventually consistent reads, or 4 read capacity units for a transactional read request\. For more information, see [Capacity Unit Consumption for Reads](ProvisionedThroughput.md#ItemSizeCalculations.Reads)\.
 **Note**  
- To learn more about DynamoDB read consistency models, see [Read Consistency](HowItWorks.ReadConsistency.md)\. 
+ To learn more about DynamoDB read consistency models, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
 + One *write capacity unit* represents one write per second for an item up to 1 KB in size\. If you need to write an item that is larger than 1 KB, DynamoDB must consume additional write capacity units\. Transactional write requests require 2 write capacity units to perform one write per second for items up to 1 KB\. The total number of write capacity units required depends on the item size\. For example, if your item size is 2 KB, you require 2 write capacity units to sustain one write request per second or 4 write capacity units for a transactional write request\. For more information, see [Capacity Unit Consumption for Writes](ProvisionedThroughput.md#ItemSizeCalculations.Writes)\.
 
 **Important**  
- When calling `DescribeTable` on an on\-demand table, read capacity units and write capacity units are set to 0\. 
+ When calling `DescribeTable` on an on\-demand table, read capacity units and write capacity units are set to 0\.
 
 If your application reads or writes larger items \(up to the DynamoDB maximum item size of 400 KB\), it will consume more capacity units\.
 
@@ -95,7 +95,7 @@ For example, suppose that you create a provisioned table with 6 read capacity un
 
 For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.
 
- *Provisioned throughput* is the maximum amount of capacity that an application can consume from a table or index\. If your application exceeds your provisioned throughput capacity on a table or index, it is subject to request throttling\. 
+*Provisioned throughput* is the maximum amount of capacity that an application can consume from a table or index\. If your application exceeds your provisioned throughput capacity on a table or index, it is subject to request throttling\.
 
 Throttling prevents your application from consuming too many capacity units\. When a request is throttled, it fails with an HTTP 400 code \(`Bad Request`\) and a `ProvisionedThroughputExceededException`\. The AWS SDKs have built\-in support for retrying throttled requests \(see [Error Retries and Exponential Backoff](Programming.Errors.md#Programming.Errors.RetryAndBackoff)\), so you do not need to write this logic yourself\.
 
@@ -115,10 +115,10 @@ For more information, see [Managing Throughput Capacity Automatically with Dynam
 
 ### Reserved Capacity<a name="HowItWorks.ProvisionedThroughput.ReservedCapacity"></a>
 
-As a DynamoDB customer, you can purchase *reserved capacity* in advance, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. Your reserved capacity is billed at the hourly reserved capacity rate\. By reserving your read and write capacity units ahead of time, you realize significant cost savings compared to on\-demand provisioned throughput settings\. Any capacity that you provision in excess of your reserved capacity is billed at standard provisioned capacity rates\.
+As a DynamoDB customer, you can purchase *reserved capacity* in advance, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. Your reserved capacity is billed at the hourly reserved capacity rate\. By reserving your read and write capacity units ahead of time, you realize significant cost savings compared to on\-demand or provisioned throughput settings\. Any capacity that you provision in excess of your reserved capacity is billed at standard provisioned capacity rates\.
 
 **Note**  
- Reserved capacity is not available in on\-demand mode\. 
+Reserved capacity is not available in on\-demand mode\.
 
 To manage reserved capacity, go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb) and choose **Reserved Capacity**\.
 

@@ -96,7 +96,7 @@ You can project attributes of any data type into a local secondary index\. This 
 
 ## Reading Data from a Local Secondary Index<a name="LSI.Reading"></a>
 
-You can retrieve items from a local secondary index using the `Query` and `Scan` operations\. The `GetItem` and `GetBatchItem` operations can't be used on a local secondary index\.
+You can retrieve items from a local secondary index using the `Query` and `Scan` operations\. The `GetItem` and `BatchGetItem` operations can't be used on a local secondary index\.
 
 ### Querying a Local Secondary Index<a name="LSI.Querying"></a>
 

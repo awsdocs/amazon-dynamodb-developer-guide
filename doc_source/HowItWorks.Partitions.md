@@ -18,7 +18,7 @@ Global secondary indexes in DynamoDB are also composed of partitions\. The data 
 
 If your table has a simple primary key \(partition key only\), DynamoDB stores and retrieves each item based on its partition key value\.
 
-To write an item to the table, DynamoDB uses the value of the partition key as input to an internal hash function\. The output value from the hash function determines the partition in which the item will be stored\. 
+To write an item to the table, DynamoDB uses the value of the partition key as input to an internal hash function\. The output value from the hash function determines the partition in which the item will be stored\.
 
 To read an item from the table, you must specify the partition key value for the item\. DynamoDB uses this value as input to its hash function, yielding the partition in which the item can be found\.
 

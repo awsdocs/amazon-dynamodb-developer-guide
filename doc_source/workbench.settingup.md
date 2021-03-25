@@ -4,7 +4,7 @@ Follow these instructions to download and install NoSQL Workbench for Amazon Dyn
 
 **To download and install NoSQL Workbench**
 
-1. Use one of the following links to download NoSQL Workbench for free\.  
+1. Download the appropriate version of NoSQL Workbench for your operating system\.  
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html)
 

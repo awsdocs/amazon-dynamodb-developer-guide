@@ -115,11 +115,7 @@ Imagine that you have a DynamoDB Accelerator \(DAX\) cluster running in one AWS 
                    "dax:UpdateItem",
                    "dax:DeleteItem",
                    "dax:BatchWriteItem",
-                   "dax:ConditionCheckItem",
-                   "dax:DefineAttributeList",
-                   "dax:DefineAttributeListId",
-                   "dax:DefineKeySchema",
-                   "dax:Endpoints"
+                   "dax:ConditionCheckItem"
                ],
                "Resource": "dax-cluster-arn"
            }

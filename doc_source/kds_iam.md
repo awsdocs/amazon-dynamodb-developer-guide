@@ -1,17 +1,17 @@
 # Custom IAM Policies for Amazon Kinesis Data Streams for Amazon DynamoDB<a name="kds_iam"></a>
 
-The first time that you enable Kinesis Data Streams for DynamoDB, DynamoDB automatically creates an AWS Identity and Access Management \(IAM\) service\-linked role for you\. This role, `AWSServiceRoleForDynamoDBKinesisDataStreamsReplication`, allows DynamoDB to manage the replication of item\-level changes to Kinesis Sata Streams on your behalf\. Don't delete this service\-linked role\.
+The first time that you enable Amazon Kinesis Data Streams for Amazon DynamoDB, DynamoDB automatically creates an AWS Identity and Access Management \(IAM\) service\-linked role for you\. This role, `AWSServiceRoleForDynamoDBKinesisDataStreamsReplication`, allows DynamoDB to manage the replication of item\-level changes to Kinesis Data Streams on your behalf\. Don't delete this service\-linked role\.
 
 For more information about service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the *IAM User Guide*\.
 
-The following examples show how to use IAM policies to grant permissions for Kinesis Data Streams for DynamoDB\.
-+ To enable Kinesis Data Streams for DynamoDB, you must have `dynamodb:EnableKinesisStreamingDestination` permission on the table\.
-+ To disable Kinesis Data Streams for DynamoDB, you must have `dynamodb:DisableKinesisStreamingDestination` permission on the table\.
-+ To describe Kinesis Data Streams for DynamoDB for a given DynamoDB table, you must have `dynamodb:DescribeKinesisStreamingDestination` permission on the table\.
+The following examples show how to use IAM policies to grant permissions for Amazon Kinesis Data Streams for Amazon DynamoDB\.
++ To enable Amazon Kinesis Data Streams for Amazon DynamoDB, you must have `dynamodb:EnableKinesisStreamingDestination` permission on the table\.
++ To disable Amazon Kinesis Data Streams for Amazon DynamoDB, you must have `dynamodb:DisableKinesisStreamingDestination` permission on the table\.
++ To describe Amazon Kinesis Data Streams for Amazon DynamoDB for a given DynamoDB table, you must have `dynamodb:DescribeKinesisStreamingDestination` permission on the table\.
 
-## Example: Enable Kinesis Data Streams for DynamoDB<a name="access-policy-kds-example1"></a>
+## Example: Enable Amazon Kinesis Data Streams for Amazon DynamoDB<a name="access-policy-kds-example1"></a>
 
-The following IAM policy grants permissions to enable Kinesis Data Streams for DynamoDB for the `Music` table and does not grant permissions to disable or describe Kinesis Data Streams for DynamoDB for the `Music` table\. 
+The following IAM policy grants permissions to enable Amazon Kinesis Data Streams for Amazon DynamoDB for the `Music` table and does not grant permissions to disable or describe Kinesis Data Streams for DynamoDB for the `Music` table\. 
 
 ```
 {
@@ -36,9 +36,9 @@ The following IAM policy grants permissions to enable Kinesis Data Streams for D
 }
 ```
 
-## Example: Disable Kinesis Data Streams for DynamoDB<a name="access-policy-kds-example2"></a>
+## Example: Disable Amazon Kinesis Data Streams for Amazon DynamoDB<a name="access-policy-kds-example2"></a>
 
-The following IAM policy grants permissions to disable Kinesis Data Streams for DynamoDB for the `Music` table and does not grant permissions to enable or describe Kinesis Data Streams for DynamoDB for the `Music` table\. 
+The following IAM policy grants permissions to disable Amazon Kinesis Data Streams for Amazon DynamoDB for the `Music` table and does not grant permissions to enable or describe Amazon Kinesis Data Streams for Amazon DynamoDB for the `Music` table\. 
 
 ```
 {
@@ -55,9 +55,9 @@ The following IAM policy grants permissions to disable Kinesis Data Streams for 
 }
 ```
 
-## Example: Selectively Apply Permissions for Kinesis Data Streams for DynamoDB Based on Resource<a name="access-policy-kds-example3"></a>
+## Example: Selectively Apply Permissions for Amazon Kinesis Data Streams for Amazon DynamoDB Based on Resource<a name="access-policy-kds-example3"></a>
 
-The following IAM policy grants permissions to enable and describe Kinesis Data Streams for DynamoDB for the `Music` table and denies permissions to disable Kinesis Data Streams for DynamoDB for the `Orders` table\. 
+The following IAM policy grants permissions to enable and describe Amazon Kinesis Data Streams for Amazon DynamoDB for the `Music` table and denies permissions to disable Amazon Kinesis Data Streams for Amazon DynamoDB for the `Orders` table\. 
 
 ```
 {

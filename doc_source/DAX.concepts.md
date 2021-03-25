@@ -81,6 +81,8 @@ You can specify the TTL setting for the item cache when you create a new DAX clu
 
 DAX also maintains a least recently used \(LRU\) list for the item cache\. The LRU list tracks when an item was first written to the cache, and when the item was last read from the cache\. If the item cache becomes full, DAX evicts older items \(even if they haven't expired yet\) to make room for new items\. The LRU algorithm is always enabled for the item cache and is not user\-configurable\.
 
+If you specify zero as the *item cache* TTL setting, items in the item cache will only be refreshed due to an LRU evection or a [ "write\-through"](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.concepts.html#DAX.concepts.request-processing-write) operation\.
+
 For detailed information about the consistency of the item cache in DAX, see [DAX Item Cache Behavior](DAX.consistency.md#DAX.consistency.item-cache)\.
 
 ## Query Cache<a name="DAX.concepts.query-cache"></a>
@@ -93,5 +95,7 @@ When an application sends a `Query` or `Scan` request, DAX tries to read a match
 You can specify the TTL setting for the query cache when you create a new DAX cluster\. For more information, see [Managing DAX Clusters ](DAX.cluster-management.md)\.
 
 DAX also maintains an LRU list for the query cache\. The list tracks when a result set was first written to the cache, and when the result was last read from the cache\. If the query cache becomes full, DAX evicts older result sets \(even if they have not expired yet\) to make room for new result sets\. The LRU algorithm is always enabled for the query cache, and is not user\-configurable\.
+
+If you specify zero as the *query cache* TTL setting, the query response will not be cached\.
 
 For detailed information about the consistency of the query cache in DAX, see [DAX Query Cache Behavior](DAX.consistency.md#DAX.consistency.query-cache)\.

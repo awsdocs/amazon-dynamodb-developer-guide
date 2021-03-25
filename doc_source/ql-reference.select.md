@@ -36,8 +36,8 @@ FROM table[.index]
 
 ***condition***  
 \(Optional\) The selection criteria for the query\.  
-To ensure that a `SELECT` statement does not result in a full table scan, the `WHERE` clause condition must specify a partition key\. Use the equality or IN operator\.   
-For example, if you have an `Orders` table with an `OrderID` partition key and other non\-key attributes, including an `Address`, the following statements would not result in a full table scan:   
+To ensure that a `SELECT` statement does not result in a full table scan, the `WHERE` clause condition must specify a partition key\. Use the equality or IN operator\.  
+For example, if you have an `Orders` table with an `OrderID` partition key and other non\-key attributes, including an `Address`, the following statements would not result in a full table scan:  
 
 ```
 SELECT * 
@@ -47,7 +47,7 @@ WHERE OrderID = 100
 SELECT * 
 FROM Orders 
 WHERE OrderID = 100 and Address='some address'
-           
+
 SELECT * 
 FROM Orders 
 WHERE OrderID = 100 or pk = 200
@@ -83,24 +83,24 @@ If you omit the `WHERE` clause, then all of the items in the table are retrieved
 The following query returns one item, if one exists, from the `Orders` table by specifying the partition key, `OrderID`, and using the equality operator\.
 
 ```
-SELECT OrderID, Total 
-FROM Orders 
+SELECT OrderID, Total
+FROM Orders
 WHERE OrderID = 1
 ```
 
 The following query returns all items in the `Orders` table that have a specific partition key, `OrderID`, values using the OR operator\.
 
 ```
-SELECT OrderID, Total 
-FROM Orders 
+SELECT OrderID, Total
+FROM Orders
 WHERE OrderID = 1 OR OrderID = 2
 ```
 
 The following query returns all items in the `Orders` table that have a specific partition key, `OrderID`, values using the IN operator\. The returned results are in descending order, based on the `OrderID` key attribute value\.
 
 ```
-SELECT OrderID, Total 
-FROM Orders 
+SELECT OrderID, Total
+FROM Orders
 WHERE OrderID IN [1, 2, 3] ORDER BY OrderID DESC
 ```
 
@@ -108,7 +108,7 @@ The following query shows a full table scan that returns all items from the `Ord
 
 ```
 SELECT OrderID, Total 
-FROM Orders 
+FROM Orders
 WHERE Total > 500
 ```
 
@@ -116,7 +116,7 @@ The following query shows a full table scan that returns all items from the `Ord
 
 ```
 SELECT OrderID, Total 
-FROM Orders 
+FROM Orders
 WHERE Total IN [500, 600]
 ```
 
@@ -133,7 +133,7 @@ The following query returns the first date a firestick device was used to watch 
 ```
 SELECT Devices.FireStick.DateWatched[0] 
 FROM WatchList 
-WHERE CustomerID= 'C1' AND MovieID= 'M1
+WHERE CustomerID= 'C1' AND MovieID= 'M1'
 ```
 
 The following query shows a full table scan that returns the list of items where a firestick device was first used after 12/12/19 using document paths in the WHERE clause condition\.

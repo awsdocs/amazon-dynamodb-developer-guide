@@ -27,7 +27,7 @@ Each `QueryFilter` element consists of an attribute name to compare, along with 
 
    `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS | BEGINS_WITH | IN | BETWEEN` 
 
-## Use *FilterExpression* Instead<a name="w266aac54c23c27c17"></a>
+## Use *FilterExpression* Instead<a name="w273aac38c23c27c17"></a>
 
 Suppose you wanted to query the *Music* table and apply a condition to the matching items\. You could use a `Query` request with a `QueryFilter` parameter, as in this AWS CLI example:
 

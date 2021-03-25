@@ -204,14 +204,6 @@ The following DAX\-specific actions correspond to their similarly named counterp
 
 The same is true for the `dax:EnclosingOperation` condition key\.
 
-In addition, there are four other DAX\-specific actions that do not correspond to any DynamoDB APIs:
-+ `dax:DefineAttributeList`
-+ `dax:DefineAttributeListId`
-+ `dax:DefineKeySchema`
-+ `dax:Endpoints`
-
-You must specify all four of these actions in any IAM policy that allows access to a DAX cluster\. These actions are specific to the low\-level DAX data transport protocol\. Your application does not need to concern itself with these actions—they are only used in IAM policies\. 
-
 ### Read\-Only Access to DynamoDB and Read\-Only Access to DAX<a name="DAX.access-control.ddb-yes-dax-yes.ddb-read-only-dax-read-only"></a>
 
 Suppose that Bob requires read\-only access to the `Books` table, from DynamoDB and from DAX\. The following policy \(attached to `BobUserRole`\) confers this access\.
@@ -227,11 +219,7 @@ Suppose that Bob requires read\-only access to the `Books` table, from DynamoDB 
                 "dax:GetItem",
                 "dax:BatchGetItem",
                 "dax:Query",
-                "dax:Scan",
-                "dax:DefineAttributeList",
-                "dax:DefineAttributeListId",
-                "dax:DefineKeySchema",
-                "dax:Endpoints"
+                "dax:Scan"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
         },
@@ -292,11 +280,7 @@ The following example policy document for `BobUserRole` confers this access\.
                 "dax:GetItem",
                 "dax:BatchGetItem",
                 "dax:Query",
-                "dax:Scan",
-                "dax:DefineKeySchema",
-                "dax:DefineAttributeList",
-                "dax:DefineAttributeListId",
-                "dax:Endpoints"
+                "dax:Scan"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
         },
@@ -363,10 +347,6 @@ Now suppose that Bob required read/write access to the `Books` table, directly f
                 "dax:UpdateItem",
                 "dax:DeleteItem",
                 "dax:BatchWriteItem",
-                "dax:DefineKeySchema",
-                "dax:DefineAttributeList",
-                "dax:DefineAttributeListId",
-                "dax:Endpoints",
                 "dax:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
@@ -444,10 +424,6 @@ If you are currently using IAM roles and policies to restrict access to DynamoDB
                 "dax:UpdateItem",
                 "dax:DeleteItem",
                 "dax:BatchWriteItem",
-                "dax:DefineKeySchema",
-                "dax:DefineAttributeList",
-                "dax:DefineAttributeListId",
-                "dax:Endpoints",
                 "dax:ConditionCheckItem"
             ],
             "Resource": "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"

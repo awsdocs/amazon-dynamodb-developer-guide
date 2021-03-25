@@ -142,7 +142,6 @@ For `TestTable`, you set `TargetValue` to 50 percent\. Application Auto Scaling 
 1. Use the following AWS CLI command to view more details about the scaling policy\.
 
    ```
-    
    aws application-autoscaling describe-scaling-policies \
        --service-namespace dynamodb \
        --resource-id "table/TestTable" \
@@ -249,8 +248,7 @@ In this tutorial, you created several resources\. You can delete these resources
 1. Deregister the scalable target\.
 
    ```
-                          
-    aws application-autoscaling deregister-scalable-target \
+   aws application-autoscaling deregister-scalable-target \
        --service-namespace dynamodb \
        --resource-id "table/TestTable" \
        --scalable-dimension "dynamodb:table:WriteCapacityUnits"
@@ -259,5 +257,5 @@ In this tutorial, you created several resources\. You can delete these resources
 1. Delete the `TestTable` table\.
 
    ```
-   aws dynamodb delete-table --table-name TestTable 
+   aws dynamodb delete-table --table-name TestTable
    ```

@@ -24,55 +24,62 @@ The following program retrieves all movies released in the `year` 1985\.
 1. Copy the following program and paste it into a file named `MoviesQuery01.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def query_for_items_from_table(dynamodb_client, query_condition)
+     # To display the elapsed time for the query operation,
+     # uncomment the following three comments.
+     # start = Time.now
+     result = dynamodb_client.query(query_condition)
+     # finish = Time.now
+     # puts "Search took #{finish - start} seconds."
+     if result.items.count.zero?
+       puts 'No matching movies found.'
+     else
+       puts "Found #{result.items.count} matching movies:"
+       result.items.each do |movie|
+         puts "#{movie['title']} (#{movie['year'].to_i})"
+       end
+     end
+   rescue StandardError => e
+     puts "Error querying for table items: #{e.message}"
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     year = 1985
    
-   table_name = "Movies"
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   params = {
+     dynamodb_client = Aws::DynamoDB::Client.new
+   
+     # To query on the 'title' range/sort key in addition to the 'year'
+     # hash/partition key, uncomment the following three 'title' comments.
+     query_condition = {
        table_name: table_name,
-       key_condition_expression: "#yr = :yyyy",
+       key_condition_expression: '#yr = :yyyy', # '#yr = :yyyy AND #t = :title' 
        expression_attribute_names: {
-           "#yr" => "year"
+         # '#t' => 'title',
+         '#yr' => 'year'
        },
        expression_attribute_values: {
-           ":yyyy" => 1985 
+         # ':title' => 'After Hours',
+         ':yyyy' => year
        }
-   }
+     }
    
-   puts "Querying for movies from 1985.";
+     puts "Searching for items in the '#{table_name}' table from '#{year}'..."
    
-   begin
-       result = dynamodb.query(params)
-       puts "Query succeeded."
-       
-       result.items.each{|movie|
-            puts "#{movie["year"].to_i} #{movie["title"]}"
-       }
-   
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to query table:"
-       puts "#{error.message}"
+     query_for_items_from_table(dynamodb_client, query_condition)
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 **Note**  
 `expression_attribute_names` provides name substitution\. We use this because `year` is a reserved word in Amazon DynamoDB\. You can't use it directly in any expression, including `KeyConditionExpression`\. You can use the expression attribute name `#yr` to address this\.
@@ -92,65 +99,74 @@ The following program retrieves all movies released in `year` 1992 with a `title
 1. Copy the following program and paste it into a file named `MoviesQuery02.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
-   
-   dynamodb = Aws::DynamoDB::Client.new
-   
-   table_name = "Movies"
-   
-   params = {
-       table_name: table_name,
-       projection_expression: "#yr, title, info.genres, info.actors[0]",
-       key_condition_expression: 
-           "#yr = :yyyy and title between :letter1 and :letter2",
-       expression_attribute_names: {
-           "#yr" => "year"
-       },
-       expression_attribute_values: {
-           ":yyyy" => 1992,
-           ":letter1" => "A",
-           ":letter2" => "L"
-       }
-   }
-   
-   puts "Querying for movies from 1992 - titles A-L, with genres and lead actor";
-   
-   begin
-       result = dynamodb.query(params)
-       puts "Query succeeded."
-       
-       result.items.each{|movie|
-            print "#{movie["year"].to_i}: #{movie["title"]} ... "
-   
-            movie['info']['genres'].each{|gen| 
-               print gen + " "
-            }
-           
-            print " ... #{movie["info"]["actors"][0]}\n"
-       }
-   
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to query table:"
-       puts "#{error.message}"
+   def query_for_items_from_table(dynamodb_client, query_condition)
+     # To display the elapsed time for the query operation,
+     # uncomment the following three comments.
+     # start = Time.now
+     result = dynamodb_client.query(query_condition)
+     # finish = Time.now
+     # puts "Search took #{finish - start} seconds."
+     if result.items.count.zero?
+       puts 'No matching movies found.'
+     else
+       puts "Found #{result.items.count} matching movies:"
+       result.items.each do |movie|
+         puts "#{movie['title']} (#{movie['year'].to_i}):"
+         if movie['info'].key?('genres') && movie['info']['genres'].count.positive?
+           puts '  Genres:'
+           movie['info']['genres'].each do |genre|
+             puts "    #{genre}"
+           end
+         end
+         if movie['info'].key?('actors') && movie['info']['actors'].count.positive?
+           puts '  Actors:'
+           movie['info']['actors'].each do |actor|
+             puts "    #{actor}"
+           end
+         end
+       end
+     end
+   rescue StandardError => e
+     puts "Error querying for table items: #{e.message}"
    end
+   
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     year = 1982
+     letter1 = 'A'
+     letter2 = 'L'
+   
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
+   
+     dynamodb_client = Aws::DynamoDB::Client.new
+   
+     query_condition = {
+       table_name: table_name,
+       projection_expression: '#yr, title, info.genres, info.actors[0]',
+       key_condition_expression: '#yr = :yyyy AND title BETWEEN :letter1 AND :letter2',
+       expression_attribute_names: { '#yr' => 'year' },
+       expression_attribute_values: {
+         ':yyyy' => year,
+         ':letter1' => letter1,
+         ':letter2' => letter2
+       }
+     }
+   
+     puts "Searching for items in the '#{table_name}' table from '#{year}' and " \
+       "titles starting with the letters '#{letter1}' through '#{letter2}'..."
+   
+     query_for_items_from_table(dynamodb_client, query_condition)
+   end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.
@@ -166,63 +182,70 @@ The following program scans the `Movies` table, which contains approximately 5,0
 1. Copy the following program and paste it into a file named `MoviesScan.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def scan_for_items_from_table(dynamodb_client, scan_condition)
+     # To display the elapsed time for the query operation,
+     # uncomment the following three comments.
+     #start = Time.now
+     loop do
+       result = dynamodb_client.scan(scan_condition)
    
-   dynamodb = Aws::DynamoDB::Client.new
-   
-   table_name = "Movies"
-   
-   params = {
-       table_name: table_name,
-       projection_expression: "#yr, title, info.rating",
-       filter_expression: "#yr between :start_yr and :end_yr",
-       expression_attribute_names: {"#yr"=> "year"},
-       expression_attribute_values: {
-           ":start_yr" => 1950,
-           ":end_yr" => 1959
-       }
-   }
-   
-   puts "Scanning Movies table."
-   
-   begin
-       loop do
-           result = dynamodb.scan(params)
-   
-           result.items.each{|movie|
-               puts "#{movie["year"].to_i}: " +
-                   "#{movie["title"]} ... " + 
-                   "#{movie["info"]["rating"].to_f}"
-           }
+       if result.items.count.zero?
+         puts 'No matching movies found (yet)...'
+       else
+         puts "Found #{result.items.count} matching movies (so far):"
+         result.items.each do |movie|
+           puts "#{movie["title"]} (#{movie["year"].to_i}), " \
+             "Rating: #{movie["info"]["rating"].to_f}"
+         end
            
-           break if result.last_evaluated_key.nil?
+         break if result.last_evaluated_key.nil?
    
-           puts "Scanning for more..."
-           params[:exclusive_start_key] = result.last_evaluated_key
+         puts "Searching for more movies..."
+         scan_condition[:exclusive_start_key] = result.last_evaluated_key
        end
-       
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to scan:"
-       puts "#{error.message}"
+     end
+     puts 'Finished searching.'
+     # finish = Time.now
+     # puts "Search took #{finish - start} seconds."
+   rescue StandardError => e
+     puts "Error scanning for table items: #{e.message}"
    end
+   
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     start_year = 1950
+     end_year = 1959
+   
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
+   
+     dynamodb_client = Aws::DynamoDB::Client.new
+         
+     scan_condition = {
+       table_name: table_name,
+       projection_expression: '#yr, title, info.rating',
+       filter_expression: '#yr between :start_yr and :end_yr',
+       expression_attribute_names: { '#yr' => 'year' },
+       expression_attribute_values: {
+         ':start_yr' => start_year,
+         ':end_yr' => end_year
+       }
+     }
+   
+     puts "Searching for items in the '#{table_name}' table from #{start_year} " \
+       "through #{end_year}..."
+   
+     scan_for_items_from_table(dynamodb_client, scan_condition)  
+   end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
    In the code, note the following:

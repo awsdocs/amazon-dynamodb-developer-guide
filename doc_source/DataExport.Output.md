@@ -1,4 +1,4 @@
-# Table export output in DynamoDB<a name="DataExport.Output"></a>
+# DynamoDB table export output format<a name="DataExport.Output"></a>
 
 A DynamoDB table export includes two manifest files in addition to the files containing your table data\. These files are all saved in the Amazon S3 bucket that you specify in your [export request](DataExport.Requesting.md)\. The following sections describe the format and contents of each output object\.
 

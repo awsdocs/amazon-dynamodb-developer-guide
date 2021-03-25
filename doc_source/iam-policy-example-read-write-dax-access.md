@@ -32,5 +32,5 @@ This policy gives access to DAX cluster, but not to the associated DynamoDB tabl
 To expand this policy to cover DAX access for all AWS Regions for an account, use a wildcard character \(\*\) for the Region name\.
 
 ```
-"Resource":"arn:aws:dax:*:123456789012:cache/MyDAXCluster"
+"Resource": "arn:aws:dax:*:123456789012:cache/MyDAXCluster"
 ```

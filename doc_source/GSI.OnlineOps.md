@@ -64,7 +64,7 @@ During the backfilling phase, the `IndexStatus` attribute is set to `CREATING`, 
 While the index is backfilling, you cannot delete its parent table\. However, you can still delete the index or modify the provisioned throughput of the table and any of its global secondary indexes\.  
 During the backfilling phase, some writes of violating items might succeed while others are rejected\. After backfilling, all writes to items that violate the new index's key schema are rejected\. We recommend that you run the Violation Detector tool after the backfill phase finishes to detect and resolve any key violations that might have occurred\. For more information, see [Detecting and Correcting Index Key Violations](GSI.OnlineOps.ViolationDetection.md)\.
 
-While the resource allocation and backfilling phases are in progress, the index is in the `CREATING` state\. During this time, DynamoDB performs read operations on the table\. You are not charged for this read activity\.
+While the resource allocation and backfilling phases are in progress, the index is in the `CREATING` state\. During this time, DynamoDB performs read operations on the table\. You are not charged for read operations from the base table to populate the global secondary index\. However, you are charged for write operations to populate the newly created global secondary index\.
 
 When the index build is complete, its status changes to `ACTIVE`\. You can't `Query` or `Scan` the index until it is `ACTIVE`\.
 

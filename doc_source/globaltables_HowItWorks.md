@@ -50,6 +50,6 @@ Conflicts can arise if applications update the same item in different Regions at
 
 ## Availability and Durability<a name="globaltables_HowItWorks.availability-durability"></a>
 
-If a single AWS Region becomes isolated or degraded, your application can redirect to a different Region and perform reads and writes against a different replica table\. You can apply custom business logic to determine when to redirect requests to other Regions\. 
+If a single AWS Region becomes isolated or degraded, your application can redirect to a different Region and perform reads and writes against a different replica table\. You can apply custom business logic to determine when to redirect requests to other Regions\.
 
 If a Region becomes isolated or degraded, DynamoDB keeps track of any writes that have been performed but have not yet been propagated to all of the replica tables\. When the Region comes back online, DynamoDB resumes propagating any pending writes from that Region to the replica tables in other Regions\. It also resumes propagating writes from other replica tables to the Region that is now back online\.

@@ -42,4 +42,4 @@ SET StringSetType = SET_DELETE( StringSetType, <<'stringsetvalue1'>>)
 WHERE primarykey='1'
 ```
 
-For information, see [DynamoDB data types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)\.
+For more information, see [DynamoDB data types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)\.

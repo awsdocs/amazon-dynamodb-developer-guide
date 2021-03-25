@@ -1,12 +1,12 @@
 # Encryption at Rest: How It Works<a name="encryption.howitworks"></a>
 
-Amazon DynamoDB encryption at rest encrypts your data using 256\-bit Advanced Encryption Standard \(AES\-256\), which helps secure your data from unauthorized access to the underlying storage\. 
+Amazon DynamoDB encryption at rest encrypts your data using 256\-bit Advanced Encryption Standard \(AES\-256\), which helps secure your data from unauthorized access to the underlying storage\.
 
-Encryption at rest integrates with AWS Key Management Service \(AWS KMS\) for managing the encryption key that is used to encrypt your tables\. 
+Encryption at rest integrates with AWS Key Management Service \(AWS KMS\) for managing the encryption key that is used to encrypt your tables\.
 
-When creating a new table or switching the encryption keys on an existing table, you can choose one of the following customer master keys \(CMK\): 
-+ AWS owned CMK – Default encryption type\. The key is owned by DynamoDB \(no additional charge\)\. 
-+ AWS managed CMK – The key is stored in your account and is managed by AWS KMS \(AWS KMS charges apply\)\. 
+When creating a new table or switching the encryption keys on an existing table, you can choose one of the following customer master keys \(CMK\):
++ AWS owned CMK – Default encryption type\. The key is owned by DynamoDB \(no additional charge\)\.
++ AWS managed CMK – The key is stored in your account and is managed by AWS KMS \(AWS KMS charges apply\)\.
 + Customer managed CMK – The key is stored in your account and is created, owned, and managed by you\. You have full control over the CMK \(AWS KMS charges apply\)\.
 
 ## AWS Owned CMK<a name="ddb-owned"></a>
@@ -23,7 +23,7 @@ AWS managed CMKs are CMKs in your account that are created, managed, and used on
 
 Encryption at rest automatically integrates with AWS KMS for managing the AWS managed CMK for DynamoDB \(`aws/dynamodb`\) that is used to encrypt your tables\. If an AWS managed CMK doesn't exist when you create your encrypted DynamoDB table, AWS KMS automatically creates a new key for you\. This key is used with encrypted tables that are created in the future\. AWS KMS combines secure, highly available hardware and software to provide a key management system scaled for the cloud\.
 
- For more information about managing permissions of the AWS managed CMK, see [Authorizing Use of the AWS Managed CMK](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html#dynamodb-authz) in the *AWS Key Management Service Developer Guide*\. 
+ For more information about managing permissions of the AWS managed CMK, see [Authorizing Use of the AWS Managed CMK](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html#dynamodb-authz) in the *AWS Key Management Service Developer Guide*\.
 
 ## Customer Managed CMK<a name="managed-cmk-customer-managed"></a>
 
@@ -47,4 +47,4 @@ Amazon DynamoDB can't read your table data unless it has access to the CMK store
 
  DynamoDB doesn't call AWS KMS for every DynamoDB operation\. The key is refreshed once every 5 minutes per client connection with active traffic\.
 
-Ensure that you have configured the SDK to reuse connections\. Otherwise, you will experience latencies from DynamoDB having to reestablish new AWS KMS cache entries for each DynamoDB operation\. In addition, you might potentially have to face higher AWS KMS and CloudTrail costs\. For example, to do this using the Node\.js SDK, you can create a new HTTPS agent with `keepAlive` turned on\. For more information, see [Configuring maxSockets in Node\.js](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-configuring-maxsockets.html) in the *AWS SDK for JavaScript Developer Guide*\. 
+Ensure that you have configured the SDK to reuse connections\. Otherwise, you will experience latencies from DynamoDB having to reestablish new AWS KMS cache entries for each DynamoDB operation\. In addition, you might potentially have to face higher AWS KMS and CloudTrail costs\. For example, to do this using the Node\.js SDK, you can create a new HTTPS agent with `keepAlive` turned on\. For more information, see [Configuring maxSockets in Node\.js](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-configuring-maxsockets.html) in the *AWS SDK for JavaScript Developer Guide*\.

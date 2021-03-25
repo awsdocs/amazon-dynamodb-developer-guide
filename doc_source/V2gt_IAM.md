@@ -120,7 +120,7 @@ The following IAM policy grants permissions to allow table and replica creation 
                 "arn:aws:dynamodb:us-west-1:123456789012:table/Customers",
                 "arn:aws:dynamodb:eu-east-2:123456789012:table/Customers"
             ]
-         }
-     ]
- }
+        }
+    ]
+}
 ```

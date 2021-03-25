@@ -19,55 +19,52 @@ In this step, you add a new item to the table\.
 1. Copy the following program and paste it into a file named `MoviesItemOps01.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def add_item_to_table(dynamodb_client, table_item)
+     dynamodb_client.put_item(table_item)
+     puts "Added movie '#{table_item[:item][:title]} " \
+       "(#{table_item[:item][:year]})'."
+   rescue StandardError => e
+     puts "Error adding movie '#{table_item[:item][:title]} " \
+       "(#{table_item[:item][:year]})': #{e.message}"
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   item = {
+     item = {
        year: year,
        title: title,
        info: {
-               plot: "Nothing happens at all.",
-               rating: 0
+         plot: 'Nothing happens at all.',
+         rating: 0
        }
-   }
+     }
    
-   params = {
+     table_item = {
        table_name: table_name,
        item: item
-   }
+     }
    
-   begin
-       dynamodb.put_item(params)
-       puts "Added item: #{year}  - #{title}"
-   
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to add item:"
-       puts "#{error.message}"
+     puts "Adding movie '#{item[:title]} (#{item[:year]})' " \
+       "to table '#{table_name}'..."
+     add_item_to_table(dynamodb_client, table_item)
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 **Note**  
 The primary key is required\. This code adds an item that has primary key \(`year`, `title`\) and `info` attributes\. The `info` attribute stores a map that provides more information about the movie\.
@@ -96,53 +93,47 @@ You can use the `get_item` method to read the item from the `Movies` table\. You
 1. Copy the following program and paste it into a file named `MoviesItemOps02.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def get_item_from_table(dynamodb_client, table_item)
+     result = dynamodb_client.get_item(table_item)
+     puts "#{result.item['title']} (#{result.item['year'].to_i}):"
+     puts "  Plot:   #{result.item['info']['plot']}"
+     puts "  Rating: #{result.item['info']['rating'].to_i}"
+   rescue StandardError => e
+     puts "Error getting movie '#{table_item[:key][:title]} " \
+           "(#{table_item[:key][:year]})': #{e.message}"
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   params = {
+     table_item = {
        table_name: table_name,
        key: {
-           year: year,
-           title: title
+         year: year,
+         title: title
        }
-   }
+     }
    
-   begin
-       result = dynamodb.get_item(params)
-       printf "%i - %s\n%s\n%d\n", 
-           result.item["year"],
-           result.item["title"],
-           result.item["info"]["plot"],
-           result.item["info"]["rating"]
-   
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to read item:"
-       puts "#{error.message}"
+     puts "Getting information about '#{title} (#{year})' " \
+       "from table '#{table_name}'..."
+     get_item_from_table(dynamodb_client, table_item)
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.
@@ -187,56 +178,65 @@ The item is updated as follows\.
 1. Copy the following program and paste it into a file named `MoviesItemOps03.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def table_item_updated?(dynamodb_client, table_item)
+     response = dynamodb_client.update_item(table_item)
+     puts "Table item updated with the following attributes for 'info':"
+     response.attributes['info'].each do |key, value|
+       if key == 'rating'
+         puts "#{key}: #{value.to_f}"
+       else
+         puts "#{key}: #{value}"
+       end
+     end
+     true
+   rescue StandardError => e
+     puts "Error updating item: #{e.message}"
+     false
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   params = {
+     table_item = {
        table_name: table_name,
        key: {
-           year: year,
-           title: title
+         year: year,
+         title: title
        },
-       update_expression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+       update_expression: 'SET info.rating = :r, info.plot = :p, info.actors = :a',
        expression_attribute_values: {
-           ":r" => 5.5,
-           ":p" => "Everything happens all at once.", # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
-           ":a" => ["Larry", "Moe", "Curly"]
+         ':r': 5.5,
+         ':p': 'Everything happens all at once.',
+         ':a': [ 'Larry', 'Moe', 'Curly' ]
        },
-       return_values: "UPDATED_NEW"
-   }
+       return_values: 'UPDATED_NEW'
+     }
    
-   begin
-       dynamodb.update_item(params)
-       puts "Added item: #{year}  - #{title}"
+     puts "Updating table '#{table_name}' with information about " \
+       "'#{title} (#{year})'..."
    
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to add item:"
-       puts "#{error.message}"
+     if table_item_updated?(dynamodb_client, table_item)
+       puts 'Table updated.'
+     else
+       puts 'Table not updated.'
+     end
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 **Note**  
 This program uses `update_expression` to describe all updates you want to perform on the specified item\.  
@@ -255,60 +255,63 @@ The following program shows how to increment the `rating` for a movie\. Each tim
 1. Copy the following program and paste it into a file named `MoviesItemOps04.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def table_item_updated?(dynamodb_client, table_item)
+     result = dynamodb_client.update_item(table_item)
+     puts "Table item updated with the following attributes for 'info':"
+     result.attributes['info'].each do |key, value|
+       if key == 'rating'
+         puts "#{key}: #{value.to_f}"
+       else
+         puts "#{key}: #{value}"
+       end
+     end
+     true
+   rescue StandardError => e
+     puts "Error updating item: #{e.message}"
+     false
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   params = {
+     table_item = {
        table_name: table_name,
        key: {
-           year: year,
-           title: title
+         year: year,
+         title: title
        },
-       update_expression: "set info.rating = info.rating + :val",
+       update_expression: 'SET info.rating = info.rating + :val',
        expression_attribute_values: {
-           ":val" => 1
+         ':val': 1
        },
-       return_values: "UPDATED_NEW"
-   }
+       return_values: 'UPDATED_NEW'
+     }
    
-   begin
-       result = dynamodb.update_item(params)
-       puts "Updated item. ReturnValues are:"
-       result.attributes["info"].each do |key, value| 
-           if key == "rating" 
-               puts "#{key}: #{value.to_f}" 
-           else
-               puts "#{key}: #{value}" 
-           end
-       end
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to update item:"
-       puts "#{error.message}"
+     puts "Updating table '#{table_name}' with information about " \
+       "'#{title} (#{year})'..."
+   
+     if table_item_updated?(dynamodb_client, table_item)
+       puts 'Table updated.'
+     else
+       puts 'Table not updated.'
+     end
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.
@@ -324,62 +327,64 @@ In this case, the item is updated only if the number of actors is greater than t
 1. Copy the following program and paste it into a file named `MoviesItemOps05.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def table_item_updated?(dynamodb_client, table_item)
+     result = dynamodb_client.update_item(table_item)
+     puts "Table item updated with the following attributes for 'info':"
+     result.attributes['info'].each do |key, value|
+       if key == 'rating'
+         puts "#{key}: #{value.to_f}"
+       else
+         puts "#{key}: #{value}"
+       end
+     end
+     true
+   rescue StandardError => e
+     puts "Error updating item: #{e.message}"
+     false
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   params = {
+     table_item = {
        table_name: table_name,
        key: {
-           year: year,
-           title: title
+         year: year,
+         title: title
        },
-       update_expression: "remove info.actors[0]",
-       condition_expression: "size(info.actors) > :num",
+       update_expression: 'REMOVE info.actors[0]',
+       condition_expression: 'size(info.actors) > :num',
        expression_attribute_values: {
-           ":num" => 3
+         ':num': 3
        },
-       return_values: "UPDATED_NEW"
-   }
+       return_values: 'UPDATED_NEW'
+     }
    
-   begin
-       result = dynamodb.update_item(params)
-       puts "Updated item. ReturnValues are:"
-       result.attributes["info"].each do |key, value| 
-           if key == "rating" 
-               puts "#{key}: #{value.to_f}" 
-           else
-               puts "#{key}: #{value}" 
-           end
-       end
+     puts "Updating table '#{table_name}' with information about " \
+       "'#{title} (#{year})'..."
    
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to update item:"
-       puts "#{error.message}"
+     if table_item_updated?(dynamodb_client, table_item)
+       puts 'Table updated.'
+     else
+       puts 'Table not updated.'
+     end
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.
@@ -411,53 +416,54 @@ In the following example, you try to delete a specific movie item if its rating 
 1. Copy the following program and paste it into a file named `MoviesItemOps06.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
+   def table_item_deleted?(dynamodb_client, table_item)
+     dynamodb_client.delete_item(table_item)
+     true
+   rescue StandardError => e
+     puts "Error deleting item: #{e.message}"
+     false
+   end
    
-   dynamodb = Aws::DynamoDB::Client.new
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+     title = 'The Big New Movie'
+     year = 2015
    
-   table_name = 'Movies'
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
    
-   year = 2015
-   title = "The Big New Movie"
+     dynamodb_client = Aws::DynamoDB::Client.new
    
-   params = {
+     table_item = {
        table_name: table_name,
        key: {
-           year: year,
-           title: title
+         year: year,
+         title: title
        },
-       condition_expression: "info.rating <= :val",
+       condition_expression: 'info.rating <= :val',
        expression_attribute_values: {
-           ":val" => 5
+         ':val' => 5
        }
-   }
+     }
    
-   begin
-       dynamodb.delete_item(params)
-       puts "Deleted item."
+     puts "Deleting item from table '#{table_name}' matching " \
+       "'#{title} (#{year})' if specified criteria are met..."
    
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to update item:"
-       puts "#{error.message}"
+     if table_item_deleted?(dynamodb_client, table_item)
+       puts 'Item deleted.'
+     else
+       puts 'Item not deleted.'
+     end
    end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.

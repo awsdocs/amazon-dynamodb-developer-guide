@@ -51,4 +51,3 @@ Use this section to quickly find recommendations for maximizing performance and 
   + [Avoiding Sudden Spikes in Read Activity](bp-query-scan.md#bp-query-scan-spikes)
   + [Taking Advantage of Parallel Scans](bp-query-scan.md#bp-query-scan-parallel)
     + [Choosing TotalSegments](bp-query-scan.md#bp-query-scan-parallel-total-segments)
-+ [Best Practices for Using Global Tables](bp-global-tables.md)

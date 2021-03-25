@@ -84,23 +84,15 @@ Although there is serializable isolation between transactional operations, and e
 
 Similarly, the isolation level between a transactional operation and individual `GetItems` in a `BatchGetItem` operation is serializable\. But the isolation level between the transaction and the `BatchGetItem` operation as a unit is *read\-committed*\.
 
-A single `GetItem` request is serializable with respect to a `TransactWriteItems` request in one of two ways, either before or after the `TransactWriteItems` request\. Multiple `GetItem` requests, against keys in a concurrent `TransactWriteItems` requests can be run in any order, and therefore the results are *read\-committed*\. 
+A single `GetItem` request is serializable with respect to a `TransactWriteItems` request in one of two ways, either before or after the `TransactWriteItems` request\. Multiple `GetItem` requests, against keys in a concurrent `TransactWriteItems` requests can be run in any order, and therefore the results are *read\-committed*\.
 
-For example, if `GetItem` requests for item A and item B are run concurrently with a `TransactWriteItems` request that modifies both item A and item B, there are four possibilities: 
+For example, if `GetItem` requests for item A and item B are run concurrently with a `TransactWriteItems` request that modifies both item A and item B, there are four possibilities:
 + Both `GetItem` requests are run before the `TransactWriteItems` request\.
 + Both `GetItem` requests are run after the `TransactWriteItems` request\.
 + `GetItem` request for item A is run before the `TransactWriteItems` request\. For item B the `GetItem` is run after `TransactWriteItems`\.
 + `GetItem` request for item B is run before the `TransactWriteItems` request\. For item A the `GetItem` is run after `TransactWriteItems`\.
 
- If serializable isolation level is preferred for multiple `GetItem` requests, then please use `TransactGetItems`\. 
-
-`GetItem` requests, then please use `TransactGetItems`\. 
-
- requests, then please use `TransactGetItems`\. 
-
-`TransactGetItems`\. 
-
-\. 
+If serializable isolation level is preferred for multiple `GetItem` requests, then please use `TransactGetItems`\.
 
 ### READ\-COMMITTED<a name="transaction-isolation-read-committed"></a>
 

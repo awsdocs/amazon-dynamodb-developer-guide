@@ -3,7 +3,7 @@
 The following AWS CLI example queries a global secondary index `AlbumTitle-index` on the `Music` table\.
 
 ```
- aws dynamodb query \
+aws dynamodb query \
     --table-name Music \
     --index-name AlbumTitle-index \
     --key-condition-expression "AlbumTitle = :name" \

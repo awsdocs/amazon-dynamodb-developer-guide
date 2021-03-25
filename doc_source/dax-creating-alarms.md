@@ -11,7 +11,7 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
 1. Create the alarm\.
 
    ```
-   Prompt>aws cloudwatch put-metric-alarm \
+   aws cloudwatch put-metric-alarm \
        --alarm-name QueryCacheMissesAlarm  \
        --alarm-description "Alarm over query cache misses" \
        --namespace AWS/DAX \
@@ -28,11 +28,11 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
 1. Test the alarm\.
 
    ```
-   Prompt>aws cloudwatch set-alarm-state --alarm-name QueryCacheMissesAlarm --state-reason "initializing" --state-value OK
+   aws cloudwatch set-alarm-state --alarm-name QueryCacheMissesAlarm --state-reason "initializing" --state-value OK
    ```
 
    ```
-    Prompt>aws cloudwatch set-alarm-state --alarm-name QueryCacheMissesAlarm --state-reason "initializing" --state-value ALARM
+   aws cloudwatch set-alarm-state --alarm-name QueryCacheMissesAlarm --state-reason "initializing" --state-value ALARM
    ```
 
 **Note**  
@@ -47,7 +47,7 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
 1. Create the alarm\.
 
    ```
-   Prompt>aws cloudwatch put-metric-alarm \
+   aws cloudwatch put-metric-alarm \
        --alarm-name FaultRequestCountAlarm \
        --alarm-description "Alarm when a request causes an internal error" \
        --namespace AWS/DAX \
@@ -65,9 +65,9 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
 1. Test the alarm\.
 
    ```
-   Prompt>aws cloudwatch set-alarm-state --alarm-name FaultRequestCountAlarm --state-reason "initializing" --state-value OK
+   aws cloudwatch set-alarm-state --alarm-name FaultRequestCountAlarm --state-reason "initializing" --state-value OK
    ```
 
    ```
-   Prompt>aws cloudwatch set-alarm-state --alarm-name FaultRequestCountAlarm --state-reason "initializing" --state-value ALARM
+   aws cloudwatch set-alarm-state --alarm-name FaultRequestCountAlarm --state-reason "initializing" --state-value ALARM
    ```

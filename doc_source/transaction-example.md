@@ -24,16 +24,16 @@ In this example, you set up an order from a customer whose `customerId` is `09e8
 First, define an action to verify that a customer with `customerId` equal to `09e8e9c8-ec48` exists in the customer table\.
 
 ```
-    final String CUSTOMER_TABLE_NAME = "Customers";
-    final String CUSTOMER_PARTITION_KEY = "CustomerId";
-    final String customerId = "09e8e9c8-ec48";
-    final HashMap<String, AttributeValue> customerItemKey = new HashMap<>();
-    customerItemKey.put(CUSTOMER_PARTITION_KEY, new AttributeValue(customerId));
+final String CUSTOMER_TABLE_NAME = "Customers";
+final String CUSTOMER_PARTITION_KEY = "CustomerId";
+final String customerId = "09e8e9c8-ec48";
+final HashMap<String, AttributeValue> customerItemKey = new HashMap<>();
+customerItemKey.put(CUSTOMER_PARTITION_KEY, new AttributeValue(customerId));
 
-    ConditionCheck checkCustomerValid = new ConditionCheck()
-        .withTableName(CUSTOMER_TABLE_NAME)
-        .withKey(customerItemKey)
-        .withConditionExpression("attribute_exists(" + CUSTOMER_PARTITION_KEY + ")");
+ConditionCheck checkCustomerValid = new ConditionCheck()
+    .withTableName(CUSTOMER_TABLE_NAME)
+    .withKey(customerItemKey)
+    .withConditionExpression("attribute_exists(" + CUSTOMER_PARTITION_KEY + ")");
 ```
 
 ### Update the Product Status<a name="transaction-example-order-part-b"></a>
@@ -41,22 +41,22 @@ First, define an action to verify that a customer with `customerId` equal to `09
 Next, define an action to update the product status to `SOLD` if the condition that the product status is currently set to `IN_STOCK` is `true`\. Setting the `ReturnValuesOnConditionCheckFailure` parameter returns the item if the item's product status attribute was not equal to `IN_STOCK`\.
 
 ```
-    final String PRODUCT_TABLE_NAME = "ProductCatalog";
-    final String PRODUCT_PARTITION_KEY = "ProductId";
-    HashMap<String, AttributeValue> productItemKey = new HashMap<>();
-    productItemKey.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
+final String PRODUCT_TABLE_NAME = "ProductCatalog";
+final String PRODUCT_PARTITION_KEY = "ProductId";
+HashMap<String, AttributeValue> productItemKey = new HashMap<>();
+productItemKey.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
 
-    Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
-    expressionAttributeValues.put(":new_status", new AttributeValue("SOLD"));
-    expressionAttributeValues.put(":expected_status", new AttributeValue("IN_STOCK"));
+Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
+expressionAttributeValues.put(":new_status", new AttributeValue("SOLD"));
+expressionAttributeValues.put(":expected_status", new AttributeValue("IN_STOCK"));
 
-    Update markItemSold = new Update()
-        .withTableName(PRODUCT_TABLE_NAME)
-        .withKey(productItemKey)
-        .withUpdateExpression("SET ProductStatus = :new_status")
-        .withExpressionAttributeValues(expressionAttributeValues)
-        .withConditionExpression("ProductStatus = :expected_status")
-        .withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure.ALL_OLD);
+Update markItemSold = new Update()
+    .withTableName(PRODUCT_TABLE_NAME)
+    .withKey(productItemKey)
+    .withUpdateExpression("SET ProductStatus = :new_status")
+    .withExpressionAttributeValues(expressionAttributeValues)
+    .withConditionExpression("ProductStatus = :expected_status")
+    .withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure.ALL_OLD);
 ```
 
 ### Create the Order<a name="transaction-example-order-part-c"></a>
@@ -64,21 +64,21 @@ Next, define an action to update the product status to `SOLD` if the condition t
 Lastly, create the order as long as an order with that `OrderId` does not already exist\.
 
 ```
-    final String ORDER_PARTITION_KEY = "OrderId";
-    final String ORDER_TABLE_NAME = "Orders";
+final String ORDER_PARTITION_KEY = "OrderId";
+final String ORDER_TABLE_NAME = "Orders";
 
-    HashMap<String, AttributeValue> orderItem = new HashMap<>();
-    orderItem.put(ORDER_PARTITION_KEY, new AttributeValue(orderId));
-    orderItem.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
-    orderItem.put(CUSTOMER_PARTITION_KEY, new AttributeValue(customerId));
-    orderItem.put("OrderStatus", new AttributeValue("CONFIRMED"));
-    orderItem.put("OrderTotal", new AttributeValue("100"));
+HashMap<String, AttributeValue> orderItem = new HashMap<>();
+orderItem.put(ORDER_PARTITION_KEY, new AttributeValue(orderId));
+orderItem.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
+orderItem.put(CUSTOMER_PARTITION_KEY, new AttributeValue(customerId));
+orderItem.put("OrderStatus", new AttributeValue("CONFIRMED"));
+orderItem.put("OrderTotal", new AttributeValue("100"));
 
-    Put createOrder = new Put()
-      .withTableName(ORDER_TABLE_NAME)
-      .withItem(orderItem)
-      .withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure.ALL_OLD)
-      .withConditionExpression("attribute_not_exists(" + ORDER_PARTITION_KEY + ")");
+Put createOrder = new Put()
+    .withTableName(ORDER_TABLE_NAME)
+    .withItem(orderItem)
+    .withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure.ALL_OLD)
+    .withConditionExpression("attribute_not_exists(" + ORDER_PARTITION_KEY + ")");
 ```
 
 ### Run the Transaction<a name="transaction-example-order-part-d"></a>
@@ -114,38 +114,38 @@ The following example illustrates how to run the actions defined previously as a
 The following example shows how to read the completed order transactionally across the `Orders` and `ProductCatalog` tables\.
 
 ```
-    HashMap<String, AttributeValue> productItemKey = new HashMap<>();
-    productItemKey.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
+HashMap<String, AttributeValue> productItemKey = new HashMap<>();
+productItemKey.put(PRODUCT_PARTITION_KEY, new AttributeValue(productKey));
 
-    HashMap<String, AttributeValue> orderKey = new HashMap<>();
-    orderKey.put(ORDER_PARTITION_KEY, new AttributeValue(orderId));
+HashMap<String, AttributeValue> orderKey = new HashMap<>();
+orderKey.put(ORDER_PARTITION_KEY, new AttributeValue(orderId));
 
-    Get readProductSold = new Get()
-            .withTableName(PRODUCT_TABLE_NAME)
-            .withKey(productItemKey);
-    Get readCreatedOrder = new Get()
-            .withTableName(ORDER_TABLE_NAME)
-            .withKey(orderKey);
+Get readProductSold = new Get()
+    .withTableName(PRODUCT_TABLE_NAME)
+    .withKey(productItemKey);
+Get readCreatedOrder = new Get()
+    .withTableName(ORDER_TABLE_NAME)
+    .withKey(orderKey);
 
-    Collection<TransactGetItem> getActions = Arrays.asList(
-            new TransactGetItem().withGet(readProductSold),
-            new TransactGetItem().withGet(readCreatedOrder));
+Collection<TransactGetItem> getActions = Arrays.asList(
+    new TransactGetItem().withGet(readProductSold),
+    new TransactGetItem().withGet(readCreatedOrder));
 
-    TransactGetItemsRequest readCompletedOrder = new TransactGetItemsRequest()
-            .withTransactItems(getActions)
-            .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
+TransactGetItemsRequest readCompletedOrder = new TransactGetItemsRequest()
+    .withTransactItems(getActions)
+    .withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
 
-    // Run the transaction and process the result.
-    try {
-        TransactGetItemsResult result = client.transactGetItems(readCompletedOrder);
-        System.out.println(result.getResponses());
-    } catch (ResourceNotFoundException rnf) {
-        System.err.println("One of the table involved in the transaction is not found" + rnf.getMessage());
-    } catch (InternalServerErrorException ise) {
-        System.err.println("Internal Server Error" + ise.getMessage());
-    } catch (TransactionCanceledException tce) {
-        System.err.println("Transaction Canceled" + tce.getMessage());
-    }
+// Run the transaction and process the result.
+try {
+    TransactGetItemsResult result = client.transactGetItems(readCompletedOrder);
+    System.out.println(result.getResponses());
+} catch (ResourceNotFoundException rnf) {
+    System.err.println("One of the table involved in the transaction is not found" + rnf.getMessage());
+} catch (InternalServerErrorException ise) {
+    System.err.println("Internal Server Error" + ise.getMessage());
+} catch (TransactionCanceledException tce) {
+    System.err.println("Transaction Canceled" + tce.getMessage());
+}
 ```
 
 ## Additional Examples<a name="transaction-example-Additional"></a>

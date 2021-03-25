@@ -50,7 +50,7 @@ For each secondary index, you must specify the following:
 
 For maximum query flexibility, you can create up to 20 global secondary indexes \(default quota\) and up to 5 local secondary indexes per table\. 
 
- The quota of global secondary indexes per table is five for the following AWS Regions: 
+ The quota of global secondary indexes per table is five for the following AWS Regions:
 + AWS GovCloud \(US\-East\)
 + AWS GovCloud \(US\-West\)
 + Europe \(Stockholm\)

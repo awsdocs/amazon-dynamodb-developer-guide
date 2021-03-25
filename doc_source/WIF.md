@@ -11,7 +11,7 @@ Web identity federation supports the following identity providers:
 
 The following resources can help you learn more about web identity federation:
 + The post [Web Identity Federation using the AWS SDK for \.NET](http://aws.amazon.com/blogs/developer/web-identity-federation-using-the-aws-sdk-for-net) on the AWS Developer blog walks through how to use web identity federation with Facebook\. It includes code snippets in C\# that show how to assume an IAM role with web identity and how to use temporary security credentials to access an AWS resource\.
-+ The [AWS SDK for iOS](https://aws.amazon.com/sdkforios/) and the [AWS SDK for Android](https://aws.amazon.com/sdkforandroid/) contain sample apps\. They include code that shows how to invoke the identity providers, and then how to use the information from these providers to get and use temporary security credentials\.
++ The [AWS Mobile SDK for iOS](https://aws.amazon.com/sdkforios/) and the [AWS Mobile SDK for Android](https://aws.amazon.com/sdkforandroid/) contain sample apps\. They include code that shows how to invoke the identity providers, and then how to use the information from these providers to get and use temporary security credentials\.
 + The article [Web Identity Federation with Mobile Applications](https://aws.amazon.com/articles/4617974389850313) discusses web identity federation and shows an example of how to use web identity federation to access an AWS resource\.
 
 ## Example Policy for Web Identity Federation<a name="WIF.Example"></a>
@@ -37,7 +37,7 @@ The following diagram shows how these pieces fit together\.
 
 **Web Identity Federation Overview**
 
-1. The app calls a third\-party identity provider to authenticate the user and the app\. The identity provider returns a web identity token to the app\. 
+1. The app calls a third\-party identity provider to authenticate the user and the app\. The identity provider returns a web identity token to the app\.
 
 1. The app calls AWS STS and passes the web identity token as input\. AWS STS authorizes the app and gives it temporary AWS access credentials\. The app is allowed to assume an IAM role \(*GameRole*\) and access AWS resources in accordance with the role's security policy\.
 

@@ -2,7 +2,7 @@
 
 The `Query` operation enables you to query a table or a secondary index in Amazon DynamoDB\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
 
-The following are the steps to query a table using the low\-level AWS SDK for \.NET API\. 
+The following are the steps to query a table using the low\-level AWS SDK for \.NET API\.
 
 1. Create an instance of the `AmazonDynamoDBClient` class\.
 
@@ -84,7 +84,7 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 
 You can also optionally limit the page size, or the number of items per page, by adding the optional `Limit` parameter\. Each time you run the `Query` method, you get one page of results that has the specified number of items\. To fetch the next page, you run the `Query` method again by providing the primary key value of the last item in the previous page so that the method can return the next set of items\. You provide this information in the request by setting the `ExclusiveStartKey` property\. Initially, this property can be null\. To retrieve subsequent pages, you must update this property value to the primary key of the last item in the preceding page\.
 
-The following C\# example queries the `Reply` table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\. 
+The following C\# example queries the `Reply` table\. In the request, it specifies the `Limit` and `ExclusiveStartKey` optional parameters\. The `do/while` loop continues to scan one page at time until the `LastEvaluatedKey` returns a null value\.
 
 **Example**  
 

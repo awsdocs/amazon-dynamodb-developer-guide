@@ -60,6 +60,8 @@ Use this graph to identify the most throttled items in the table or global secon
 
 DynamoDB measures throttle frequency using `ThrottleCount`, which is the count of `ProvisionedThroughputExceededException`, `ThrottlingException`, and `RequestLimitExceeded` errors\.
 
+Write throttling caused by insufficient write capacity for a global secondary index is not measured\. You can use the *Most Accessed Items* graph of the global secondary index to identify imbalanced access patterns that may cause write throttling\. For more information, see [Provisioned Throughput Considerations for Global Secondary Indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html#GSI.ThroughputConsiderations)\.
+
 On the DynamoDB console, each data point in the graph represents the count of throttle events over a 1\-minute period\. 
 
 If you see no data in this graph, it indicates that your requests are not being throttled\. If you see isolated points in the graph instead of connected lines, it indicates that an item was frequently throttled for a brief period\.
@@ -98,7 +100,7 @@ If the table’s primary key contains FGAC\-protected data that you don't want p
 
 ### Access Control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
-You control access to CloudWatch Contributor Insights for DynamoDB using AWS Identity and Access Management \(IAM\) by limiting DynamoDB control plane permissions and CloudWatch data plane permissions\. For more information see, [Using IAM with CloudWatch Contributor Insights for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Contributor_Insights_IAM.html)\. 
+You control access to CloudWatch Contributor Insights for DynamoDB using AWS Identity and Access Management \(IAM\) by limiting DynamoDB control plane permissions and CloudWatch data plane permissions\. For more information see, [Using IAM with CloudWatch Contributor Insights for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Contributor_Insights_IAM.html)\.
 
 ## CloudWatch Contributor Insights for DynamoDB Billing<a name="contributorinsights_HowItWorks.Billing"></a>
 

@@ -104,14 +104,14 @@ public class DynamoDBPartiqlTransaction {
         ExecuteTransactionRequest request = new ExecuteTransactionRequest();
         
         // Create statements
-        ListParameterizedStatement> statements = getPartiQLTransactionStatements();
+        List<ParameterizedStatement> statements = getPartiQLTransactionStatements();
 
         request.setTransactStatements(statements);
         return request;
     }
 
-    private static ListParameterizedStatement> getPartiQLTransactionStatements() {
-        ListParameterizedStatement> statements = new ArrayListParameterizedStatement>();
+    private static List<ParameterizedStatement> getPartiQLTransactionStatements() {
+        List<ParameterizedStatement> statements = new ArrayList<ParameterizedStatement>();
 
         statements.add(new ParameterizedStatement()
                                .withStatement("EXISTS(SELECT * FROM Music where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"));

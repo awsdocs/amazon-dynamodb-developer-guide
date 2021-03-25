@@ -157,7 +157,7 @@ For global secondary index queries, DynamoDB calculates the provisioned read act
 
 The maximum size of the results returned by a `Query` operation is 1 MB\. This includes the sizes of all the attribute names and values across all of the items returned\.
 
-For example, consider a global secondary index where each item contains 2,000 bytes of data\. Now suppose that you `Query` this index and that the query returns eight items\. The total size of the matching items is 2,000 bytes × 8 items = 16,000 bytes\. This result is then rounded up to the nearest 4 KB boundary\. Because global secondary index queries are eventually consistent, the total cost is 0\.5 × \(16 KB / 4 KB\), or 2 read capacity units\.
+For example, consider a global secondary index where each item contains 2,000 bytes of data\. Now suppose that you `Query` this index and that the query's `KeyConditionExpression` matches eight items\. The total size of the matching items is 2,000 bytes × 8 items = 16,000 bytes\. This result is then rounded up to the nearest 4 KB boundary\. Because global secondary index queries are eventually consistent, the total cost is 0\.5 × \(16 KB / 4 KB\), or 2 read capacity units\.
 
 ### Write Capacity Units<a name="GSI.ThroughputConsiderations.Writes"></a>
 

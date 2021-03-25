@@ -286,7 +286,7 @@ For a list of AWS Regions in which DAX is available, see [DynamoDB Accelerator \
 
 ### Nodes<a name="limits-dax-nodes"></a>
 
-A DAX cluster consists of exactly one primary node, and between zero and nine read replica nodes\.
+A DAX cluster consists of exactly one primary node, and between zero and ten read replica nodes\.
 
 The total number of nodes \(per AWS account\) cannot exceed 50 in a single AWS Region\.
 
@@ -332,9 +332,9 @@ The result set from a `Scan` is limited to 1 MB per call\. You can use the `Last
 
 ## DynamoDB Encryption at Rest<a name="limits-dynamodb-encryption"></a>
 
-You can switch from an AWS owned customer master key \(CMK\) to an AWS managed CMK up to four times, anytime per 24\-hour window, on a per table basis, starting from when the table was created\. If there was no change in the past six hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight times \(four changes in the first six hours, and one change for each of the subsequent six hour windows in a day\)\.
+You can switch between an AWS owned customer master key \(CMK\), an AWS managed CMK, and a customer managed CMK up to four times, anytime per 24\-hour window, on a per table basis, starting from when the table was created\. If there was no change in the past six hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight \(four changes in the first six hours, and one change for each of the subsequent six hour windows in a day\)\.
 
-You can switch encryption keys to use an AWS owned CMK as often as necessary\.
+You can switch encryption keys to use an AWS owned CMK as often as necessary, even if the above quota has been exhausted\.
 
 These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 

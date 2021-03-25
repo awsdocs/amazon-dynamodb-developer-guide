@@ -24,7 +24,6 @@ The program included in this step retrieves all movies released in the `year` 19
 1. Copy the following program and paste it into a file named `MoviesQuery01.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -89,7 +88,6 @@ The program included in this step retrieves all movies released in `year` 1992, 
 1. Copy the following program and paste it into a file named `MoviesQuery02.js`\.
 
    ```
-                           
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *
@@ -155,7 +153,6 @@ The following program scans the entire `Movies` table, which contains approximat
 1. Copy the following program and paste it into a file named `MoviesScan.js`\.
 
    ```
-                               
    /**
     * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
     *

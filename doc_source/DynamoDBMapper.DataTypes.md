@@ -18,8 +18,8 @@ Amazon DynamoDB supports the following primitive Java data types and primitive w
 **Note**  
 For more information about DynamoDB naming rules and the various supported data types, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
 Empty Binary values are supported by the DynamoDBMapper\.
-Empty String values are supported by AWS SDK for Java 2\.0\.  
-In AWS SDK for Java 1\.0, DynamoDBMapper supports reading of empty String attribute values, however, it will not write empty String attribute values because these attributes are dropped from the request\.
+Empty String values are supported by AWS SDK for Java 2\.x\.  
+In AWS SDK for Java 1\.x, DynamoDBMapper supports reading of empty String attribute values, however, it will not write empty String attribute values because these attributes are dropped from the request\.
 
 DynamoDB supports the Java [Set](http://docs.oracle.com/javase/6/docs/api/java/util/Set.html), [List](http://docs.oracle.com/javase/6/docs/api/java/util/List.html), and [Map](http://docs.oracle.com/javase/6/docs/api/java/util/Map.html) collection types\. The following table summarizes how these Java types map to the DynamoDB types\.
 

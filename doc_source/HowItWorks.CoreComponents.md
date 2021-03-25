@@ -2,7 +2,7 @@
 
 In DynamoDB, tables, items, and attributes are the core components that you work with\. A *table* is a collection of *items*, and each item is a collection of *attributes*\. DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility\. You can use DynamoDB Streams to capture data modification events in DynamoDB tables\.
 
- There are limits in DynamoDB\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\. 
+ There are limits in DynamoDB\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
 
 **Topics**
 + [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes)
@@ -33,7 +33,7 @@ The following is another example table named *Music* that you could use to keep 
 
 Note the following about the *Music* table:
 + The primary key for *Music* consists of two attributes \(*Artist* and *SongTitle*\)\. Each item in the table must have these two attributes\. The combination of *Artist* and *SongTitle* distinguishes each item in the table from all of the others\.
-+ Other than the primary key, the *Music* table is schemaless, which means that neither the attributes nor their data types need to be defined beforehand\. Each item can have its own distinct attributes\. 
++ Other than the primary key, the *Music* table is schemaless, which means that neither the attributes nor their data types need to be defined beforehand\. Each item can have its own distinct attributes\.
 + One of the items has a nested attribute \(*PromotionInfo*\), which contains other nested attributes\. DynamoDB supports nested attributes up to 32 levels deep\.
 
  For more information, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\. 
@@ -43,14 +43,14 @@ Note the following about the *Music* table:
 When you create a table, in addition to the table name, you must specify the primary key of the table\. The primary key uniquely identifies each item in the table, so that no two items can have the same key\.
 
 DynamoDB supports two different kinds of primary keys:
-+ **Partition key** – A simple primary key, composed of one attribute known as the *partition key*\. 
++ **Partition key** – A simple primary key, composed of one attribute known as the *partition key*\.
 
   DynamoDB uses the partition key's value as input to an internal hash function\. The output from the hash function determines the partition \(physical storage internal to DynamoDB\) in which the item will be stored\. 
 
    In a table that has only a partition key, no two items can have the same partition key value\.
 
   The *People* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a simple primary key \(*PersonID*\)\. You can access any item in the *People* table directly by providing the *PersonId* value for that item\.
-+ **Partition key and sort key** – Referred to as a *composite primary key*, this type of key is composed of two attributes\. The first attribute is the *partition key*, and the second attribute is the *sort key*\. 
++ **Partition key and sort key** – Referred to as a *composite primary key*, this type of key is composed of two attributes\. The first attribute is the *partition key*, and the second attribute is the *sort key*\.
 
   DynamoDB uses the partition key value as input to an internal hash function\. The output from the hash function determines the partition \(physical storage internal to DynamoDB\) in which the item will be stored\. All items with the same partition key value are stored together, in sorted order by sort key value\.
 
@@ -83,13 +83,13 @@ The following diagram shows the example *Music* table, with a new index called *
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/HowItWorksGenreAlbumTitle.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 Note the following about the *GenreAlbumTitle* index:
-+ Every index belongs to a table, which is called the *base table* for the index\. In the preceding example, *Music* is the base table for the *GenreAlbumTitle* index\. 
++ Every index belongs to a table, which is called the *base table* for the index\. In the preceding example, *Music* is the base table for the *GenreAlbumTitle* index\.
 + DynamoDB maintains indexes automatically\. When you add, update, or delete an item in the base table, DynamoDB adds, updates, or deletes the corresponding item in any indexes that belong to that table\.
 + When you create an index, you specify which attributes will be copied, or *projected*, from the base table to the index\. At a minimum, DynamoDB projects the key attributes from the base table into the index\. This is the case with `GenreAlbumTitle`, where only the key attributes from the `Music` table are projected into the index\.
 
 You can query the *GenreAlbumTitle* index to find all albums of a particular genre \(for example, all *Rock* albums\)\. You can also query the index to find all albums within a particular genre that have certain album titles \(for example, all *Country* albums with titles that start with the letter H\)\.
 
- For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\. 
+For more information, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
 
 ## DynamoDB Streams<a name="HowItWorks.CoreComponents.Streams"></a>
 
@@ -111,4 +111,4 @@ In this example, the last customer, Craig Roe, will not receive an email because
 
 In addition to triggers, DynamoDB Streams enables powerful solutions such as data replication within and across AWS Regions, materialized views of data in DynamoDB tables, data analysis using Kinesis materialized views, and much more\.
 
- For more information, see [Change Data Capture for DynamoDB Streams](Streams.md)\. 
+For more information, see [Change Data Capture for DynamoDB Streams](Streams.md)\.

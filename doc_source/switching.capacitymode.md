@@ -14,7 +14,7 @@ Consider the following when you update a table from on\-demand to provisioned mo
 
 ## Managing Auto Scaling<a name="switching.autoscaling"></a>
 
- When you update a table from provisioned to on\-demand mode: 
+ When you update a table from provisioned to on\-demand mode:
 +  If you're using the console, all of your auto scaling settings \(if any\) will be deleted\. 
 +  If you're using the AWS CLI or AWS SDK, all of your auto scaling settings will be preserved\. These settings can be applied when you update your table to provisioned billing mode again\. 
 

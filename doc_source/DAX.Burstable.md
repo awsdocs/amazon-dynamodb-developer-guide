@@ -1,0 +1,21 @@
+# DAX T3/T2 Burstable Instances<a name="DAX.Burstable"></a>
+
+DAX allows you to choose between fixed performance instances \(such as R4 and R5\) and burstable performance instances \(such as T2 and T3\)\. Burstable performance instances provide a baseline level of CPU performance with the ability to burst above the baseline when needed\.
+
+Baseline performance and the ability to burst above it are governed by CPU credits\. Burstable performance instances accumulate CPU credits continuously, at a rate determined by the instance size, when the workload is below the baseline threshold\. These credits may then be consumed when the workload increases\. A CPU credit provides the performance of a full CPU core for one minute\.
+
+Many workloads don’t need consistently high levels of CPU, but benefit significantly from having full access to very fast CPUs when they need them\. Burstable performance instances are engineered specifically for these use cases\. If you need consistently high CPU performance for your database, we recommend you use fixed performance instances\.
+
+## DAX T2 instance family<a name="DAX.Burstable.T2"></a>
+
+DAX T2 instances are burstable general\-purpose performance instances that provide a baseline level of CPU performance with the ability to burst above the baseline\. T2 instances are a good choice for test and development workloads which need price predictability\. DAX T2 instances are configured for standard mode, which means that if the instance is running low on accrued credits, CPU utilization is gradually lowered to the baseline level\. For more information on standard mode, refer to [Standard mode for burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-standard-mode.html) in the Amazon EC2 User Guide for Linux Instances\.
+
+## DAX T3 instance family<a name="DAX.Burstable.T3"></a>
+
+DAX T3 instances are the next generation burstable general\-purpose instance type, providing a baseline level of CPU performance with the ability to burst CPU usage at any time for as long as required\. T3 instances offer a balance of compute, memory, and network resources and are ideal for workloads with moderate CPU usage that experience temporary spikes in use\. DAX T3 instances are configured for unlimited mode, which means they can burst beyond the baseline over a 24\-hour window for an additional charge\. For more information on unlimited mode, refer to [Unlimited mode for burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html) in the Amazon EC2 User Guide for Linux Instances\.
+
+DAX T3 instances can sustain high CPU performance for as long as a workload requires it\. For most general\-purpose workloads, T3 instances will provide ample performance without any additional charges\. The hourly T3 instance price automatically covers all interim spikes in usage when the average CPU utilization of a T3 instance is at or less than the baseline over a 24\-hour window\.
+
+For example, a `dax.t3.small` instance receives credits continuously at a rate of 24 CPU credits per hour\. This capability provides baseline performance equivalent to 20% of a CPU core \(20% × 60 minutes = 12 minutes\)\. If the instance does not use the credits it receives, they are stored in its CPU credit balance up to a maximum of 576 CPU credits\. When the `t3.small` instance needs to burst to more than 20% of a core, it draws from its CPU credit balance to handle this surge automatically\.
+
+While DAX T2 instances are restricted to baseline performance once the CPU credit balance is drawn down to zero, DAX T3 instances can burst above the baseline even when their CPU credit balance is zero\. For the vast majority of workloads, where the average CPU utilization is at or below the baseline performance, the basic hourly price for `t3.small` covers all CPU bursts\. If the instance happens to run at an average 25% CPU utilization \(5% above baseline\) over a period of 24 hours after its CPU credit balance is drawn to zero, it will be charged an additional 11\.52 cents \(9\.6 cents/vCPU\-hour × 1 vCPU × 5% × 24 hours\)\. See [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing/on-demand/) for pricing details\.

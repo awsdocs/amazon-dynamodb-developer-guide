@@ -167,7 +167,7 @@ There is no limit on the number of values in a set, as long as the item containi
 
 Each value within a set must be unique\. The order of the values within a set is not preserved\. Therefore, your applications must not rely on any particular order of elements within the set\. DynamoDB does not support empty sets, however, empty string and binary values are allowed within a set\.
 
-The following example shows a string set, a number set, and a binary set: 
+The following example shows a string set, a number set, and a binary set:
 
 ```
 ["Black", "Green", "Red"]

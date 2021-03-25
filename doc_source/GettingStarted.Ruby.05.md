@@ -5,40 +5,39 @@
 1. Copy the following program and paste it into a file named `MoviesDeleteTable.rb`\.
 
    ```
-   #
-   #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   #
-   #  This file is licensed under the Apache License, Version 2.0 (the "License").
-   #  You may not use this file except in compliance with the License. A copy of
-   #  the License is located at
-   # 
-   #  http://aws.amazon.com/apache2.0/
-   # 
-   #  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   #  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   #  specific language governing permissions and limitations under the License.
-   #
-   require "aws-sdk"
+   require 'aws-sdk-dynamodb'
    
-   Aws.config.update({
-     region: "us-west-2",
-     endpoint: "http://localhost:8000"
-   })
-   
-   dynamodb = Aws::DynamoDB::Client.new
-   
-   params = {
-       table_name: "Movies"
-   }
-   
-   begin
-       dynamodb.delete_table(params)
-       puts "Deleted table."
-   
-   rescue  Aws::DynamoDB::Errors::ServiceError => error
-       puts "Unable to delete table:"
-       puts "#{error.message}"
+   def table_deleted?(dynamodb_client, table_name)
+     dynamodb_client.delete_table(table_name: table_name)
+     true
+   rescue StandardError => e
+     puts "Error deleting table: #{e.message}"
+     false
    end
+   
+   def run_me
+     region = 'us-west-2'
+     table_name = 'Movies'
+   
+     # To use the downloadable version of Amazon DynamoDB,
+     # uncomment the endpoint statement.
+     Aws.config.update(
+       # endpoint: 'http://localhost:8000',
+       region: region
+     )
+     
+     dynamodb_client = Aws::DynamoDB::Client.new
+   
+     puts "Deleting table '#{table_name}'..."
+   
+     if table_deleted?(dynamodb_client, table_name)
+       puts 'Table deleted.'
+     else
+       puts 'Table not deleted.'
+     end
+   end
+   
+   run_me if $PROGRAM_NAME == __FILE__
    ```
 
 1. To run the program, enter the following command\.

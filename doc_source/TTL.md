@@ -4,7 +4,7 @@ Amazon DynamoDB Time to Live \(TTL\) allows you to define a per\-item timestamp 
 
 TTL is useful if you store items that lose relevance after a specific time\. The following are example TTL use cases:
 + Remove user or sensor data after one year of inactivity in an application\.
-+ Archive expired items to an Amazon S3 data lake via DynamoDB Streams and AWS Lambda\.
++ Archive expired items to an Amazon S3 data lake via Amazon DynamoDB Streams and AWS Lambda\.
 + Retain sensitive data for a certain amount of time according to contractual or regulatory obligations\.
 
 For more information about TTL, see these topics:

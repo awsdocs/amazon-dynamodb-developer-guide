@@ -58,7 +58,7 @@ The following IAM policy grants permissions to retrieve CloudWatch Contributor I
 
 ## Example: Selectively Apply CloudWatch Contributor Insights for DynamoDB Permissions Based on Resource<a name="access-policy-Contributor_Insights-example3"></a>
 
-The following IAM policy grants permissions to allow the `ListContributorInsights` and `DescribeContributorInsights` actions and denies the `UpdateContributorInsights` action for a specific global secondary index\. 
+The following IAM policy grants permissions to allow the `ListContributorInsights` and `DescribeContributorInsights` actions and denies the `UpdateContributorInsights` action for a specific global secondary index\.
 
 ```
 {
@@ -79,7 +79,6 @@ The following IAM policy grants permissions to allow the `ListContributorInsight
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/Books/index/Author-index"
         }
-        
     ]
 }
 ```
@@ -90,7 +89,7 @@ CloudWatch Contributor Insights for DynamoDB uses AWS Identity and Access Manage
 
 A service\-linked role makes setting up CloudWatch Contributor Insights for DynamoDB easier because you don’t have to manually add the necessary permissions\. CloudWatch Contributor Insights for DynamoDB defines the permissions of its service\-linked roles, and unless defined otherwise, only CloudWatch Contributor Insights for DynamoDB can assume its roles\. The defined permissions include the trust policy and the permissions policy, and that permissions policy cannot be attached to any other IAM entity\.
 
-For information about other services that support service\-linked roles, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes **in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
+For information about other services that support service\-linked roles, see [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html) and look for the services that have **Yes** in the **Service\-Linked Role** column\. Choose a **Yes** with a link to view the service\-linked role documentation for that service\.
 
 ### Service\-Linked Role Permissions for CloudWatch Contributor Insights for DynamoDB<a name="slr-permissions"></a>
 

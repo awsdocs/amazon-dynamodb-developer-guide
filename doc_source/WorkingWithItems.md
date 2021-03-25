@@ -93,7 +93,7 @@ aws dynamodb put-item \
 The arguments for `--item` are stored in the `item.json` file\.  
 
 ```
- {
+{
     "ForumName": {"S": "Amazon DynamoDB"},
     "Subject": {"S": "New discussion thread"},
     "Message": {"S": "First post in this thread"},

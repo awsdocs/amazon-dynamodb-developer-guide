@@ -1,6 +1,6 @@
 # Building API Operations<a name="workbench.querybuilder.operationbuilder.api"></a>
 
-To use the NoSQL Workbench to build DunamoDB CRUD APIs choose **Interface\-based operations** at the top right corner of the NoSQL Workbench\.
+To use the NoSQL Workbench to build DynamoDB CRUD APIs choose **Interface\-based operations** at the top right corner of the NoSQL Workbench\.
 
 Choose **Data plane operations** drop\-down, and then choose the operation that you want to build\.
 

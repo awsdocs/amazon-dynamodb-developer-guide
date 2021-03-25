@@ -16,7 +16,7 @@ Some AWS services also support tag\-based conditions; however, DynamoDB does not
 ### Permissions Use Case<a name="FGAC_DDB.OverviewUseCase"></a>
 
 In addition to controlling access to DynamoDB API actions, you can also control access to individual data items and attributes\. For example, you can do the following:
-+ Grant permissions on a table, but restrict access to specific items in that table based on certain primary key values\. An example might be a social networking app for games, where all users' saved game data is stored in a single table, but no users can access data items that they do not own, as shown in the following illustration:   
++ Grant permissions on a table, but restrict access to specific items in that table based on certain primary key values\. An example might be a social networking app for games, where all users' saved game data is stored in a single table, but no users can access data items that they do not own, as shown in the following illustration:  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/info-hiding-horizontal.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 + Hide information so that only a subset of attributes is visible to the user\. An example might be an app that displays flight data for nearby airports, based on the user's location\. Airline names, arrival and departure times, and flight numbers are all displayed\. However, attributes such as pilot names or the number of passengers are hidden, as shown in the following illustration:   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/info-hiding-vertical.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
@@ -75,9 +75,9 @@ To manage user permissions in this app, you could write a permissions policy suc
 
 In addition to granting permissions for specific DynamoDB actions \(`Action` element\) on the `GameScores` table \(`Resource` element\), the `Condition` element uses the following condition keys specific to DynamoDB that limit the permissions as follows:
 + `dynamodb:LeadingKeys` – This condition key allows users to access only the items where the partition key value matches their user ID\. This ID, `${www.amazon.com:user_id}`, is a substitution variable\. For more information about substitution variables, see [Using Web Identity Federation](WIF.md)\.
-+ `dynamodb:Attributes` – This condition key limits access to the specified attributes so that only the actions listed in the permissions policy can return values for these attributes\. In addition, the `StringEqualsIfExists` clause ensures that the app must always provide a list of specific attributes to act upon and that the app can't request all attributes\. 
++ `dynamodb:Attributes` – This condition key limits access to the specified attributes so that only the actions listed in the permissions policy can return values for these attributes\. In addition, the `StringEqualsIfExists` clause ensures that the app must always provide a list of specific attributes to act upon and that the app can't request all attributes\.
 
-When an IAM policy is evaluated, the result is always either true \(access is allowed\) or false \(access is denied\)\. If any part of the `Condition` element is false, the entire policy evaluates to false and access is denied\. 
+When an IAM policy is evaluated, the result is always either true \(access is allowed\) or false \(access is denied\)\. If any part of the `Condition` element is false, the entire policy evaluates to false and access is denied\.
 
 **Important**  
 If you use `dynamodb:Attributes`, you must specify the names of all of the primary key and index key attributes for the table and any secondary indexes that are listed in the policy\. Otherwise, DynamoDB can't use these key attributes to perform the requested action\.
@@ -398,6 +398,6 @@ Note the following:
 + Because the policy allows `UpdateItem`, an application can insert new items, and the hidden attributes will be null in the new items\. If these attributes are projected into `TopScoreDateTimeIndex`, the policy has the added benefit of preventing queries that cause fetches from the table\.
 + Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only attributes in the allow list can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
 
-## Related Topics<a name="w266aac41c15b9c17b9"></a>
+## Related Topics<a name="w273aac25c15b9c17b9"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [DynamoDB API Permissions: Actions, Resources, and Conditions Reference](api-permissions-reference.md)

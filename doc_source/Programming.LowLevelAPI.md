@@ -9,7 +9,7 @@
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.DDBLowLevelAPI.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-The Amazon DynamoDB *low\-level API* is the protocol\-level interface for DynamoDB\. At this level, every HTTP\(S\) request must be correctly formatted and carry a valid digital signature\. 
+The Amazon DynamoDB *low\-level API* is the protocol\-level interface for DynamoDB\. At this level, every HTTP\(S\) request must be correctly formatted and carry a valid digital signature\.
 
 The AWS SDKs construct low\-level DynamoDB API requests on your behalf and process the responses from DynamoDB\. This lets you focus on your application logic, instead of low\-level details\. However, you can still benefit from a basic knowledge of how the low\-level DynamoDB API works\.
 

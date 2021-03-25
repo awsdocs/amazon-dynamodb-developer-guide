@@ -12,36 +12,19 @@ Follow this procedure to run the Amazon DynamoDB Accelerator \(DAX\) SDK for Go 
       sudo yum install -y golang
       ```
 
-   1. Set the `GOPATH` environment variable\.
-
-      ```
-      # GOROOT is the location where Go package is installed on your system
-      export GOROOT=/usr/lib/golang
-      
-      # GOPATH is the location of your work directory
-      export GOPATH=$HOME/projects
-      
-      # PATH in order to access go binary system wide
-      export PATH=$PATH:$GOROOT/bin
-      ```
-**Note**  
-The preceding commands set the environment variables for your current session only\. To make these settings permanent, add the commands in the `~/.bash_profile` file\.
-
    1. Test that Golang is installed and running correctly\.
 
       ```
       go version
       ```
 
-      The following message should appear\.
+      A message like this should appear\.
 
-      `go version go1.9.6 linux/amd64/`
+      ```
+      go version go1.15.5 linux/amd64
+      ```
 
-1. Install the DAX Golang client\.
-
-   ```
-   go get github.com/aws/aws-dax-go
-   ```
+      The remaining instructions rely on module support, which became the default with Go version 1\.13\.
 
 1. Install the sample Golang application\.
 
@@ -52,25 +35,25 @@ The preceding commands set the environment variables for your current session on
 1. Run the following Golang programs\. The first program creates a DynamoDB table named `TryDaxGoTable`\. The second program writes data to the table\.
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command create-table
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command create-table
    ```
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command put-item
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command put-item
    ```
 
 1. Run the following Golang programs\.
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command get-item
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command get-item
    ```
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command query
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command query
    ```
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command scan
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command scan
    ```
 
    Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query`, and `Scan` tests\.
@@ -101,15 +84,15 @@ The preceding commands set the environment variables for your current session on
    Now run the programs again, but this time, specify the cluster endpoint as a command line parameter\.
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command get-item -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command get-item -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
    ```
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command query -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command query -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
    ```
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command scan -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command scan -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
    ```
 
    Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query`, and `Scan` should be significantly lower with DAX than with DynamoDB\.
@@ -117,5 +100,5 @@ The preceding commands set the environment variables for your current session on
 1. Run the following Golang program to delete `TryDaxGoTable`\.
 
    ```
-   go run $GOPATH/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command delete-table
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dynamodb -command delete-table
    ```

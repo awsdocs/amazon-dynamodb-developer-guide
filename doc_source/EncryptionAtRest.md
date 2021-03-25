@@ -8,7 +8,7 @@ Encryption at rest integrates with AWS KMS for managing the encryption key that 
 
  When creating a new table, you can choose one of the following customer master keys \(CMK\) to encrypt your table: 
 + AWS owned CMK – Default encryption type\. The key is owned by DynamoDB \(no additional charge\)\. 
-+  AWS managed CMK – The key is stored in your account and is managed by AWS KMS \(AWS KMS charges apply\)\. 
++ AWS managed CMK – The key is stored in your account and is managed by AWS KMS \(AWS KMS charges apply\)\. 
 + Customer managed CMK – The key is stored in your account and is created, owned, and managed by you\. You have full control over the CMK \(AWS KMS charges apply\)\.
 
  When you access an encrypted table, DynamoDB decrypts the table data transparently\. You can switch between the AWS owned CMK, AWS managed CMK, and customer managed CMK at any given time\. You don't have to change any code or applications to use or manage encrypted tables\. DynamoDB continues to deliver the same single\-digit millisecond latency that you have come to expect, and all DynamoDB queries work seamlessly on your encrypted data\.

@@ -34,7 +34,7 @@ The following IAM policy grants permissions to run all PartiQL for DynamoDB stat
 
 ## Example: Allow PartiQL for DynamoDB select statements on a table<a name="access-policy-ql-iam-example2"></a>
 
-The following IAM policy grants permissions to run the `select` statement on a specific table\. 
+The following IAM policy grants permissions to run the `select` statement on a specific table\.
 
 ```
 {

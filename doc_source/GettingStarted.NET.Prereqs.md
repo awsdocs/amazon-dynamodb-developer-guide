@@ -36,13 +36,13 @@ The `DynamoDB_intro` solution already has the Amazon DynamoDB SDK installed in i
 To install the NuGet package for the DynamoDB module of the AWS SDK for \.NET version 3 in your own programs, open the **NuGet Package Manager Console** on the **Tools** menu in Visual Studio\. Then enter the following command at the `PM>` prompt\.
 
 ```
-PM> Install-Package AWSSDK.DynamoDBv2
+Install-Package AWSSDK.DynamoDBv2
 ```
 
 In a similar way, you can use the **NuGet Package Manager Console** to load the `Json.NET` library into your own projects in Visual Studio\. At the `PM>` prompt, enter the following command\.
 
 ```
-PM> Install-Package Newtonsoft.Json
+Install-Package Newtonsoft.Json
 ```
 
 ## Next Step<a name="GettingStarted.NET.Prereqs.NextStep"></a>

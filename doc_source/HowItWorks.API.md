@@ -21,10 +21,10 @@ To work with Amazon DynamoDB, your application must use a few simple API operati
 
 *Data plane* operations let you perform create, read, update, and delete \(also called *CRUD*\) actions on data in a table\. Some of the data plane operations also let you read data from a secondary index\.
 
-You can use [PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB](ql-reference.md), to preform these CRUD operations or you can use DynamoDB’s classic CRUD APIs that separates each operation into a distinct API call\. 
+You can use [PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB](ql-reference.md), to perform these CRUD operations or you can use DynamoDB’s classic CRUD APIs that separates each operation into a distinct API call\. 
 
 ### PartiQL \- A SQL\-Compatible Query Language<a name="HowItWorks.API.DataPlane.partiql"></a>
-+ `ExecuteStatement` – Reads multiple items from a table\. You can also write or update a single item item from a table\. When writing or updating a single item, you must specify the primary key attributes\.
++ `ExecuteStatement` – Reads multiple items from a table\. You can also write or update a single item from a table\. When writing or updating a single item, you must specify the primary key attributes\.
 + `BatchExecuteStatement` – Writes, updates or reads multiple items from a table\. This is more efficient than `ExecuteStatement` because your application only needs a single network round trip to write or read the items\.
 
 ### Classic APIs<a name="HowItWorks.API.DataPlane.classic"></a>
@@ -56,9 +56,9 @@ You can use [PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB](ql
 
 ## Transactions<a name="HowItWorks.API.Transactions"></a>
 
-*Transactions* provide atomicity, consistency, isolation, and durability \(ACID\) enabling you to maintain data correctness in your applications more easily\. 
+*Transactions* provide atomicity, consistency, isolation, and durability \(ACID\) enabling you to maintain data correctness in your applications more easily\.
 
-You can use [PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB](ql-reference.md), to preform transactional operations or you can use DynamoDB’s classic CRUD APIs that separates each operation into a distinct API call\. 
+You can use [PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB](ql-reference.md), to perform transactional operations or you can use DynamoDB’s classic CRUD APIs that separates each operation into a distinct API call\.
 
 ### PartiQL \- A SQL\-Compatible Query Language<a name="HowItWorks.API.DataPlane.partiql"></a>
 + `ExecuteTransaction` – A batch operation that allows CRUD operations to multiple items both within and across tables with a guaranteed all\-or\-nothing result\.

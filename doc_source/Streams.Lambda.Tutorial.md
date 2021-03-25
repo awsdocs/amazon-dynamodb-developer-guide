@@ -46,9 +46,9 @@ In this step, you create a DynamoDB table \(`BarkTable`\) to store all of the ba
 1. In the output, look for the `LatestStreamArn`\.
 
    ```
-    ...
-    "LatestStreamArn": "arn:aws:dynamodb:region:accountID:table/BarkTable/stream/timestamp
-    ...
+   ...
+   "LatestStreamArn": "arn:aws:dynamodb:region:accountID:table/BarkTable/stream/timestamp
+   ...
    ```
 
    Make a note of the `region` and the `accountID`, because you need them for the other steps in this tutorial\.
@@ -282,7 +282,7 @@ The `publishNewBark` function processes only the stream events that correspond t
    Enter the following command to test the `publishNewBark` function\.
 
    ```
-   aws lambda invoke  --function-name publishNewBark --payload file://payload.json output.txt
+   aws lambda invoke --function-name publishNewBark --payload file://payload.json output.txt
    ```
 
    If the test was successful, you will see the following output\.

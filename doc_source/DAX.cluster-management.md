@@ -71,17 +71,12 @@ The following example policy shows this approach\. Note how the `DAXDataAPIs` st
                 "dax:PutItem",
                 "dax:UpdateItem",
                 "dax:DeleteItem",
-                "dax:BatchWriteItem",
-                "dax:DefineAttributeList",
-                "dax:DefineAttributeListId",
-                "dax:DefineKeySchema",
-                "dax:Endpoints"
-                ],
+                "dax:BatchWriteItem"
+            ],
             "Effect": "Allow",
             "Resource": [
                 "arn:aws:dax:us-west-2:123456789012:cache/DAXCluster01"
             ]},
-
             {
             "Sid": "DAXManagementAPIs",
             "Action": [

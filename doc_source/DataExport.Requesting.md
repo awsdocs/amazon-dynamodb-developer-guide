@@ -18,7 +18,29 @@ If you want to use the AWS CLI, you must configure it first\. For more informati
 
 ## Amazon S3 setup and permissions<a name="DataExport.Requesting.Permissions"></a>
 
-You can export your table data to any Amazon S3 bucket you have permission to write to\. The destination bucket does not need to be in the same region or have the same owner as the source table\. Your AWS Identity and Access Management \(IAM\) policy should allow the `s3:AbortMultipartUpload` and `s3:PutObject` actions, as shown in the following example\.
+You can export your table data to any Amazon S3 bucket you have permission to write to\. The destination bucket does not need to be in the same region or have the same owner as the source table\. Your AWS Identity and Access Management \(IAM\) policy should allow the `s3:AbortMultipartUpload` and `s3:PutObject` actions, in addition to the `dynamodb:ExportTableToPointInTime` permission, as shown in the following example\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowDynamoDBExportAction",
+            "Effect": "Allow",
+            "Action": "dynamodb:ExportTableToPointInTime",
+            "Resource": "arn:aws:dynamodb:us-east-1:111122223333:table/my-table"
+        },
+        {
+            "Sid": "AllowWriteToDestinationBucket",
+            "Effect": "Allow",
+            "Action": [ "s3:PutObject", "s3:AbortMultipartUpload" ],
+            "Resource": "arn:aws:s3:::your-bucket/*"
+        }
+    ]
+}
+```
+
+The following code is an example S3 bucket policy \(in the target account\)\.
 
 ```
 {
