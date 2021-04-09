@@ -9,7 +9,7 @@ Well\-designed sort keys have two key benefits:
   For example, in a table listing geographical locations, you might structure the sort key as follows\.
 
   ```
-  [country]#[region]#[state]#[county]#[city]#[neighborhood]
+  [country]#[region]#[state]#[city]#[neighborhood]
   ```
 
   This would let you make efficient range queries for a list of locations at any one of these levels of aggregation, from `country`, to a `neighborhood`, and everything in between\.
