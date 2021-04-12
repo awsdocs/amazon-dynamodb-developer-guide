@@ -177,7 +177,7 @@ Most exponential backoff algorithms use jitter \(randomized delay\) to prevent s
 
 ## Batch Operations and Error Handling<a name="Programming.Errors.BatchOperations"></a>
 
-The DynamoDB low\-level API supports batch operations for reads and writes\. `BatchGetItem` reads items from one or more tables, and `BatchWriteItem` puts or deletes items in one or more tables\. These batch operations are implemented as wrappers around other non\-batch DynamoDB operations\. In other words, `BatchGetItem` invokes `GetItem` once for each item in the batch\. Similarly,`BatchWriteItem` invokes `DeleteItem` or `PutItem`, as appropriate, for each item in the batch\.
+The DynamoDB low\-level API supports batch operations for reads and writes\. `BatchGetItem` reads items from one or more tables, and `BatchWriteItem` puts or deletes items in one or more tables\. These batch operations are implemented as wrappers around other non\-batch DynamoDB operations\. In other words, `BatchGetItem` invokes `GetItem` once for each item in the batch\. Similarly, `BatchWriteItem` invokes `DeleteItem` or `PutItem`, as appropriate, for each item in the batch\.
 
 A batch operation can tolerate the failure of individual requests in the batch\. For example, consider a `BatchGetItem` request to read five items\. Even if some of the underlying `GetItem` requests fail, this does not cause the entire `BatchGetItem` operation to fail\. However, if all five read operations fail, then the entire `BatchGetItem` fails\.
 
