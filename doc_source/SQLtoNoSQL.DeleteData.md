@@ -32,8 +32,8 @@ In DynamoDB, you use the `DeleteItem` action to delete data from a table, one it
 {
     TableName: "Music",
     Key: {
-        Artist: "The Acme Band",
-        SongTitle: "Look Out, World"
+        Artist: { S: "The Acme Band" },
+        SongTitle: { S: "Look Out, World" }
     }
 }
 ```
@@ -47,8 +47,8 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 {
     TableName: "Music",
     Key: {
-        Artist: "The Acme Band",
-        SongTitle: "Look Out, World"
+        Artist: { S: "The Acme Band" },
+        SongTitle: { S: "Look Out, World" }
     },
    ConditionExpression: "attribute_exists(RecordLabel)"
 }
