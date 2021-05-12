@@ -9,10 +9,12 @@ A *DynamoDB stream* is an ordered flow of information about changes to items in 
 Whenever an application creates, updates, or deletes items in the table, DynamoDB Streams writes a stream record with the primary key attributes of the items that were modified\. A *stream record* contains information about a data modification to a single item in a DynamoDB table\. You can configure the stream so that the stream records capture additional information, such as the "before" and "after" images of modified items\.
 
 DynamoDB Streams helps ensure the following:
-+ Each stream record appears exactly once in the stream\.
++ Each stream record appears exactly once in the stream\.\*
 + For each item that is modified in a DynamoDB table, the stream records appear in the same sequence as the actual modifications to the item\.
 
 DynamoDB Streams writes stream records in near\-real time so that you can build applications that consume these streams and take action based on the contents\.
+
+\* Note that while DynamoDB Streams ensures exactly-once delivery, this does not apply to Lambda functions that retrieve records from the stream. These Lambda functions might be invoked more than once, so customers should be aware that duplicate records may appear in any client system.
 
 **Topics**
 + [Endpoints for DynamoDB Streams](#Streams.Endpoints)
