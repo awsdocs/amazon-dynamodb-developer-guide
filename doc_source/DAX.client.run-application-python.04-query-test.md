@@ -48,7 +48,12 @@ if __name__ == '__main__':
     parser.add_argument(
         'endpoint_url', nargs='?',
         help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+    parser.add_argument(
+        'region', nargs='?',
+        help="The DAX cluster region.")
     args = parser.parse_args()
+    if 'endpoint_url' in vars(args) and 'region' not in vars(args):
+        parser.error('The -endpoint_url argument requires the -region argument')
 
     test_partition_key = 5
     test_sort_keys = (2, 9)
@@ -56,7 +61,8 @@ if __name__ == '__main__':
     if args.endpoint_url:
         print(f"Querying the table {test_iterations} times, using the DAX client.")
         # Use a with statement so the DAX client closes the cluster after completion.
-        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url, 
+                                                region_name=args.region) as dax:
             test_start, test_end = query_test(
                 test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax)
     else:
