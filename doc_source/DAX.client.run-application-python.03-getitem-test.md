@@ -58,7 +58,8 @@ if __name__ == '__main__':
         print(f"Getting each item from the table {test_iterations} times, "
               f"using the DAX client.")
         # Use a with statement so the DAX client closes the cluster after completion.
-        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url, region_name=args.region) as dax:
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url, 
+                                                region_name=args.region) as dax:
             test_start, test_end = get_item_test(
                 test_key_count, test_iterations, dyn_resource=dax)
     else:

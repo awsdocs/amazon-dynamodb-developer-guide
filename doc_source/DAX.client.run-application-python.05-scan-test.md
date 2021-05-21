@@ -39,13 +39,19 @@ if __name__ == '__main__':
     parser.add_argument(
         'endpoint_url', nargs='?',
         help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+    parser.add_argument(
+        'region', nargs='?',
+        help="The DAX cluster region.")
     args = parser.parse_args()
+    if 'endpoint_url' in vars(args) and 'region' not in vars(args):
+        parser.error('The -endpoint_url argument requires the -region argument')
 
     test_iterations = 100
     if args.endpoint_url:
         print(f"Scanning the table {test_iterations} times, using the DAX client.")
         # Use a with statement so the DAX client closes the cluster after completion.
-        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url, 
+                                                region_name=args.region) as dax:
             test_start, test_end = scan_test(test_iterations, dyn_resource=dax)
     else:
         print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
