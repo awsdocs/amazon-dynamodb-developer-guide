@@ -14,6 +14,7 @@ A single `Scan` request can retrieve a maximum of 1 MB of data\. Optionally, Dyn
 + [Capacity Units Consumed by Scan](#Scan.CapacityUnits)
 + [Read Consistency for Scan](#Scan.ReadConsistency)
 + [Parallel Scan](#Scan.ParallelScan)
++ [Parallel Scan Performance](#Scan.ParallelScanPerformance)
 + [Scanning Tables and Indexes: Java](ScanJavaDocumentAPI.md)
 + [Scanning Tables and Indexes: \.NET](LowLevelDotNetScanning.md)
 
@@ -167,5 +168,14 @@ In this diagram, the application spawns three threads and assigns each thread a 
 The values for `Segment` and `TotalSegments` apply to individual `Scan` requests, and you can use different values at any time\. You might need to experiment with these values, and the number of workers you use, until your application achieves its best performance\.
 
 **Note**  
-A parallel scan with a large number of workers can easily consume all of the provisioned throughput for the table or index being scanned\. It is best to avoid such scans if the table or index is also incurring heavy read or write activity from other applications\.  
+A parallel scan with a large number of workers can easily consume all of the provisioned throughput for the table or index being scanned\. It is best to avoid such scans if the table or index is also incurring heavy read or write activity from other applications\.
+
 To control the amount of data returned per request, use the `Limit` parameter\. This can help prevent situations where one worker consumes all of the provisioned throughput, at the expense of all other workers\.
+
+## Parallel Scan Performance<a name="Scan.ParallelScanPerformance"></a>
+
+Parallel scan segments map very closely to the underlying storage for DynamoDB tables\. This means that if many clients scan many sequential segments in parallel with a very large number of total segments, the segments all map onto keys that are stored on the same underlying storage\. This can cause throttling and an inability to take advantage of all provisioned throughput, as all data is mapping to a single portion of the DynamoDB service\.
+
+An example of this is scanning segments 0, 1, 2, 3, 4 and 5 of 1,000,000 total segments simultaniously.
+
+Instead, split the segment space into equal portions per thread - for example with 2 threads, split the total segment space into ranges from 0 to 499999 and 500000 to 999999 and scan those spaces individually, so segments 0 and 500000 are scanned first, then 1 and 500001, and so on\.
