@@ -29,6 +29,7 @@ This section describes how to use these operations and includes related topics, 
 + [Expiring Items By Using DynamoDB Time to Live \(TTL\)](TTL.md)
 + [Working with Items: Java](JavaDocumentAPIItemCRUD.md)
 + [Working with Items: \.NET](LowLevelDotNetItemCRUD.md)
++ [Working with Items: Python](PythonDocumentAPIItemCRUD.md)
 
 ## Reading an Item<a name="WorkingWithItems.ReadingData"></a>
 
