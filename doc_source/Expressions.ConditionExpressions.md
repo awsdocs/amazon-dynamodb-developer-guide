@@ -22,6 +22,10 @@ The arguments for `--item` are stored in the `item.json` file\. \(For simplicity
 }
 ```
 
+**Note**  
+To learn more about how Conditional Write works, its idempotency model, and how it consumes Capacity Units, also check the **Conditional Writes** section in [Working with Items](WorkingWithItems.html) page.
+
+
 **Topics**
 + [Conditional Put](#Expressions.ConditionExpressions.PreventingOverwrites)
 + [Conditional Deletes](#Expressions.ConditionExpressions.AdvancedComparisons)
