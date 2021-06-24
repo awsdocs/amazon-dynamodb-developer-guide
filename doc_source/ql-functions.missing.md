@@ -20,5 +20,5 @@ Returns `TRUE` if the item does not contain the attribute specified\. Only equal
 ## Examples<a name="ql-functions.missing.examples"></a>
 
 ```
-SELECT * FROM Music WHERE "Awards" is MISSING
+SELECT * FROM Music WHERE "Awards" IS MISSING
 ```
