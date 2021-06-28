@@ -54,7 +54,7 @@ DynamoDB supports two different kinds of primary keys:
 
   DynamoDB uses the partition key value as input to an internal hash function\. The output from the hash function determines the partition \(physical storage internal to DynamoDB\) in which the item will be stored\. All items with the same partition key value are stored together, in sorted order by sort key value\.
 
-  In a table that has a partition key and a sort key, it's possible for two items to have the same partition key value\. However, those two items must have different sort key values\.
+  In a table that has a partition key and a sort key, it's possible for multiple items to have the same partition key value\. However, those items must have different sort key values\.
 
   The *Music* table described in [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes) is an example of a table with a composite primary key \(*Artist* and *SongTitle*\)\. You can access any item in the *Music* table directly, if you provide the *Artist* and *SongTitle* values for that item\.
 
