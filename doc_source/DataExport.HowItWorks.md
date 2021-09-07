@@ -6,7 +6,7 @@ Exporting a table does not consume read capacity on the table, and has no impact
 
 You can choose to export your data in either DynamoDB JSON format or Amazon Ion text format\. For more information about export formats, see [Data objects](DataExport.Output.md#DataExport.Output.Data)\.
 
-You can export data to an S3 bucket owned by a different account if you have the correct permissions to write to that table\. The destination bucket may be in a different region from the source table\. For more information, see [Amazon S3 setup and permissions](DataExport.Requesting.md#DataExport.Requesting.Permissions)\.
+You can export data to an S3 bucket owned by a different account if you have the correct permissions to write to that bucket\. The destination bucket may be in a different region from the source table\. For more information, see [Amazon S3 setup and permissions](DataExport.Requesting.md#DataExport.Requesting.Permissions)\.
 
 Up to 300 export tasks, or up to 100 TB of table size, can be exported concurrently\.
 
