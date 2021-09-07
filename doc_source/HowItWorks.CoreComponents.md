@@ -74,7 +74,7 @@ DynamoDB supports two kinds of indexes:
 + Global secondary index – An index with a partition key and sort key that can be different from those on the table\.
 + Local secondary index – An index that has the same partition key as the table, but a different sort key\.
 
-Each table in DynamoDB has a quota of 20 global secondary indexes \(default quota\) and 5 local secondary indexes per table\.
+Each table in DynamoDB has a quota of 20 global secondary indexes \(default quota\) and 5 local secondary indexes\.
 
 In the example *Music* table shown previously, you can query data items by *Artist* \(partition key\) or by *Artist* and *SongTitle* \(partition key and sort key\)\. What if you also wanted to query the data by *Genre* and *AlbumTitle*? To do this, you could create an index on *Genre* and *AlbumTitle*, and then query the index in much the same way as you'd query the *Music* table\.
 
