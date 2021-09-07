@@ -64,7 +64,7 @@ Follow this procedure to run the Amazon DynamoDB Accelerator \(DAX\) SDK for Go 
    + **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console, as in the following example\.
 
      ```
-     mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+     dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
      ```
    + **Using the AWS CLI** — Enter the following command\.
 
@@ -72,27 +72,28 @@ Follow this procedure to run the Amazon DynamoDB Accelerator \(DAX\) SDK for Go 
      aws dax describe-clusters --query "Clusters[*].ClusterDiscoveryEndpoint"
      ```
 
-     The cluster endpoint port and address are shown in the output, as in the following example\.
+     The cluster endpoint is shown in the output, as in the following example\.
 
      ```
      {
+         "Address": "my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com",
          "Port": 8111,
-         "Address":"mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com"
+         "URL": "dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com"
      }
      ```
 
    Now run the programs again, but this time, specify the cluster endpoint as a command line parameter\.
 
    ```
-   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command get-item -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command get-item -endpoint dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    ```
-   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command query -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command query -endpoint dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    ```
-   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command scan -endpoint mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   go run ~/go/src/github.com/aws-samples/aws-dax-go-sample/try_dax.go -service dax -command scan -endpoint dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query`, and `Scan` should be significantly lower with DAX than with DynamoDB\.

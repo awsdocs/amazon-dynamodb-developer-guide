@@ -19,7 +19,7 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
   ```
 **Note**  
  The version of AWS SDK for JavaScript might have been updated\. For the latest version, see the [AWS SDK for JavaScript API Reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/)\. 
-+ Enable [cross\-origin resource sharing \(CORS\)](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cors.html) so that your computer's browser can communicate with the downloadable version of DynamoDB\.
++ Enable [cross\-origin resource sharing \(CORS\)](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/cors.html) so that your computer's browser can communicate with the downloadable version of DynamoDB\.
 
 **To enable CORS**
 

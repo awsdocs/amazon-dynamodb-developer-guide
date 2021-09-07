@@ -56,6 +56,7 @@ namespace DynamoDB_intro
             return response;
         }
     }
+}
 ```
 
 ## Use a QueryOperationConfig to Create a More Complex Query Search<a name="GettingStarted.NET.08.b"></a>

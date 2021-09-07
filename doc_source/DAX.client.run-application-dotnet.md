@@ -55,15 +55,13 @@ After you do this, you should be able to run the `dotnet --version` command with
 
    ```
    <Project Sdk="Microsoft.NET.Sdk">
-   
-     <PropertyGroup>
-       <OutputType>Exe</OutputType>
-       <TargetFramework>netcoreapp2.0</TargetFramework>
-     </PropertyGroup>
-     <ItemGroup>
-       <PackageReference Include="AWSSDK.DAX.Client" Version="*" />
-     </ItemGroup>
-   
+       <PropertyGroup>
+           <OutputType>Exe</OutputType>
+           <TargetFramework>netcoreapp2.0</TargetFramework>
+       </PropertyGroup>
+       <ItemGroup>
+           <PackageReference Include="AWSSDK.DAX.Client" Version="*" />
+       </ItemGroup>
    </Project>
    ```
 
@@ -95,7 +93,7 @@ After you do this, you should be able to run the `dotnet --version` command with
    +  **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console, as in the following example\.
 
      ```
-     mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+     dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
      ```
    + **Using the AWS CLI** — Enter the following command\.
 
@@ -103,12 +101,13 @@ After you do this, you should be able to run the `dotnet --version` command with
      aws dax describe-clusters --query "Clusters[*].ClusterDiscoveryEndpoint"
      ```
 
-     The cluster endpoint port and address are shown in the output, as in the following example\.
+     The cluster endpoint is shown in the output, as in the following example\.
 
      ```
      {
+         "Address": "my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com",
          "Port": 8111,
-         "Address":"mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com"
+         "URL": "dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com"
      }
      ```
 
@@ -116,13 +115,13 @@ After you do this, you should be able to run the `dotnet --version` command with
 
    ```
    cp 03-GetItem-Test.cs myApp/Program.cs
-   dotnet run --project myApp mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    
    cp 04-Query-Test.cs myApp/Program.cs
-   dotnet run --project myApp mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    
    cp 05-Scan-Test.cs myApp/Program.cs
-   dotnet run --project myApp mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query`, and `Scan` tests\.

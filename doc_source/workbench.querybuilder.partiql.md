@@ -35,6 +35,8 @@ To run or generate code for a PartiQL statement, do the following\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+
 ## Transactions<a name="workbench.querybuilder.partiql.transaction"></a>
 
 To run or generate code for a PartiQL transaction, do the following\.
@@ -67,6 +69,8 @@ Read and write operations are not supported in the same PartiQL transaction requ
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+
 ## Batch<a name="workbench.querybuilder.partiql.batch"></a>
 
 To run or generate code for a PartiQL batch, do the following\.
@@ -98,3 +102,5 @@ To run or generate code for a PartiQL batch, do the following\.
    Select your desired language from the displayed tabs\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.

@@ -150,7 +150,7 @@ Plan for the additional reads and writes that are required by transactional APIs
 
 If you were using DynamoDB Accelerator \(DAX\) in the previous example, you would also use two read capacity units \(RCUs\) for each item in the `TransactWriteItems` call\. So you would need to provision six additional RCUs to the table\.
 
-Similarly, if your application runs one read transaction per second, and each transaction reads three 500\-byte items in your table, you would need to provision six read capacity units \(RCUs\) to the table\. Reading each item require two RCUs: one to prepare the transaction and one to commit the transaction\.
+Similarly, if your application runs one read transaction per second, and each transaction reads three 500\-byte items in your table, you would need to provision six read capacity units \(RCUs\) to the table\. Reading each item requires two RCUs: one to prepare the transaction and one to commit the transaction\.
 
 Also, default SDK behavior is to retry transactions in case of a `TransactionInProgressException` exception\. Plan for the additional read\-capacity units \(RCUs\) that these retries consume\. The same is true if you are retrying transactions in your own code using a `ClientRequestToken`\.
 

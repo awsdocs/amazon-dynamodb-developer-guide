@@ -29,7 +29,7 @@ Similarly, if you use `ADD` for an existing item to increment or decrement an at
 
 If you provide any attributes that are part of an index key, then the data types for those attributes must match those of the schema in the table's attribute definition\.
 
-## Use *UpdateExpression* Instead<a name="w273aac38c23c19c13"></a>
+## Use *UpdateExpression* Instead<a name="w283aac38c23c19c13"></a>
 
 Suppose you wanted to modify an item in the *Music* table\. You could use an `UpdateItem` request with an `AttributeUpdates` parameter, as in this AWS CLI example:
 

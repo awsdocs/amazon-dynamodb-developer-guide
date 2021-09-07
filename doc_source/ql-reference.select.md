@@ -4,7 +4,7 @@ Use the `SELECT` statement to retrieve data from a table in Amazon DynamoDB\.
 
 Using the `SELECT` statement can result in a full table scan if an equality condition with a partition key is not provided in the WHERE clause\. A scan operation examines every item for the requested values and can use up the provisioned throughput for a large table or index in a single operation\. 
 
-If you want to avoid full table scan in PartiQL, you can: 
+If you want to avoid full table scan in PartiQL, you can:
 + Author your `SELECT` statements to not result in full table scans by making sure your [WHERE clause condition](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.select.html#ql-reference.select.parameters) is configured accordingly\.
 + Disable full table scans using the IAM policy specified at [Example: Allow Select statements and deny full table scan statements in PartiQL for DynamoDB](ql-iam.md#access-policy-ql-iam-example6), in the DynamoDB developer guide\.
 
@@ -20,7 +20,7 @@ For more information see [Best Practices for Querying and Scanning Data](https:/
 ```
 SELECT expression  [, ...] 
 FROM table[.index]
-[ WHERE condition ] [ [ORDER BY key  [DESC|ASC] , ...]
+[ WHERE condition ] [ [ORDER BY key [DESC|ASC] , ...]
 ```
 
 ## Parameters<a name="ql-reference.select.parameters"></a>

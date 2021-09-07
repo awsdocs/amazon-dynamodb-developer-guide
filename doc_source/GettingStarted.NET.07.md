@@ -49,6 +49,7 @@ namespace DynamoDB_intro
      return true;
     }
   }
+}
 ```
 
 `DeletingItem_async` in turn includes the condition `Expression` in a `DeleteItemOperationConfig` object that it passes to the DynamoDB `Table.DeleteItemAsync` method when it waits on it\.

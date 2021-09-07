@@ -14,30 +14,19 @@ Follow these steps to enable Time to Live using the DynamoDB console:
 
 1. Choose **Tables**, and then choose the table that you want to modify\.
 
-1. In **Table details**, next to **TTL attribute**, choose **Manage TTL**\.  
+1. In the **Additional settings** tab, in the **Time to Live \(TTL\)** section, choose **Enable**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_table.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-1. In the **Manage TTL** dialog box, choose **Enable TTL**, and then enter the **TTL attribute** name\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_manage.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+1. In the **Enable Time to Live \(TTL\)** page, enter the **TTL attribute name**\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_enable.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-   There are three settings in **Manage TTL**:
-   + **Enable TTL** – Choose this to either enable or disable TTL on the table\. It can take up to one hour for the change to fully process\.
-   + **TTL Attribute** – The name of the DynamoDB attribute to store the TTL timestamp for items\.
-   + **24\-hour backup streams** – Choose this setting to enable Amazon DynamoDB Streams on the table\. For more information about how you can use DynamoDB Streams for backup, see [DynamoDB Streams and Time to Live](time-to-live-ttl-streams.md)\.
-
-1. \(Optional\) To preview some of the items that will be deleted when TTL is enabled, choose **Run preview**\. 
+1. \(Optional\) To preview some of the items that will be deleted when TTL is enabled, choose **Run preview**\.
 **Warning**  
- This provides you with a sample list of items\. It does not provide you with a complete list of items that will be deleted by TTL\.
+This provides you with a sample list of items\. It does not provide you with a complete list of items that will be deleted by TTL\.
 
-1. Choose **Continue** to save the settings and enable TTL\.
+1. Choose **Enable TTL** to save the settings and enable TTL\.
 
-Now that TTL is enabled, the TTL attribute is marked **TTL** when you view items on the DynamoDB console\.
-
-You can view the date and time that an item expires by hovering your pointer over the attribute\.
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ttl_items.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
-
-
+Now that TTL is enabled, the TTL attribute is marked **TTL** when you view items on the DynamoDB console\. You can view the date and time that an item expires by hovering your pointer over the attribute\.
 
 ## Enable Time to Live \(AWS CLI\)<a name="time-to-live-ttl-how-to-enable-cli-sdk"></a>
 

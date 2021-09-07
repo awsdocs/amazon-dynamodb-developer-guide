@@ -2,11 +2,6 @@
 
 DynamoDB table exports allow you to export table data to an Amazon S3 bucket, enabling you to perform analytics and complex queries on your data using other AWS services such as Athena, AWS Glue, and Lake Formation\. You can request a table export using the AWS Management Console, the AWS CLI, or the DynamoDB API\.
 
-**Note**  
-DynamoDB table export is only available in the new AWS Management Console view\. If you're not using the new console yet, look for the "Try the new console" link in the navigation sidebar\.  
-
-![\[The link to the new console version is at the bottom of the navigation sidebar.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/new-console-link.png)
-
 If you want to use the AWS CLI, you must configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.
 
 **Topics**
@@ -18,7 +13,7 @@ If you want to use the AWS CLI, you must configure it first\. For more informati
 
 ## Amazon S3 setup and permissions<a name="DataExport.Requesting.Permissions"></a>
 
-You can export your table data to any Amazon S3 bucket you have permission to write to\. The destination bucket does not need to be in the same region or have the same owner as the source table\. Your AWS Identity and Access Management \(IAM\) policy should allow the `s3:AbortMultipartUpload` and `s3:PutObject` actions, in addition to the `dynamodb:ExportTableToPointInTime` permission, as shown in the following example\.
+You can export your table data to any Amazon S3 bucket you have permission to write to\. The destination bucket does not need to be in the same region or have the same owner as the source table\. Your AWS Identity and Access Management \(IAM\) policy should allow the `s3:AbortMultipartUpload`, `s3:PutObject`, and `s3:PutObjectAcl` actions, in addition to the `dynamodb:ExportTableToPointInTime` permission, as shown in the following example\.
 
 ```
 {
@@ -33,7 +28,11 @@ You can export your table data to any Amazon S3 bucket you have permission to wr
         {
             "Sid": "AllowWriteToDestinationBucket",
             "Effect": "Allow",
-            "Action": [ "s3:PutObject", "s3:AbortMultipartUpload" ],
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
             "Resource": "arn:aws:s3:::your-bucket/*"
         }
     ]
@@ -54,7 +53,8 @@ The following code is an example S3 bucket policy \(in the target account\)\.
             },
             "Action": [
                 "s3:AbortMultipartUpload",
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:PutObjectAcl"
             ],
             "Resource": "arn:aws:s3:::awsexamplebucket1/*"
         }
@@ -75,9 +75,9 @@ This procedure assumes that you have enabled point\-in\-time recovery\. To enabl
 
 1. Sign in to the AWS Management Console and open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
-1. In the navigation pane on the left side of the console, choose **Streams and exports**\.
+1. In the navigation pane on the left side of the console, choose **Exports to S3**\.
 
-1. On the **Exports** tab, choose **Export to S3**\.
+1. Choose **Export to S3**\.
 
 1. Choose a source table and destination S3 bucket\. If the desination bucket is owned by your account, you can use the **Browse S3** button to find it\. Otherwise, enter the URL of the bucket using the `s3://bucketname/prefix format.` the **prefix** is an optional folder to help keep your desination bucket organized\.
 

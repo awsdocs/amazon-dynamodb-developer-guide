@@ -221,7 +221,7 @@ System.out.println(item.toJSONPretty());
 {
   "RelatedItems" : [ 341 ],
   "Reviews" : {
-    "FiveStar" : [ "Excellent! Can't recommend it highly enough!  Buy it!", "Do yourself a favor and buy this" ]
+    "FiveStar" : [ "Excellent! Can't recommend it highly enough! Buy it!", "Do yourself a favor and buy this" ]
   },
   "Id" : 123,
   "Title" : "20-Bicycle 123"

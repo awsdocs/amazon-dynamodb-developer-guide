@@ -54,7 +54,6 @@ AWS addresses some common use cases by providing standalone IAM policies that ar
 The following AWS managed policies, which you can attach to users in your account, are specific to DynamoDB and are grouped by use\-case scenario:
 + **AmazonDynamoDBReadOnlyAccess** – Grants read\-only access to DynamoDB resources through the AWS Management Console\.
 + **AmazonDynamoDBFullAccess** – Grants full access to DynamoDB resources through the AWS Management Console\.
-+ **AmazonDynamoDBFullAccesswithDataPipeline** – Grants full access to DynamoDB resources, including export and import using AWS Data Pipeline, through the AWS Management Console\.
 
 You can review these AWS managed permissions policies by signing in to the IAM console and searching for specific policies there\.
 

@@ -17,13 +17,11 @@ You can use the console to do the following in DynamoDB:
 
 The console displays an introductory screen that prompts you to create your first table\. To view your tables, in the navigation pane on the left side of the console, choose **Tables**\.
 
- Here's a high\-level overview of the actions available per table within each navigation tab:
-+ **Overview** – View stream and table details, and manage streams and Time to Live \(TTL\)\.
-+ **Items** – Manage items and perform queries and scans\.
-+ **Metrics** – Monitor Amazon CloudWatch metrics\.
-+ **Alarms** – Manage CloudWatch alarms\.
-+ **Capacity** – Modify a table's provisioned capacity\.
-+ **Indexes** – Manage global secondary indexes\.
-+ **Triggers** – Manage triggers to connect DynamoDB streams to Lambda functions\.
-+ **Access control** – Set up fine\-grained access control with web identity federation\.
-+ **Tags** – Apply tags to your resources to help organize and identify them\.
+Here's a high\-level overview of the actions available per table within each navigation tab:
++ **Overview** – View table details, including item count and metrics\.
++ **Indexes** – Manage global and local secondary indexes\.
++ **Monitor** – View alarms, CloudWatch Contributor Insights, and Cloudwatch metrics\.
++ **Global tables** – Manage table replicas\.
++ **Backups** – Manage point\-in\-time recovery and on\-demand backups\.
++ **Exports and streams** – Export your table to Amazon S3 and manage DynamoDB Streams and Kinesis Data Streams\.
++ **Additional settings** – Manage read/write capacity, Time to Live settings, encryption, and tags\.

@@ -44,7 +44,7 @@ However, unlike the primary node, read replicas don't write to DynamoDB\.
 
 Read replicas serve two additional purposes:
 + **Scalability**\. If you have a large number of application clients that need to access DAX concurrently, you can add more replicas for read\-scaling\. DAX spreads the load evenly across all the nodes in the cluster\. \(Another way to increase throughput is to use larger cache node types\.\)
-+ **High availability**\. In the event of a primary node failure, DAX automatically fails over to a read replica and designates it as the new primary\. If a replica node fails, other nodes in the DAX cluster can still serve requests until the failed node can be recovered\. For maximum fault tolerance, you should deploy read replicas in separate Availability Zones\. This configuration ensures that your DAX cluster can continue to function, even if an entire Availability Zone becomes unavailable\. 
++ **High availability**\. In the event of a primary node failure, DAX automatically fails over to a read replica and designates it as the new primary\. If a replica node fails, other nodes in the DAX cluster can still serve requests until the failed node can be recovered\. For maximum fault tolerance, you should deploy read replicas in separate Availability Zones\. This configuration ensures that your DAX cluster can continue to function, even if an entire Availability Zone becomes unavailable\.
 
 A DAX cluster can support up to 10 nodes per cluster \(the primary node, plus a maximum of nine read replicas\)\.
 
@@ -87,9 +87,13 @@ You use the cluster ARN in an IAM policy to define permissions for DAX API opera
 
 Every DAX cluster provides a *cluster endpoint* for use by your application\. By accessing the cluster using its endpoint, your application does not need to know the hostnames and port numbers of individual nodes in the cluster\. Your application automatically "knows" all the nodes in the cluster, even if you add or remove read replicas\.
 
-The following is an example of a cluster endpoint\.
+The following is an example of a cluster endpoint in the us\-east\-1 region that is not configured to use encryption in transit\.
 
-`myDAXcluster.2cmrwl.clustercfg.dax.use1.cache.amazonaws.com:8111`
+`dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com`
+
+The following is an example of a cluster endpoint in the same region that is configured to use encryption in transit\.
+
+`daxs://my-encrypted-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com`
 
 ## Node Endpoints<a name="DAX.concepts.node-endpoints"></a>
 
@@ -127,6 +131,7 @@ The 60\-minute maintenance window is selected at random from an 8\-hour block of
 |  ap\-southeast\-2  |  Asia Pacific \(Sydney\) Region  |  12:00–20:00 UTC  | 
 |  ap\-south\-1  |  Asia Pacific \(Mumbai\) Region  |  17:30–1:30 UTC  | 
 |  cn\-northwest\-1  |  China \(Ningxia\) Region  |  23:00–07:00 UTC  | 
+|  cn\-north\-1  |  China \(Beijing\) Region  |  14:00–22:00 UTC | 
 |  eu\-central\-1  |  Europe \(Frankfurt\) Region  |  23:00–07:00 UTC  | 
 |  eu\-west\-1  |  Europe \(Ireland\) Region  |  22:00–06:00 UTC  | 
 |  eu\-west\-2  |  Europe \(London\) Region  |  23:00–07:00 UTC  | 

@@ -18,4 +18,4 @@ dynamodb = boto3.resource('dynamodb',region_name='us-west-2')
 
 Instead of using the downloadable version of DynamoDB on your computer, the program now uses the DynamoDB web service in the US West \(Oregon\) Region\.
 
-DynamoDB is available in AWS Regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see [AWS Region Selection](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html) in the *AWS SDK for Java Developer Guide*\.
+DynamoDB is available in AWS Regions worldwide\. For the complete list, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\. For more information about setting Regions and endpoints in your code, see [AWS Region Selection](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java-dg-region-selection.html) in the *AWS SDK for Java Developer Guide*\.

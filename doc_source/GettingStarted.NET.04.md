@@ -41,6 +41,7 @@ namespace DynamoDB_intro
             return result;
         }
     }
+}
 ```
 
 `WritingNewMovie_async` begins by checking to determine whether the new movie has already been added to the `Movies` table\. If it has not, it waits for the DynamoDB `Table.PutItemAsyn` method to add the new movie record\.

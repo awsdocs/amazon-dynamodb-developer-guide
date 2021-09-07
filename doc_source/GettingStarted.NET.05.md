@@ -28,6 +28,7 @@ namespace DynamoDB_intro
       }
     }
   }
+}
 ```
 
 `ReadingMovie_async` in turn waits on the DynamoDB `Table.GetItemAsyn` method to retrieve the new movie record as a `Document`\. `ReadingMovie_async` then displays the movie as JSON text using the `Document.ToJsonPretty` method\.

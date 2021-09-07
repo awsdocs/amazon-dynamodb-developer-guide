@@ -226,7 +226,7 @@ The `publishNewBark` function processes only the stream events that correspond t
 
    ```
    aws lambda create-function \
-       --region us-east-1 \
+       --region region \
        --function-name publishNewBark \
        --zip-file fileb://publishNewBark.zip \
        --role roleARN \
@@ -247,7 +247,7 @@ The `publishNewBark` function processes only the stream events that correspond t
                "eventName": "INSERT",
                "eventVersion": "1.1",
                "eventSource": "aws:dynamodb",
-               "awsRegion": "us-west-2",
+               "awsRegion": "region",
                "dynamodb": {
                    "ApproximateCreationDateTime": 1479499740,
                    "Keys": {
@@ -273,7 +273,7 @@ The `publishNewBark` function processes only the stream events that correspond t
                    "SizeBytes": 112,
                    "StreamViewType": "NEW_IMAGE"
                },
-               "eventSourceARN": "arn:aws:dynamodb:us-east-1:123456789012:table/BarkTable/stream/2016-11-16T20:42:48.104"
+               "eventSourceARN": "arn:aws:dynamodb:region:123456789012:table/BarkTable/stream/2016-11-16T20:42:48.104"
            }
        ]
    }
@@ -329,7 +329,7 @@ In [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFu
 
    ```
    aws lambda create-event-source-mapping \
-       --region us-east-1 \
+       --region region \
        --function-name publishNewBark \
        --event-source streamARN  \
        --batch-size 1 \

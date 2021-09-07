@@ -11,7 +11,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=Artist,KeyType=HASH \
         AttributeName=SongTitle,KeyType=RANGE \
---provisioned-throughput \
+    --provisioned-throughput \
         ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
 

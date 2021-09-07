@@ -15,13 +15,13 @@ Items that are deleted by the Time to Live process after expiration have the fol
 The following JSON shows the relevant portion of a single streams record\.
 
 ```
-"Records":[
+"Records": [
     {
         ...
 
-        "userIdentity":{
-            "type":"Service",
-            "principalId":"dynamodb.amazonaws.com"
+        "userIdentity": {
+            "type": "Service",
+            "principalId": "dynamodb.amazonaws.com"
         }
 
         ...

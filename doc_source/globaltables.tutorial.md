@@ -29,21 +29,30 @@ Follow these steps to create a global table using the console\. The following ex
 
    To create the table, choose **Create**\. This table serves as the first replica table in a new global table\. It is the prototype for other replica tables that you add later\.
 
-1. Choose the **Global Tables** tab, and then choose **Enable streams**\. Keep the **View type** at its default value \(New and old images\)\. 
+1. Choose the **Global Tables** tab, and then choose **Create a version 2017\.11\.29 replica**\.  
+![\[Console screenshot showing the Create a version 2017.11.29 replica button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-old.png)
 
-1. Choose **Add region**, and choose **Global table 2017\.11\.29 mode**\. You can now choose another Region where you want to deploy another replica table\. In this case, choose **US West \(Oregon\)**, and then choose **Continue**\. This starts the table creation process in US West \(Oregon\)\.
+1. From the **Available replication Regions** dropdown, choose **US West \(Oregon\)**\.
 
-   The console checks to ensure that there is no table with the same name in the selected Region\. \(If a table with the same name does exist, you must delete the existing table before you can create a new replica table in that Region\.\)
+   The console checks to ensure that a table with the same name doesn't exist in the selected Region\. If a table with the same name does exist, you must delete the existing table before you can create a new replica table in that Region\.
 
-   The **Global Table** tab for the selected table \(and for any other replica tables\) will show that the table is replicated in multiple Regions\. 
+1. Choose **Create Replica**\. This starts the table creation process in US West \(Oregon\);\.
 
-1. Now add another Region so that your global table is replicated and synchronized across the United States and Europe\. To do this, repeat step 5, but this time, specify **EU \(Frankfurt\)** instead of **US West \(Oregon\)**\.
+   The **Global Table** tab for the selected table \(and for any other replica tables\) shows that the table has been replicated in multiple Regions\.
 
-1. You should still be using the AWS Management Console in the us\-east\-2 \(US East Ohio\) Region\. For the **Music** table, choose the **Items** tab, and then choose **Create Item**\. For **Artist**, enter **item\_1**\. For **SongTitle**, enter **Song Value 1**\. To write the item, choose **Save**\.
+1. Now add another Region so that your global table is replicated and synchronized across the United States and Europe\. To do this, repeat step 5, but this time, specify **Europe \(Frankfurt\)** instead of **US West \(Oregon\)**\.
 
-   After a short time, the item is replicated across all three Regions of your global table\. To verify this, in the console, on the Region selector in the upper\-right corner, choose **Europe \(Frankfurt\)**\. The `Music` table in Europe \(Frankfurt\) should contain the new item\.
+1. You should still be using the AWS Management Console in the US East \(Ohio\) Region\. Select **Items** in the left navigation menu, select the **Music** table, then choose **Create Item**\.
 
-   Repeat this for US West \(Oregon\)\.
+   1. For **Artist**, enter **item\_1**\.
+
+   1. For **SongTitle**, enter **Song Value 1**\.
+
+   1. To write the item, choose **Create item**\.
+
+1. After a short time, the item is replicated across all three Regions of your global table\. To verify this, in the console, on the Region selector in the upper\-right corner, choose **Europe \(Frankfurt\)**\. The `Music` table in Europe \(Frankfurt\) should contain the new item\.
+
+1. Repeat this for US West \(Oregon\)\.
 
 ## Creating a Global Table \(AWS CLI\)<a name="creategt_cli"></a>
 

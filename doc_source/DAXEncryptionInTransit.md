@@ -1,0 +1,10 @@
+# DAX Encryption in Transit<a name="DAXEncryptionInTransit"></a>
+
+Amazon DynamoDB Accelerator \(DAX\) supports encryption in transit of data between your application and your DAX cluster, enabling you to use DAX in applications with stringent encryption requirements\.
+
+Regardless of whether or not you choose encryption in transit, traffic between your application and your DAX cluster remains in your Amazon VPC\. This traffic is routed to Elastic Network Interfaces with private IPs in your VPC that are attached to the nodes of your cluster\. With your VPC as the trust boundary, you have significant control over the security of your data through the use of standard tools like security groups, subnet segmentation with Network ACLs, and VPC flow tracing\. DAX encryption in transit adds to this baseline level of confidentiality, ensuring that all requests and responses between the application and the cluster are encrypted by transport level security \(TLS\), and connections to the cluster can be authenticated by verification of a cluster x509 certificate\. Data written to disk by DAX can also be encrypted if you choose [encryption at rest](DAXEncryptionAtRest.md) when creating your DAX cluster\.
+
+Using encryption in transit with DAX is easy\. Simply select this option when creating a new cluster, and use a recent version of any of the [DAX clients](DAX.client.md) in your application\. Clusters that use encryption in transit do not support unencrypted traffic, so there is no chance to misconfigure your application and bypass encryption\. The DAX client will use the cluster's x509 certificate to authenticate the identity of the cluster when it establishes connections, ensuring that your DAX requests go where intended\. All methods of creating DAX clusters support encryption in transit: the AWS Management Console, AWS CLI, all SDKs, and AWS CloudFormation\.
+
+Encryption in transit cannot be enabled on an existing DAX cluster\. To use encryption in transit in an existing DAX application, create a new cluster with encryption in transit enabled, shift your application's traffic to it, then delete the old cluster\.
+

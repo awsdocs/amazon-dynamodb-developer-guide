@@ -345,4 +345,5 @@ namespace com.amazonaws.codesamples
             Console.WriteLine("************************************************");
         }
     }
+}
 ```

@@ -4,7 +4,7 @@ Amazon DynamoDB Accelerator \(DAX\) encryption at rest provides an additional la
 
 With encryption at rest, the data persisted by DAX on disk is encrypted using 256\-bit Advanced Encryption Standard, also known as AES\-256 encryption\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. 
 
-DAX encryption at rest automatically integrates with AWS Key Management Service \(AWS KMS\) for managing the single service default key that is used to encrypt your clusters\. If a service default key doesn't exist when you create your encrypted DAX cluster, AWS KMS automatically creates a new key for you\. This key is used with encrypted clusters that are created in the future\. AWS KMS combines secure, highly available hardware and software to provide a key management system scaled for the cloud\. 
+DAX encryption at rest automatically integrates with AWS Key Management Service \(AWS KMS\) for managing the single service default key that is used to encrypt your clusters\. If a service default key doesn't exist when you create your encrypted DAX cluster, AWS KMS automatically creates a new AWS managed key for you\. This key is used with encrypted clusters that are created in the future\. AWS KMS combines secure, highly available hardware and software to provide a key management system scaled for the cloud\. 
 
 After your data is encrypted, DAX handles the decryption of your data transparently with minimal impact on performance\. You don't need to modify your applications to use encryption\. 
 

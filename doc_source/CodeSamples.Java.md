@@ -53,7 +53,7 @@ If you are using the AWS Toolkit for Eclipse, you can configure automatic update
 
 ## Java: Setting Your AWS Credentials<a name="CodeSamples.Java.Credentials"></a>
 
-The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
+The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
 
 The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory\.
 
@@ -83,8 +83,22 @@ You can use the `withRegion` method to run your code against DynamoDB in any Reg
 
 If you want to run the code examples using DynamoDB locally on your computer, set the endpoint as follows\.
 
+### AWS SDK V1<a name="CodeSamples.Java.RegionAndEndpoint.V1"></a>
+
 ```
 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(
 new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
 .build();
+```
+
+### AWS SDK V2<a name="CodeSamples.Java.RegionAndEndpoint.V2"></a>
+
+```
+DynamoDbClient client = DynamoDbClient.builder()
+    .endpointOverride(URI.create("http://localhost:8000"))
+    // The region is meaningless for local DynamoDb but required for client builder validation
+    .region(Region.US_EAST_1)
+    .credentialsProvider(StaticCredentialsProvider.create(
+    AwsBasicCredentials.create("dummy-key", "dummy-secret")))
+    .build();
 ```

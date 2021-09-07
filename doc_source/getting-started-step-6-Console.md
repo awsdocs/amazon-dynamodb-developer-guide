@@ -13,5 +13,9 @@ To use the Amazon DynamoDB console to create a global secondary index `AlbumTitl
 1. Choose **Create index**\.  
 ![\[Console screenshot showing the create index button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/CreateGSI.png)
 
-1. For the **Partition key**, enter **AlbumTitle**, and then choose **Create index**\.  
+1. For the **Partition key**, enter **AlbumTitle**\.
+
+1. For **Index name**, enter **AlbumTitle\-index**\.
+
+1. Leave the other settings on their default values and choose **Create index**\.  
 ![\[Console screenshot showing the completed fields in the create index dialog box.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/CreateGSIDetails.png)

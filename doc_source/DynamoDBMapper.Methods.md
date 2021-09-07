@@ -4,7 +4,7 @@
 
 The `DynamoDBMapper` class is the entry point to Amazon DynamoDB\. It provides access to a DynamoDB endpoint and enables you to access your data in various tables\. It also enables you to perform various create, read, update, and delete \(CRUD\) operations on items, and run queries and scans against tables\. This class provides the following methods for working with DynamoDB\.
 
-For the corresponding Javadoc documentation, see [DynamoDBMapper](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
+For the corresponding Javadoc documentation, see [DynamoDBMapper](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapper.html) in the *AWS SDK for Java API Reference*\.
 
 **Topics**
 + [save](#DynamoDBMapper.Methods.save)
@@ -395,7 +395,7 @@ item.getProductImage().uploadFrom(new File("/file/path/book_150_cover.jpg"));
 mapper.save(item);
 ```
 
-The `S3Link` class provides many other methods for manipulating objects in Amazon S3\. For more information, see the [Javadocs for `S3Link`](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/S3Link.html)\.
+The `S3Link` class provides many other methods for manipulating objects in Amazon S3\. For more information, see the [Javadocs for `S3Link`](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/dynamodbv2/datamodeling/S3Link.html)\.
 
 ## getS3ClientCache<a name="DynamoDBMapper.Methods.getS3ClientCache"></a>
 

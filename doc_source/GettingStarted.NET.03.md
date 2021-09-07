@@ -115,6 +115,7 @@ namespace DynamoDB_intro
             return true;
         }
     }
+}
 ```
 
 `LoadingData_async` begins by waiting on `ReadJsonMovieFile_async`\. This function reads the `moviedata.json` file using the open\-source [Newtonsoft Json\.NET library](https://www.newtonsoft.com/json), which is licensed under the [MIT License](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md)\.

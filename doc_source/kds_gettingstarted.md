@@ -2,7 +2,7 @@
 
    Get started quickly to learn and implement change data capture with DynamoDB and Kinesis Data Streams to integrate with other AWS services\.   
 
-This section describes how to use Amazon Kinesis Data Streams for Amazon DynamoDB with the Amazon DynamoDB console, the AWS Command Line Interface \(AWS CLI\), and the APIs\. 
+This section describes how to use Amazon Kinesis Data Streams for Amazon DynamoDB with the Amazon DynamoDB console, the AWS Command Line Interface \(AWS CLI\), and the APIs\.
 
 All of these examples use the `Music` DynamoDB table that was created as part of the [Getting Started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) tutorial\.
 
@@ -13,20 +13,20 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 
 1. Choose **Create data stream** and follow the instructions to create a stream called `samplestream`\. 
 
-1. Open the DynamoDB console at https://console\.aws\.amazon\.com/dynamodb/\. 
+1. Open the DynamoDB console at https://console\.aws\.amazon\.com/dynamodb/\.
 
-1. In the navigation pane on the left side of the console, choose **Tables**\. 
+1. In the navigation pane on the left side of the console, choose **Tables**\.
 
-1. Choose the **Music** table\. 
+1. Choose the **Music** table\.
 
-1. Choose the **Overview** tab\. 
+1. Choose the **Exports and streams** tab\.
 
-1. Under **Kinesis data stream details**, choose the **Manage streaming to Kinesis**\.   
-![\[\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/KDSEnable.png)
+1. Under **Kinesis data stream details**, choose the **Enable** button\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/KDSEnable.png)
 
 1. Choose **samplestream** from the drop\-down list\. 
 
-1. Choose the **Enable** button\. 
+1. Choose the **Enable stream** button\.
 
 ------
 #### [ AWS CLI ]
@@ -37,7 +37,7 @@ All of these examples use the `Music` DynamoDB table that was created as part of
    aws kinesis create-stream --stream-name samplestream --shard-count 3 
    ```
 
-   See [Shard Management Considerations for Amazon Kinesis Data Streams](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\. 
+   See [Shard Management Considerations for Amazon Kinesis Data Streams](kds.md#kds_howitworks.shardmanagment) before setting the number of shards for the Kinesis data stream\.
 
 1. Check that the Kinesis stream is active and ready for use by using the [describe\-stream command](https://docs.aws.amazon.com/cli/latest/reference/kinesis/describe-stream.html)\.
 
@@ -155,4 +155,4 @@ All of these examples use the `Music` DynamoDB table that was created as part of
 
 ------
 
-To learn more about how to build consumers and connect your Kinesis data stream to other AWS services, see [Reading Data from Amazon Kinesis Data Streams](https://docs.aws.amazon.com/streams/latest/dev/building-consumers.html), in the Amazon Kinesis Data Streams Developer Guide\. 
+To learn more about how to build consumers and connect your Kinesis data stream to other AWS services, see [Reading Data from Amazon Kinesis Data Streams](https://docs.aws.amazon.com/streams/latest/dev/building-consumers.html), in the Amazon Kinesis Data Streams Developer Guide\.

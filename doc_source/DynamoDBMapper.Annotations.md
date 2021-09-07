@@ -2,7 +2,7 @@
 
 This section describes the annotations that are available for mapping your classes and properties to tables and attributes in Amazon DynamoDB\.
 
-For the corresponding Javadoc documentation, see [Annotation Types Summary](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/package-summary.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/)\.
+For the corresponding Javadoc documentation, see [Annotation Types Summary](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/dynamodbv2/datamodeling/package-summary.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/sdk-for-java/latest/reference/)\.
 
 **Note**  
 In the following annotations, only `DynamoDBTable` and the `DynamoDBHashKey` are required\. 

@@ -332,9 +332,9 @@ The result set from a `Scan` is limited to 1 MB per call\. You can use the `Last
 
 ## DynamoDB Encryption at Rest<a name="limits-dynamodb-encryption"></a>
 
-You can switch between an AWS owned customer master key \(CMK\), an AWS managed CMK, and a customer managed CMK up to four times, anytime per 24\-hour window, on a per table basis, starting from when the table was created\. If there was no change in the past six hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight \(four changes in the first six hours, and one change for each of the subsequent six hour windows in a day\)\.
+You can switch between an AWS owned key, an AWS managed key, and a customer managed key up to four times, anytime per 24\-hour window, on a per table basis, starting from when the table was created\. If there was no change in the past six hours, an additional change is allowed\. This effectively brings the maximum number of changes in a day to eight \(four changes in the first six hours, and one change for each of the subsequent six hour windows in a day\)\.
 
-You can switch encryption keys to use an AWS owned CMK as often as necessary, even if the above quota has been exhausted\.
+You can switch encryption keys to use an AWS owned key as often as necessary, even if the above quota has been exhausted\.
 
 These are the quotas unless you request a higher amount\. To request a service quota increase, see [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.
 

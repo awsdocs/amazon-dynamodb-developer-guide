@@ -8,12 +8,11 @@ Follow these steps to use the DynamoDB console to query data through the `AlbumT
 
 1. Choose the **Music** table from the table list\.
 
-1. Choose the **Items** tab for the Music table\.
+1. Select the **View items**\.
 
-1. In the drop\-down list, choose **Query**\.  
-![\[Console screenshot showing the dropdown list with Query selected on the Items tab.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/QueryClickQuery.png)
+1. Choose **Query**\.
 
-1. In the drop\-down list next to **Query** , choose **\[Index\] AlbumTitle\-index: AlbumTitle **\.
+1. In the drop\-down list under **Query**, choose **AlbumTitle\-index**\.
 
-   For **AlbumTitle**, enter **Somewhat Famous**, and then choose **Start search**\.  
+   For **AlbumTitle**, enter **Somewhat Famous**, and then choose **Run**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/GSISelectIndex.png)

@@ -31,13 +31,15 @@ To run or generate code for a `Get Item` operation, do the following\.
    1. Choose the **\+** \(plus sign\) next to **Projection expression**\.
 
    1. Specify the **Attribute name**,\.   
-![\[Console screenshot showing the putitem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderGetItem.png)
+![\[Console screenshot showing the GetItem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderGetItem.png)
 
 1. If you want to generate code, choose **Generate code**\.
 
    Select your desired language from the displayed tabs\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about this operation, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html) in the *Amazon DynamoDB API Reference*\. 
 
@@ -64,13 +66,15 @@ To run or generate code for a `Put Item` operation, do the following\.
    1. If other conditions are needed, choose **Condition** again\.
 
    For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.  
-![\[Console screenshot showing the putitem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderPutItem.png)
+![\[Console screenshot showing the PutItem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderPutItem.png)
 
 1. If you want to generate code, choose **Generate code**\.
 
    Select your desired language from the displayed tabs\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about this operation, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html) in the *Amazon DynamoDB API Reference*\. 
 
@@ -99,13 +103,15 @@ To run or generate code for an `Update Item` operation, do the following:
    1. If other conditions are needed, choose **Condition** again\.
 
    For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.  
-![\[Console screenshot showing the updateitem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderUpdateItem.png)
+![\[Console screenshot showing the UpdateItem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderUpdateItem.png)
 
 1. If you want to generate code, choose **Generate code**\.
 
    Choose the tab for the language that you want\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about this operation, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html) in the *Amazon DynamoDB API Reference*\. 
 
@@ -126,13 +132,15 @@ To run or generate code for a `Delete Item` operation, do the following\.
    1. If other conditions are needed, choose **Condition** again\.
 
    For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.  
-![\[Console screenshot showing the deleteitem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderDeleteItem.png)
+![\[Console screenshot showing the DeleteItem operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderDeleteItem.png)
 
 1. If you want to generate code, choose **Generate code**\.
 
    Choose the tab for the language that you want\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about this operation, see [DeleteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html) in the *Amazon DynamoDB API Reference*\.
 
@@ -165,13 +173,15 @@ To run or generate code for a `Query` operation, do the following\.
    1. If other conditions are needed, choose **Condition** again\.
 
    For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.  
-![\[Console screenshot showing the query operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderQuery.png)
+![\[Console screenshot showing the Query operation builder.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderQuery.png)
 
 1. If you want to generate code, choose **Generate code**\.
 
    Choose the tab for the language that you want\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about this operation, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html) in the *Amazon DynamoDB API Reference*\. 
 
@@ -203,6 +213,8 @@ To run or generate code for a `Scan` operation, do the following\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+
 ## TransactGetItems<a name="workbench.querybuilder.operationbuilder.transactget"></a>
 
 To run or generate code for a `TransactGetItems` operation, do the following\.
@@ -223,6 +235,8 @@ To run or generate code for a `TransactGetItems` operation, do the following\.
    Choose the tab for the language that you want\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about transactions, see [Amazon DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\.
 
@@ -248,5 +262,7 @@ To run or generate code for a `TransactWriteItems` operation, do the following\.
    Choose the tab for the language that you want\. You can now copy this code and use it in your application\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
+
+1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
 
 For more information about transactions, see [Amazon DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\.

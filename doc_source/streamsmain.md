@@ -2,8 +2,8 @@
 
 Many applications benefit from capturing changes to items stored in a DynamoDB table, at the point in time when such changes occur\. The following are some example use cases:
 + A popular mobile app modifies data in a DynamoDB table, at the rate of thousands of updates per second\. Another application captures and stores data about these updates, providing near\-real\-time usage metrics for the mobile app\.
-+ A financial application modifies stock market data in a DynamoDB table\. Different applications running in parallel track these changes in real time, compute value\-at\-risk, and automatically rebalance portfolios based on stock price movements\. 
-+ Sensors in transportation vehicles and industrial equipment send data to a DynamoDB table\. Different applications monitor performance and send messaging alerts when a problem is detected, predict any potential defects by applying machine learning algorithms, and compress and archive data to Amazon Simple Storage Service \(Amazon S3\)\. 
++ A financial application modifies stock market data in a DynamoDB table\. Different applications running in parallel track these changes in real time, compute value\-at\-risk, and automatically rebalance portfolios based on stock price movements\.
++ Sensors in transportation vehicles and industrial equipment send data to a DynamoDB table\. Different applications monitor performance and send messaging alerts when a problem is detected, predict any potential defects by applying machine learning algorithms, and compress and archive data to Amazon Simple Storage Service \(Amazon S3\)\.
 + An application automatically sends notifications to the mobile devices of all friends in a group as soon as one friend uploads a new picture\.
 + A new customer adds data to a DynamoDB table\. This event invokes another application that sends a welcome email to the new customer\.
 

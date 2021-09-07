@@ -97,10 +97,8 @@ Follow these steps to update your version of DynamoDB global tables using the AW
 1. Choose **Update version**\.  
 ![\[Console screenshot showing the Update version button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-upgrade.png)
 
-1. Read and agree to the new requirements, and then choose **Continue**\.
+1. Read and agree to the new requirements, and then choose **Update version**\.
 **Important**  
-Updating from version 2017\.11\.29 to version 2019\.11\.21 \(current\) is a one\-time action and cannot be reversed\. Before starting the update, ensure that you have performed all necessary testing\.  
-![\[Console screenshot showing the Update dialog box containing compatibility requirements.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-upgrade-execute.png)
+Updating from version 2017\.11\.29 to version 2019\.11\.21 \(current\) is a one\-time action and cannot be reversed\. Before starting the update, ensure that you have performed all necessary testing\.
 
-1. After the update process is complete, the global tables version that appears on the console changes to **2019\.11\.21**\.  
-![\[Console screenshot showing the current global table version number.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-determineversion.png)
+1. After the update process is complete, the global tables version that appears on the console changes to **2019\.11\.21**\.

@@ -27,10 +27,7 @@ On\-demand mode is a good option if any of the following are true:
 
  To get started with on\-demand, you can create or update a table to use on\-demand mode\. For more information, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\. 
 
-You can switch between read/write capacity modes once every 24 hours\. For issues you should consider when switching read/write capacity modes, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\. 
-
-**Note**  
-On\-demand is currently not supported by the DynamoDB import/export tool\. 
+You can switch between read/write capacity modes once every 24 hours\. For issues you should consider when switching read/write capacity modes, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\.
 
 **Topics**
 + [Read Request Units and Write Request Units](#HowItWorks.requests)

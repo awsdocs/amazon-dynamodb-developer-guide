@@ -1,7 +1,7 @@
 # Amazon DynamoDB Developer Guide
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -46,7 +46,6 @@ Amazon's trademarks and trade dress may not be used in
    + [Setting Up DynamoDB (Web Service)](SettingUp.DynamoWebService.md)
 + [Accessing DynamoDB](AccessingDynamoDB.md)
    + [Using the Console](ConsoleDynamoDB.md)
-      + [Working with User Preferences](user-preferences.md)
    + [Using the AWS CLI](Tools.CLI.md)
    + [Using the API](Using.API.md)
    + [Using the NoSQL Workbench for DynamoDB](Using.Workbench.md)
@@ -309,9 +308,7 @@ Amazon's trademarks and trade dress may not be used in
          + [Step 4: Run a Sample Application](DAX.client.run-application.md)
             + [DAX SDK for Go](DAX.client.run-application-go.md)
             + [Java and DAX](DAX.client.run-application-java.md)
-               + [TryDax.java](DAX.client.run-application-java.TryDax.md)
-               + [TryDaxHelper.java](DAX.client.run-application-java.TryDaxHelper.md)
-               + [TryDaxTests.java](DAX.client.run-application-java.TryDaxTests.md)
+               + [TryDax.java](DAX.client.TryDax.java.md)
             + [.NET and DAX](DAX.client.run-application-dotnet.md)
                + [01-CreateTable.cs](DAX.client.run-application-dotnet.01-CreateTable.md)
                + [02-Write-Data.cs](DAX.client.run-application-dotnet.02-Write-Data.md)
@@ -333,8 +330,7 @@ Amazon's trademarks and trade dress may not be used in
                + [04-query-test.py](DAX.client.run-application-python.04-query-test.md)
                + [05-scan-test.py](DAX.client.run-application-python.05-scan-test.md)
                + [06-delete-table.py](DAX.client.run-application-python.06-delete-table.md)
-      + [Modifying an Existing Application to Use DAX](DAX.client.modify-your-app.md)
-      + [Querying Global Secondary Indexes](DAX.client.QueryGSI.md)
+      + [Modifying an existing application to use DAX](DAX.client.modify-your-app.md)
    + [Managing DAX Clusters](DAX.cluster-management.md)
    + [Monitoring DAX](DAX.Monitoring.md)
       + [Monitoring Tools](dax-monitoring-automated-manual.md)
@@ -345,6 +341,7 @@ Amazon's trademarks and trade dress may not be used in
    + [DAX T3/T2 Burstable Instances](DAX.Burstable.md)
    + [DAX Access Control](DAX.access-control.md)
    + [DAX Encryption at Rest](DAXEncryptionAtRest.md)
+   + [DAX Encryption in Transit](DAXEncryptionInTransit.md)
    + [Using Service-Linked IAM Roles for DAX](using-service-linked-roles.md)
    + [Accessing DAX Across AWS Accounts](DAX.cross-account-access.md)
    + [DAX Cluster Sizing Guide](DAX.sizing-guide.md)
@@ -507,4 +504,11 @@ Amazon's trademarks and trade dress may not be used in
       + [Scan](API_Scan_v20111205.md)
       + [UpdateItem](API_UpdateItem_v20111205.md)
       + [UpdateTable](API_UpdateTable_v20111205.md)
+   + [AWS SDK for Java 1.x examples](Appendix.JavaSDKv1.md)
+      + [Using DAX with AWS SDK for Java 1.x](DAX.client.java-sdk-v1.md)
+         + [TryDax.java](DAX.client.run-application-java.TryDax.md)
+         + [TryDaxHelper.java](DAX.client.run-application-java.TryDaxHelper.md)
+         + [TryDaxTests.java](DAX.client.run-application-java.TryDaxTests.md)
+      + [Modifying an Existing SDK for Java 1.x Application to Use DAX](DAX.client.modify-your-app.java-sdk-v1.md)
+      + [Querying Global Secondary Indexes with SDK for Java 1.x](DAX.client.QueryGSI.java-sdk-v1.md)
 + [Document History for DynamoDB](DocumentHistory.md)

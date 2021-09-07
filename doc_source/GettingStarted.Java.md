@@ -21,4 +21,4 @@ You use the downloadable version of DynamoDB in this tutorial\. For information 
   + Install the AWS SDK for Java\.
   + Set up your AWS security credentials for use with the SDK for Java\.
 
-  For instructions, see [Getting Started](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/getting-started.html) in the *AWS SDK for Java Developer Guide*\.
+  For instructions, see [Getting Started](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/getting-started.html) in the *AWS SDK for Java Developer Guide*\.

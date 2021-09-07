@@ -18,6 +18,7 @@ namespace DynamoDB_intro
       return true;
     }
   }
+}
 ```
 
 `DeletingTable_async` waits on the low\-level DynamoDB method `AmazonDynamoDBClient.DeleteTableAsync` to delete the table\.

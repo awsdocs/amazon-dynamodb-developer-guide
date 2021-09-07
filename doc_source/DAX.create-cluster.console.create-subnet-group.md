@@ -1,6 +1,6 @@
 # Step 1: Create a Subnet Group Using the AWS Management Console<a name="DAX.create-cluster.console.create-subnet-group"></a>
 
-Follow this procedure to create a subnet group for your Amazon DynamoDB Accelerator \(DAX\) cluster using the AWS Management Console\. 
+Follow this procedure to create a subnet group for your Amazon DynamoDB Accelerator \(DAX\) cluster using the AWS Management Console\.
 
 **Note**  
 If you already created a subnet group for your default VPC, you can skip this step\.
@@ -13,7 +13,7 @@ As part of the creation process for a DAX cluster, you must specify a *subnet gr
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
-1. In the navigation pane, choose **DAX**\.
+1. In the navigation pane, under **DAX**, choose **Subnet groups**\.
 
 1. Choose **Create subnet group**\.
 

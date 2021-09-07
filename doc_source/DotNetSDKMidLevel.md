@@ -201,7 +201,7 @@ Expression expr = new Expression();
 expr.ExpressionStatement = "Price = :val";
 expr.ExpressionAttributeValues[":val"] = "20";
 
-UpdateOperationConfig config = new UpdateOperationConfig()
+UpdateItemOperationConfig config = new UpdateItemOperationConfig()
 {
     ConditionalExpression = expr,
     ReturnValues = ReturnValues.AllOldAttributes

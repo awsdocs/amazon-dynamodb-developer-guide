@@ -10,7 +10,9 @@ DAX is a DynamoDB\-compatible caching service that enables you to benefit from f
 
 1. For read\-heavy or bursty workloads, DAX provides increased throughput and potential operational cost savings by reducing the need to overprovision read capacity units\. This is especially beneficial for applications that require repeated reads for individual keys\.
 
-DAX supports server\-side encryption\. With encryption at rest, the data persisted by DAX on disk will be encrypted\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md)\. 
+DAX supports server\-side encryption\. With encryption at rest, the data persisted by DAX on disk will be encrypted\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md)\.
+
+DAX also supports encryption in transit, ensuring that all requests and responses between your application and the cluster are encrypted by transport level security \(TLS\), and connections to the cluster can be authenticated by verification of a cluster x509 certificate\. For more information, see [DAX Encryption in Transit](DAXEncryptionInTransit.md)\.
 
 **Topics**
 + [Use Cases for DAX](#DAX.use-cases)
@@ -25,6 +27,7 @@ DAX supports server\-side encryption\. With encryption at rest, the data persist
 + [DAX T3/T2 Burstable Instances](DAX.Burstable.md)
 + [DAX Access Control](DAX.access-control.md)
 + [DAX Encryption at Rest](DAXEncryptionAtRest.md)
++ [DAX Encryption in Transit](DAXEncryptionInTransit.md)
 + [Using Service\-Linked IAM Roles for DAX](using-service-linked-roles.md)
 + [Accessing DAX Across AWS Accounts](DAX.cross-account-access.md)
 + [DAX Cluster Sizing Guide](DAX.sizing-guide.md)
@@ -49,7 +52,6 @@ DAX is ideal for the following types of applications:
 ## DAX Usage Notes<a name="DAX.usage-notes"></a>
 + For a list of AWS Regions where DAX is available, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 + DAX supports applications written in Go, Java, Node\.js, Python, and \.NET, using AWS\-provided clients for those programming languages\.
-+ DAX does not support Transport Layer Security \(TLS\)\.
 + DAX is only available for the EC2\-VPC platform\. \(There is no support for the EC2\-Classic platform\.\)
 + The DAX cluster service role policy must allow the `dynamodb:DescribeTable` action in order to maintain metadata about the DynamoDB table\.
 + DAX clusters maintain metadata about the attribute names of items they store\. That metadata is maintained indefinitely \(even after the item has expired or been evicted from the cache\)\. Applications that use an unbounded number of attribute names can, over time, cause memory exhaustion in the DAX cluster\. This limitation applies only to top\-level attribute names, not nested attribute names\. Examples of problematic top\-level attribute names include timestamps, UUIDs, and session IDs\.

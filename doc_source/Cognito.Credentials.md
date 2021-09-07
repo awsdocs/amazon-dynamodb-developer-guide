@@ -84,4 +84,4 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
    });
    ```
 
- You can now run your JavaScript programs against the DynamoDB web service using Amazon Cognito credentials\. For more information, see [Setting Credentials in a Web Browser](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-browser.html) in the *AWS SDK for JavaScript Getting Started Guide*\. 
+ You can now run your JavaScript programs against the DynamoDB web service using Amazon Cognito credentials\. For more information, see [Setting Credentials in a Web Browser](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/setting-credentials-browser.html) in the *AWS SDK for JavaScript Getting Started Guide*\. 

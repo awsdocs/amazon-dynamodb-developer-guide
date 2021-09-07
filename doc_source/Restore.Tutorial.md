@@ -25,18 +25,14 @@ This procedure assumes that the `Music` table no longer exists before restoring 
 1. In the list of backups, choose `MusicBackup`\.  
 ![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/select_musicbackup.png)![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the backups list and the create backup button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-1. Choose **Restore backup**\.
-
-      
-![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/choose_restore.png)![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the backups list with the restore backup button highlighted.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+1. Choose **Restore**\.
 
 1. Enter **Music** as the new table name\. Confirm the backup name and other backup details\. Then choose **Restore table** to start the restore process\.
 **Note**  
 You can restore the table to the same AWS Region or to a different Region from where the backup resides\. You can also exclude secondary indexes from being created on the new restored table\. In addition, you can specify a different encryption mode\.  
 ![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-   The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `Music` table changes to **Active**\.  
-![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_complete.png)![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the tables list with Active status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
+   The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `Music` table changes to **Active**\.
 
 ## Restoring a Table from a Backup \(AWS CLI\)<a name="restoretable_cli"></a>
 
@@ -135,5 +131,5 @@ The table that is being restored from the backup is shown with the status **Crea
 While a restore is in progress, don't modify or delete your IAM role policy; otherwise, unexpected behavior can result\. For example, suppose that you removed write permissions for a table while that table is being restored\. In this case, the underlying `RestoreTableFromBackup` operation would not be able to write any of the restored data to the table\.  
 After the restore operation is complete, you can modify or delete your IAM role policy\.  
 IAM policies involving [source IP restrictions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceip) for accessing the target restore table should have the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-viaawsservice) key set to `false` to ensure that the restrictions apply only to requests made directly by a principal\. Otherwise, the restore will be canceled\.  
-If your backup is encrypted with an AWS managed CMK or a customer managed CMK, don't disable or delete the key while a restore is in progress, or the restore will fail\.  
+If your backup is encrypted with an AWS managed key or a customer managed key, don't disable or delete the key while a restore is in progress, or the restore will fail\.  
 After the restore operation is complete, you can change the encryption key for the restored table and disable or delete the old key\.

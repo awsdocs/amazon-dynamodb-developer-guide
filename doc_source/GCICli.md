@@ -30,6 +30,10 @@ aws dynamodb create-table \
                 \"Projection\":{
                     \"ProjectionType\":\"INCLUDE\",
                     \"NonKeyAttributes\":[\"UserId\"]
+                },
+                \"ProvisionedThroughput\": {
+                    \"ReadCapacityUnits\": 10,
+                    \"WriteCapacityUnits\": 5
                 }
             }
         ]"

@@ -10,5 +10,4 @@ This section demonstrates how to launch an Amazon EC2 instance in your default A
 
 **Topics**
 + [Tutorial: Running a Sample Application Using DynamoDB Accelerator \(DAX\)](DAX.client.sample-app.md)
-+ [Modifying an Existing Application to Use DAX](DAX.client.modify-your-app.md)
-+ [Querying Global Secondary Indexes](DAX.client.QueryGSI.md)
++ [Modifying an existing application to use DAX](DAX.client.modify-your-app.md)

@@ -3,7 +3,7 @@
 **Topics**
 + [Blog Posts, Repositories, and Guides](#AdditionalResources.Guides)
 + [Data Modeling and Design Patterns](#AdditionalResources.DataModeling)
-+ [Advanced Design Patterns with Rick Houlihan](#AdditionalResources.Advanced)
++ [Design Patterns with Rick Houlihan](#AdditionalResources.Advanced)
 + [Training Courses](#AdditionalResources.Training)
 + [Tools for Coding and Visualization](#AdditionalResources.Tools)
 
@@ -11,11 +11,18 @@
 + [How to switch from RDBMS to DynamoDB in 20 easy steps](https://www.jeremydaly.com/how-to-switch-from-rdbms-to-dynamodb-in-20-easy-steps/) — An irreverent list from [Jeremy Daly](https://twitter.com/jeremy_daly) of useful steps for learning data modeling\.
 + [DynamoDB JavaScript DocumentClient cheat sheet](https://github.com/dabit3/dynamodb-documentclient-cheat-sheet) — A cheat sheet to help you get started building applications with DynamoDB in a Node\.js or JavaScript environment\.
 + [From relational database to single DynamoDB table: A step\-by\-step exploration](https://www.trek10.com/blog/dynamodb-single-table-relational-modeling/) — An in\-depth post from [Forrest Brazeal](https://twitter.com/forrestbrazeal) that includes a step\-by\-step approach for moving to a DynamoDB\-style, one\-table design\.
++ [DynamoDB Guide](https://www.dynamodbguide.com/) — An open guide from [Alex DeBrie](https://twitter.com/alexbdebrie) that walks through the basic concepts and advanced features of the DynamoDB NoSQL database\. 
++ [The DynamoDB Book](https://www.dynamodbbook.com/) — A comprehensive guide from [Alex DeBrie](https://twitter.com/alexbdebrie) that teaches a strategy\-driven approach to data modeling with DynamoDB\.
 
 ## Data Modeling and Design Patterns<a name="AdditionalResources.DataModeling"></a>
++ [AWS re:Invent 2020: Data modeling with DynamoDB Part 1](https://www.youtube.com/watch?v=fiP2e-g-r4g)
++ [AWS re:Invent 2020: Data modeling with DynamoDB Part 2](https://www.youtube.com/watch?v=0uLF1tjI_BI)
 + [AWS re:Invent 2019: Data modeling with DynamoDB](https://www.youtube.com/watch?v=DIQVJqiSUkE) — A talk by [Alex DeBrie](https://twitter.com/alexbdebrie) that gets you started on the principles of DynamoDB data modeling\.
 
-## Advanced Design Patterns with Rick Houlihan<a name="AdditionalResources.Advanced"></a>
+## Design Patterns with Rick Houlihan<a name="AdditionalResources.Advanced"></a>
++ [DynamoDB Office Hours on Twitch](https://amazondynamodbofficehrs.splashthat.com/)
++ [AWS re:Invent 2020: DynamoDB Advanced Design Patterns Part 1](https://www.youtube.com/watch?v=MF9a1UNOAQo&index=1)
++ [AWS re:Invent 2020: DynamoDB Advanced Design Patterns Part 2](https://www.youtube.com/watch?v=_KNrRdWD25M&index=2)
 + [AWS re:Invent 2019: Advanced design patterns](https://www.youtube.com/watch?v=6yqfmXiZTlM)
   + Jeremy Daly shares his [12 key takeaways](https://www.jeremydaly.com/takeaways-from-dynamodb-deep-dive-advanced-design-patterns-dat403/) from this session\.
 + [AWS re:Invent 2018: Advanced design patterns](https://www.youtube.com/watch?v=HaEPXoXVf2k)
@@ -25,6 +32,7 @@
 Each session covers different use cases and examples\.
 
 ## Training Courses<a name="AdditionalResources.Training"></a>
++ [ Developing with Amazon DynamoDB](https://www.aws.training/Details/Curriculum?id=65583) — Designed by AWS to take you from beginner to expert in developing real world applications with data modeling for Amazon DynamoDB\.
 + [DynamoDB Deep\-Dive Course](https://linuxacademy.com/course/dynamo-db-deep-dive/) — A course from Linux Academy with help from the Amazon DynamoDB team\.
 + [Amazon DynamoDB: Building NoSQL Database\-Driven Applications](https://www.edx.org/course/amazon-dynamodb-building-nosql-database-driven-app) — A course from the AWS Training and Certification team hosted on edX\.
 + [AWS DynamoDB — From Beginner to Pro](https://acloud.guru/learn/aws-dynamodb) — A course from A Cloud Guru\.

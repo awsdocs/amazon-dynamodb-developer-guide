@@ -69,7 +69,7 @@ Follow these steps to run the Node\.js sample application on your Amazon EC2 ins
    + **Using the DynamoDB console**—Choose your DAX cluster\. The cluster endpoint is shown on the console, as in the following example\.
 
      ```
-     mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+     dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
      ```
    + **Using the AWS CLI**—Enter the following command\.
 
@@ -77,21 +77,22 @@ Follow these steps to run the Node\.js sample application on your Amazon EC2 ins
      aws dax describe-clusters --query "Clusters[*].ClusterDiscoveryEndpoint"
      ```
 
-     The cluster endpoint port and address are shown in the output, as in the following example\.
+     The cluster endpoint is shown in the output, as in the following example\.
 
      ```
      {
+         "Address": "my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com",
          "Port": 8111,
-         "Address":"mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com"
+         "URL": "dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com"
      }
      ```
 
    Now run the programs again, but this time, specify the cluster endpoint as a command line parameter\.
 
    ```
-   node 03-getitem-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
-   node 04-query-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
-   node 05-scan-test.js mycluster.frfx8h.clustercfg.dax.usw2.amazonaws.com:8111
+   node 03-getitem-test.js dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
+   node 04-query-test.js dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
+   node 05-scan-test.js dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    Look at the rest of the output, and take note of the timing information\. The elapsed times for `GetItem`, `Query`, and `Scan` should be significantly lower with DAX than with DynamoDB\.

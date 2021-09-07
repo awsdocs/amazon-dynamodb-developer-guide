@@ -114,7 +114,8 @@ An HTTP `5xx` status code indicates a problem that must be resolved by AWS\. Thi
 **Internal Server Error \(HTTP 500\)**  
 DynamoDB could not process your request\.  
 OK to retry? Yes  
-You might encounter internal server errors while working with items\. These are expected during the lifetime of a table\. Any failed requests can be retried immediately\.
+You might encounter internal server errors while working with items\. These are expected during the lifetime of a table\. Any failed requests can be retried immediately\.  
+When you receive a status code 500 on a write operation, the operation may have succeeded or failed\. If the write operation is a `TransactWriteItem` request, then it is OK to retry the operation\. If the write operation is a single\-item write request such as `PutItem`, `UpdateItem`, or `DeleteItem`, then your application should read the state of the item before retrying the operation, and/or use [Condition Expressions](Expressions.ConditionExpressions.md) to ensure that the item remains in a correct state after retrying regardless of whether the prior operation succeeded or failed\. If idempotency is a requirement for the write operation, please use [`TransactWriteItem`](transaction-apis.md#transaction-apis-txwriteitems), which supports idempotent requests by automatically specifying a `ClientRequestToken` to disambiguate multiple attempts to perform the same action\.
 
 **Service Unavailable \(HTTP 503\)**  
 DynamoDB is currently unavailable\. \(This should be a temporary state\.\)  

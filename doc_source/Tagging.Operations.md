@@ -4,16 +4,63 @@ You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS 
 
  For bulk editing, you can also use Tag Editor on the AWS Management Console\. For more information, see [Working with Tag Editor](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html)\. 
 
- To use the DynamoDB API instead, see the following operations in the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/): 
+ To use the DynamoDB API instead, see the following operations in the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/):
 + [TagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TagResource.html)
 + [UntagResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UntagResource.html)
 + [ListTagsOfResource](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTagsOfResource.html)
 
 **Topics**
-+ [Adding Tags to New or Existing Tables \(Console\)](#Tagging.Operations.using-console)
-+ [Adding Tags to New or Existing Tables \(AWS CLI\)](#Tagging.Operations.using-cli)
++ [Setting permissions to filter by tags](#Tagging.Operations.permissions)
++ [Adding tags to new or existing tables \(AWS Management Console\)](#Tagging.Operations.using-console)
++ [Adding tags to new or existing tables \(AWS CLI\)](#Tagging.Operations.using-cli)
 
-## Adding Tags to New or Existing Tables \(Console\)<a name="Tagging.Operations.using-console"></a>
+## Setting permissions to filter by tags<a name="Tagging.Operations.permissions"></a>
+
+To use tags to filter your table list in the DynamoDB console, make sure your IAM user's policies include access to the following operations:
++ `tag:GetTagKeys`
++ `tag:GetTagValues`
+
+You can access these operations by attaching a new IAM policy to your IAM user by following the steps below\.
+
+1. Go to the [IAM console](https://console.aws.amazon.com/iam/) with an Admin user\.
+
+1. Select "Policies" in the left navigation menu\.
+
+1. Select "Create policy\."
+
+1. Paste the following policy into the JSON editor\.
+
+   ```
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Effect": "Allow",
+               "Action": [
+                   "tag:GetTagKeys",
+                   "tag:GetTagValues"
+               ],
+               "Resource": "*"
+           }
+       ]
+   }
+   ```
+
+1. Complete the wizard and assign a name to the policy \(for example, `TagKeysAndValuesReadAccess`\)\.
+
+1. Select "Users" in the left navigation menu\.
+
+1. From the list, select the user you normally use to access the DynamoDB console\.
+
+1. Select "Add permissions\."
+
+1. Select "Attach existing policies directly\."
+
+1. From the list, select the policy you created previously\.
+
+1. Complete the wizard\.
+
+## Adding tags to new or existing tables \(AWS Management Console\)<a name="Tagging.Operations.using-console"></a>
 
 You can use the DynamoDB console to add tags to new tables when you create them, or to add, edit, or delete tags for existing tables\.
 
@@ -23,7 +70,7 @@ You can use the DynamoDB console to add tags to new tables when you create them,
 
 1. In the navigation pane, choose **Tables**, and then choose **Create table**\.
 
-1. On the **Create DynamoDB table** page, provide a name and primary key\. Choose **Add tags** and enter the tags that you want to use\. 
+1. On the **Create DynamoDB table** page, provide a name and primary key\. In the **Tags** section, choose **Add new tag** and enter the tags that you want to use\.
 
    For information about tag structure, see [Tagging Restrictions in DynamoDB](TaggingRestrictions.md)\. 
 
@@ -35,9 +82,9 @@ Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https
 
 1. In the navigation pane, choose **Tables**\.
 
-1. Choose a table in the list, and then choose the **Tags** tab to add, edit, or delete your tags\.
+1. Choose a table in the list, and then choose the **Additional settings** tab\. You can add, edit, or delete your tags in the **Tags** section at the bottom of the page\.
 
-## Adding Tags to New or Existing Tables \(AWS CLI\)<a name="Tagging.Operations.using-cli"></a>
+## Adding tags to new or existing tables \(AWS CLI\)<a name="Tagging.Operations.using-cli"></a>
 
 The following examples show how to use the AWS CLI to specify tags when you create tables and indexes, and to tag existing resources\.
 
@@ -46,11 +93,11 @@ The following examples show how to use the AWS CLI to specify tags when you crea
 
   ```
   aws dynamodb create-table \
-   --table-name Movies \
-   --attribute-definitions AttributeName=Title,AttributeType=S \
-   --key-schema AttributeName=Title,KeyType=HASH \
-   --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
-   --tags Key=Owner,Value=blueTeam
+      --table-name Movies \
+      --attribute-definitions AttributeName=Title,AttributeType=S \
+      --key-schema AttributeName=Title,KeyType=HASH \
+      --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+      --tags Key=Owner,Value=blueTeam
   ```
 
 **To tag existing resources \(AWS CLI\)**
@@ -58,8 +105,8 @@ The following examples show how to use the AWS CLI to specify tags when you crea
 
   ```
   aws dynamodb tag-resource \
-  --resource-arn arn:aws:dynamodb:us-east-1:123456789012:table/Movies \
-  --tags Key=Owner,Value=blueTeam
+      --resource-arn arn:aws:dynamodb:us-east-1:123456789012:table/Movies \
+      --tags Key=Owner,Value=blueTeam
   ```
 
 **To list all tags for a table \(AWS CLI\)**
@@ -67,5 +114,5 @@ The following examples show how to use the AWS CLI to specify tags when you crea
 
   ```
   aws dynamodb list-tags-of-resource \
-  --resource-arn arn:aws:dynamodb:us-east-1:123456789012:table/Movies
+      --resource-arn arn:aws:dynamodb:us-east-1:123456789012:table/Movies
   ```

@@ -76,9 +76,9 @@ The following API actions are logged by default as events in CloudTrail files:
 + [UpdateParameterGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateParameterGroup.html)
 + [UpdateSubnetGroup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_dax_UpdateSubnetGroup.html)
 
-### DynamoDB Data Plane Events in CloudTrail<a name="ddb-control-plane-events-in-cloudtrail"></a>
+### DynamoDB Data Plane Events in CloudTrail<a name="ddb-data-plane-events-in-cloudtrail"></a>
 
-To enable logging of the following API actions in CloudTrail files, you'll need to enable logging of data plane API activity in CloudTrail\. See [Creating a Trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) for more information\.
+To enable logging of the following API actions in CloudTrail files, you'll need to enable logging of data plane API activity in CloudTrail\. See [Logging data events for trails](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html) for more information\.
 
 **Amazon DynamoDB**
 + [BatchExecuteStatement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchExecuteStatement.html)
@@ -96,5 +96,8 @@ To enable logging of the following API actions in CloudTrail files, you'll need 
 + [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)
 
 **Note**  
-DynamoDB Streams data plane actions are not logged by CloudTrail\.
 DynamoDB Time to Live data plane actions are not logged by CloudTrail
+
+**DynamoDB Streams**
++ [GetRecords](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetRecords.html)
++ [GetShardIterator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_GetShardIterator.html)

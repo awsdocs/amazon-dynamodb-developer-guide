@@ -58,6 +58,14 @@ Follow these steps to create a new data model in Amazon DynamoDB using NoSQL Wor
 
    For more information about working with global secondary indexes in DynamoDB, see [Global Secondary Indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html)\.
 
+1. By default, your table will use provisioned capacity mode with auto scaling enabled on both read and write capacity\. If you want to change these settings, uncheck "Default settings" under **Capacity settings**\.  
+![\[Console screenshot showing the Capacity settings heading with "Default settings" selected.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerCapacityCheckbox.png)
+
+   Select your desired capacity mode, read and write capacity, and auto scaling IAM role \(if applicable\)\.  
+![\[Console screenshot showing the table capacity settings\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerCapacitySettings.png)
+
+   For more information about DynamoDB capacity settings, see [Read/Write Capacity Mode](HowItWorks.ReadWriteCapacityMode.md)\.
+
 1.  Choose **Add table definition**\.  
 ![\[Console screenshot showing the add table definition button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/designerAddTabledefinitionbutton.png)
 

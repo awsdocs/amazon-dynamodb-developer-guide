@@ -11,13 +11,13 @@ To create a new `Music` table using the DynamoDB console:
 
 1. Enter the table details as follows:
 
-   1. For the table name, enter **Music**\. 
+   1. For the table name, enter **Music**\.
 
    1. For the partition key, enter **Artist**\.
 
-   1. Choose **Add sort key**\.
+   1. Enter **SongTitle** as the sort key\.
 
-   1. Enter **SongTitle** as the sort key\. 
+   1. Leave **Default settings** selected\.
 
 1. Choose **Create** to create the table\.  
 ![\[Console screenshot showing the Create table page with fields completed.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/CreateTableMusic.png)

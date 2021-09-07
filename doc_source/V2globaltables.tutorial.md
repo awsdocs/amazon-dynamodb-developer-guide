@@ -18,40 +18,41 @@ This section describes how to create a global table using the Amazon DynamoDB co
 
 Follow these steps to create a global table using the console\. The following example creates a global table with replica tables in United States and Europe\.
 
-1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/home](https://console.aws.amazon.com/dynamodb/home)\. For this example, choose the us\-east\-2 \(US East Ohio\) Region\.
+1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/home](https://console.aws.amazon.com/dynamodb/home)\. For this example, choose the US East \(Ohio\) Region\.
 
 1. In the navigation pane on the left side of the console, choose **Tables**\.
 
-1. Choose **Create Table**\. 
+1. Choose **Create Table**\.
 
-   For **Table name**, enter **Music**\. 
+   1. For **Table name**, enter **Music**\.
 
-   For **Primary key** enter **Artist**\. Choose **Add sort key**, and enter **SongTitle**\. \(**Artist** and **SongTitle** should both be strings\.\)
+   1. For **Partition key** enter **Artist**\. For **Sort key** enter **SongTitle**\. \(**Artist** and **SongTitle** should both be strings\.\)
 
-   To create the table, choose **Create**\. This table serves as the first replica table in a new global table\. It is the prototype for other replica tables that you add later\.
+   To create the table, choose **Create table**\. This table serves as the first replica table in a new global table\. It is the prototype for other replica tables that you add later\.
 
-1. Choose the **Global Tables** tab, and then choose **Enable streams**\. Keep the **View type** at its default value \(New and old images\)\.   
-![\[Console screenshot showing enabling streams.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-EnableStream.png)
+1. Choose the **Global Tables** tab, and then choose **Create replica**\.
 
-1. Choose **Add region**\.  
-![\[Console screenshot showing enabling streams.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-AddRegion.png)
-
-1. In **Region**, choose **US West \(Oregon\)**\.
+1. From the **Available replication Regions** dropdown, choose **US West \(Oregon\)**\.
 
    The console checks to ensure that a table with the same name doesn't exist in the selected Region\. If a table with the same name does exist, you must delete the existing table before you can create a new replica table in that Region\.
 
-   Choose **Create Replica**, this starts the table creation process in US West \(Oregon\)\.  
-![\[Console screenshot showing enabling streams.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-AddReplica.png)
+1. Choose **Create Replica**\. This starts the table creation process in US West \(Oregon\);\.
 
-   The **Global Table** tab for the selected table \(and for any other replica tables\) shows that the table has been replicated in multiple Regions\. 
+   The **Global Table** tab for the selected table \(and for any other replica tables\) shows that the table has been replicated in multiple Regions\.
 
-1. Now add another Region so that your global table is replicated and synchronized across the United States and Europe\. To do this, repeat step 5, but this time, specify **EU \(Frankfurt\)** instead of **US West \(Oregon\)**\.
+1. Now add another Region so that your global table is replicated and synchronized across the United States and Europe\. To do this, repeat step 5, but this time, specify **Europe \(Frankfurt\)** instead of **US West \(Oregon\)**\.
 
-1. You should still be using the AWS Management Console in the us\-east\-2 \(US East Ohio\) Region\. For the **Music** table, choose the **Items** tab, and then choose **Create Item**\. For **Artist**, enter **item\_1**\. For **SongTitle**, enter **Song Value 1**\. To write the item, choose **Save**\.
+1. You should still be using the AWS Management Console in the US East \(Ohio\) Region\. Select **Items** in the left navigation menu, select the **Music** table, then choose **Create Item**\.
 
-   After a short time, the item is replicated across all three Regions of your global table\. To verify this, in the console, on the Region selector in the upper\-right corner, choose **Europe \(Frankfurt\)**\. The `Music` table in Europe \(Frankfurt\) should contain the new item\.
+   1. For **Artist**, enter **item\_1**\.
 
-   Repeat this for US West \(Oregon\)\.
+   1. For **SongTitle**, enter **Song Value 1**\.
+
+   1. To write the item, choose **Create item**\.
+
+1. After a short time, the item is replicated across all three Regions of your global table\. To verify this, in the console, on the Region selector in the upper\-right corner, choose **Europe \(Frankfurt\)**\. The `Music` table in Europe \(Frankfurt\) should contain the new item\.
+
+1. Repeat this for US West \(Oregon\)\.
 
 ## Creating a Global Table \(AWS CLI\)<a name="V2creategt_cli"></a>
 

@@ -203,6 +203,7 @@ namespace com.amazonaws.codesamples
             Console.WriteLine("************************************************");
         }
     }
+}
 ```
 
 ## Example \- Parallel Scan Using \.NET<a name="LowLevelDotNetParallelScanExample"></a>

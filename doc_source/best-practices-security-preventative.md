@@ -4,7 +4,7 @@ The following best practices can help you anticipate and prevent security incide
 
 **Encryption at rest**  
 DynamoDB encrypts at rest all user data stored in tables, indexes, streams, and backups using encryption keys stored in [AWS Key Management Service \(AWS KMS\)](https://aws.amazon.com/kms/)\. This provides an additional layer of data protection by securing your data from unauthorized access to the underlying storage \.  
-You can specify whether DynamoDB should use an AWS owned CMK \(default encryption type\) or an AWS managed CMK to encrypt the user data\. For more information, see [Amazon DynamoDB Encryption at Rest](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/EncryptionAtRest.html)\.
+You can specify whether DynamoDB should use an AWS owned key \(default encryption type\), an AWS managed key, or a customer managed key to encrypt user data\. For more information, see [Amazon DynamoDB Encryption at Rest](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/EncryptionAtRest.html)\.
 
 **Use IAM roles to authenticate access to DynamoDB**  
 For users, applications, and other AWS services to access DynamoDB, they must include valid AWS credentials in their AWS API requests\. You should not store AWS credentials directly in the application or EC2 instance\. These are long\-term credentials that are not automatically rotated, and therefore could have significant business impact if they are compromised\. An IAM role enables you to obtain temporary access keys that can be used to access AWS services and resources\.  
@@ -29,7 +29,7 @@ If you only require access to DynamoDB from within a virtual private cloud \(VPC
 Using a VPC endpoint for DynamoDB allows you to control and limit access using the following:  
 + VPC endpoint policies – These policies are applied on the DynamoDB VPC endpoint\. They allow you to control and limit API access to the DynamoDB table\.
 + IAM policies – By using the `aws:sourceVpce` condition on policies attached to IAM users, groups, or roles, you can enforce that all access to the DynamoDB table is via the specified VPC endpoint\.
- For more information, see [Endpoints for Amazon DynamoDB](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-ddb.html)\. 
+ For more information, see [Endpoints for Amazon DynamoDB](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-ddb.html)\.
 
 **Consider client\-side encryption**  
 If you store sensitive or confidential data in DynamoDB, you might want to encrypt that data as close as possible to its origin so that your data is protected throughout its lifecycle\. Encrypting your sensitive data in transit and at rest helps ensure that your plaintext data isn’t available to any third party\.  

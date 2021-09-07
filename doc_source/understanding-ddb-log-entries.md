@@ -13,6 +13,8 @@ Non key attribute values will be redacted in the CloudTrail logs of actions usin
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
 The following examples demonstrate CloudTrail logs of these event types:
+
+**Amazon DynamoDB**
 + [`UpdateTable`](#understanding-ddb-log-entries.update-table)
 + [`DeleteTable`](#understanding-ddb-log-entries.delete-table)
 + [`CreateCluster`](#understanding-ddb-log-entries.create-cluster)
@@ -22,6 +24,9 @@ The following examples demonstrate CloudTrail logs of these event types:
 + [`TransactWriteItems` \(with `TransactionCanceledException`\)](#understanding-ddb-log-entries.transact-write-items.exception)
 + [`ExecuteStatement`](#understanding-ddb-log-entries.execute-statement)
 + [`BatchExecuteStatement`](#understanding-ddb-log-entries.batch-execute-statement)
+
+**DynamoDB Streams**
++ [ `GetRecords` ](#understanding-ddb-log-entries.get-records)
 
 ## `UpdateTable`<a name="understanding-ddb-log-entries.update-table"></a>
 
@@ -715,6 +720,63 @@ The following examples demonstrate CloudTrail logs of these event types:
             "requestID": "23PE7ED291UD65P9SMS6TISNVBVV4KQNSO5AEMVJF66Q9ASUAAJG",
             "eventID": "f863f966-b741-4c36-b15e-f867e829035a",
             "readOnly": false,
+            "resources": [
+                {
+                    "accountId": "111122223333",
+                    "type": "AWS::DynamoDB::Table",
+                    "ARN": "arn:aws:dynamodb:us-west-2:123456789012:table/Music"
+                }
+            ],
+            "eventType": "AwsApiCall",
+            "apiVersion": "2012-08-10",
+            "managementEvent": false,
+            "recipientAccountId": "111122223333",
+            "eventCategory": "Data"
+        }
+    ]
+}
+```
+
+## `GetRecords`<a name="understanding-ddb-log-entries.get-records"></a>
+
+```
+{
+    "Records": [
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "AssumedRole",
+                "principalId": "AKIAIOSFODNN7EXAMPLE:bob",
+                "arn": "arn:aws:sts::111122223333:assumed-role/users/bob",
+                "accountId": "111122223333",
+                "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+                "sessionContext": {
+                    "sessionIssuer": {
+                        "type": "Role",
+                        "principalId": "AKIAI44QH8DHBEXAMPLE",
+                        "arn": "arn:aws:iam::444455556666:role/admin-role",
+                        "accountId": "444455556666",
+                        "userName": "bob"
+                    },
+                    "attributes": {
+                        "creationDate": "2020-09-03T22:14:13Z",
+                        "mfaAuthenticated": "false"
+                    }
+                }
+            },
+            "eventTime": "2021-04-15T04:15:02Z",
+            "eventSource": "dynamodb.amazonaws.com",
+            "eventName": "GetRecords",
+            "awsRegion": "us-west-2",
+            "sourceIPAddress": "192.0.2.0",
+            "userAgent": "aws-cli/1.19.50 Python/3.6.13 Linux/4.9.230-0.1.ac.224.84.332.metal1.x86_64 botocore/1.20.50",
+            "requestParameters": {
+                "shardIterator": "arn:aws:dynamodb:us-west-2:123456789012:table/Music/stream/2021-04-15T04:02:47.428|1|AAAAAAAAAAH7HF3xwDQHBrvk2UBZ1PKh8bX3F+JeH0rFwHCE7dz4VGV1ZoJ5bMxQwkmerA3wzCTL+zSseGLdSXNJP14EwrjLNvDNoZeRSJ/n6xc3I4NYOptR4zR8d7VrjMAD6h5nR12NtxGIgJ/dVsUpluWsHyCW3PPbKsMlJSruVRWoitRhSd3S6slEWEPB0bDC7++ISH5mXrCHOnvyezQKlqNshTSPZ5jWwqRj2VNSXCMTGXv9P01/U0bpOUI2cuRTchgUpPSe3ur2sQrRj3KlbmIyCz7P+H3CYlugafi8fQ5kipDSkESkIWS6O5ejzibWKg/3izms1eVIm/zLFdEeihCYJ7G8fpHUSLX5JAk3ab68aUXGSFEZLONntgNIhQkcMo00/mJlaIgkEdBUyqvZO1vtKUBH5YonIrZqSUhv8Coc+mh24vOg1YI+SPIXlr+Lnl54BG6AjrmaScjHACVXoPDxPsXSJXC4c9HjoC3YSskCPV7uWi0f65/n7JAT3cskcX2ISaLHwYzJPaMBSftxOgeRLm3BnisL32nT8uTj2gF/PUrEjdyoqTX7EerQpcaekXmOgay5Kh8n4T2uPdM83f356vRpar/DDp8pLFD0ddb6Yvz7zU2zGdAvTod3IScC1GpTqcjRxaMhlBVZy1TnI9Cs+7fXMdUF6xYScjR2725icFBNLojSFVDmsfHabXaCEpmeuXZsLbp5CjcPAHa66R8mQ5tSoFjrzOEzeB4uconEXAMPLE=="
+            },
+            "responseElements": null,
+            "requestID": "1M0U1Q80P4LDPT7A7N1A758N2VVV4KQNSO5AEMVJF66Q9EXAMPLE",
+            "eventID": "09a634f2-da7d-4c9e-a259-54aceexample",
+            "readOnly": true,
             "resources": [
                 {
                     "accountId": "111122223333",

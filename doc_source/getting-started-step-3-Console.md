@@ -8,9 +8,7 @@ Follow these steps to read data from the `Music` table using the DynamoDB consol
 
 1. Choose the **Music** table from the table list\.
 
-1. Choose the **Items** tab for the Music table\.
+1. Select the **View items**\.
 
-1. On the **Items** tab, view the list of items stored in the table, sorted by `Artist` and `SongTitle`\. 
-
-   The first item in the list is the one with the `Artist` **Acme Band** and the `SongTitle` **Happy Day**\.  
+1. On the **Items** tab, view the list of items stored in the table, sorted by `Artist` and `SongTitle`\. The first item in the list is the one with the `Artist` **Acme Band** and the `SongTitle` **Happy Day**\.  
 ![\[Console screenshot showing the items list with Acme Band at the top of the list.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GettingStarted/GetItems.png)

@@ -21,21 +21,21 @@ Follow these steps to specify the encryption key on a new table using the Amazon
 1. In **Table settings**, make sure that **Use default settings** is not selected\.  
 ![\[Screenshot of table settings on the console showing the use default settings check box.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tablesettings.PNG)
 **Note**  
-If **Use default settings** is selected, tables are encrypted at rest with the AWS owned customer master key \(CMK\) at no additional cost\.
+If **Use default settings** is selected, tables are encrypted at rest with the AWS owned key at no additional cost\.
 
 1. Under **Encryption at rest**, choose an encryption type:
-   +  **Default** – AWS owned CMK\. The key is owned by DynamoDB \(no additional charge\)\.
-   + **KMS** – Customer managed CMK\. The key is stored in your account and is created, owned, and managed by you \(AWS KMS charges apply\)\.
-   +  **KMS** – AWS managed CMK\. The key is stored in your account and is managed by AWS Key Management Service \(AWS KMS charges apply\)\.  
+   +  **Default** – AWS owned key\. The key is owned by DynamoDB \(no additional charge\)\.
+   + **KMS** – Customer managed key\. The key is stored in your account and is created, owned, and managed by you \(AWS KMS charges apply\)\.
+   +  **KMS** – AWS managed key\. The key is stored in your account and is managed by AWS Key Management Service \(AWS KMS charges apply\)\.  
 ![\[Console screenshot of encryption settings on the console showing 3 encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/encryption_types.PNG)![\[Console screenshot of encryption settings on the console showing 3 encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Console screenshot of encryption settings on the console showing 3 encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
 1. Choose **Create** to create the encrypted table\. To confirm the encryption type, check the table details on the **Overview** tab\. 
 
 ### Creating an Encrypted Table \(AWS CLI\)<a name="encryption.tutorial-cli"></a>
 
-Use the AWS CLI to create a table with the default AWS owned CMK, the AWS managed CMK, or a customer managed CMK for Amazon DynamoDB\.
+Use the AWS CLI to create a table with the default AWS owned key, the AWS managed key, or a customer managed key for Amazon DynamoDB\.
 
-**To create an encrypted table with the default AWS owned CMK**
+**To create an encrypted table with the default AWS owned key**
 + Create the encrypted `Music` table as follows\.
 
   ```
@@ -51,9 +51,9 @@ Use the AWS CLI to create a table with the default AWS owned CMK, the AWS manage
         ReadCapacityUnits=10,WriteCapacityUnits=5
   ```
 **Note**  
-This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\.
+This table is now encrypted using the default AWS owned key in the DynamoDB service account\.
 
-**To create an encrypted table with the AWS managed CMK for DynamoDB**
+**To create an encrypted table with the AWS managed key for DynamoDB**
 + Create the encrypted `Music` table as follows\.
 
   ```
@@ -80,7 +80,7 @@ This table is now encrypted using the default AWS owned CMK in the DynamoDB serv
   }
   ```
 
-**To create an encrypted table with a customer managed CMK for DynamoDB**
+**To create an encrypted table with a customer managed key for DynamoDB**
 + Create the encrypted `Music` table as follows\.
 
   ```
@@ -109,7 +109,7 @@ This table is now encrypted using the default AWS owned CMK in the DynamoDB serv
 
 ## Updating an Encryption Key<a name="encryption.tutorial-update"></a>
 
-You can also use the DynamoDB console or the AWS CLI to update the encryption keys of an existing table between an AWS owned CMK, AWS managed CMK, and customer managed CMK at any time\.
+You can also use the DynamoDB console or the AWS CLI to update the encryption keys of an existing table between an AWS owned key, AWS managed key, and customer managed key at any time\.
 
 ### Updating an Encryption Key \(Console\)<a name="encryption.tutorial-update-console"></a>
 
@@ -122,19 +122,19 @@ You can also use the DynamoDB console or the AWS CLI to update the encryption ke
 1. Choose **Manage Encryption**\.  
 ![\[Screenshot of table settings in the console showing the default encryption.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/encryption-manage.png)![\[Screenshot of table settings in the console showing the default encryption.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of table settings in the console showing the default encryption.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-1. Choose an encryption type\.   
+1. Choose an encryption type\.  
 ![\[Screenshot of encryption settings on the console showing encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/encryption-change.PNG)![\[Screenshot of encryption settings on the console showing encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of encryption settings on the console showing encryption types radio buttons.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
-   +  **Default** – AWS owned CMK\. The key is owned by DynamoDB \(no additional charge\)\. 
-   + **KMS** – Customer managed CMK\. The key is stored in your account and is created, owned, and managed by you \(AWS KMS charges apply\)\.
-   +  **KMS** – AWS managed CMK\. The key is stored in your account and is managed by AWS Key Management Service \(AWS KMS charges apply\)\. 
+   +  **Default** – AWS owned key\. The key is owned by DynamoDB \(no additional charge\)\.
+   + **KMS** – Customer managed key\. The key is stored in your account and is created, owned, and managed by you \(AWS KMS charges apply\)\.
+   +  **KMS** – AWS managed key\. The key is stored in your account and is managed by AWS Key Management Service \(AWS KMS charges apply\)\. 
 
-   Then choose **Save** to update the encrypted table\. To confirm the encryption type, check the table details under the **Overview** tab\. 
+   Then choose **Save** to update the encrypted table\. To confirm the encryption type, check the table details under the **Overview** tab\.
 
 ### Updating an Encryption Key \(AWS CLI\)<a name="encryption.tutorial-update-cli"></a>
 
 The following examples show how to update an encrypted table using the AWS CLI\.
 
-**To update an encrypted table with the default AWS owned CMK**
+**To update an encrypted table with the default AWS owned key**
 + Update the encrypted `Music` table, as in the following example\.
 
   ```
@@ -143,9 +143,9 @@ The following examples show how to update an encrypted table using the AWS CLI\.
     --sse-specification Enabled=false
   ```
 **Note**  
-This table is now encrypted using the default AWS owned CMK in the DynamoDB service account\.
+This table is now encrypted using the default AWS owned key in the DynamoDB service account\.
 
-**To update an encrypted table with the AWS managed CMK for DynamoDB**
+**To update an encrypted table with the AWS managed key for DynamoDB**
 + Update the encrypted `Music` table, as in the following example\.
 
   ```
@@ -164,7 +164,7 @@ This table is now encrypted using the default AWS owned CMK in the DynamoDB serv
   }
   ```
 
-**To update an encrypted table with a customer managed CMK for DynamoDB**
+**To update an encrypted table with a customer managed key for DynamoDB**
 + Update the encrypted `Music` table, as in the following example\.
 
   ```

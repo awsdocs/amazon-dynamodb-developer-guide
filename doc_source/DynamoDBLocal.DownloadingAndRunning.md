@@ -65,7 +65,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
    version: '3.8'
    services:
      dynamodb-local:
-       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
        image: "amazon/dynamodb-local:latest"
        container_name: dynamodb-local
        ports:
@@ -75,13 +75,13 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
        working_dir: /home/dynamodblocal
    ```
 
-   If you want to your application and DynamoDB local to be in separate containers, use the following yaml file\.
+   If you want your application and DynamoDB local to be in separate containers, use the following yaml file\.
 
    ```
    version: '3.8'
    services:
      dynamodb-local:
-       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
        image: "amazon/dynamodb-local:latest"
        container_name: dynamodb-local
        ports:
@@ -111,7 +111,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
    version: '3.8'
    services:
      dynamodb-local:
-       command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+       command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
        image: "amazon/dynamodb-local:latest"
        container_name: dynamodb-local
        ports:

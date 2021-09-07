@@ -6,6 +6,6 @@ You can use AWS\-wide condition keys in your DynamoDB policies to express condit
 
 In addition to the AWS\-wide condition keys, DynamoDB has its own specific keys that you can use in conditions\. For more information, see [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)\.
 
-## Related Topics<a name="w273aac25c15b9c15c11"></a>
+## Related Topics<a name="w283aac25c15b9c15c11"></a>
 + [Access Control](authentication-and-access-control.md#access-control)
 + [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)

@@ -50,7 +50,7 @@ The supported operations to use with SET:
 This statement does not return a value unless `returnvalues` parameter is specified\.
 
 **Note**  
-If the WHERE clause of the UPDATE statement does not evaluate to true for any item in the DynamoDB table, `ConditionalCheckFailedException` is returned\. 
+If the WHERE clause of the UPDATE statement does not evaluate to true for any item in the DynamoDB table, `ConditionalCheckFailedException` is returned\.
 
 ## Examples<a name="ql-reference.update.examples"></a>
 
