@@ -56,14 +56,14 @@ If any of the singleton INSERT, UPDATE, or DELETE operations return an error, th
    ```
    [
        {
-           "Statement": "EXISTS(SELECT * FROM Music where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"
+           "Statement": "EXISTS(SELECT * FROM Music WHERE Artist='No One You Know' AND SongTitle='Call Me Today' AND Awards IS MISSING)"
        },
        {
-           "Statement": "INSERT INTO Music value {'Artist':'?','SongTitle':'?'}",
+           "Statement": "INSERT INTO Music value {'Artist':?,'SongTitle':?}",
            "Parameters": [{"S": "Acme Band"}, {"S": "Best Song"}]
        },
        {
-           "Statement": "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"
+           "Statement": "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]} WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'"
        }
    ]
    ```
