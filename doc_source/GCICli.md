@@ -81,6 +81,7 @@ The only attributes returned are those that have been projected into the index\.
 
 ```
 aws dynamodb query \
+    --table-name GameScores \
     --index-name GameTitleIndex \
     --key-condition-expression "GameTitle = :v_game" \
     --expression-attribute-values '{":v_game":{"S":"Alien Adventure"} }'
