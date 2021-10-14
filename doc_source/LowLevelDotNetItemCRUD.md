@@ -274,7 +274,7 @@ For more information, see [UpdateItem](https://docs.aws.amazon.com/amazondynamod
 
 ## Atomic Counter<a name="AtomicCounterLowLevelDotNet"></a>
 
-You can use `updateItem` to implement an atomic counter, where you increment or decrement the value of an existing attribute without interfering with other write requests\. To update an atomic counter, use `updateItem` with an attribute of type `Number` in the `UpdateExpression` parameter, and `ADD` as the `Action`\.
+You can use `updateItem` to implement an atomic counter, where you increment or decrement the value of an existing attribute without interfering with other write requests\. To update an atomic counter, use `updateItem` with an attribute of type `Number` in the `UpdateExpression` parameter, and `SET` as the `Action`\.
 
 The following example demonstrates this, incrementing the `Quantity` attribute by one\.
 
