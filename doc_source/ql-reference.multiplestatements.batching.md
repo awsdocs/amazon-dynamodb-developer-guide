@@ -4,6 +4,7 @@ This section describes how to use batch statements with PartiQL for DynamoDB\.
 
 **Note**  
 The entire batch must consist of either read statements or write statements; you cannot mix both in one batch\.
+The batch must have 1 statement and no more than 25 statements\.
 
 **Topics**
 + [Syntax](#ql-reference.multiplestatements.batching.syntax)
