@@ -44,7 +44,7 @@ insert into Music value {
     'Artist': 'No One You Know',
     'SongTitle': 'Call Me Today',
     'AlbumTitle': 'someonewhat famous',
-    'Year' : true,
+    'Year' : 2015,
     'Genre' : 'Acme'
 }
 ```
