@@ -17,8 +17,6 @@ The `02-Write-Data.cs` program writes test data to `TryDaxTable`\.
  * specific language governing permissions and limitations under the License.
 */
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
-using System;
 using Amazon.DynamoDBv2;
 
 namespace ClientTest
@@ -27,7 +25,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
@@ -53,7 +50,6 @@ namespace ClientTest
                     };
 
                     var response = client.PutItemAsync(request).Result;
-
                 }
             }
 

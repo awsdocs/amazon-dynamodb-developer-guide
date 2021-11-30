@@ -17,7 +17,6 @@ The `06-DeleteTable.cs` program deletes `TryDaxTable`\. Run this program after y
  * specific language governing permissions and limitations under the License.
 */
 using Amazon.DynamoDBv2.Model;
-using System;
 using Amazon.DynamoDBv2;
 
 namespace ClientTest
@@ -26,7 +25,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
@@ -38,11 +36,9 @@ namespace ClientTest
 
             var response = client.DeleteTableAsync(request).Result;
 
-
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();
         }
     }
-
 }
 ```

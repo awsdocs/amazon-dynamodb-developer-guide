@@ -17,8 +17,6 @@ The `01-CreateTable.cs` program creates a table \(`TryDaxTable`\)\. The remainin
  * specific language governing permissions and limitations under the License.
 */
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
-using System;
 using Amazon.DynamoDBv2;
 
 namespace ClientTest
@@ -27,7 +25,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
