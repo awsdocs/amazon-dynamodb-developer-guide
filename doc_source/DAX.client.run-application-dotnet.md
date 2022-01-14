@@ -3,30 +3,30 @@
 Follow these steps to run the \.NET sample on your Amazon EC2 instance\.
 
 **Note**  
-This tutorial uses the \.NET Core SDK\. It shows how you can run a program in your default Amazon VPC to access your Amazon DynamoDB Accelerator \(DAX\) cluster\. If you prefer, you can use the AWS Toolkit for Visual Studio to write a \.NET application and deploy it into your VPC\.  
+This tutorial uses the \.NET 6 SDK\, but will work with the .NET Core SDK also. It shows how you can run a program in your default Amazon VPC to access your Amazon DynamoDB Accelerator \(DAX\) cluster\. If you prefer, you can use the AWS Toolkit for Visual Studio to write a \.NET application and deploy it into your VPC\.  
 For more information, see [Creating and Deploying Elastic Beanstalk Applications in \.NET Using AWS Toolkit for Visual Studio](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_NET.html) in the *AWS Elastic Beanstalk Developer Guide*\.
 
 **To run the \.NET sample for DAX**
 
-1. Go to the [Microsoft Downloads page](https://www.microsoft.com/net/download/linux) and download the latest \.NET Core SDK for Linux\. The downloaded file is `dotnet-sdk-N.N.N-linux-x64.tar.gz`\.
+1. Go to the [Microsoft Downloads page](hhttps://dotnet.microsoft.com/download?initial-os=linux) and download the latest \.NET 6 (or .NET Core) SDK for Linux\. The downloaded file is `dotnet-sdk-N.N.N-linux-x64.tar.gz`\.
 
-1. Extract the \.NET Core files\.
+2. Extract the SDK files.
 
    ```
    mkdir dotnet
    tar zxvf dotnet-sdk-N.N.N-linux-x64.tar.gz -C dotnet
    ```
 
-   Replace `N.N.N` with the actual version number of the \.NET Core SDK \(for example: `2.1.4`\)\.
+   Replace `N.N.N` with the actual version number of the \.NET SDK \(for example: `6.0.100`\)\.
 
-1. Verify the installation\.
+3. Verify the installation\.
 
    ```
    alias dotnet=$HOME/dotnet/dotnet
    dotnet --version
    ```
 
-   This should print the version number of the \.NET Core SDK\.
+   This should print the version number of the \.NET SDK\.
 **Note**  
 Instead of the version number, you might receive the following error:  
 error: libunwind\.so\.8: cannot open shared object file: No such file or directory  
@@ -51,13 +51,13 @@ After you do this, you should be able to run the `dotnet --version` command with
 
    You should receive the following message: `Hello World!`
 
-1. The `myApp/myApp.csproj` file contains metadata about your project\. To use the DAX client in your application, modify the file so that it looks like the following\.
+2. The `myApp/myApp.csproj` file contains metadata about your project\. To use the DAX client in your application, modify the file so that it looks like the following\.
 
    ```
    <Project Sdk="Microsoft.NET.Sdk">
        <PropertyGroup>
            <OutputType>Exe</OutputType>
-           <TargetFramework>netcoreapp2.0</TargetFramework>
+           <TargetFramework>net6.0</TargetFramework>
        </PropertyGroup>
        <ItemGroup>
            <PackageReference Include="AWSSDK.DAX.Client" Version="*" />
@@ -65,7 +65,7 @@ After you do this, you should be able to run the `dotnet --version` command with
    </Project>
    ```
 
-1. Download the sample program source code \(`.zip` file\)\.
+3. Download the sample program source code \(`.zip` file\)\.
 
    ```
    wget http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/TryDax.zip
@@ -77,19 +77,19 @@ After you do this, you should be able to run the `dotnet --version` command with
    unzip TryDax.zip
    ```
 
-1. Now run the sample programs, one at a time\. For each program, copy its contents into the `myApp/Program.cs`, and then run the `MyApp` project\.
+4. Now run the sample programs, one at a time\. For each program, copy its contents into the `myApp/Program.cs`, and then run the `myApp` project\.
 
    Run the following \.NET programs\. The first program creates a DynamoDB table named `TryDaxTable`\. The second program writes data to the table\.
 
    ```
-   cp 01-CreateTable.cs myApp/Program.cs
+   cp TryDax/dotNetTryDax/dotNet/01-CreateTable.cs myApp/Program.cs
    dotnet run --project myApp
    
-   cp 02-Write-Data.cs myApp/Program.cs
+   cp TryDax/dotNetTryDax/dotNet/02-Write-Data.cs myApp/Program.cs
    dotnet run --project myApp
    ```
 
-1. Next, run some programs to perform `GetItem`, `Query`, and `Scan` operations on your DAX cluster\. To determine the endpoint for your DAX cluster, choose one of the following:
+5. Next, run some programs to perform `GetItem`, `Query`, and `Scan` operations on your DAX cluster\. To determine the endpoint for your DAX cluster, choose one of the following:
    +  **Using the DynamoDB console** — Choose your DAX cluster\. The cluster endpoint is shown on the console, as in the following example\.
 
      ```
@@ -114,22 +114,22 @@ After you do this, you should be able to run the `dotnet --version` command with
    Now run the following programs, specifying your cluster endpoint as a command line parameter\. \(Replace the sample endpoint with your actual DAX cluster endpoint\.\)
 
    ```
-   cp 03-GetItem-Test.cs myApp/Program.cs
+   cp TryDax/dotNet/03-GetItem-Test.cs myApp/Program.cs
    dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    
-   cp 04-Query-Test.cs myApp/Program.cs
+   cp TryDax/dotNet/04-Query-Test.cs myApp/Program.cs
    dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    
-   cp 05-Scan-Test.cs myApp/Program.cs
+   cp TryDax/dotNet/05-Scan-Test.cs myApp/Program.cs
    dotnet run --project myApp dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
    ```
 
    Take note of the timing information—the number of milliseconds required for the `GetItem`, `Query`, and `Scan` tests\.
 
-1. Run the following \.NET program to delete `TryDaxTable`\.
+6. Run the following \.NET program to delete `TryDaxTable`\.
 
    ```
-   cp 06-DeleteTable.cs myApp/Program.cs
+   cp TryDax/dotNet/06-DeleteTable.cs myApp/Program.cs
    dotnet run --project myApp
    ```
 

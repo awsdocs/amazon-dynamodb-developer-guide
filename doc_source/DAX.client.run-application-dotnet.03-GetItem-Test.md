@@ -19,10 +19,6 @@ The `03-GetItem-Test.cs` program performs `GetItem` operations on `TryDaxTable`\
 using Amazon.Runtime;
 using Amazon.DAX;
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
-using System;
-using Amazon.DynamoDBv2;
-using Amazon;
 
 namespace ClientTest
 {
@@ -30,15 +26,12 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
+            string endpointUri = args[0];
+            Console.WriteLine("Using DAX client - endpointUri=" + endpointUri);
 
-            String hostName = args[0].Split(':')[0];
-            int port = Int32.Parse(args[0].Split(':')[1]);
-            Console.WriteLine("Using DAX client - hostname=" + hostName + ", port=" + port);
-
-            var clientConfig = new DaxClientConfig(hostName, port)
+            var clientConfig = new DaxClientConfig(endpointUri)
             {
                 AwsCredentials = FallbackCredentialsFactory.GetCredentials()
-                   
             };
             var client = new ClusterDaxClient(clientConfig);
 
@@ -52,7 +45,6 @@ namespace ClientTest
 
             for (var i = 0; i < iterations; i++)
             {
-
                 for (var ipk = 1; ipk <= pk; ipk++)
                 {
                     for (var isk = 1; isk <= sk; isk++)
@@ -69,12 +61,11 @@ namespace ClientTest
                         Console.WriteLine("GetItem succeeded for pk: " + ipk + ", sk: " + isk);
                     }
                 }
-
             }
 
             var endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
-            Console.WriteLine("Total time: " + (int)timeSpan.TotalMilliseconds + " milliseconds");
+            Console.WriteLine("Total time: " + timeSpan.TotalMilliseconds + " milliseconds");
 
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();
