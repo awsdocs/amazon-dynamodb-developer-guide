@@ -8,7 +8,7 @@ For more information, see [Creating and Deploying Elastic Beanstalk Applications
 
 **To run the \.NET sample for DAX**
 
-1. Go to the [Microsoft Downloads page](hhttps://dotnet.microsoft.com/download?initial-os=linux) and download the latest \.NET 6 (or .NET Core) SDK for Linux\. The downloaded file is `dotnet-sdk-N.N.N-linux-x64.tar.gz`\.
+1. Go to the [Microsoft Downloads page](https://dotnet.microsoft.com/download?initial-os=linux) and download the latest \.NET 6 (or .NET Core) SDK for Linux\. The downloaded file is `dotnet-sdk-N.N.N-linux-x64.tar.gz`\.
 
 2. Extract the SDK files.
 
@@ -58,6 +58,7 @@ After you do this, you should be able to run the `dotnet --version` command with
        <PropertyGroup>
            <OutputType>Exe</OutputType>
            <TargetFramework>net6.0</TargetFramework>
+           <ImplicitUsings>enable</ImplicitUsings>
        </PropertyGroup>
        <ItemGroup>
            <PackageReference Include="AWSSDK.DAX.Client" Version="*" />
@@ -82,10 +83,10 @@ After you do this, you should be able to run the `dotnet --version` command with
    Run the following \.NET programs\. The first program creates a DynamoDB table named `TryDaxTable`\. The second program writes data to the table\.
 
    ```
-   cp TryDax/dotNetTryDax/dotNet/01-CreateTable.cs myApp/Program.cs
+   cp TryDax/dotNet/01-CreateTable.cs myApp/Program.cs
    dotnet run --project myApp
    
-   cp TryDax/dotNetTryDax/dotNet/02-Write-Data.cs myApp/Program.cs
+   cp TryDax/dotNet/02-Write-Data.cs myApp/Program.cs
    dotnet run --project myApp
    ```
 
