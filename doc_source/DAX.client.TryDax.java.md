@@ -3,8 +3,6 @@
 ```
 import java.util.Map;
 
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.regions.internal.util.EC2MetadataUtils;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -23,8 +21,6 @@ import software.amazon.dax.Configuration;
 
 public class TryDax {
     public static void main(String[] args) throws Exception {
-        Region region = Region.of(EC2MetadataUtils.getEC2InstanceRegion());
-
         DynamoDbAsyncClient ddbClient = DynamoDbAsyncClient.builder()
                 .region(region)
                 .build();
@@ -34,7 +30,6 @@ public class TryDax {
             daxClient = ClusterDaxAsyncClient.builder()
                     .overrideConfiguration(Configuration.builder()
                             .url(args[0]) // e.g. dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com
-                            .region(region)
                             .build())
                     .build();
         }
