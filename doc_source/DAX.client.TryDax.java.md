@@ -22,7 +22,6 @@ import software.amazon.dax.Configuration;
 public class TryDax {
     public static void main(String[] args) throws Exception {
         DynamoDbAsyncClient ddbClient = DynamoDbAsyncClient.builder()
-                .region(region)
                 .build();
 
         DynamoDbAsyncClient daxClient = null;
