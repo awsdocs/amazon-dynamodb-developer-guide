@@ -38,7 +38,7 @@ Any SQL operators that are not included in this list are not currently supported
 | --- | --- | 
 | AND | TRUE if all the conditions separated by AND are TRUE | 
 | BETWEEN | TRUE if the operand is within the range of comparisons | 
-| IN | TRUE if the operand is equal to one of a list of expressions | 
+| IN | TRUE if the operand is equal to one of a list of expressions \(at max 50 hash attribute values or at max 100 non\-key attribute values\) | 
 | IS | TRUE if the operand is a given, PartiQL data type, including NULL or MISSING | 
 | NOT | Reverses the value of a given Boolean expression | 
 | OR | TRUE if any of the conditions separated by OR are TRUE | 

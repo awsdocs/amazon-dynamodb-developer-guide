@@ -6,6 +6,7 @@ Amazon DynamoDB auto scaling uses the AWS Application Auto Scaling service to dy
 
 **Note**  
 If you use the AWS Management Console to create a table or a global secondary index, DynamoDB auto scaling is enabled by default\. You can modify your auto scaling settings at any time\. For more information, see [Using the AWS Management Console with DynamoDB Auto Scaling](AutoScaling.Console.md)\.
+When you delete a table or global table replica, any associated scalable targets, scaling polices or CloudWatch alarms are not automatically deleted with it\.
 
 With Application Auto Scaling, you create a *scaling policy* for a table or a global secondary index\. The scaling policy specifies whether you want to scale read capacity or write capacity \(or both\), and the minimum and maximum provisioned capacity unit settings for the table or index\.
 
@@ -60,6 +61,7 @@ When one of the CloudWatch alarms is triggered, Amazon SNS sends you a notificat
 ### Usage Notes<a name="AutoScaling.UsageNotes"></a>
 
 Before you begin using DynamoDB auto scaling, you should be aware of the following:
-+ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. All DynamoDB quotas remain in effect, as described in [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
++ DynamoDB auto scaling can increase read capacity or write capacity as often as necessary, in accordance with your auto scaling policy\. All DynamoDB quotas remain in effect, as described in [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 + DynamoDB auto scaling doesn't prevent you from manually modifying provisioned throughput settings\. These manual adjustments don't affect any existing CloudWatch alarms that are related to DynamoDB auto scaling\.
 + If you enable DynamoDB auto scaling for a table that has one or more global secondary indexes, we highly recommend that you also apply auto scaling uniformly to those indexes\. You can do this by choosing **Apply same settings to global secondary indexes** in the AWS Management Console\. For more information, see [Enabling DynamoDB Auto Scaling on Existing Tables](AutoScaling.Console.md#AutoScaling.Console.ExistingTable)\.
++ When you delete a table or global table replica, any associated scalable targets, scaling polices or CloudWatch alarms are not automatically deleted with it\.

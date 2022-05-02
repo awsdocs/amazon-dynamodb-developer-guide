@@ -5,7 +5,7 @@
 
 |  | 
 | --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
 
 This section describes how to create a global table using the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\)\. 
 
@@ -52,7 +52,7 @@ Follow these steps to create a global table using the console\. The following ex
 
 1. After a short time, the item is replicated across all three Regions of your global table\. To verify this, in the console, on the Region selector in the upper\-right corner, choose **Europe \(Frankfurt\)**\. The `Music` table in Europe \(Frankfurt\) should contain the new item\.
 
-1. Repeat this for US West \(Oregon\)\.
+1. Repeat step 9 and choose **US West \(Oregon\)** to verify replication in that region\.
 
 ## Creating a Global Table \(AWS CLI\)<a name="V2creategt_cli"></a>
 

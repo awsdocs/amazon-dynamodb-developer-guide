@@ -22,6 +22,14 @@ If using provisioned mode, you must provide `ProvisionedThroughput` settings for
 
  Global secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\. 
 
+**Note**  
+Backfill operations and ongoing write operations share write throughput within the global secondary index\. When creating a new GSI, it can be important to check if your choice of partition key is producing uneven or narrowed distribution of data or traffic across the new index’s partition key values\. If this occurs, you could be seeing backfill and write operations occurring at the same time and throttling writes to the base table\. The service takes measures to minimize the potential for this scenario, but has no insight into the shape of customer data with respect to the index partition key, the chosen projection, or the sparseness of the index primary key\.  
+If you suspect that your new global secondary index might have narrow or skewed data or traffic distribution across partition key values, consider the following before adding new indexes to operationally important tables\.  
+It might be safest to add the index at a time when your application is driving the least amount of traffic\.
+Consider enabling CloudWatch Contributor Insights on your base table and indexes\. This will give you valuable insight into your traffic distribution\.
+For provisioned capacity mode base tables and indexes, set the provisioned write capacity of your new index to at least double that of your base table\. Watch `WriteThrottleEvents`, `ThrottledRequests`, `OnlineIndexPercentageProgress`, `OnlineIndexConsumedWriteCapacity` and `OnlineIndexThrottleEvents` CloudWatch metrics throughout the process\. Adjust the provisioned write capacity as required to complete the backfill in a reasonable time without any significant throttling effects on your ongoing operations\.
+Be prepared to cancel the index creation if you experience operational impact due to write throttling, and increasing the provisioned write capacity in your new GSI does not resolve it\.
+
 ## Describing the Global Secondary Indexes on a Table<a name="GSI.Describing"></a>
 
 To view the status of all the global secondary indexes on a table, use the `DescribeTable` operation\. The `GlobalSecondaryIndexes` portion of the response shows all of the indexes on the table, along with the current status of each \( `IndexStatus`\)\.
@@ -50,6 +58,9 @@ You can only create one global secondary index per `UpdateTable` operation\.
 ### Phases of Index Creation<a name="GSI.OnlineOps.Creating.Phases"></a>
 
 When you add a new global secondary index to an existing table, the table continues to be available while the index is being built\. However, the new index is not available for Query operations until its status changes from `CREATING` to `ACTIVE`\.
+
+**Note**  
+Global secondary index creation does not use Application Auto Scaling\. Increasing the `MIN` Application Auto Scaling capacity will not decrease the creation time of the global secondary index\.
 
 Behind the scenes, DynamoDB builds the index in two phases:
 
@@ -114,6 +125,7 @@ While the global secondary index is being deleted, there is no effect on any rea
 
 **Note**  
 When you delete a table using the `DeleteTable` action, all of the global secondary indexes on that table are also deleted\.
+Your account will not be charged for the delete operation of the global secondary index\.
 
 ## Modifying a Global Secondary Index during Creation<a name="GSI.OnlineOps.Creating.Modify"></a>
 

@@ -16,4 +16,4 @@ AWS CloudTrail logs all console and API actions for table export to enable loggi
 
 DynamoDB table export is designed to be faster than exporting a table using a table scan\. However, the exact time it takes for the export to complete depends on how large the table is and how uniformly the table data is distributed\. If your use case involves real\-time analytics, you can use Amazon Kinesis Data Streams\. For more information, see the [Amazon Kinesis Data Streams Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/)\.
 
-For more information about Amazon S3, see the [Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\.
+For more information about Amazon S3, see the [Amazon Simple Storage Service User Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\.

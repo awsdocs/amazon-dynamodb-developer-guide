@@ -287,7 +287,7 @@ The output looks like the following\.
 
 1. Call the `batchWriteItem` method by providing the `TableWriteItems` objects that you created in the preceding step\. 
 
-1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput quota or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\. 
+1. Process the response\. You should check if there were any unprocessed request items returned in the response\. This could happen if you reach the provisioned throughput quota or some other transient error\. Also, DynamoDB limits the request size and the number of operations you can specify in a request\. If you exceed these limits, DynamoDB rejects the request\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\. 
 
 The following Java code example demonstrates the preceding steps\. The example performs a `batchWriteItem` operation on two tables: `Forum` and `Thread`\. The corresponding `TableWriteItems` objects define the following actions:
 + Put an item in the `Forum` table\.

@@ -1,16 +1,16 @@
 # Comparison Operator and Function Reference<a name="Expressions.OperatorsAndFunctions"></a>
 
-This section covers the built\-in functions and keywords for writing condition expressions in Amazon DynamoDB\.
+This section covers the built\-in functions and keywords for writing filter expressions and condition expressions in Amazon DynamoDB\.
 
 **Topics**
-+ [Syntax for Condition Expressions](#Expressions.OperatorsAndFunctions.Syntax)
++ [Syntax for Filter and Condition Expressions](#Expressions.OperatorsAndFunctions.Syntax)
 + [Making Comparisons](#Expressions.OperatorsAndFunctions.Comparators)
 + [Functions](#Expressions.OperatorsAndFunctions.Functions)
 + [Logical Evaluations](#Expressions.OperatorsAndFunctions.LogicalEvaluations)
 + [Parentheses](#Expressions.OperatorsAndFunctions.Parentheses)
 + [Precedence in Conditions](#Expressions.OperatorsAndFunctions.Precedence)
 
-## Syntax for Condition Expressions<a name="Expressions.OperatorsAndFunctions.Syntax"></a>
+## Syntax for Filter and Condition Expressions<a name="Expressions.OperatorsAndFunctions.Syntax"></a>
 
 In the following syntax summary, an *operand* can be the following:
 + A top\-level attribute name, such as `Id`, `Title`, `Description`, or `ProductCategory`

@@ -7,6 +7,7 @@ The following table describes the important changes in each release of the *NoSQ
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|  CSV import and export  |  You can now import sample data from a CSV file in the Visualizer tool, and also export the results of an Operation Builder query to a CSV file\.  |  October 11, 2021  | 
 |  Save operations  |  The Operation Builder in NoSQL Workbench now supports saving operations for later use\.  |  July 12, 2021  | 
 | Capacity settings and CloudFormation import/export | NoSQL Workbench for Amazon DynamoDB now supports specifying a read/write capacity mode for tables, and can now import and export data models in AWS CloudFormation format\. | April 21, 2021 | 
 | Support for PartiQL | NoSQL Workbench for Amazon DynamoDB adds support for building PartiQL statements for DynamoDB\. | December 4, 2020 | 

@@ -1,6 +1,6 @@
-# Naming Rules and Data Types<a name="HowItWorks.NamingRulesDataTypes"></a>
+# Supported data types and naming rules in Amazon DynamoDB<a name="HowItWorks.NamingRulesDataTypes"></a>
 
-This section describes the Amazon DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](Limits.md#limits-data-types)\. 
+This section describes the Amazon DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](ServiceQuotas.md#limits-data-types)\. 
 
 **Topics**
 + [Naming Rules](#HowItWorks.NamingRules)
@@ -115,7 +115,7 @@ The document types are list and map\. These data types can be nested within each
 
 There is no limit on the number of values in a list or a map, as long as the item containing the values fits within the DynamoDB item size limit \(400 KB\)\.
 
- An attribute value can be an empty string or empty binary value if the attribute is not used for a table or index key\. An attribute value cannot be an empty set \(string set, number set, or binary set\), however, empty lists and maps are allowed\. Empty string and binary values are allowed within lists and maps\. For more information, see [Attributes](Limits.md#limits-attributes)\. 
+ An attribute value can be an empty string or empty binary value if the attribute is not used for a table or index key\. An attribute value cannot be an empty set \(string set, number set, or binary set\), however, empty lists and maps are allowed\. Empty string and binary values are allowed within lists and maps\. For more information, see [Attributes](ServiceQuotas.md#limits-attributes)\. 
 
 #### List<a name="HowItWorks.DataTypes.Document.List"></a>
 

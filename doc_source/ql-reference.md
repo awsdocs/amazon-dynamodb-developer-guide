@@ -31,9 +31,9 @@ Amazon DynamoDB does not support the [Amazon Ion](http://amzn.github.io/ion-docs
 ## PartiQL in Amazon DynamoDB<a name="ql-reference.what-is"></a>
 
 To run PartiQL queries in DynamoDB, you can use:
-+ The DynamoDB console\.
++ The DynamoDB console
 + The NoSQL Workbench
-+ The AWS Command Line Interface \(AWS CLI\)\.
-+ The DynamoDB APIs\.
++ The AWS Command Line Interface \(AWS CLI\)
++ The DynamoDB APIs
 
 For information about using these methods to access DynamoDB, see [Accessing DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AccessingDynamoDB.html)\.

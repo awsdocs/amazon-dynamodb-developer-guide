@@ -1,8 +1,10 @@
 # From SQL to NoSQL<a name="SQLtoNoSQL"></a>
 
-If you are an application developer, you might have some experience using a relational database management system \(RDBMS\) and Structured Query Language \(SQL\)\. As you begin working with Amazon DynamoDB, you will encounter many similarities, but also many things that are different\. This section describes common database tasks, comparing and contrasting SQL statements with their equivalent DynamoDB operations\.
+If you are an application developer, you might have some experience using a relational database management system \(RDBMS\) and Structured Query Language \(SQL\)\. As you begin working with Amazon DynamoDB, you will encounter many similarities, but also many things that are different\. *NoSQL* is a term used to describe nonrelational database systems that are highly available, scalable, and optimized for high performance\. Instead of the relational model, NoSQL databases \(like DynamoDB\) use alternate models for data management, such as key\-value pairs or document storage\. For more information, see [What is NoSQL?](http://aws.amazon.com/nosql)\.
 
-*NoSQL* is a term used to describe nonrelational database systems that are highly available, scalable, and optimized for high performance\. Instead of the relational model, NoSQL databases \(like DynamoDB\) use alternate models for data management, such as key\-value pairs or document storage\. For more information, see [http://aws\.amazon\.com/nosql](http://aws.amazon.com/nosql)\.
+Amazon DynamoDB supports [PartiQL](https://partiql.org/), an open\-source, SQL\-compatible query language that makes it easy for you to efficiently query data, regardless of where or in what format it is stored\. With PartiQL, you can easily process structured data from relational databases, semi\-structured and nested data in open data formats, and even schema\-less data in NoSQL or document databases that allow different attributes for different rows\. For more information, see [PartiQL Query Language](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html)\.
+
+The following sections describe common database tasks, comparing and contrasting SQL statements with their equivalent DynamoDB operations\.
 
 **Note**  
 The SQL examples in this section are compatible with the MySQL RDBMS\.  

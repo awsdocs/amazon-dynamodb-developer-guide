@@ -26,22 +26,12 @@ SELECT Artist, Title FROM Music;
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB"></a>
 
-### PartiQL<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB.partiql"></a>
+In Amazon DynamoDB, you can use either the DynamoDB API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language, to perform a scan on a table\.
 
-DynamoDB provides the `ExecuteStatement` to return all the contents for a table using the select statement\.
+------
+#### [ DynamoDB API ]
 
-```
-select AlbumTitle, Year, Price
-FROM Music
-```
-
-Note that this statement will return all items for in the Music table\. 
-
-For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
-
-### Classic APIs<a name="SQLtoNoSQL.ReadData.Scan.DynamoDB.classic"></a>
-
-DynamoDB provides a `Scan` action that works in a similar way\. The following are some examples\.
+With the DynamoDB API, you use the `Scan` operation to return one or more items and item attributes by accessing every item in a table or a secondary index\.
 
 ```
 // Return all of the data in the table
@@ -62,3 +52,19 @@ The `Scan` action also provides a `FilterExpression` parameter, which you can us
 
 **Note**  
 For code examples that use `Scan`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you perform a scan by using the `ExecuteStatement` operation to return all the contents for a table using the `Select` statement\.
+
+```
+SELECT AlbumTitle, Year, Price
+FROM Music
+```
+
+Note that this statement will return all items for in the Music table\. 
+
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+------

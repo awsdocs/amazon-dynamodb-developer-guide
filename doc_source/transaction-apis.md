@@ -17,7 +17,8 @@ With Amazon DynamoDB transactions, you can group multiple actions together and s
 
 `TransactWriteItems` is a synchronous and idempotent write operation that groups up to 25 write actions in a single all\-or\-nothing operation\. These actions can target up to 25 distinct items in one or more DynamoDB tables within the same AWS account and in the same Region\. The aggregate size of the items in the transaction cannot exceed 4 MB\. The actions are completed atomically so that either all of them succeed or none of them succeeds\.
 
- A `TransactWriteItems` operation differs from a `BatchWriteItem` operation in that all the actions it contains must be completed successfully, or no changes are made at all\. With a `BatchWriteItem` operation, it is possible that only some of the actions in the batch succeed while the others do not\.
+**Note**  
+A `TransactWriteItems` operation differs from a `BatchWriteItem` operation in that all the actions it contains must be completed successfully, or no changes are made at all\. With a `BatchWriteItem` operation, it is possible that only some of the actions in the batch succeed while the others do not\.
 
 You can't target the same item with multiple operations within the same transaction\. For example, you can't perform a `ConditionCheck` and also an `Update` action on the same item in the same transaction\.
 
@@ -27,7 +28,7 @@ You can add the following types of actions to a transaction:
 + `Delete` — Initiates a `DeleteItem` operation to delete a single item in a table identified by its primary key\.
 + `ConditionCheck` — Checks that an item exists or checks the condition of specific attributes of the item\.
 
-Once a transaction completes, the changes made within that transaction are propagated to global secondary indexes \(GSIs\), streams, and backups\. Since propagation is not immediate or instantaneous, if a table is restored from backup to a point mid\-propagation, it might contain some but not all of the changes made during a recent transaction\.
+Once a transaction completes, the changes made within that transaction are propagated to global secondary indexes \(GSIs\), streams, and backups\. Since propagation is not immediate or instantaneous, if a table is restored from backup \([RestoreTableFromBackup](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_RestoreTableFromBackup.html)\) or exported to a point in time \([ExportTableToPointInTime](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExportTableToPointInTime.html)\) mid\-propagation, it might contain some but not all of the changes made during a recent transaction\.
 
 ### Idempotency<a name="transaction-apis-txwriteitems-idempotency"></a>
 

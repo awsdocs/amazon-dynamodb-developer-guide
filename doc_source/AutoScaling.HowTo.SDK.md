@@ -11,6 +11,9 @@ The following program shows an example of setting up an auto scaling policy for 
 + After the scalable target is created, the program builds a target tracking configuration\. The policy seeks to maintain a 50 percent target ratio between consumed write capacity and provisioned write capacity\.
 + The program then creates the scaling policy, based on the target tracking configuration\.
 
+**Note**  
+When you manually remove a table or global table replica, you do not automatically remove any associated scalable targets, scaling policies, or CloudWatch alarms\.
+
 The program requires that you provide an Amazon Resource Name \(ARN\) for a valid Application Auto Scaling service linked role\. \(For example: `arn:aws:iam::122517410325:role/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\.\) In the following program, replace `SERVICE_ROLE_ARN_GOES_HERE` with the actual ARN\. 
 
 ```

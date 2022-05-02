@@ -2,7 +2,7 @@
 
 In Amazon DynamoDB, an *item* is a collection of attributes\. Each attribute has a name and a value\. An attribute value can be a scalar, a set, or a document type\. For more information, see [Amazon DynamoDB: How It Works](HowItWorks.md)\.
 
-DynamoDB provides four operations for basic create, read, update, and delete \(CRUD\) functionality:
+DynamoDB provides four operations for basic create, read, update, and delete \(CRUD\) functionality\. All these operations are atomic\.
 + `PutItem` — Create an item\.
 + `GetItem` — Read an item\.
 + `UpdateItem` — Update an item\.

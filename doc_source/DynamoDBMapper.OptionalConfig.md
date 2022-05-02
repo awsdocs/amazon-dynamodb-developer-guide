@@ -17,7 +17,7 @@ DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
 DynamoDBMapper mapper = new DynamoDBMapper(client, mapperConfig);
 ```
 
-For more information, see [https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/sdk-for-java/latest/reference/)\.
+For more information, see [https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBMapperConfig.html) in the [AWS SDK for Java API Reference](https://docs.aws.amazon.com/sdk-for-java/latest/reference/)\.
 
 You can use the following arguments for an instance of `DynamoDBMapperConfig`:
 + A `DynamoDBMapperConfig.ConsistentReads` enumeration value:

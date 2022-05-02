@@ -3,7 +3,7 @@
 With SQL, you use the `SELECT` statement to retrieve one or more rows from a table\. You use the `WHERE` clause to determine the data that is returned to you\.
 
 Amazon DynamoDB provides the following operations for reading data:
-+ `ExecuteStatement` – Retrieves a single or multiple items from a table using the PartiQL \(a SQL compatible query language\)\. DynamoDB also provides the `BatchExecuteStatement` operation, allowing you to retrieve multiple items from different tables in a single operation\.
++ `ExecuteStatement` retrieves a single or multiple items from a table\. `BatchExecuteStatement` retrieves multiple items from different tables in a single operation\. Both of these operations use [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language\.
 + `GetItem` – Retrieves a single item from a table\. This is the most efficient way to read a single item because it provides direct access to the physical location of the item\. \(DynamoDB also provides the `BatchGetItem` operation, allowing you to perform up to 100 `GetItem` calls in a single operation\.\)
 + `Query` – Retrieves all of the items that have a specific partition key\. Within those items, you can apply a condition to the sort key and retrieve only a subset of the data\. `Query` provides quick, efficient access to the partitions where the data is stored\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
 + `Scan` – Retrieves all of the items in the specified table\. \(This operation should not be used with large tables because it can consume large amounts of system resources\.\)

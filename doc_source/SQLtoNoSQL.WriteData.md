@@ -33,30 +33,12 @@ This example uses the *Tags* column to store semistructured data about the songs
 
 ## DynamoDB<a name="SQLtoNoSQL.WriteData.DynamoDB"></a>
 
-In Amazon DynamoDB, you use the PartiQL, a SQL compatible query language, or DynamoDB’s classic APIs to add an item to a table\.
+In Amazon DynamoDB, you can use either the DynamoDB API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language, to add an item to a table\.
 
-### PartiQL<a name="SQLtoNoSQL.WriteData.DynamoDB.partiql"></a>
+------
+#### [ DynamoDB API ]
 
-In Amazon DynamoDB, you use the `ExecuteStatement` action to add an item to a table, using the *Insert* PartiQL statement\.
-
-```
-insert into Music value {  
-    'Artist': 'No One You Know',
-    'SongTitle': 'Call Me Today',
-    'AlbumTitle': 'someonewhat famous',
-    'Year' : true,
-    'Genre' : 'Acme'
-}
-```
-
-The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
-
-**Note**  
-For code examples using `Insert` and `ExecuteStatement`, see [PartiQL Insert Statements for DynamoDB](ql-reference.insert.md)\.
-
-### Classic APIs<a name="SQLtoNoSQL.WriteData.DynamoDB.classic"></a>
-
-In Amazon DynamoDB, you use the `PutItem` action to add an item to a table\.
+With the DynamoDB API, you use the `PutItem` operation to add an item to a table\.
 
 ```
 {
@@ -158,3 +140,25 @@ The following are some other `PutItem` examples\.
 
 **Note**  
 In addition to `PutItem`, DynamoDB supports a `BatchWriteItem` action for writing multiple items at the same time\.
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you use the `ExecuteStatement` operation to add an item to a table, using the PartiQL `Insert` statement\.
+
+```
+INSERT into Music value {  
+    'Artist': 'No One You Know',
+    'SongTitle': 'Call Me Today',
+    'AlbumTitle': 'Somewhat Famous',
+    'Year' : '2015,
+    'Genre' : 'Acme'
+}
+```
+
+The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
+
+**Note**  
+For code examples using `Insert` and `ExecuteStatement`, see [PartiQL Insert Statements for DynamoDB](ql-reference.insert.md)\.
+
+------

@@ -1,6 +1,6 @@
 # 03\-getitem\-test\.py<a name="DAX.client.run-application-python.03-getitem-test"></a>
 
-The `03-getitem-test.py` program performs `GetItem` operations on `TryDaxTable`\.
+The `03-getitem-test.py` program performs `GetItem` operations on `TryDaxTable`\. This example is given for the Region eu\-west\-1\. 
 
 ```
 import argparse
@@ -53,7 +53,7 @@ if __name__ == '__main__':
         print(f"Getting each item from the table {test_iterations} times, "
               f"using the DAX client.")
         # Use a with statement so the DAX client closes the cluster after completion.
-        with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
+        with amazondax.AmazonDaxClient.resource(endpoint_url=args, region_name='eu-west-1') as dax:
             test_start, test_end = get_item_test(
                 test_key_count, test_iterations, dyn_resource=dax)
     else:

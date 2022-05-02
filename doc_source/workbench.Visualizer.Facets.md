@@ -1,4 +1,4 @@
-# Viewing Data Access Patterns<a name="workbench.Visualizer.Facets"></a>
+# Viewing data access patterns<a name="workbench.Visualizer.Facets"></a>
 
 In NoSQL Workbench, *facets* represent an application's different data access patterns for Amazon DynamoDB\.
 

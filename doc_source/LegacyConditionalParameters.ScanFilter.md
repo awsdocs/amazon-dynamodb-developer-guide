@@ -23,7 +23,7 @@ Each `ScanFilter` element consists of an attribute name to compare, along with t
 
    `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS | BEGINS_WITH | IN | BETWEEN` 
 
-## Use *FilterExpression* Instead<a name="w283aac38c23c29c13"></a>
+## Use *FilterExpression* Instead<a name="w615aac41c23c29c13"></a>
 
 Suppose you wanted to scan the *Music* table and apply a condition to the matching items\. You could use a `Scan` request with a `ScanFilter` parameter, as in this AWS CLI example:
 

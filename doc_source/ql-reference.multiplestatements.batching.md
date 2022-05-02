@@ -46,16 +46,16 @@ The entire batch must consist of either read statements or write statements; you
    ```
    [    
        {
-           "Statement": "INSERT INTO Music value {'Artist':'?','SongTitle':'?'}",
+           "Statement": "INSERT INTO "Music" value {'Artist':'?','SongTitle':'?'}",
            "Parameters": [{"S": "Acme Band"}, {"S": "Best Song"}]
        },
        {
-           "Statement": "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"
+           "Statement": "UPDATE "Music" SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"
        }
    ]
    ```
 
-1. Execute the following command in a command prompt\.
+1. Run the following command in a command prompt\.
 
    ```
    aws dynamodb batch-execute-statement  --statements  file://partiql.json
@@ -102,10 +102,10 @@ public class DynamoDBPartiqlBatch {
         List<BatchStatementRequest> statements = new ArrayList<BatchStatementRequest>();
 
         statements.add(new BatchStatementRequest()
-                               .withStatement("INSERT INTO Music value {'Artist':'Acme Band','SongTitle':'PartiQL Rocks'}"));
+                               .withStatement("INSERT INTO "Music" value {'Artist':'Acme Band','SongTitle':'PartiQL Rocks'}"));
 
         statements.add(new BatchStatementRequest()
-                               .withStatement("UPDATE Music set AwardDetail.BillBoard=[2020] where Artist='Acme Band' and SongTitle='PartiQL Rocks'"));
+                               .withStatement("UPDATE "Music" set AwardDetail.BillBoard=[2020] where Artist='Acme Band' and SongTitle='PartiQL Rocks'"));
 
         return statements;
     }

@@ -11,7 +11,7 @@ DynamoDB supports streaming of item\-level change data capture records in near\-
 
 **Topics**
 + [Streaming Options for Change Data Capture](#streamsmain.choose)
-+ [Change Data Capture for Kinesis Data Streams with DynamoDB](kds.md)
++ [Using Kinesis Data Streams to Capture Changes to DynamoDB](kds.md)
 + [Change Data Capture for DynamoDB Streams](Streams.md)
 
 ## Streaming Options for Change Data Capture<a name="streamsmain.choose"></a>

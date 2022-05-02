@@ -5,10 +5,10 @@ Amazon DynamoDB point\-in\-time recovery \(PITR\) provides continuous backups of
 If you want to use the AWS CLI, you must configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.
 
 **Topics**
-+ [Restoring a Table to a Point in Time \(Console\)](#restoretabletopointintime_console)
++ [Restoring a DynamoDB Table to a Point in Time \(Console\)](#restoretabletopointintime_console)
 + [Restoring a Table to a Point in Time \(AWS CLI\)](#restorepointintime_cli)
 
-## Restoring a Table to a Point in Time \(Console\)<a name="restoretabletopointintime_console"></a>
+## Restoring a DynamoDB Table to a Point in Time \(Console\)<a name="restoretabletopointintime_console"></a>
 
 The following example demonstrates how to use the DynamoDB console to restore an existing table named `Music` to a point in time\.
 

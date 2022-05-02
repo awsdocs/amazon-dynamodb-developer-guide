@@ -4,7 +4,7 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the alar
 
 **Note**  
 You must specify all the required dimensions when creating your CloudWatch alarm, since CloudWatch will not aggregate metrics for a missing dimension\. Creating a CloudWatch alarm with a missing dimension will not result in an error, when creating the alarm\.  
-For a list of supported metrics and their required dimensions in DynamoDB, see [DynamoDB Dimensions and Metrics](metrics-dimensions.md#dynamodb-metrics-dimensions)\.
+For a list of supported metrics and their required dimensions in DynamoDB, see [Viewing metrics and dimensions](metrics-dimensions.md#dynamodb-metrics-dimensions)\.
 
 ## How can I be notified before I consume my entire read capacity?<a name="notify-reach-capacity"></a>
 

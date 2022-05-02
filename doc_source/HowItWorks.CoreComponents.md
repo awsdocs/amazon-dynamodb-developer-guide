@@ -2,7 +2,7 @@
 
 In DynamoDB, tables, items, and attributes are the core components that you work with\. A *table* is a collection of *items*, and each item is a collection of *attributes*\. DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility\. You can use DynamoDB Streams to capture data modification events in DynamoDB tables\.
 
- There are limits in DynamoDB\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
+ There are limits in DynamoDB\. For more information, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 **Topics**
 + [Tables, Items, and Attributes](#HowItWorks.CoreComponents.TablesItemsAttributes)

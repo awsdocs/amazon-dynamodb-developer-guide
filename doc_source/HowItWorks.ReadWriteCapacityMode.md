@@ -6,7 +6,7 @@ Amazon DynamoDB has two read/write capacity modes for processing reads and write
 
 The read/write capacity mode controls how you are charged for read and write throughput and how you manage capacity\. You can set the read/write capacity mode when creating a table or you can change it later\.
 
-Local secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\.
+Secondary indexes inherit the read/write capacity mode from the base table\. For more information, see [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)\.
 
 **Topics**
 + [On\-Demand Mode](#HowItWorks.OnDemand)
@@ -23,7 +23,7 @@ On\-demand mode is a good option if any of the following are true:
 + You have unpredictable application traffic\. 
 + You prefer the ease of paying for only what you use\. 
 
- The request rate is only limited by the DynamoDB throughput default table quotas, but it can be raised upon request\. For more information, see [Throughput Default Quotas](Limits.md#default-limits-throughput)\. 
+ The request rate is only limited by the DynamoDB throughput default table quotas, but it can be raised upon request\. For more information, see [Throughput Default Quotas](ServiceQuotas.md#default-limits-throughput)\. 
 
  To get started with on\-demand, you can create or update a table to use on\-demand mode\. For more information, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\. 
 
@@ -54,7 +54,7 @@ DynamoDB tables using on\-demand capacity mode automatically adapt to your appli
 ### Initial Throughput for On\-Demand Capacity Mode<a name="HowItWorks.InitialThroughput"></a>
 
 If you recently switched an existing table to on\-demand capacity mode for the first time, or if you created a new table with on\-demand capacity mode enabled, the table has the following previous peak settings, even though the table has not served traffic previously using on\-demand capacity mode:
-+  ** Newly created table with on\-demand capacity mode:** The previous peak is 2,000 write request units or 6,000 read request units\. You can drive up to double the previous peak immediately, which enables newly created on\-demand tables to serve up to 4,000 write request units or 12,000 read request units, or any linear combination of the two\. 
++  ** Newly created table with on\-demand capacity mode:** The previous peak is 2,000 write request units or 6,000 read request units\. You can drive up to double the previous peak immediately, which enables newly created on\-demand tables to serve up to 4,000 write request units and 12,000 read request units\.
 +  **Existing table switched to on\-demand capacity mode:** The previous peak is half the maximum write capacity units and read capacity units provisioned since the table was created, or the settings for a newly created table with on\-demand capacity mode, whichever is higher\. In other words, your table will deliver at least as much throughput as it did prior to switching to on\-demand capacity mode\. 
 
 ### Table Behavior while Switching Read/Write Capacity Mode<a name="HowItWorks.SwitchReadWriteCapacityMode"></a>
@@ -112,10 +112,10 @@ For more information, see [Managing Throughput Capacity Automatically with Dynam
 
 ### Reserved Capacity<a name="HowItWorks.ProvisionedThroughput.ReservedCapacity"></a>
 
-As a DynamoDB customer, you can purchase *reserved capacity* in advance, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. Your reserved capacity is billed at the hourly reserved capacity rate\. By reserving your read and write capacity units ahead of time, you realize significant cost savings compared to on\-demand or provisioned throughput settings\. Any capacity that you provision in excess of your reserved capacity is billed at standard provisioned capacity rates\.
+As a DynamoDB customer, you can purchase *reserved capacity* in advance for tables that use the DynamoDB Standard table class, as described at [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\. With reserved capacity, you pay a one\-time upfront fee and commit to a minimum provisioned usage level over a period of time\. Your reserved capacity is billed at the hourly reserved capacity rate\. By reserving your read and write capacity units ahead of time, you realize significant cost savings on your provisioned capacity costs\. Any capacity that you provision in excess of your reserved capacity is billed at standard provisioned capacity rates\.
 
 **Note**  
-Reserved capacity is not available in on\-demand mode\.
+Reserved capacity is not available for replicated write capacity units\. Reserved capacity is also not available for tables using the DynamoDB Standard\-IA table class or on\-demand capacity mode\.
 
 To manage reserved capacity, go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb) and choose **Reserved Capacity**\.
 

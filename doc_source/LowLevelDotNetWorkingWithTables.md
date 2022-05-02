@@ -101,7 +101,7 @@ var res = client.DescribeTable(new DescribeTableRequest{TableName = "ProductCata
 You can update only the provisioned throughput values of an existing table\. Depending on your application requirements, you might need to update these values\. 
 
 **Note**  
-You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
+You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 **To update a table using the AWS SDK for \.NET low\-level API**
 

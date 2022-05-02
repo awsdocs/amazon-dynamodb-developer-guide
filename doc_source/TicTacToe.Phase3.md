@@ -112,7 +112,7 @@ In client\-server communication, when the server sends a response, for security'
 
 1. Upload the `.zip` file to an Amazon Simple Storage Service \(Amazon S3\) bucket\. In the next section, you provide this `.zip` file to Elastic Beanstalk to upload on the server or servers\.
 
-   For instructions on how to upload to an Amazon S3 bucket, see [Create a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) and [Add an Object to a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html) in the *Amazon Simple Storage Service Getting Started Guide\.*
+   For instructions on how to upload to an Amazon S3 bucket, see [Create a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) and [Add an Object to a Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html) in the *Amazon Simple Storage Service User Guide\.*
 
 ## 3\.4: Set Up the AWS Elastic Beanstalk Environment<a name="TicTacToe.DeployInProd.SetUpElasticBeanstalk"></a>
 

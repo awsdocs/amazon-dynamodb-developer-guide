@@ -9,7 +9,8 @@ For language\-specific tutorials with sample code, see [Getting Started with Dyn
 **Topics**
 + [Core Components of Amazon DynamoDB](HowItWorks.CoreComponents.md)
 + [DynamoDB API](HowItWorks.API.md)
-+ [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)
++ [Supported data types and naming rules in Amazon DynamoDB](HowItWorks.NamingRulesDataTypes.md)
 + [Read Consistency](HowItWorks.ReadConsistency.md)
 + [Read/Write Capacity Mode](HowItWorks.ReadWriteCapacityMode.md)
++ [Table Classes](HowItWorks.TableClasses.md)
 + [Partitions and Data Distribution](HowItWorks.Partitions.md)

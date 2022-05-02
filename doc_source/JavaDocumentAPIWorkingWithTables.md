@@ -76,7 +76,7 @@ TableDescription tableDescription = dynamoDB.getTable(tableName).describe();
 You can update only the provisioned throughput values of an existing table\. Depending on your application requirements, you might need to update these values\. 
 
 **Note**  
-For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
+For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 **To update a table using the AWS SDK for Java API**
 

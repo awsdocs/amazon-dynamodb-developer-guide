@@ -1,6 +1,6 @@
 # Point\-in\-Time Recovery for DynamoDB<a name="PointInTimeRecovery"></a>
 
-You can create on\-demand backups of your Amazon DynamoDB tables, or you can enable continuous backups using point\-in\-time recovery\. For more information about on\-demand backups, see [On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\.
+You can create on\-demand backups of your Amazon DynamoDB tables, or you can enable continuous backups using point\-in\-time recovery\. For more information about on\-demand backups, see [Using On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\.
 
 Point\-in\-time recovery helps protect your DynamoDB tables from accidental write or delete operations\. With point\-in\-time recovery, you don't have to worry about creating, maintaining, or scheduling on\-demand backups\. For example, suppose that a test script writes accidentally to a production DynamoDB table\. With point\-in\-time recovery, you can restore that table to any point in time during the last 35 days\. DynamoDB maintains incremental backups of your table\.
 

@@ -39,5 +39,5 @@ If the DynamoDB table already has an item with the same primary key as the prima
 
 ```
 INSERT INTO 
-Music value {'Artist' : 'Acme Band','SongTitle' : 'PartiQL Rocks'}
+"Music" value {'Artist' : 'Acme Band','SongTitle' : 'PartiQL Rocks'}
 ```

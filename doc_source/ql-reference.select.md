@@ -32,7 +32,13 @@ FROM table[.index]
 \(Required\) The table name to query\.
 
 ***index***  
-\(Optional\) The name of the index to query\.
+\(Optional\) The name of the index to query\.  
+You must add double quotation marks to the table name and index name when querying an index\.  
+
+```
+SELECT * 
+FROM "TableName"."IndexName"
+```
 
 ***condition***  
 \(Optional\) The selection criteria for the query\.  
@@ -41,34 +47,34 @@ For example, if you have an `Orders` table with an `OrderID` partition key and o
 
 ```
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID = 100
 
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID = 100 and Address='some address'
 
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID = 100 or pk = 200
 
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID IN [100, 300, 234]
 ```
 The following `SELECT` statements, however, will result in a full table scan:  
 
 ```
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID > 1
 
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE Address='some address'
 
 SELECT * 
-FROM Orders 
+FROM "Orders" 
 WHERE OrderID = 100 OR Address='some address'
 ```
 
@@ -84,7 +90,7 @@ The following query returns one item, if one exists, from the `Orders` table by 
 
 ```
 SELECT OrderID, Total
-FROM Orders
+FROM "Orders"
 WHERE OrderID = 1
 ```
 
@@ -92,7 +98,7 @@ The following query returns all items in the `Orders` table that have a specific
 
 ```
 SELECT OrderID, Total
-FROM Orders
+FROM "Orders"
 WHERE OrderID = 1 OR OrderID = 2
 ```
 
@@ -100,7 +106,7 @@ The following query returns all items in the `Orders` table that have a specific
 
 ```
 SELECT OrderID, Total
-FROM Orders
+FROM "Orders"
 WHERE OrderID IN [1, 2, 3] ORDER BY OrderID DESC
 ```
 
@@ -108,7 +114,7 @@ The following query shows a full table scan that returns all items from the `Ord
 
 ```
 SELECT OrderID, Total 
-FROM Orders
+FROM "Orders"
 WHERE Total > 500
 ```
 
@@ -116,7 +122,7 @@ The following query shows a full table scan that returns all items from the `Ord
 
 ```
 SELECT OrderID, Total 
-FROM Orders
+FROM "Orders"
 WHERE Total IN [500, 600]
 ```
 
@@ -124,7 +130,7 @@ The following query shows a full table scan that returns all items from the `Ord
 
 ```
 SELECT OrderID, Total 
-FROM Orders 
+FROM "Orders" 
 WHERE Total BETWEEN 500 AND 600
 ```
 

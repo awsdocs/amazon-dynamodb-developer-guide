@@ -30,6 +30,7 @@ This procedure assumes that the `Music` table no longer exists before restoring 
 1. Enter **Music** as the new table name\. Confirm the backup name and other backup details\. Then choose **Restore table** to start the restore process\.
 **Note**  
 You can restore the table to the same AWS Region or to a different Region from where the backup resides\. You can also exclude secondary indexes from being created on the new restored table\. In addition, you can specify a different encryption mode\.  
+Tables restored from backups are always created using the DynamoDB Standard table class\.  
 ![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/restore_table.png)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the restore table from backup screen with backup table details.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
    The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `Music` table changes to **Active**\.

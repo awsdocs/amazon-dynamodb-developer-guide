@@ -39,7 +39,7 @@ If you want to create more than one table with secondary indexes, you must do so
 
 For each secondary index, you must specify the following:
 + The type of index to be created – either a global secondary index or a local secondary index\.
-+ A name for the index\. The naming rules for indexes are the same as those for tables, as listed in [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\. The name must be unique for the base table it is associated with, but you can use the same name for indexes that are associated with different base tables\.
++ A name for the index\. The naming rules for indexes are the same as those for tables, as listed in [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\. The name must be unique for the base table it is associated with, but you can use the same name for indexes that are associated with different base tables\.
 + The key schema for the index\. Every attribute in the index key schema must be a top\-level attribute of type `String`, `Number`, or `Binary`\. Other data types, including documents and sets, are not allowed\. Other requirements for the key schema depend on the type of index: 
   + For a global secondary index, the partition key can be any scalar attribute of the base table\. A sort key is optional, and it too can be any scalar attribute of the base table\.
   + For a local secondary index, the partition key must be the same as the base table's partition key, and the sort key must be a non\-key base table attribute\.

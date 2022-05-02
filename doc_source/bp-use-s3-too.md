@@ -1,6 +1,6 @@
 # Best Practices for Storing Large Items and Attributes<a name="bp-use-s3-too"></a>
 
-Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\)\. If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes or breaking the item into multiple items \(efficiently indexed by sort keys\)\. You can also store the item as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
+Amazon DynamoDB currently limits the size of each item that you store in a table \(see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\)\. If your application needs to store more data in an item than the DynamoDB size limit permits, you can try compressing one or more large attributes or breaking the item into multiple items \(efficiently indexed by sort keys\)\. You can also store the item as an object in Amazon Simple Storage Service \(Amazon S3\) and store the Amazon S3 object identifier in your DynamoDB item\.
 
 ## Compressing Large Attribute Values<a name="bp-use-s3-too-or-compress"></a>
 
@@ -24,4 +24,4 @@ When implementing this strategy, keep the following in mind:
 + DynamoDB doesn't support transactions that cross Amazon S3 and DynamoDB\. Therefore, your application must deal with any failures, which could include cleaning up orphaned Amazon S3 objects\.
 + Amazon S3 limits the length of object identifiers\. So you must organize your data in a way that doesn't generate excessively long object identifiers or violate other Amazon S3 constraints\.
 
-For more information about how to use Amazon S3, see the [Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\.
+For more information about how to use Amazon S3, see the [Amazon Simple Storage Service User Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/)\.

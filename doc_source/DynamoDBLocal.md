@@ -4,7 +4,7 @@ With the downloadable version of Amazon DynamoDB, you can develop and test appli
 
 Having this local version helps you save on throughput, data storage, and data transfer fees\. In addition, you don't need an internet connection while you develop your application\.
 
- DynamoDB Local is available as a download \(requires JRE\), as an Apache Maven dependency, or as a Docker image\. 
+ DynamoDB Local is available as a [download](DynamoDBLocal.DownloadingAndRunning.md#DynamoDBLocal.DownloadingAndRunning.title) \(requires JRE\), as an [Apache Maven dependency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#apache-maven), or as a [Docker image](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#docker)\. 
 
  If you prefer to use the Amazon DynamoDB web service instead, see [Setting Up DynamoDB \(Web Service\)](SettingUp.DynamoWebService.md)\. 
 

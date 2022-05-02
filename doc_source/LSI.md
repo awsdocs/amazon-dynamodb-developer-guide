@@ -219,6 +219,7 @@ You can use any of the following operations in DynamoDB to return information ab
 + `DeleteItem`
 + `PutItem`
 + `UpdateItem`
++ `TransactWriteItems`
 
 Each of these operations supports the `ReturnItemCollectionMetrics` parameter\. When you set this parameter to `SIZE`, you can view information about the size of each item collection in the index\.
 

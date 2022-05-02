@@ -1,4 +1,4 @@
-# Committing a Data Model to DynamoDB<a name="workbench.Visualizer.Commit"></a>
+# Committing a data model to DynamoDB<a name="workbench.Visualizer.Commit"></a>
 
 When you are satisfied with your data model, you can commit the model to Amazon DynamoDB\.
 

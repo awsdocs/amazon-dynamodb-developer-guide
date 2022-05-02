@@ -8,7 +8,7 @@
 
 Updates the provisioned throughput for the given table\. Setting the throughput for a table helps you manage performance and is part of the provisioned throughput feature of DynamoDB\. For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.
 
-The provisioned throughput values can be upgraded or downgraded based on the maximums and minimums listed in [Service, Account, and Table Quotas in Amazon DynamoDB](Limits.md)\.
+The provisioned throughput values can be upgraded or downgraded based on the maximums and minimums listed in [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 The table must be in the `ACTIVE` state for this operation to succeed\. UpdateTable is an asynchronous operation; while executing the operation, the table is in the `UPDATING` state\. While the table is in the `UPDATING` state, the table still has the provisioned throughput from before the call\. The new provisioned throughput setting is in effect only when the table returns to the `ACTIVE` state after the UpdateTable operation\. 
 

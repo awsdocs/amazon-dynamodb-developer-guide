@@ -42,3 +42,13 @@ Follow these steps to write data to the `Music` table using the DynamoDB console
    1. For **AlbumTitle**, enter **Songs About Life**\.
 
    1. For **Awards**, enter **10**\.
+
+1. Do this one more time to create another item with the same **Artist** as the previous step, but different values for the other attributes:
+
+   1. For **Artist**, enter **Acme Band**\.
+
+   1. For **SongTitle** enter **PartiQL Rocks**\.
+
+   1. For **AlbumTitle**, enter **Another Album Title**\.
+
+   1. For **Awards**, enter **8**\.

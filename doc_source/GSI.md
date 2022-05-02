@@ -7,6 +7,7 @@ Some applications might need to perform many kinds of queries, using a variety o
 + [Attribute Projections](#GSI.Projections)
 + [Reading Data from a Global Secondary Index](#GSI.Reading)
 + [Data Synchronization Between Tables and Global Secondary Indexes](#GSI.Writes)
++ [Table classes with global secondary indexes](#GSI.tableclasses)
 + [Provisioned Throughput Considerations for Global Secondary Indexes](#GSI.ThroughputConsiderations)
 + [Storage Considerations for Global Secondary Indexes](#GSI.StorageConsiderations)
 + [Managing Global Secondary Indexes](GSI.OnlineOps.md)
@@ -94,7 +95,7 @@ When you choose the attributes to project into a global secondary index, you mus
 
 ## Reading Data from a Global Secondary Index<a name="GSI.Reading"></a>
 
-You can retrieve items from a global secondary index using the `Query` and `Scan` operations\. The `GetItem` and `GetBatchItem` operations can't be used on a global secondary index\.
+You can retrieve items from a global secondary index using the `Query` and `Scan` operations\. The `GetItem` and `BatchGetItem` operations can't be used on a global secondary index\.
 
 ### Querying a Global Secondary Index<a name="GSI.Querying"></a>
 
@@ -136,7 +137,11 @@ When you put or delete items in a table, the global secondary indexes on that ta
 
 If you write an item to a table, you don't have to specify the attributes for any global secondary index sort key\. Using `GameTitleIndex` as an example, you would not need to specify a value for the `TopScore` attribute to write a new item to the `GameScores` table\. In this case, DynamoDB does not write any data to the index for this particular item\.
 
-A table with many global secondary indexes incurs higher costs for write activity than tables with fewer indexes\. For more information, see [Provisioned Throughput Considerations for Global Secondary Indexes](#GSI.ThroughputConsiderations)\. 
+A table with many global secondary indexes incurs higher costs for write activity than tables with fewer indexes\. For more information, see [Provisioned Throughput Considerations for Global Secondary Indexes](#GSI.ThroughputConsiderations)\.
+
+## Table classes with global secondary indexes<a name="GSI.tableclasses"></a>
+
+A global secondary index will always use the same table class as its base table\. Any time a new global secondary index is added for a table, the new index will use the same table class as its base table\. When a table's table class is updated, all associated global secondary indexes are updated as well\.
 
 ## Provisioned Throughput Considerations for Global Secondary Indexes<a name="GSI.ThroughputConsiderations"></a>
 

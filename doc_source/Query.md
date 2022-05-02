@@ -80,7 +80,7 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 }
 ```
 
-You can use any attribute name in a key condition expression, provided that the first character is `a-z` or `A-Z` and the second character \(if present\) is `a-z`, `A-Z`, or `0-9`\. In addition, the attribute name must not be a DynamoDB reserved word\. \(For a complete list of these, see [Reserved Words in DynamoDB](ReservedWords.md)\.\) If an attribute name does not meet these requirements, you must define an expression attribute name as a placeholder\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
+You can use any attribute name in a key condition expression, provided that the first character is `a-z` or `A-Z` and the rest of the characters \(starting from the second character, if present\) are `a-z`, `A-Z`, or `0-9`\. In addition, the attribute name must not be a DynamoDB reserved word\. \(For a complete list of these, see [Reserved Words in DynamoDB](ReservedWords.md)\.\) If an attribute name does not meet these requirements, you must define an expression attribute name as a placeholder\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
 
 For items with a given partition key value, DynamoDB stores these items close together, in sorted order by sort key value\. In a `Query` operation, DynamoDB retrieves the items in sorted order, and then processes the items using `KeyConditionExpression` and any `FilterExpression` that might be present\. Only then are the `Query` results sent back to the client\.
 
@@ -100,7 +100,7 @@ A `Query` operation can retrieve a maximum of 1 MB of data\. This limit applies 
 
 A filter expression cannot contain partition key or sort key attributes\. You need to specify those attributes in the key condition expression, not the filter expression\.
 
-The syntax for a filter expression is identical to that of a key condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a key condition expression, with the addition of the not\-equals operator \(`<>`\)\. For more information, see [Key Condition Expression](#Query.KeyConditionExpressions)\.
+The syntax for a filter expression is similar to that of a key condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a key condition expression\. In addition, filter expressions can use the not\-equals operator \(`<>`\), the `OR` operator, the `CONTAINS` operator, the `IN` operator, the `BEGINS_WITH` operator, the `BETWEEN` operator, the `EXISTS` operator, and the `SIZE` operator\. For more information, see [Key Condition Expression](#Query.KeyConditionExpressions) and [Syntax for Filter and Condition Expressions](Expressions.OperatorsAndFunctions.md#Expressions.OperatorsAndFunctions.Syntax)\.
 
 **Example**  
 The following AWS CLI example queries the `Thread` table for a particular `ForumName` \(partition key\) and `Subject` \(sort key\)\. Of the items that are found, only the most popular discussion threads are returned—in other words, only those threads with more than a certain number of `Views`\.  

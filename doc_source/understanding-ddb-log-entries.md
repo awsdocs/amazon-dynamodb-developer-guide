@@ -26,7 +26,7 @@ The following examples demonstrate CloudTrail logs of these event types:
 + [`BatchExecuteStatement`](#understanding-ddb-log-entries.batch-execute-statement)
 
 **DynamoDB Streams**
-+ [ `GetRecords` ](#understanding-ddb-log-entries.get-records)
++ [`GetRecords`](#understanding-ddb-log-entries.get-records)
 
 ## `UpdateTable`<a name="understanding-ddb-log-entries.update-table"></a>
 

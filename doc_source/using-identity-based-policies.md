@@ -58,7 +58,7 @@ The following AWS managed policies, which you can attach to users in your accoun
 You can review these AWS managed permissions policies by signing in to the IAM console and searching for specific policies there\.
 
 **Important**  
-The best practice is to create custom IAM policies that grant [least privilege ](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) to the IAM users, roles, or groups that require them\. 
+The best practice is to create custom IAM policies that grant [leastprivilege ](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) to the IAM users, roles, or groups that require them\. 
 
 ## Customer Managed Policy Examples<a name="access-policy-examples-for-sdk-cli"></a>
 

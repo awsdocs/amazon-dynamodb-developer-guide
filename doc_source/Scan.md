@@ -51,7 +51,9 @@ Now suppose that you add a filter expression to the `Scan`\. In this case, Dynam
 
 DynamoDB *paginates* the results from `Scan` operations\. With pagination, the `Scan` results are divided into "pages" of data that are 1 MB in size \(or less\)\. An application can process the first page of results, then the second page, and so on\.
 
-A single `Scan` only returns a result set that fits within the 1 MB size limit\. To determine whether there are more results and to retrieve them one page at a time, applications should do the following:
+A single `Scan` only returns a result set that fits within the 1 MB size limit\. 
+
+To determine whether there are more results and to retrieve them one page at a time, applications should do the following:
 
 1. Examine the low\-level `Scan` result:
    + If the result contains a `LastEvaluatedKey` element, proceed to step 2\.
@@ -78,6 +80,12 @@ aws dynamodb scan \
 ```
 
 Ordinarily, the AWS CLI handles pagination automatically\. However, in this example, the AWS CLI `--page-size` parameter limits the number of items per page\. The `--debug` parameter prints low\-level information about requests and responses\.
+
+**Note**  
+Your pagination results will also differ based on the input parameters you pass\.   
+Using `aws dynamodb scan --table-name Prices --max-items 1` returns a `NextToken`
+Using `aws dynamodb scan --table-name Prices --limit 1` returns a `LastEvaluatedKey`\.
+Also be aware that using `--starting-token` in particular requires the `NextToken` value\. 
 
 If you run the example, the first response from DynamoDB looks similar to the following\.
 

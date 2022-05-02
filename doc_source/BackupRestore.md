@@ -1,22 +1,19 @@
-# On\-Demand Backup and Restore for DynamoDB<a name="BackupRestore"></a>
+# Using On\-Demand Backup and Restore for DynamoDB<a name="BackupRestore"></a>
 
-You can create on\-demand backups for your Amazon DynamoDB tables or enable continuous backups with point\-in\-time recovery\. For information about continuous backups with point\-in\-time recovery, see [Point\-in\-Time Recovery for DynamoDB](PointInTimeRecovery.md)\.
+You can use the DynamoDB on\-demand backup capability to create full backups of your tables for long\-term retention, and archiving for regulatory compliance needs\. You can back up and restore your table data anytime with a single click on the AWS Management Console or with a single API call\. Backup and restore actions run with no impact on table performance or availability\.
 
-You can use the DynamoDB on\-demand backup capability to create full backups of your tables for long\-term retention and archival for regulatory compliance needs\. You can back up and restore your table data anytime with a single click on the AWS Management Console or with a single API call\. Backup and restore actions run with zero impact on table performance or availability\.
+There are two options available for creating and managing DynamoDB on\-demand backups: 
++ AWS Backup service
++ DynamoDB
 
-The on\-demand backup and restore process scales without degrading the performance or availability of your applications\. It uses a new and unique distributed technology that lets you complete backups in seconds regardless of table size\. You can create backups that are consistent within seconds across thousands of partitions without worrying about schedules or long\-running backup processes\. All on\-demand backups are cataloged, discoverable, and retained until explicitly deleted\.
+With AWS Backup, you can configure backup policies and monitor activity for your AWS resources and on\-premises workloads in one place\. Using DynamoDB with AWS Backup, you can copy your on\-demand backups across AWS accounts and Regions, add cost allocation tags to on\-demand backups, and transition on\-demand backups to cold storage for lower costs\. To use these advanced features, you must [opt in](https://docs.aws.amazon.com/aws-backup/latest/devguide/service-opt-in.html) to AWS Backup\. Opt\-in choices apply to the specific account and AWS Region, so you might have to opt in to multiple Regions using the same account\. For more information, see the [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/service-opt-in.html)\.
 
-In addition, on\-demand backup and restore operations don't affect performance or API latencies\. Backups are preserved regardless of table deletion\. For more information, see [Back Up and Restore DynamoDB Tables: How It Works](backuprestore_HowItWorks.md)\.
+The on\-demand backup and restore process scales without degrading the performance or availability of your applications\. It uses a new and unique distributed technology that lets you complete backups in seconds regardless of table size\. You can create backups that are consistent within seconds across thousands of partitions without worrying about schedules or long\-running backup processes\. All on\-demand backups are cataloged, discoverable, and retained until they are explicitly deleted\.
 
-You can create table backups using the console, the AWS Command Line Interface \(AWS CLI\), or the DynamoDB API\. For more information, see [Backing Up a DynamoDB Table](Backup.Tutorial.md)\.
+In addition, on\-demand backup and restore operations don't affect performance or API latencies\. Backups are preserved regardless of table deletion\. For more information, see [Using DynamoDB Backup and Restore](backuprestore_HowItWorks.md)\.
 
-For information about restoring a table from a backup, see [Restoring a DynamoDB Table from a Backup](Restore.Tutorial.md)\.
-
-DynamoDB on\-demand backups are available at no additional cost beyond the normal pricing that's associated with backup storage size\. For more information about AWS Region availability and pricing, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
+DynamoDB on\-demand backups are available at no additional cost beyond the normal pricing that's associated with backup storage size\. DynamoDB on\-demand backups cannot be copied to a different account or Region\. To create backup copies across AWS accounts and Regions and for other advanced features, you should use AWS Backup\. If you use AWS Backup features you will be billed for them by AWS Backup\. For more information about AWS Region availability and pricing, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 
 **Topics**
-+ [Back Up and Restore DynamoDB Tables: How It Works](backuprestore_HowItWorks.md)
-+ [Backing Up a DynamoDB Table](Backup.Tutorial.md)
-+ [Restoring a DynamoDB Table from a Backup](Restore.Tutorial.md)
-+ [Deleting a DynamoDB Table Backup](Delete.Tutorial.md)
-+ [Using IAM with DynamoDB Backup and Restore](backuprestore_IAM.md)
++ [Using AWS Backup with DynamoDB](backuprestore_HowItWorksAWS.md)
++ [Using DynamoDB Backup and Restore](backuprestore_HowItWorks.md)

@@ -10,10 +10,11 @@ This section also provides more information about throughput capacity using Dyna
 **Topics**
 + [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)
 + [Considerations When Changing Read/Write Capacity Mode](switching.capacitymode.md)
++ [Considerations When Choosing a Table Class](WorkingWithTables.tableclasses.md)
 + [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)
 + [DynamoDB Item Sizes and Formats](CapacityUnitCalculations.md)
 + [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)
-+ [Global Tables: Multi\-Region Replication with DynamoDB](GlobalTables.md)
++ [Global tables \- multi\-Region replication for DynamoDB](GlobalTables.md)
 + [Adding Tags and Labels to Resources](Tagging.md)
 + [Working with DynamoDB Tables in Java](JavaDocumentAPIWorkingWithTables.md)
 + [Working with DynamoDB Tables in \.NET](LowLevelDotNetWorkingWithTables.md)

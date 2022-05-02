@@ -30,24 +30,12 @@ Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
 ## DynamoDB<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB"></a>
 
-### PartiQL<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB.partiql"></a>
+In Amazon DynamoDB, you can use either the DynamoDB API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language, to read an item from a table\.
 
-DynamoDB provides the `ExecuteStatement` action for retrieving an item by its primary key using the SELECT statement\.
+------
+#### [ DynamoDB API ]
 
-```
-select AlbumTitle, Year, Price
-FROM Music
-WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
-```
-
-Note that the primary key for this table consists of Artist and SongTitle\. 
-
-**Note**  
- The select PartiQL statement can be used to also Query or Scan a DynamoDB table
-
-For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
-
-### Classic APIs<a name="SQLtoNoSQL.ReadData.SingleItem.DynamoDB.classic"></a>
+With the DynamoDB API, you use the `PutItem` operation to add an item to a table\.
 
 DynamoDB provides the `GetItem` action for retrieving an item by its primary key\. `GetItem` is highly efficient because it provides direct access to the physical location of the item\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
 
@@ -88,3 +76,23 @@ DynamoDB is a nonrelational database and doesn't support table joins\. If you ar
 
 **Note**  
 For code examples that use `GetItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you use the `ExecuteStatement` operation to read an item from a table, using the PartiQL `Select` statement\.
+
+```
+SELECT AlbumTitle, Year, Price
+FROM Music
+WHERE Artist='No One You Know' AND SongTitle = 'Call Me Today'
+```
+
+Note that the primary key for this table consists of Artist and SongTitle\. 
+
+**Note**  
+ The select PartiQL statement can also be used to Query or Scan a DynamoDB table
+
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+------

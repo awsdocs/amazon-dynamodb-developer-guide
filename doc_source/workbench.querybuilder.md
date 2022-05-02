@@ -5,3 +5,4 @@ NoSQL Workbench for Amazon DynamoDB provides a rich graphical user interface for
 **Topics**
 + [Exploring Datasets](workbench.querybuilder.connect.md)
 + [Building Complex Operations](workbench.querybuilder.operationbuilder.md)
++ [Exporting data to a CSV file](workbench.querybuilder.exportcsv.md)

@@ -4,6 +4,7 @@
 
 **Topics**
 + [Error Components](#Programming.Errors.Components)
++ [Transactional Errors](#Programming.Errors.TransactionalErrors)
 + [Error Messages and Codes](#Programming.Errors.MessagesAndCodes)
 + [Error Handling in Your Application](#Programming.Errors.Handling)
 + [Error Retries and Exponential Backoff](#Programming.Errors.RetryAndBackoff)
@@ -32,6 +33,10 @@ Date: Thu, 15 Mar 2012 23:56:23 GMT
 {"__type":"com.amazonaws.dynamodb.v20120810#ResourceNotFoundException",
 "message":"Requested resource not found: Table: tablename not found"}
 ```
+
+## Transactional Errors<a name="Programming.Errors.TransactionalErrors"></a>
+
+For information on transactional errors, please see [Transaction Conflict Handling in DynamoDB](transaction-apis.md#transaction-conflict-handling)
 
 ## Error Messages and Codes<a name="Programming.Errors.MessagesAndCodes"></a>
 
@@ -63,7 +68,7 @@ OK to retry? Yes
 
 **LimitExceededException**  
 Message: *Too many operations for a given subscriber\.*  
-There are too many concurrent control plane operations\. The cumulative number of tables and indexes in the `CREATING`, `DELETING`, or `UPDATING` state cannot exceed 50\.  
+There are too many concurrent control plane operations\. The cumulative number of tables and indexes in the `CREATING`, `DELETING`, or `UPDATING` state cannot exceed 500\.  
 OK to retry? Yes
 
 **MissingAuthenticationTokenException**  

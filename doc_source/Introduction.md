@@ -6,7 +6,7 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 
 With DynamoDB, you can create database tables that can store and retrieve any amount of data and serve any level of request traffic\. You can scale up or scale down your tables' throughput capacity without downtime or performance degradation\. You can use the AWS Management Console to monitor resource utilization and performance metrics\.
 
-DynamoDB provides on\-demand backup capability\. It allows you to create full backups of your tables for long\-term retention and archival for regulatory compliance needs\. For more information, see [On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\.
+DynamoDB provides on\-demand backup capability\. It allows you to create full backups of your tables for long\-term retention and archival for regulatory compliance needs\. For more information, see [Using On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\.
 
  You can create on\-demand backups and enable point\-in\-time recovery for your Amazon DynamoDB tables\. Point\-in\-time recovery helps protect your tables from accidental write or delete operations\. With point\-in\-time recovery, you can restore a table to any point in time during the last 35 days\. For more information, see [Point\-in\-Time Recovery: How It Works](PointInTimeRecovery_Howitworks.md)\.
 
@@ -14,7 +14,7 @@ DynamoDB provides on\-demand backup capability\. It allows you to create full ba
 
 ## High Availability and Durability<a name="ddb_highavailability"></a>
 
-DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance\. All of your data is stored on solid\-state disks \(SSDs\) and is automatically replicated across multiple Availability Zones in an AWS Region, providing built\-in high availability and data durability\. You can use global tables to keep DynamoDB tables in sync across AWS Regions\. For more information, see [Global Tables: Multi\-Region Replication with DynamoDB](GlobalTables.md)\.
+DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance\. All of your data is stored on solid\-state disks \(SSDs\) and is automatically replicated across multiple Availability Zones in an AWS Region, providing built\-in high availability and data durability\. You can use global tables to keep DynamoDB tables in sync across AWS Regions\. For more information, see [Global tables \- multi\-Region replication for DynamoDB](GlobalTables.md)\.
 
 ## Getting Started with DynamoDB<a name="ddb_getstarted"></a>
 

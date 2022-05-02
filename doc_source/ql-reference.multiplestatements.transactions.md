@@ -5,12 +5,12 @@ This section describes how to use transactions with PartiQL for DynamoDB\.
 For more information on DynamoDB transactions, see [Managing Complex Workflows with DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\.
 
 **Note**  
-The entire transaction must consist of either read statements or write statements; you cannot mix both in one transaction\. The EXISTS function is an exception and can be used to check the condition of specific attributes of the item in a similar manner to `ConditionCheck` in the [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems) API\. 
+The entire transaction must consist of either read statements or write statements\. You can't mix both in one transaction\. The EXISTS function is an exception\. You can use it to check the condition of specific attributes of the item in a similar manner to `ConditionCheck` in the [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems) API operation\.
 
 **Topics**
 + [Syntax](#ql-reference.multiplestatements.transactions.syntax)
 + [Parameters](#ql-reference.multiplestatements.transactions.parameters)
-+ [Return values](#ql-reference.multiplestatements.transactions.return)
++ [Return Values](#ql-reference.multiplestatements.transactions.return)
 + [Examples](#ql-reference.multiplestatements.transactions.examples)
 
 ## Syntax<a name="ql-reference.multiplestatements.transactions.syntax"></a>
@@ -31,7 +31,7 @@ The entire transaction must consist of either read statements or write statement
 
 ***statement***  
 \(Required\) A PartiQL for DynamoDB supported statement\.  
-The entire transaction must consist of either read statements or write statements; you cannot mix both in one transaction\.
+The entire transaction must consist of either read statements or write statements\. You can't mix both in one transaction\.
 
 ***parametertype***  
 \(Optional\) A DynamoDB type, if parameters were used when specifying the PartiQL statement\.
@@ -39,36 +39,38 @@ The entire transaction must consist of either read statements or write statement
 ***parametervalue***  
 \(Optional\) A parameter value if parameters were used when specifying the PartiQL statement\.
 
-## Return values<a name="ql-reference.multiplestatements.transactions.return"></a>
+## Return Values<a name="ql-reference.multiplestatements.transactions.return"></a>
 
-This statement does not return any values\.
+This statement doesn't return any values for Write operations \(INSERT, UPDATE, or DELETE\)\. However, it returns different values for Read operations \(SELECT\) based on the conditions specified in the WHERE clause\.
 
 **Note**  
-If any of the singleton INSERT, UPDATE, or DELETE operations return an error, the transactions are cancelled with the `TransactionCanceledException` exception, and the cancellation reason code includes the errors from the individual singleton operations\.
+If any of the singleton INSERT, UPDATE, or DELETE operations return an error, the transactions are canceled with the `TransactionCanceledException` exception, and the cancellation reason code includes the errors from the individual singleton operations\.
 
 ## Examples<a name="ql-reference.multiplestatements.transactions.examples"></a>
+
+The following example runs multiple statements as a transaction\.
 
 ------
 #### [ AWS CLI ]
 
-1. Save the following json to a file called partiql\.json
+1. Save the following JSON code to a file called partiql\.json\.
 
    ```
    [
        {
-           "Statement": "EXISTS(SELECT * FROM Music where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"
+           "Statement": "EXISTS(SELECT * FROM "Music" where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"
        },
        {
-           "Statement": "INSERT INTO Music value {'Artist':'?','SongTitle':'?'}",
+           "Statement": "INSERT INTO "Music" value {'Artist':'?','SongTitle':'?'}",
            "Parameters": [{"S": "Acme Band"}, {"S": "Best Song"}]
        },
        {
-           "Statement": "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"
+           "Statement": "UPDATE "Music" SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"
        }
    ]
    ```
 
-1. Execute the following command in a command prompt\.
+1. Run the following command in a command prompt\.
 
    ```
    aws dynamodb execute-transaction --transact-statements  file://partiql.json
@@ -114,14 +116,14 @@ public class DynamoDBPartiqlTransaction {
         List<ParameterizedStatement> statements = new ArrayList<ParameterizedStatement>();
 
         statements.add(new ParameterizedStatement()
-                               .withStatement("EXISTS(SELECT * FROM Music where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"));
+                               .withStatement("EXISTS(SELECT * FROM "Music" where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"));
 
         statements.add(new ParameterizedStatement()
-                               .withStatement("INSERT INTO Music value {'Artist':'?','SongTitle':'?'}")
+                               .withStatement("INSERT INTO "Music" value {'Artist':'?','SongTitle':'?'}")
                                .withParameters(new AttributeValue("Acme Band"),new AttributeValue("Best Song")));
 
         statements.add(new ParameterizedStatement()
-                               .withStatement("UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"));
+                               .withStatement("UPDATE "Music" SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist='Acme Band' and SongTitle='PartiQL Rocks'"));
 
         return statements;
     }
@@ -173,5 +175,63 @@ public class DynamoDBPartiqlTransaction {
 
 }
 ```
+
+------
+
+The following example shows the different return values when DynamoDB reads items with different conditions specified in the WHERE clause\.
+
+------
+#### [ AWS CLI ]
+
+1. Save the following JSON code to a file called partiql\.json\.
+
+   ```
+   [
+       // Item exists and projected attribute exists
+       {
+           "Statement": "SELECT * FROM "Music" WHERE Artist='No One You Know' and SongTitle='Call Me Today'"
+       },
+       // Item exists but projected attributes do not exist
+       {
+           "Statement": "SELECT non_existent_projected_attribute FROM "Music" WHERE Artist='No One You Know' and SongTitle='Call Me Today'"
+       },
+       // Item does not exist
+       {
+           "Statement": "SELECT * FROM "Music" WHERE Artist='No One I Know' and SongTitle='Call You Today'"
+       }
+   ]
+   ```
+
+1.  following command in a command prompt\.
+
+   ```
+   aws dynamodb execute-transaction --transact-statements  file://partiql.json
+   ```
+
+1. The following response is returned:
+
+   ```
+   {
+       "Responses": [
+           // Item exists and projected attribute exists
+           {
+               "Item": {
+                   "Artist":{
+                       "S": "No One You Know"
+                   },
+                   "SongTitle":{
+                       "S": "Call Me Today"
+                   }    
+               }
+           },
+           // Item exists but projected attributes do not exist
+           {
+               "Item": {}
+           },
+           // Item does not exist
+           {}
+       ]
+   }
+   ```
 
 ------

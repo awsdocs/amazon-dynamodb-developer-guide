@@ -13,7 +13,7 @@ Similar to other database systems, Amazon DynamoDB stores data in tables\. You c
 ## Creating a Table<a name="WorkingWithTables.Basics.CreateTable"></a>
 
 Use the `CreateTable` operation to create a table in Amazon DynamoDB\. To create the table, you must provide the following information:
-+ **Table name\.** The name must conform to the DynamoDB naming rules, and must be unique for the current AWS account and Region\. For example, you could create a `People` table in US East \(N\. Virginia\) and another `People` table in Europe \(Ireland\)\. However, these two tables would be entirely different from each other\. For more information, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\.
++ **Table name\.** The name must conform to the DynamoDB naming rules, and must be unique for the current AWS account and Region\. For example, you could create a `People` table in US East \(N\. Virginia\) and another `People` table in Europe \(Ireland\)\. However, these two tables would be entirely different from each other\. For more information, see [Supported data types and naming rules in Amazon DynamoDB](HowItWorks.NamingRulesDataTypes.md)\.
 + **Primary key\.** The primary key can consist of one attribute \(partition key\) or two attributes \(partition key and sort key\)\. You need to provide the attribute names, data types, and the role of each attribute: `HASH` \(for a partition key\) and `RANGE` \(for a sort key\)\. For more information, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
 + **Throughput settings \(for provisioned tables\)\.** If using provisioned mode, you must specify the initial read and write throughput settings for the table\. You can modify these settings later, or enable DynamoDB auto scaling to manage the settings for you\. For more information, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md) and [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](AutoScaling.md)\.
 
@@ -140,6 +140,69 @@ The `CreateTable` operation returns metadata for the table, as shown following\.
 **Important**  
  When calling `DescribeTable` on an on\-demand table, read capacity units and write capacity units are set to 0\. 
 
+### Example 3: Create a table using the DynamoDB Standard\-Infrequent Access table class<a name="create-infrequent-access-example"></a>
+
+To create the same `Music` table using the DynamoDB Standard\-Infrequent Access table class\.
+
+```
+aws dynamodb create-table \
+    --table-name Music \
+    --attribute-definitions \
+        AttributeName=Artist,AttributeType=S \
+        AttributeName=SongTitle,AttributeType=S \
+    --key-schema \
+        AttributeName=Artist,KeyType=HASH \
+        AttributeName=SongTitle,KeyType=RANGE \
+    --provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5 \
+    --table-class STANDARD_INFREQUENT_ACCESS
+```
+
+The `CreateTable` operation returns metadata for the table, as shown following\.
+
+```
+{
+    "TableDescription": {
+        "TableArn": "arn:aws:dynamodb:us-east-1:123456789012:table/Music",
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "Artist",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "SongTitle",
+                "AttributeType": "S"
+            }
+        ],
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "WriteCapacityUnits": 5,
+            "ReadCapacityUnits": 10
+        },
+        "TableClassSummary": {
+            "LastUpdateDateTime": 1542397215.37,
+            "TableClass": "STANDARD_INFREQUENT_ACCESS"
+        },
+        "TableSizeBytes": 0,
+        "TableName": "Music",
+        "TableStatus": "CREATING",
+        "TableId": "12345678-0123-4567-a123-abcdefghijkl",
+        "KeySchema": [
+            {
+                "KeyType": "HASH",
+                "AttributeName": "Artist"
+            },
+            {
+                "KeyType": "RANGE",
+                "AttributeName": "SongTitle"
+            }
+        ],
+        "ItemCount": 0,
+        "CreationDateTime": 1542397215.37
+    }
+}
+```
+
 ## Describing a Table<a name="WorkingWithTables.Basics.DescribeTable"></a>
 
 To view details about a table, use the `DescribeTable` operation\. You must provide the table name\. The output from `DescribeTable` is in the same format as that from `CreateTable`\. It includes the timestamp when the table was created, its key schema, its provisioned throughput settings, its estimated size, and any secondary indexes that are present\.
@@ -224,4 +287,4 @@ aws dynamodb describe-limits
 ```
 The output shows the upper quotas of read and write capacity units for the current AWS account and Region\.
 
-For more information about these quotas, and how to request quota increases, see [Throughput Default Quotas](Limits.md#default-limits-throughput)\.
+For more information about these quotas, and how to request quota increases, see [Throughput Default Quotas](ServiceQuotas.md#default-limits-throughput)\.

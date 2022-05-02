@@ -54,4 +54,6 @@ The absence of `LastEvaluatedKey` indicates that there are no more items to retr
 The AWS SDKs handle the low\-level DynamoDB responses \(including the presence or absence of `LastEvaluatedKey`\) and provide various abstractions for paginating `Query` results\. For example, the SDK for Java document interface provides `java.util.Iterator` support so that you can walk through the results one at a time\.  
 For code examples in various programming languages, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/) and the AWS SDK documentation for your language\.
 
+You can also reduce page size by limiting the number of items in the result set, with the `Limit` parameter of the `Query` operation\.
+
 For more information about querying with DynamoDB, see [Working with Queries in DynamoDB](Query.md)\.

@@ -30,9 +30,12 @@ WHERE Genre = 'Country' AND Price < 0.50;
 
 ## DynamoDB<a name="SQLtoNoSQL.Indexes.QueryAndScan.DynamoDB"></a>
 
-In DynamoDB, you perform `Query` operations directly on the index, in the same way that you would on a table\. You must specify both `TableName` and `IndexName`\.
+In DynamoDB, you perform `Query` and `Scan` operations directly on the index, in the same way that you would on a table\. You can use either the DynamoDB API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language, to query or scan the index\. You must specify both `TableName` and `IndexName`\.
 
 The following are some queries on *GenreAndPriceIndex* in DynamoDB\. \(The key schema for this index consists of *Genre* and *Price*\.\)
+
+------
+#### [ DynamoDB API ]
 
 ```
 // All of the rock songs
@@ -46,6 +49,8 @@ The following are some queries on *GenreAndPriceIndex* in DynamoDB\. \(The key s
     },
 };
 ```
+
+This example uses a `ProjectionExpression` to indicate that you only want some of the attributes, rather than all of them, to appear in the results\.
 
 ```
 // All of the cheap country songs
@@ -62,9 +67,7 @@ The following are some queries on *GenreAndPriceIndex* in DynamoDB\. \(The key s
 };
 ```
 
-This example uses a `ProjectionExpression` to indicate that you only want some of the attributes, rather than all of them, to appear in the results\.
-
-You can also perform `Scan` operations on a secondary index, in the same way that you would on a table\. The following is a scan on *GenreAndPriceIndex*\.
+The following is a scan on *GenreAndPriceIndex*\.
 
 ```
 // Return all of the data in the index
@@ -74,3 +77,38 @@ You can also perform `Scan` operations on a secondary index, in the same way tha
     IndexName: "GenreAndPriceIndex"
 }
 ```
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you use the PartiQL `Select` statement to perform queries and scans on the index\.
+
+```
+// All of the rock songs
+
+SELECT * 
+FROM Music.GenreAndPriceIndex
+WHERE Genre = 'Rock'
+```
+
+```
+// All of the cheap country songs
+
+SELECT * 
+FROM Music.GenreAndPriceIndex
+WHERE Genre = 'Rock' AND Price < 0.50
+```
+
+The following is a scan on *GenreAndPriceIndex*\.
+
+```
+// Return all of the data in the index
+
+SELECT *
+FROM Music.GenreAndPriceIndex
+```
+
+**Note**  
+For code examples using `Select`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+
+------

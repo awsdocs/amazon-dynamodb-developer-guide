@@ -1,7 +1,7 @@
 # Java: DynamoDBMapper<a name="DynamoDBMapper"></a>
 
 **Topics**
-+ [Supported Data Types](DynamoDBMapper.DataTypes.md)
++ [Supported data types for DynamoDB Mapper for Java](DynamoDBMapper.DataTypes.md)
 + [Java Annotations for DynamoDB](DynamoDBMapper.Annotations.md)
 + [DynamoDBMapper Class](DynamoDBMapper.Methods.md)
 + [Optional Configuration Settings for DynamoDBMapper](DynamoDBMapper.OptionalConfig.md)
@@ -72,7 +72,7 @@ In the preceding code, the `@DynamoDBTable` annotation maps the `CatalogItem` cl
 
 By default, the class properties map to the same name attributes in the table\. The properties `Title` and `ISBN` map to the same name attributes in the table\. 
 
-The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the `attributeName()` parameter to specify which DynamoDB attribute this property corresponds to\. 
+The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the `attributeName` parameter to specify which DynamoDB attribute this property corresponds to\. 
 
 In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
 

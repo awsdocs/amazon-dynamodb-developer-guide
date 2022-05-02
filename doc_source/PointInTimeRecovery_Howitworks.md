@@ -2,12 +2,16 @@
 
 Amazon DynamoDB point\-in\-time recovery \(PITR\) provides automatic backups of your DynamoDB table data\. This section provides an overview of how the process works in DynamoDB\.
 
+## Enabling Point\-in\-Time Recovery<a name="howitworks_enabling"></a>
+
 You can enable point\-in\-time recovery using the AWS Management Console, AWS Command Line Interface \(AWS CLI\), or the DynamoDB API\. When enabled, point\-in\-time recovery provides continuous backups until you explicitly turn it off\. For more information, see [Restoring a DynamoDB Table to a Point in Time](PointInTimeRecovery.Tutorial.md)\.
 
 After you enable point\-in\-time recovery, you can restore to any point in time within `EarliestRestorableDateTime` and `LatestRestorableDateTime`\. `LatestRestorableDateTime` is typically 5 minutes before the current time\.
 
 **Note**  
 The point\-in\-time recovery process always restores to a new table\.
+
+## Restoring a Table Using Point\-in\-Time Recovery<a name="howitworks_restoring"></a>
 
 For `EarliestRestorableDateTime`, you can restore your table to any point in time during the last 35 days\. The retention period is a fixed 35 days \(5 calendar weeks\) and can't be modified\. Any number of users can run up to four concurrent restores \(any type of restore\) in a given account\.
 
@@ -42,4 +46,11 @@ You must manually set the following on the restored table:
 + Time to Live \(TTL\) settings
 + Point\-in\-time recovery settings
 
-The time it takes you to restore a table varies based on multiple factors\. The point\-in\-time restore times are not always correlated directly to the size of the table\. For more information, see [Restores](backuprestore_HowItWorks.md#backuprestore_HowItWorks-restore)\.
+The time it takes you to restore a table varies based on multiple factors\. The point\-in\-time restore times are not always correlated directly to the size of the table\. For more information, see [Restores](CreateBackup.md#CreateBackup_HowItWorks-restore)\.
+
+## Deleting a Table with Point\-in\-Time Recovery Enabled<a name="howitworks_deleting"></a>
+
+When you delete a table that has point\-in\-time recovery enabled, DynamoDB automatically creates a backup—called a system backup—and retains it for 35 days \(at no additional cost\)\. You can use the system backup to restore the deleted table to the state it was in just before deletion\. All system backups follow a standard naming convention of *table\-name*`$DeletedTableBackup`\.
+
+**Note**  
+When you delete a table, you no longer have access to the table to perform a point\-in\-time recovery\.

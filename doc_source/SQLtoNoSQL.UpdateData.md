@@ -20,9 +20,12 @@ If no rows match the `WHERE` clause, the `UPDATE` statement has no effect\.
 
 ## DynamoDB<a name="SQLtoNoSQL.UpdateData.DynamoDB"></a>
 
-In DynamoDB, you use the `UpdateItem` action to modify a single item\. \(If you want to modify multiple items, you must use multiple `UpdateItem` operations\.\)
+In DynamoDB, you can use either the classic API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language to modify a single item\. \(If you want to modify multiple items, you must use multiple operations\.\)
 
-The following is an example\.
+------
+#### [ DynamoDB API ]
+
+With the DynamoDB API, you use the `UpdateItem` action to modify a single item\.
 
 ```
 {
@@ -98,3 +101,48 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
 
 **Note**  
 For code examples that use `UpdateItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you use the `ExecuteStatement` operation to modify an item in a table, using the PartiQL `Update` statement\.
+
+The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
+
+```
+UPDATE Music
+SET RecordLabel ='Global Records'
+WHERE Artist='No One You Know' AND SongTitle='Call Me Today'
+```
+
+You can also modify multiple fields at once, such as in the following example\.
+
+```
+UPDATE Music
+SET RecordLabel = 'Global Records'
+SET AwardsWon = 10
+WHERE Artist ='No One You Know' AND SongTitle='Call Me Today'
+```
+
+`Update` also supports *atomic counters*, or attributes of type `Number` that can be incremented or decremented\. Atomic counters are similar in many ways to sequence generators, identity columns, or autoincrement fields in SQL databases\.
+
+The following is an example of an `Update` statement to initialize a new attribute \(*Plays*\) to keep track of the number of times a song has been played\.
+
+```
+UPDATE Music
+SET Plays = 0
+WHERE Artist='No One You Know' AND SongTitle='Call Me Today'
+```
+
+Whenever someone plays this song, we can use the following `Update` statement to increment *Plays* by one\.
+
+```
+UPDATE Music
+SET Plays = Plays + 1
+WHERE Artist='No One You Know' AND SongTitle='Call Me Today'
+```
+
+**Note**  
+For code examples using `Update` and `ExecuteStatement`, see [PartiQL Update Statements for DynamoDB](ql-reference.update.md)\.
+
+------

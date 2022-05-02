@@ -1,6 +1,6 @@
 # IAM Policy to Separate DynamoDB Environments in the Same AWS Account<a name="iam-policy-separate-environments"></a>
 
-Suppose that you have separate environments where each environment maintains its own version of a table named `ProductCatalog`\. If you create two `ProductCatalog` tables in the same AWS account, work in one environment might affect the other environment because of the way that permissions are set up\. For example, the quotas on the number of concurrent control plane operations \(such as `CreateTable`\) are set at the AWS account level\.
+Suppose that you have separate environments where each environment maintains its own version of a table named `ProductCatalog`\. If you create two `ProductCatalog` tables in the same AWS account, work in one environment might affect the other environment because of the way that permissions are set up\. For example, quotas on the number of concurrent control plane operations \(such as `CreateTable`\) are set at the AWS account level\.
 
 As a result, each action in one environment reduces the number of operations available in the other environment\. There is also a risk that the code in one environment might accidentally access tables in the other environment\.
 

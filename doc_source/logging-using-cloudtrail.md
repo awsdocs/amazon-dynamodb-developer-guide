@@ -6,6 +6,10 @@ For robust monitoring and alerting, you can also integrate CloudTrail events wit
 
 To learn more about CloudTrail, including how to configure and enable it, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
 
+**Topics**
++ [DynamoDB Information in CloudTrail](#service-name-info-in-cloudtrail)
++ [Understanding DynamoDB Log File Entries](understanding-ddb-log-entries.md)
+
 ## DynamoDB Information in CloudTrail<a name="service-name-info-in-cloudtrail"></a>
 
 CloudTrail is enabled on your AWS account when you create the account\. When supported event activity occurs in DynamoDB, that activity is recorded in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\.
@@ -79,6 +83,8 @@ The following API actions are logged by default as events in CloudTrail files:
 ### DynamoDB Data Plane Events in CloudTrail<a name="ddb-data-plane-events-in-cloudtrail"></a>
 
 To enable logging of the following API actions in CloudTrail files, you'll need to enable logging of data plane API activity in CloudTrail\. See [Logging data events for trails](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html) for more information\.
+
+Data plane events can be filtered by resource type for granular control over which DynamoDB API calls you want to selectively log and pay for in CloudTrail\. For example, by specifying `AWS::DynamoDB::Stream` as a resource type, you can log only calls to the DynamoDB Streams APIs, enabling you to identify security issues while controlling costs\. For more information, see [DataResource](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_DataResource.html) in the CloudTrail [AWS CloudTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/)\.
 
 **Amazon DynamoDB**
 + [BatchExecuteStatement](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchExecuteStatement.html)

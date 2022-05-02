@@ -1,4 +1,4 @@
-# Supported Data Types<a name="DynamoDBMapper.DataTypes"></a>
+# Supported data types for DynamoDB Mapper for Java<a name="DynamoDBMapper.DataTypes"></a>
 
 This section describes the supported primitive Java data types, collections, and arbitrary data types in Amazon DynamoDB\. 
 
@@ -16,7 +16,7 @@ Amazon DynamoDB supports the following primitive Java data types and primitive w
 + `BigInteger`
 
 **Note**  
-For more information about DynamoDB naming rules and the various supported data types, see [Naming Rules and Data Types](HowItWorks.NamingRulesDataTypes.md)\. 
+For more information about DynamoDB naming rules and the various supported data types, see [Supported data types and naming rules in Amazon DynamoDB](HowItWorks.NamingRulesDataTypes.md)\. 
 Empty Binary values are supported by the DynamoDBMapper\.
 Empty String values are supported by AWS SDK for Java 2\.x\.  
 In AWS SDK for Java 1\.x, DynamoDBMapper supports reading of empty String attribute values, however, it will not write empty String attribute values because these attributes are dropped from the request\.

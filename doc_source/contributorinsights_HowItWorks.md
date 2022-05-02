@@ -90,6 +90,8 @@ CloudWatch Contributor Insights for DynamoDB doesn't show DAX cache responses\. 
 
 CloudWatch Contributor Insights for DynamoDB doesn't affect how encryption works in DynamoDB\. The primary key data that is published in CloudWatch is encrypted with the AWS owned key\. However, DynamoDB also supports the AWS managed key and a customer managed key\.
 
+CloudWatch Contributor Insights for DynamoDB graphs display the partition key and sort key \(if applicable\) of frequently accessed items and frequently throttled items in plaintext\. If you require the use of AWS Key Management Service \(KMS\) to encrypt this table’s partition key and sort key data with an AWS managed key or customer managed key, you should not enable CloudWatch Contributor Insights for DynamoDB for this table\.
+
 If you require your primary key data to be encrypted with the AWS managed key or a customer managed key, you should not enable CloudWatch Contributor Insights for DynamoDB for that table\.
 
 ### Fine\-Grained Access Control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>

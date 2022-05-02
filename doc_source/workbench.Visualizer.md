@@ -4,6 +4,7 @@ You can use the visualizer tool in NoSQL Workbench for Amazon DynamoDB to map qu
 
 **Topics**
 + [Adding Sample Data to a Data Model](workbench.Visualizer.AddData.md)
-+ [Viewing Data Access Patterns](workbench.Visualizer.Facets.md)
-+ [Viewing All Tables in a Data Model Using Aggregate View](workbench.Visualizer.AggregateView.md)
-+ [Committing a Data Model to DynamoDB](workbench.Visualizer.Commit.md)
++ [Importing sample data from a CSV file](workbench.Visualizer.ImportCSV.md)
++ [Viewing data access patterns](workbench.Visualizer.Facets.md)
++ [Viewing all tables in a data model using Aggregate View](workbench.Visualizer.AggregateView.md)
++ [Committing a data model to DynamoDB](workbench.Visualizer.Commit.md)

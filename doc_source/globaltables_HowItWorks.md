@@ -5,7 +5,7 @@
 
 |  | 
 | --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determine Version](globaltables.DetermineVersion.md)\. | 
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
 
  The following sections help you understand the concepts and behavior of global tables in Amazon DynamoDB\. 
 
@@ -37,6 +37,9 @@ Do not modify these attributes or create attributes with the same name\.
 You can add replica tables to the global table so that it can be available in additional Regions\. \(To do this, the global table must be empty\. In other words, none of the replica tables can have any data in them\.\)
 
 You can also remove a replica table from a global table\. If you do this, the table is completely disassociated from the global table\. This newly independent table no longer interacts with the global table, and data is no longer propagated to or from the global table\.
+
+**Warning**  
+Be aware that removing a replica is not an atomic process\. To ensure consistent behavior and known state, you may want to consider diverting your application write traffic away from the replica to be removed ahead of time\. After removing it, wait until all replica region endpoints show the replica as disassociated before making any further writes to it as its own isolated regional table\.
 
 ## Consistency and Conflict Resolution<a name="globaltables_HowItWorks.conflict-resolution"></a>
 

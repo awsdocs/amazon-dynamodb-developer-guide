@@ -10,6 +10,7 @@ You can use the console to do the following in DynamoDB:
 + Query and scan a table\.
 + Set up and view alarms to monitor your table's capacity usage\. View your table's top monitoring metrics on real\-time graphs from CloudWatch\.
 + Modify a table's provisioned capacity\.
++ Modify a table's table class\.
 + Create and delete global secondary indexes\.
 + Create triggers to connect DynamoDB streams to AWS Lambda functions\.
 + Apply tags to your resources to help organize and identify them\.

@@ -26,7 +26,12 @@ If you omit the `WHERE` clause, the database attempts to delete all of the rows 
 
 ## DynamoDB<a name="SQLtoNoSQL.DeleteData.DynamoDB"></a>
 
-In DynamoDB, you use the `DeleteItem` action to delete data from a table, one item at a time\. You must specify the item's primary key values\.
+In DynamoDB, you can use either the classic API, or [PartiQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html), a SQL\-compatible query language to delete a single item\. \(If you want to modify multiple items, you must use multiple operations\.\)
+
+------
+#### [ DynamoDB API ]
+
+With the DynamoDB API, you use the `DeleteItem` action to delete data from a table, one item at a time\. You must specify the item's primary key values\.
 
 ```
 {
@@ -56,3 +61,27 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 
 **Note**  
 For code examples that use `DeleteItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+
+------
+#### [ PartiQL for DynamoDB ]
+
+With PartiQL, you use the `Delete` statement through the `ExecuteStatement` operation to delete data from a table, one item at a time\. You must specify the item's primary key values\.
+
+The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
+
+```
+DELETE FROM Music
+WHERE Artist = 'Acme Band' AND SongTitle = 'PartiQL Rocks'
+```
+
+You can also specify additional conditions for the operation\. The following `DELETE` operation only deletes the item if it has more than 11 *Awards*\.
+
+```
+DELETE FROM Music
+WHERE Artist = 'Acme Band' AND SongTitle = 'PartiQL Rocks' AND Awards > 11
+```
+
+**Note**  
+For code examples using `DELETE` and `ExecuteStatement`, see [PartiQL Delete Statements for DynamoDB](ql-reference.delete.md)\.
+
+------

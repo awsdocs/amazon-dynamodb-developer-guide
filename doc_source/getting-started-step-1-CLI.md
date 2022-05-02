@@ -12,13 +12,15 @@ aws dynamodb create-table \
         AttributeName=Artist,KeyType=HASH \
         AttributeName=SongTitle,KeyType=RANGE \
     --provisioned-throughput \
-        ReadCapacityUnits=10,WriteCapacityUnits=5
+        ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --table-class STANDARD
 ```
 
 Using `create-table` returns the following sample result\.
 
 ```
 {
+
     "TableDescription": {
         "TableArn": "arn:aws:dynamodb:us-west-2:522194210714:table/Music",
         "AttributeDefinitions": [
@@ -34,7 +36,11 @@ Using `create-table` returns the following sample result\.
         "ProvisionedThroughput": {
             "NumberOfDecreasesToday": 0,
             "WriteCapacityUnits": 5,
-            "ReadCapacityUnits": 10
+            "ReadCapacityUnits": 5
+        },
+        "TableClassSummary": {
+            "LastUpdateDateTime": 1558028402.69,
+            "TableClass": "STANDARD"
         },
         "TableSizeBytes": 0,
         "TableName": "Music",

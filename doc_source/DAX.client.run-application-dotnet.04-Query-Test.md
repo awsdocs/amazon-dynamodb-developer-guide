@@ -3,19 +3,12 @@
 The `04-Query-Test.cs` program performs `Query` operations on `TryDaxTable`\.
 
 ```
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Amazon.Runtime;
 using Amazon.DAX;
 using Amazon.DynamoDBv2.Model;
@@ -24,10 +17,11 @@ namespace ClientTest
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             string endpointUri = args[0];
-            Console.WriteLine("Using DAX client - endpointUri=" + endpointUri);
+            Console.WriteLine($"Using DAX client - endpointUri={endpointUri}");
+
 
             var clientConfig = new DaxClientConfig(endpointUri)
             {
@@ -56,13 +50,14 @@ namespace ClientTest
                             {":skval2", new AttributeValue {N = sk2.ToString()} }
                     }
                 };
-                var response = client.QueryAsync(request).Result;
-                Console.WriteLine(i + ": Query succeeded");
+                var response = await client.QueryAsync(request);
+                Console.WriteLine($"{i}: Query succeeded");
+
             }
 
             var endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
-            Console.WriteLine("Total time: " + timeSpan.TotalMilliseconds + " milliseconds");
+            Console.WriteLine($"Total time: {timeSpan.TotalMilliseconds} milliseconds");
 
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();

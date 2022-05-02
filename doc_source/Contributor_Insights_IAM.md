@@ -37,6 +37,36 @@ The following IAM policy grants permissions to enable or disable CloudWatch Cont
 }
 ```
 
+ For tables encryped by KMS key, the user needs to have kms:Decrypt permissions in order to update Contributor Insights\. 
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "arn:aws:iam::*:role/aws-service-role/contributorinsights.dynamodb.amazonaws.com/AWSServiceRoleForDynamoDBCloudWatchContributorInsights",
+            "Condition": {"StringLike": {"iam:AWSServiceName": "contributorinsights.dynamodb.amazonaws.com"}}
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateContributorInsights"
+            ],
+            "Resource": "arn:aws:dynamodb:*:*:table/*"
+        },
+        {
+            "Effect": "Allow",
+            "Resource": "arn:aws:kms:*:*:key/*",
+            "Action": [
+                "kms:Decrypt"
+            ],
+        }
+    ]
+}
+```
+
 ## Example: Retrieve CloudWatch Contributor Insights Rule Report<a name="access-policy-Contributor_Insights-example2"></a>
 
 The following IAM policy grants permissions to retrieve CloudWatch Contributor Insights rule report\.

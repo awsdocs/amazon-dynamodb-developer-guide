@@ -49,7 +49,7 @@ Follow these steps to create a new data model in Amazon DynamoDB using NoSQL Wor
    Choose **Add facet**\.  
 ![\[Console screenshot showing the facet details and the add facet button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/DesignerAddFacetDetails.png)
 
-   Repeat step 8 if you want to add more facets\.
+   Repeat this step if you want to add more facets\.
 
 1. If you want to add a global secondary index, choose **Add global secondary index**\.
 

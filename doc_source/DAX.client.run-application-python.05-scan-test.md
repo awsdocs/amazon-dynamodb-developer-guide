@@ -35,6 +35,7 @@ def scan_test(iterations, dyn_resource=None):
 
 
 if __name__ == '__main__':
+    # pylint: disable=not-context-manager
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'endpoint_url', nargs='?',

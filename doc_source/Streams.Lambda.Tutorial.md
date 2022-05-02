@@ -7,7 +7,7 @@
 + [Step 4: Create and Test a Lambda Function](#Streams.Lambda.Tutorial.LambdaFunction)
 + [Step 5: Create and Test a Trigger](#Streams.Lambda.Tutorial.CreateTrigger)
 
-In this tutorial, you create an AWS Lambda trigger to process a stream from a DynamoDB table\.
+In this tutorial, you will create an AWS Lambda trigger to process a stream from a DynamoDB table\.
 
 The scenario for this tutorial is Woofer, a simple social network\. Woofer users communicate using *barks* \(short text messages\) that are sent to other Woofer users\. The following diagram shows the components and workflow for this application\.
 
