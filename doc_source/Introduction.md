@@ -1,4 +1,4 @@
-# What Is Amazon DynamoDB?<a name="Introduction"></a>
+# What is Amazon DynamoDB?<a name="Introduction"></a>
 
 Welcome to the Amazon DynamoDB Developer Guide\.
 
