@@ -14,6 +14,7 @@
 + [How to switch from RDBMS to DynamoDB in 20 easy steps](https://www.jeremydaly.com/how-to-switch-from-rdbms-to-dynamodb-in-20-easy-steps/) — An irreverent list from [Jeremy Daly](https://twitter.com/jeremy_daly) of useful steps for learning data modeling\.
 + [DynamoDB JavaScript DocumentClient cheat sheet](https://github.com/dabit3/dynamodb-documentclient-cheat-sheet) — A cheat sheet to help you get started building applications with DynamoDB in a Node\.js or JavaScript environment\.
 + [From relational database to single DynamoDB table: A step\-by\-step exploration](https://www.trek10.com/blog/dynamodb-single-table-relational-modeling/) — An in\-depth post from [Forrest Brazeal](https://twitter.com/forrestbrazeal) that includes a step\-by\-step approach for moving to a DynamoDB\-style, one\-table design\.
++ [Amazon DynamoDB JavaScript SDK v3 code examples (Node.js and DynamoDB)](https://github.com/ahmedelamine/nodejs-dynamoDB) - A guid how to use DynamoDB SDK v3 with nodejs from [Ahmed EL-Amine](https://ahmedelamineaounallah.netlify.app/)
 
 ## Data Modeling and Design Patterns<a name="AdditionalResources.DataModeling"></a>
 + [AWS re:Invent 2020: Data modeling with DynamoDB Part 1](https://www.youtube.com/watch?v=fiP2e-g-r4g)
