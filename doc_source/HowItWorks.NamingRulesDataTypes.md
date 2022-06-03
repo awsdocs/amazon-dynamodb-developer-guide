@@ -83,6 +83,8 @@ You can use the string data type to represent a date or a timestamp\. One way to
 
 For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
 
+Provided this format is used, comparison operators, such as RANGE or BETWEEN, are available for date.
+
 #### Binary<a name="HowItWorks.DataTypes.Binary"></a>
 
 Binary type attributes can store any binary data, such as compressed text, encrypted data, or images\. Whenever DynamoDB compares binary values, it treats each byte of the binary data as unsigned\.
