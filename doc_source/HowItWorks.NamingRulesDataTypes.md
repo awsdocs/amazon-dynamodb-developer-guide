@@ -79,6 +79,7 @@ DynamoDB collates and compares strings using the bytes of the underlying UTF\-8 
 You can use the string data type to represent a date or a timestamp\. One way to do this is by using ISO 8601 strings, as shown in these examples:
 + `2016-02-15`
 + `2015-12-21T17:42:34Z`
++ `2015-12-21T17:42:34.123Z`
 + `20150311T122706Z`
 
 For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
