@@ -99,17 +99,16 @@ The `Reply` table has a global secondary index named `PostedBy-Message-Index`\. 
       + Choose **Add sort key**\.
       + In the **Sort key** box, enter **ReplyDateTime**\. Set the data type to **String**\.
 
-   1. In the **Table settings** section, clear **Use default settings**\.
+   1. In the **Settings** section, select **Customize settings**\.
 
-   1. In the **Secondary indexes** section, choose **Add index**\.
+   1. In the **Secondary indexes** section, choose **Create global index**\.
 
-   1. In the **Add index** window, do the following:
+   1. In the **New global secondary index** window, do the following:
       + For the **Primary key**, do the following:
         + In the **Partition key** box, enter **PostedBy**\. Set the data type to **String**\.
-        + Choose **Add sort key**\.
         + In the **Sort key** box, enter **Message**\. Set the data type to **String**\.
       + In the **Index name** box, enter **PostedBy\-Message\-Index**\.
-      + Set the **Projected attributes** to **All**\.
-      + Choose **Add index**\.
+      + Set the **Attribute projections** to **All**\.
+      + Choose **Create Index**\.
 
 1. When the settings are as you want them, choose **Create**\.
