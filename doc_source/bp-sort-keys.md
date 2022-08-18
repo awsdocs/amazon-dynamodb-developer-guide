@@ -18,13 +18,14 @@ Well\-designed sort keys have two key benefits:
 
 Many applications need to maintain a history of item\-level revisions for audit or compliance purposes and to be able to retrieve the most recent version easily\. There is an effective design pattern that accomplishes this using sort key prefixes:
 + For each new item, create two copies of the item: One copy should have a version\-number prefix of zero \(such as `v0_`\) at the beginning of the sort key, and one should have a version\-number prefix of one \(such as `v1_`\)\.
-+ Every time the item is updated, use the next higher version\-prefix in the sort key of the updated version, and copy the updated contents into the item with version\-prefix zero\. This means that the latest version of any item can be located easily using the zero prefix\.
++ Use a number attribute called `Latest` in the `v0_` item to keep track of the latest version number. \(note: since the sort key is a `string` sorting items by sort key will not return the items in the correct ascending/descending order due to UTF-8 sorting. ie. string `v9_` will come before `v10_` because '9' is a greater UTF-8 value than '1'\)
++ Every time the item is updated, use the next higher version\-prefix in the sort key of the updated version using `v0_`\'s `Latest` attribute to get the latest version number, and copy the updated contents into the item with version\-prefix zero\. This means that the latest version of any item can be located easily using the zero prefix\.
 
 For example, a parts manufacturer might use a schema like the one illustrated below\.
 
 ![\[Version control example showing a table with primary key and data-item attributes.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/VersionControl.png)
 
-The `Equipment_1` item goes through a sequence of audits by various auditors\. The results of each new audit are captured in a new item in the table, starting with version number one, and then incrementing the number for each successive revision\.
+The `Equipment_1` item goes through a sequence of audits by various auditors\. The results of each new audit are captured in a new item in the table, starting with version number one, and then incrementing the number for each successive revision using `v0_`\'s `Latest` attribute as an index of the lastest version\.
 
 When each new revision is added, the application layer replaces the contents of the zero\-version item \(having sort key equal to `v0_Audit`\) with the contents of the new revision\.
 
