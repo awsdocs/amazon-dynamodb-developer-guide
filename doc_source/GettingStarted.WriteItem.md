@@ -171,7 +171,7 @@ import { ddbDocClient } from "../libs/ddbDocClient.js";
 
 export const putItem = async () => {
   // Set the parameters.
-  export const params = {
+  const params = {
     TableName: "TABLE_NAME",
     Item: {
       primaryKey: "VALUE_1",
