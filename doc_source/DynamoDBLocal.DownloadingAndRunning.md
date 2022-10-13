@@ -92,7 +92,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
      app-node:
        depends_on:
          - dynamodb-local
-       image: banst/awscli
+       image: amazon/awscli
        container_name: app-node
        ports:
         - "8080:8080"
