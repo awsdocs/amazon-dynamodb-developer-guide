@@ -96,7 +96,7 @@ WHERE Genre = 'Rock'
 
 SELECT * 
 FROM Music.GenreAndPriceIndex
-WHERE Genre = 'Rock' AND Price < 0.50
+WHERE Genre = 'Country' AND Price < 0.50
 ```
 
 The following is a scan on *GenreAndPriceIndex*\.
