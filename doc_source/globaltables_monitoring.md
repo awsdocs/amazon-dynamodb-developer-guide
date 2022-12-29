@@ -18,5 +18,7 @@ You can use Amazon CloudWatch to monitor the behavior and performance of a globa
   During normal operation, `PendingReplicationCount` should be very low\. If `PendingReplicationCount` increases for extended periods, investigate whether your replica tables' provisioned write capacity settings are sufficient for your current workload\.
 
   `PendingReplicationCount` can increase if an AWS Region becomes degraded and you have a replica table in that Region\. In this case, you can temporarily redirect your application's read and write activity to a different AWS Region\.
+  
+  `PendingReplicationCount` is only available with [Version 2017\.11\.29](globaltables.V1.md)\.
 
  For more information, see [DynamoDB Metrics and Dimensions](metrics-dimensions.md)\. 
