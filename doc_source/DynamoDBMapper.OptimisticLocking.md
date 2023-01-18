@@ -65,7 +65,6 @@ Optimistic locking has the following impact on these `DynamoDBMapper` methods:
 + `transactionWrite` —
   + `Put` — For a new item, the `DynamoDBMapper` assigns an initial version number of 1\. If you retrieve an item, update one or more of its properties, and attempt to save the changes, the put operation succeeds only if the version number on the client side and the server side match\. The `DynamoDBMapper` increments the version number automatically\.
   + `Update` — For a new item, the `DynamoDBMapper` assigns an initial version number of 1\. If you retrieve an item, update one or more of its properties, and attempt to save the changes, the update operation succeeds only if the version number on the client side and the server side match\. The `DynamoDBMapper` increments the version number automatically\.
-  + `Delete` — The `DynamoDBMapper` performs a version check before deleting the item\. The delete operation succeeds only if the version number on the client side and the server side match\.
   + `ConditionCheck` — The `@DynamoDBVersionAttribute` annotation is not supported for `ConditionCheck` operations\. An SdkClientException will be thrown when a `ConditionCheck` item is annotated with `@DynamoDBVersionAttribute`\. 
 
 ## Disabling Optimistic Locking<a name="DynamoDBMapper.OptimisticLocking.Disabling"></a>
