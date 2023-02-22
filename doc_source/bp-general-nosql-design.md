@@ -1,31 +1,31 @@
-# NoSQL Design for DynamoDB<a name="bp-general-nosql-design"></a>
+# NoSQL design for DynamoDB<a name="bp-general-nosql-design"></a>
 
 NoSQL database systems like Amazon DynamoDB use alternative models for data management, such as key\-value pairs or document storage\. When you switch from a relational database management system to a NoSQL database system like DynamoDB, it's important to understand the key differences and specific design approaches\.
 
 **Topics**
-+ [Differences Between Relational Data Design and NoSQL](#bp-general-nosql-design-vs-relational)
-+ [Two Key Concepts for NoSQL Design](#bp-general-nosql-design-concepts)
-+ [Approaching NoSQL Design](#bp-general-nosql-design-approach)
++ [Differences between relational data design and NoSQL](#bp-general-nosql-design-vs-relational)
++ [Two key concepts for NoSQL design](#bp-general-nosql-design-concepts)
++ [Approaching NoSQL design](#bp-general-nosql-design-approach)
 
-## Differences Between Relational Data Design and NoSQL<a name="bp-general-nosql-design-vs-relational"></a>
+## Differences between relational data design and NoSQL<a name="bp-general-nosql-design-vs-relational"></a>
 
 Relational database systems \(RDBMS\) and NoSQL databases have different strengths and weaknesses:
-+ In RDBMS, data can be queried flexibly, but queries are relatively expensive and don't scale well in high\-traffic situations \(see [First Steps for Modeling Relational Data in DynamoDB](bp-modeling-nosql.md)\)\.
++ In RDBMS, data can be queried flexibly, but queries are relatively expensive and don't scale well in high\-traffic situations \(see [First steps for modeling relational data in DynamoDB](bp-modeling-nosql.md)\)\.
 + In a NoSQL database such as DynamoDB, data can be queried efficiently in a limited number of ways, outside of which queries can be expensive and slow\.
 
 These differences make database design different between the two systems:
 + In RDBMS, you design for flexibility without worrying about implementation details or performance\. Query optimization generally doesn't affect schema design, but normalization is important\.
 + In DynamoDB, you design your schema specifically to make the most common and important queries as fast and as inexpensive as possible\. Your data structures are tailored to the specific requirements of your business use cases\.
 
-## Two Key Concepts for NoSQL Design<a name="bp-general-nosql-design-concepts"></a>
+## Two key concepts for NoSQL design<a name="bp-general-nosql-design-concepts"></a>
 
 NoSQL design requires a different mindset than RDBMS design\. For an RDBMS, you can go ahead and create a normalized data model without thinking about access patterns\. You can then extend it later when new questions and query requirements arise\. You can organize each type of data into its own table\.
 
 **How NoSQL design is different**
 + By contrast, you shouldn't start designing your schema for DynamoDB until you know the questions it will need to answer\. Understanding the business problems and the application use cases up front is essential\.
-+ You should maintain as few tables as possible in a DynamoDB application\.
++ You should maintain as few tables as possible in a DynamoDB application\. Having fewer tables keeps things more scalable, requires less permissions management, and reduces overhead for your DynamoDB application\. It can also help keep backup costs lower overall\.
 
-## Approaching NoSQL Design<a name="bp-general-nosql-design-approach"></a>
+## Approaching NoSQL design<a name="bp-general-nosql-design-approach"></a>
 
 *The first step in designing your DynamoDB application is to identify the specific query patterns that the system must satisfy\.*
 

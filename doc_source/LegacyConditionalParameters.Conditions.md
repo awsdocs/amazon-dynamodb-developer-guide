@@ -1,11 +1,14 @@
-# Writing Conditions With Legacy Parameters<a name="LegacyConditionalParameters.Conditions"></a>
+# Writing conditions with legacy parameters<a name="LegacyConditionalParameters.Conditions"></a>
+
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
 
 The following section describes how to write conditions for use with legacy parameters, such as `Expected`, `QueryFilter`, and `ScanFilter`\.
 
 **Note**  
-New applications should use expression parameters instead\. For more information, see [Using Expressions in DynamoDB](Expressions.md)\.
+New applications should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
 
-## Simple Conditions<a name="LegacyConditionalParameters.Simple"></a>
+## Simple conditions<a name="LegacyConditionalParameters.Simple"></a>
 
 With attribute values, you can write conditions for comparisons against table attributes\. A condition always evaluates to true or false, and consists of:
 + `ComparisonOperator` — greater than, less than, equal to, and so on\.
@@ -13,7 +16,7 @@ With attribute values, you can write conditions for comparisons against table at
 
 The following sections describe the various comparison operators, along with examples of how to use them in conditions\.
 
-### Comparison Operators with No Attribute Values<a name="LegacyConditionalParameters.Conditions.Simple.NoAttributeValues"></a>
+### Comparison operators with no attribute values<a name="LegacyConditionalParameters.Conditions.Simple.NoAttributeValues"></a>
 + `NOT_NULL` \- true if an attribute exists\.
 + `NULL` \- true if an attribute does not exist\.
 
@@ -31,7 +34,7 @@ The following expression evaluates to true if the *Dimensions* attribute exists\
 ...
 ```
 
-### Comparison Operators with One Attribute Value<a name="LegacyConditionalParameters.Conditions.Simple.OneAttributeValue"></a>
+### Comparison operators with one attribute value<a name="LegacyConditionalParameters.Conditions.Simple.OneAttributeValue"></a>
 + `EQ` \- true if an attribute is equal to a value\.
 
   `AttributeValueList` can contain only one value of type String, Number, Binary, String Set, Number Set, or Binary Set\. If an item contains a value of a different type than the one specified in the request, the value does not match\. For example, the string `"3"` is not equal to the number `3`\. Also, the number `3` is not equal to the number set `[3, 2, 1]`\. 
@@ -100,7 +103,7 @@ The following expressions evaluate to true if:
 **Note**  
 When comparing set data types, the order of the elements does not matter\. DynamoDB will return only the items with the same set of values, regardless of the order in which you specify them in your request\.
 
-### Comparison Operators with Two Attribute Values<a name="LegacyConditionalParameters.Conditions.Simple.TwoAttributeValues"></a>
+### Comparison operators with two attribute values<a name="LegacyConditionalParameters.Conditions.Simple.TwoAttributeValues"></a>
 + `BETWEEN` \- true if a value is between a lower bound and an upper bound, endpoints inclusive\.
 
   `AttributeValueList` must contain two elements of the same type, either String, Number, or Binary \(not a set\)\. A target attribute matches if the target value is greater than, or equal to, the first element and less than, or equal to, the second element\. If an item contains a value of a different type than the one specified in the request, the value does not match\.
@@ -120,7 +123,7 @@ The following expression evaluates to true if a product's price is between 100 a
 ...
 ```
 
-### Comparison Operators with *N* Attribute Values<a name="LegacyConditionalParameters.Conditions.Simple.NAttributeValues"></a>
+### Comparison operators with *n* attribute values<a name="LegacyConditionalParameters.Conditions.Simple.NAttributeValues"></a>
 + `IN` \- true if a value is equal to any of the values in an enumerated list\. Only scalar values are supported in the list, not sets\. The target attribute must be of the same type and exact value in order to match\.
 
   `AttributeValueList` can contain one or more elements of type String, Number, or Binary \(not a set\)\. These attributes are compared against an existing non\-set type attribute of an item\. If *any* elements of the input set are present in the item attribute, the expression evaluates to true\.
@@ -142,7 +145,7 @@ The following expression evaluates to true if the value for *Id* is 201, 203, or
 ...
 ```
 
-## Using Multiple Conditions<a name="LegacyConditionalParameters.Conditions.Multiple"></a>
+## Using multiple conditions<a name="LegacyConditionalParameters.Conditions.Multiple"></a>
 
 DynamoDB lets you combine multiple conditions to form complex expressions\. You do this by providing at least two expressions, with an optional [ConditionalOperator](LegacyConditionalParameters.ConditionalOperator.md)\.
 
@@ -209,7 +212,7 @@ You can also set `ConditionalOperator` to *OR*, which means that *at least one* 
 In a complex expression, the conditions are processed in order, from the first condition to the last\.  
 You cannot use both AND and OR in a single expression\.
 
-## Other Conditional Operators<a name="LegacyConditionalParameters.Conditions.Other"></a>
+## Other conditional operators<a name="LegacyConditionalParameters.Conditions.Other"></a>
 
 In previous releases of DynamoDB, the `Expected` parameter behaved differently for conditional writes\. Each item in the `Expected` map represented an attribute name for DynamoDB to check, along with the following:
 + `Value` — a value to compare against the attribute\.

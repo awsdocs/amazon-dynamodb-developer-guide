@@ -1,4 +1,4 @@
-# Step 2: Create a DAX Cluster Using the AWS Management Console<a name="DAX.create-cluster.console.create-cluster"></a>
+# Step 2: Create a DAX cluster using the AWS Management Console<a name="DAX.create-cluster.console.create-cluster"></a>
 
 Follow this procedure to create an Amazon DynamoDB Accelerator \(DAX\) cluster in your default Amazon VPC\.
 
@@ -29,7 +29,7 @@ A DAX cluster can be deployed with one or two nodes for development or test work
 
    1. Choose **Next**\.
 
-   1. **Subnet group**—Select **Choose existing** and choose the subnet group that you created in [Step 1: Create a Subnet Group Using the AWS Management Console](DAX.create-cluster.console.create-subnet-group.md)\.
+   1. **Subnet group**—Select **Choose existing** and choose the subnet group that you created in [Step 1: Create a subnet group using the AWS Management Console](DAX.create-cluster.console.create-subnet-group.md)\.
 
    1. **Access control**—Choose the **default** security group\.
 
@@ -44,9 +44,9 @@ A DAX cluster can be deployed with one or two nodes for development or test work
       + **New IAM policy name**—Enter a name for an IAM policy, for example, `DAXServicePolicy`\. The console creates a new IAM policy and attaches the policy to the IAM role\.
       + **Target DynamoDB table**—Choose **All tables**\.
 
-   1. **Encryption**—Choose **Enable encryption at rest** and **Enable encryption in transit** For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md) and [DAX Encryption in Transit](DAXEncryptionInTransit.md)\.
+   1. **Encryption**—Choose **Enable encryption at rest** and **Enable encryption in transit** For more information, see [DAX encryption at rest](DAXEncryptionAtRest.md) and [DAX encryption in transit](DAXEncryptionInTransit.md)\.
 
-   A separate service role for DAX to access Amazon EC2 is also required\. DAX automatically creates this service role for you\. For more information, see [Using Service\-Linked Roles for DAX](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/using-service-linked-roles.html)\.
+   A separate service role for DAX to access Amazon EC2 is also required\. DAX automatically creates this service role for you\. For more information, see [Using service\-linked roles for DAX](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/using-service-linked-roles.html)\.
 
 1. When the settings are as you want them, choose **Launch cluster**\.
 
@@ -54,4 +54,4 @@ On the **Clusters** screen, your DAX cluster will be listed with a status of **C
 
 **Note**  
 Creating the cluster takes several minutes\. When the cluster is ready, its status changes to **Available**\.   
- In the meantime, proceed to [Step 3: Configure Security Group Inbound Rules Using the AWS Management Console](DAX.create-cluster.console.configure-inbound-rules.md) and follow the instructions there\.
+ In the meantime, proceed to [Step 3: Configure security group inbound rules using the AWS Management Console](DAX.create-cluster.console.configure-inbound-rules.md) and follow the instructions there\.

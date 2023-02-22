@@ -1,4 +1,4 @@
-# Using the Console<a name="ConsoleDynamoDB"></a>
+# Using the console<a name="ConsoleDynamoDB"></a>
 
 You can access the AWS Management Console for Amazon DynamoDB at [https://console\.aws\.amazon\.com/dynamodb/home](https://console.aws.amazon.com/dynamodb/home)\.
 

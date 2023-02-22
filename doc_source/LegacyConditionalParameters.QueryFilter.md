@@ -1,5 +1,8 @@
 # QueryFilter<a name="LegacyConditionalParameters.QueryFilter"></a>
 
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
+
 In a `Query` operation, `QueryFilter` is a condition that evaluates the query results after the items are read and returns only the desired values\.
 
 This parameter does not support attributes of type List or Map\.
@@ -20,14 +23,14 @@ Each `QueryFilter` element consists of an attribute name to compare, along with 
 
   For type Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values\.
 
-  For information on specifying data types in JSON, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)\.
+  For information on specifying data types in JSON, see [DynamoDB low\-level API](Programming.LowLevelAPI.md)\.
 +  `ComparisonOperator` \- A comparator for evaluating attributes\. For example, equals, greater than, less than, etc\.
 
   The following comparison operators are available:
 
    `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS | BEGINS_WITH | IN | BETWEEN` 
 
-## Use *FilterExpression* Instead<a name="w615aac41c23c27c17"></a>
+## Use *FilterExpression* instead<a name="w120aac41c23c25c19"></a>
 
 Suppose you wanted to query the *Music* table and apply a condition to the matching items\. You could use a `Query` request with a `QueryFilter` parameter, as in this AWS CLI example:
 

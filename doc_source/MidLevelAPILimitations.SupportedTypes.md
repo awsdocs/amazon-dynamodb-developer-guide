@@ -1,4 +1,4 @@
-# Supported Data Types<a name="MidLevelAPILimitations.SupportedTypes"></a>
+# Supported data types<a name="MidLevelAPILimitations.SupportedTypes"></a>
 
 The document model supports a set of primitive \.NET data types and collections data types\. The model supports the following primitive data types\. 
 + `bool`

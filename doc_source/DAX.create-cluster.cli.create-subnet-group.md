@@ -1,11 +1,11 @@
-# Step 2: Create a Subnet Group<a name="DAX.create-cluster.cli.create-subnet-group"></a>
+# Step 2: Create a subnet group<a name="DAX.create-cluster.cli.create-subnet-group"></a>
 
 Follow this procedure to create a subnet group for your Amazon DynamoDB Accelerator \(DAX\) cluster using the AWS Command Line Interface \(AWS CLI\)\. 
 
 **Note**  
 If you already created a subnet group for your default VPC, you can skip this step\. 
 
-DAX is designed to run within an Amazon Virtual Private Cloud environment \(Amazon VPC\)\. If you created your AWS account after December 4, 2013, you already have a default VPC in each AWS Region\. For more information, see [Default VPC and Default Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the *Amazon VPC User Guide*\.
+DAX is designed to run within an Amazon Virtual Private Cloud environment \(Amazon VPC\)\. If you created your AWS account after December 4, 2013, you already have a default VPC in each AWS Region\. For more information, see [Default VPC and default subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the *Amazon VPC User Guide*\.
 
 **To create a subnet group**
 
@@ -37,4 +37,4 @@ DAX is designed to run within an Amazon Virtual Private Cloud environment \(Amaz
        --subnet-ids subnet-11111111 subnet-22222222 subnet-33333333 subnet-44444444
    ```
 
-To create the cluster, see [Step 3: Create a DAX Cluster Using the AWS CLI](DAX.create-cluster.cli.create-cluster.md)\.
+To create the cluster, see [Step 3: Create a DAX cluster using the AWS CLI](DAX.create-cluster.cli.create-cluster.md)\.

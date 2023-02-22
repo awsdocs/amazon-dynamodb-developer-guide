@@ -1,4 +1,4 @@
-# Configuring AWS Credentials in Your Files Using Amazon Cognito<a name="Cognito.Credentials"></a>
+# Configuring AWS credentials in your files using Amazon Cognito<a name="Cognito.Credentials"></a>
 
 The recommended way to obtain AWS credentials for your web and mobile applications is to use Amazon Cognito\. Amazon Cognito helps you avoid hardcoding your AWS credentials on your files\. It uses AWS Identity and Access Management \(IAM\) roles to generate temporary credentials for your application's authenticated and unauthenticated users\.
 
@@ -59,7 +59,7 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
    --role-name Cognito_DynamoPoolUnauth
    ```
 **Note**  
- Alternatively, you can grant fine\-grained access to DynamoDB\. For more information, see [Using IAM Policy Conditions for Fine\-Grained Access Control](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)\. 
+ Alternatively, you can grant fine\-grained access to DynamoDB\. For more information, see [Using IAM policy conditions for fine\-grained access control](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)\. 
 
 1.  Obtain and copy the IAM role Amazon Resource Name \(ARN\)\.
 
@@ -84,4 +84,4 @@ The recommended way to obtain AWS credentials for your web and mobile applicatio
    });
    ```
 
- You can now run your JavaScript programs against the DynamoDB web service using Amazon Cognito credentials\. For more information, see [Setting Credentials in a Web Browser](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/setting-credentials-browser.html) in the *AWS SDK for JavaScript Getting Started Guide*\. 
+ You can now run your JavaScript programs against the DynamoDB web service using Amazon Cognito credentials\. For more information, see [Setting credentials in a web browser](https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/setting-credentials-browser.html) in the *AWS SDK for JavaScript Getting Started Guide*\. 

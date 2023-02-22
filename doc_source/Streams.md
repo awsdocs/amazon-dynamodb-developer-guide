@@ -1,8 +1,8 @@
-# Change Data Capture for DynamoDB Streams<a name="Streams"></a>
+# Change data capture for DynamoDB Streams<a name="Streams"></a>
 
  DynamoDB Streams captures a time\-ordered sequence of item\-level modifications in any DynamoDB table and stores this information in a log for up to 24 hours\. Applications can access this log and view the data items as they appeared before and after they were modified, in near\-real time\.
 
- Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [DynamoDB Encryption at Rest](EncryptionAtRest.md)\.
+ Encryption at rest encrypts the data in DynamoDB streams\. For more information, see [DynamoDB encryption at rest](EncryptionAtRest.md)\.
 
 A *DynamoDB stream* is an ordered flow of information about changes to items in a DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\.
 
@@ -16,12 +16,12 @@ DynamoDB Streams writes stream records in near\-real time so that you can build 
 
 **Topics**
 + [Endpoints for DynamoDB Streams](#Streams.Endpoints)
-+ [Enabling a Stream](#Streams.Enabling)
-+ [Reading and Processing a Stream](#Streams.Processing)
++ [Enabling a stream](#Streams.Enabling)
++ [Reading and processing a stream](#Streams.Processing)
 + [DynamoDB Streams and Time to Live](time-to-live-ttl-streams.md)
-+ [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)
-+ [DynamoDB Streams Low\-Level API: Java Example](Streams.LowLevel.Walkthrough.md)
-+ [DynamoDB Streams and AWS Lambda Triggers](Streams.Lambda.md)
++ [Using the DynamoDB Streams Kinesis adapter to process stream records](Streams.KCLAdapter.md)
++ [DynamoDB Streams low\-level API: Java example](Streams.LowLevel.Walkthrough.md)
++ [DynamoDB Streams and AWS Lambda triggers](Streams.Lambda.md)
 
 ## Endpoints for DynamoDB Streams<a name="Streams.Endpoints"></a>
 
@@ -30,11 +30,11 @@ AWS maintains separate endpoints for DynamoDB and DynamoDB Streams\. To work wit
 The naming convention for DynamoDB Streams endpoints is `streams.dynamodb.<region>.amazonaws.com`\. For example, if you use the endpoint `dynamodb.us-west-2.amazonaws.com` to access DynamoDB, you would use the endpoint `streams.dynamodb.us-west-2.amazonaws.com` to access DynamoDB Streams\.
 
 **Note**  
-For a complete list of DynamoDB and DynamoDB Streams Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
+For a complete list of DynamoDB and DynamoDB Streams Regions and endpoints, see [Regions and endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
 
 The AWS SDKs provide separate clients for DynamoDB and DynamoDB Streams\. Depending on your requirements, your application can access a DynamoDB endpoint, a DynamoDB Streams endpoint, or both at the same time\. To connect to both endpoints, your application must instantiate two clients—one for DynamoDB and one for DynamoDB Streams\.
 
-## Enabling a Stream<a name="Streams.Enabling"></a>
+## Enabling a stream<a name="Streams.Enabling"></a>
 
 You can enable a stream on a new table when you create it using the AWS CLI or one of the AWS SDKs\. You can also enable or disable a stream on an existing table, or change the settings of a stream\. DynamoDB Streams operates asynchronously, so there is no performance impact on a table if you enable a stream\.
 
@@ -76,7 +76,10 @@ arn:aws:dynamodb:us-west-2:111122223333:table/TestTable/stream/2015-05-11T21:21:
 
 To determine the latest stream descriptor for a table, issue a DynamoDB `DescribeTable` request and look for the `LatestStreamArn` element in the response\.
 
-## Reading and Processing a Stream<a name="Streams.Processing"></a>
+**Note**  
+It is not possible to edit a `StreamViewType` once a stream has been setup\. If you need to make changes to a stream after it has been setup, you must disable the current stream and create a new one\.
+
+## Reading and processing a stream<a name="Streams.Processing"></a>
 
 To read and process a stream, your application must connect to a DynamoDB Streams endpoint and issue API requests\.
 
@@ -88,7 +91,7 @@ Shards are ephemeral: They are created and deleted automatically, as needed\. An
 
 If you disable a stream, any shards that are open will be closed\. The data in the stream will continue to be readable for 24 hours\.
 
-Because shards have a lineage \(parent and children\), an application must always process a parent shard before it processes a child shard\. This helps ensure that the stream records are also processed in the correct order\. \(If you use the DynamoDB Streams Kinesis Adapter, this is handled for you\. Your application processes the shards and stream records in the correct order\. It automatically handles new or expired shards, in addition to shards that split while the application is running\. For more information, see [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.\)
+Because shards have a lineage \(parent and children\), an application must always process a parent shard before it processes a child shard\. This helps ensure that the stream records are also processed in the correct order\. \(If you use the DynamoDB Streams Kinesis Adapter, this is handled for you\. Your application processes the shards and stream records in the correct order\. It automatically handles new or expired shards, in addition to shards that split while the application is running\. For more information, see [Using the DynamoDB Streams Kinesis adapter to process stream records](Streams.KCLAdapter.md)\.\)
 
 The following diagram shows the relationship between a stream, shards in the stream, and stream records in the shards\.
 
@@ -113,7 +116,7 @@ The DynamoDB Streams API provides the following actions for use by application p
 
 For complete descriptions of these API operations, including example requests and responses, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
 
-### Data Retention Limit for DynamoDB Streams<a name="Streams.DataRetention"></a>
+### Data retention limit for DynamoDB Streams<a name="Streams.DataRetention"></a>
 
 All data in DynamoDB Streams is subject to a 24\-hour lifetime\. You can retrieve and analyze the last 24 hours of activity for any given table\. However, data that is older than 24 hours is susceptible to trimming \(removal\) at any moment\.
 

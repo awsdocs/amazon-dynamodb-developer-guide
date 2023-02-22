@@ -1,4 +1,4 @@
-# Step 3: Configure Security Group Inbound Rules Using the AWS Management Console<a name="DAX.create-cluster.console.configure-inbound-rules"></a>
+# Step 3: Configure security group inbound rules using the AWS Management Console<a name="DAX.create-cluster.console.configure-inbound-rules"></a>
 
 Your Amazon DynamoDB Accelerator \(DAX\) cluster communicates via TCP port 8111 \(for unencrypted clusters\) or 9111 \(for encrypted clusters\), so you must authorize inbound traffic on that port\. This allows Amazon EC2 instances in your Amazon VPC to access your DAX cluster\.
 

@@ -1,5 +1,8 @@
 # AttributeUpdates<a name="LegacyConditionalParameters.AttributeUpdates"></a>
 
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
+
 In an `UpdateItem` operation, `AttributeUpdates` are the names of attributes to be modified, the action to perform on each, and the new value for each\. If you are updating an attribute that is an index key attribute for any indexes on that table, the attribute type must match the index key type defined in the `AttributesDefinition` of the table description\. You can use `UpdateItem` to update any non\-key attributes\.
 
 Attribute values cannot be null\. String and Binary type attributes must have lengths greater than zero\. Set type attributes must not be empty\. Requests with empty values will be rejected with a `ValidationException` exception\.
@@ -29,7 +32,7 @@ Similarly, if you use `ADD` for an existing item to increment or decrement an at
 
 If you provide any attributes that are part of an index key, then the data types for those attributes must match those of the schema in the table's attribute definition\.
 
-## Use *UpdateExpression* Instead<a name="w615aac41c23c19c13"></a>
+## Use *UpdateExpression* instead<a name="w120aac41c23c17c15"></a>
 
 Suppose you wanted to modify an item in the *Music* table\. You could use an `UpdateItem` request with an `AttributeUpdates` parameter, as in this AWS CLI example:
 
@@ -62,3 +65,5 @@ aws dynamodb update-item \
         ":g": {"S":"Rock"}
     }'
 ```
+
+For more information about updating attributes, see [Update an item in a DynamoDB table](GettingStarted.UpdateItem.md)\.

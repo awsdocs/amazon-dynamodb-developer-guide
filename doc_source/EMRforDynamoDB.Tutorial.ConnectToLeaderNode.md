@@ -1,4 +1,4 @@
-# Step 3: Connect to the Leader Node<a name="EMRforDynamoDB.Tutorial.ConnectToLeaderNode"></a>
+# Step 3: Connect to the Leader node<a name="EMRforDynamoDB.Tutorial.ConnectToLeaderNode"></a>
 
 When the status of your Amazon EMR cluster changes to `Waiting`, you will be able to connect to the leader node using SSH and perform command line operations\.
 
@@ -18,5 +18,5 @@ After you connect to the leader node using either SSH or PuTTY, you should see a
 [hadoop@ip-192-0-2-0 ~]$ 
 ```
 
-**Next Step**  
-[Step 4: Load Data into HDFS](EMRforDynamoDB.Tutorial.LoadDataIntoHDFS.md)
+**Next step**  
+[Step 4: Load data into HDFS](EMRforDynamoDB.Tutorial.LoadDataIntoHDFS.md)

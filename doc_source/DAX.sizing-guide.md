@@ -1,13 +1,13 @@
-# DAX Cluster Sizing Guide<a name="DAX.sizing-guide"></a>
+# DAX cluster sizing guide<a name="DAX.sizing-guide"></a>
 
 This guide provides advice for choosing an appropriate Amazon DynamoDB Accelerator \(DAX\) cluster size and node type for your application\. These instructions guide you through the steps of estimating your application’s DAX traffic, selecting a cluster configuration, and testing it\.
 
-If you have an existing DAX cluster and want to evaluate whether it has the appropriate number and size of nodes, please refer to [Scaling a DAX Cluster](DAX.cluster-management.md#DAX.cluster-management.scaling)\.
+If you have an existing DAX cluster and want to evaluate whether it has the appropriate number and size of nodes, please refer to [Scaling a DAX cluster](DAX.cluster-management.md#DAX.cluster-management.scaling)\.
 
 **Topics**
 + [Overview](#DAX.sizing-guide.overview)
-+ [Estimating Traffic](#DAX.sizing-guide.estimating-traffic)
-+ [Load Testing](#DAX.sizing-guide.load-testing)
++ [Estimating traffic](#DAX.sizing-guide.estimating-traffic)
++ [Load testing](#DAX.sizing-guide.load-testing)
 
 ## Overview<a name="DAX.sizing-guide.overview"></a>
 
@@ -21,18 +21,18 @@ The process typically follows these steps:
 
 1. **Production monitoring\.** While your application is using DAX in production, you should [monitor the cluster](DAX.Monitoring.md) to continuously validate that it is still scaled correctly as your workload changes over time\.
 
-## Estimating Traffic<a name="DAX.sizing-guide.estimating-traffic"></a>
+## Estimating traffic<a name="DAX.sizing-guide.estimating-traffic"></a>
 
 There are three main factors that characterize a typical DAX workload:
 + Cache hit rate
 + [Read capacity units](ProvisionedThroughput.md#ProvisionedThroughput.CapacityUnits.Read) \(RCUs\) per second
 + [Write capacity units](ProvisionedThroughput.md#ProvisionedThroughput.CapacityUnits.Write) \(WCUs\) per second
 
-### Estimating Cache Hit Rate<a name="DAX.sizing-guide.estimating-traffic.hit-rate"></a>
+### Estimating cache hit rate<a name="DAX.sizing-guide.estimating-traffic.hit-rate"></a>
 
 If you already have a DAX cluster, you can use the `ItemCacheHits` and `ItemCacheMisses` [Amazon CloudWatch metrics](dax-metrics-dimensions-dax.md) to determine the cache hit rate\. The cache hit rate is equal to `ItemCacheHits` / \(`ItemCacheHits` \+ `ItemCacheMisses`\)\. If your workload includes `Query` or `Scan` operations, you should also look at the `QueryCacheHits`, `QueryCacheMisses`, `ScanCacheHits`, and `ScanCacheMisses` metrics\. Cache hit rates vary from one application to another and are heavily influenced by the cluster's Time to Live \(TTL\) setting\. Typical hit rates for applications using DAX are 85–95 percent\.
 
-### Estimating Read and Write Capacity Units<a name="DAX.sizing-guide.estimating-traffic.rcu-wcu"></a>
+### Estimating read and write capacity units<a name="DAX.sizing-guide.estimating-traffic.rcu-wcu"></a>
 
 If you already have DynamoDB tables for your application, look at the `ConsumedReadCapacityUnits` and `ConsumedWriteCapacityUnits` [CloudWatch metrics](dax-metrics-dimensions-dax.md)\. Use the `Sum` statistic and divide by the number of seconds in the period\.
 
@@ -42,7 +42,7 @@ If you don't already have a DynamoDB table, see the documentation about [read ca
 
 When making traffic estimates, plan for future growth and for expected and unexpected peaks to ensure that your cluster has enough headroom for traffic increases\.
 
-## Load Testing<a name="DAX.sizing-guide.load-testing"></a>
+## Load testing<a name="DAX.sizing-guide.load-testing"></a>
 
 The next step after estimating traffic is to test the cluster configuration under load\.
 
@@ -61,6 +61,6 @@ Be careful when load testing T2 node types \(`dax.t2.small` and `dax.t2.medium`\
 
 [Monitor your DAX cluster](DAX.Monitoring.md) during the load test to determine whether the node type that you're using for the load test is the right node type for you\. In addition, during a load test, you should monitor your request rate and cache hit rate to ensure that your test infrastructure is actually driving the amount of traffic you intend\.
 
-If load testing indicates that the selected cluster configuration can't sustain your application's workload, we recommend [switching to a larger node type](DAX.cluster-management.md#DAX.cluster-management.scaling.node-types), especially if you see high CPU utilization on the primary node in the cluster, high eviction rates, or high cache memory utilization\. If hit rates are consistently high, and the ratio of read to write traffic is high, you may want to consider [adding more nodes to your cluster](DAX.cluster-management.md#DAX.cluster-management.scaling.read-scaling)\. Refer to [Scaling a DAX Cluster](DAX.cluster-management.md#DAX.cluster-management.scaling) for additional guidance on when to use a larger node type \(vertical scaling\) or add more nodes \(horizontal scaling\)\.
+If load testing indicates that the selected cluster configuration can't sustain your application's workload, we recommend [switching to a larger node type](DAX.cluster-management.md#DAX.cluster-management.scaling.node-types), especially if you see high CPU utilization on the primary node in the cluster, high eviction rates, or high cache memory utilization\. If hit rates are consistently high, and the ratio of read to write traffic is high, you may want to consider [adding more nodes to your cluster](DAX.cluster-management.md#DAX.cluster-management.scaling.read-scaling)\. Refer to [Scaling a DAX cluster](DAX.cluster-management.md#DAX.cluster-management.scaling) for additional guidance on when to use a larger node type \(vertical scaling\) or add more nodes \(horizontal scaling\)\.
 
 You should repeat your load test after making changes to your cluster configuration\.

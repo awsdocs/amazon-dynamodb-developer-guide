@@ -1,9 +1,10 @@
-# Step 2: Load Data into Tables<a name="SampleData.LoadData"></a>
+# Step 2: Load data into tables<a name="SampleData.LoadData"></a>
 
 In this step, you load sample data into the tables that you created\. You could enter the data manually into the Amazon DynamoDB console\. However, to save time, you use the AWS Command Line Interface \(AWS CLI\) instead\.
 
 **Note**  
-If you have not yet set up the AWS CLI, see [Using the AWS CLI](Tools.CLI.md) for instructions\.
+If you have not yet set up the AWS CLI, see [Using the AWS CLI](Tools.CLI.md) for instructions\.   
+ You must create the tables before attempting to load data\. If you have not created the tables, see [Step 1: Create example tables](SampleData.CreateTables.md)\. 
 
 You will download a `.zip` archive that contains JSON files with sample data for each table\. For each file, you use the AWS CLI to load the data into DynamoDB\. Each successful data load produces the following output\.
 
@@ -13,7 +14,7 @@ You will download a `.zip` archive that contains JSON files with sample data for
 }
 ```
 
-## Download the Sample Data File Archive<a name="SampleData.LoadData.DownloadArchive"></a>
+## Download the sample data file archive<a name="SampleData.LoadData.DownloadArchive"></a>
 
 1. Download the sample data archive \(`sampledata.zip`\) using this link:
    +  [sampledata\.zip](samples/sampledata.zip) 
@@ -22,7 +23,7 @@ You will download a `.zip` archive that contains JSON files with sample data for
 
 1. Copy the `.json` data files to your current directory\.
 
-## Load the Sample Data into DynamoDB Tables<a name="SampleData.LoadData.LoadData"></a>
+## Load the sample data into DynamoDB tables<a name="SampleData.LoadData.LoadData"></a>
 
 1. To load the `ProductCatalog` table with data, enter the following command\.
 
@@ -40,7 +41,7 @@ You will download a `.zip` archive that contains JSON files with sample data for
 
    `aws dynamodb batch-write-item --request-items file://Reply.json`
 
-## Verify Data Load<a name="SampleData.Verify"></a>
+## Verify data load<a name="SampleData.Verify"></a>
 
 You can use the AWS Management Console to verify the data that you loaded into the tables\.
 

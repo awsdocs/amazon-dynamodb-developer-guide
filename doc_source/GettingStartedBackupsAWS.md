@@ -1,4 +1,4 @@
-# Backing Up and Restoring DynamoDB Tables with AWS Backup: How It Works<a name="GettingStartedBackupsAWS"></a>
+# Backing up and restoring DynamoDB tables with AWS Backup: How it works<a name="GettingStartedBackupsAWS"></a>
 
 You can use the on\-demand backup feature to create full backups of your Amazon DynamoDB tables\. This section provides an overview of what happens during the backup and restore process\.
 
@@ -23,7 +23,7 @@ If you're using the console, any backups created using AWS Backup are listed on 
 **Note**  
 You can't delete backups marked with a **Backup type** of `AWS_BACKUP` using the DynamoDB console\. To manage these backups, use the AWS Backup console\.
 
-To learn how to perform a backup, see [Backing Up a DynamoDB Table](Backup.Tutorial.md)\.
+To learn how to perform a backup, see [Backing up a DynamoDB table](Backup.Tutorial.md)\.
 
 ## Restores<a name="GettingStartedBackupsAWS-restore"></a>
 
@@ -56,8 +56,8 @@ AWS Backup restores are nondestructive\. You can't overwrite an existing table d
 
 Service metrics show that 95 percent of customers' table restores complete in less than one hour\. However, restore times are directly related to the configuration of your tables \(such as the size of your tables and the number of underlying partitions\) and other related variables\. A best practice when planning for disaster recovery is to regularly document average restore completion times and establish how these times affect your overall Recovery Time Objective\.
 
-To learn how to perform a restore, see [Restoring a DynamoDB Table from a Backup](Restore.Tutorial.md)\.
+To learn how to perform a restore, see [Restoring a DynamoDB table from a backup](Restore.Tutorial.md)\.
 
-You can use IAM policies for access control\. For more information, see [Using IAM with DynamoDB Backup and Restore](backuprestore_IAM.md)\.
+You can use IAM policies for access control\. For more information, see [Using IAM with DynamoDB backup and restore](backuprestore_IAM.md)\.
 
 All backup and restore console and API actions are captured and recorded in AWS CloudTrail for logging, continuous monitoring, and auditing\.

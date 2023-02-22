@@ -1,4 +1,4 @@
-# Creating an Index<a name="SQLtoNoSQL.Indexes.Creating"></a>
+# Creating an index<a name="SQLtoNoSQL.Indexes.Creating"></a>
 
 Compare the `CREATE INDEX` statement in SQL with the `UpdateTable` operation in Amazon DynamoDB\.
 
@@ -72,4 +72,4 @@ You must provide the following parameters to `UpdateTable`:
 Part of this operation involves backfilling data from the table into the new index\. During backfilling, the table remains available\. However, the index is not ready until its `Backfilling` attribute changes from true to false\. You can use the `DescribeTable` action to view this attribute\.
 
 **Note**  
-For code examples that use `UpdateTable`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `UpdateTable`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.

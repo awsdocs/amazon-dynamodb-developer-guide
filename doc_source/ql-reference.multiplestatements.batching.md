@@ -1,9 +1,10 @@
-# Running Batch Operations with PartiQL for DynamoDB<a name="ql-reference.multiplestatements.batching"></a>
+# Running batch operations with PartiQL for DynamoDB<a name="ql-reference.multiplestatements.batching"></a>
 
 This section describes how to use batch statements with PartiQL for DynamoDB\.
 
 **Note**  
 The entire batch must consist of either read statements or write statements; you cannot mix both in one batch\.
+`BatchExecuteStatement` and `BatchWriteItem` can perform no more than 25 statements per batch\.
 
 **Topics**
 + [Syntax](#ql-reference.multiplestatements.batching.syntax)
@@ -28,7 +29,8 @@ The entire batch must consist of either read statements or write statements; you
 
 ***statement***  
 \(Required\) A PartiQL for DynamoDB supported statement\.  
-The entire batch must consist of either read statements or write statements; you cannot mix both in one batch\.
++ The entire batch must consist of either read statements or write statements; you cannot mix both in one batch\.
++ `BatchExecuteStatement` and `BatchWriteItem` can perform no more than 25 statements per batch\.
 
 ***parametertype***  
 \(Optional\) A DynamoDB type, if parameters were used when specifying the PartiQL statement\.

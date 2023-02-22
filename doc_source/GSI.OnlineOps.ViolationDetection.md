@@ -1,4 +1,4 @@
-# Detecting and Correcting Index Key Violations<a name="GSI.OnlineOps.ViolationDetection"></a>
+# Detecting and correcting index key violations<a name="GSI.OnlineOps.ViolationDetection"></a>
 
 During the backfill phase of global secondary index creation, Amazon DynamoDB examines each item in the table to determine whether it is eligible for inclusion in the index\. Some items might not be eligible because they would cause index key violations\. In these cases, the items remain in the table, but the index doesn't have a corresponding entry for that item\.
 
@@ -16,10 +16,10 @@ To identify and fix attribute values in a table that violate an index key, use t
 + **Detection mode** — Detect index key violations\. Use detection mode to report the items in the table that would cause key violations in a global secondary index\. \(You can optionally request that these violating table items be deleted immediately when they are found\.\) The output from detection mode is written to a file, which you can use for further analysis\.
 + **Correction mode** — Correct index key violations\. In correction mode, Violation Detector reads an input file with the same format as the output file from detection mode\. Correction mode reads the records from the input file and, for each record, it either deletes or updates the corresponding items in the table\. \(Note that if you choose to update the items, you must edit the input file and set appropriate values for these updates\.\)
 
-## Downloading and Running Violation Detector<a name="GSI.OnlineOps.ViolationDetection.Running"></a>
+## Downloading and running Violation Detector<a name="GSI.OnlineOps.ViolationDetection.Running"></a>
 
 Violation Detector is available as an executable Java Archive \(`.jar` file\), and runs on Windows, macOS, or Linux computers\. Violation Detector requires Java 1\.7 \(or later\) and Apache Maven\.
-+ [Download Violation Detector from GitHub](https://github.com/awslabs/dynamodb-online-index-violation-detector)
++ [Download violation detector from GitHub](https://github.com/awslabs/dynamodb-online-index-violation-detector)
 
 Follow the instructions in the `README.md` file to download and install Violation Detector using Maven\.
 
@@ -31,18 +31,18 @@ java -jar ViolationDetector.jar [options]
 
 The Violation Detector command line accepts the following options:
 + `-h | --help` — Prints a usage summary and options for Violation Detector\.
-+ `-p | --configFilePath` `value` — The fully qualified name of a Violation Detector configuration file\. For more information, see [The Violation Detector Configuration File](#GSI.OnlineOps.ViolationDetection.ConfigFile)\.
++ `-p | --configFilePath` `value` — The fully qualified name of a Violation Detector configuration file\. For more information, see [The Violation Detector configuration file](#GSI.OnlineOps.ViolationDetection.ConfigFile)\.
 + `-t | --detect` `value` — Detect index key violations in the table, and write them to the Violation Detector output file\. If the value of this parameter is set to `keep`, items with key violations are not modified\. If the value is set to `delete`, items with key violations are deleted from the table\.
 + `-c | --correct` `value` — Read index key violations from an input file, and take corrective actions on the items in the table\. If the value of this parameter is set to `update`, items with key violations are updated with new, non\-violating values\. If the value is set to `delete`, items with key violations are deleted from the table\.
 
-## The Violation Detector Configuration File<a name="GSI.OnlineOps.ViolationDetection.ConfigFile"></a>
+## The Violation Detector configuration file<a name="GSI.OnlineOps.ViolationDetection.ConfigFile"></a>
 
 At runtime, the Violation Detector tool requires a configuration file\. The parameters in this file determine which DynamoDB resources that Violation Detector can access, and how much provisioned throughput it can consume\. The following table describes these parameters\.
 
 
 ****  
 
-| Parameter Name | Description | Required? | 
+| Parameter name | Description | Required? | 
 | --- | --- | --- | 
 |  `awsCredentialsFile`  |  The fully qualified name of a file containing your AWS credentials\. The credentials file must be in the following format: <pre>accessKey = access_key_id_goes_here<br />secretKey = secret_key_goes_here </pre>  |  Yes  | 
 |  `dynamoDBRegion`  |  The AWS Region in which the table resides\. For example: `us-west-2`\.  |  Yes  | 
@@ -54,7 +54,7 @@ At runtime, the Violation Detector tool requires a configuration file\. The para
 |  `recordDetails`  |  Whether to write the full details of index key violations to the output file\. If set to `true` \(the default\), full information about the violating items is reported\. If set to `false`, only the number of violations is reported\.  |  No  | 
 |  `recordGsiValueInViolationRecord`  |  Whether to write the values of the violating index keys to the output file\. If set to `true` \(default\), the key values are reported\. If set to `false`, the key values are not reported\.  |  No  | 
 |  `detectionOutputPath`  |  The full path of the Violation Detector output file\. This parameter supports writing to a local directory or to Amazon Simple Storage Service \(Amazon S3\)\. The following are examples: `detectionOutputPath = ``//local/path/filename.csv` `detectionOutputPath = ``s3://bucket/filename.csv` Information in the output file appears in comma\-separated values \(CSV\) format\. If you don't set `detectionOutputPath`, the output file is named `violation_detection.csv` and is written to your current working directory\.  |  No  | 
-|  `numOfSegments`  | The number of parallel scan segments to be used when Violation Detector scans the table\. The default value is 1, meaning that the table is scanned in a sequential manner\. If the value is 2 or higher, then Violation Detector divides the table into that many logical segments and an equal number of scan threads\. The maximum setting for `numOfSegments` is 4096\.For larger tables, a parallel scan is generally faster than a sequential scan\. In addition, if the table is large enough to span multiple partitions, a parallel scan distributes its read activity evenly across multiple partitions\.For more information about parallel scans in DynamoDB, see [Parallel Scan](Scan.md#Scan.ParallelScan)\. |  No  | 
+|  `numOfSegments`  | The number of parallel scan segments to be used when Violation Detector scans the table\. The default value is 1, meaning that the table is scanned in a sequential manner\. If the value is 2 or higher, then Violation Detector divides the table into that many logical segments and an equal number of scan threads\. The maximum setting for `numOfSegments` is 4096\.For larger tables, a parallel scan is generally faster than a sequential scan\. In addition, if the table is large enough to span multiple partitions, a parallel scan distributes its read activity evenly across multiple partitions\.For more information about parallel scans in DynamoDB, see [Parallel scan](Scan.md#Scan.ParallelScan)\. |  No  | 
 |  `numOfViolations`  |  The upper limit of index key violations to write to the output file\. If set to `-1` \(the default\), the entire table is scanned\. If set to a positive integer, then Violation Detector stops after it encounters that number of violations\.  |  No  | 
 |  `numOfRecords`  |  The number of items in the table to be scanned\. If set to \-1 \(the default\), the entire table is scanned\. If set to a positive integer, Violation Detector stops after it scans that many items in the table\.  |  No  | 
 |  `readWriteIOPSPercent`  |  Regulates the percentage of provisioned read capacity units that are consumed during the table scan\. Valid values range from `1` to `100`\. The default value \(`25`\) means that Violation Detector will consume no more than 25% of the table's provisioned read throughput\.  |  No  | 
@@ -63,12 +63,12 @@ At runtime, the Violation Detector tool requires a configuration file\. The para
 
 ## Detection<a name="GSI.OnlineOps.ViolationDetection.Detection"></a>
 
-To detect index key violations, use Violation Detector with the `--detect` command line option\. To show how this option works, consider the `ProductCatalog` table shown in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\. The following is a list of items in the table\. Only the primary key \(`Id`\) and the `Price` attribute are shown\.
+To detect index key violations, use Violation Detector with the `--detect` command line option\. To show how this option works, consider the `ProductCatalog` table shown in [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\. The following is a list of items in the table\. Only the primary key \(`Id`\) and the `Price` attribute are shown\.
 
 
 ****  
 
-| Id \(Primary Key\) | Price | 
+| Id \(primary key\) | Price | 
 | --- | --- | 
 | 101 |  5  | 
 | 102 |  20  | 
@@ -84,7 +84,7 @@ All of the values for `Price` are of type `Number`\. However, because DynamoDB i
 
 ****  
 
-| Id \(Primary Key\) | Price | 
+| Id \(primary key\) | Price | 
 | --- | --- | 
 | 999 | "Hello" | 
 
@@ -130,17 +130,17 @@ Table Hash Key,GSI Hash Key Value,GSI Hash Key Violation Type,GSI Hash Key Viola
 ```
 
 The output file is in CSV format\. The first line in the file is a header, followed by one record per item that violates the index key\. The fields of these violation records are as follows:
-+ **Table Hash Key** — The partition key value of the item in the table\.
-+ **Table Range Key** — The sort key value of the item in the table\.
-+ **GSI Hash Key Value** — The partition key value of the global secondary index\.
-+ **GSI Hash Key Violation Type** — Either `Type Violation` or `Size Violation`\.
-+ **GSI Hash Key Violation Description** — The cause of the violation\.
-+ **GSI Hash Key Update Value\(FOR USER\)** — In correction mode, a new user\-supplied value for the attribute\.
-+ **GSI Range Key Value** — The sort key value of the global secondary index\.
-+ **GSI Range Key Violation Type** — Either `Type Violation` or `Size Violation`\.
-+ **GSI Range Key Violation Description** — The cause of the violation\.
-+ **GSI Range Key Update Value\(FOR USER\)** — In correction mode, a new user\-supplied value for the attribute\.
-+ **Delete Blank Attribute When Updating\(Y/N\)** — In correction mode, determines whether to delete \(Y\) or keep \(N\) the violating item in the table—but only if either of the following fields are blank:
++ **Table hash key** — The partition key value of the item in the table\.
++ **Table range key** — The sort key value of the item in the table\.
++ **GSI hash key value** — The partition key value of the global secondary index\.
++ **GSI hash key violation type** — Either `Type Violation` or `Size Violation`\.
++ **GSI hash key violation description** — The cause of the violation\.
++ **GSI hash key update Value\(FOR USER\)** — In correction mode, a new user\-supplied value for the attribute\.
++ **GSI range key value** — The sort key value of the global secondary index\.
++ **GSI range key violation type** — Either `Type Violation` or `Size Violation`\.
++ **GSI range key violation description** — The cause of the violation\.
++ **GSI range key update Value\(FOR USER\)** — In correction mode, a new user\-supplied value for the attribute\.
++ **Delete blank attribute when Updating\(Y/N\)** — In correction mode, determines whether to delete \(Y\) or keep \(N\) the violating item in the table—but only if either of the following fields are blank:
   + `GSI Hash Key Update Value(FOR USER)`
   + `GSI Range Key Update Value(FOR USER)`
 

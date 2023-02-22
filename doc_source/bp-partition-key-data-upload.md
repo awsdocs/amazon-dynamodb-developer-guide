@@ -1,4 +1,4 @@
-# Distributing Write Activity Efficiently During Data Upload<a name="bp-partition-key-data-upload"></a>
+# Distributing write activity efficiently during data upload<a name="bp-partition-key-data-upload"></a>
 
 Typically, when you load data from other data sources, Amazon DynamoDB partitions your table data on multiple servers\. You get better performance if you upload data to all the allocated servers simultaneously\.
 

@@ -1,4 +1,4 @@
-# Partitions and Data Distribution<a name="HowItWorks.Partitions"></a>
+# Partitions and data distribution<a name="HowItWorks.Partitions"></a>
 
 Amazon DynamoDB stores data in partitions\. A *partition* is an allocation of storage for a table, backed by solid state drives \(SSDs\) and automatically replicated across multiple Availability Zones within an AWS Region\. Partition management is handled entirely by DynamoDB—you never have to manage partitions yourself\.
 
@@ -10,11 +10,11 @@ DynamoDB allocates additional partitions to a table in the following situations:
 
 Partition management occurs automatically in the background and is transparent to your applications\. Your table remains available throughout and fully supports your provisioned throughput requirements\.
 
-For more details, see [Partition Key Design](bp-partition-key-design.md)\.
+For more details, see [Partition key design](bp-partition-key-design.md)\.
 
 Global secondary indexes in DynamoDB are also composed of partitions\. The data in a global secondary index is stored separately from the data in its base table, but index partitions behave in much the same way as table partitions\.
 
-## Data Distribution: Partition Key<a name="HowItWorks.Partitions.SimpleKey"></a>
+## Data distribution: Partition key<a name="HowItWorks.Partitions.SimpleKey"></a>
 
 If your table has a simple primary key \(partition key only\), DynamoDB stores and retrieves each item based on its partition key value\.
 
@@ -29,9 +29,9 @@ The following diagram shows a table named *Pets*, which spans multiple partition
 **Note**  
 DynamoDB is optimized for uniform distribution of items across a table's partitions, no matter how many partitions there may be\. We recommend that you choose a partition key that can have a large number of distinct values relative to the number of items in the table\.
 
-## Data Distribution: Partition Key and Sort Key<a name="HowItWorks.Partitions.CompositeKey"></a>
+## Data distribution: Partition key and sort key<a name="HowItWorks.Partitions.CompositeKey"></a>
 
-If the table has a composite primary key \(partition key and sort key\), DynamoDB calculates the hash value of the partition key in the same way as described in [Data Distribution: Partition Key](#HowItWorks.Partitions.SimpleKey)\. However, it stores all the items with the same partition key value physically close together, ordered by sort key value\.
+If the table has a composite primary key \(partition key and sort key\), DynamoDB calculates the hash value of the partition key in the same way as described in [Data distribution: Partition key](#HowItWorks.Partitions.SimpleKey)\. However, it stores all the items with the same partition key value physically close together, ordered by sort key value\.
 
 To write an item to the table, DynamoDB calculates the hash value of the partition key to determine which partition should contain the item\. In that partition, several items could have the same partition key value\. So DynamoDB stores the item among the others with the same partition key, in ascending order by sort key\.
 

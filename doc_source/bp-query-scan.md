@@ -1,8 +1,8 @@
-# Best Practices for Querying and Scanning Data<a name="bp-query-scan"></a>
+# Best practices for querying and scanning data<a name="bp-query-scan"></a>
 
 This section covers some best practices for using `Query` and `Scan` operations in Amazon DynamoDB\.
 
-## Performance Considerations for Scans<a name="bp-query-scan-performance"></a>
+## Performance considerations for scans<a name="bp-query-scan-performance"></a>
 
 In general, `Scan` operations are less efficient than other operations in DynamoDB\. A `Scan` operation always scans the entire table or secondary index\. It then filters out values to provide the result you want, essentially adding the extra step of removing data from the result set\.
 
@@ -10,7 +10,7 @@ If possible, you should avoid using a `Scan` operation on a large table or index
 
 Alternatively, design your application to use `Scan` operations in a way that minimizes the impact on your request rate\.
 
-## Avoiding Sudden Spikes in Read Activity<a name="bp-query-scan-spikes"></a>
+## Avoiding sudden spikes in read activity<a name="bp-query-scan-spikes"></a>
 
 When you create a table, you set its read and write capacity unit requirements\. For reads, the capacity units are expressed as the number of strongly consistent 4 KB data read requests per second\. For eventually consistent reads, a read capacity unit is two 4 KB read requests per second\. A `Scan` operation performs eventually consistent reads by default, and it can return up to 1 MB \(one page\) of data\. Therefore, a single `Scan` request can consume \(1 MB page size / 4 KB item size\) / 2 \(eventually consistent reads\) = 128 read operations\. If you request strongly consistent reads instead, the `Scan` operation would consume twice as much provisioned throughput—256 read operations\.
 
@@ -35,14 +35,14 @@ As illustrated here, the usage spike can impact the table's provisioned throughp
 Instead of using a large `Scan` operation, you can use the following techniques to minimize the impact of a scan on a table's provisioned throughput\.
 + **Reduce page size**
 
-  Because a Scan operation reads an entire page \(by default, 1 MB\), you can reduce the impact of the scan operation by setting a smaller page size\. The `Scan` operation provides a *Limit* parameter that you can use to set the page size for your request\. Each `Query` or `Scan` request that has a smaller page size uses fewer read operations and creates a "pause" between each request\. For example, suppose that each item is 4 KB and you set the page size to 40 items\. A `Query` request would then consume only 20 eventually consistent read operations or 40 strongly consistent read operations\. A larger number of smaller `Query` or `Scan` operations would allow your other critical requests to succeed without throttling\. 
+  Because a Scan operation reads an entire page \(by default, 1 MB\), you can reduce the impact of the scan operation by setting a smaller page size\. The `Scan` operation provides a *Limit* parameter that you can use to set the page size for your request\. Each `Query` or `Scan` request that has a smaller page size uses fewer read operations and creates a "pause" between each request\. For example, suppose that each item is 4 KB and you set the page size to 40 items\. A `Query` request would then consume only 40 eventually consistent read operations or 20 strongly consistent read operations\. A larger number of smaller `Query` or `Scan` operations would allow your other critical requests to succeed without throttling\. 
 + **Isolate scan operations**
 
   DynamoDB is designed for easy scalability\. As a result, an application can create tables for distinct purposes, possibly even duplicating content across several tables\. You want to perform scans on a table that is not taking "mission\-critical" traffic\. Some applications handle this load by rotating traffic hourly between two tables—one for critical traffic, and one for bookkeeping\. Other applications can do this by performing every write on two tables: a "mission\-critical" table, and a "shadow" table\. 
 
-Configure your application to retry any request that receives a response code that indicates you have exceeded your provisioned throughput\. Or, increase the provisioned throughput for your table using the `UpdateTable` operation\. If you have temporary spikes in your workload that cause your throughput to exceed, occasionally, beyond the provisioned level, retry the request with exponential backoff\. For more information about implementing exponential backoff, see [Error Retries and Exponential Backoff](Programming.Errors.md#Programming.Errors.RetryAndBackoff)\.
+Configure your application to retry any request that receives a response code that indicates you have exceeded your provisioned throughput\. Or, increase the provisioned throughput for your table using the `UpdateTable` operation\. If you have temporary spikes in your workload that cause your throughput to exceed, occasionally, beyond the provisioned level, retry the request with exponential backoff\. For more information about implementing exponential backoff, see [Error retries and exponential backoff](Programming.Errors.md#Programming.Errors.RetryAndBackoff)\.
 
-## Taking Advantage of Parallel Scans<a name="bp-query-scan-parallel"></a>
+## Taking advantage of parallel scans<a name="bp-query-scan-parallel"></a>
 
 Many applications can benefit from using parallel `Scan` operations rather than sequential scans\. For example, an application that processes a large table of historical data can perform a parallel scan much faster than a sequential one\. Multiple worker threads in a background "sweeper" process could scan a table at a low priority without affecting production traffic\. In each of these examples, a parallel `Scan` is used in such a way that it does not starve other applications of provisioned throughput resources\.
 

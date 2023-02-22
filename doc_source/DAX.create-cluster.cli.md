@@ -1,4 +1,4 @@
-# Creating a DAX Cluster Using the AWS CLI<a name="DAX.create-cluster.cli"></a>
+# Creating a DAX cluster using the AWS CLI<a name="DAX.create-cluster.cli"></a>
 
 This section describes how to create an Amazon DynamoDB Accelerator \(DAX\) cluster using the AWS Command Line Interface \(AWS CLI\)\. If you haven't already done so, you must install and configure the AWS CLI\. To do this, see the following instructions in the *AWS Command Line Interface User Guide*:
 + [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
@@ -10,7 +10,7 @@ This section describes how to create an Amazon DynamoDB Accelerator \(DAX\) clus
 All of the AWS CLI examples use the `us-west-2` Region and fictitious account IDs\.
 
 **Topics**
-+ [Step 1: Create a Service Role](DAX.create-cluster.cli.create-service-role.md)
-+ [Step 2: Create a Subnet Group](DAX.create-cluster.cli.create-subnet-group.md)
-+ [Step 3: Create a DAX Cluster](DAX.create-cluster.cli.create-cluster.md)
-+ [Step 4: Configure Security Group Inbound Rules](DAX.create-cluster.cli.configure-inbound-rules.md)
++ [Step 1: Create a service role](DAX.create-cluster.cli.create-service-role.md)
++ [Step 2: Create a subnet group](DAX.create-cluster.cli.create-subnet-group.md)
++ [Step 3: Create a DAX cluster](DAX.create-cluster.cli.create-cluster.md)
++ [Step 4: Configure security group inbound rules](DAX.create-cluster.cli.configure-inbound-rules.md)

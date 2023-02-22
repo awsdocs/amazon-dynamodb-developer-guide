@@ -1,13 +1,13 @@
-# Creating Backups of DynamoDB Tables with AWS Backups<a name="CreateBackupAWS"></a>
+# Creating backups of DynamoDB tables with AWS Backup<a name="CreateBackupAWS"></a>
 
 This section describes how to enable AWS Backup to create on\-demand and scheduled backups from your DynamoDB tables\. 
 
-** [Enabling AWS Backup Features](#CreateBackupAWS_enabling) [On\-Demand Backups](#CreateBackupAWS_on-demand) [Scheduled Backups](#CreateBackupAWS_scheduled)**
-+ [Enabling AWS Backup Features](#CreateBackupAWS_enabling)
-+ [On\-Demand Backups](#CreateBackupAWS_on-demand)
-+ [Scheduled Backups](#CreateBackupAWS_scheduled)
+** [Enabling AWS Backup features](#CreateBackupAWS_enabling) [On\-demand backups](#CreateBackupAWS_on-demand) [Scheduled backups](#CreateBackupAWS_scheduled)**
++ [Enabling AWS Backup features](#CreateBackupAWS_enabling)
++ [On\-demand backups](#CreateBackupAWS_on-demand)
++ [Scheduled backups](#CreateBackupAWS_scheduled)
 
-## Enabling AWS Backup Features<a name="CreateBackupAWS_enabling"></a>
+## Enabling AWS Backup features<a name="CreateBackupAWS_enabling"></a>
 
 You must enable AWS Backup to use it with DynamoDB\.
 
@@ -35,7 +35,7 @@ If you choose to disable AWS Backup features after they’ve been enabled, follo
 
  If you can’t enable or disable the AWS Backup features, your AWS admin may need to perform those actions\.
 
-## On\-Demand Backups<a name="CreateBackupAWS_on-demand"></a>
+## On\-demand backups<a name="CreateBackupAWS_on-demand"></a>
 
 To create an on\-demand backup of a DynamoDB table, follow these steps: 
 
@@ -53,7 +53,7 @@ To create an on\-demand backup of a DynamoDB table, follow these steps:
 
 1. When you have completed the settings, choose **Create backup\.**
 
-## Scheduled Backups<a name="CreateBackupAWS_scheduled"></a>
+## Scheduled backups<a name="CreateBackupAWS_scheduled"></a>
 
 To schedule a backup, follow these steps\. 
 

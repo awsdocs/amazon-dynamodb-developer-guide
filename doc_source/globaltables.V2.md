@@ -5,12 +5,12 @@
 
 |  | 
 | --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](#globaltables.V2) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](#globaltables.V2) and [Version 2017\.11\.29 \(Legacy\)](globaltables.V1.md)\. Customers should use version 2019\.11\.21 \(Current\) when possible, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017\.11\.29 \(Legacy\)\. To determine which version you are using, see [Determining the global table version you are using](globaltables.DetermineVersion.md)\. | 
 
 **Topics**
-+ [Global Tables: How It Works](V2globaltables_HowItWorks.md)
-+ [Best Practices and Requirements for Managing Global Tables](V2globaltables_reqs_bestpractices.md)
-+ [Tutorial: Creating a Global Table](V2globaltables.tutorial.md)
-+ [Monitoring Global Tables](V2globaltables_monitoring.md)
-+ [Using IAM with Global Tables](V2gt_IAM.md)
-+ [Updating Global Tables to Version 2019\.11\.21 \(Current\)](V2globaltables_upgrade.md)
++ [Global tables: How it works](V2globaltables_HowItWorks.md)
++ [Best practices and requirements for managing global tables](V2globaltables_reqs_bestpractices.md)
++ [Tutorial: Creating a global table](V2globaltables.tutorial.md)
++ [Monitoring global tables](V2globaltables_monitoring.md)
++ [Using IAM with global tables](V2gt_IAM.md)
++ [Updating global tables to Version 2019\.11\.21 \(Current\)](V2globaltables_upgrade.md)

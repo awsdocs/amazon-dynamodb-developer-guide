@@ -1,4 +1,4 @@
-# Creating CloudWatch Alarms to Monitor DynamoDB<a name="creating-alarms"></a>
+# Creating CloudWatch alarms to monitor DynamoDB<a name="creating-alarms"></a>
 
 You can create a CloudWatch alarm that sends an Amazon SNS message when the alarm changes state\. An alarm watches a single metric over a time period you specify, and performs one or more actions based on the value of the metric relative to a given threshold over a number of time periods\. The action is a notification sent to an Amazon SNS topic or Auto Scaling policy\. Alarms invoke actions for sustained state changes only\. CloudWatch alarms do not invoke actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
 
@@ -10,7 +10,7 @@ For a list of supported metrics and their required dimensions in DynamoDB, see [
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:capacity-alarm`\.
 
-   For more information, see [Set Up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
+   For more information, see [Set up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
 
 1. Create the alarm\. In this example, we assume a provisioned capacity of five read capacity units\.
 
@@ -46,7 +46,7 @@ The alarm is activated whenever the consumed read capacity is at least 4 units p
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:requests-exceeding-throughput`\.
 
-   For more information, see [Set Up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
+   For more information, see [Set up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
 
 1. Create the alarm\.
 
@@ -80,7 +80,7 @@ The alarm is activated whenever the consumed read capacity is at least 4 units p
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-east-1:123456789012:notify-on-system-errors`\.
 
-   For more information, see [Set Up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
+   For more information, see [Set up Amazon Simple Notification Service](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)\.
 
 1. Create the alarm\.
 

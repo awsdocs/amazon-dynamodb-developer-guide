@@ -1,4 +1,4 @@
-# Copying Data Between DynamoDB and Amazon S3<a name="EMRforDynamoDB.CopyingData.S3"></a>
+# Copying data between DynamoDB and Amazon S3<a name="EMRforDynamoDB.CopyingData.S3"></a>
 
 If you have data in a DynamoDB table, you can use Hive to copy the data to an Amazon S3 bucket\.
 
@@ -6,7 +6,7 @@ You might do this if you want to create an archive of data in your DynamoDB tabl
 
 If you worked through [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md), then you already have an Amazon S3 bucket that contains your Amazon EMR logs\. You can use this bucket for the examples in this section, if you know the root path for the bucket:
 
-1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/elasticmapreduce/](https://console.aws.amazon.com/elasticmapreduce/)\.
+1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/emr](https://console.aws.amazon.com/emr/)\.
 
 1. For **Name**, choose your cluster\.
 
@@ -25,12 +25,12 @@ For these examples, we will use a subpath within the bucket, as in this example:
 The following procedures are written with the assumption you followed the steps in the tutorial and have an external table in DynamoDB named *ddb\_features*\.
 
 **Topics**
-+ [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.S3.DefaultFormat)
-+ [Copying Data with a User\-Specified Format](#EMRforDynamoDB.CopyingData.S3.UserSpecifiedFormat)
-+ [Copying Data Without a Column Mapping](#EMRforDynamoDB.CopyingData.S3.NoColumnMapping)
-+ [Viewing the Data in Amazon S3](#EMRforDynamoDB.CopyingData.S3.ViewingData)
++ [Copying data using the Hive default format](#EMRforDynamoDB.CopyingData.S3.DefaultFormat)
++ [Copying data with a user\-specified format](#EMRforDynamoDB.CopyingData.S3.UserSpecifiedFormat)
++ [Copying data without a column mapping](#EMRforDynamoDB.CopyingData.S3.NoColumnMapping)
++ [Viewing the data in Amazon S3](#EMRforDynamoDB.CopyingData.S3.ViewingData)
 
-## Copying Data Using the Hive Default Format<a name="EMRforDynamoDB.CopyingData.S3.DefaultFormat"></a>
+## Copying data using the Hive default format<a name="EMRforDynamoDB.CopyingData.S3.DefaultFormat"></a>
 
 **Example From DynamoDB to Amazon S3**  
 Use an `INSERT OVERWRITE` statement to write directly to Amazon S3\.  
@@ -73,7 +73,7 @@ Each field is separated by an SOH character \(start of heading, 0x01\)\. In the 
    SELECT * FROM s3_features_unformatted;
    ```
 
-## Copying Data with a User\-Specified Format<a name="EMRforDynamoDB.CopyingData.S3.UserSpecifiedFormat"></a>
+## Copying data with a user\-specified format<a name="EMRforDynamoDB.CopyingData.S3.UserSpecifiedFormat"></a>
 
 If you want to specify your own field separator character, you can create an external table that maps to the Amazon S3 bucket\. You might use this technique for creating data files with comma\-separated values \(CSV\)\.
 
@@ -119,14 +119,11 @@ INSERT OVERWRITE TABLE ddb_features
 SELECT * FROM s3_features_csv;
 ```
 
-## Copying Data Without a Column Mapping<a name="EMRforDynamoDB.CopyingData.S3.NoColumnMapping"></a>
+## Copying data without a column mapping<a name="EMRforDynamoDB.CopyingData.S3.NoColumnMapping"></a>
 
 You can copy data from DynamoDB in a raw format and write it to Amazon S3 without specifying any data types or column mapping\. You can use this method to create an archive of DynamoDB data and store it in Amazon S3\.
 
 
-
-**Note**  
-If your DynamoDB table contains attributes of type Map, List, Boolean or Null, then this is the only way you can use Hive to copy data from DynamoDB to Amazon S3\.
 
 **Example From DynamoDB to Amazon S3**  
 
@@ -177,7 +174,7 @@ INSERT OVERWRITE TABLE ddb_features_no_mapping
 SELECT * FROM s3_features_no_mapping;
 ```
 
-## Viewing the Data in Amazon S3<a name="EMRforDynamoDB.CopyingData.S3.ViewingData"></a>
+## Viewing the data in Amazon S3<a name="EMRforDynamoDB.CopyingData.S3.ViewingData"></a>
 
 If you use SSH to connect to the leader node, you can use the AWS Command Line Interface \(AWS CLI\) to access the data that Hive wrote to Amazon S3\.
 

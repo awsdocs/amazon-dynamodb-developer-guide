@@ -1,6 +1,6 @@
-# Exploring Datasets<a name="workbench.querybuilder.connect"></a>
+# Connecting to live datasets<a name="workbench.querybuilder.connect"></a>
 
-To explore your Amazon DynamoDB tables, you first need to connect to your AWS account\.
+To connect to your Amazon DynamoDB tables with NoSQL Workbench, you must first connect to your AWS account\.
 
 **To add a connection to your database**
 
@@ -16,7 +16,7 @@ To explore your Amazon DynamoDB tables, you first need to connect to your AWS ac
    + **Access key ID**
    + **Secret access key**
 
-   For more information about how to obtain the access keys, see [Getting an AWS Access Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html#SettingUp.DynamoWebService.GetCredentials)\.
+   For more information about how to obtain the access keys, see [Getting an AWS access key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html#SettingUp.DynamoWebService.GetCredentials)\.
 
    You can optionally, specify the following:
    + [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html)
@@ -25,9 +25,9 @@ To explore your Amazon DynamoDB tables, you first need to connect to your AWS ac
 1. Choose **Connect**\.  
 ![\[Console screenshot showing the connect button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderConnect.png)
 
-   If you don't want to sign up for a free tier account, and prefer to use [DynamoDB Local \(Downloadable Version\)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html): 
+    If you don't want to sign up for a free tier account, and prefer to use [ DynamoDB local \(downloadable version\)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html): 
 
-   1. Choose the **Local** tab on the connection screen
+   1. Choose the **Local** tab on the connection screen\.
 
    1. Specify the following information:
       + **Connection name**

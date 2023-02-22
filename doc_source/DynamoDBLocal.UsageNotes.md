@@ -1,4 +1,4 @@
-# DynamoDB Local Usage Notes<a name="DynamoDBLocal.UsageNotes"></a>
+# DynamoDB local usage notes<a name="DynamoDBLocal.UsageNotes"></a>
 
 Except for the endpoint, applications that run with the downloadable version of Amazon DynamoDB should also work with the DynamoDB web service\. However, when using DynamoDB locally, you should be aware of the following:
 + If you use the `-sharedDb` option, DynamoDB creates a single database file named *shared\-local\-instance\.db*\. Every program that connects to DynamoDB accesses this file\. If you delete the file, you lose any data that you have stored in it\.
@@ -6,13 +6,14 @@ Except for the endpoint, applications that run with the downloadable version of 
 + If you use the `-inMemory` option, DynamoDB doesn't write any database files at all\. Instead, all data is written to memory, and the data is not saved when you terminate DynamoDB\.
 + If you use the `-optimizeDbBeforeStartup` option, you must also specify the `-dbPath` parameter so that DynamoDB can find its database file\.
 + The AWS SDKs for DynamoDB require that your application configuration specify an access key value and an AWS Region value\. Unless you're using the `-sharedDb` or the `-inMemory` option, DynamoDB uses these values to name the local database file\. These values don't have to be valid AWS values to run locally\. However, you might find it convenient to use valid values so that you can run your code in the cloud later by changing the endpoint you're using\.
++ DynamoDB local always returns null for `billingModeSummary.`
 
 **Topics**
-+ [Command Line Options](#DynamoDBLocal.CommandLineOptions)
-+ [Setting the Local Endpoint](#DynamoDBLocal.Endpoint)
-+ [Differences Between Downloadable DynamoDB and the DynamoDB Web Service](#DynamoDBLocal.Differences)
++ [Command line options](#DynamoDBLocal.CommandLineOptions)
++ [Setting the local endpoint](#DynamoDBLocal.Endpoint)
++ [Differences between downloadable DynamoDB and the DynamoDB web service](#DynamoDBLocal.Differences)
 
-## Command Line Options<a name="DynamoDBLocal.CommandLineOptions"></a>
+## Command line options<a name="DynamoDBLocal.CommandLineOptions"></a>
 
 You can use the following command line options with the downloadable version of DynamoDB:
 + `-cors` `value` — Enables support for cross\-origin resource sharing \(CORS\) for JavaScript\. You must provide a comma\-separated "allow" list of specific domains\. The default setting for `-cors` is an asterisk \(\*\), which allows public access\.
@@ -27,7 +28,7 @@ DynamoDB uses port 8000 by default\. If port 8000 is unavailable, this command t
 `java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -help`
 + `-sharedDb` — If you specify `-sharedDb`, DynamoDB uses a single database file instead of separate files for each credential and Region\.
 
-## Setting the Local Endpoint<a name="DynamoDBLocal.Endpoint"></a>
+## Setting the local endpoint<a name="DynamoDBLocal.Endpoint"></a>
 
 By default, the AWS SDKs and tools use endpoints for the Amazon DynamoDB web service\. To use the SDKs and tools with the downloadable version of DynamoDB, you must specify the local endpoint:
 
@@ -35,7 +36,7 @@ By default, the AWS SDKs and tools use endpoints for the Amazon DynamoDB web ser
 
 ### AWS Command Line Interface<a name="DynamoDBLocal.Endpoint.CLI"></a>
 
-You can use the AWS Command Line Interface \(AWS CLI\) to interact with downloadable DynamoDB\. For example, you can use it to perform all the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+You can use the AWS Command Line Interface \(AWS CLI\) to interact with downloadable DynamoDB\. For example, you can use it to perform all the steps in [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
 To access DynamoDB running locally, use the `--endpoint-url` parameter\. The following is an example of using the AWS CLI to list the tables in DynamoDB on your computer\.
 
@@ -49,17 +50,18 @@ The AWS CLI can't use the downloadable version of DynamoDB as a default endpoint
 ### AWS SDKs<a name="DynamoDBLocal.Endpoint.SDK"></a>
 
 The way you specify an endpoint depends on the programming language and AWS SDK you're using\. The following sections describe how to do this:
-+ [Java: Setting the AWS Region and Endpoint](CodeSamples.Java.md#CodeSamples.Java.RegionAndEndpoint) \(DynamoDB Local supports the AWS SDK for Java V1 and V2\)
-+ [\.NET: Setting the AWS Region and Endpoint](CodeSamples.DotNet.md#CodeSamples.DotNet.RegionAndEndpoint)
++ [Java: Setting the AWS Region and endpoint](CodeSamples.Java.md#CodeSamples.Java.RegionAndEndpoint) \(DynamoDB local supports the AWS SDK for Java V1 and V2\)
++ [\.NET: Setting the AWS Region and endpoint](CodeSamples.DotNet.md#CodeSamples.DotNet.RegionAndEndpoint)
 
 **Note**  
-For examples in other programming languages, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For examples in other programming languages, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
-## Differences Between Downloadable DynamoDB and the DynamoDB Web Service<a name="DynamoDBLocal.Differences"></a>
+## Differences between downloadable DynamoDB and the DynamoDB web service<a name="DynamoDBLocal.Differences"></a>
 
 The downloadable version of DynamoDB is intended for development and testing purposes only\. By comparison, the DynamoDB web service is a managed service with scalability, availability, and durability features that make it ideal for production use\. 
 
 The downloadable version of DynamoDB differs from the web service in the following ways:
++  DynamoDB local is capped at 100 items for transactions\. 
 + AWS Regions and distinct AWS accounts are not supported at the client level\.
 + Provisioned throughput settings are ignored in downloadable DynamoDB, even though the `CreateTable` operation requires them\. For `CreateTable`, you can specify any numbers you want for provisioned read and write throughput, even though these numbers are not used\. You can call `UpdateTable` as many times as you want per day\. However, any changes to provisioned throughput values are ignored\.
 + `Scan` operations are performed sequentially\. Parallel scans are not supported\. The `Segment` and `TotalSegments` parameters of the `Scan` operation are ignored\.

@@ -3,10 +3,10 @@
 You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\) to enable Time to Live\. To use the API instead, see [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)\.
 
 **Topics**
-+ [Enable Time to Live \(Console\)](#time-to-live-ttl-how-to-enable-console)
++ [Enable Time to Live \(console\)](#time-to-live-ttl-how-to-enable-console)
 + [Enable Time to Live \(AWS CLI\)](#time-to-live-ttl-how-to-enable-cli-sdk)
 
-## Enable Time to Live \(Console\)<a name="time-to-live-ttl-how-to-enable-console"></a>
+## Enable Time to Live \(console\)<a name="time-to-live-ttl-how-to-enable-console"></a>
 
 Follow these steps to enable Time to Live using the DynamoDB console:
 

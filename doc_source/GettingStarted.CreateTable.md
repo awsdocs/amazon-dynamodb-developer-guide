@@ -1,60 +1,155 @@
 # Create a DynamoDB table<a name="GettingStarted.CreateTable"></a>
 
-You can create a table using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on tables, see [Core Components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
+You can create a table using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on tables, see [Core components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
 
 ## Create a DynamoDB table using an AWS SDK<a name="GettingStarted.CreateTable.SDK"></a>
 
 The following code examples show how to create a DynamoDB table using an AWS SDK\.
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-
-        std::cout << "Creating table " << table <<
-            " with a simple primary key: \"Name\"" << std::endl;
-
-        Aws::DynamoDB::Model::CreateTableRequest req;
-
-        Aws::DynamoDB::Model::AttributeDefinition haskKey;
-        haskKey.SetAttributeName("Name");
-        haskKey.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-        req.AddAttributeDefinitions(haskKey);
-
-        Aws::DynamoDB::Model::KeySchemaElement keyscelt;
-        keyscelt.WithAttributeName("Name").WithKeyType(Aws::DynamoDB::Model::KeyType::HASH);
-        req.AddKeySchema(keyscelt);
-
-        Aws::DynamoDB::Model::ProvisionedThroughput thruput;
-        thruput.WithReadCapacityUnits(5).WithWriteCapacityUnits(5);
-        req.SetProvisionedThroughput(thruput);
-        req.SetTableName(table);
-
-        const Aws::DynamoDB::Model::CreateTableOutcome& result = dynamoClient.CreateTable(req);
-        if (result.IsSuccess())
+        /// <summary>
+        /// Creates a new Amazon DynamoDB table and then waits for the new
+        /// table to become active.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table to create.</param>
+        /// <returns>A Boolean value indicating the success of the operation.</returns>
+        public static async Task<bool> CreateMovieTableAsync(AmazonDynamoDBClient client, string tableName)
         {
-            std::cout << "Table \"" << result.GetResult().GetTableDescription().GetTableName() <<
-                " created!" << std::endl;
-        }
-        else
-        {
-            std::cout << "Failed to create table: " << result.GetError().GetMessage();
+            var response = await client.CreateTableAsync(new CreateTableRequest
+            {
+                TableName = tableName,
+                AttributeDefinitions = new List<AttributeDefinition>()
+                {
+                    new AttributeDefinition
+                    {
+                        AttributeName = "title",
+                        AttributeType = "S",
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "year",
+                        AttributeType = "N",
+                    },
+                },
+                KeySchema = new List<KeySchemaElement>()
+                {
+                    new KeySchemaElement
+                    {
+                        AttributeName = "year",
+                        KeyType = "HASH",
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "title",
+                        KeyType = "RANGE",
+                    },
+                },
+                ProvisionedThroughput = new ProvisionedThroughput
+                {
+                    ReadCapacityUnits = 5,
+                    WriteCapacityUnits = 5,
+                },
+            });
+
+            // Wait until the table is ACTIVE and then report success.
+            Console.Write("Waiting for table to become active...");
+
+            var request = new DescribeTableRequest
+            {
+                TableName = response.TableDescription.TableName,
+            };
+
+            TableStatus status;
+
+            int sleepDuration = 2000;
+
+            do
+            {
+                System.Threading.Thread.Sleep(sleepDuration);
+
+                var describeTableResponse = await client.DescribeTableAsync(request);
+                status = describeTableResponse.Table.TableStatus;
+
+                Console.Write(".");
+            }
+            while (status != "ACTIVE");
+
+            return status == TableStatus.ACTIVE;
         }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/CreateTable) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Create an Amazon DynamoDB table.
+/*!
+  \sa createTable()
+  \param tableName: Name for the DynamoDB table.
+  \param primaryKey: Primary key for the DynamoDB table.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::DynamoDB::createTable(const Aws::String &tableName,
+                                   const Aws::String &primaryKey,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    std::cout << "Creating table " << tableName <<
+              " with a simple primary key: \"" << primaryKey << "\"." << std::endl;
+
+    Aws::DynamoDB::Model::CreateTableRequest request;
+
+    Aws::DynamoDB::Model::AttributeDefinition hashKey;
+    hashKey.SetAttributeName(primaryKey);
+    hashKey.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+    request.AddAttributeDefinitions(hashKey);
+
+    Aws::DynamoDB::Model::KeySchemaElement keySchemaElement;
+    keySchemaElement.WithAttributeName(primaryKey).WithKeyType(
+            Aws::DynamoDB::Model::KeyType::HASH);
+    request.AddKeySchema(keySchemaElement);
+
+    Aws::DynamoDB::Model::ProvisionedThroughput throughput;
+    throughput.WithReadCapacityUnits(5).WithWriteCapacityUnits(5);
+    request.SetProvisionedThroughput(throughput);
+    request.SetTableName(tableName);
+
+    const Aws::DynamoDB::Model::CreateTableOutcome &outcome = dynamoClient.CreateTable(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Table \""
+                  << outcome.GetResult().GetTableDescription().GetTableName() <<
+                  " created!" << std::endl;
+    }
+    else {
+        std::cerr << "Failed to create table: " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+```
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/CreateTable) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -108,46 +203,44 @@ func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
 	return tableDesc, err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [CreateTable](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.CreateTable) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
   
 
 ```
     public static String createTable(DynamoDbClient ddb, String tableName, String key) {
-
         DynamoDbWaiter dbWaiter = ddb.waiter();
         CreateTableRequest request = CreateTableRequest.builder()
-                .attributeDefinitions(AttributeDefinition.builder()
-                        .attributeName(key)
-                        .attributeType(ScalarAttributeType.S)
-                        .build())
-                .keySchema(KeySchemaElement.builder()
-                        .attributeName(key)
-                        .keyType(KeyType.HASH)
-                        .build())
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .tableName(tableName)
-                .build();
+            .attributeDefinitions(AttributeDefinition.builder()
+                .attributeName(key)
+                .attributeType(ScalarAttributeType.S)
+                .build())
+            .keySchema(KeySchemaElement.builder()
+                .attributeName(key)
+                .keyType(KeyType.HASH)
+                .build())
+            .provisionedThroughput(ProvisionedThroughput.builder()
+                .readCapacityUnits(new Long(10))
+                .writeCapacityUnits(new Long(10))
+                .build())
+            .tableName(tableName)
+            .build();
 
         String newTable ="";
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
-            // Wait until the Amazon DynamoDB table is created
-            WaiterResponse<DescribeTableResponse> waiterResponse =  dbWaiter.waitUntilTableExists(tableRequest);
+            // Wait until the Amazon DynamoDB table is created.
+            WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
-
             newTable = response.tableDescription().tableName();
             return newTable;
 
@@ -158,13 +251,13 @@ func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
        return "";
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/CreateTable) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
@@ -226,11 +319,11 @@ export const run = async () => {
 };
 run();
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table)\. 
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/createtablecommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -282,7 +375,6 @@ ddb.createTable(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table)\. 
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/CreateTable) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -291,65 +383,93 @@ ddb.createTable(params, function(err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
 suspend fun createNewTable(tableNameVal: String, key: String): String? {
 
-        val  attDef = AttributeDefinition {
-            attributeName = key
-            attributeType = ScalarAttributeType.S
-        }
-
-        val keySchemaVal =  KeySchemaElement{
-            attributeName = key
-            keyType = KeyType.Hash
-        }
-
-        val provisionedVal =  ProvisionedThroughput {
-            readCapacityUnits = 10
-            writeCapacityUnits = 10
-        }
-
-        val request = CreateTableRequest {
-            attributeDefinitions = listOf(attDef)
-            keySchema = listOf(keySchemaVal)
-            provisionedThroughput = provisionedVal
-            tableName = tableNameVal
-        }
-
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-
-            val response = ddb.createTable(request)
-            val tableActive = false
-
-            // Wait until the table is in Active state.
-            while (!tableActive)
-            {
-                val tableStatus = checkTableStatus(ddb, tableNameVal)
-                if (tableStatus.equals("ACTIVE"))
-                    break
-                delay(500)
-            }
-            return response.tableDescription?.tableArn
-        }
+    val attDef = AttributeDefinition {
+        attributeName = key
+        attributeType = ScalarAttributeType.S
     }
 
-    suspend fun checkTableStatus(ddb: DynamoDbClient, tableNameVal: String) : String {
+    val keySchemaVal = KeySchemaElement {
+        attributeName = key
+        keyType = KeyType.Hash
+    }
 
-             val tableInfo = ddb.describeTable(DescribeTableRequest {
-                 tableName = tableNameVal
-             })
-             return tableInfo.table?.tableStatus.toString()
-         }
+    val provisionedVal = ProvisionedThroughput {
+        readCapacityUnits = 10
+        writeCapacityUnits = 10
+    }
+
+    val request = CreateTableRequest {
+        attributeDefinitions = listOf(attDef)
+        keySchema = listOf(keySchemaVal)
+        provisionedThroughput = provisionedVal
+        tableName = tableNameVal
+    }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+
+        var tableArn: String
+        val response = ddb.createTable(request)
+        ddb.waitUntilTableExists { // suspend call
+            tableName = tableNameVal
+        }
+        tableArn = response.tableDescription!!.tableArn.toString()
+        println("Table $tableArn is ready")
+        return tableArn
+    }
+}
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [CreateTable](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+Create a table\.  
+
+```
+        $tableName = "ddb_demo_table_$uuid";
+        $service->createTable(
+            $tableName,
+            [
+                new DynamoDBAttribute('year', 'N', 'HASH'),
+                new DynamoDBAttribute('title', 'S', 'RANGE')
+            ]
+        );
+
+    public function createTable(string $tableName, array $attributes)
+    {
+        $keySchema = [];
+        $attributeDefinitions = [];
+        foreach ($attributes as $attribute) {
+            if (is_a($attribute, DynamoDBAttribute::class)) {
+                $keySchema[] = ['AttributeName' => $attribute->AttributeName, 'KeyType' => $attribute->KeyType];
+                $attributeDefinitions[] =
+                    ['AttributeName' => $attribute->AttributeName, 'AttributeType' => $attribute->AttributeType];
+            }
+        }
+
+        $this->dynamoDbClient->createTable([
+            'TableName' => $tableName,
+            'KeySchema' => $keySchema,
+            'AttributeDefinitions' => $attributeDefinitions,
+            'ProvisionedThroughput' => ['ReadCapacityUnits' => 10, 'WriteCapacityUnits' => 10],
+        ]);
+    }
+```
++  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/CreateTable) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 Create a table for storing movie data\.  
 
 ```
@@ -392,13 +512,13 @@ class Movies:
         else:
             return self.table
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/CreateTable) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -429,7 +549,6 @@ class Movies:
     @table
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [CreateTable](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/CreateTable) in *AWS SDK for Ruby API Reference*\. 
 
 ------
@@ -437,10 +556,15 @@ class Movies:
 
 **SDK for Rust**  
 This documentation is for an SDK in preview release\. The SDK is subject to change and should not be used in production\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
   
 
 ```
-async fn create_table(client: &Client, table: &str, key: &str) -> Result<(), Error> {
+pub async fn create_table(
+    client: &Client,
+    table: &str,
+    key: &str,
+) -> Result<CreateTableOutput, Error> {
     let a_name: String = key.into();
     let table_name: String = table.into();
 
@@ -459,27 +583,28 @@ async fn create_table(client: &Client, table: &str, key: &str) -> Result<(), Err
         .write_capacity_units(5)
         .build();
 
-    match client
+    let create_table_response = client
         .create_table()
         .table_name(table_name)
         .key_schema(ks)
         .attribute_definitions(ad)
         .provisioned_throughput(pt)
         .send()
-        .await
-    {
-        Ok(_) => println!("Added table {} with key {}", table, key),
-        Err(e) => {
-            println!("Got an error creating table:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+        .await;
 
-    Ok(())
+    match create_table_response {
+        Ok(out) => {
+            println!("Added table {} with key {}", table, key);
+            Ok(out)
+        }
+        Err(e) => {
+            eprintln!("Got an error creating table:");
+            eprintln!("{}", e);
+            Err(Error::unhandled(e))
+        }
+    }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 +  For API details, see [CreateTable](https://docs.rs/releases/search?query=aws-sdk) in *AWS SDK for Rust API reference*\. 
 
 ------

@@ -1,12 +1,12 @@
-# Getting Started with PartiQL for DynamoDB<a name="ql-gettingstarted"></a>
+# Getting started with PartiQL for DynamoDB<a name="ql-gettingstarted"></a>
 
 This section describes how to use PartiQL for DynamoDB from the Amazon DynamoDB console, the AWS Command Line Interface \(AWS CLI\), and DynamoDB APIs\.
 
-In the following examples, the DynamoDB table that is defined in the [Getting Started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) tutorial is a pre\-requisite\.
+In the following examples, the DynamoDB table that is defined in the [Getting started with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html) tutorial is a pre\-requisite\.
 
 For information about using the DynamoDB console, AWS Command Line Interface, or DynamoDB APIs to access DynamoDB, see [Accessing DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AccessingDynamoDB.html)\.
 
-To [download](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html) and use the [NoSQL Workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html) to build [PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html) statements choose **PartiQL operations** at the top right corner of the NoSQL Workbench for DynamoDB [Operation Builder](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.querybuilder.operationbuilder.html)\.
+To [download](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html) and use the [NoSQL workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html) to build [PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html) statements choose **PartiQL operations** at the top right corner of the NoSQL Workbench for DynamoDB [Operation builder](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.querybuilder.operationbuilder.html)\.
 
 ------
 #### [ Console ]
@@ -31,7 +31,7 @@ PartiQL for DynamoDB is only available in the new DynamoDB console\. To use the 
 1. You can view the results of the query by choosing the **Table view** or the **JSON view** buttons\. 
 
 ------
-#### [ NoSQL Workbench ]
+#### [ NoSQL workbench ]
 
 ![\[\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/partiql.single.png)
 

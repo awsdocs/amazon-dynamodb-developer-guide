@@ -8,7 +8,7 @@
 
 The `GetItem` operation returns a set of `Attributes` for an item that matches the primary key\. If there is no matching item, `GetItem` does not return any data\.
 
-The `GetItem` operation provides an eventually consistent read by default\. If eventually consistent reads are not acceptable for your application, use `ConsistentRead`\. Although this operation might take longer than a standard read, it always returns the last updated value\. For more information, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
+The `GetItem` operation provides an eventually consistent read by default\. If eventually consistent reads are not acceptable for your application, use `ConsistentRead`\. Although this operation might take longer than a standard read, it always returns the last updated value\. For more information, see [Read consistency](HowItWorks.ReadConsistency.md)\.
 
 ## Requests<a name="API_GetItem_RequestParameters"></a>
 
@@ -16,7 +16,7 @@ The `GetItem` operation provides an eventually consistent read by default\. If e
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.GetItem
 content-type: application/x-amz-json-1.0 
@@ -37,7 +37,7 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table containing the requested item\.  Type: String  |  Yes  | 
-|  Key  | The primary key values that define the item\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
+|  Key  | The primary key values that define the item\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
 | AttributesToGet  | Array of Attribute names\. If attribute names are not specified then all attributes will be returned\. If some attributes are not found, they will not appear in the result\.Type: Array | No | 
 | ConsistentRead  | If set to `true`, then a consistent read is issued, otherwise eventually consistent is used\.Type: Boolean | No | 
 
@@ -66,21 +66,21 @@ content-length: 144
 |  Name  |  Description  | 
 | --- | --- | 
 |  Item  | Contains the requested attributes\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Number | 
 
-## Special Errors<a name="API_GetItem_SpecialErrors"></a>
+## Special errors<a name="API_GetItem_SpecialErrors"></a>
 
 No errors specific to this operation\.
 
 ## Examples<a name="API_GetItem_Examples"></a>
 
- For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
+ For examples using the AWS SDK, see [Working with items and attributes](WorkingWithItems.md)\.
 
-### Sample Request<a name="API_GetItem_Examples_Request"></a>
+### Sample request<a name="API_GetItem_Examples_Request"></a>
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.GetItem
 content-type: application/x-amz-json-1.0 
@@ -94,7 +94,7 @@ content-type: application/x-amz-json-1.0
 }
 ```
 
-### Sample Response<a name="API_GetItem_Examples_Response"></a>
+### Sample response<a name="API_GetItem_Examples_Response"></a>
 
 Notice the ConsumedCapacityUnits value is 1, because the optional parameter `ConsistentRead` is set to `true`\. If `ConsistentRead` is set to `false` \(or not specified\) for the same request, the response is eventually consistent and the ConsumedCapacityUnits value would be 0\.5\.
 

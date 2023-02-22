@@ -1,4 +1,4 @@
-# Copying Data Between DynamoDB and a Native Hive Table<a name="EMRforDynamoDB.CopyingData.NativeHive"></a>
+# Copying data between DynamoDB and a native Hive table<a name="EMRforDynamoDB.CopyingData.NativeHive"></a>
 
 If you have data in a DynamoDB table, you can copy the data to a native Hive table\. This will give you a snapshot of the data, as of the time you copied it\. 
 
@@ -7,7 +7,7 @@ You might decide to do this if you need to perform many HiveQL queries, but do n
 **Note**  
 The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and have an external table in DynamoDB named *ddb\_features*\. 
 
-**Example From DynamoDB to Native Hive Table**  
+**Example From DynamoDB to native Hive table**  
 You can create a native Hive table and populate it with data from *ddb\_features*, like this:  
 
 ```
@@ -30,7 +30,7 @@ FROM ddb_features
 WHERE feature_class IN ('Lake','Summit');
 ```
 
-**Example From Native Hive Table to DynamoDB**  
+**Example From native Hive table to DynamoDB**  
 Use the following HiveQL statement to copy the data from the native Hive table to *ddb\_features*:  
 
 ```

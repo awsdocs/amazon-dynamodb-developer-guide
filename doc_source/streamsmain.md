@@ -1,4 +1,4 @@
-# Change Data Capture with Amazon DynamoDB<a name="streamsmain"></a>
+# Change data capture with Amazon DynamoDB<a name="streamsmain"></a>
 
 Many applications benefit from capturing changes to items stored in a DynamoDB table, at the point in time when such changes occur\. The following are some example use cases:
 + A popular mobile app modifies data in a DynamoDB table, at the rate of thousands of updates per second\. Another application captures and stores data about these updates, providing near\-real\-time usage metrics for the mobile app\.
@@ -9,12 +9,16 @@ Many applications benefit from capturing changes to items stored in a DynamoDB t
 
 DynamoDB supports streaming of item\-level change data capture records in near\-real time\. You can build applications that consume these streams and take action based on the contents\.
 
-**Topics**
-+ [Streaming Options for Change Data Capture](#streamsmain.choose)
-+ [Using Kinesis Data Streams to Capture Changes to DynamoDB](kds.md)
-+ [Change Data Capture for DynamoDB Streams](Streams.md)
+The following video will give you an introductory look at the change data capture concept\.
 
-## Streaming Options for Change Data Capture<a name="streamsmain.choose"></a>
+[![AWS Videos](http://img.youtube.com/vi/https://www.youtube.com/embed/VVv_-mZ5Ge8/0.jpg)](http://www.youtube.com/watch?v=https://www.youtube.com/embed/VVv_-mZ5Ge8)
+
+**Topics**
++ [Streaming options for change data capture](#streamsmain.choose)
++ [Using Kinesis Data Streams to capture changes to DynamoDB](kds.md)
++ [Change data capture for DynamoDB Streams](Streams.md)
+
+## Streaming options for change data capture<a name="streamsmain.choose"></a>
 
 DynamoDB offers two streaming models for change data capture: Kinesis Data Streams for DynamoDB and DynamoDB Streams\.
 

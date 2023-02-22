@@ -1,4 +1,4 @@
-# DynamoDB Transactions Example<a name="transaction-example"></a>
+# DynamoDB transactions example<a name="transaction-example"></a>
 
 As an example of a situation in which Amazon DynamoDB transactions can be useful, consider this sample Java application for an online marketplace\.
 
@@ -7,7 +7,7 @@ The application has three DynamoDB tables in the backend:
 + `ProductCatalog` — This table stores details such as price and availability about the products for sale in the marketplace\. Its primary key is a `ProductId` unique identifier\.
 + `Orders` — This table stores details about orders from the marketplace\. Its primary key is an `OrderId` unique identifier\.
 
-## Making an Order<a name="transaction-example-write-order"></a>
+## Making an order<a name="transaction-example-write-order"></a>
 
 The following code snippets illustrate how to use DynamoDB transactions to coordinate the multiple steps that are required to create and process an order\. Using a single all\-or\-nothing operation ensures that if any part of the transaction fails, no actions in the transaction are run and no changes are made\.
 
@@ -19,7 +19,7 @@ In this example, you set up an order from a customer whose `customerId` is `09e8
 
 1. Make sure that the order does not already exist, and create the order\.
 
-### Validate the Customer<a name="transaction-example-order-part-a"></a>
+### Validate the customer<a name="transaction-example-order-part-a"></a>
 
 First, define an action to verify that a customer with `customerId` equal to `09e8e9c8-ec48` exists in the customer table\.
 
@@ -36,7 +36,7 @@ ConditionCheck checkCustomerValid = new ConditionCheck()
     .withConditionExpression("attribute_exists(" + CUSTOMER_PARTITION_KEY + ")");
 ```
 
-### Update the Product Status<a name="transaction-example-order-part-b"></a>
+### Update the product status<a name="transaction-example-order-part-b"></a>
 
 Next, define an action to update the product status to `SOLD` if the condition that the product status is currently set to `IN_STOCK` is `true`\. Setting the `ReturnValuesOnConditionCheckFailure` parameter returns the item if the item's product status attribute was not equal to `IN_STOCK`\.
 
@@ -59,7 +59,7 @@ Update markItemSold = new Update()
     .withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure.ALL_OLD);
 ```
 
-### Create the Order<a name="transaction-example-order-part-c"></a>
+### Create the order<a name="transaction-example-order-part-c"></a>
 
 Lastly, create the order as long as an order with that `OrderId` does not already exist\.
 
@@ -81,7 +81,7 @@ Put createOrder = new Put()
     .withConditionExpression("attribute_not_exists(" + ORDER_PARTITION_KEY + ")");
 ```
 
-### Run the Transaction<a name="transaction-example-order-part-d"></a>
+### Run the transaction<a name="transaction-example-order-part-d"></a>
 
 The following example illustrates how to run the actions defined previously as a single all\-or\-nothing operation\.
 
@@ -109,7 +109,7 @@ The following example illustrates how to run the actions defined previously as a
     }
 ```
 
-## Reading the Order Details<a name="transaction-example-read-order"></a>
+## Reading the order details<a name="transaction-example-read-order"></a>
 
 The following example shows how to read the completed order transactionally across the `Orders` and `ProductCatalog` tables\.
 
@@ -148,5 +148,5 @@ try {
 }
 ```
 
-## Additional Examples<a name="transaction-example-Additional"></a>
+## Additional examples<a name="transaction-example-Additional"></a>
 + [Using transactions from DynamoDBMapper](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBMapper.Transactions.html) 

@@ -1,4 +1,4 @@
-# Creating a Table<a name="SQLtoNoSQL.CreateTable"></a>
+# Creating a table<a name="SQLtoNoSQL.CreateTable"></a>
 
 Tables are the fundamental data structures in relational databases and in Amazon DynamoDB\. A relational database management system \(RDBMS\) requires you to define the table's schema when you create it\. In contrast, DynamoDB tables are schemaless—other than the primary key, you do not need to define any extra attributes or data types when you create a table\.
 
@@ -67,9 +67,9 @@ The primary key for this table consists of *Artist* \(partition key\) and *SongT
 
 You must provide the following parameters to `CreateTable`:
 + `TableName` – Name of the table\.
-+ `KeySchema` – Attributes that are used for the primary key\. For more information, see [Tables, Items, and Attributes](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.TablesItemsAttributes) and [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
++ `KeySchema` – Attributes that are used for the primary key\. For more information, see [Tables, items, and attributes](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.TablesItemsAttributes) and [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.
 + `AttributeDefinitions` – Data types for the key schema attributes\.
 + `ProvisionedThroughput (for provisioned tables)` – Number of reads and writes per second that you need for this table\. DynamoDB reserves sufficient storage and system resources so that your throughput requirements are always met\. You can use the `UpdateTable` action to change these later, if necessary\. You do not need to specify a table's storage requirements because storage allocation is managed entirely by DynamoDB\.
 
 **Note**  
-For code examples that use `CreateTable`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `CreateTable`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.

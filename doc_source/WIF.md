@@ -1,22 +1,22 @@
-# Using Web Identity Federation<a name="WIF"></a>
+# Using web identity federation<a name="WIF"></a>
 
-If you are writing an application targeted at large numbers of users, you can optionally use *web identity federation* for authentication and authorization\. Web identity federation removes the need for creating individual IAM users\. Instead, users can sign in to an identity provider and then obtain temporary security credentials from AWS Security Token Service \(AWS STS\)\. The app can then use these credentials to access AWS services\.
+If you are writing an application targeted at large numbers of users, you can optionally use *web identity federation* for authentication and authorization\. Web identity federation removes the need for creating individual users\. Instead, users can sign in to an identity provider and then obtain temporary security credentials from AWS Security Token Service \(AWS STS\)\. The app can then use these credentials to access AWS services\.
 
 Web identity federation supports the following identity providers:
 + Login with Amazon
 + Facebook
 + Google
 
-## Additional Resources for Web Identity Federation<a name="WIF.AdditionalResources"></a>
+## Additional resources for web identity federation<a name="WIF.AdditionalResources"></a>
 
 The following resources can help you learn more about web identity federation:
 + The post [Web Identity Federation using the AWS SDK for \.NET](http://aws.amazon.com/blogs/developer/web-identity-federation-using-the-aws-sdk-for-net) on the AWS Developer blog walks through how to use web identity federation with Facebook\. It includes code snippets in C\# that show how to assume an IAM role with web identity and how to use temporary security credentials to access an AWS resource\.
 + The [AWS Mobile SDK for iOS](https://aws.amazon.com/sdkforios/) and the [AWS Mobile SDK for Android](https://aws.amazon.com/sdkforandroid/) contain sample apps\. They include code that shows how to invoke the identity providers, and then how to use the information from these providers to get and use temporary security credentials\.
 + The article [Web Identity Federation with Mobile Applications](https://aws.amazon.com/articles/4617974389850313) discusses web identity federation and shows an example of how to use web identity federation to access an AWS resource\.
 
-## Example Policy for Web Identity Federation<a name="WIF.Example"></a>
+## Example policy for web identity federation<a name="WIF.Example"></a>
 
-To show how you can use web identity federation with DynamoDB, revisit the *GameScores* table that was introduced in [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md)\. Here is the primary key for *GameScores*\.
+To show how you can use web identity federation with DynamoDB, revisit the *GameScores* table that was introduced in [Using IAM policy conditions for fine\-grained access control](specifying-conditions.md)\. Here is the primary key for *GameScores*\.
 
 
 ****  
@@ -35,7 +35,7 @@ The following diagram shows how these pieces fit together\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/wif-overview.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-**Web Identity Federation Overview**
+**Web identity federation overview**
 
 1. The app calls a third\-party identity provider to authenticate the user and the app\. The identity provider returns a web identity token to the app\.
 
@@ -43,7 +43,7 @@ The following diagram shows how these pieces fit together\.
 
 1. The app calls DynamoDB to access the *GameScores* table\. Because it has assumed the *GameRole*, the app is subject to the security policy associated with that role\. The policy document prevents the app from accessing data that does not belong to the user\.
 
-Once again, here is the security policy for *GameRole* that was shown in [Using IAM Policy Conditions for Fine\-Grained Access Control](specifying-conditions.md):
+Once again, here is the security policy for *GameRole* that was shown in [Using IAM policy conditions for fine\-grained access control](specifying-conditions.md):
 
 ```
 {

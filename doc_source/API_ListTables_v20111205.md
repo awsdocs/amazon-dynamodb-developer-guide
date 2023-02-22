@@ -16,7 +16,7 @@ Each DynamoDB endpoint is entirely independent\. For example, if you have two ta
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.ListTables
 content-type: application/x-amz-json-1.0
@@ -56,7 +56,7 @@ Date: Fri, 21 Oct 2011 20:35:38 GMT
 |  TableNames  |  The names of the tables associated with the current account at the current endpoint\.  Type: Array  | 
 | LastEvaluatedTableName  | The name of the last table in the current list, only if some tables for the account and endpoint have not been returned\. This value does not exist in a response if all table names are already returned\. Use this value as the `ExclusiveStartTableName` in a new request to continue the list until all the table names are returned\.  Type: String  | 
 
-## Special Errors<a name="API_ListTables_SpecialErrors"></a>
+## Special errors<a name="API_ListTables_SpecialErrors"></a>
 
 No errors are specific to this operation\.
 
@@ -64,11 +64,11 @@ No errors are specific to this operation\.
 
 The following examples show an HTTP POST request and response using the ListTables operation\.
 
-### Sample Request<a name="API_ListTables_Examples_Request"></a>
+### Sample request<a name="API_ListTables_Examples_Request"></a>
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.ListTables
 content-type: application/x-amz-json-1.0
@@ -76,7 +76,7 @@ content-type: application/x-amz-json-1.0
 {"ExclusiveStartTableName":"comp2","Limit":3}
 ```
 
-### Sample Response<a name="API_ListTables_Examples_Response"></a>
+### Sample response<a name="API_ListTables_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 OK
@@ -88,7 +88,7 @@ Date: Fri, 21 Oct 2011 20:35:38 GMT
 {"LastEvaluatedTableName":"comp5","TableNames":["comp3","comp4","comp5"]}
 ```
 
-## Related Actions<a name="API_ListTables_Related_Actions"></a>
+## Related actions<a name="API_ListTables_Related_Actions"></a>
 +  [DescribeTables](API_DescribeTables_v20111205.md) 
 +  [CreateTable](API_CreateTable_v20111205.md) 
 +  [DeleteTable](API_DeleteTable_v20111205.md) 

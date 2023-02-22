@@ -6,9 +6,96 @@ The following code examples show how to delete an item from a DynamoDB table\.
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
+#### [ \.NET ]
+
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
+  
+
+```
+        /// <summary>
+        /// Deletes a single item from a DynamoDB table.
+        /// </summary>
+        /// <param name="client">The initialized DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table from which the item
+        /// will be deleted.</param>
+        /// <param name="movieToDelete">A movie object containing the title and
+        /// year of the movie to delete.</param>
+        /// <returns>A Boolean value indicating the success or failure of the
+        /// delete operation.</returns>
+        public static async Task<bool> DeleteItemAsync(
+            AmazonDynamoDBClient client,
+            string tableName,
+            Movie movieToDelete)
+        {
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = movieToDelete.Title },
+                ["year"] = new AttributeValue { N = movieToDelete.Year.ToString() },
+            };
+
+            var request = new DeleteItemRequest
+            {
+                TableName = tableName,
+                Key = key,
+            };
+
+            var response = await client.DeleteItemAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+```
++  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Delete an item from an Amazon DynamoDB table.
+/*!
+  \sa deleteItem()
+  \param tableName: The table name.
+  \param partitionKey: The partition key.
+  \param partitionValue: The value for the partition key.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+
+bool AwsDoc::DynamoDB::deleteItem(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::DeleteItemRequest request;
+
+    request.AddKey(partitionKey,
+                   Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
+    request.SetTableName(tableName);
+
+    const Aws::DynamoDB::Model::DeleteItemOutcome &outcome = dynamoClient.DeleteItem(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Item \"" << partitionValue << "\" deleted!" << std::endl;
+    }
+    else {
+        std::cerr << "Failed to delete item: " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+```
++  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for C\+\+ API Reference*\. 
+
+------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -32,54 +119,50 @@ func (basics TableBasics) DeleteMovie(movie Movie) error {
 	return err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [DeleteItem](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.DeleteItem) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
   
 
 ```
-  public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
-
-        HashMap<String,AttributeValue> keyToGet =
-                new HashMap<String,AttributeValue>();
-
+    public static void deleteDynamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
+        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
-                .s(keyVal)
-                .build());
+            .s(keyVal)
+            .build());
 
         DeleteItemRequest deleteReq = DeleteItemRequest.builder()
-                .tableName(tableName)
-                .key(keyToGet)
-                .build();
+            .tableName(tableName)
+            .key(keyToGet)
+            .build();
 
         try {
             ddb.deleteItem(deleteReq);
         } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+           System.err.println(e.getMessage());
+           System.exit(1);
         }
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create the document client\.  
 
@@ -87,14 +170,12 @@ Create the document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -104,10 +185,11 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
@@ -128,7 +210,7 @@ export const params = {
 
 export const deleteItem = async () => {
   try {
-    const data = await ddbDocClient.send(new DeleteCommand(params));
+    await ddbDocClient.send(new DeleteCommand(params));
     console.log("Success - item deleted");
   } catch (err) {
     console.log("Error", err);
@@ -153,7 +235,7 @@ export const run = async (tableName, movieYear1, movieTitle1) => {
     Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
   };
   try {
-    const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
+    await ddbDocClient.send(new ExecuteStatementCommand(params));
     console.log("Success. Item deleted.");
     return "Run successfully"; // For unit tests.
   } catch (err) {
@@ -206,11 +288,11 @@ export const run = async (
 };
 run(tableName, movieYear1, movieTitle1, movieYear2, movieTitle2);
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item)\. 
 +  For API details, see [DeleteItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/deleteitemcommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 Delete an item from a table\.  
 
 ```
@@ -264,7 +346,6 @@ docClient.delete(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item)\. 
 +  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -273,32 +354,64 @@ docClient.delete(params, function(err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
-suspend fun deleteDymamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
+suspend fun deleteDynamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
+    val keyToGet = mutableMapOf<String, AttributeValue>()
+    keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet[keyName] = AttributeValue.S(keyVal)
+    val request = DeleteItemRequest {
+        tableName = tableNameVal
+        key = keyToGet
+    }
 
-        val request = DeleteItemRequest {
-            tableName = tableNameVal
-            key = keyToGet
-        }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.deleteItem(request)
+        println("Item with key matching $keyVal was deleted")
+    }
+}
+```
++  For API details, see [DeleteItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.deleteItem(request)
-            println("Item with key matching $keyVal was deleted")
-        }
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        $key = [
+            'Item' => [
+                'title' => [
+                    'S' => $movieName,
+                ],
+                'year' => [
+                    'N' => $movieYear,
+                ],
+            ]
+        ];
+
+        $service->deleteItemByKey($tableName, $key);
+        echo "But, bad news, this was a trap. That movie has now been deleted because of your rating...harsh.\n";
+
+    public function deleteItemByKey(string $tableName, array $key)
+    {
+        $this->dynamoDbClient->deleteItem([
+            'Key' => $key['Item'],
+            'TableName' => $tableName,
+        ]);
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
-+  For API details, see [DeleteItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
++  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -359,13 +472,13 @@ class UpdateQueryWrapper:
                     err.response['Error']['Code'], err.response['Error']['Message'])
             raise
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -381,7 +494,6 @@ class UpdateQueryWrapper:
     raise
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [DeleteItem](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/DeleteItem) in *AWS SDK for Ruby API Reference*\. 
 
 ------
@@ -389,10 +501,16 @@ class UpdateQueryWrapper:
 
 **SDK for Rust**  
 This documentation is for an SDK in preview release\. The SDK is subject to change and should not be used in production\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
   
 
 ```
-async fn delete_item(client: &Client, table: &str, key: &str, value: &str) -> Result<(), Error> {
+pub async fn delete_item(
+    client: &Client,
+    table: &str,
+    key: &str,
+    value: &str,
+) -> Result<DeleteItemOutput, Error> {
     match client
         .delete_item()
         .table_name(table)
@@ -400,18 +518,14 @@ async fn delete_item(client: &Client, table: &str, key: &str, value: &str) -> Re
         .send()
         .await
     {
-        Ok(_) => println!("Deleted item from table"),
-        Err(e) => {
-            println!("Got an error deleting item from table:");
-            println!("{}", e);
-            process::exit(1);
+        Ok(out) => {
+            println!("Deleted item from table");
+            Ok(out)
         }
-    };
-
-    Ok(())
+        Err(e) => Err(Error::unhandled(e)),
+    }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 +  For API details, see [DeleteItem](https://docs.rs/releases/search?query=aws-sdk) in *AWS SDK for Rust API reference*\. 
 
 ------

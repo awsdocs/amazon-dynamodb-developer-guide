@@ -22,6 +22,6 @@ Apart from the preceding items, you should, at a minimum, monitor the following 
 + Client connections, so that you can monitor for any unexplained spikes in connections to the cluster\.
 
 **Topics**
-+ [Monitoring Tools](dax-monitoring-automated-manual.md)
++ [Monitoring tools](dax-monitoring-automated-manual.md)
 + [Monitoring with Amazon CloudWatch](dax-monitoring-cloudwatch.md)
-+ [Logging DAX Operations Using AWS CloudTrail](dax-logging-using-cloudtrail.md)
++ [Logging DAX operations using AWS CloudTrail](dax-logging-using-cloudtrail.md)

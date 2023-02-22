@@ -1,4 +1,4 @@
-# IAM Security Policies with PartiQL for DynamoDB<a name="ql-iam"></a>
+# IAM security policies with PartiQL for DynamoDB<a name="ql-iam"></a>
 
 ## <a name="ql-iam.permissions-model"></a>
 
@@ -148,7 +148,7 @@ The following IAM policy grants permissions to run only transactional statements
 }
 ```
 
-## Example: Allow Select statements and deny full table scan statements in PartiQL for DynamoDB<a name="access-policy-ql-iam-example6"></a>
+## Example: Allow select statements and deny full table scan statements in PartiQL for DynamoDB<a name="access-policy-ql-iam-example6"></a>
 
 The following IAM policy grants permissions to run the `select` statement on a specific table while blocking `select` statements that result in a full table scan\.
 

@@ -1,12 +1,12 @@
-# Backing Up a DynamoDB Table<a name="Backup.Tutorial"></a>
+# Backing up a DynamoDB table<a name="Backup.Tutorial"></a>
 
 This section describes how to use the Amazon DynamoDB console or the AWS Command Line Interface to back up a table\.
 
 **Topics**
-+ [Creating a Table Backup \(Console\)](#backup_console)
-+ [Creating a Table Backup \(AWS CLI\)](#backup_cli)
++ [Creating a table backup \(console\)](#backup_console)
++ [Creating a table backup \(AWS CLI\)](#backup_cli)
 
-## Creating a Table Backup \(Console\)<a name="backup_console"></a>
+## Creating a table backup \(console\)<a name="backup_console"></a>
 
 Follow these steps to create a backup named `MusicBackup` for an existing `Music` table using the AWS Management Console\.
 
@@ -26,7 +26,7 @@ If you create backups using the **Backups** section in the navigation pane, the 
    While the backup is being created, the backup status is set to **Creating**\. After the backup is complete, the backup status changes to **Available**\.  
 ![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/confirm_backup.png)![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot of the MusicBackup with status showing available.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-## Creating a Table Backup \(AWS CLI\)<a name="backup_cli"></a>
+## Creating a table backup \(AWS CLI\)<a name="backup_cli"></a>
 
 Follow these steps to create a backup for an existing table `Music` using the AWS CLI\.
 

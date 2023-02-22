@@ -1,4 +1,4 @@
-# Step 3: Configure an Amazon EC2 Instance<a name="DAX.client.configure-ec2-instance"></a>
+# Step 3: Configure an Amazon EC2 instance<a name="DAX.client.configure-ec2-instance"></a>
 
 When your Amazon EC2 instance is available, you can log in to the instance and prepare it for use\.
 
@@ -15,11 +15,11 @@ The following steps assume that you are connecting to your Amazon EC2 instance f
    ssh -i my-keypair.pem ec2-user@public-dns-name
    ```
 
-   You need to specify your private key file \(`.pem` file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 Instance](DAX.client.launch-ec2-instance.md)\.\)
+   You need to specify your private key file \(`.pem` file\) and the public DNS name of your instance\. \(See [Step 1: Launch an Amazon EC2 instance](DAX.client.launch-ec2-instance.md)\.\)
 
    The login ID is `ec2-user`\. No password is required\.
 
-1. After you log in to your EC2 instance, configure your AWS credentials as shown following\. Enter your AWS access key ID and secret key \(from [Step 2: Create an IAM User and Policy](DAX.client.create-user-policy.md)\), and set the default Region name to your current Region\. \(In the following example, the default Region name is `us-west-2`\.\)
+1. After you log in to your EC2 instance, configure your AWS credentials as shown following\. Enter your AWS access key ID and secret key \(from [Step 2: Create a user and policy](DAX.client.create-user-policy.md)\), and set the default Region name to your current Region\. \(In the following example, the default Region name is `us-west-2`\.\)
 
    ```
    aws configure
@@ -30,4 +30,4 @@ The following steps assume that you are connecting to your Amazon EC2 instance f
    Default output format [None]:
    ```
 
-After launching and configuring your Amazon EC2 instance, you can test the functionality of DAX using one of the available sample applications\. For more information, see [Step 4: Run a Sample Application](DAX.client.run-application.md)\. 
+After launching and configuring your Amazon EC2 instance, you can test the functionality of DAX using one of the available sample applications\. For more information, see [Step 4: Run a sample application](DAX.client.run-application.md)\. 

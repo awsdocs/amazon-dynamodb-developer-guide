@@ -1,4 +1,4 @@
-# Scanning Tables and Indexes: Java<a name="ScanJavaDocumentAPI"></a>
+# Scanning tables and indexes: Java<a name="ScanJavaDocumentAPI"></a>
 
 
 
@@ -38,7 +38,7 @@ for (Map<String, AttributeValue> item : result.getItems()){
 }
 ```
 
-## Specifying Optional Parameters<a name="DocumentAPIJavaScanningOptions"></a>
+## Specifying optional parameters<a name="DocumentAPIJavaScanningOptions"></a>
 
 The `scan` method supports several optional parameters\. For example, you can optionally use a filter expression to filter the scan result\. In a filter expression, you can specify a condition and attribute names and values on which you want the condition evaluated\. For more information, see [Scan](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html)\.
 
@@ -88,7 +88,7 @@ do {
 } while (lastKeyEvaluated != null);
 ```
 
-## Example \- Scan Using Java<a name="DocumentAPIJavaScanExample"></a>
+## Example \- scan using Java<a name="DocumentAPIJavaScanExample"></a>
 
 The following Java code example provides a working sample that scans the `ProductCatalog` table to find items that are priced less than 100\. 
 
@@ -96,8 +96,8 @@ The following Java code example provides a working sample that scans the `Produc
 The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code that you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 ```
 /**
@@ -162,7 +162,7 @@ public class DocumentAPIScan {
 }
 ```
 
-## Example \- Parallel Scan Using Java<a name="DocumentAPIJavaParallelScanExample"></a>
+## Example \- parallel scan using Java<a name="DocumentAPIJavaParallelScanExample"></a>
 
 The following Java code example demonstrates a parallel scan\. The program deletes and re\-creates a table named `ParallelScanTest`, and then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. The program prints runtime statistics for each parallel request\.
 
@@ -170,8 +170,8 @@ The following Java code example demonstrates a parallel scan\. The program delet
 The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code that you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 ```
 /**

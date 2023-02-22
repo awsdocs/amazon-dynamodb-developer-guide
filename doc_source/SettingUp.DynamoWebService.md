@@ -1,4 +1,4 @@
-# Setting Up DynamoDB \(Web Service\)<a name="SettingUp.DynamoWebService"></a>
+# Setting up DynamoDB \(web service\)<a name="SettingUp.DynamoWebService"></a>
 
 To use the Amazon DynamoDB web service:
 
@@ -6,11 +6,11 @@ To use the Amazon DynamoDB web service:
 
 1. [Get an AWS access key](#SettingUp.DynamoWebService.GetCredentials) \(used to access DynamoDB programmatically\)\.
 **Note**  
- If you plan to interact with DynamoDB only through the AWS Management Console, you don't need an AWS access key, and you can skip ahead to [Using the Console](ConsoleDynamoDB.md)\.
+ If you plan to interact with DynamoDB only through the AWS Management Console, you don't need an AWS access key, and you can skip ahead to [Using the console](ConsoleDynamoDB.md)\.
 
 1. [Configure your credentials](#SettingUp.DynamoWebService.ConfigureCredentials) \(used to access DynamoDB programmatically\)\. 
 
-## Signing Up for AWS<a name="SettingUp.DynamoWebService.SignUpForAWS"></a>
+## Signing up for AWS<a name="SettingUp.DynamoWebService.SignUpForAWS"></a>
 
 To use the DynamoDB service, you must have an AWS account\. If you don't already have an account, you are prompted to create one when you sign up\. You're not charged for any AWS services that you sign up for unless you use them\.
 
@@ -22,39 +22,28 @@ To use the DynamoDB service, you must have an AWS account\. If you don't already
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
-## Getting an AWS Access Key<a name="SettingUp.DynamoWebService.GetCredentials"></a>
+   When you sign up for an AWS account, an *AWS account root user* is created\. The root user has access to all AWS services and resources in the account\. As a security best practice, [assign administrative access to an administrative user](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html), and use only the root user to perform [tasks that require root user access](https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html)\.
 
-Before you can access DynamoDB programmatically or through the AWS Command Line Interface \(AWS CLI\), you must have an AWS access key\. You don't need an access key if you plan to use the DynamoDB console only\.
+## Granting programmatic access<a name="SettingUp.DynamoWebService.GetCredentials"></a>
 
-Access keys consist of an access key ID and secret access key, which are used to sign programmatic requests that you make to AWS\. If you don't have access keys, you can create them from the AWS Management Console\. As a best practice, do not use the AWS account root user access keys for any task where it's not required\. Instead, [create a new administrator IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) with access keys for yourself\.
+Before you can access DynamoDB programmatically or through the AWS Command Line Interface \(AWS CLI\), you must have programmatic access\. You don't need programmatic access if you plan to use the DynamoDB console only\. 
 
-The only time that you can view or download the secret access key is when you create the keys\. You cannot recover them later\. However, you can create new access keys at any time\. You must also have permissions to perform the required IAM actions\. For more information, see [Permissions required to access IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_permissions-required.html) in the *IAM User Guide*\.
+Users need programmatic access if they want to interact with AWS outside of the AWS Management Console\. The way to grant programmatic access depends on the type of user that's accessing AWS:
++ If you manage identities in IAM Identity Center, the AWS APIs require a profile, and the AWS Command Line Interface requires a profile or an environment variable\.
++ If you have IAM users, the AWS APIs and the AWS Command Line Interface require access keys\. Whenever possible, create temporary credentials that consist of an access key ID, a secret access key, and a security token that indicates when the credentials expire\.
 
-**To create access keys for an IAM user**
+To grant users programmatic access, choose one of the following options\.
 
-1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-1. In the navigation pane, choose **Users**\.
+****  
 
-1. Choose the name of the user whose access keys you want to create, and then choose the **Security credentials** tab\.
+| Which user needs programmatic access? | To | By | 
+| --- | --- | --- | 
+|  Workforce identity \(Users managed in IAM Identity Center\)  | Use short\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\. |  Following the instructions for the interface that you want to use: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)  | 
+| IAM | Use short\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\. | Following the instructions in [Using temporary credentials with AWS resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html) in the IAM User Guide\. | 
+| IAM | Use long\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\.\(Not recommended\) | Following the instructions in [Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the IAM User Guide\. | 
 
-1. In the **Access keys** section, choose **Create access key**\.
-
-1. To view the new access key pair, choose **Show**\. You will not have access to the secret access key again after this dialog box closes\. Your credentials will look something like this:
-   + Access key ID: AKIAIOSFODNN7EXAMPLE
-   + Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-
-1. To download the key pair, choose **Download \.csv file**\. Store the keys in a secure location\. You will not have access to the secret access key again after this dialog box closes\.
-
-   Keep the keys confidential in order to protect your AWS account and never email them\. Do not share them outside your organization, even if an inquiry appears to come from AWS or Amazon\.com\. No one who legitimately represents Amazon will ever ask you for your secret key\.
-
-1. After you download the `.csv` file, choose **Close**\. When you create an access key, the key pair is active by default, and you can use the pair right away\.
-
-**Related topics**
-+ [What is IAM?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) in the *IAM User Guide*
-+ [AWS security credentials](https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) in *AWS General Reference* 
-
-## Configuring Your Credentials<a name="SettingUp.DynamoWebService.ConfigureCredentials"></a>
+## Configuring your credentials<a name="SettingUp.DynamoWebService.ConfigureCredentials"></a>
 
 Before you can access DynamoDB programmatically or through the AWS CLI, you must configure your credentials to enable authorization for your applications\.
 

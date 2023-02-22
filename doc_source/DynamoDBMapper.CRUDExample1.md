@@ -1,10 +1,10 @@
-# Example: CRUD Operations<a name="DynamoDBMapper.CRUDExample1"></a>
+# Example: CRUD operations<a name="DynamoDBMapper.CRUDExample1"></a>
 
 The following Java code example declares a `CatalogItem` class that has `Id`, `Title`, `ISBN`, and `Authors` properties\. It uses the annotations to map these properties to the `ProductCatalog` table in DynamoDB\. The example then uses the `DynamoDBMapper` to save a book object, retrieve it, update it, and then delete the book item\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 ```
 /**

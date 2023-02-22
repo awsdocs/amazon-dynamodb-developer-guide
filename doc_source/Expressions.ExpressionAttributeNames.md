@@ -1,21 +1,21 @@
-# Expression Attribute Names in DynamoDB<a name="Expressions.ExpressionAttributeNames"></a>
+# Expression attribute names in DynamoDB<a name="Expressions.ExpressionAttributeNames"></a>
 
 An *expression attribute name* is a placeholder that you use in an Amazon DynamoDB expression as an alternative to an actual attribute name\. An expression attribute name must begin with a pound sign \(`#`\), and be followed by one or more alphanumeric characters\. 
 
 This section describes several situations in which you must use expression attribute names\.
 
 **Note**  
-The examples in this section use the AWS Command Line Interface \(AWS CLI\)\. For programming language\-specific code examples, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+The examples in this section use the AWS Command Line Interface \(AWS CLI\)\. For programming language\-specific code examples, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 **Topics**
-+ [Reserved Words](#Expressions.ExpressionAttributeNames.ReservedWords)
-+ [Attribute Names Containing Dots](#Expressions.ExpressionAttributeNames.AttributeNamesContainingDots)
-+ [Nested Attributes](#Expressions.ExpressionAttributeNames.NestedAttributes)
-+ [Repeating Attribute Names](#Expressions.ExpressionAttributeNames.RepeatingAttributeNames)
++ [Reserved words](#Expressions.ExpressionAttributeNames.ReservedWords)
++ [Attribute names containing special characters](#Expressions.ExpressionAttributeNames.AttributeNamesContainingSpecialCharacters)
++ [Nested attributes](#Expressions.ExpressionAttributeNames.NestedAttributes)
++ [Repeating attribute names](#Expressions.ExpressionAttributeNames.RepeatingAttributeNames)
 
-## Reserved Words<a name="Expressions.ExpressionAttributeNames.ReservedWords"></a>
+## Reserved words<a name="Expressions.ExpressionAttributeNames.ReservedWords"></a>
 
-Sometimes you might need to write an expression containing an attribute name that conflicts with a DynamoDB reserved word\. \(For a complete list of reserved words, see [Reserved Words in DynamoDB](ReservedWords.md)\.\)
+Sometimes you might need to write an expression containing an attribute name that conflicts with a DynamoDB reserved word\. \(For a complete list of reserved words, see [Reserved words in DynamoDB](ReservedWords.md)\.\)
 
 For example, the following AWS CLI example would fail because `COMMENT` is a reserved word\.
 
@@ -37,11 +37,11 @@ aws dynamodb get-item \
 ```
 
 **Note**  
-If an attribute name begins with a number or contains a space, a special character, or a reserved word, you *must* use an expression attribute name to replace that attribute's name in the expression\.
+If an attribute name begins with a number, contains a space or contains a reserved word, you *must* use an expression attribute name to replace that attribute's name in the expression\.
 
-## Attribute Names Containing Dots<a name="Expressions.ExpressionAttributeNames.AttributeNamesContainingDots"></a>
+## Attribute names containing special characters<a name="Expressions.ExpressionAttributeNames.AttributeNamesContainingSpecialCharacters"></a>
 
-In an expression, a dot \("\."\) is interpreted as a separator character in a document path\. However, DynamoDB also allows you to use a dot character as part of an attribute name\. This can be ambiguous in some cases\. To illustrate, suppose that you wanted to retrieve the `Safety.Warning` attribute from a `ProductCatalog` item \(see [Specifying Item Attributes When Using Expressions](Expressions.Attributes.md)\)\.
+In an expression, a dot \("\."\) is interpreted as a separator character in a document path\. However, DynamoDB also allows you to use a dot character and other special characters, such as a hyphen \("\-"\) as part of an attribute name\. This can be ambiguous in some cases\. To illustrate, suppose that you wanted to retrieve the `Safety.Warning` attribute from a `ProductCatalog` item \(see [Specifying item attributes when using expressions](Expressions.Attributes.md)\)\.
 
 Suppose that you wanted to access `Safety.Warning` using a projection expression\.
 
@@ -64,7 +64,10 @@ aws dynamodb get-item \
 
 DynamoDB would then return the correct result\.
 
-## Nested Attributes<a name="Expressions.ExpressionAttributeNames.NestedAttributes"></a>
+**Note**  
+If an attribute name contains a dot \("\."\) or a hyphen \("\-"\), you *must* use an expression attribute name to replace that attribute's name in the expression\.
+
+## Nested attributes<a name="Expressions.ExpressionAttributeNames.NestedAttributes"></a>
 
 Suppose that you wanted to access the nested attribute `ProductReviews.OneStar`, using the following projection expression\.
 
@@ -105,7 +108,7 @@ aws dynamodb get-item \
 
 DynamoDB would then return the correct result\.
 
-## Repeating Attribute Names<a name="Expressions.ExpressionAttributeNames.RepeatingAttributeNames"></a>
+## Repeating attribute names<a name="Expressions.ExpressionAttributeNames.RepeatingAttributeNames"></a>
 
 Expression attribute names are helpful when you need to refer to the same attribute name repeatedly\. For example, consider the following expression for retrieving some of the reviews from a `ProductCatalog` item\.
 

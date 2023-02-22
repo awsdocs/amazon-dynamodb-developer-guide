@@ -1,8 +1,8 @@
-# Low\-Level Interfaces<a name="Programming.SDKs.Interfaces.LowLevel"></a>
+# Low\-level interfaces<a name="Programming.SDKs.Interfaces.LowLevel"></a>
 
 Every language\-specific AWS SDK provides a low\-level interface for Amazon DynamoDB, with methods that closely resemble low\-level DynamoDB API requests\.
 
-In some cases, you will need to identify the data types of the attributes using [Data Type Descriptors](Programming.LowLevelAPI.md#Programming.LowLevelAPI.DataTypeDescriptors), such as `S` for string or `N` for number\.
+In some cases, you will need to identify the data types of the attributes using [Data type descriptors](Programming.LowLevelAPI.md#Programming.LowLevelAPI.DataTypeDescriptors), such as `S` for string or `N` for number\.
 
 **Note**  
 A low\-level interface is available in every language\-specific AWS SDK\.

@@ -1,4 +1,4 @@
-# Cost Allocation Reports<a name="CostAllocationReports"></a>
+# Cost allocation reports<a name="CostAllocationReports"></a>
 
 AWS uses tags to organize resource costs on your cost allocation report\. AWS provides two types of cost allocation tags:
 + An AWS\-generated tag\. AWS defines, creates, and applies this tag for you\.
@@ -27,4 +27,4 @@ You must activate both types of tags separately before they can appear in Cost E
 **Note**  
  Currently, any data transferred out from DynamoDB won't be broken down by tags on cost allocation reports\. 
 
- For more information, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)\. 
+ For more information, see [Using cost allocation tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)\. 

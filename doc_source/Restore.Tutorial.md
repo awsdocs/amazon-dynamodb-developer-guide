@@ -1,4 +1,4 @@
-# Restoring a DynamoDB Table from a Backup<a name="Restore.Tutorial"></a>
+# Restoring a DynamoDB table from a backup<a name="Restore.Tutorial"></a>
 
 This section describes how to restore a table from a backup using the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\)\. 
 
@@ -6,12 +6,12 @@ This section describes how to restore a table from a backup using the Amazon Dyn
 If you want to use the AWS CLI, you must configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.
 
 **Topics**
-+ [Restoring a Table from a Backup \(Console\)](#restoretable_console)
-+ [Restoring a Table from a Backup \(AWS CLI\)](#restoretable_cli)
++ [Restoring a table from a backup \(console\)](#restoretable_console)
++ [Restoring a table from a backup \(AWS CLI\)](#restoretable_cli)
 
-## Restoring a Table from a Backup \(Console\)<a name="restoretable_console"></a>
+## Restoring a table from a backup \(console\)<a name="restoretable_console"></a>
 
-The following procedure shows how to restore the `Music` table by using the `MusicBackup` file that is created in the [Backing Up a DynamoDB Table](Backup.Tutorial.md) tutorial\. 
+The following procedure shows how to restore the `Music` table by using the `MusicBackup` file that is created in the [Backing up a DynamoDB table](Backup.Tutorial.md) tutorial\. 
 
 **Note**  
 This procedure assumes that the `Music` table no longer exists before restoring it using the `MusicBackup` file\.
@@ -35,9 +35,9 @@ Tables restored from backups are always created using the DynamoDB Standard tabl
 
    The table that is being restored is shown with the status **Creating**\. After the restore process is finished, the status of the `Music` table changes to **Active**\.
 
-## Restoring a Table from a Backup \(AWS CLI\)<a name="restoretable_cli"></a>
+## Restoring a table from a backup \(AWS CLI\)<a name="restoretable_cli"></a>
 
-Follow these steps to use the AWS CLI to restore the `Music` table using the `MusicBackup` that is created in the [Backing Up a DynamoDB Table](Backup.Tutorial.md) tutorial\.
+Follow these steps to use the AWS CLI to restore the `Music` table using the `MusicBackup` that is created in the [Backing up a DynamoDB table](Backup.Tutorial.md) tutorial\.
 
 **To restore a table from a backup**
 
@@ -64,7 +64,7 @@ Follow these steps to use the AWS CLI to restore the `Music` table using the `Mu
 
 1. Restore the table from the backup with custom table settings\. In this case, the `MusicBackup` restores the `Music` table and specifies an encryption mode for the restored table\.
 **Note**  
-The `sse-specification-override` parameter takes the same values as the `sse-specification-override` parameter used in the `CreateTable` command\. To learn more, see [Managing Encrypted Tables in DynamoDB](encryption.tutorial.md)\.
+The `sse-specification-override` parameter takes the same values as the `sse-specification-override` parameter used in the `CreateTable` command\. To learn more, see [Managing encrypted tables in DynamoDB](encryption.tutorial.md)\.
 
    ```
    aws dynamodb restore-table-from-backup \
@@ -76,7 +76,7 @@ The `sse-specification-override` parameter takes the same values as the `sse-spe
    You can restore the table to a different AWS Region from where the backup resides\.
 **Note**  
 The `sse-specification-override` parameter is mandatory for cross\-Region restores but optional for restores in the same Region as the source table\.
-When performing a cross\-Region restore from the command line, you must set the default AWS Region to the desired destination Region\. To learn more, see [Command Line Options](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html) in the *AWS Command Line Interface User Guide*\.
+When performing a cross\-Region restore from the command line, you must set the default AWS Region to the desired destination Region\. To learn more, see [Command line options](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html) in the *AWS Command Line Interface User Guide*\.
 
    ```
    aws dynamodb restore-table-from-backup \

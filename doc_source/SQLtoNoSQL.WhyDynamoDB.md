@@ -9,7 +9,7 @@ The following table shows some high\-level differences between an RDBMS and Dyna
 
 ****  
 
-| Characteristic | Relational Database Management System \(RDBMS\) | Amazon DynamoDB | 
+| Characteristic | Relational database management system \(RDBMS\) | Amazon DynamoDB | 
 | --- | --- | --- | 
 | Optimal Workloads | Ad hoc queries; data warehousing; OLAP \(online analytical processing\)\. | Web\-scale applications, including social networks, gaming, media sharing, and Internet of Things \(IoT\)\. | 
 | Data Model | The relational model requires a well\-defined schema, where data is normalized into tables, rows, and columns\. In addition, all of the relationships are defined among tables, columns, indexes, and other database elements\. | DynamoDB is schemaless\. Every table must have a primary key to uniquely identify each data item, but there are no similar constraints on other non\-key attributes\. DynamoDB can manage structured or semistructured data, including JSON documents\. | 

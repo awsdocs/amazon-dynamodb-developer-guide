@@ -1,9 +1,9 @@
-# Object Persistence Interface<a name="Programming.SDKs.Interfaces.Mapper"></a>
+# Object persistence interface<a name="Programming.SDKs.Interfaces.Mapper"></a>
 
 Some AWS SDKs provide an object persistence interface where you do not directly perform data plane operations\. Instead, you create objects that represent items in Amazon DynamoDB tables and indexes, and interact only with those objects\. This allows you to write object\-centric code, rather than database\-centric code\.
 
 **Note**  
-Object persistence interfaces are available in the AWS SDKs for Java and \.NET\. For more information, see [Higher\-Level Programming Interfaces for DynamoDB](HigherLevelInterfaces.md)\.
+Object persistence interfaces are available in the AWS SDKs for Java and \.NET\. For more information, see [Higher\-level programming interfaces for DynamoDB](HigherLevelInterfaces.md) for DynamoDB\.
 
 The following Java program uses `DynamoDBMapper`, the object persistence interface of the AWS SDK for Java\. The `MusicItem` class represents an item in the `Music` table\.
 

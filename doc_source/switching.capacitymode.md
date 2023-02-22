@@ -1,8 +1,8 @@
-# Considerations When Changing Read/Write Capacity Mode<a name="switching.capacitymode"></a>
+# Considerations when changing read/write Capacity Mode<a name="switching.capacitymode"></a>
 
- You can switch between read/write capacity modes once every 24 hours\. Consider the following when updating your read/write capacity mode in Amazon DynamoDB\.
+You can change this setting twice in a 24\-hour period, so don’t worry if this needs to be changed in the future\. Consider the following when updating your read/write capacity mode in Amazon DynamoDB\.
 
-## Managing Capacity<a name="switching.capacity"></a>
+## Managing capacity<a name="switching.capacity"></a>
 
  When you update a table from provisioned to on\-demand mode, you don't need to specify how much read and write throughput you expect your application to perform\. 
 
@@ -12,7 +12,7 @@ Consider the following when you update a table from on\-demand to provisioned mo
 **Note**  
  If you're switching a global table to provisioned mode, look at the maximum consumption across all your regional replicas for base tables and global secondary indexes when determining the new throughput settings\. 
 
-## Managing Auto Scaling<a name="switching.autoscaling"></a>
+## Managing auto scaling<a name="switching.autoscaling"></a>
 
  When you update a table from provisioned to on\-demand mode:
 +  If you're using the console, all of your auto scaling settings \(if any\) will be deleted\. 

@@ -1,10 +1,10 @@
-# Using the AWS SDK to Configure Auto Scaling on Amazon DynamoDB Tables<a name="AutoScaling.HowTo.SDK"></a>
+# Using the AWS SDK to configure auto scaling on Amazon DynamoDB tables<a name="AutoScaling.HowTo.SDK"></a>
 
 In addition to using the AWS Management Console and the AWS Command Line Interface \(AWS CLI\), you can write applications that interact with Amazon DynamoDB auto scaling\. This section contains two Java programs that you can use to test this functionality:
 + `EnableDynamoDBAutoscaling.java`
 + `DisableDynamoDBAutoscaling.java`
 
-## Enabling Application Auto Scaling for a Table<a name="AutoScaling.HowTo.SDK-enable"></a>
+## Enabling Application Auto Scaling for a table<a name="AutoScaling.HowTo.SDK-enable"></a>
 
 The following program shows an example of setting up an auto scaling policy for a DynamoDB table \(`TestTable`\)\. It proceeds as follows:
 + The program registers write capacity units as a scalable target for `TestTable`\. The range for this metric is between 5 and 10 write capacity units\.
@@ -137,7 +137,7 @@ public class EnableDynamoDBAutoscaling {
 }
 ```
 
-## Disabling Application Auto Scaling for a Table<a name="AutoScaling.HowTo.SDK-disable"></a>
+## Disabling Application Auto Scaling for a table<a name="AutoScaling.HowTo.SDK-disable"></a>
 
 The following program reverses the previous process\. It removes the auto scaling policy and then deregisters the scalable target\.
 

@@ -1,4 +1,4 @@
-# Step 4: Configure Security Group Inbound Rules Using the AWS CLI<a name="DAX.create-cluster.cli.configure-inbound-rules"></a>
+# Step 4: Configure security group inbound rules using the AWS CLI<a name="DAX.create-cluster.cli.configure-inbound-rules"></a>
 
 The nodes in your Amazon DynamoDB Accelerator \(DAX\) cluster use the default security group for your Amazon VPC\. For the default security group, you must authorize inbound traffic on TCP port 8111 for unencrypted clusters or port 9111 for encrypted clusters\. This allows Amazon EC2 instances in your Amazon VPC to access your DAX cluster\.
 
@@ -7,7 +7,7 @@ If you launched your DAX cluster with a different security group \(other than `d
 
 **To configure security group inbound rules**
 
-1. To determine the default security group identifier, enter the following command\. Replace `vpcID` with your actual VPC ID \(from [Step 2: Create a Subnet Group](DAX.create-cluster.cli.create-subnet-group.md)\)\.
+1. To determine the default security group identifier, enter the following command\. Replace `vpcID` with your actual VPC ID \(from [Step 2: Create a subnet group](DAX.create-cluster.cli.create-subnet-group.md)\)\.
 
    ```
    aws ec2 describe-security-groups \

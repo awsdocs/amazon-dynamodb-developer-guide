@@ -1,12 +1,12 @@
-# DynamoDB table export output format<a name="DataExport.Output"></a>
+# DynamoDB table export output format<a name="S3DataExport.Output"></a>
 
-A DynamoDB table export includes two manifest files in addition to the files containing your table data\. These files are all saved in the Amazon S3 bucket that you specify in your [export request](DataExport.Requesting.md)\. The following sections describe the format and contents of each output object\.
+A DynamoDB table export includes two manifest files in addition to the files containing your table data\. These files are all saved in the Amazon S3 bucket that you specify in your [export request](S3DataExport_Requesting.md)\. The following sections describe the format and contents of each output object\.
 
 **Topics**
-+ [Manifest files](#DataExport.Output.Manifest)
-+ [Data objects](#DataExport.Output.Data)
++ [Manifest files](#S3DataExport.Output_Manifest)
++ [Data objects](#S3DataExport.Output_Data)
 
-## Manifest files<a name="DataExport.Output.Manifest"></a>
+## Manifest files<a name="S3DataExport.Output_Manifest"></a>
 
 DynamoDB creates two manifest files, along with their checksum files, in the specified S3 bucket for each export request\.
 
@@ -19,10 +19,12 @@ export-prefix/AWSDynamoDB/ExportId/manifest-files.checksum
 
 You choose an **export\-prefix** when you request a table export\. This helps you keep files in the destination S3 bucket organized\. The **ExportId** is a unique token to ensure that multiple exports to the same S3 bucket and `export-prefix` don't overwrite each other\.
 
+This export also creates at least 1 file per partition\. All of the items in each file are from that particular partition's hashed keyspace\.
+
 **Note**  
 DynamoDB also creates an empty file named `_started` in the same directory as the manifest files\. This file verifies that the destination bucket is writable and that the export has begun\. It can safely be deleted\.
 
-### The summary manifest<a name="DataExport.Output.Manifest.Summary"></a>
+### The summary manifest<a name="S3DataExport.Output_Manifest_Summary"></a>
 
 The `manifest-summary.json` file contains summary information about the export job\. Its format is as follows:
 
@@ -46,9 +48,9 @@ The `manifest-summary.json` file contains summary information about the export j
 }
 ```
 
-### The files manifest<a name="DataExport.Output.Manifest.Files"></a>
+### The files manifest<a name="S3DataExport.Output_Manifest_Files"></a>
 
-The `manifest-files.json` file contains information about the files that contain your exported table data\. The file is in [JSON Lines](https://jsonlines.org/) format, meaning that newlines are used as item delimiters\. In the following example, the details of one data file from a files manifest are formatted on multiple lines for the sake of readability\.
+The `manifest-files.json` file contains information about the files that contain your exported table data\. The file is in [JSON lines](https://jsonlines.org/) format, meaning that newlines are used as item delimiters\. In the following example, the details of one data file from a files manifest are formatted on multiple lines for the sake of readability\.
 
 ```
 {
@@ -59,7 +61,7 @@ The `manifest-files.json` file contains information about the files that contain
 }
 ```
 
-## Data objects<a name="DataExport.Output.Data"></a>
+## Data objects<a name="S3DataExport.Output_Data"></a>
 
 DynamoDB can export your table data in two formats: DynamoDB JSON and Amazon Ion\. Regardless of the format you choose, your data will be written to multiple compressed files named by the keys found in the `manifest-files.json` file\.
 
@@ -68,11 +70,11 @@ export-prefix/AWSDynamoDB/ExportId/data/bafybeiczss3yxay3o4abnabbb.json.gz
 export-prefix/AWSDynamoDB/ExportId/data/gkes5o3lnrhoznhnkyax3hxvya.json.gz
 ```
 
-### DynamoDB JSON<a name="DataExport.Output.Data.DDB-JSON"></a>
+### DynamoDB JSON<a name="S3DataExport.Output_Data_DDB-JSON"></a>
 
 A table export in DynamoDB JSON format consists of multiple `Item` objects\. Each individual object is in DynamoDB's standard marshalled JSON format\.
 
-When creating custom parsers for DynamoDB JSON export data, keep in mind that the format is [JSON Lines](https://jsonlines.org/)\. This means that newlines are used as item delimiters\. Many AWS services, such as Athena and AWS Glue, will parse this format automatically\.
+When creating custom parsers for DynamoDB JSON export data, keep in mind that the format is [JSON lines](https://jsonlines.org/)\. This means that newlines are used as item delimiters\. Many AWS services, such as Athena and AWS Glue, will parse this format automatically\.
 
 In the following example, a single item from a DynamoDB JSON export has been formatted on multiple lines for the sake of readability\.
 
@@ -113,16 +115,16 @@ In the following example, a single item from a DynamoDB JSON export has been for
 }
 ```
 
-### Amazon Ion<a name="DataExport.Output.Data.DDB-JSON"></a>
+### Amazon Ion<a name="S3DataExport.Output_Data_ION"></a>
 
-[Amazon Ion](http://amzn.github.io/ion-docs/) is a richly\-typed, self\-describing, hierarchical data serialization format built to address rapid development, decoupling, and efficiency challenges faced every day while engineering large\-scale, service\-oriented architectures\. DynamoDB supports exporting table data in Ion's [text format](http://amzn.github.io/ion-docs/docs/spec.html), which is a superset of JSON\.
+[Amazon ion](http://amzn.github.io/ion-docs/) is a richly\-typed, self\-describing, hierarchical data serialization format built to address rapid development, decoupling, and efficiency challenges faced every day while engineering large\-scale, service\-oriented architectures\. DynamoDB supports exporting table data in Ion's [text format](http://amzn.github.io/ion-docs/docs/spec.html), which is a superset of JSON\.
 
 When you export a table to Ion format, the DynamoDB datatypes used in the table are mapped to [Ion datatypes](http://amzn.github.io/ion-docs/docs/spec.html)\. DynamoDB sets use [Ion type annotations](http://amzn.github.io/ion-docs/docs/spec.html#annot) to disambiguate the datatype used in the source table\.
 
 
-**DynamoDB to Ion datatype conversion**  
+**DynamoDB to ion datatype conversion**  
 
-| DynamoDB Data Type | Ion Representation | 
+| DynamoDB data type | Ion representation | 
 | --- | --- | 
 | String \(S\) | string | 
 | Boolean \(BOOL\) | bool | 

@@ -1,4 +1,4 @@
-# Using Global Secondary Indexes for Materialized Aggregation Queries<a name="bp-gsi-aggregation"></a>
+# Using Global Secondary Indexes for materialized aggregation queries<a name="bp-gsi-aggregation"></a>
 
 Maintaining near real\-time aggregations and key metrics on top of rapidly changing data is becoming increasingly valuable to businesses for making rapid decisions\. For example, a music library might want to showcase its most downloaded songs in near\-real time\. 
 

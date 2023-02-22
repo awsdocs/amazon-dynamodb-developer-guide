@@ -1,4 +1,4 @@
-# Creating an External Table in Hive<a name="EMRforDynamoDB.ExternalTableForDDB"></a>
+# Creating an external table in Hive<a name="EMRforDynamoDB.ExternalTableForDDB"></a>
 
 In [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md), you created an external Hive table that mapped to a DynamoDB table\. When you issued HiveQL statements against the external table, the read and write operations were passed through to the DynamoDB table\.
 
@@ -10,10 +10,10 @@ You can use `INSERT` statements to insert data into an external table and `SELEC
 If you no longer need the external table, you can remove it using the `DROP TABLE` statement\. In this case, `DROP TABLE` only removes the external table in Hive\. It does not affect the underlying DynamoDB table or any of its data\.
 
 **Topics**
-+ [CREATE EXTERNAL TABLE Syntax](#EMRforDynamoDB.ExternalTableForDDB.Syntax)
-+ [Data Type Mappings](#EMRforDynamoDB.ExternalTableForDDB.DataTypes)
++ [CREATE EXTERNAL TABLE syntax](#EMRforDynamoDB.ExternalTableForDDB.Syntax)
++ [Data type mappings](#EMRforDynamoDB.ExternalTableForDDB.DataTypes)
 
-## CREATE EXTERNAL TABLE Syntax<a name="EMRforDynamoDB.ExternalTableForDDB.Syntax"></a>
+## CREATE EXTERNAL TABLE syntax<a name="EMRforDynamoDB.ExternalTableForDDB.Syntax"></a>
 
 The following shows the HiveQL syntax for creating an external Hive table that maps to a DynamoDB table:
 
@@ -49,7 +49,7 @@ Note the following:
 **Note**  
 The `CREATE EXTERNAL TABLE` statement does not perform any validation on the `TBLPROPERTIES` clause\. The values you provide for `dynamodb.table.name` and `dynamodb.column.mapping` are only evaluated by the `DynamoDBStorageHandler` class when you attempt to access the table\.
 
-## Data Type Mappings<a name="EMRforDynamoDB.ExternalTableForDDB.DataTypes"></a>
+## Data type mappings<a name="EMRforDynamoDB.ExternalTableForDDB.DataTypes"></a>
 
 The following table shows DynamoDB data types and compatible Hive data types:
 

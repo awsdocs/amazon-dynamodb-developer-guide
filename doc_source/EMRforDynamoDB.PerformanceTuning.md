@@ -1,4 +1,4 @@
-# Performance Tuning<a name="EMRforDynamoDB.PerformanceTuning"></a>
+# Performance tuning<a name="EMRforDynamoDB.PerformanceTuning"></a>
 
 When you create a Hive external table that maps to a DynamoDB table, you do not consume any read or write capacity from DynamoDB\. However, read and write activity on the Hive table \(such as `INSERT` or `SELECT`\) translates directly into read and write operations on the underlying DynamoDB table\.
 
@@ -11,6 +11,6 @@ You can also monitor your cluster and Hadoop jobs using web\-based tools, such a
 This section describes steps you can take to performance\-tune Hive operations on external DynamoDB tables\. 
 
 **Topics**
-+ [DynamoDB Provisioned Throughput](EMRforDynamoDB.PerformanceTuning.Throughput.md)
-+ [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)
-+ [Additional Topics](EMRforDynamoDB.PerformanceTuning.Misc.md)
++ [DynamoDB provisioned throughput](EMRforDynamoDB.PerformanceTuning.Throughput.md)
++ [Adjusting the mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)
++ [Additional topics](EMRforDynamoDB.PerformanceTuning.Misc.md)

@@ -1,6 +1,6 @@
-# Example: Query and Scan in DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.QueryScan"></a>
+# Example: Query and scan in DynamoDB using the AWS SDK for \.NET object persistence model<a name="DynamoDBContext.QueryScan"></a>
 
-The C\# example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating the tables used in this example, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The C\# example in this section defines the following classes and maps them to the tables in DynamoDB\. For more information about creating the tables used in this example, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 + The `Book` class maps to the `ProductCatalog` table\.
 + The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
@@ -15,10 +15,10 @@ The example then runs the following query and scan operations using `DynamoDBCon
 
   For performance reasons, you should use a query operation instead of a scan operation\. However, there are times you might need to scan a table\. Suppose that there was a data entry error and one of the book prices is set to less than 0\. This example scans the `ProductCategory` table to find book items \(the `ProductCategory` is book\) at price of less than 0\.
 
- For instructions about creating a working sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+ For instructions about creating a working sample, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 **Note**  
- The following example does not work with \.NET core because it does not support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
+ The following example does not work with \.NET core because it does not support synchronous methods\. For more information, see [AWS asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
 **Example**  
 

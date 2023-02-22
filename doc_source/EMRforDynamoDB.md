@@ -1,4 +1,4 @@
-# Processing DynamoDB Data With Apache Hive on Amazon EMR<a name="EMRforDynamoDB"></a>
+# Processing DynamoDB data with Apache Hive on Amazon EMR<a name="EMRforDynamoDB"></a>
 
 Amazon DynamoDB is integrated with Apache Hive, a data warehousing application that runs on Amazon EMR\. Hive can read and write data in DynamoDB tables, allowing you to:
 + Query live DynamoDB data using a SQL\-like language \(HiveQL\)\.
@@ -9,11 +9,11 @@ Amazon DynamoDB is integrated with Apache Hive, a data warehousing application t
 **Topics**
 + [Overview](#EMRforDynamoDB.Overview)
 + [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md)
-+ [Creating an External Table in Hive](EMRforDynamoDB.ExternalTableForDDB.md)
-+ [Processing HiveQL Statements](EMRforDynamoDB.ProcessingHiveQL.md)
-+ [Querying Data in DynamoDB](EMRforDynamoDB.Querying.md)
-+ [Copying Data to and from Amazon DynamoDB](EMRforDynamoDB.CopyingData.md)
-+ [Performance Tuning](EMRforDynamoDB.PerformanceTuning.md)
++ [Creating an external table in Hive](EMRforDynamoDB.ExternalTableForDDB.md)
++ [Processing HiveQL statements](EMRforDynamoDB.ProcessingHiveQL.md)
++ [Querying data in DynamoDB](EMRforDynamoDB.Querying.md)
++ [Copying data to and from Amazon DynamoDB](EMRforDynamoDB.CopyingData.md)
++ [Performance tuning](EMRforDynamoDB.PerformanceTuning.md)
 
 ## Overview<a name="EMRforDynamoDB.Overview"></a>
 

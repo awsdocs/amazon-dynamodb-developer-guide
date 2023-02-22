@@ -1,4 +1,4 @@
-# Querying Tables and Indexes: \.NET<a name="LowLevelDotNetQuerying"></a>
+# Querying tables and indexes: \.NET<a name="LowLevelDotNetQuerying"></a>
 
 The `Query` operation enables you to query a table or a secondary index in Amazon DynamoDB\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
 
@@ -12,7 +12,7 @@ The following are the steps to query a table using the low\-level AWS SDK for \.
 
    The response includes the `QueryResult` object that provides all items returned by the query\.
 
-The following C\# code example demonstrates the preceding tasks\. The code assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The following C\# code example demonstrates the preceding tasks\. The code assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
 **Example**  
 
@@ -46,7 +46,7 @@ foreach (Dictionary<string, AttributeValue> item in response.Items)
 }
 ```
 
-## Specifying Optional Parameters<a name="LowLevelDotNetQueryingOptions"></a>
+## Specifying optional parameters<a name="LowLevelDotNetQueryingOptions"></a>
 
 The `Query` method supports several optional parameters\. For example, you can optionally narrow the query result in the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a *sort key condition*, because DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\. For more information, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\.
 
@@ -119,9 +119,9 @@ do
 } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
 ```
 
-## Example \- Querying Using the AWS SDK for \.NET<a name="LowLevelDotNetQueryExample"></a>
+## Example \- querying using the AWS SDK for \.NET<a name="LowLevelDotNetQueryExample"></a>
 
-The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The following tables store information about a collection of forums\. For more information, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
 
 
@@ -143,7 +143,7 @@ In this example, you run variations of "Find replies for a thread "DynamoDB Thre
 
   The preceding two queries show how you can specify sort key conditions to narrow query results and use other optional query parameters\. 
 
-For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions for testing the following example, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 ```
 /**

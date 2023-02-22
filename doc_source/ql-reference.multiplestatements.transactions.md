@@ -1,8 +1,8 @@
-# Performing Transactions with PartiQL for DynamoDB<a name="ql-reference.multiplestatements.transactions"></a>
+# Performing transactions with PartiQL for DynamoDB<a name="ql-reference.multiplestatements.transactions"></a>
 
-This section describes how to use transactions with PartiQL for DynamoDB\.
+This section describes how to use transactions with PartiQL for DynamoDB\. PartiQL transactions are limited to 100 total statements \(actions\)\.
 
-For more information on DynamoDB transactions, see [Managing Complex Workflows with DynamoDB Transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\.
+For more information on DynamoDB transactions, see [Managing complex workflows with DynamoDB transactions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transactions.html)\.
 
 **Note**  
 The entire transaction must consist of either read statements or write statements\. You can't mix both in one transaction\. The EXISTS function is an exception\. You can use it to check the condition of specific attributes of the item in a similar manner to `ConditionCheck` in the [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems) API operation\.
@@ -10,7 +10,7 @@ The entire transaction must consist of either read statements or write statement
 **Topics**
 + [Syntax](#ql-reference.multiplestatements.transactions.syntax)
 + [Parameters](#ql-reference.multiplestatements.transactions.parameters)
-+ [Return Values](#ql-reference.multiplestatements.transactions.return)
++ [Return values](#ql-reference.multiplestatements.transactions.return)
 + [Examples](#ql-reference.multiplestatements.transactions.examples)
 
 ## Syntax<a name="ql-reference.multiplestatements.transactions.syntax"></a>
@@ -39,7 +39,7 @@ The entire transaction must consist of either read statements or write statement
 ***parametervalue***  
 \(Optional\) A parameter value if parameters were used when specifying the PartiQL statement\.
 
-## Return Values<a name="ql-reference.multiplestatements.transactions.return"></a>
+## Return values<a name="ql-reference.multiplestatements.transactions.return"></a>
 
 This statement doesn't return any values for Write operations \(INSERT, UPDATE, or DELETE\)\. However, it returns different values for Read operations \(SELECT\) based on the conditions specified in the WHERE clause\.
 
@@ -61,7 +61,7 @@ The following example runs multiple statements as a transaction\.
            "Statement": "EXISTS(SELECT * FROM "Music" where Artist='No One You Know' and SongTitle='Call Me Today' and Awards is  MISSING)"
        },
        {
-           "Statement": "INSERT INTO "Music" value {'Artist':'?','SongTitle':'?'}",
+           "Statement": "INSERT INTO Music value {'Artist':?,'SongTitle':'?'}",
            "Parameters": [{"S": "Acme Band"}, {"S": "Best Song"}]
        },
        {

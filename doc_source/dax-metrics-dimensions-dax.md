@@ -1,4 +1,4 @@
-# Viewing DAX Metrics and Dimensions<a name="dax-metrics-dimensions-dax"></a>
+# Viewing DAX metrics and dimensions<a name="dax-metrics-dimensions-dax"></a>
 
 When you interact with Amazon DynamoDB, it sends metrics and dimensions to Amazon CloudWatch\. You can use the following procedures to view the metrics for DynamoDB Accelerator \(DAX\)\.
 
@@ -19,7 +19,7 @@ Metrics are grouped first by the service namespace, and then by the various dime
   1. aws cloudwatch list-metrics --namespace "AWS/DAX"
   ```
 
-## DAX Metrics and Dimensions<a name="dax-metrics-dimensions"></a>
+## DAX metrics and dimensions<a name="dax-metrics-dimensions"></a>
 
 The following sections contain the metrics and dimensions that DAX sends to CloudWatch\.
 

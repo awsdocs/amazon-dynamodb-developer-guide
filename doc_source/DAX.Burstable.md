@@ -1,4 +1,4 @@
-# DAX T3/T2 Burstable Instances<a name="DAX.Burstable"></a>
+# DAX T3/T2 burstable instances<a name="DAX.Burstable"></a>
 
 DAX allows you to choose between fixed performance instances \(such as R4 and R5\) and burstable performance instances \(such as T2 and T3\)\. Burstable performance instances provide a baseline level of CPU performance with the ability to burst above the baseline when needed\.
 

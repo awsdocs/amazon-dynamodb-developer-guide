@@ -1,10 +1,10 @@
-# Using IAM Policy Conditions for Fine\-Grained Access Control<a name="specifying-conditions"></a>
+# Using IAM policy conditions for fine\-grained access control<a name="specifying-conditions"></a>
 
 When you grant permissions in DynamoDB, you can specify conditions that determine how a permissions policy takes effect\. 
 
 ## Overview<a name="FGAC_DDB.Overview"></a>
 
-In DynamoDB, you have the option to specify conditions when granting permissions using an IAM policy \(see [Access Control](authentication-and-access-control.md#access-control)\)\. For example, you can:
+In DynamoDB, you have the option to specify conditions when granting permissions using an IAM policy \(see  [Identity and Access Management for Amazon DynamoDB](security-iam.md)\)\. For example, you can:
 + Grant permissions to allow users read\-only access to certain items and attributes in a table or a secondary index\.
 + Grant permissions to allow users write\-only access to certain attributes in a table, based upon the identity of that user\.
 
@@ -13,7 +13,7 @@ In DynamoDB, you can specify conditions in an IAM policy using condition keys, a
 **Note**  
 Some AWS services also support tag\-based conditions; however, DynamoDB does not\.
 
-### Permissions Use Case<a name="FGAC_DDB.OverviewUseCase"></a>
+### Permissions use case<a name="FGAC_DDB.OverviewUseCase"></a>
 
 In addition to controlling access to DynamoDB API actions, you can also control access to individual data items and attributes\. For example, you can do the following:
 + Grant permissions on a table, but restrict access to specific items in that table based on certain primary key values\. An example might be a social networking app for games, where all users' saved game data is stored in a single table, but no users can access data items that they do not own, as shown in the following illustration:  
@@ -21,9 +21,9 @@ In addition to controlling access to DynamoDB API actions, you can also control 
 + Hide information so that only a subset of attributes is visible to the user\. An example might be an app that displays flight data for nearby airports, based on the user's location\. Airline names, arrival and departure times, and flight numbers are all displayed\. However, attributes such as pilot names or the number of passengers are hidden, as shown in the following illustration:   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/info-hiding-vertical.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-To implement this kind of fine\-grained access control, you write an IAM permissions policy that specifies conditions for accessing security credentials and the associated permissions\. You then apply the policy to IAM users, groups, or roles that you create using the IAM console\. Your IAM policy can restrict access to individual items in a table, access to the attributes in those items, or both at the same time\.
+To implement this kind of fine\-grained access control, you write an IAM permissions policy that specifies conditions for accessing security credentials and the associated permissions\. You then apply the policy to users, groups, or roles that you create using the IAM console\. Your IAM policy can restrict access to individual items in a table, access to the attributes in those items, or both at the same time\.
 
-You can optionally use web identity federation to control access by users who are authenticated by Login with Amazon, Facebook, or Google\. For more information, see [Using Web Identity Federation](WIF.md)\.
+You can optionally use web identity federation to control access by users who are authenticated by Login with Amazon, Facebook, or Google\. For more information, see [Using web identity federation](WIF.md)\.
 
 You use the IAM `Condition` element to implement a fine\-grained access control policy\. By adding a `Condition` element to a permissions policy, you can allow or deny access to items and attributes in DynamoDB tables and indexes, based upon your particular business requirements\. 
 
@@ -33,48 +33,48 @@ To manage user permissions in this app, you could write a permissions policy suc
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowAccessToOnlyItemsMatchingUserID",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:BatchGetItem",
-                "dynamodb:Query",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem",
-                "dynamodb:BatchWriteItem"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:LeadingKeys": [
-                        "${www.amazon.com:user_id}"
-                    ],
-                    "dynamodb:Attributes": [
-                        "UserId",
-                        "GameTitle",
-                        "Wins",
-                        "Losses",
-                        "TopScore",
-                        "TopScoreDateTime"
-                    ]
-                },
-                "StringEqualsIfExists": {
-                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES"
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "AllowAccessToOnlyItemsMatchingUserID",
+"Effect": "Allow",
+"Action": [
+"dynamodb:GetItem",
+"dynamodb:BatchGetItem",
+"dynamodb:Query",
+"dynamodb:PutItem",
+"dynamodb:UpdateItem",
+"dynamodb:DeleteItem",
+"dynamodb:BatchWriteItem"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:LeadingKeys": [
+    "${www.amazon.com:user_id}"
+],
+"dynamodb:Attributes": [
+    "UserId",
+    "GameTitle",
+    "Wins",
+    "Losses",
+    "TopScore",
+    "TopScoreDateTime"
+]
+},
+"StringEqualsIfExists": {
+"dynamodb:Select": "SPECIFIC_ATTRIBUTES"
+}
+}
+}
+]
 }
 ```
 
 In addition to granting permissions for specific DynamoDB actions \(`Action` element\) on the `GameScores` table \(`Resource` element\), the `Condition` element uses the following condition keys specific to DynamoDB that limit the permissions as follows:
-+ `dynamodb:LeadingKeys` – This condition key allows users to access only the items where the partition key value matches their user ID\. This ID, `${www.amazon.com:user_id}`, is a substitution variable\. For more information about substitution variables, see [Using Web Identity Federation](WIF.md)\.
++ `dynamodb:LeadingKeys` – This condition key allows users to access only the items where the partition key value matches their user ID\. This ID, `${www.amazon.com:user_id}`, is a substitution variable\. For more information about substitution variables, see [Using web identity federation](WIF.md)\.
 + `dynamodb:Attributes` – This condition key limits access to the specified attributes so that only the actions listed in the permissions policy can return values for these attributes\. In addition, the `StringEqualsIfExists` clause ensures that the app must always provide a list of specific attributes to act upon and that the app can't request all attributes\.
 
 When an IAM policy is evaluated, the result is always either true \(access is allowed\) or false \(access is denied\)\. If any part of the `Condition` element is false, the entire policy evaluates to false and access is denied\.
@@ -84,7 +84,7 @@ If you use `dynamodb:Attributes`, you must specify the names of all of the prima
 
 IAM policy documents can contain only the following Unicode characters: horizontal tab \(U\+0009\), linefeed \(U\+000A\), carriage return \(U\+000D\), and characters in the range U\+0020 to U\+00FF\.
 
-## Specifying Conditions: Using Condition Keys<a name="FGAC_DDB.ConditionKeys"></a>
+## Specifying conditions: Using condition keys<a name="FGAC_DDB.ConditionKeys"></a>
 
 AWS provides a set of predefined condition keys \(AWS\-wide condition keys\) for all AWS services that support IAM for access control\. For example, you can use the `aws:SourceIp` condition key to check the requester's IP address before allowing an action to be performed\. For more information and a list of the AWS\-wide keys, see [Available Keys for Conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#AvailableKeys) in the IAM User Guide\.
 
@@ -101,22 +101,22 @@ The following table shows the DynamoDB service\-specific condition keys that app
 | dynamodb:ReturnValues |  Represents the `ReturnValues` parameter of a request\. `ReturnValues` can be any of the following values:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
 | dynamodb:ReturnConsumedCapacity |  Represents the `ReturnConsumedCapacity` parameter of a request\. `ReturnConsumedCapacity` can be one of the following values: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html)  | 
 
-### Limiting User Access<a name="FGAC_DDB.LimitingAccess"></a>
+### Limiting user access<a name="FGAC_DDB.LimitingAccess"></a>
 
-Many IAM permissions policies allow users to access only those items in a table where the partition key value matches the user identifier\. For example, the game app preceding limits access in this way so that users can only access game data that is associated with their user ID\. The IAM substitution variables `${www.amazon.com:user_id}`, `${graph.facebook.com:id}`, and `${accounts.google.com:sub}` contain user identifiers for Login with Amazon, Facebook, and Google\. To learn how an application logs in to one of these identity providers and obtains these identifiers, see [Using Web Identity Federation](WIF.md)\.
+Many IAM permissions policies allow users to access only those items in a table where the partition key value matches the user identifier\. For example, the game app preceding limits access in this way so that users can only access game data that is associated with their user ID\. The IAM substitution variables `${www.amazon.com:user_id}`, `${graph.facebook.com:id}`, and `${accounts.google.com:sub}` contain user identifiers for Login with Amazon, Facebook, and Google\. To learn how an application logs in to one of these identity providers and obtains these identifiers, see [Using web identity federation](WIF.md)\.
 
 **Note**  
 Each of the examples in the following section sets the `Effect` clause to `Allow` and specifies only the actions, resources, and parameters that are allowed\. Access is permitted only to what is explicitly listed in the IAM policy\.  
 In some cases, it is possible to rewrite these policies so that they are deny\-based \(that is, setting the `Effect` clause to `Deny` and inverting all of the logic in the policy\)\. However, we recommend that you avoid using deny\-based policies with DynamoDB because they are difficult to write correctly, compared to allow\-based policies\. In addition, future changes to the DynamoDB API \(or changes to existing API inputs\) can render a deny\-based policy ineffective\.
 
-### Example Policies: Using Conditions for Fine\-Grained Access Control<a name="FGAC_DDB.Examples"></a>
+### Example policies: Using conditions for fine\-grained access control<a name="FGAC_DDB.Examples"></a>
 
 This section shows several policies for implementing fine\-grained access control on DynamoDB tables and indexes\.
 
 **Note**  
 All examples use the us\-west\-2 Region and contain fictitious account IDs\.
 
-#### 1: Grant Permissions That Limit Access to Items with a Specific Partition Key Value<a name="FGAC_DDB.Examples.1"></a>
+#### 1: Grant permissions that limit access to items with a specific partition key value<a name="FGAC_DDB.Examples.1"></a>
 
 The following permissions policy grants permissions that allow a set of DynamoDB actions on the `GamesScore` table\. It uses the `dynamodb:LeadingKeys` condition key to limit user actions only on the items whose `UserID` partition key value matches the Login with Amazon unique user ID for this app\.
 
@@ -125,32 +125,32 @@ The list of actions does not include permissions for `Scan` because `Scan` retur
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "FullAccessToUserItems",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:BatchGetItem",
-                "dynamodb:Query",
-                "dynamodb:PutItem",
-                "dynamodb:UpdateItem",
-                "dynamodb:DeleteItem",
-                "dynamodb:BatchWriteItem"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:LeadingKeys": [
-                        "${www.amazon.com:user_id}"
-                    ]
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "FullAccessToUserItems",
+"Effect": "Allow",
+"Action": [
+"dynamodb:GetItem",
+"dynamodb:BatchGetItem",
+"dynamodb:Query",
+"dynamodb:PutItem",
+"dynamodb:UpdateItem",
+"dynamodb:DeleteItem",
+"dynamodb:BatchWriteItem"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:LeadingKeys": [
+    "${www.amazon.com:user_id}"
+]
+}
+}
+}
+]
 }
 ```
 
@@ -161,73 +161,73 @@ To implement read\-only access, you can remove any actions that can modify the d
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ReadOnlyAccessToUserItems",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:BatchGetItem",
-                "dynamodb:Query"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:LeadingKeys": [
-                        "${www.amazon.com:user_id}"
-                    ]
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "ReadOnlyAccessToUserItems",
+"Effect": "Allow",
+"Action": [
+"dynamodb:GetItem",
+"dynamodb:BatchGetItem",
+"dynamodb:Query"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:LeadingKeys": [
+    "${www.amazon.com:user_id}"
+]
+}
+}
+}
+]
 }
 ```
 
 **Important**  
 If you use `dynamodb:Attributes`, you must specify the names of all of the primary key and index key attributes, for the table and any secondary indexes that are listed in the policy\. Otherwise, DynamoDB can't use these key attributes to perform the requested action\.
 
-#### 2: Grant Permissions That Limit Access to Specific Attributes in a Table<a name="FGAC_DDB.Examples.2"></a>
+#### 2: Grant permissions that limit access to specific attributes in a table<a name="FGAC_DDB.Examples.2"></a>
 
 The following permissions policy allows access to only two specific attributes in a table by adding the `dynamodb:Attributes` condition key\. These attributes can be read, written, or evaluated in a conditional write or scan filter\.
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "LimitAccessToSpecificAttributes",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:UpdateItem",
-                "dynamodb:GetItem",
-                "dynamodb:Query",
-                "dynamodb:BatchGetItem",
-                "dynamodb:Scan"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:Attributes": [
-                        "UserId",
-                        "TopScore"
-                    ]
-                },
-                "StringEqualsIfExists": {
-                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES",
-                    "dynamodb:ReturnValues": [
-                        "NONE",
-                        "UPDATED_OLD",
-                        "UPDATED_NEW"
-                    ]
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "LimitAccessToSpecificAttributes",
+"Effect": "Allow",
+"Action": [
+"dynamodb:UpdateItem",
+"dynamodb:GetItem",
+"dynamodb:Query",
+"dynamodb:BatchGetItem",
+"dynamodb:Scan"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:Attributes": [
+    "UserId",
+    "TopScore"
+]
+},
+"StringEqualsIfExists": {
+"dynamodb:Select": "SPECIFIC_ATTRIBUTES",
+"dynamodb:ReturnValues": [
+    "NONE",
+    "UPDATED_OLD",
+    "UPDATED_NEW"
+]
+}
+}
+}
+]
 }
 ```
 
@@ -246,38 +246,38 @@ The following are some variations on this policy:
 + To allow only write actions, you can remove everything except `UpdateItem` from the list of allowed actions\. Because `UpdateItem` does not use the `Select` parameter, you can remove `Select` from the condition\. You must also change `StringEqualsIfExists` to `StringEquals` because the `ReturnValues` parameter always has a value \(`NONE` unless otherwise specified\)\.
 + To allow all attributes whose name matches a pattern, use `StringLike` instead of `StringEquals`, and use a multi\-character pattern match wildcard character \(\*\)\.
 
-#### 3: Grant Permissions to Prevent Updates on Certain Attributes<a name="FGAC_DDB.Examples.3"></a>
+#### 3: Grant permissions to prevent updates on certain attributes<a name="FGAC_DDB.Examples.3"></a>
 
 The following permissions policy limits user access to updating only the specific attributes identified by the `dynamodb:Attributes` condition key\. The `StringNotLike` condition prevents an application from updating the attributes specified using the `dynamodb:Attributes` condition key\.
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PreventUpdatesOnCertainAttributes",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:UpdateItem"
-            ],
-            "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
-            "Condition": {
-                "ForAllValues:StringNotLike": {
-                    "dynamodb:Attributes": [
-                        "FreeGamesAvailable",
-                        "BossLevelUnlocked"
-                    ]
-                },
-                "StringEquals": {
-                    "dynamodb:ReturnValues": [
-                        "NONE",
-                        "UPDATED_OLD",
-                        "UPDATED_NEW"
-                    ]
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "PreventUpdatesOnCertainAttributes",
+"Effect": "Allow",
+"Action": [
+"dynamodb:UpdateItem"
+],
+"Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
+"Condition": {
+"ForAllValues:StringNotLike": {
+"dynamodb:Attributes": [
+    "FreeGamesAvailable",
+    "BossLevelUnlocked"
+]
+},
+"StringEquals": {
+"dynamodb:ReturnValues": [
+    "NONE",
+    "UPDATED_OLD",
+    "UPDATED_NEW"
+]
+}
+}
+}
+]
 }
 ```
 
@@ -285,7 +285,7 @@ Note the following:
 + The `UpdateItem` action, like other write actions, requires read access to the items so that it can return values before and after the update\. In the policy, you limit the action to accessing only the attributes that are allowed to be updated by specifying the `dynamodb:ReturnValues` condition key\. The condition key restricts `ReturnValues` in the request to specify only `NONE`, `UPDATED_OLD`, or `UPDATED_NEW` and doesn't include `ALL_OLD` or `ALL_NEW`\.
 + The `PutItem` and `DeleteItem` actions replace an entire item, and thus allows applications to modify any attributes\. So when limiting an application to updating only specific attributes, you should not grant permission for these APIs\.
 
-#### 4: Grant Permissions to Query Only Projected Attributes in an Index<a name="FGAC_DDB.Examples.4"></a>
+#### 4: Grant permissions to query only projected attributes in an index<a name="FGAC_DDB.Examples.4"></a>
 
 The following permissions policy allows queries on a secondary index \(`TopScoreDateTimeIndex`\) by using the `dynamodb:Attributes` condition key\. The policy also limits queries to requesting only specific attributes that have been projected into the index\.
 
@@ -293,33 +293,33 @@ To require the application to specify a list of attributes in the query, the pol
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "QueryOnlyProjectedIndexAttributes",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:Query"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:Attributes": [
-                        "TopScoreDateTime",
-                        "GameTitle",
-                        "Wins",
-                        "Losses",
-                        "Attempts"
-                    ]
-                },
-                "StringEquals": {
-                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES"
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "QueryOnlyProjectedIndexAttributes",
+"Effect": "Allow",
+"Action": [
+"dynamodb:Query"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:Attributes": [
+    "TopScoreDateTime",
+    "GameTitle",
+    "Wins",
+    "Losses",
+    "Attempts"
+]
+},
+"StringEquals": {
+"dynamodb:Select": "SPECIFIC_ATTRIBUTES"
+}
+}
+}
+]
 }
 ```
 
@@ -327,69 +327,69 @@ The following permissions policy is similar, but the query must request all of t
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "QueryAllIndexAttributes",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:Query"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "dynamodb:Select": "ALL_PROJECTED_ATTRIBUTES"
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "QueryAllIndexAttributes",
+"Effect": "Allow",
+"Action": [
+"dynamodb:Query"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+],
+"Condition": {
+"StringEquals": {
+"dynamodb:Select": "ALL_PROJECTED_ATTRIBUTES"
+}
+}
+}
+]
 }
 ```
 
-#### 5: Grant Permissions to Limit Access to Certain Attributes and Partition Key Values<a name="FGAC_DDB.Examples.5"></a>
+#### 5: Grant permissions to limit access to certain attributes and partition key values<a name="FGAC_DDB.Examples.5"></a>
 
 The following permissions policy allows specific DynamoDB actions \(specified in the `Action` element\) on a table and a table index \(specified in the `Resource` element\)\. The policy uses the `dynamodb:LeadingKeys` condition key to restrict permissions to only the items whose partition key value matches the user’s Facebook ID\. 
 
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "LimitAccessToCertainAttributesAndKeyValues",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:UpdateItem",
-                "dynamodb:GetItem",
-                "dynamodb:Query",
-                "dynamodb:BatchGetItem"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
-                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-            ],
-            "Condition": {
-                "ForAllValues:StringEquals": {
-                    "dynamodb:LeadingKeys": [
-                        "${graph.facebook.com:id}"
-                    ],
-                    "dynamodb:Attributes": [
-                        "attribute-A",
-                        "attribute-B"
-                    ]
-                },
-                "StringEqualsIfExists": {
-                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES",
-                    "dynamodb:ReturnValues": [
-                        "NONE",
-                        "UPDATED_OLD",
-                        "UPDATED_NEW"
-                    ]
-                }
-            }
-        }
-    ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Sid": "LimitAccessToCertainAttributesAndKeyValues",
+"Effect": "Allow",
+"Action": [
+"dynamodb:UpdateItem",
+"dynamodb:GetItem",
+"dynamodb:Query",
+"dynamodb:BatchGetItem"
+],
+"Resource": [
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
+"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+],
+"Condition": {
+"ForAllValues:StringEquals": {
+"dynamodb:LeadingKeys": [
+    "${graph.facebook.com:id}"
+],
+"dynamodb:Attributes": [
+    "attribute-A",
+    "attribute-B"
+]
+},
+"StringEqualsIfExists": {
+"dynamodb:Select": "SPECIFIC_ATTRIBUTES",
+"dynamodb:ReturnValues": [
+    "NONE",
+    "UPDATED_OLD",
+    "UPDATED_NEW"
+]
+}
+}
+}
+]
 }
 ```
 
@@ -398,6 +398,6 @@ Note the following:
 + Because the policy allows `UpdateItem`, an application can insert new items, and the hidden attributes will be null in the new items\. If these attributes are projected into `TopScoreDateTimeIndex`, the policy has the added benefit of preventing queries that cause fetches from the table\.
 + Applications cannot read any attributes other than those listed in `dynamodb:Attributes`\. With this policy in place, an application must set the `Select` parameter to `SPECIFIC_ATTRIBUTES` in read requests, and only attributes in the allow list can be requested\. For write requests, the application cannot set `ReturnValues` to `ALL_OLD` or `ALL_NEW` and it cannot perform conditional write operations based on any other attributes\.
 
-## Related Topics<a name="w615aac28c15b9c19b9"></a>
-+ [Access Control](authentication-and-access-control.md#access-control)
-+ [DynamoDB API Permissions: Actions, Resources, and Conditions Reference](api-permissions-reference.md)
+## Related topics<a name="w120aac28c15c15b9"></a>
++  [Identity and Access Management for Amazon DynamoDB](security-iam.md) 
++ [DynamoDB API permissions: Actions, resources, and conditions reference](api-permissions-reference.md)

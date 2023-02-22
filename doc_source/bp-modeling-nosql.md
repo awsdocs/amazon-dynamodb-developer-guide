@@ -1,4 +1,4 @@
-# First Steps for Modeling Relational Data in DynamoDB<a name="bp-modeling-nosql"></a>
+# First steps for modeling relational data in DynamoDB<a name="bp-modeling-nosql"></a>
 
 **Important**  
 NoSQL design requires a different mindset than RDBMS design\. For an RDBMS, you can create a normalized data model without thinking about access patterns\. You can then extend it later when new questions and query requirements arise\. By contrast, in Amazon DynamoDB, you shouldn't start designing your schema until you know the questions that it needs to answer\. Understanding the business problems and the application use cases up front is absolutely essential\.
@@ -15,7 +15,7 @@ In a real application, your list might be much longer\. But this collection repr
 
 A common approach to DynamoDB schema design is to identify application layer entities and use denormalization and composite key aggregation to reduce query complexity\.
 
-In DynamoDB, this means using composite sort keys, overloaded global secondary indexes, partitioned tables/indexes, and other design patterns\. You can use these elements to structure the data so that an application can retrieve whatever it needs for a given access pattern using a single query on a table or index\. The primary pattern that you can use to model the normalized schema shown in [Relational Modeling](bp-relational-modeling.md) is the adjacency list pattern\. Other patterns used in this design can include global secondary index write sharding, global secondary index overloading, composite keys, and materialized aggregations\. 
+In DynamoDB, this means using composite sort keys, overloaded global secondary indexes, partitioned tables/indexes, and other design patterns\. You can use these elements to structure the data so that an application can retrieve whatever it needs for a given access pattern using a single query on a table or index\. The primary pattern that you can use to model the normalized schema shown in [Relational modeling](bp-relational-modeling.md) is the adjacency list pattern\. Other patterns used in this design can include global secondary index write sharding, global secondary index overloading, composite keys, and materialized aggregations\. 
 
 **Important**  
 In general, you should maintain as few tables as possible in a DynamoDB application\. Exceptions include cases where high\-volume time series data are involved, or datasets that have very different access patterns\. A single table with inverted indexes can usually enable simple queries to create and retrieve the complex hierarchical data structures required by your application\.

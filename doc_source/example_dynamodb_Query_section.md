@@ -6,64 +6,163 @@ The following code examples show how to query a DynamoDB table\.
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-       
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-        Aws::DynamoDB::Model::QueryRequest req;
-        
-        req.SetTableName(table);
-
-        // Set query key condition expression
-        req.SetKeyConditionExpression(partitionKeyAttributeName + "= :valueToMatch");
-
-        // Set Expression AttributeValues
-        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
-        attributeValues.emplace(":valueToMatch", partitionKeyAttributeValue);
-
-        req.SetExpressionAttributeValues(attributeValues);
-
-        // Perform Query operation
-        const Aws::DynamoDB::Model::QueryOutcome& result = dynamoClient.Query(req);
-        if (result.IsSuccess())
+        /// <summary>
+        /// Queries the table for movies released in a particular year and
+        /// then displays the information for the movies returned.
+        /// </summary>
+        /// <param name="client">The initialized DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table to query.</param>
+        /// <param name="year">The release year for which we want to
+        /// view movies.</param>
+        /// <returns>The number of movies that match the query.</returns>
+        public static async Task<int> QueryMoviesAsync(AmazonDynamoDBClient client, string tableName, int year)
         {
-            // Reference the retrieved items
-            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0) 
+            var movieTable = Table.LoadTable(client, tableName);
+            var filter = new QueryFilter("year", QueryOperator.Equal, year);
+
+            Console.WriteLine("\nFind movies released in: {year}:");
+
+            var config = new QueryOperationConfig()
             {
-                std::cout << "Number of items retrieved from Query: " << items.size() << std::endl;
-                //Iterate each item and print
-                for(const auto &item: items)
+                Limit = 10, // 10 items per page.
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string>
                 {
-                std::cout << "******************************************************" << std::endl;
-                // Output each retrieved field and its value
-                for (const auto& i : item)
-                    std::cout << i.first << ": " << i.second.GetS() << std::endl;
+                  "title",
+                  "year",
+                },
+                ConsistentRead = true,
+                Filter = filter,
+            };
+
+            // Value used to track how many movies match the
+            // supplied criteria.
+            var moviesFound = 0;
+
+            Search search = movieTable.Query(config);
+            do
+            {
+                var movieList = await search.GetNextSetAsync();
+                moviesFound += movieList.Count;
+
+                foreach (var movie in movieList)
+                {
+                    DisplayDocument(movie);
                 }
             }
+            while (!search.IsDone);
 
-            else
-            {
-                std::cout << "No item found in table: " << table << std::endl;
-            }
-        }
-        else
-        {
-            std::cout << "Failed to Query items: " << result.GetError().GetMessage();
+            return moviesFound;
         }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [Query](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/Query) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Perform a query on an Amazon DynamoDB Table and retrieve items.
+/*!
+  \sa queryItem()
+  \param tableName: The table name.
+  \param partitionKey: The partition key.
+  \param partitionValue: The value for the partition key.
+  \param projectionExpression: The projections expression, which is ignored if empty.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+  */
+
+/*
+ * The partition key attribute is searched with the specified value. By default, all fields and values
+ * contained in the item are returned. If an optional projection expression is
+ * specified on the command line, only the specified fields and values are
+ * returned.
+ */
+
+bool AwsDoc::DynamoDB::queryItems(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::String &projectionExpression,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+    Aws::DynamoDB::Model::QueryRequest request;
+
+    request.SetTableName(tableName);
+
+    if (!projectionExpression.empty()) {
+        request.SetProjectionExpression(projectionExpression);
+    }
+
+    // Set query key condition expression.
+    request.SetKeyConditionExpression(partitionKey + "= :valueToMatch");
+
+    // Set Expression AttributeValues.
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
+    attributeValues.emplace(":valueToMatch", partitionValue);
+
+    request.SetExpressionAttributeValues(attributeValues);
+
+    bool result = true;
+
+    // "exclusiveStartKey" is used for pagination.
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> exclusiveStartKey;
+    do {
+        if (!exclusiveStartKey.empty()) {
+            request.SetExclusiveStartKey(exclusiveStartKey);
+            exclusiveStartKey.clear();
+        }
+        // Perform Query operation.
+        const Aws::DynamoDB::Model::QueryOutcome &outcome = dynamoClient.Query(request);
+        if (outcome.IsSuccess()) {
+            // Reference the retrieved items.
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+            if (!items.empty()) {
+                std::cout << "Number of items retrieved from Query: " << items.size()
+                          << std::endl;
+                // Iterate each item and print.
+                for (const auto &item: items) {
+                    std::cout
+                            << "******************************************************"
+                            << std::endl;
+                    // Output each retrieved field and its value.
+                    for (const auto &i: item)
+                        std::cout << i.first << ": " << i.second.GetS() << std::endl;
+                }
+            }
+            else {
+                std::cout << "No item found in table: " << tableName << std::endl;
+            }
+
+            exclusiveStartKey = outcome.GetResult().GetLastEvaluatedKey();
+        }
+        else {
+            std::cerr << "Failed to Query items: " << outcome.GetError().GetMessage();
+            result = false;
+            break;
+        }
+    } while (!exclusiveStartKey.empty());
+
+    return result;
+}
+```
 +  For API details, see [Query](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/Query) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -86,7 +185,7 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 	keyEx := expression.Key("year").Equal(expression.Value(releaseYear))
 	expr, err := expression.NewBuilder().WithKeyCondition(keyEx).Build()
 	if err != nil {
-		log.Printf("Couldn't build epxression for query. Here's why: %v\n", err)
+		log.Printf("Couldn't build expression for query. Here's why: %v\n", err)
 	} else {
 		response, err = basics.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
 			TableName:                 aws.String(basics.TableName),
@@ -106,50 +205,84 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 	return movies, err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [Query](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.Query) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
-Queries a table by using the enhanced client\.  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Queries a table by using [DynamoDbClient](http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html)\.  
 
 ```
-    public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
+    public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal, String partitionAlias) {
 
-        try{
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-            QueryConditional queryConditional = QueryConditional
-                    .keyEqualTo(Key.builder()
-                            .partitionValue("id120")
-                            .build());
+        // Set up an alias for the partition key name in case it's a reserved word.
+        HashMap<String,String> attrNameAlias = new HashMap<String,String>();
+        attrNameAlias.put(partitionAlias, partitionKeyName);
 
-            // Get items in the table and write out the ID value
-            Iterator<Customer> results = mappedTable.query(queryConditional).items().iterator();
-            String result="";
+        // Set up mapping of the partition name with the value.
+        HashMap<String, AttributeValue> attrValues = new HashMap<>();
 
-            while (results.hasNext()) {
-                Customer rec = results.next();
-                result = rec.getId();
-                System.out.println("The record id is "+result);
-            }
-            return result;
+        attrValues.put(":"+partitionKeyName, AttributeValue.builder()
+            .s(partitionKeyVal)
+            .build());
+
+        QueryRequest queryReq = QueryRequest.builder()
+            .tableName(tableName)
+            .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)
+            .expressionAttributeNames(attrNameAlias)
+            .expressionAttributeValues(attrValues)
+            .build();
+
+        try {
+            QueryResponse response = ddb.query(queryReq);
+            return response.count();
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return "";
+        return -1;
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Queries a table by using `DynamoDbClient` and a secondary index\.  
+
+```
+    public static void queryIndex(DynamoDbClient ddb, String tableName) {
+
+        try {
+            Map<String, String> expressionAttributesNames = new HashMap<>();
+            expressionAttributesNames.put("#year", "year");
+            Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
+            expressionAttributeValues.put(":yearValue", AttributeValue.builder().n("2013").build());
+
+            QueryRequest request = QueryRequest.builder()
+                .tableName(tableName)
+                .indexName("year-index")
+                .keyConditionExpression("#year = :yearValue")
+                .expressionAttributeNames(expressionAttributesNames)
+                .expressionAttributeValues(expressionAttributeValues)
+                .build();
+
+            System.out.println("=== Movie Titles ===");
+            QueryResponse response = ddb.query(request);
+            response.items()
+                .forEach(movie -> System.out.println(movie.get("title").s()));
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+```
 +  For API details, see [Query](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/Query) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
@@ -184,10 +317,10 @@ export const params = {
 export const run = async () => {
   try {
     const data = await ddbClient.send(new QueryCommand(params));
-    return data;
-    data.Items.forEach(function (element, index, array) {
+    data.Items.forEach(function (element) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
+    return data;
   } catch (err) {
     console.error(err);
   }
@@ -262,11 +395,11 @@ export const queryTable = async () => {
 };
 queryTable();
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying)\. 
 +  For API details, see [Query](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/querycommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -297,7 +430,6 @@ docClient.query(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying)\. 
 +  For API details, see [Query](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/Query) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -306,43 +438,87 @@ docClient.query(params, function(err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
 suspend fun queryDynTable(
-        tableNameVal: String,
-        partitionKeyName: String,
-        partitionKeyVal: String,
-        partitionAlias: String
-    ): Int {
+    tableNameVal: String,
+    partitionKeyName: String,
+    partitionKeyVal: String,
+    partitionAlias: String
+): Int {
 
-        val attrNameAlias = mutableMapOf<String, String>()
-        attrNameAlias[partitionAlias] = partitionKeyName
+    val attrNameAlias = mutableMapOf<String, String>()
+    attrNameAlias[partitionAlias] = partitionKeyName
 
-        // Set up mapping of the partition name with the value.
-        val attrValues = mutableMapOf<String, AttributeValue>()
-        attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
+    // Set up mapping of the partition name with the value.
+    val attrValues = mutableMapOf<String, AttributeValue>()
+    attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
 
-        val request = QueryRequest {
-            tableName = tableNameVal
-            keyConditionExpression = "$partitionAlias = :$partitionKeyName"
-            expressionAttributeNames = attrNameAlias
-            this.expressionAttributeValues = attrValues
-        }
+    val request = QueryRequest {
+        tableName = tableNameVal
+        keyConditionExpression = "$partitionAlias = :$partitionKeyName"
+        expressionAttributeNames = attrNameAlias
+        this.expressionAttributeValues = attrValues
+    }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val response = ddb.query(request)
-            return response.count
-        }
-  }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        val response = ddb.query(request)
+        return response.count
+    }
+}
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [Query](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        $birthKey = [
+            'Key' => [
+                'year' => [
+                    'N' => "$birthYear",
+                ],
+            ],
+        ];
+        $result = $service->query($tableName, $birthKey);
+
+    public function query(string $tableName, $key)
+    {
+        $expressionAttributeValues = [];
+        $expressionAttributeNames = [];
+        $keyConditionExpression = "";
+        $index = 1;
+        foreach ($key as $name => $value) {
+            $keyConditionExpression .= "#" . array_key_first($value) . " = :v$index,";
+            $expressionAttributeNames["#" . array_key_first($value)] = array_key_first($value);
+            $hold = array_pop($value);
+            $expressionAttributeValues[":v$index"] = [
+                array_key_first($hold) => array_pop($hold),
+            ];
+        }
+        $keyConditionExpression = substr($keyConditionExpression, 0, -1);
+        $query = [
+            'ExpressionAttributeValues' => $expressionAttributeValues,
+            'ExpressionAttributeNames' => $expressionAttributeNames,
+            'KeyConditionExpression' => $keyConditionExpression,
+            'TableName' => $tableName,
+        ];
+        return $this->dynamoDbClient->query($query);
+    }
+```
++  For API details, see [Query](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/Query) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 Query items by using a key condition expression\.  
 
 ```
@@ -409,13 +585,13 @@ class UpdateQueryWrapper:
         else:
             return response['Items']
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [Query](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/Query) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -436,7 +612,6 @@ class UpdateQueryWrapper:
     response.items
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [Query](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/Query) in *AWS SDK for Ruby API Reference*\. 
 
 ------
@@ -444,19 +619,32 @@ class UpdateQueryWrapper:
 
 **SDK for Rust**  
 This documentation is for an SDK in preview release\. The SDK is subject to change and should not be used in production\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 Find the movies made in the specified year\.  
 
 ```
-fn movies_in_year(client: &Client, table_name: &str, year: u16) -> Query {
-    client
+pub async fn movies_in_year(
+    client: &Client,
+    table_name: &str,
+    year: u16,
+) -> Result<Vec<Movie>, MovieError> {
+    let results = client
         .query()
         .table_name(table_name)
         .key_condition_expression("#yr = :yyyy")
         .expression_attribute_names("#yr", "year")
         .expression_attribute_values(":yyyy", AttributeValue::N(year.to_string()))
+        .send()
+        .await?;
+
+    if let Some(items) = results.items {
+        let movies = items.iter().map(|v| v.into()).collect();
+        Ok(movies)
+    } else {
+        Ok(vec![])
+    }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 +  For API details, see [Query](https://docs.rs/releases/search?query=aws-sdk) in *AWS SDK for Rust API reference*\. 
 
 ------

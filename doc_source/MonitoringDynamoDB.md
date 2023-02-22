@@ -1,4 +1,4 @@
-# Logging and Monitoring in DynamoDB<a name="MonitoringDynamoDB"></a>
+# Logging and monitoring in DynamoDB<a name="MonitoringDynamoDB"></a>
 
 Monitoring is an important part of maintaining the reliability, availability, and performance of DynamoDB and your AWS solutions\. You should collect monitoring data from all parts of your AWS solution so that you can more easily debug a multi\-point failure, if one occurs\. Before you start monitoring DynamoDB, you should create a monitoring plan that includes answers to the following questions:
 + What are your monitoring goals?
@@ -16,6 +16,6 @@ To establish a baseline you should, at a minimum, monitor the following items:
 + System errors, so you can determine if any requests resulted in an error\.
 
 **Topics**
-+ [Monitoring Tools](monitoring-automated-manual.md)
++ [Monitoring tools](monitoring-automated-manual.md)
 + [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)
-+ [Logging DynamoDB Operations by Using AWS CloudTrail](logging-using-cloudtrail.md)
++ [Logging DynamoDB operations by using AWS CloudTrail](logging-using-cloudtrail.md)

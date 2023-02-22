@@ -1,12 +1,12 @@
-# Example: Batch Operations Using the AWS SDK for \.NET Low\-Level API<a name="batch-operation-lowlevel-dotnet"></a>
+# Example: Batch operations using the AWS SDK for \.NET low\-level API<a name="batch-operation-lowlevel-dotnet"></a>
 
 **Topics**
-+ [Example: Batch Write Operation Using the AWS SDK for \.NET Low\-Level API](#batch-write-low-level-dotnet)
-+ [Example: Batch Get Operation Using the AWS SDK for \.NET Low\-Level API](#LowLevelDotNetBatchGet)
++ [Example: Batch write operation using the AWS SDK for \.NET low\-level API](#batch-write-low-level-dotnet)
++ [Example: Batch get operation using the AWS SDK for \.NET low\-level API](#LowLevelDotNetBatchGet)
 
 This section provides examples of batch operations, *batch write* and *batch get*, that Amazon DynamoDB supports\.
 
-## Example: Batch Write Operation Using the AWS SDK for \.NET Low\-Level API<a name="batch-write-low-level-dotnet"></a>
+## Example: Batch write operation using the AWS SDK for \.NET low\-level API<a name="batch-write-low-level-dotnet"></a>
 
 The following C\# code example uses the `BatchWriteItem` method to perform the following put and delete operations:
 + Put one item in the `Forum` table\.
@@ -14,9 +14,9 @@ The following C\# code example uses the `BatchWriteItem` method to perform the f
 
 You can specify any number of put and delete requests against one or more tables when creating your batch write request\. However, DynamoDB `BatchWriteItem` limits the size of a batch write request and the number of put and delete operations in a single batch write operation\. For more information, see [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html)\. If your request exceeds these limits, your request is rejected\. If your table does not have sufficient provisioned throughput to serve this request, the unprocessed request items are returned in the response\. 
 
-The following example checks the response to see if it has any unprocessed request items\. If it does, it loops back and resends the `BatchWriteItem` request with unprocessed items in the request\. If you followed the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), you already have the `Forum` and `Thread` tables created\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
+The following example checks the response to see if it has any unprocessed request items\. If it does, it loops back and resends the `BatchWriteItem` request with unprocessed items in the request\. If you followed the steps in [Creating tables and loading data for code examples in DynamoDB](SampleData.md), you already have the `Forum` and `Thread` tables created\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating example tables and uploading data using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following sample, see [\.NET code examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 
@@ -176,13 +176,13 @@ namespace com.amazonaws.codesamples
 }
 ```
 
-## Example: Batch Get Operation Using the AWS SDK for \.NET Low\-Level API<a name="LowLevelDotNetBatchGet"></a>
+## Example: Batch get operation using the AWS SDK for \.NET low\-level API<a name="LowLevelDotNetBatchGet"></a>
 
 The following C\# code example uses the `BatchGetItem` method to retrieve multiple items from the `Forum` and the `Thread` tables in Amazon DynamoDB\. The `BatchGetItemRequest` specifies the table names and a list of primary keys for each table\. The example processes the response by printing the items retrieved\. 
 
-If you followed the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), you already have these tables created with sample data\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
+If you followed the steps in [Creating tables and loading data for code examples in DynamoDB](SampleData.md), you already have these tables created with sample data\. You can also create these sample tables and upload sample data programmatically\. For more information, see [Creating example tables and uploading data using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\.
 
-For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+For step\-by\-step instructions for testing the following sample, see [\.NET code examples](CodeSamples.DotNet.md)\. 
 
 **Example**  
 

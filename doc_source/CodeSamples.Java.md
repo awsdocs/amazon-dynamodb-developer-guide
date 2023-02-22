@@ -1,17 +1,17 @@
-# Java Code Examples<a name="CodeSamples.Java"></a>
+# Java code examples<a name="CodeSamples.Java"></a>
 
 **Topics**
-+ [Java: Setting Your AWS Credentials](#CodeSamples.Java.Credentials)
-+ [Java: Setting the AWS Region and Endpoint](#CodeSamples.Java.RegionAndEndpoint)
++ [Java: Setting your AWS credentials](#CodeSamples.Java.Credentials)
++ [Java: Setting the AWS Region and endpoint](#CodeSamples.Java.RegionAndEndpoint)
 
 This Developer Guide contains Java code snippets and ready\-to\-run programs\. You can find these code examples in the following sections:
-+ [Working with Items and Attributes](WorkingWithItems.md)
-+ [Working with Tables and Data in DynamoDB](WorkingWithTables.md)
-+ [Working with Queries in DynamoDB](Query.md)
-+ [Working with Scans in DynamoDB](Scan.md)
-+ [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)
++ [Working with items and attributes](WorkingWithItems.md)
++ [Working with tables and data in DynamoDB](WorkingWithTables.md)
++ [Query operations in DynamoDB](Query.md)
++ [Working with scans in DynamoDB](Scan.md)
++ [Improving data access with secondary indexes](SecondaryIndexes.md)
 + [Java: DynamoDBMapper](DynamoDBMapper.md)
-+ [Change Data Capture for DynamoDB Streams](Streams.md)
++ [Change data capture for DynamoDB Streams](Streams.md)
 
 You can get started quickly by using Eclipse with the [AWS Toolkit for Eclipse](https://aws.amazon.com/eclipse/)\. In addition to a full\-featured IDE, you also get the AWS SDK for Java with automatic updates, and preconfigured templates for building AWS applications\.
 
@@ -51,9 +51,9 @@ For more information, see the [AWS SDK for Java](https://aws.amazon.com/sdk-for-
 The code examples in this guide are intended for use with the latest version of the AWS SDK for Java\.  
 If you are using the AWS Toolkit for Eclipse, you can configure automatic updates for the SDK for Java\. To do this in Eclipse, go to **Preferences** and choose **AWS Toolkit**, **AWS SDK for Java**, **Download new SDKs automatically**\.
 
-## Java: Setting Your AWS Credentials<a name="CodeSamples.Java.Credentials"></a>
+## Java: Setting your AWS credentials<a name="CodeSamples.Java.Credentials"></a>
 
-The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set Up Your AWS Credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
+The SDK for Java requires that you provide AWS credentials to your application at runtime\. The code examples in this guide assume that you are using an AWS credentials file, as described in [Set up your AWS credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/set-up-creds.html) in the *AWS SDK for Java Developer Guide*\.
 
 The following is an example of an AWS credentials file named `~/.aws/credentials`, where the tilde character \(`~`\) represents your home directory\.
 
@@ -63,7 +63,7 @@ aws_access_key_id = AWS access key ID goes here
 aws_secret_access_key = Secret key goes here
 ```
 
-## Java: Setting the AWS Region and Endpoint<a name="CodeSamples.Java.RegionAndEndpoint"></a>
+## Java: Setting the AWS Region and endpoint<a name="CodeSamples.Java.RegionAndEndpoint"></a>
 
 By default, the code examples access DynamoDB in the US West \(Oregon\) Region\. You can change the Region by modifying the `AmazonDynamoDB` properties\.
 
@@ -79,7 +79,7 @@ AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
 .build();
 ```
 
-You can use the `withRegion` method to run your code against DynamoDB in any Region where it is available\. For a complete list, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
+You can use the `withRegion` method to run your code against DynamoDB in any Region where it is available\. For a complete list, see [AWS regions and endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
 If you want to run the code examples using DynamoDB locally on your computer, set the endpoint as follows\.
 

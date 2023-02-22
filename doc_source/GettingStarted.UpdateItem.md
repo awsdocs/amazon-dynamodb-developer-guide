@@ -1,76 +1,150 @@
 # Update an item in a DynamoDB table<a name="GettingStarted.UpdateItem"></a>
 
-You can update items from DynamoDB tables using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on items, see [Core Components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
+You can update items from DynamoDB tables using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on items, see [Core components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
 
 ## Update an item in a DynamoDB table using an AWS SDK<a name="GettingStarted.UpdateItem.SDK"></a>
 
 The following code examples show how to update an item in a DynamoDB table using an AWS SDK\.
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-
-        // *** Define UpdateItem request arguments
-        // Define TableName argument.
-        Aws::DynamoDB::Model::UpdateItemRequest request;
-        request.SetTableName(tableName);
-
-        // Define KeyName argument.
-        Aws::DynamoDB::Model::AttributeValue attribValue;
-        attribValue.SetS(keyValue);
-        request.AddKey("id", attribValue);
-
-        // Construct the SET update expression argument.
-        Aws::String update_expression("SET #a = :valueA");
-        request.SetUpdateExpression(update_expression);
-
-        // Parse the attribute name and value. Syntax: "name=value".
-        auto parsed = Aws::Utils::StringUtils::Split(attributeNameAndValue, '=');
-        
-        if (parsed.size() != 2)
+        /// <summary>
+        /// Updates an existing item in the movies table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing information for
+        /// the movie to update.</param>
+        /// <param name="newInfo">A MovieInfo object that contains the
+        /// information that will be changed.</param>
+        /// <param name="tableName">The name of the table that contains the movie.</param>
+        /// <returns>A Boolean value that indicates the success of the operation.</returns>
+        public static async Task<bool> UpdateItemAsync(
+            AmazonDynamoDBClient client,
+            Movie newMovie,
+            MovieInfo newInfo,
+            string tableName)
         {
-            std::cout << "Invalid argument syntax: " << attributeNameAndValue << USAGE;
-            return 1;
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+            var updates = new Dictionary<string, AttributeValueUpdate>
+            {
+                ["info.plot"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { S = newInfo.Plot },
+                },
+
+                ["info.rating"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { N = newInfo.Rank.ToString() },
+                },
+            };
+
+            var request = new UpdateItemRequest
+            {
+                AttributeUpdates = updates,
+                Key = key,
+                TableName = tableName,
+            };
+
+            var response = await client.UpdateItemAsync(request);
+
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
-
-        // Construct attribute name argument
-        // Note: Setting the ExpressionAttributeNames argument is required only
-        // when the name is a reserved word, such as "default". Otherwise, the 
-        // name can be included in the update_expression, as in 
-        // "SET MyAttributeName = :valueA"
-        Aws::Map<Aws::String, Aws::String> expressionAttributeNames;
-        expressionAttributeNames["#a"] = parsed[0];
-        request.SetExpressionAttributeNames(expressionAttributeNames);
-
-        // Construct attribute value argument.
-        Aws::DynamoDB::Model::AttributeValue attributeUpdatedValue;
-        attributeUpdatedValue.SetS(parsed[1]);
-        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> expressionAttributeValues;
-        expressionAttributeValues[":valueA"] = attributeUpdatedValue;
-        request.SetExpressionAttributeValues(expressionAttributeValues);
-
-        // Update the item.
-        const Aws::DynamoDB::Model::UpdateItemOutcome& result = dynamoClient.UpdateItem(request);
-        if (!result.IsSuccess())
-        {
-            std::cout << result.GetError().GetMessage() << std::endl;
-            return 1;
-        }
-        std::cout << "Item was updated" << std::endl;
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Update an Amazon DynamoDB table item.
+/*!
+  \sa updateItem()
+  \param tableName: The table name.
+  \param partitionKey: The partition key.
+  \param partitionValue: The value for the partition key.
+  \param attributeKey: The key for the attribute to be updated.
+  \param attributeValue: The value for the attribute to be updated.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+  */
+
+/*
+ *  The example code only sets/updates an attribute value. It processes
+ *  the attribute value as a string, even if the value could be interpreted
+ *  as a number. Also, the example code does not remove an existing attribute
+ *  from the key value.
+ */
+
+bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::String &attributeKey,
+                                  const Aws::String &attributeValue,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    // *** Define UpdateItem request arguments.
+    // Define TableName argument.
+    Aws::DynamoDB::Model::UpdateItemRequest request;
+    request.SetTableName(tableName);
+
+    // Define KeyName argument.
+    Aws::DynamoDB::Model::AttributeValue attribValue;
+    attribValue.SetS(partitionValue);
+    request.AddKey(partitionKey, attribValue);
+
+    // Construct the SET update expression argument.
+    Aws::String update_expression("SET #a = :valueA");
+    request.SetUpdateExpression(update_expression);
+
+    // Construct attribute name argument.
+    Aws::Map<Aws::String, Aws::String> expressionAttributeNames;
+    expressionAttributeNames["#a"] = attributeKey;
+    request.SetExpressionAttributeNames(expressionAttributeNames);
+
+    // Construct attribute value argument.
+    Aws::DynamoDB::Model::AttributeValue attributeUpdatedValue;
+    attributeUpdatedValue.SetS(attributeValue);
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> expressionAttributeValues;
+    expressionAttributeValues[":valueA"] = attributeUpdatedValue;
+    request.SetExpressionAttributeValues(expressionAttributeValues);
+
+    // Update the item.
+    const Aws::DynamoDB::Model::UpdateItemOutcome &outcome = dynamoClient.UpdateItem(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Item was updated" << std::endl;
+    }
+    else {
+        std::cerr << outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+```
 +  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -116,55 +190,67 @@ func (basics TableBasics) UpdateMovie(movie Movie) (map[string]map[string]interf
 	return attributeMap, err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [UpdateItem](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.UpdateItem) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
-Updates an item located in a table by using the enhanced client\.  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Updates an item in a table using [DynamoDbClient](http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html)\.  
 
 ```
-    public static String modifyItem(DynamoDbEnhancedClient enhancedClient, String keyVal, String email) {
+    public static void updateTableItem(DynamoDbClient ddb,
+                                       String tableName,
+                                       String key,
+                                       String keyVal,
+                                       String name,
+                                       String updateVal){
+
+        HashMap<String,AttributeValue> itemKey = new HashMap<>();
+        itemKey.put(key, AttributeValue.builder()
+            .s(keyVal)
+            .build());
+
+        HashMap<String,AttributeValueUpdate> updatedValues = new HashMap<>();
+        updatedValues.put(name, AttributeValueUpdate.builder()
+            .value(AttributeValue.builder().s(updateVal).build())
+            .action(AttributeAction.PUT)
+            .build());
+
+        UpdateItemRequest request = UpdateItemRequest.builder()
+            .tableName(tableName)
+            .key(itemKey)
+            .attributeUpdates(updatedValues)
+            .build();
+
         try {
-            //Create a DynamoDbTable object
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-
-            //Create a KEY object
-            Key key = Key.builder()
-                    .partitionValue(keyVal)
-                    .build();
-
-            // Get the item by using the key and update the email value.
-            Customer customerRec = mappedTable.getItem(r->r.key(key));
-            customerRec.setEmail(email);
-            mappedTable.updateItem(customerRec);
-            return customerRec.getEmail();
-
+            ddb.updateItem(request);
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return "";
+        System.out.println("The Amazon DynamoDB table was updated!");
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create the DynamoDB document client\.  
 
@@ -172,14 +258,12 @@ Create the DynamoDB document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -189,10 +273,11 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
@@ -247,7 +332,7 @@ export const run = async (tableName, movieYear1, movieTitle1, producer1) => {
     Parameters: [{ S: producer1 }, { S: movieTitle1 }, { N: movieYear1 }],
   };
   try {
-    const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
+    await ddbDocClient.send(new ExecuteStatementCommand(params));
     console.log("Success. Item updated.");
     return "Run successfully"; // For unit tests.
   } catch (err) {
@@ -295,7 +380,7 @@ export const run = async (
     ],
   };
   try {
-    const data = await ddbDocClient.send(
+    await ddbDocClient.send(
       new BatchExecuteStatementCommand(params)
     );
     console.log("Success. Items updated.");
@@ -314,7 +399,6 @@ run(
   producer2
 );
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For API details, see [UpdateItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/updateitemcommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 ------
@@ -322,45 +406,85 @@ run(
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
 suspend fun updateTableItem(
-        tableNameVal: String,
-        keyName: String,
-        keyVal: String,
-        name: String,
-        updateVal: String
-    ) {
+    tableNameVal: String,
+    keyName: String,
+    keyVal: String,
+    name: String,
+    updateVal: String
+) {
 
-        val itemKey = mutableMapOf<String, AttributeValue>()
-        itemKey[keyName] = AttributeValue.S(keyVal)
+    val itemKey = mutableMapOf<String, AttributeValue>()
+    itemKey[keyName] = AttributeValue.S(keyVal)
 
-        val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-        updatedValues[name] = AttributeValueUpdate {
-            value = AttributeValue.S(updateVal)
-            action = AttributeAction.Put
-        }
+    val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
+    updatedValues[name] = AttributeValueUpdate {
+        value = AttributeValue.S(updateVal)
+        action = AttributeAction.Put
+    }
 
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            attributeUpdates= updatedValues
-        }
+    val request = UpdateItemRequest {
+        tableName = tableNameVal
+        key = itemKey
+        attributeUpdates = updatedValues
+    }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.updateItem(request)
-            println("Item in $tableNameVal was updated")
-        }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.updateItem(request)
+        println("Item in $tableNameVal was updated")
+    }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [UpdateItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        echo "What rating would you like to give {$movie['Item']['title']['S']}?\n";
+        $rating = 0;
+        while (!is_numeric($rating) || intval($rating) != $rating || $rating < 1 || $rating > 10) {
+            $rating = testable_readline("Rating (1-10): ");
+        }
+        $service->updateItemAttributeByKey($tableName, $key, 'rating', 'N', $rating);
+
+    public function updateItemAttributeByKey(
+        string $tableName,
+        array $key,
+        string $attributeName,
+        string $attributeType,
+        string $newValue
+    ) {
+        $this->dynamoDbClient->updateItem([
+            'Key' => $key['Item'],
+            'TableName' => $tableName,
+            'UpdateExpression' => "set #NV=:NV",
+            'ExpressionAttributeNames' => [
+                '#NV' => $attributeName,
+            ],
+            'ExpressionAttributeValues' => [
+                ':NV' => [
+                    $attributeType => $newValue
+                ]
+            ],
+        ]);
+    }
+```
++  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 Update an item by using an update expression\.  
 
 ```
@@ -471,13 +595,13 @@ class UpdateQueryWrapper:
         else:
             return response['Attributes']
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -502,7 +626,6 @@ class UpdateQueryWrapper:
     response.attributes
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [UpdateItem](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/UpdateItem) in *AWS SDK for Ruby API Reference*\. 
 
 ------

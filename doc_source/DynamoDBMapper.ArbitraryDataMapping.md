@@ -1,4 +1,4 @@
-# Mapping Arbitrary Data<a name="DynamoDBMapper.ArbitraryDataMapping"></a>
+# Mapping arbitrary data<a name="DynamoDBMapper.ArbitraryDataMapping"></a>
 
 In addition to the supported Java types \(see [Supported data types for DynamoDB Mapper for Java](DynamoDBMapper.DataTypes.md)\), you can use types in your application for which there is no direct mapping to the Amazon DynamoDB types\. To map these types, you must provide an implementation that converts your complex type to a DynamoDB supported type and vice versa, and annotate the complex type accessor method using the `@DynamoDBTypeConverted` annotation\. The converter code transforms data when objects are saved or loaded\. It is also used for all operations that consume complex types\. Note that when comparing data during query and scan operations, the comparisons are made against the data stored in DynamoDB\.
 
@@ -7,8 +7,8 @@ For example, consider the following `CatalogItem` class that defines a property,
 
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 **Example**  
 

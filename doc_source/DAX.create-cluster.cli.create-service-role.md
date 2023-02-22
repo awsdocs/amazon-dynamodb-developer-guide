@@ -1,4 +1,4 @@
-# Step 1: Create an IAM Service Role for DAX to Access DynamoDB Using the AWS CLI<a name="DAX.create-cluster.cli.create-service-role"></a>
+# Step 1: Create an IAM service role for DAX to access DynamoDB using the AWS CLI<a name="DAX.create-cluster.cli.create-service-role"></a>
 
 Before you can create an Amazon DynamoDB Accelerator \(DAX\) cluster, you must create a service role for it\. A *service role* is an AWS Identity and Access Management \(IAM\) role that authorizes an AWS service to act on your behalf\. The service role allows DAX to access your DynamoDB tables as if you were accessing those tables yourself\. 
 
@@ -83,4 +83,4 @@ In this step, you create an IAM policy and then attach that policy to an IAM rol
        --policy-arn arn
    ```
 
-Next, you specify a subnet group for your default VPC\. A *subnet group* is a collection of one or more subnets within your VPC\. See [Step 2: Create a Subnet Group](DAX.create-cluster.cli.create-subnet-group.md)\.
+Next, you specify a subnet group for your default VPC\. A *subnet group* is a collection of one or more subnets within your VPC\. See [Step 2: Create a subnet group](DAX.create-cluster.cli.create-subnet-group.md)\.

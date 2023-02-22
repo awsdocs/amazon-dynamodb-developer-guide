@@ -1,4 +1,4 @@
-# Modifying Data in a Table<a name="SQLtoNoSQL.UpdateData"></a>
+# Modifying data in a table<a name="SQLtoNoSQL.UpdateData"></a>
 
 The SQL language provides the `UPDATE` statement for modifying data\. Amazon DynamoDB uses the `UpdateItem` operation to accomplish similar tasks\.
 
@@ -100,7 +100,7 @@ Whenever someone plays this song, we can use the following `UpdateItem` action t
 ```
 
 **Note**  
-For code examples that use `UpdateItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `UpdateItem`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 ------
 #### [ PartiQL for DynamoDB ]
@@ -143,6 +143,6 @@ WHERE Artist='No One You Know' AND SongTitle='Call Me Today'
 ```
 
 **Note**  
-For code examples using `Update` and `ExecuteStatement`, see [PartiQL Update Statements for DynamoDB](ql-reference.update.md)\.
+For code examples using `Update` and `ExecuteStatement`, see [PartiQL update statements for DynamoDB](ql-reference.update.md)\.
 
 ------

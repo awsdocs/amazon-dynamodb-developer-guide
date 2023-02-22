@@ -1,4 +1,4 @@
-# PartiQL \- A SQL\-Compatible Query Language for Amazon DynamoDB<a name="ql-reference"></a>
+# PartiQL \- a SQL\-compatible query language for Amazon DynamoDB<a name="ql-reference"></a>
 
 Amazon DynamoDB supports [PartiQL](https://partiql.org/), a SQL\-compatible query language, to select, insert, update, and delete data in Amazon DynamoDB\. Using PartiQL, you can easily interact with DynamoDB tables and run ad hoc queries using the AWS Management Console, NoSQL Workbench, AWS Command Line Interface, and DynamoDB APIs for PartiQL\.
 
@@ -9,14 +9,14 @@ The following sections describe the DynamoDB implementation of PartiQL\.
 **Topics**
 + [What is PartiQL?](#ql-reference.what-is)
 + [PartiQL in Amazon DynamoDB](#ql-reference.what-is)
-+ [Getting Started](ql-gettingstarted.md)
-+ [Data Types](ql-reference.data-types.md)
++ [Getting started](ql-gettingstarted.md)
++ [Data types](ql-reference.data-types.md)
 + [Statements](ql-reference.statements.md)
 + [Functions](ql-functions.md)
 + [Operators](ql-operators.md)
 + [Transactions](ql-reference.multiplestatements.transactions.md)
-+ [Batch Operations](ql-reference.multiplestatements.batching.md)
-+ [IAM Policies](ql-iam.md)
++ [Batch operations](ql-reference.multiplestatements.batching.md)
++ [IAM policies](ql-iam.md)
 
 ## What is PartiQL?<a name="ql-reference.what-is"></a>
 
@@ -26,7 +26,7 @@ For the PartiQL specification and a tutorial on the core query language, see the
 
 **Note**  
 Amazon DynamoDB supports a *subset* of the [PartiQL](https://partiql.org/) query language\.
-Amazon DynamoDB does not support the [Amazon Ion](http://amzn.github.io/ion-docs/) data format or Amazon Ion literals\.
+Amazon DynamoDB does not support the [Amazon ion](http://amzn.github.io/ion-docs/) data format or Amazon Ion literals\.
 
 ## PartiQL in Amazon DynamoDB<a name="ql-reference.what-is"></a>
 

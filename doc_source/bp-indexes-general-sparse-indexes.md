@@ -1,4 +1,4 @@
-# Take Advantage of Sparse Indexes<a name="bp-indexes-general-sparse-indexes"></a>
+# Take advantage of sparse indexes<a name="bp-indexes-general-sparse-indexes"></a>
 
 For any item in a table, DynamoDB writes a corresponding index entry **only if the index sort key value is present in the item**\. If the sort key doesn't appear in every table item, the index is said to be *sparse*\.
 
@@ -10,7 +10,7 @@ To track open orders, you can insert an attribute named `isOpen` in order items 
 
 Instead of using a type of attribute like `isOpen`, you could use an attribute with a value that results in a useful sort order in the index\. For example, you could use an `OrderOpenDate` attribute set to the date on which each order was placed, and then delete it after the order is fulfilled\. That way, when you query the sparse index, the items are returned sorted by the date on which each order was placed\.
 
-## Examples of Sparse Indexes in DynamoDB<a name="bp-indexes-sparse-examples"></a>
+## Examples of sparse indexes in DynamoDB<a name="bp-indexes-sparse-examples"></a>
 
 Global secondary indexes are sparse by default\. When you create a global secondary index, you specify a partition key and optionally a sort key\. Only items in the base table that contain those attributes appear in the index\.
 

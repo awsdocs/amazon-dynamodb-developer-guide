@@ -13,9 +13,1160 @@ The following code examples show how to:
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
+#### [ \.NET ]
+
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
+  
+
+```
+// This example application performs the following basic Amazon DynamoDB
+// functions:
+//
+//     CreateTableAsync
+//     PutItemAsync
+//     UpdateItemAsync
+//     BatchWriteItemAsync
+//     GetItemAsync
+//     DeleteItemAsync
+//     Query
+//     Scan
+//     DeleteItemAsync
+//
+// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
+// Before you run this example, download 'movies.json' from
+// https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
+// and put it in the same folder as the example.
+namespace DynamoDB_Basics_Scenario
+{
+    public class DynamoDB_Basics
+    {
+        // Separator for the console display.
+        private static readonly string SepBar = new string('-', 80);
+
+        public static async Task Main()
+        {
+            var client = new AmazonDynamoDBClient();
+
+            var tableName = "movie_table";
+
+            // relative path to moviedata.json in the local repository.
+            var movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
+
+            DisplayInstructions();
+
+            // Create a new table and wait for it to be active.
+            Console.WriteLine($"Creating the new table: {tableName}");
+
+            var success = await DynamoDbMethods.CreateMovieTableAsync(client, tableName);
+
+            if (success)
+            {
+                Console.WriteLine($"\nTable: {tableName} successfully created.");
+            }
+            else
+            {
+                Console.WriteLine($"\nCould not create {tableName}.");
+            }
+
+            WaitForEnter();
+
+            // Add a single new movie to the table.
+            var newMovie = new Movie
+            {
+                Year = 2021,
+                Title = "Spider-Man: No Way Home",
+            };
+
+            success = await DynamoDbMethods.PutItemAsync(client, newMovie, tableName);
+            if (success)
+            {
+                Console.WriteLine($"Added {newMovie.Title} to the table.");
+            }
+            else
+            {
+                Console.WriteLine("Could not add movie to table.");
+            }
+
+            WaitForEnter();
+
+            // Update the new movie by adding a plot and rank.
+            var newInfo = new MovieInfo
+            {
+                Plot = "With Spider-Man's identity now revealed, Peter asks" +
+                "Doctor Strange for help. When a spell goes wrong, dangerous" +
+                "foes from other worlds start to appear, forcing Peter to" +
+                "discover what it truly means to be Spider-Man.",
+                Rank = 9,
+            };
+
+            success = await DynamoDbMethods.UpdateItemAsync(client, newMovie, newInfo, tableName);
+            if (success)
+            {
+                Console.WriteLine($"Successfully updated the movie: {newMovie.Title}");
+            }
+            else
+            {
+                Console.WriteLine("Could not update the movie.");
+            }
+
+            WaitForEnter();
+
+            // Add a batch of movies to the DynamoDB table from a list of
+            // movies in a JSON file.
+            var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, movieFileName);
+            Console.WriteLine($"Added {itemCount} movies to the table.");
+
+            WaitForEnter();
+
+            // Get a movie by key. (partition + sort)
+            var lookupMovie = new Movie
+            {
+                Title = "Jurassic Park",
+                Year = 1993,
+            };
+
+            Console.WriteLine("Looking for the movie \"Jurassic Park\".");
+            var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
+            if (item.Count > 0)
+            {
+                DynamoDbMethods.DisplayItem(item);
+            }
+            else
+            {
+                Console.WriteLine($"Couldn't find {lookupMovie.Title}");
+            }
+
+            WaitForEnter();
+
+            // Delete a movie.
+            var movieToDelete = new Movie
+            {
+                Title = "The Town",
+                Year = 2010,
+            };
+
+            success = await DynamoDbMethods.DeleteItemAsync(client, tableName, movieToDelete);
+
+            if (success)
+            {
+                Console.WriteLine($"Successfully deleted {movieToDelete.Title}.");
+            }
+            else
+            {
+                Console.WriteLine($"Could not delete {movieToDelete.Title}.");
+            }
+
+            WaitForEnter();
+
+            // Use Query to find all the movies released in 2010.
+            int findYear = 2010;
+            Console.WriteLine($"Movies released in {findYear}");
+            var queryCount = await DynamoDbMethods.QueryMoviesAsync(client, tableName, findYear);
+            Console.WriteLine($"Found {queryCount} movies released in {findYear}");
+
+            WaitForEnter();
+
+            // Use Scan to get a list of movies from 2001 to 2011.
+            int startYear = 2001;
+            int endYear = 2011;
+            var scanCount = await DynamoDbMethods.ScanTableAsync(client, tableName, startYear, endYear);
+            Console.WriteLine($"Found {scanCount} movies released between {startYear} and {endYear}");
+
+            WaitForEnter();
+
+            // Delete the table.
+            success = await DynamoDbMethods.DeleteTableAsync(client, tableName);
+
+            if (success)
+            {
+                Console.WriteLine($"Successfully deleted {tableName}");
+            }
+            else
+            {
+                Console.WriteLine($"Could not delete {tableName}");
+            }
+
+            Console.WriteLine("The DynamoDB Basics example application is done.");
+
+            WaitForEnter();
+        }
+
+        /// <summary>
+        /// Displays the description of the application on the console.
+        /// </summary>
+        private static void DisplayInstructions()
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.Write(new string(' ', 28));
+            Console.WriteLine("DynamoDB Basics Example");
+            Console.WriteLine(SepBar);
+            Console.WriteLine("This demo application shows the basics of using DynamoDB with the AWS SDK for");
+            Console.WriteLine(".NET version 3.7 and .NET Core 5.");
+            Console.WriteLine(SepBar);
+            Console.WriteLine("The application does the following:");
+            Console.WriteLine("\t1. Creates a table with partition: year and sort:title.");
+            Console.WriteLine("\t2. Adds a single movie to the table.");
+            Console.WriteLine("\t3. Adds movies to the table from moviedata.json.");
+            Console.WriteLine("\t4. Updates the rating and plot of the movie that was just added.");
+            Console.WriteLine("\t5. Gets a movie using its key (partition + sort).");
+            Console.WriteLine("\t6. Deletes a movie.");
+            Console.WriteLine("\t7. Uses QueryAsync to return all movies released in a given year.");
+            Console.WriteLine("\t8. Uses ScanAsync to return all movies released within a range of years.");
+            Console.WriteLine("\t9. Finally, it deletes the table that was just created.");
+            WaitForEnter();
+        }
+
+        /// <summary>
+        /// Simple method to wait for the Enter key to be pressed.
+        /// </summary>
+        private static void WaitForEnter()
+        {
+            Console.WriteLine("\nPress <Enter> to continue.");
+            Console.WriteLine(SepBar);
+            _ = Console.ReadLine();
+        }
+    }
+}
+```
+Creates a table to contain movie data\.  
+
+```
+        /// <summary>
+        /// Creates a new Amazon DynamoDB table and then waits for the new
+        /// table to become active.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table to create.</param>
+        /// <returns>A Boolean value indicating the success of the operation.</returns>
+        public static async Task<bool> CreateMovieTableAsync(AmazonDynamoDBClient client, string tableName)
+        {
+            var response = await client.CreateTableAsync(new CreateTableRequest
+            {
+                TableName = tableName,
+                AttributeDefinitions = new List<AttributeDefinition>()
+                {
+                    new AttributeDefinition
+                    {
+                        AttributeName = "title",
+                        AttributeType = "S",
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "year",
+                        AttributeType = "N",
+                    },
+                },
+                KeySchema = new List<KeySchemaElement>()
+                {
+                    new KeySchemaElement
+                    {
+                        AttributeName = "year",
+                        KeyType = "HASH",
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "title",
+                        KeyType = "RANGE",
+                    },
+                },
+                ProvisionedThroughput = new ProvisionedThroughput
+                {
+                    ReadCapacityUnits = 5,
+                    WriteCapacityUnits = 5,
+                },
+            });
+
+            // Wait until the table is ACTIVE and then report success.
+            Console.Write("Waiting for table to become active...");
+
+            var request = new DescribeTableRequest
+            {
+                TableName = response.TableDescription.TableName,
+            };
+
+            TableStatus status;
+
+            int sleepDuration = 2000;
+
+            do
+            {
+                System.Threading.Thread.Sleep(sleepDuration);
+
+                var describeTableResponse = await client.DescribeTableAsync(request);
+                status = describeTableResponse.Table.TableStatus;
+
+                Console.Write(".");
+            }
+            while (status != "ACTIVE");
+
+            return status == TableStatus.ACTIVE;
+        }
+```
+Adds a single movie to the table\.  
+
+```
+        /// <summary>
+        /// Adds a new item to the table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing informtation for
+        /// the movie to add to the table.</param>
+        /// <param name="tableName">The name of the table where the item will be added.</param>
+        /// <returns>A Boolean value that indicates the results of adding the item.</returns>
+        public static async Task<bool> PutItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
+        {
+            var item = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+
+            var request = new PutItemRequest
+            {
+                TableName = tableName,
+                Item = item,
+            };
+
+            var response = await client.PutItemAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+```
+Updates a single item in a table\.  
+
+```
+        /// <summary>
+        /// Updates an existing item in the movies table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing information for
+        /// the movie to update.</param>
+        /// <param name="newInfo">A MovieInfo object that contains the
+        /// information that will be changed.</param>
+        /// <param name="tableName">The name of the table that contains the movie.</param>
+        /// <returns>A Boolean value that indicates the success of the operation.</returns>
+        public static async Task<bool> UpdateItemAsync(
+            AmazonDynamoDBClient client,
+            Movie newMovie,
+            MovieInfo newInfo,
+            string tableName)
+        {
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+            var updates = new Dictionary<string, AttributeValueUpdate>
+            {
+                ["info.plot"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { S = newInfo.Plot },
+                },
+
+                ["info.rating"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { N = newInfo.Rank.ToString() },
+                },
+            };
+
+            var request = new UpdateItemRequest
+            {
+                AttributeUpdates = updates,
+                Key = key,
+                TableName = tableName,
+            };
+
+            var response = await client.UpdateItemAsync(request);
+
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+```
+Retrieves a single item from the movie table\.  
+
+```
+        /// <summary>
+        /// Gets information about an existing movie from the table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing information about
+        /// the movie to retrieve.</param>
+        /// <param name="tableName">The name of the table containing the movie.</param>
+        /// <returns>A Dictionary object containing information about the item
+        /// retrieved.</returns>
+        public static async Task<Dictionary<string, AttributeValue>> GetItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
+        {
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+
+            var request = new GetItemRequest
+            {
+                Key = key,
+                TableName = tableName,
+            };
+
+            var response = await client.GetItemAsync(request);
+            return response.Item;
+        }
+```
+Writes a batch of items to the movie table\.  
+
+```
+        /// <summary>
+        /// Loads the contents of a JSON file into a list of movies to be
+        /// added to the DynamoDB table.
+        /// </summary>
+        /// <param name="movieFileName">The full path to the JSON file.</param>
+        /// <returns>A generic list of movie objects.</returns>
+        public static List<Movie> ImportMovies(string movieFileName)
+        {
+            if (!File.Exists(movieFileName))
+            {
+                return null;
+            }
+
+            using var sr = new StreamReader(movieFileName);
+            string json = sr.ReadToEnd();
+            var allMovies = JsonConvert.DeserializeObject<List<Movie>>(json);
+
+            // Now return the first 250 entries.
+            return allMovies.GetRange(0, 250);
+        }
+
+        /// <summary>
+        /// Writes 250 items to the movie table.
+        /// </summary>
+        /// <param name="client">The initialized DynamoDB client object.</param>
+        /// <param name="movieFileName">A string containing the full path to
+        /// the JSON file containing movie data.</param>
+        /// <returns>A long integer value representing the number of movies
+        /// imported from the JSON file.</returns>
+        public static async Task<long> BatchWriteItemsAsync(
+            AmazonDynamoDBClient client,
+            string movieFileName)
+        {
+            var movies = ImportMovies(movieFileName);
+            if (movies is null)
+            {
+                Console.WriteLine("Couldn't find the JSON file with movie data.");
+                return 0;
+            }
+
+            var context = new DynamoDBContext(client);
+
+            var bookBatch = context.CreateBatchWrite<Movie>();
+            bookBatch.AddPutItems(movies);
+
+            Console.WriteLine("Adding imported movies to the table.");
+            await bookBatch.ExecuteAsync();
+
+            return movies.Count;
+        }
+```
+Deletes a single item from the table\.  
+
+```
+        /// <summary>
+        /// Deletes a single item from a DynamoDB table.
+        /// </summary>
+        /// <param name="client">The initialized DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table from which the item
+        /// will be deleted.</param>
+        /// <param name="movieToDelete">A movie object containing the title and
+        /// year of the movie to delete.</param>
+        /// <returns>A Boolean value indicating the success or failure of the
+        /// delete operation.</returns>
+        public static async Task<bool> DeleteItemAsync(
+            AmazonDynamoDBClient client,
+            string tableName,
+            Movie movieToDelete)
+        {
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = movieToDelete.Title },
+                ["year"] = new AttributeValue { N = movieToDelete.Year.ToString() },
+            };
+
+            var request = new DeleteItemRequest
+            {
+                TableName = tableName,
+                Key = key,
+            };
+
+            var response = await client.DeleteItemAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+```
+Queries the table for movies released in a particular year\.  
+
+```
+        /// <summary>
+        /// Queries the table for movies released in a particular year and
+        /// then displays the information for the movies returned.
+        /// </summary>
+        /// <param name="client">The initialized DynamoDB client object.</param>
+        /// <param name="tableName">The name of the table to query.</param>
+        /// <param name="year">The release year for which we want to
+        /// view movies.</param>
+        /// <returns>The number of movies that match the query.</returns>
+        public static async Task<int> QueryMoviesAsync(AmazonDynamoDBClient client, string tableName, int year)
+        {
+            var movieTable = Table.LoadTable(client, tableName);
+            var filter = new QueryFilter("year", QueryOperator.Equal, year);
+
+            Console.WriteLine("\nFind movies released in: {year}:");
+
+            var config = new QueryOperationConfig()
+            {
+                Limit = 10, // 10 items per page.
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string>
+                {
+                  "title",
+                  "year",
+                },
+                ConsistentRead = true,
+                Filter = filter,
+            };
+
+            // Value used to track how many movies match the
+            // supplied criteria.
+            var moviesFound = 0;
+
+            Search search = movieTable.Query(config);
+            do
+            {
+                var movieList = await search.GetNextSetAsync();
+                moviesFound += movieList.Count;
+
+                foreach (var movie in movieList)
+                {
+                    DisplayDocument(movie);
+                }
+            }
+            while (!search.IsDone);
+
+            return moviesFound;
+        }
+```
+Scans the table for movies released in a range of years\.  
+
+```
+        public static async Task<int> ScanTableAsync(
+            AmazonDynamoDBClient client,
+            string tableName,
+            int startYear,
+            int endYear)
+        {
+            var request = new ScanRequest
+            {
+                TableName = tableName,
+                ExpressionAttributeNames = new Dictionary<string, string>
+                {
+                  { "#yr", "year" },
+                },
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":y_a", new AttributeValue { N = startYear.ToString() } },
+                    { ":y_z", new AttributeValue { N = endYear.ToString() } },
+                },
+                FilterExpression = "#yr between :y_a and :y_z",
+                ProjectionExpression = "#yr, title, info.actors[0], info.directors, info.running_time_secs",
+            };
+
+            // Keep track of how many movies were found.
+            int foundCount = 0;
+
+            var response = new ScanResponse();
+            do
+            {
+                response = await client.ScanAsync(request);
+                foundCount += response.Items.Count;
+                response.Items.ForEach(i => DisplayItem(i));
+            }
+            while (response.LastEvaluatedKey.Count > 1);
+            return foundCount;
+        }
+```
+Deletes the movie table\.  
+
+```
+        public static async Task<bool> DeleteTableAsync(AmazonDynamoDBClient client, string tableName)
+        {
+            var request = new DeleteTableRequest
+            {
+                TableName = tableName,
+            };
+
+            var response = await client.DeleteTableAsync(request);
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine($"Table {response.TableDescription.TableName} successfully deleted.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Could not delete table.");
+                return false;
+            }
+        }
+```
++ For API details, see the following topics in *AWS SDK for \.NET API Reference*\.
+  + [BatchWriteItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/BatchWriteItem)
+  + [CreateTable](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/CreateTable)
+  + [DeleteItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/DeleteItem)
+  + [DeleteTable](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/DeleteTable)
+  + [DescribeTable](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/DescribeTable)
+  + [GetItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/GetItem)
+  + [PutItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem)
+  + [Query](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/Query)
+  + [Scan](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/Scan)
+  + [UpdateItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/UpdateItem)
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        //  1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
+        if (AwsDoc::DynamoDB::createMoviesDynamoDBTable(clientConfig)) {
+
+            AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
+
+            // 9. Delete the table. (DeleteTable)
+            AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(clientConfig);
+        }
+    }
+
+//! Scenario to modify and query a DynamoDB table.
+/*!
+  \sa dynamodbGettingStartedScenario()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
+    std::cout << "Welcome to the Amazon DynamoDB getting started demo." << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
+
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    // 2. Add a new movie.
+    Aws::String title;
+    float rating;
+    int year;
+    Aws::String plot;
+    {
+        title = askQuestion(
+                "Enter the title of a movie you want to add to the table: ");
+        year = askQuestionForInt("What year was it released? ");
+        rating = askQuestionForFloatRange("On a scale of 1 - 10, how do you rate it? ",
+                                          1, 10);
+        plot = askQuestion("Summarize the plot for me: ");
+
+        Aws::DynamoDB::Model::PutItemRequest putItemRequest;
+        putItemRequest.SetTableName(MOVIE_TABLE_NAME);
+
+        putItemRequest.AddItem(YEAR_KEY,
+                               Aws::DynamoDB::Model::AttributeValue().SetN(year));
+        putItemRequest.AddItem(TITLE_KEY,
+                               Aws::DynamoDB::Model::AttributeValue().SetS(title));
+
+        // Create attribute for the info map.
+        Aws::DynamoDB::Model::AttributeValue infoMapAttribute;
+
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> ratingAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+                ALLOCATION_TAG.c_str());
+        ratingAttribute->SetN(rating);
+        infoMapAttribute.AddMEntry(RATING_KEY, ratingAttribute);
+
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+                ALLOCATION_TAG.c_str());
+        plotAttribute->SetS(plot);
+        infoMapAttribute.AddMEntry(PLOT_KEY, plotAttribute);
+
+        putItemRequest.AddItem(INFO_KEY, infoMapAttribute);
+
+        Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(
+                putItemRequest);
+        if (!outcome.IsSuccess()) {
+            std::cerr << "Failed to add an item: " << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    }
+
+    std::cout << "\nAdded '" << title << "' to '" << MOVIE_TABLE_NAME << "'."
+              << std::endl;
+
+    // 3. Update the rating and plot of the movie by using an update expression.
+    {
+        rating = askQuestionForFloatRange(
+                Aws::String("\nLet's update your movie.\nYou rated it  ") +
+                std::to_string(rating)
+                + ", what new rating would you give it? ", 1, 10);
+        plot = askQuestion(Aws::String("You summarized the plot as '") + plot +
+                           "'.\nWhat would you say now? ");
+
+        Aws::DynamoDB::Model::UpdateItemRequest request;
+        request.SetTableName(MOVIE_TABLE_NAME);
+        request.AddKey(TITLE_KEY, Aws::DynamoDB::Model::AttributeValue().SetS(title));
+        request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(year));
+        std::stringstream expressionStream;
+        expressionStream << "set " << INFO_KEY << "." << RATING_KEY << " =:r, "
+                         << INFO_KEY << "." << PLOT_KEY << " =:p";
+        request.SetUpdateExpression(expressionStream.str());
+        request.SetExpressionAttributeValues({
+                                                     {":r", Aws::DynamoDB::Model::AttributeValue().SetN(
+                                                             rating)},
+                                                     {":p", Aws::DynamoDB::Model::AttributeValue().SetS(
+                                                             plot)}
+                                             });
+
+        request.SetReturnValues(Aws::DynamoDB::Model::ReturnValue::UPDATED_NEW);
+
+        const Aws::DynamoDB::Model::UpdateItemOutcome &result = dynamoClient.UpdateItem(
+                request);
+        if (!result.IsSuccess()) {
+            std::cerr << "Error updating movie " + result.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    }
+
+    std::cout << "\nUpdated '" << title << "' with new attributes:" << std::endl;
+
+    // 4. Put 250 movies in the table from moviedata.json.
+    {
+        std::cout << "Adding movies from a json file to the database." << std::endl;
+        const size_t MAX_SIZE_FOR_BATCH_WRITE = 25;
+        const size_t MOVIES_TO_WRITE = 10 * MAX_SIZE_FOR_BATCH_WRITE;
+        Aws::String jsonString = getMovieJSON();
+        if (!jsonString.empty()) {
+            Aws::Utils::Json::JsonValue json(jsonString);
+            Aws::Utils::Array<Aws::Utils::Json::JsonView> movieJsons = json.View().AsArray();
+            Aws::Vector<Aws::DynamoDB::Model::WriteRequest> writeRequests;
+
+            // To add movies with a cross-section of years, use an appropriate increment
+            // value for iterating through the database.
+            size_t increment = movieJsons.GetLength() / MOVIES_TO_WRITE;
+            for (size_t i = 0; i < movieJsons.GetLength(); i += increment) {
+                writeRequests.push_back(Aws::DynamoDB::Model::WriteRequest());
+                Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> putItems = movieJsonViewToAttributeMap(
+                        movieJsons[i]);
+                Aws::DynamoDB::Model::PutRequest putRequest;
+                putRequest.SetItem(putItems);
+                writeRequests.back().SetPutRequest(putRequest);
+                if (writeRequests.size() == MAX_SIZE_FOR_BATCH_WRITE) {
+                    Aws::DynamoDB::Model::BatchWriteItemRequest request;
+                    request.AddRequestItems(MOVIE_TABLE_NAME, writeRequests);
+                    const Aws::DynamoDB::Model::BatchWriteItemOutcome &outcome = dynamoClient.BatchWriteItem(
+                            request);
+                    if (!outcome.IsSuccess()) {
+                        std::cerr << "Unable to batch write movie data: "
+                                  << outcome.GetError().GetMessage()
+                                  << std::endl;
+                        writeRequests.clear();
+                        break;
+                    }
+                    else {
+                        std::cout << "Added batch of " << writeRequests.size()
+                                  << " movies to the database."
+                                  << std::endl;
+                    }
+                    writeRequests.clear();
+                }
+            }
+        }
+    }
+
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
+
+    // 5. Get a movie by Key (partition + sort).
+    {
+        Aws::String titleToGet("King Kong");
+        Aws::String answer = askQuestion(Aws::String(
+                "Let's move on...Would you like to get info about '" + titleToGet +
+                "'? (y/n) "));
+        if (answer == "y") {
+            Aws::DynamoDB::Model::GetItemRequest request;
+            request.SetTableName(MOVIE_TABLE_NAME);
+            request.AddKey(TITLE_KEY,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(titleToGet));
+            request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(1933));
+
+            const Aws::DynamoDB::Model::GetItemOutcome &result = dynamoClient.GetItem(
+                    request);
+            if (!result.IsSuccess()) {
+                std::cerr << "Error " << result.GetError().GetMessage();
+            }
+            else {
+                const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = result.GetResult().GetItem();
+                if (!item.empty()) {
+                    std::cout << "\nHere's what I found:" << std::endl;
+                    printMovieInfo(item);
+                }
+                else {
+                    std::cout << "\nThe movie was not found in the database."
+                              << std::endl;
+                }
+            }
+        }
+    }
+
+    // 6. Use Query with a key condition expression to return all movies
+    //    released in a given year.
+    Aws::String doAgain = "n";
+    do {
+        Aws::DynamoDB::Model::QueryRequest req;
+
+        req.SetTableName(MOVIE_TABLE_NAME);
+
+        // "year" is a DynamoDB reserved keyword and must be replaced with an
+        // expression attribute name.
+        req.SetKeyConditionExpression("#dynobase_year = :valueToMatch");
+        req.SetExpressionAttributeNames({{"#dynobase_year", YEAR_KEY}});
+
+        int yearToMatch = askQuestionForIntRange(
+                "\nLet's get a list of movies released in"
+                " a given year. Enter a year between 1972 and 2018 ",
+                1972, 2018);
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
+        attributeValues.emplace(":valueToMatch",
+                                Aws::DynamoDB::Model::AttributeValue().SetN(
+                                        yearToMatch));
+        req.SetExpressionAttributeValues(attributeValues);
+
+        const Aws::DynamoDB::Model::QueryOutcome &result = dynamoClient.Query(req);
+        if (result.IsSuccess()) {
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
+            if (!items.empty()) {
+                std::cout << "\nThere were " << items.size()
+                          << " movies in the database from "
+                          << yearToMatch << "." << std::endl;
+                for (const auto &item: items) {
+                    printMovieInfo(item);
+                }
+                doAgain = "n";
+            }
+            else {
+                std::cout << "\nNo movies from " << yearToMatch
+                          << " were found in the database"
+                          << std::endl;
+                doAgain = askQuestion(Aws::String("Try another year? (y/n) "));
+            }
+        }
+        else {
+            std::cerr << "Failed to Query items: " << result.GetError().GetMessage()
+                      << std::endl;
+        }
+
+    } while (doAgain == "y");
+
+    //  7. Use Scan to return movies released within a range of years.
+    //     Show how to paginate data using ExclusiveStartKey. (Scan + FilterExpression)
+    {
+        int startYear = askQuestionForIntRange("\nNow let's scan a range of years "
+                                               "for movies in the database. Enter a start year: ",
+                                               1972, 2018);
+        int endYear = askQuestionForIntRange("\nEnter an end year: ",
+                                             startYear, 2018);
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> exclusiveStartKey;
+        do {
+            Aws::DynamoDB::Model::ScanRequest scanRequest;
+            scanRequest.SetTableName(MOVIE_TABLE_NAME);
+            scanRequest.SetFilterExpression(
+                    "#dynobase_year >= :startYear AND #dynobase_year <= :endYear");
+            scanRequest.SetExpressionAttributeNames({{"#dynobase_year", YEAR_KEY}});
+
+            Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
+            attributeValues.emplace(":startYear",
+                                    Aws::DynamoDB::Model::AttributeValue().SetN(
+                                            startYear));
+            attributeValues.emplace(":endYear",
+                                    Aws::DynamoDB::Model::AttributeValue().SetN(
+                                            endYear));
+            scanRequest.SetExpressionAttributeValues(attributeValues);
+
+            if (!exclusiveStartKey.empty()) {
+                scanRequest.SetExclusiveStartKey(exclusiveStartKey);
+            }
+
+            const Aws::DynamoDB::Model::ScanOutcome &result = dynamoClient.Scan(
+                    scanRequest);
+            if (result.IsSuccess()) {
+                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
+                if (!items.empty()) {
+                    std::stringstream stringStream;
+                    stringStream << "\nFound " << items.size() << " movies in one scan."
+                                 << " How many would you like to see? ";
+                    size_t count = askQuestionForInt(stringStream.str());
+                    for (size_t i = 0; i < count && i < items.size(); ++i) {
+                        printMovieInfo(items[i]);
+                    }
+                }
+                else {
+                    std::cout << "\nNo movies in the database between " << startYear <<
+                              " and " << endYear << "." << std::endl;
+                }
+
+                exclusiveStartKey = result.GetResult().GetLastEvaluatedKey();
+                if (!exclusiveStartKey.empty()) {
+                    std::cout << "Not all movies were retrieved. Scanning for more."
+                              << std::endl;
+                }
+                else {
+                    std::cout << "All movies were retrieved with this scan."
+                              << std::endl;
+                }
+            }
+            else {
+                std::cerr << "Failed to Scan movies: "
+                          << result.GetError().GetMessage() << std::endl;
+            }
+        } while (!exclusiveStartKey.empty());
+    }
+
+    // 8. Delete a movie. (DeleteItem)
+    {
+        std::stringstream stringStream;
+        stringStream << "\nWould you like to delete the movie " << title
+                     << " from the database? (y/n) ";
+        Aws::String answer = askQuestion(stringStream.str());
+        if (answer == "y") {
+            Aws::DynamoDB::Model::DeleteItemRequest request;
+            request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(year));
+            request.AddKey(TITLE_KEY,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(title));
+            request.SetTableName(MOVIE_TABLE_NAME);
+
+            const Aws::DynamoDB::Model::DeleteItemOutcome &result = dynamoClient.DeleteItem(
+                    request);
+            if (result.IsSuccess()) {
+                std::cout << "\nRemoved \"" << title << "\" from the database."
+                          << std::endl;
+            }
+            else {
+                std::cerr << "Failed to delete the movie: "
+                          << result.GetError().GetMessage()
+                          << std::endl;
+            }
+        }
+    }
+
+    return true;
+}
+
+//! Routine to convert a JsonView object to an attribute map.
+/*!
+  \sa movieJsonViewToAttributeMap()
+  \param jsonView: Json view object.
+  \return map: Map that can be used in a DynamoDB request.
+ */
+Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
+AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
+        const Aws::Utils::Json::JsonView &jsonView) {
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> result;
+
+    if (jsonView.KeyExists(YEAR_KEY)) {
+        result[YEAR_KEY].SetN(jsonView.GetInteger(YEAR_KEY));
+    }
+    if (jsonView.KeyExists(TITLE_KEY)) {
+        result[TITLE_KEY].SetS(jsonView.GetString(TITLE_KEY));
+    }
+    if (jsonView.KeyExists(INFO_KEY)) {
+        Aws::Map<Aws::String, const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>> infoMap;
+        Aws::Utils::Json::JsonView infoView = jsonView.GetObject(INFO_KEY);
+        if (infoView.KeyExists(RATING_KEY)) {
+            std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> attributeValue = std::make_shared<Aws::DynamoDB::Model::AttributeValue>();
+            attributeValue->SetN(infoView.GetDouble(RATING_KEY));
+            infoMap.emplace(std::make_pair(RATING_KEY, attributeValue));
+        }
+        if (infoView.KeyExists(PLOT_KEY)) {
+            std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> attributeValue = std::make_shared<Aws::DynamoDB::Model::AttributeValue>();
+            attributeValue->SetS(infoView.GetString(PLOT_KEY));
+            infoMap.emplace(std::make_pair(PLOT_KEY, attributeValue));
+        }
+
+        result[INFO_KEY].SetM(infoMap);
+    }
+
+    return result;
+}
+
+//! Create a DynamoDB table to be used in sample code scenarios.
+/*!
+  \sa createMoviesDynamoDBTable()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+*/
+bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    bool movieTableAlreadyExisted = false;
+
+    {
+        Aws::DynamoDB::Model::CreateTableRequest request;
+
+        Aws::DynamoDB::Model::AttributeDefinition yearAttributeDefinition;
+        yearAttributeDefinition.SetAttributeName(YEAR_KEY);
+        yearAttributeDefinition.SetAttributeType(
+                Aws::DynamoDB::Model::ScalarAttributeType::N);
+        request.AddAttributeDefinitions(yearAttributeDefinition);
+
+        Aws::DynamoDB::Model::AttributeDefinition titleAttributeDefinition;
+        yearAttributeDefinition.SetAttributeName(TITLE_KEY);
+        yearAttributeDefinition.SetAttributeType(
+                Aws::DynamoDB::Model::ScalarAttributeType::S);
+        request.AddAttributeDefinitions(yearAttributeDefinition);
+
+        Aws::DynamoDB::Model::KeySchemaElement yearKeySchema;
+        yearKeySchema.WithAttributeName(YEAR_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::HASH);
+        request.AddKeySchema(yearKeySchema);
+
+        Aws::DynamoDB::Model::KeySchemaElement titleKeySchema;
+        yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::RANGE);
+        request.AddKeySchema(yearKeySchema);
+
+        Aws::DynamoDB::Model::ProvisionedThroughput throughput;
+        throughput.WithReadCapacityUnits(
+                PROVISIONED_THROUGHPUT_UNITS).WithWriteCapacityUnits(
+                PROVISIONED_THROUGHPUT_UNITS);
+        request.SetProvisionedThroughput(throughput);
+        request.SetTableName(MOVIE_TABLE_NAME);
+
+        std::cout << "Creating table '" << MOVIE_TABLE_NAME << "'..." << std::endl;
+        const Aws::DynamoDB::Model::CreateTableOutcome &result = dynamoClient.CreateTable(
+                request);
+        if (!result.IsSuccess()) {
+            if (result.GetError().GetErrorType() ==
+                Aws::DynamoDB::DynamoDBErrors::RESOURCE_IN_USE) {
+                std::cout << "Table already exists." << std::endl;
+                movieTableAlreadyExisted = true;
+            }
+            else {
+                std::cerr << "Failed to create table: "
+                          << result.GetError().GetMessage();
+                return false;
+            }
+        }
+    }
+
+    // Wait for table to become active.
+    if (!movieTableAlreadyExisted) {
+        std::cout << "Waiting for table '" << MOVIE_TABLE_NAME
+                  << "' to become active...." << std::endl;
+        if (!AwsDoc::DynamoDB::waitTableActive(MOVIE_TABLE_NAME, clientConfiguration)) {
+            return false;
+        }
+        std::cout << "Table '" << MOVIE_TABLE_NAME << "' created and active."
+                  << std::endl;
+    }
+
+    return true;
+}
+
+//! Delete the DynamoDB table used for sample code scenarios.
+/*!
+  \sa deleteMoviesDynamoDBTable()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+*/
+bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::DeleteTableRequest request;
+    request.SetTableName(MOVIE_TABLE_NAME);
+
+    const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
+            request);
+    if (result.IsSuccess()) {
+        std::cout << "Your table \""
+                  << result.GetResult().GetTableDescription().GetTableName()
+                  << " was deleted.\n";
+    }
+    else {
+        std::cerr << "Failed to delete table: " << result.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return result.IsSuccess();
+}
+
+//! Query a newly created DynamoDB table until it is active.
+/*!
+  \sa waitTableActive()
+  \param waitTableActive: The DynamoDB table's name.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+*/
+bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
+                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+    // Repeatedly call DescribeTable until table is ACTIVE.
+    const int MAX_QUERIES = 20;
+    Aws::DynamoDB::Model::DescribeTableRequest request;
+    request.SetTableName(tableName);
+
+    int count = 0;
+    while (count < MAX_QUERIES) {
+        const Aws::DynamoDB::Model::DescribeTableOutcome &result = dynamoClient.DescribeTable(
+                request);
+        if (result.IsSuccess()) {
+            Aws::DynamoDB::Model::TableStatus status = result.GetResult().GetTable().GetTableStatus();
+
+            if (Aws::DynamoDB::Model::TableStatus::ACTIVE != status) {
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            std::cerr << "Error DynamoDB::waitTableActive "
+                      << result.GetError().GetMessage() << std::endl;
+            return false;
+        }
+        count++;
+    }
+    return false;
+}
+```
++ For API details, see the following topics in *AWS SDK for C\+\+ API Reference*\.
+  + [BatchWriteItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/BatchWriteItem)
+  + [CreateTable](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/CreateTable)
+  + [DeleteItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/DeleteItem)
+  + [DeleteTable](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/DeleteTable)
+  + [DescribeTable](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/DescribeTable)
+  + [GetItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/GetItem)
+  + [PutItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem)
+  + [Query](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/Query)
+  + [Scan](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/Scan)
+  + [UpdateItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/UpdateItem)
+
+------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 Create a struct and methods that call DynamoDB actions\.  
 
 ```
@@ -231,7 +1382,7 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 	keyEx := expression.Key("year").Equal(expression.Value(releaseYear))
 	expr, err := expression.NewBuilder().WithKeyCondition(keyEx).Build()
 	if err != nil {
-		log.Printf("Couldn't build epxression for query. Here's why: %v\n", err)
+		log.Printf("Couldn't build expression for query. Here's why: %v\n", err)
 	} else {
 		response, err = basics.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
 			TableName:                 aws.String(basics.TableName),
@@ -316,7 +1467,7 @@ func (basics TableBasics) DeleteTable() error {
 Run an interactive scenario to create the table and perform actions on it\.  
 
 ```
-// RunScenario is an interactive example that shows you how to use the AWS SDK for Go
+// RunMovieScenario is an interactive example that shows you how to use the AWS SDK for Go
 // to create and use an Amazon DynamoDB table that stores data about movies.
 //
 //   1. Create a table that can hold movie data.
@@ -335,7 +1486,7 @@ Run an interactive scenario to create the table and perform actions on it\.
 //
 // The specified movie sampler is used to get sample data from a URL that is loaded
 // into the named table.
-func RunScenario(
+func RunMovieScenario(
 	sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
 	movieSampler actions.IMovieSampler) {
 	defer func() {
@@ -502,7 +1653,6 @@ func RunScenario(
 	log.Println(strings.Repeat("-", 88))
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 + For API details, see the following topics in *AWS SDK for Go API Reference*\.
   + [BatchWriteItem](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.BatchWriteItem)
   + [CreateTable](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.CreateTable)
@@ -519,56 +1669,56 @@ func RunScenario(
 #### [ Java ]
 
 **SDK for Java 2\.x**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 Create a DynamoDB table\.  
 
 ```
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
-
         DynamoDbWaiter dbWaiter = ddb.waiter();
-        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>();
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("year")
-                .attributeType("N")
-                .build());
+            .attributeName("year")
+            .attributeType("N")
+            .build());
 
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("title")
-                .attributeType("S")
-                .build());
+            .attributeName("title")
+            .attributeType("S")
+            .build());
 
-        ArrayList<KeySchemaElement> tableKey = new ArrayList<KeySchemaElement>();
+        ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
-                .attributeName("year")
-                .keyType(KeyType.HASH)
-                .build();
+            .attributeName("year")
+            .keyType(KeyType.HASH)
+            .build();
 
         KeySchemaElement key2 = KeySchemaElement.builder()
-                .attributeName("title")
-                .keyType(KeyType.RANGE) // Sort
-                .build();
+            .attributeName("title")
+            .keyType(KeyType.RANGE)
+            .build();
 
         // Add KeySchemaElement objects to the list.
         tableKey.add(key);
         tableKey.add(key2);
 
         CreateTableRequest request = CreateTableRequest.builder()
-                .keySchema(tableKey)
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .attributeDefinitions(attributeDefinitions)
-                .tableName(tableName)
-                .build();
+            .keySchema(tableKey)
+            .provisionedThroughput(ProvisionedThroughput.builder()
+                .readCapacityUnits(new Long(10))
+                .writeCapacityUnits(new Long(10))
+                .build())
+            .attributeDefinitions(attributeDefinitions)
+            .tableName(tableName)
+            .build();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
@@ -585,178 +1735,216 @@ Create a DynamoDB table\.
 Create a helper function to download and extract the sample JSON file\.  
 
 ```
-        // Load data into the table.
-        public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
+    // Load data into the table.
+    public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(ddb)
+            .build();
 
-            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
-            DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+        DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+        JsonParser parser = new JsonFactory().createParser(new File(fileName));
+        com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
+        Iterator<JsonNode> iter = rootNode.iterator();
+        ObjectNode currentNode;
+        int t = 0 ;
+        while (iter.hasNext()) {
+            // Only add 200 Movies to the table.
+            if (t == 200)
+                break ;
+            currentNode = (ObjectNode) iter.next();
 
-            JsonParser parser = new JsonFactory().createParser(new File(fileName));
-            com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            Iterator<JsonNode> iter = rootNode.iterator();
-            ObjectNode currentNode;
-            int t = 0 ;
-            while (iter.hasNext()) {
+            int year = currentNode.path("year").asInt();
+            String title = currentNode.path("title").asText();
+            String info = currentNode.path("info").toString();
 
-                // Only add 200 Movies to the table.
-                if (t == 200)
-                    break ;
-                currentNode = (ObjectNode) iter.next();
+            Movies movies = new Movies();
+            movies.setYear(year);
+            movies.setTitle(title);
+            movies.setInfo(info);
 
-                int year = currentNode.path("year").asInt();
-                String title = currentNode.path("title").asText();
-                String info = currentNode.path("info").toString();
-
-                Movies movies = new Movies();
-                movies.setYear(year);
-                movies.setTitle(title);
-                movies.setInfo(info);
-
-                // Put the data into the Amazon DynamoDB Movie table.
-                mappedTable.putItem(movies);
-                t++;
-            }
-       }
+            // Put the data into the Amazon DynamoDB Movie table.
+            mappedTable.putItem(movies);
+            t++;
+        }
+    }
 ```
 Get an item from a table\.  
 
 ```
     public static void getItem(DynamoDbClient ddb) {
 
-            HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
+        keyToGet.put("year", AttributeValue.builder()
+            .n("1933")
+            .build());
 
-            keyToGet.put("year", AttributeValue.builder()
-                    .n("1933")
-                    .build());
+        keyToGet.put("title", AttributeValue.builder()
+            .s("King Kong")
+            .build());
 
-            keyToGet.put("title", AttributeValue.builder()
-                    .s("King Kong")
-                    .build());
+        GetItemRequest request = GetItemRequest.builder()
+            .key(keyToGet)
+            .tableName("Movies")
+            .build();
 
-            GetItemRequest request = GetItemRequest.builder()
-                    .key(keyToGet)
-                    .tableName("Movies")
-                    .build();
+        try {
+            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
 
-            try {
-                Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+            if (returnedItem != null) {
+                Set<String> keys = returnedItem.keySet();
+                System.out.println("Amazon DynamoDB table attributes: \n");
 
-                if (returnedItem != null) {
-                    Set<String> keys = returnedItem.keySet();
-                    System.out.println("Amazon DynamoDB table attributes: \n");
-
-                    for (String key1 : keys) {
-                        System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
-                    }
-                } else {
-                    System.out.format("No item found with the key %s!\n", "year");
+                for (String key1 : keys) {
+                    System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
                 }
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
+            } else {
+                System.out.format("No item found with the key %s!\n", "year");
             }
+
+        } catch (DynamoDbException e) {
+             System.err.println(e.getMessage());
+             System.exit(1);
+        }
     }
 ```
 Full example\.  
 
 ```
+/**
+ *  Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ *  For more information, see the following documentation topic:
+ *
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ *  This Java example performs these tasks:
+ *
+ * 1. Creates the Amazon DynamoDB Movie table with partition and sort key.
+ * 2. Puts data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
+ * 3. Gets data from the Movie table.
+ * 4. Adds a new item.
+ * 5. Updates an item.
+ * 6. Uses a Scan to query items using the Enhanced client.
+ * 7. Queries all items where the year is 2013 using the Enhanced Client.
+ * 8. Deletes the table.
+ */
+
 public class Scenario {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <fileName>\n\n" +
-                "Where:\n" +
-                "    fileName - the path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <fileName>\n\n" +
+            "Where:\n" +
+            "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
         if (args.length != 1) {
-              System.out.println(USAGE);
-              System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String tableName = "Movies";
         String fileName = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                    .region(region)
-                    .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
-        System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon DynamoDB example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("1. Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
         createTable(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Loading data into the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("2. Loading data into the Amazon DynamoDB table.");
         loadData(ddb, tableName, fileName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Getting data from the Movie table.");
+        System.out.println(DASHES);
+        System.out.println("3. Getting data from the Movie table.");
         getItem(ddb) ;
+        System.out.println(DASHES);
 
-        System.out.println("******* Putting a record into the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("4. Putting a record into the Amazon DynamoDB table.");
         putRecord(ddb);
+        System.out.println(DASHES);
 
-        System.out.println("******* Updating a record.");
+        System.out.println(DASHES);
+        System.out.println("5. Updating a record.");
         updateTableItem(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Scanning the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("6. Scanning the Amazon DynamoDB table.");
         scanMovies(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Querying the Movies released in 2013.");
+        System.out.println(DASHES);
+        System.out.println("7. Querying the Movies released in 2013.");
         queryTable(ddb);
+        System.out.println(DASHES);
 
-        System.out.println("******* Deleting the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("8. Deleting the Amazon DynamoDB table.");
         deleteDynamoDBTable(ddb, tableName);
+        System.out.println(DASHES);
+
         ddb.close();
     }
 
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
-
         DynamoDbWaiter dbWaiter = ddb.waiter();
-        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>();
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("year")
-                .attributeType("N")
-                .build());
+            .attributeName("year")
+            .attributeType("N")
+            .build());
 
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("title")
-                .attributeType("S")
-                .build());
+            .attributeName("title")
+            .attributeType("S")
+            .build());
 
-        ArrayList<KeySchemaElement> tableKey = new ArrayList<KeySchemaElement>();
+        ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
-                .attributeName("year")
-                .keyType(KeyType.HASH)
-                .build();
+            .attributeName("year")
+            .keyType(KeyType.HASH)
+            .build();
 
         KeySchemaElement key2 = KeySchemaElement.builder()
-                .attributeName("title")
-                .keyType(KeyType.RANGE) // Sort
-                .build();
+            .attributeName("title")
+            .keyType(KeyType.RANGE)
+            .build();
 
         // Add KeySchemaElement objects to the list.
         tableKey.add(key);
         tableKey.add(key2);
 
         CreateTableRequest request = CreateTableRequest.builder()
-                .keySchema(tableKey)
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .attributeDefinitions(attributeDefinitions)
-                .tableName(tableName)
-                .build();
+            .keySchema(tableKey)
+            .provisionedThroughput(ProvisionedThroughput.builder()
+                .readCapacityUnits(new Long(10))
+                .writeCapacityUnits(new Long(10))
+                .build())
+            .attributeDefinitions(attributeDefinitions)
+            .tableName(tableName)
+            .build();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
@@ -772,40 +1960,36 @@ public class Scenario {
 
     // Query the table.
     public static void queryTable(DynamoDbClient ddb) {
-            try {
+        try {
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
 
-                DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                        .dynamoDbClient(ddb)
-                        .build();
+            DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+            QueryConditional queryConditional = QueryConditional
+                .keyEqualTo(Key.builder()
+                .partitionValue(2013)
+                .build());
 
-                DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+            // Get items in the table and write out the ID value.
+            Iterator<Movies> results = custTable.query(queryConditional).items().iterator();
+            String result="";
 
-                    QueryConditional queryConditional = QueryConditional
-                            .keyEqualTo(Key.builder()
-                                    .partitionValue(2013)
-                                    .build());
+            while (results.hasNext()) {
+                Movies rec = results.next();
+                System.out.println("The title of the movie is "+rec.getTitle());
+                System.out.println("The movie information  is "+rec.getInfo());
+            }
 
-                    // Get items in the table and write out the ID value
-                    Iterator<Movies> results = custTable.query(queryConditional).items().iterator();
-                    String result="";
-
-                    while (results.hasNext()) {
-                        Movies rec = results.next();
-                        System.out.println("The title of the movie is "+rec.getTitle());
-                        System.out.println("The movie information  is "+rec.getInfo());
-                    }
-
-                } catch (DynamoDbException e) {
-                    System.err.println(e.getMessage());
-                    System.exit(1);
-                }
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+            }
         }
 
         // Scan the table.
         public static void scanMovies(DynamoDbClient ddb, String tableName) {
-
             System.out.println("******* Scanning all movies.\n");
-
             try{
                 DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                         .dynamoDbClient(ddb)
@@ -814,7 +1998,6 @@ public class Scenario {
                 DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
                 Iterator<Movies> results = custTable.scan().items().iterator();
                 while (results.hasNext()) {
-
                     Movies rec = results.next();
                     System.out.println("The movie title is "+rec.getTitle());
                     System.out.println("The movie year is " +rec.getYear());
@@ -826,65 +2009,56 @@ public class Scenario {
             }
         }
 
-        // Load data into the table.
-        public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
+    // Load data into the table.
+    public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(ddb)
+            .build();
 
-            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
-            DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+        DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+        JsonParser parser = new JsonFactory().createParser(new File(fileName));
+        com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
+        Iterator<JsonNode> iter = rootNode.iterator();
+        ObjectNode currentNode;
+        int t = 0 ;
+        while (iter.hasNext()) {
+            // Only add 200 Movies to the table.
+            if (t == 200)
+                break ;
+            currentNode = (ObjectNode) iter.next();
 
-            JsonParser parser = new JsonFactory().createParser(new File(fileName));
-            com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            Iterator<JsonNode> iter = rootNode.iterator();
-            ObjectNode currentNode;
-            int t = 0 ;
-            while (iter.hasNext()) {
+            int year = currentNode.path("year").asInt();
+            String title = currentNode.path("title").asText();
+            String info = currentNode.path("info").toString();
 
-                // Only add 200 Movies to the table.
-                if (t == 200)
-                    break ;
-                currentNode = (ObjectNode) iter.next();
+            Movies movies = new Movies();
+            movies.setYear(year);
+            movies.setTitle(title);
+            movies.setInfo(info);
 
-                int year = currentNode.path("year").asInt();
-                String title = currentNode.path("title").asText();
-                String info = currentNode.path("info").toString();
-
-                Movies movies = new Movies();
-                movies.setYear(year);
-                movies.setTitle(title);
-                movies.setInfo(info);
-
-                // Put the data into the Amazon DynamoDB Movie table.
-                mappedTable.putItem(movies);
-                t++;
-            }
-       }
-
+            // Put the data into the Amazon DynamoDB Movie table.
+            mappedTable.putItem(movies);
+            t++;
+        }
+    }
 
     // Update the record to include show only directors.
     public static void updateTableItem(DynamoDbClient ddb, String tableName){
-
-        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
-
-        // Specify the key and sort key.
+        HashMap<String,AttributeValue> itemKey = new HashMap<>();
         itemKey.put("year", AttributeValue.builder().n("1933").build());
         itemKey.put("title", AttributeValue.builder().s("King Kong").build());
 
-        HashMap<String,AttributeValueUpdate> updatedValues =
-                new HashMap<String,AttributeValueUpdate>();
-
-        // Update the column specified by info with updatedVal.
+        HashMap<String,AttributeValueUpdate> updatedValues = new HashMap<>();
         updatedValues.put("info", AttributeValueUpdate.builder()
-                .value(AttributeValue.builder().s("{\"directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\"]").build())
-                .action(AttributeAction.PUT)
-                .build());
+            .value(AttributeValue.builder().s("{\"directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\"]").build())
+            .action(AttributeAction.PUT)
+            .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
-                .tableName(tableName)
-                .key(itemKey)
-                .attributeUpdates(updatedValues)
-                .build();
+            .tableName(tableName)
+            .key(itemKey)
+            .attributeUpdates(updatedValues)
+            .build();
 
         try {
             ddb.updateItem(request);
@@ -900,10 +2074,9 @@ public class Scenario {
     }
 
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
-
         DeleteTableRequest request = DeleteTableRequest.builder()
-                .tableName(tableName)
-                .build();
+            .tableName(tableName)
+            .build();
 
         try {
             ddb.deleteTable(request);
@@ -916,15 +2089,11 @@ public class Scenario {
     }
 
     public static void putRecord(DynamoDbClient ddb) {
-
         try {
-
-            // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
+                .dynamoDbClient(ddb)
+                .build();
 
-            // Create a DynamoDbTable object.
             DynamoDbTable<Movies> table = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
 
             // Populate the Table.
@@ -932,55 +2101,52 @@ public class Scenario {
             record.setYear(2020);
             record.setTitle("My Movie2");
             record.setInfo("no info");
-
-            // Put the data into a DynamoDB table.
             table.putItem(record);
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Added a new issue to the table.");
+        System.out.println("Added a new movie to the table.");
     }
 
     public static void getItem(DynamoDbClient ddb) {
 
-            HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
+        keyToGet.put("year", AttributeValue.builder()
+            .n("1933")
+            .build());
 
-            keyToGet.put("year", AttributeValue.builder()
-                    .n("1933")
-                    .build());
+        keyToGet.put("title", AttributeValue.builder()
+            .s("King Kong")
+            .build());
 
-            keyToGet.put("title", AttributeValue.builder()
-                    .s("King Kong")
-                    .build());
+        GetItemRequest request = GetItemRequest.builder()
+            .key(keyToGet)
+            .tableName("Movies")
+            .build();
 
-            GetItemRequest request = GetItemRequest.builder()
-                    .key(keyToGet)
-                    .tableName("Movies")
-                    .build();
+        try {
+            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
 
-            try {
-                Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+            if (returnedItem != null) {
+                Set<String> keys = returnedItem.keySet();
+                System.out.println("Amazon DynamoDB table attributes: \n");
 
-                if (returnedItem != null) {
-                    Set<String> keys = returnedItem.keySet();
-                    System.out.println("Amazon DynamoDB table attributes: \n");
-
-                    for (String key1 : keys) {
-                        System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
-                    }
-                } else {
-                    System.out.format("No item found with the key %s!\n", "year");
+                for (String key1 : keys) {
+                    System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
                 }
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
+            } else {
+                System.out.format("No item found with the key %s!\n", "year");
             }
+
+        } catch (DynamoDbException e) {
+             System.err.println(e.getMessage());
+             System.exit(1);
+        }
     }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 + For API details, see the following topics in *AWS SDK for Java 2\.x API Reference*\.
   + [BatchWriteItem](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/BatchWriteItem)
   + [CreateTable](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/CreateTable)
@@ -997,15 +2163,15 @@ public class Scenario {
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create a DynamoDB client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create a DynamoDB document client\.  
 
@@ -1013,14 +2179,12 @@ Create a DynamoDB document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -1030,26 +2194,19 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
 Run the scenario\.  
 
 ```
-*/
 import fs from "fs";
-// A practical functional library used to split the data into segments.
-import * as R from "ramda";
-import { ddbClient } from "../libs/ddbClient.js";
-import {
-  CreateTableCommand,
-  DeleteTableCommand,
-} from "@aws-sdk/client-dynamodb";
-import { ddbDocClient } from "../libs/ddbDocClient.js";
+import { splitEvery } from "ramda";
 import {
   PutCommand,
   GetCommand,
@@ -1059,285 +2216,382 @@ import {
   ScanCommand,
   QueryCommand,
 } from "@aws-sdk/lib-dynamodb";
+import {
+  CreateTableCommand,
+  DeleteTableCommand,
+  waitUntilTableExists,
+  waitUntilTableNotExists,
+} from "@aws-sdk/client-dynamodb";
 
-if (process.argv.length < 6) {
-  console.log(
-    "Usage: node dynamodb_basics.js <tableNaame> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
-      "Example: node dynamodb_basics.js newmoviesbrmur newmoviename 2025 200 'MOVIE PLOT DETAILS'"
-  );
-}
+import { ddbClient } from "../libs/ddbClient.js";
+import { ddbDocClient } from "../libs/ddbDocClient.js";
 
-// Helper function to delay running the code while the AWS service calls wait for responses.
-function wait(ms) {
-  var start = Date.now();
-  var end = start;
-  while (end < start + ms) {
-    end = Date.now();
-  }
-}
-// Set the parameters.
-const tableName = process.argv[2];
-const newMovieName = process.argv[3];
-const newMovieYear = parseInt(process.argv[4]); // parseInt() converts the string into a number.
-const existingMovieName = process.argv[5];
-const existingMovieYear = parseInt(process.argv[6]);
-const newMovieRank = parseInt(process.argv[7]);
-const newMoviePlot = process.argv[8];
-
-export const run = async (
-  tableName,
-  newMovieName,
-  newMovieYear,
-  existingMovieName,
-  existingMovieYear,
-  newMovieRank,
-  newMoviePlot
-) => {
-  try {
-    console.log("Creating table ...");
-    // Set the parameters.
-    const params = {
+/**
+ * @param {string} tableName
+ */
+const createTable = async (tableName) => {
+  await ddbClient.send(
+    new CreateTableCommand({
       AttributeDefinitions: [
-        {
-          AttributeName: "title",
-          AttributeType: "S",
-        },
         {
           AttributeName: "year",
           AttributeType: "N",
         },
+        {
+          AttributeName: "title",
+          AttributeType: "S",
+        },
       ],
       KeySchema: [
         {
-          AttributeName: "title",
+          AttributeName: "year",
           KeyType: "HASH",
         },
         {
-          AttributeName: "year",
+          AttributeName: "title",
           KeyType: "RANGE",
         },
       ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5,
-      },
+      // Enables "on-demand capacity mode".
+      BillingMode: "PAY_PER_REQUEST",
       TableName: tableName,
-    };
-    const data = await ddbClient.send(new CreateTableCommand(params));
-    console.log("Waiting for table to be created...");
-    wait(10000);
-    console.log(
-      "Table created. Table name is ",
-      data.TableDescription.TableName
-    );
-    try {
-      const params = {
-        TableName: tableName,
-        Item: {
-          title: newMovieName,
-          year: newMovieYear,
-        },
-      };
-      console.log("Adding movie...");
-      const data = await ddbDocClient.send(new PutCommand(params));
-      console.log("Success - single movie added.");
-      try {
-        // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-        // and put it in the same folder as the example.
-        // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
-        // Split the table into segments of 25.
-        const dataSegments = R.splitEvery(25, allMovies);
-        // Loop batch write operation 10 times to upload 250 items.
-        console.log("Writing movies in batch to table...");
-        for (let i = 0; i < 10; i++) {
-          const segment = dataSegments[i];
-          for (let j = 0; j < 25; j++) {
-            const params = {
-              RequestItems: {
-                [tableName]: [
-                  {
-                    // Destination Amazon DynamoDB table name.
-                    PutRequest: {
-                      Item: {
-                        year: segment[j].year,
-                        title: segment[j].title,
-                        info: segment[j].info,
-                      },
-                    },
-                  },
-                ],
-              },
-            };
-            const data = ddbDocClient.send(new BatchWriteCommand(params));
-          }
-        }
-        wait(20000);
-        console.log("Success, movies written to table.");
-        try {
-          const params = {
-            TableName: tableName,
-            Key: {
-              title: existingMovieName,
-              year: existingMovieYear,
-            },
-            // Define expressions for the new or updated attributes.
-            ProjectionExpression: "#r",
-            ExpressionAttributeNames: { "#r": "rank" },
-            UpdateExpression: "set info.plot = :p, info.#r = :r",
-            ExpressionAttributeValues: {
-              ":p": newMoviePlot,
-              ":r": newMovieRank,
-            },
-            ReturnValues: "ALL_NEW",
-          };
-          console.log("Updating a single movie...");
-          const data = await ddbClient.send(new UpdateCommand(params));
-          console.log("Success - movie updated.");
-          try {
-            console.log("Getting movie....");
-            const params = {
-              TableName: tableName,
-              Key: {
-                title: existingMovieName,
-                year: existingMovieYear,
-              },
-            };
-            const data = await ddbDocClient.send(new GetCommand(params));
-            console.log("Success getting item. Item details :", data.Item);
-            try {
-              const params = {
-                TableName: tableName,
+    })
+  );
+  await waitUntilTableExists(
+    { client: ddbClient, maxWaitTime: 15, maxDelay: 2, minDelay: 1 },
+    { TableName: tableName }
+  );
+};
 
-                Key: {
-                  title: newMovieName,
-                  year: newMovieYear,
-                },
-              };
-              const data = await ddbDocClient.send(new DeleteCommand(params));
-              console.log("Success - movie deleted.");
-              try {
-                console.log("Scanning table....");
-                const params = {
-                  TableName: tableName,
-                  ProjectionExpression: "#r, #y, title",
-                  ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
-                  FilterExpression: "title = :t and #y = :y and info.#r = :r",
-                  ExpressionAttributeValues: {
-                    ":r": newMovieRank,
-                    ":y": existingMovieYear,
-                    ":t": existingMovieName,
-                  },
-                };
-                const data = await ddbClient.send(new ScanCommand(params));
-                // Loop through and parse the response.
-                for (let i = 0; i < data.Items.length; i++) {
-                  console.log(
-                    "Scan successful. Items with rank of " +
-                      newMovieRank +
-                      " include\n" +
-                      "Year = " +
-                      data.Items[i].year +
-                      " Title = " +
-                      data.Items[i].title
-                  );
-                }
-                try {
-                  const params = {
-                    ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
-                    ProjectionExpression: "#r, #y, title",
-                    TableName: tableName,
-                    UpdateExpression: "set #r = :r, title = :t, #y = :y",
-                    ExpressionAttributeValues: {
-                      ":t": existingMovieName,
-                      ":y": existingMovieYear,
-                      ":r": newMovieRank,
-                    },
-                    KeyConditionExpression: "title = :t and #y = :y",
-                    FilterExpression: "info.#r = :r",
-                  };
+/**
+ *
+ * @param {string} tableName
+ * @param {Record<string, any> | undefined} attributes
+ */
+const putItem = async (tableName, attributes) => {
+  const command = new PutCommand({
+    TableName: tableName,
+    Item: attributes,
+  });
 
-                  console.log("Querying table...");
-                  const data = await ddbDocClient.send(
-                    new QueryCommand(params)
-                  );
-                  // Loop through and parse the response.
-                  for (let i = 0; i < data.Items.length; i++) {
-                    console.log(
-                      "Query successful. Items with rank of " +
-                        newMovieRank +
-                        " include\n" +
-                        "Year = " +
-                        data.Items[i].year +
-                        " Title = " +
-                        data.Items[i].title
-                    );
-                  }
-                  try {
-                    console.log("Deleting a movie...");
-                    const params = {
-                      TableName: tableName,
-                      Key: {
-                        title: existingMovieName,
-                        year: existingMovieYear,
-                      },
-                    };
-                    const data = await ddbDocClient.send(
-                      new DeleteCommand(params)
-                    );
-                    console.log("Success - item deleted");
-                    try {
-                      console.log("Deleting the table...");
-                      const params = {
-                        TableName: tableName,
-                      };
-                      const data = await ddbDocClient.send(
-                        new DeleteTableCommand(params)
-                      );
-                      console.log("Success, table deleted.");
-                      return "Run successfully"; // For unit tests.
-                    } catch (err) {
-                      console.log("Error deleting table. ", err);
-                    }
-                  } catch (err) {
-                    console.log("Error deleting movie. ", err);
-                  }
-                } catch (err) {
-                  console.log("Error querying table. ", err);
-                }
-              } catch (err) {
-                console.log("Error scanning table. ", err);
-              }
-            } catch (err) {
-              console.log("Error deleting movie. ", err);
-            }
-          } catch (err) {
-            console.log("Error getting item. ", err);
-          }
-        } catch (err) {
-          console.log("Error adding movies by batch. ", err);
-        }
-      } catch (err) {
-        console.log("Error updating item. ", err);
-      }
-    } catch (err) {
-      console.log("Error adding a single item. ", err);
+  await ddbDocClient.send(command);
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {string} filePath
+ * @returns { { movieCount: number } } The number of movies written to the database.
+ */
+const batchWriteMoviesFromFile = async (tableName, filePath) => {
+  const fileContents = fs.readFileSync(filePath);
+  const movies = JSON.parse(fileContents, "utf8");
+
+  // Map movies to RequestItems.
+  const putMovieRequestItems = movies.map(({ year, title, info }) => ({
+    PutRequest: { Item: { year, title, info } },
+  }));
+
+  // Organize RequestItems into batches of 25. 25 is the max number of items in a batch request.
+  const putMovieBatches = splitEvery(25, putMovieRequestItems);
+  const batchCount = putMovieBatches.length;
+
+  // Map batches to promises.
+  const batchRequests = putMovieBatches.map(async (batch, i) => {
+    const command = new BatchWriteCommand({
+      RequestItems: {
+        [tableName]: batch,
+      },
+    });
+
+    await ddbDocClient.send(command).then(() => {
+      console.log(
+        `Wrote batch ${i + 1} of ${batchCount} with ${batch.length} items.`
+      );
+    });
+  });
+
+  // Wait for all batch requests to resolve.
+  await Promise.all(batchRequests);
+
+  return { movieCount: movies.length };
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{
+ * existingMovieName: string,
+ * existingMovieYear: string,
+ * newMoviePlot: string,
+ * newMovieRank: string}} keyUpdate
+ */
+const updateMovie = async (
+  tableName,
+  { existingMovieName, existingMovieYear, newMoviePlot, newMovieRank }
+) => {
+  await ddbClient.send(
+    new UpdateCommand({
+      TableName: tableName,
+      Key: {
+        title: existingMovieName,
+        year: existingMovieYear,
+      },
+      // Define expressions for the new or updated attributes.
+      ExpressionAttributeNames: { "#r": "rank" },
+      UpdateExpression: "set info.plot = :p, info.#r = :r",
+      ExpressionAttributeValues: {
+        ":p": newMoviePlot,
+        ":r": newMovieRank,
+      },
+      ReturnValues: "ALL_NEW",
+    })
+  );
+};
+
+/**
+ * @param {{ title: string, info: { plot: string, rank: number }, year: number }} movie
+ */
+const logMovie = (movie) => {
+  console.log(` | Title: "${movie.title}".`);
+  console.log(` | Plot: "${movie.info.plot}`);
+  console.log(` | Year: ${movie.year}`);
+  console.log(` | Rank: ${movie.info.rank}`);
+};
+
+/**
+ *
+ * @param {{ title: string, info: { plot: string, rank: number }, year: number }[]} movies
+ */
+const logMovies = (movies) => {
+  console.log("\n");
+  movies.forEach((movie, i) => {
+    if (i > 0) {
+      console.log("-".repeat(80));
     }
-  } catch (err) {
-    console.log("Error creating table. ", err);
+
+    logMovie(movie);
+  });
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {string} title
+ * @param {number} year
+ * @returns
+ */
+const getMovie = async (tableName, title, year) => {
+  const { Item } = await ddbDocClient.send(
+    new GetCommand({
+      TableName: tableName,
+      Key: {
+        title,
+        year
+      },
+      // By default, reads are eventually consistent. "ConsistentRead: true" represents
+      // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
+      // can also result in higher latency and a potential for server errors.
+      ConsistentRead: true,
+    })
+  );
+
+  return Item;
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{ title: string, year: number }} key
+ */
+const deleteMovie = async (tableName, key) => {
+  await ddbDocClient.send(
+    new DeleteCommand({
+      TableName: tableName,
+      Key: key,
+    })
+  );
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {number} startYear
+ * @param {number} endYear
+ * @param {Record<string, any>} startKey
+ * @returns {Promise<{}[]>}
+ */
+const findMoviesBetweenYears = async (
+  tableName,
+  startYear,
+  endYear,
+  startKey = undefined
+) => {
+  const { Items, LastEvaluatedKey } = await ddbClient.send(
+    new ScanCommand({
+      ConsistentRead: true,
+      TableName: tableName,
+      ExpressionAttributeNames: { "#y": "year" },
+      FilterExpression: "#y BETWEEN :y1 AND :y2",
+      ExpressionAttributeValues: { ":y1": startYear, ":y2": endYear },
+      ExclusiveStartKey: startKey,
+    })
+  );
+
+  if (LastEvaluatedKey) {
+    return Items.concat(
+      await findMoviesBetweenYears(
+        tableName,
+        startYear,
+        endYear,
+        LastEvaluatedKey
+      )
+    );
+  } else {
+    return Items;
   }
 };
-run(
+
+/**
+ *
+ * @param {string} tableName
+ * @param {number} year
+ * @returns
+ */
+const queryMoviesByYear = async (tableName, year) => {
+  const command = new QueryCommand({
+    ConsistentRead: true,
+    ExpressionAttributeNames: { "#y": "year" },
+    TableName: tableName,
+    ExpressionAttributeValues: {
+      ":y": year,
+    },
+    KeyConditionExpression: "#y = :y",
+  });
+
+  const { Items } = await ddbDocClient.send(command);
+
+  return Items;
+};
+
+/**
+ *
+ * @param {*} tableName
+ */
+const deleteTable = async (tableName) => {
+  await ddbDocClient.send(new DeleteTableCommand({ TableName: tableName }));
+  await waitUntilTableNotExists(
+    {
+      client: ddbClient,
+      maxWaitTime: 10,
+      maxDelay: 2,
+      minDelay: 1,
+    },
+    { TableName: tableName }
+  );
+};
+export const runScenario = async ({
   tableName,
   newMovieName,
   newMovieYear,
   existingMovieName,
   existingMovieYear,
   newMovieRank,
-  newMoviePlot
-);
+  newMoviePlot,
+  moviesPath,
+}) => {
+  console.log(`Creating table named: ${tableName}`);
+  await createTable(tableName);
+  console.log(`\nTable created.`);
+
+  console.log(`\nAdding "${newMovieName}" to ${tableName}.`);
+  await putItem(tableName, { title: newMovieName, year: newMovieYear });
+  console.log("\nSuccess - single movie added.");
+
+  console.log("\nWriting hundreds of movies in batches.");
+  const { movieCount } = await batchWriteMoviesFromFile(tableName, moviesPath);
+  console.log(`\nWrote ${movieCount} movies to database.`);
+
+  console.log(`\nGetting "${existingMovieName}."`);
+  const originalMovie = await getMovie(
+    tableName,
+    existingMovieName,
+    existingMovieYear
+  );
+  logMovie(originalMovie);
+
+  console.log(`\nUpdating "${existingMovieName}" with a new plot and rank.`);
+  await updateMovie(tableName, {
+    existingMovieName,
+    existingMovieYear,
+    newMoviePlot,
+    newMovieRank,
+  });
+  console.log(`\n"${existingMovieName}" updated.`);
+
+  console.log(`\nGetting latest info for "${existingMovieName}"`);
+  const updatedMovie = await getMovie(
+    tableName,
+    existingMovieName,
+    existingMovieYear
+  );
+  logMovie(updatedMovie);
+
+  console.log(`\nDeleting "${newMovieName}."`);
+  await deleteMovie(tableName, { title: newMovieName, year: newMovieYear });
+  console.log(`\n"${newMovieName} deleted.`);
+
+  const [scanY1, scanY2] = [1985, 2003];
+  console.log(
+    `\nScanning ${tableName} for movies that premiered between ${scanY1} and ${scanY2}.`
+  );
+  const scannedMovies = await findMoviesBetweenYears(tableName, scanY1, scanY1);
+  logMovies(scannedMovies);
+
+  const queryY = 2003;
+  console.log(`Querying ${tableName} for movies that premiered in ${queryY}.`);
+  const queriedMovies = await queryMoviesByYear(tableName, queryY);
+  logMovies(queriedMovies);
+
+  console.log(`Deleting ${tableName}.`);
+  await deleteTable(tableName);
+  console.log(`${tableName} deleted.`);
+};
+
+const main = async () => {
+  const args = {
+    tableName: "myNewTable",
+    newMovieName: "myMovieName",
+    newMovieYear: 2022,
+    existingMovieName: "This Is the End",
+    existingMovieYear: 2013,
+    newMovieRank: 200,
+    newMoviePlot: "A coder cracks code...",
+    moviesPath: "../../../../../../resources/sample_files/movies.json",
+  };
+
+  try {
+    await runScenario(args);
+  } catch (err) {
+    // Some extra error handling here to be sure the table is cleaned up if something
+    // goes wrong during the scenario run.
+
+    console.error(err);
+
+    const tableName = args.tableName;
+
+    if (tableName) {
+      console.log(`Attempting to delete ${tableName}`);
+      await ddbClient
+        .send(new DeleteTableCommand({ TableName: tableName }))
+        .then(() => console.log(`\n${tableName} deleted.`))
+        .catch((err) => console.error(`\nFailed to delete ${tableName}.`, err));
+    }
+  }
+};
+
+export { main };
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 + For API details, see the following topics in *AWS SDK for JavaScript API Reference*\.
   + [BatchWriteItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/batchwriteitemcommand.html)
   + [CreateTable](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/createtablecommand.html)
@@ -1355,32 +2609,33 @@ run(
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 Create a DynamoDB table\.  
 
 ```
 suspend fun createScenarioTable(tableNameVal: String, key: String) {
 
-    val  attDef = AttributeDefinition {
+    val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
     }
 
-    val  attDef1 = AttributeDefinition {
+    val attDef1 = AttributeDefinition {
         attributeName = "title"
         attributeType = ScalarAttributeType.S
     }
 
-    val keySchemaVal =  KeySchemaElement{
+    val keySchemaVal = KeySchemaElement {
         attributeName = key
         keyType = KeyType.Hash
     }
 
-    val keySchemaVal1 =  KeySchemaElement{
+    val keySchemaVal1 = KeySchemaElement {
         attributeName = "title"
         keyType = KeyType.Range
     }
 
-    val provisionedVal =  ProvisionedThroughput {
+    val provisionedVal = ProvisionedThroughput {
         readCapacityUnits = 10
         writeCapacityUnits = 10
     }
@@ -1406,7 +2661,7 @@ Create a helper function to download and extract the sample JSON file\.
 
 ```
 // Load data into the table.
-suspend fun loadData(tableName: String, fileName:String) {
+suspend fun loadData(tableName: String, fileName: String) {
 
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -1414,10 +2669,9 @@ suspend fun loadData(tableName: String, fileName:String) {
     var currentNode: ObjectNode
 
     var t = 0
-
     while (iter.hasNext()) {
 
-        if (t == 200)
+        if (t == 50)
             break
 
         currentNode = iter.next() as ObjectNode
@@ -1428,6 +2682,7 @@ suspend fun loadData(tableName: String, fileName:String) {
         t++
     }
 }
+
 suspend fun putMovie(
     tableNameVal: String,
     year: Int,
@@ -1439,11 +2694,10 @@ suspend fun putMovie(
     // Add all content to the table.
     itemValues["year"] = AttributeValue.N(strVal)
     itemValues["title"] = AttributeValue.S(title)
-    itemValues["info"] =  AttributeValue.S(info)
-
+    itemValues["info"] = AttributeValue.S(info)
 
     val request = PutItemRequest {
-        tableName=tableNameVal
+        tableName = tableNameVal
         item = itemValues
     }
 
@@ -1487,17 +2741,16 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - the path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
     """
 
-   if (args.size != 1) {
-         println(usage)
-         exitProcess(1)
-   }
-
-    val tableName = "Movies"
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(1)
+    }
 
     // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
+    val tableName = "Movies"
     val fileName = args[0]
     val partitionAlias = "#a"
 
@@ -1513,27 +2766,27 @@ suspend fun main(args: Array<String>) {
 
 suspend fun createScenarioTable(tableNameVal: String, key: String) {
 
-    val  attDef = AttributeDefinition {
+    val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
     }
 
-    val  attDef1 = AttributeDefinition {
+    val attDef1 = AttributeDefinition {
         attributeName = "title"
         attributeType = ScalarAttributeType.S
     }
 
-    val keySchemaVal =  KeySchemaElement{
+    val keySchemaVal = KeySchemaElement {
         attributeName = key
         keyType = KeyType.Hash
     }
 
-    val keySchemaVal1 =  KeySchemaElement{
+    val keySchemaVal1 = KeySchemaElement {
         attributeName = "title"
         keyType = KeyType.Range
     }
 
-    val provisionedVal =  ProvisionedThroughput {
+    val provisionedVal = ProvisionedThroughput {
         readCapacityUnits = 10
         writeCapacityUnits = 10
     }
@@ -1556,7 +2809,7 @@ suspend fun createScenarioTable(tableNameVal: String, key: String) {
 }
 
 // Load data into the table.
-suspend fun loadData(tableName: String, fileName:String) {
+suspend fun loadData(tableName: String, fileName: String) {
 
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -1564,10 +2817,9 @@ suspend fun loadData(tableName: String, fileName:String) {
     var currentNode: ObjectNode
 
     var t = 0
-
     while (iter.hasNext()) {
 
-        if (t == 200)
+        if (t == 50)
             break
 
         currentNode = iter.next() as ObjectNode
@@ -1578,6 +2830,7 @@ suspend fun loadData(tableName: String, fileName:String) {
         t++
     }
 }
+
 suspend fun putMovie(
     tableNameVal: String,
     year: Int,
@@ -1589,11 +2842,10 @@ suspend fun putMovie(
     // Add all content to the table.
     itemValues["year"] = AttributeValue.N(strVal)
     itemValues["title"] = AttributeValue.S(title)
-    itemValues["info"] =  AttributeValue.S(info)
-
+    itemValues["info"] = AttributeValue.S(info)
 
     val request = PutItemRequest {
-        tableName=tableNameVal
+        tableName = tableNameVal
         item = itemValues
     }
 
@@ -1602,7 +2854,6 @@ suspend fun putMovie(
         println("Added $title to the Movie table.")
     }
 }
-
 
 suspend fun getMovie(tableNameVal: String, keyName: String, keyVal: String) {
 
@@ -1680,7 +2931,6 @@ suspend fun scanMovies(tableNameVal: String) {
     }
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 + For API details, see the following topics in *AWS SDK for Kotlin API reference*\.
   + [BatchWriteItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation)
   + [CreateTable](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation)
@@ -1694,9 +2944,186 @@ suspend fun scanMovies(tableNameVal: String) {
   + [UpdateItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation)
 
 ------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+namespace DynamoDb\Basics;
+
+use Aws\DynamoDb\Marshaler;
+use DynamoDb;
+use DynamoDb\DynamoDBAttribute;
+use DynamoDb\DynamoDBService;
+
+use function AwsUtilities\testable_readline;
+
+class GettingStartedWithDynamoDB
+{
+    public function run()
+    {
+        echo("--------------------------------------\n");
+        print("Welcome to the Amazon DynamoDB getting started demo using PHP!\n");
+        echo("--------------------------------------\n");
+
+        $uuid = uniqid();
+        $service = new DynamoDBService();
+
+        $tableName = "ddb_demo_table_$uuid";
+        $service->createTable(
+            $tableName,
+            [
+                new DynamoDBAttribute('year', 'N', 'HASH'),
+                new DynamoDBAttribute('title', 'S', 'RANGE')
+            ]
+        );
+
+        echo "Waiting for table...";
+        $service->dynamoDbClient->waitUntil("TableExists", ['TableName' => $tableName]);
+        echo "table $tableName found!\n";
+
+        echo "What's the name of the last movie you watched?\n";
+        while (empty($movieName)) {
+            $movieName = testable_readline("Movie name: ");
+        }
+        echo "And what year was it released?\n";
+        $movieYear = "year";
+        while (!is_numeric($movieYear) || intval($movieYear) != $movieYear) {
+            $movieYear = testable_readline("Year released: ");
+        }
+
+        $service->putItem([
+            'Item' => [
+                'year' => [
+                    'N' => "$movieYear",
+                ],
+                'title' => [
+                    'S' => $movieName,
+                ],
+            ],
+            'TableName' => $tableName,
+        ]);
+
+        echo "How would you rate the movie from 1-10?\n";
+        $rating = 0;
+        while (!is_numeric($rating) || intval($rating) != $rating || $rating < 1 || $rating > 10) {
+            $rating = testable_readline("Rating (1-10): ");
+        }
+        echo "What was the movie about?\n";
+        while (empty($plot)) {
+            $plot = testable_readline("Plot summary: ");
+        }
+        $key = [
+            'Item' => [
+                'title' => [
+                    'S' => $movieName,
+                ],
+                'year' => [
+                    'N' => $movieYear,
+                ],
+            ]
+        ];
+        $attributes = ["rating" =>
+            [
+                'AttributeName' => 'rating',
+                'AttributeType' => 'N',
+                'Value' => $rating,
+            ],
+            'plot' => [
+                'AttributeName' => 'plot',
+                'AttributeType' => 'S',
+                'Value' => $plot,
+            ]
+        ];
+        $service->updateItemAttributesByKey($tableName, $key, $attributes);
+        echo "Movie added and updated.";
+
+        $batch = json_decode(loadMovieData());
+
+        $limit = 0;
+        $service->writeBatch($tableName, $batch);
+
+
+        $movie = $service->getItemByKey($tableName, $key);
+        echo "\nThe movie {$movie['Item']['title']['S']} was released in {$movie['Item']['year']['N']}.\n";
+        echo "What rating would you like to give {$movie['Item']['title']['S']}?\n";
+        $rating = 0;
+        while (!is_numeric($rating) || intval($rating) != $rating || $rating < 1 || $rating > 10) {
+            $rating = testable_readline("Rating (1-10): ");
+        }
+        $service->updateItemAttributeByKey($tableName, $key, 'rating', 'N', $rating);
+
+        $movie = $service->getItemByKey($tableName, $key);
+        echo "Ok, you have rated {$movie['Item']['title']['S']} as a {$movie['Item']['rating']['N']}\n";
+
+        $service->deleteItemByKey($tableName, $key);
+        echo "But, bad news, this was a trap. That movie has now been deleted because of your rating...harsh.\n";
+
+        echo "That's okay though. The book was better. Now, for something lighter, in what year were you born?\n";
+        $birthYear = "not a number";
+        while (!is_numeric($birthYear) || $birthYear >= date("Y")) {
+            $birthYear = testable_readline("Birth year: ");
+        }
+        $birthKey = [
+            'Key' => [
+                'year' => [
+                    'N' => "$birthYear",
+                ],
+            ],
+        ];
+        $result = $service->query($tableName, $birthKey);
+        $marshal = new Marshaler();
+        echo "Here are the movies in our collection released the year you were born:\n";
+        $oops = "Oops! There were no movies released in that year (that we know of).\n";
+        $display = "";
+        foreach ($result['Items'] as $movie) {
+            $movie = $marshal->unmarshalItem($movie);
+            $display .= $movie['title'] . "\n";
+        }
+        echo ($display) ?: $oops;
+
+        $yearsKey = [
+            'Key' => [
+                'year' => [
+                    'N' => [
+                        'minRange' => 1990,
+                        'maxRange' => 1999,
+                    ],
+                ],
+            ],
+        ];
+        $filter = "year between 1990 and 1999";
+        echo "\nHere's a list of all the movies released in the 90s:\n";
+        $result = $service->scan($tableName, $yearsKey, $filter);
+        foreach ($result['Items'] as $movie) {
+            $movie = $marshal->unmarshalItem($movie);
+            echo $movie['title'] . "\n";
+        }
+
+        echo "\nCleaning up this demo by deleting table $tableName...\n";
+        $service->deleteTable($tableName);
+    }
+}
+```
++ For API details, see the following topics in *AWS SDK for PHP API Reference*\.
+  + [BatchWriteItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/BatchWriteItem)
+  + [CreateTable](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/CreateTable)
+  + [DeleteItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/DeleteItem)
+  + [DeleteTable](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/DeleteTable)
+  + [DescribeTable](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/DescribeTable)
+  + [GetItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/GetItem)
+  + [PutItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem)
+  + [Query](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/Query)
+  + [Scan](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/Scan)
+  + [UpdateItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/UpdateItem)
+
+------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 Create a class that encapsulates a DynamoDB table\.  
 
 ```
@@ -1778,6 +3205,25 @@ class Movies:
             raise
         else:
             return self.table
+
+    def list_tables(self):
+        """
+        Lists the Amazon DynamoDB tables for the current account.
+
+        :return: The list of tables.
+        """
+        try:
+            tables = []
+            for table in self.dyn_resource.tables.all():
+                print(table.name)
+                tables.append(table)
+        except ClientError as err:
+            logger.error(
+                "Couldn't list tables. Here's why: %s: %s",
+                err.response['Error']['Code'], err.response['Error']['Message'])
+            raise
+        else:
+            return tables
 
     def write_batch(self, movies):
         """
@@ -2211,7 +3657,6 @@ class Question:
                 f"{answer} must be between {lower} and {upper}.")
         return _validate
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 + For API details, see the following topics in *AWS SDK for Python \(Boto3\) API Reference*\.
   + [BatchWriteItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/BatchWriteItem)
   + [CreateTable](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/CreateTable)
@@ -2228,6 +3673,7 @@ class Question:
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 Create a class that encapsulates a DynamoDB table\.  
 
 ```
@@ -2678,7 +4124,6 @@ def in_range(lower, upper)
   }
 end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 + For API details, see the following topics in *AWS SDK for Ruby API Reference*\.
   + [BatchWriteItem](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/BatchWriteItem)
   + [CreateTable](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/CreateTable)

@@ -1,4 +1,4 @@
-# Example: Transaction Operations<a name="DynamoDBMapper.Transactions"></a>
+# Example: Transaction operations<a name="DynamoDBMapper.Transactions"></a>
 
 The following Java code example declares a `Forum` and a `Thread` class and maps them to the DynamoDB tables using the `DynamoDBMapper` class\. 
 

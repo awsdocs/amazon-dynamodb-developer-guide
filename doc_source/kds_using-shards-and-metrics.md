@@ -1,10 +1,6 @@
-# Configuring Shards and Monitoring Change Data Capture with Kinesis Data Streams in DynamoDB<a name="kds_using-shards-and-metrics"></a>
+# Configuring shards and monitoring change data capture with Kinesis Data Streams in DynamoDB<a name="kds_using-shards-and-metrics"></a>
 
-**Topics**
-+ [Shard Management Considerations for Kinesis Data Streams](#kds_using-shards-and-metrics.shardmanagment)
-+ [Monitoring Change Data Capture with Kinesis Data Streams](#kds_using-shards-and-metrics.monitoring)
-
-## Shard Management Considerations for Kinesis Data Streams<a name="kds_using-shards-and-metrics.shardmanagment"></a>
+## Shard management considerations for Kinesis Data Streams<a name="kds_using-shards-and-metrics.shardmanagment"></a>
 
 A Kinesis data stream counts its throughput in [shards](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html)\. You will need to provision an appropriate number of shards on your Kinesis data stream to accommodate the change data capture records from DynamoDB\. To determine the number of shards that the Kinesis data stream will need to support your DynamoDB table, consider the following:
 + The average size of your DynamoDB table’s record in bytes \(`average_record_size_in_bytes`\)\.
@@ -17,15 +13,15 @@ You can approximate the number of shards \(`number_of_shards`\) needed for your 
 number_of_shards = ceiling( ((write_throughput * (1+percentage_of_updates) * average_record_size_in_bytes) /1024 /1024), 1)
 ```
 
-For example, you might have a maximum throughput of 40 write operations/second \(`write_throughput`\) with an average record size of 1285 bytes \(`average_record_size_in_bytes`\)\. If 25 percent of those write operations are update operations \(`percentage_of_updates`\), then you will need two shards \(`number_of_shards`\) to accommodate your DynamoDB streaming throughput: ceiling\( \(\(40 \* \(1\+25\) \* 1285 \)/ 1024 / 1024\), 1 \)\.
+For example, you might have a maximum throughput of 40 write operations/second \(`write_throughput`\) with an average record size of 1285 bytes \(`average_record_size_in_bytes`\)\. If 25 percent of those write operations are update operations \(`percentage_of_updates`\), then you will need two shards \(`number_of_shards`\) to accommodate your DynamoDB streaming throughput: ceiling\( \(\(40 \* \(1\+\(25/100\) \* 1285 \)/ 1024 / 1024\), 1 \)\.
 
 Note that this formula reflects only the shards that are needed to accommodate your DynamoDB streaming throughput\. It doesn't represent the total number of shards needed in your Kinesis data stream, such as shards required to support Kinesis data stream consumers\. 
 
 To learn more about determining the size of a Kinesis data stream, see [Determining the Initial Size of a Kinesis Data Stream](https://docs.aws.amazon.com/streams/latest/dev/amazon-kinesis-streams.html#how-do-i-size-a-stream)\.
 
-## Monitoring Change Data Capture with Kinesis Data Streams<a name="kds_using-shards-and-metrics.monitoring"></a>
+## Monitoring change data capture with Kinesis Data Streams<a name="kds_using-shards-and-metrics.monitoring"></a>
 
-DynamoDB provides several Amazon CloudWatch metrics to help you monitor the replication of change data capture to Kinesis\. For a full list of CloudWatch metrics, see [DynamoDB Metrics and Dimensions](metrics-dimensions.md)\.
+DynamoDB provides several Amazon CloudWatch metrics to help you monitor the replication of change data capture to Kinesis\. For a full list of CloudWatch metrics, see [DynamoDB Metrics and dimensions](metrics-dimensions.md)\.
 
 To determine whether your stream has sufficient capacity, we recommend that you monitor the following items both during stream enabling and in production:
 + `ThrottledPutRecordCount`: The number of records that that were throttled by your Kinesis data stream because of insufficient Kinesis data stream capacity\. You might experience some throttling during exceptional usage peaks, but the `ThrottledPutRecordCount` should remain as low as possible\. DynamoDB retries sending throttled records to the Kinesis data stream, but this might result in higher replication latency\. 
@@ -38,4 +34,4 @@ To determine whether your stream has sufficient capacity, we recommend that you 
 
    
 
-You can create Amazon CloudWatch alarms that send an Amazon Simple Notification Service \(Amazon SNS\) message for notification when any of the preceding metrics exceed a specific threshold\. For more information, see [Creating CloudWatch Alarms to Monitor DynamoDB](creating-alarms.md)\.
+You can create Amazon CloudWatch alarms that send an Amazon Simple Notification Service \(Amazon SNS\) message for notification when any of the preceding metrics exceed a specific threshold\. For more information, see [Creating CloudWatch alarms to monitor DynamoDB](creating-alarms.md)\.

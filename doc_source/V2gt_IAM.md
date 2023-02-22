@@ -1,17 +1,17 @@
-# Using IAM with Global Tables<a name="V2gt_IAM"></a>
+# Using IAM with global tables<a name="V2gt_IAM"></a>
 
 
 ****  
 
 |  | 
 | --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29 \(Legacy\)](globaltables.V1.md)\. Customers should use version 2019\.11\.21 \(Current\) when possible, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017\.11\.29 \(Legacy\)\. To determine which version you are using, see [Determining the global table version you are using](globaltables.DetermineVersion.md)\. | 
 
 ## <a name="V2globaltables_reqs_bestpractices.permissions-model"></a>
 
 When you create a global table for the first time, Amazon DynamoDB automatically creates an AWS Identity and Access Management \(IAM\) service\-linked role for you\. This role is named `AWSServiceRoleForDynamoDBReplication`, and it allows DynamoDB to manage cross\-Region replication for global tables on your behalf\. Don't delete this service\-linked role\. If you do, all of your global tables will no longer function\.
 
-For more information about service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the *IAM User Guide*\.
+For more information about service\-linked roles, see [Using service\-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the *IAM User Guide*\.
 
 To create replica tables in DynamoDB, you must have the following permissions in the source region\.
 + `dynamodb:UpdateTable`
@@ -45,7 +45,7 @@ To update replica auto\-scaling policy through `UpdateTableReplicaAutoScaling`, 
 
 To use `UpdateTimeToLive` you must have permission for `dynamodb:UpdateTimeToLive` in all Regions where table replicas exist\.
 
-## Example: Add Replica<a name="V2access-policy-gt-example1"></a>
+## Example: Add replica<a name="V2access-policy-gt-example1"></a>
 
 The following IAM policy grants permissions to allow you to add replicas to a global table\.
 
@@ -98,7 +98,7 @@ The following IAM policy grants permissions to allow you to update replica auto\
 }
 ```
 
-## Example: Allow Replica Creations for a Specific Table Name and Regions<a name="V2access-policy-gt-example3"></a>
+## Example: Allow replica creations for a specific table name and regions<a name="V2access-policy-gt-example3"></a>
 
 The following IAM policy grants permissions to allow table and replica creation for `Customers` table with replicas in three Regions\.
 

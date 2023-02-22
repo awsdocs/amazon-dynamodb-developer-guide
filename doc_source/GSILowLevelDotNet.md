@@ -13,12 +13,12 @@ The following are the common steps for table operations using the \.NET low\-lev
 1. Run the appropriate method provided by the client that you created in the preceding step\. 
 
 **Topics**
-+ [Create a Table with a Global Secondary Index](#GSILowLevelDotNet.CreateTableWithIndex)
-+ [Describe a Table with a Global Secondary Index](#GSILowLevelDotNet.DescribeTableWithIndex)
++ [Create a table with a Global Secondary Index](#GSILowLevelDotNet.CreateTableWithIndex)
++ [Describe a table with a Global Secondary Index](#GSILowLevelDotNet.DescribeTableWithIndex)
 + [Query a Global Secondary Index](#GSILowLevelDotNet.QueryAnIndex)
-+ [Example: Global Secondary Indexes Using the AWS SDK for \.NET Low\-Level API](GSILowLevelDotNet.Example.md)
++ [Example: Global Secondary Indexes using the AWS SDK for \.NET low\-level API](GSILowLevelDotNet.Example.md)
 
-## Create a Table with a Global Secondary Index<a name="GSILowLevelDotNet.CreateTableWithIndex"></a>
+## Create a table with a Global Secondary Index<a name="GSILowLevelDotNet.CreateTableWithIndex"></a>
 
 You can create global secondary indexes at the same time that you create a table\. To do this, use `CreateTable` and provide your specifications for one or more global secondary indexes\. The following C\# code example creates a table to hold information about weather data\. The partition key is `Location` and the sort key is `Date`\. A global secondary index named `PrecipIndex` allows fast access to precipitation data for various locations\.
 
@@ -106,7 +106,7 @@ Console.WriteLine(response.CreateTableResult.TableDescription.TableStatus);
 
 You must wait until DynamoDB creates the table and sets the table status to `ACTIVE`\. After that, you can begin putting data items into the table\.
 
-## Describe a Table with a Global Secondary Index<a name="GSILowLevelDotNet.DescribeTableWithIndex"></a>
+## Describe a table with a Global Secondary Index<a name="GSILowLevelDotNet.DescribeTableWithIndex"></a>
 
 To get information about global secondary indexes on a table, use `DescribeTable`\. For each index, you can access its name, key schema, and projected attributes\.
 

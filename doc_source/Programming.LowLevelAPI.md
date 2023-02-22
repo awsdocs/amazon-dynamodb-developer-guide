@@ -1,11 +1,11 @@
-# DynamoDB Low\-Level API<a name="Programming.LowLevelAPI"></a>
+# DynamoDB low\-level API<a name="Programming.LowLevelAPI"></a>
 
 **Topics**
-+ [Request Format](#Programming.LowLevelAPI.RequestFormat)
-+ [Response Format](#Programming.LowLevelAPI.ResponseFormat)
-+ [Data Type Descriptors](#Programming.LowLevelAPI.DataTypeDescriptors)
-+ [Numeric Data](#Programming.LowLevelAPI.Numbers)
-+ [Binary Data](#Programming.LowLevelAPI.Binary)
++ [Request format](#Programming.LowLevelAPI.RequestFormat)
++ [Response format](#Programming.LowLevelAPI.ResponseFormat)
++ [Data type descriptors](#Programming.LowLevelAPI.DataTypeDescriptors)
++ [Numeric data](#Programming.LowLevelAPI.Numbers)
++ [Binary data](#Programming.LowLevelAPI.Binary)
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.DDBLowLevelAPI.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
@@ -17,7 +17,7 @@ For more information about the low\-level DynamoDB API, see [Amazon DynamoDB API
 
 **Note**  
 DynamoDB Streams has its own low\-level API, which is separate from that of DynamoDB and is fully supported by the AWS SDKs\.  
-For more information, see [Change Data Capture for DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
+For more information, see [Change data capture for DynamoDB Streams](Streams.md)\. For the low\-level DynamoDB Streams API, see the [Amazon DynamoDB Streams API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Streams.html)\.
 
 The low\-level DynamoDB API uses JavaScript Object Notation \(JSON\) as a wire protocol format\. JSON presents data in a hierarchy so that both data values and data structure are conveyed simultaneously\. Name\-value pairs are defined in the format `name:value`\. The data hierarchy is defined by nested brackets of name\-value pairs\.
 
@@ -26,7 +26,7 @@ DynamoDB uses JSON only as a transport protocol, not as a storage format\. The A
 **Note**  
 For more information about JSON, see [Introducing JSON](http://json.org) on the `JSON.org` website\.
 
-## Request Format<a name="Programming.LowLevelAPI.RequestFormat"></a>
+## Request format<a name="Programming.LowLevelAPI.RequestFormat"></a>
 
 The DynamoDB low\-level API accepts HTTP\(S\) `POST` requests as input\. The AWS SDKs construct these requests for you\.
 
@@ -53,11 +53,11 @@ X-Amz-Target: DynamoDB_20120810.GetItem
 ```
 
 Note the following about this request:
-+ The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
++ The `Authorization` header contains information required for DynamoDB to authenticate the request\. For more information, see [Signing AWS API requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) and [Signature Version 4 signing process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *Amazon Web Services General Reference*\.
 + The `X-Amz-Target` header contains the name of a DynamoDB operation: `GetItem`\. \(This is also accompanied by the low\-level API version, in this case `20120810`\.\)
 + The payload \(body\) of the request contains the parameters for the operation, in JSON format\. For the `GetItem` operation, the parameters are `TableName` and `Key`\.
 
-## Response Format<a name="Programming.LowLevelAPI.ResponseFormat"></a>
+## Response format<a name="Programming.LowLevelAPI.ResponseFormat"></a>
 
 Upon receipt of the request, DynamoDB processes it and returns a response\. For the request shown previously, the HTTP\(S\) response payload contains the results from the operation, as shown in the following example\.
 
@@ -100,13 +100,13 @@ Date: <Date>
 At this point, the AWS SDK returns the response data to your application for further processing\.
 
 **Note**  
-If DynamoDB can't process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application in the form of exceptions\. For more information, see [Error Handling with DynamoDB](Programming.Errors.md)\.
+If DynamoDB can't process a request, it returns an HTTP error code and message\. The AWS SDK propagates these to your application in the form of exceptions\. For more information, see [Error handling with DynamoDB](Programming.Errors.md)\.
 
-## Data Type Descriptors<a name="Programming.LowLevelAPI.DataTypeDescriptors"></a>
+## Data type descriptors<a name="Programming.LowLevelAPI.DataTypeDescriptors"></a>
 
 The low\-level DynamoDB API protocol requires each attribute to be accompanied by a data type descriptor\. *Data type descriptors* are tokens that tell DynamoDB how to interpret each attribute\.
 
-The examples in [Request Format](#Programming.LowLevelAPI.RequestFormat) and [Response Format](#Programming.LowLevelAPI.ResponseFormat) show examples of how data type descriptors are used\. The `GetItem` request specifies `S` for the `Pets` key schema attributes \(`AnimalType` and `Name`\), which are of type `string`\. The `GetItem` response contains a *Pets* item with attributes of type `string` \(`S`\), `number` \(`N`\), `map` \(`M`\), and `list` \(`L`\)\.
+The examples in [Request format](#Programming.LowLevelAPI.RequestFormat) and [Response format](#Programming.LowLevelAPI.ResponseFormat) show examples of how data type descriptors are used\. The `GetItem` request specifies `S` for the `Pets` key schema attributes \(`AnimalType` and `Name`\), which are of type `string`\. The `GetItem` response contains a *Pets* item with attributes of type `string` \(`S`\), `number` \(`N`\), `map` \(`M`\), and `list` \(`L`\)\.
 
 The following is a complete list of DynamoDB data type descriptors:
 + **`S`** – String
@@ -121,9 +121,9 @@ The following is a complete list of DynamoDB data type descriptors:
 + **`BS`** – Binary Set
 
 **Note**  
- For detailed descriptions of DynamoDB data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
+ For detailed descriptions of DynamoDB data types, see [Data types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
-## Numeric Data<a name="Programming.LowLevelAPI.Numbers"></a>
+## Numeric data<a name="Programming.LowLevelAPI.Numbers"></a>
 
 Different programming languages offer different levels of support for JSON\. In some cases, you might decide to use a third\-party library for validating and parsing JSON documents\.
 
@@ -133,7 +133,7 @@ To solve these problems, DynamoDB provides a single numeric type with no data lo
 
 If number precision is important to your application, you should convert numeric values to strings before you pass them to DynamoDB\.
 
-## Binary Data<a name="Programming.LowLevelAPI.Binary"></a>
+## Binary data<a name="Programming.LowLevelAPI.Binary"></a>
 
 DynamoDB supports binary attributes\. However, JSON does not natively support encoding binary data\. To send binary data in a request, you will need to encode it in base64 format\. Upon receiving the request, DynamoDB decodes the base64 data back to binary\. 
 
