@@ -33,43 +33,43 @@ To manage user permissions in this app, you could write a permissions policy suc
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "AllowAccessToOnlyItemsMatchingUserID",
-"Effect": "Allow",
-"Action": [
-"dynamodb:GetItem",
-"dynamodb:BatchGetItem",
-"dynamodb:Query",
-"dynamodb:PutItem",
-"dynamodb:UpdateItem",
-"dynamodb:DeleteItem",
-"dynamodb:BatchWriteItem"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:LeadingKeys": [
-    "${www.amazon.com:user_id}"
-],
-"dynamodb:Attributes": [
-    "UserId",
-    "GameTitle",
-    "Wins",
-    "Losses",
-    "TopScore",
-    "TopScoreDateTime"
-]
-},
-"StringEqualsIfExists": {
-"dynamodb:Select": "SPECIFIC_ATTRIBUTES"
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAccessToOnlyItemsMatchingUserID",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:BatchGetItem",
+                "dynamodb:Query",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:BatchWriteItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:LeadingKeys": [
+                        "${www.amazon.com:user_id}"
+                    ],
+                    "dynamodb:Attributes": [
+                        "UserId",
+                        "GameTitle",
+                        "Wins",
+                        "Losses",
+                        "TopScore",
+                        "TopScoreDateTime"
+                    ]
+                },
+                "StringEqualsIfExists": {
+                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES"
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -125,32 +125,32 @@ The list of actions does not include permissions for `Scan` because `Scan` retur
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "FullAccessToUserItems",
-"Effect": "Allow",
-"Action": [
-"dynamodb:GetItem",
-"dynamodb:BatchGetItem",
-"dynamodb:Query",
-"dynamodb:PutItem",
-"dynamodb:UpdateItem",
-"dynamodb:DeleteItem",
-"dynamodb:BatchWriteItem"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:LeadingKeys": [
-    "${www.amazon.com:user_id}"
-]
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "FullAccessToUserItems",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:BatchGetItem",
+                "dynamodb:Query",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:BatchWriteItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:LeadingKeys": [
+                        "${www.amazon.com:user_id}"
+                    ]
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -161,28 +161,28 @@ To implement read\-only access, you can remove any actions that can modify the d
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "ReadOnlyAccessToUserItems",
-"Effect": "Allow",
-"Action": [
-"dynamodb:GetItem",
-"dynamodb:BatchGetItem",
-"dynamodb:Query"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:LeadingKeys": [
-    "${www.amazon.com:user_id}"
-]
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadOnlyAccessToUserItems",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:BatchGetItem",
+                "dynamodb:Query"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:LeadingKeys": [
+                        "${www.amazon.com:user_id}"
+                    ]
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -195,39 +195,39 @@ The following permissions policy allows access to only two specific attributes i
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "LimitAccessToSpecificAttributes",
-"Effect": "Allow",
-"Action": [
-"dynamodb:UpdateItem",
-"dynamodb:GetItem",
-"dynamodb:Query",
-"dynamodb:BatchGetItem",
-"dynamodb:Scan"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:Attributes": [
-    "UserId",
-    "TopScore"
-]
-},
-"StringEqualsIfExists": {
-"dynamodb:Select": "SPECIFIC_ATTRIBUTES",
-"dynamodb:ReturnValues": [
-    "NONE",
-    "UPDATED_OLD",
-    "UPDATED_NEW"
-]
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LimitAccessToSpecificAttributes",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:BatchGetItem",
+                "dynamodb:Scan"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:Attributes": [
+                        "UserId",
+                        "TopScore"
+                    ]
+                },
+                "StringEqualsIfExists": {
+                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES",
+                    "dynamodb:ReturnValues": [
+                        "NONE",
+                        "UPDATED_OLD",
+                        "UPDATED_NEW"
+                    ]
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -252,32 +252,32 @@ The following permissions policy limits user access to updating only the specifi
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "PreventUpdatesOnCertainAttributes",
-"Effect": "Allow",
-"Action": [
-"dynamodb:UpdateItem"
-],
-"Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
-"Condition": {
-"ForAllValues:StringNotLike": {
-"dynamodb:Attributes": [
-    "FreeGamesAvailable",
-    "BossLevelUnlocked"
-]
-},
-"StringEquals": {
-"dynamodb:ReturnValues": [
-    "NONE",
-    "UPDATED_OLD",
-    "UPDATED_NEW"
-]
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PreventUpdatesOnCertainAttributes",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
+            "Condition": {
+                "ForAllValues:StringNotLike": {
+                    "dynamodb:Attributes": [
+                        "FreeGamesAvailable",
+                        "BossLevelUnlocked"
+                    ]
+                },
+                "StringEquals": {
+                    "dynamodb:ReturnValues": [
+                        "NONE",
+                        "UPDATED_OLD",
+                        "UPDATED_NEW"
+                    ]
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -293,33 +293,33 @@ To require the application to specify a list of attributes in the query, the pol
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "QueryOnlyProjectedIndexAttributes",
-"Effect": "Allow",
-"Action": [
-"dynamodb:Query"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:Attributes": [
-    "TopScoreDateTime",
-    "GameTitle",
-    "Wins",
-    "Losses",
-    "Attempts"
-]
-},
-"StringEquals": {
-"dynamodb:Select": "SPECIFIC_ATTRIBUTES"
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "QueryOnlyProjectedIndexAttributes",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:Query"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:Attributes": [
+                        "TopScoreDateTime",
+                        "GameTitle",
+                        "Wins",
+                        "Losses",
+                        "Attempts"
+                    ]
+                },
+                "StringEquals": {
+                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES"
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -327,24 +327,24 @@ The following permissions policy is similar, but the query must request all of t
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "QueryAllIndexAttributes",
-"Effect": "Allow",
-"Action": [
-"dynamodb:Query"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-],
-"Condition": {
-"StringEquals": {
-"dynamodb:Select": "ALL_PROJECTED_ATTRIBUTES"
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "QueryAllIndexAttributes",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:Query"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "dynamodb:Select": "ALL_PROJECTED_ATTRIBUTES"
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -354,42 +354,42 @@ The following permissions policy allows specific DynamoDB actions \(specified in
 
 ```
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Sid": "LimitAccessToCertainAttributesAndKeyValues",
-"Effect": "Allow",
-"Action": [
-"dynamodb:UpdateItem",
-"dynamodb:GetItem",
-"dynamodb:Query",
-"dynamodb:BatchGetItem"
-],
-"Resource": [
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
-"arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
-],
-"Condition": {
-"ForAllValues:StringEquals": {
-"dynamodb:LeadingKeys": [
-    "${graph.facebook.com:id}"
-],
-"dynamodb:Attributes": [
-    "attribute-A",
-    "attribute-B"
-]
-},
-"StringEqualsIfExists": {
-"dynamodb:Select": "SPECIFIC_ATTRIBUTES",
-"dynamodb:ReturnValues": [
-    "NONE",
-    "UPDATED_OLD",
-    "UPDATED_NEW"
-]
-}
-}
-}
-]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LimitAccessToCertainAttributesAndKeyValues",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:BatchGetItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores",
+                "arn:aws:dynamodb:us-west-2:123456789012:table/GameScores/index/TopScoreDateTimeIndex"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "dynamodb:LeadingKeys": [
+                        "${graph.facebook.com:id}"
+                    ],
+                    "dynamodb:Attributes": [
+                        "attribute-A",
+                        "attribute-B"
+                    ]
+                },
+                "StringEqualsIfExists": {
+                    "dynamodb:Select": "SPECIFIC_ATTRIBUTES",
+                    "dynamodb:ReturnValues": [
+                        "NONE",
+                        "UPDATED_OLD",
+                        "UPDATED_NEW"
+                    ]
+                }
+            }
+        }
+    ]
 }
 ```
 
