@@ -141,7 +141,7 @@ A table with many global secondary indexes incurs higher costs for write activit
 
 ## Table classes with Global Secondary Index<a name="GSI.tableclasses"></a>
 
-A global secondary index will always use the same table class as its base table\. Any time a new global secondary index is added for a table, the new index will use the same table class as its base table\. When a table's table class is updated, all associated global secondary indexes are updated as well\.
+A global secondary index will always use the same table class as its base table\. Any time a new global secondary index is added for a table, the new index will use the same table class as its base table\. When a table's base class is updated, all associated global secondary indexes are updated as well\.
 
 ## Provisioned throughput considerations for Global Secondary Indexes<a name="GSI.ThroughputConsiderations"></a>
 
