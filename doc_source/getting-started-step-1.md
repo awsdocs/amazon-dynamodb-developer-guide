@@ -114,9 +114,9 @@ This command returns the following result\. When DynamoDB finishes creating the 
 Once the table is in `ACTIVE` status, it's considered best practice to enable [Point\-in\-time recovery for DynamoDB](PointInTimeRecovery.md) on the table by running the following command:
 
 ```
-aws dynamodb update-continuous-backups \ 
-    --table-name Music \ 
-    --point-in-time-recovery-specification \ 
+aws dynamodb update-continuous-backups \
+    --table-name Music \
+    --point-in-time-recovery-specification \
         PointInTimeRecoveryEnabled=true
 ```
 
