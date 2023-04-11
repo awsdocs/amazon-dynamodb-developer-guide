@@ -62,8 +62,8 @@ Finally, the filter rules will define the filter expression that you want to app
 |  And  |  Product state equals Florida and product category Chocolate  |  `{ "state": { "S": ["FL"] } , "category": { "S": [ "CHOCOLATE"] } } `  | 
 |  Or  |  Product state is Florida or California  |  `{ "state": { "S": ["FL","CA"] } } `  | 
 |  Not  |  Product state is not Florida  |  `{"state": {"S": [{"anything-but": ["FL"]}]}}`  | 
-|  Exists  |  Product Homemade exists  |  `{"homemade": [{"exists": True}]}`  | 
-|  Does not exist  |  Product Homemade does not exists  |  `{"homemade": [{"exists": False}]}`  | 
+|  Exists  |  Product Homemade exists  |  `{"homemade": {"S": [{"exists": true}]}}`  | 
+|  Does not exist  |  Product Homemade does not exists  |  `{"homemade": {"S": [{"exists": false}]}}`  | 
 |  Begins with  |  PK begins with COMPANY  |  `{"PK": {"S": [{"prefix": "COMPANY"}]}}`  | 
 
 You can specify up to 5 event filtering patterns for a Lambda function\. Notice that each one of those 5 events will be evaluated as a logical OR\. So if you configure two filters named `Filter_One` and `Filter_Two`, the Lambda function will execute `Filter_One` OR `Filter_Two`\.
