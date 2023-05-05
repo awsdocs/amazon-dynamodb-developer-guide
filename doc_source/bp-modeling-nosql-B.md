@@ -1,6 +1,6 @@
-# Example of Modeling Relational Data in DynamoDB<a name="bp-modeling-nosql-B"></a>
+# Example of modeling relational data in DynamoDB<a name="bp-modeling-nosql-B"></a>
 
-This example describes how to model relational data in Amazon DynamoDB\. A DynamoDB table design corresponds to the relational order entry schema that is shown in [Relational Modeling](bp-relational-modeling.md)\. It follows the [Adjacency List Design Pattern](bp-adjacency-graphs.md#bp-adjacency-lists), which is a common way to represent relational data structures in DynamoDB\.
+This example describes how to model relational data in Amazon DynamoDB\. A DynamoDB table design corresponds to the relational order entry schema that is shown in [Relational modeling](bp-relational-modeling.md)\. It follows the [Adjacency list design pattern](bp-adjacency-graphs.md#bp-adjacency-lists), which is a common way to represent relational data structures in DynamoDB\.
 
 The design pattern requires you to define a set of entity types that usually correlate to the various tables in the relational schema\. Entity items are then added to the table using a compound \(partition and sort\) primary key\. The partition key of these entity items is the attribute that uniquely identifies the item and is referred to generically on all items as `PK`\. The sort key attribute contains an attribute value that you can use for an inverted index or global secondary index\. It is generically referred to as `SK`\. 
 
@@ -75,4 +75,20 @@ If the access pattern requires a high velocity query on this global secondary in
 
 Finally, you can revisit the access patterns that were defined earlier\. Following is the list of access patterns and the query conditions that you will use with the new DynamoDB version of the application to accommodate them\.
 
-![\[List of access patterns and query conditions, including querying employees by ID and name, and querying orders by date or status.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/access_queries.png)
+
+|  | **Access patterns** | **Query conditions** | 
+| --- | --- | --- | 
+|  1  |  Look up Employee Details by Employee ID  |  Primary Key on table, ID="HR\-EMPLOYEE"  | 
+|  2  |  Query Employee Details by Employee Name  |  Use GSI\-1, PK="Employee Name"  | 
+|  3  |  Get an employee's current job details only  |  Primary Key on table, PK=HR\-EMPLOYEE\-1, SK starts with "v0"  | 
+|  4  |  Get Orders for a customer for a date range  |  Use GSI\-1, PK=CUSTOMER1, SK="STATUS\-DATE", for each StatusCode  | 
+|  5  |  Show all Orders in OPEN status for a date range across all customers  |  Use GSI\-2, PK=query in parallel for the range \[0\.\.N\], SK between OPEN\-Date1 and OPEN\-Date2  | 
+|  6  |  All Employees hired recently  |  Use GSI\-1, PK="HR\-CONFIDENTIAL', SK > date1  | 
+|  7  |  Find all Employees in specific Warehouse  |  Use GSI\-1, PK=WAREHOUSE1  | 
+|  8  |  Get all Orderitems for a Product including warehouse location inventories  |  Use GSI\-1, PK=PRODUCT1  | 
+|  9  |  Get customers by Account Rep  |  Use GSI\-1, PK=ACCOUNT\-REP  | 
+|  10  |  Get orders by Account Rep and date  |  Use GSI\-1, PK=ACCOUNT\-REP, SK="STATUS\-DATE", for each StatusCode  | 
+|  11  |  Get all employees with specific Job Title  |  Use GSI\-1, PK=v0\-JOBTITLE  | 
+|  12  |  Get inventory by Product and Warehouse  |  Primary Key on table, PK=OE\-PRODUCT1,SK=PRODUCT1  | 
+|  13  |  Get total product inventory  |  Primary Key on table, PK=OE\-PRODUCT1,SK=PRODUCT1  | 
+|  14  |  Get Account Reps ranked by Order Total and Sales Period  |  Use GSI\-1, PK=YYYY\-Q1, scanIndexForward=False  | 

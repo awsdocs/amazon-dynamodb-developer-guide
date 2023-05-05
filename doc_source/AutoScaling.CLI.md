@@ -1,4 +1,4 @@
-# Using the AWS CLI to Manage DynamoDB Auto Scaling<a name="AutoScaling.CLI"></a>
+# Using the AWS CLI to manage DynamoDB auto scaling<a name="AutoScaling.CLI"></a>
 
 Instead of using the AWS Management Console, you can use the AWS Command Line Interface \(AWS CLI\) to manage Amazon DynamoDB auto scaling\. The tutorial in this section demonstrates how to install and configure the AWS CLI for managing DynamoDB auto scaling\. In this tutorial, you do the following:
 + Create a DynamoDB table named `TestTable`\. The initial throughput settings are 5 read capacity units and 5 write capacity units\.
@@ -7,15 +7,15 @@ Instead of using the AWS Management Console, you can use the AWS Command Line In
 + Verify that DynamoDB has successfully adjusted the provisioned write capacity for `TestTable`\.
 
 **Topics**
-+ [Before You Begin](#AutoScaling.CLI.BeforeYouBegin)
-+ [Step 1: Create a DynamoDB Table](#AutoScaling.CLI.CreateTable)
-+ [Step 2: Register a Scalable Target](#AutoScaling.CLI.RegisterScalableTarget)
-+ [Step 3: Create a Scaling Policy](#AutoScaling.CLI.CreateScalingPolicy)
-+ [Step 4: Drive Write Traffic to TestTable](#AutoScaling.CLI.DriveTraffic)
-+ [Step 5: View Application Auto Scaling Actions](#AutoScaling.CLI.ViewCWAlarms)
-+ [\(Optional\) Step 6: Clean Up](#AutoScaling.CLI.CleanUp)
++ [Before you begin](#AutoScaling.CLI.BeforeYouBegin)
++ [Step 1: Create a DynamoDB table](#AutoScaling.CLI.CreateTable)
++ [Step 2: Register a scalable target](#AutoScaling.CLI.RegisterScalableTarget)
++ [Step 3: Create a scaling policy](#AutoScaling.CLI.CreateScalingPolicy)
++ [Step 4: Drive write traffic to TestTable](#AutoScaling.CLI.DriveTraffic)
++ [Step 5: View Application Auto Scaling actions](#AutoScaling.CLI.ViewCWAlarms)
++ [\(Optional\) Step 6: Clean up](#AutoScaling.CLI.CleanUp)
 
-## Before You Begin<a name="AutoScaling.CLI.BeforeYouBegin"></a>
+## Before you begin<a name="AutoScaling.CLI.BeforeYouBegin"></a>
 
 Complete the following tasks before starting the tutorial\.
 
@@ -27,9 +27,9 @@ If you haven't already done so, you must install and configure the AWS CLI\. To 
 
 ### Install Python<a name="AutoScaling.CLI.BeforeYouBegin.InstallPython"></a>
 
-Part of this tutorial requires you to run a Python program \(see [Step 4: Drive Write Traffic to TestTable](#AutoScaling.CLI.DriveTraffic)\)\. If you don't already have it installed, you can [download Python](https://www.python.org/downloads)\. 
+Part of this tutorial requires you to run a Python program \(see [Step 4: Drive write traffic to TestTable](#AutoScaling.CLI.DriveTraffic)\)\. If you don't already have it installed, you can [download Python](https://www.python.org/downloads)\. 
 
-## Step 1: Create a DynamoDB Table<a name="AutoScaling.CLI.CreateTable"></a>
+## Step 1: Create a DynamoDB table<a name="AutoScaling.CLI.CreateTable"></a>
 
 In this step, you use the AWS CLI to create `TestTable`\. The primary key consists of `pk` \(partition key\) and `sk` \(sort key\)\. Both of these attributes are of type `Number`\. The initial throughput settings are 5 read capacity units and 5 write capacity units\.
 
@@ -57,12 +57,12 @@ In this step, you use the AWS CLI to create `TestTable`\. The primary key consis
 
    The table is ready for use when its status is `ACTIVE`\.
 
-## Step 2: Register a Scalable Target<a name="AutoScaling.CLI.RegisterScalableTarget"></a>
+## Step 2: Register a scalable target<a name="AutoScaling.CLI.RegisterScalableTarget"></a>
 
 Next you register the table's write capacity as a scalable target with Application Auto Scaling\. This allows Application Auto Scaling to adjust the provisioned write capacity for *TestTable*, but only within the range of 5–10 capacity units\.
 
 **Note**  
-DynamoDB auto scaling requires the presence of a service linked role \(`AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html) in the *Application Auto Scaling User Guide*\. 
+DynamoDB auto scaling requires the presence of a service linked role \(`AWSServiceRoleForApplicationAutoScaling_DynamoDBTable`\) that performs auto scaling actions on your behalf\. This role is created automatically for you\. For more information, see [Service\-linked roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html) in the *Application Auto Scaling User Guide*\. 
 
 1. Enter the following command to register the scalable target\. 
 
@@ -94,7 +94,7 @@ DynamoDB auto scaling requires the presence of a service linked role \(`AWSServi
        --max-capacity 10
    ```
 
-## Step 3: Create a Scaling Policy<a name="AutoScaling.CLI.CreateScalingPolicy"></a>
+## Step 3: Create a scaling policy<a name="AutoScaling.CLI.CreateScalingPolicy"></a>
 
 In this step, you create a scaling policy for `TestTable`\. The policy defines the details under which Application Auto Scaling can adjust your table's provisioned throughput, and what actions to take when it does so\. You associate this policy with the scalable target that you defined in the previous step \(write capacity units for the `TestTable` table\)\.
 
@@ -110,7 +110,7 @@ The policy contains the following elements:
 To further understand how `TargetValue` works, suppose that you have a table with a provisioned throughput setting of 200 write capacity units\. You decide to create a scaling policy for this table, with a `TargetValue` of 70 percent\.  
 Now suppose that you begin driving write traffic to the table so that the actual write throughput is 150 capacity units\. The consumed\-to\-provisioned ratio is now \(150 / 200\), or 75 percent\. This ratio exceeds your target, so Application Auto Scaling increases the provisioned write capacity to 215 so that the ratio is \(150 / 215\), or 69\.77 percent—as close to your `TargetValue` as possible, but not exceeding it\.
 
-For `TestTable`, you set `TargetValue` to 50 percent\. Application Auto Scaling adjusts the table's provisioned throughput within the range of 5–10 capacity units \(see [Step 2: Register a Scalable Target](#AutoScaling.CLI.RegisterScalableTarget)\) so that the consumed\-to\-provisioned ratio remains at or near 50 percent\. You set the values for `ScaleOutCooldown` and `ScaleInCooldown` to 60 seconds\.
+For `TestTable`, you set `TargetValue` to 50 percent\. Application Auto Scaling adjusts the table's provisioned throughput within the range of 5–10 capacity units \(see [Step 2: Register a scalable target](#AutoScaling.CLI.RegisterScalableTarget)\) so that the consumed\-to\-provisioned ratio remains at or near 50 percent\. You set the values for `ScaleOutCooldown` and `ScaleInCooldown` to 60 seconds\.
 
 1. Create a file named `scaling-policy.json` with the following contents\.
 
@@ -148,9 +148,9 @@ For `TestTable`, you set `TargetValue` to 50 percent\. Application Auto Scaling 
        --policy-name "MyScalingPolicy"
    ```
 
-1. In the output, verify that the policy settings match your specifications from [Step 2: Register a Scalable Target](#AutoScaling.CLI.RegisterScalableTarget) and [Step 3: Create a Scaling Policy](#AutoScaling.CLI.CreateScalingPolicy)\.
+1. In the output, verify that the policy settings match your specifications from [Step 2: Register a scalable target](#AutoScaling.CLI.RegisterScalableTarget) and [Step 3: Create a scaling policy](#AutoScaling.CLI.CreateScalingPolicy)\.
 
-## Step 4: Drive Write Traffic to TestTable<a name="AutoScaling.CLI.DriveTraffic"></a>
+## Step 4: Drive write traffic to TestTable<a name="AutoScaling.CLI.DriveTraffic"></a>
 
 Now you can test your scaling policy by writing data to `TestTable`\. To do this, you run a Python program\.
 
@@ -189,7 +189,7 @@ Now you can test your scaling policy by writing data to `TestTable`\. To do this
 
    Let the program continue running while you move on to the next step\.
 
-## Step 5: View Application Auto Scaling Actions<a name="AutoScaling.CLI.ViewCWAlarms"></a>
+## Step 5: View Application Auto Scaling actions<a name="AutoScaling.CLI.ViewCWAlarms"></a>
 
  In this step, you view the Application Auto Scaling actions that are initiated on your behalf\. You also verify that Application Auto Scaling has updated the provisioned write capacity for `TestTable`\.
 
@@ -231,7 +231,7 @@ Now you can test your scaling policy by writing data to `TestTable`\. To do this
 
    The `WriteCapacityUnits` should have been scaled from `5` to `10`\.
 
-## \(Optional\) Step 6: Clean Up<a name="AutoScaling.CLI.CleanUp"></a>
+## \(Optional\) Step 6: Clean up<a name="AutoScaling.CLI.CleanUp"></a>
 
 In this tutorial, you created several resources\. You can delete these resources if you no longer need them\.
 

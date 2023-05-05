@@ -20,7 +20,7 @@ Use the [DescribeTables](API_DescribeTables_v20111205.md) operation to check the
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.CreateTable 
 content-type: application/x-amz-json-1.0 
@@ -39,8 +39,8 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table to create\.Allowed characters are a\-z, A\-Z, 0\-9, '\_' \(underscore\), '\-' \(dash\), and '\.' \(dot\)\. Names can be between 3 and 255 characters long\. Type: String  |  Yes  | 
-|  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Primary key element names can be between 1 and 255 characters long with no character restrictions\. Possible values for the AttributeType are "S" \(string\), "N" \(numeric\), or "B" \(binary\)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | Yes | 
-|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. For details, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.  For current maximum/minimum values, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\. Type: Array  | Yes | 
+|  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Primary key element names can be between 1 and 255 characters long with no character restrictions\. Possible values for the AttributeType are "S" \(string\), "N" \(numeric\), or "B" \(binary\)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | Yes | 
+|  ProvisionedThroughput  | New throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. For details, see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\.  For current maximum/minimum values, see [Service, account, and table quotas in Amazon DynamoDB](ServiceQuotas.md)\. Type: Array  | Yes | 
 | ProvisionedThroughput: ReadCapacityUnits |  Sets the minimum number of consistent `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.  Eventually consistent read operations require less effort than a consistent read operation, so a setting of 50 consistent `ReadCapacityUnits` per second provides 100 eventually consistent `ReadCapacityUnits` per second\. Type: Number  | Yes | 
 | ProvisionedThroughput: WriteCapacityUnits | Sets the minimum number of WriteCapacityUnits consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | Yes | 
 
@@ -74,14 +74,14 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 | --- | --- | 
 | TableDescription  | A container for the table properties\. | 
 | CreationDateTime | Date when the table was created in [UNIX epoch time](http://www.epochconverter.com/)\.Type: Number | 
-| KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ProvisionedThroughput  |  Throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Array   | 
+| KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
+| ProvisionedThroughput  |  Throughput for the specified table, consisting of values for `ReadCapacityUnits` and `WriteCapacityUnits`\. See [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Array   | 
 | ProvisionedThroughput :ReadCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second before DynamoDB\. balances the load with other operationsType: Number  | 
 | ProvisionedThroughput :WriteCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second before `WriteCapacityUnits`\. balances the load with other operationsType: Number  | 
 |  TableName  |  The name of the created table\. Type: String  | 
 |  TableStatus  | The current state of the table \(`CREATING`\)\. Once the table is in the `ACTIVE` state, you can put data in it\.Use the [DescribeTables](API_DescribeTables_v20111205.md) API to check the status of the table\.Type: String | 
 
-## Special Errors<a name="API_CreateTable_SpecialErrors"></a>
+## Special errors<a name="API_CreateTable_SpecialErrors"></a>
 
 
 ****  
@@ -89,17 +89,17 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 |  Error  |  Description  | 
 | --- | --- | 
 |  ResourceInUseException  | Attempt to recreate an already existing table\. | 
-|  LimitExceededException  | The number of simultaneous table requests \(cumulative number of tables in the `CREATING`, `DELETING` or `UPDATING` state\) exceeds the maximum allowed\. For current maximum/minimum values, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\. \.  | 
+|  LimitExceededException  | The number of simultaneous table requests \(cumulative number of tables in the `CREATING`, `DELETING` or `UPDATING` state\) exceeds the maximum allowed\. For current maximum/minimum values, see [Service, account, and table quotas in Amazon DynamoDB](ServiceQuotas.md)\. \.  | 
 
 ## Examples<a name="API_CreateTable_Examples"></a>
 
-The following example creates a table with a composite primary key containing a string and a number\. For examples using the AWS SDK, see [Working with Tables and Data in DynamoDB](WorkingWithTables.md)\.
+The following example creates a table with a composite primary key containing a string and a number\. For examples using the AWS SDK, see [Working with tables and data in DynamoDB](WorkingWithTables.md)\.
 
-### Sample Request<a name="API_CreateTable_Examples_Request"></a>
+### Sample request<a name="API_CreateTable_Examples_Request"></a>
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.CreateTable 
 content-type: application/x-amz-json-1.0
@@ -113,7 +113,7 @@ content-type: application/x-amz-json-1.0
 }
 ```
 
-### Sample Response<a name="API_CreateTable_Examples_Response"></a>
+### Sample response<a name="API_CreateTable_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 OK
@@ -134,6 +134,6 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 }
 ```
 
-## Related Actions<a name="API_CreateTable_Related_Actions"></a>
+## Related actions<a name="API_CreateTable_Related_Actions"></a>
 +  [DescribeTables](API_DescribeTables_v20111205.md) 
 +  [DeleteTable](API_DeleteTable_v20111205.md)

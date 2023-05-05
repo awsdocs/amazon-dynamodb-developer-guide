@@ -97,9 +97,9 @@ java -cp classpath TryDax dax://my-cluster.l6fzcv.dax-clusters.us-east-1.amazona
 
 Look at the output and take note of the timing information\. The elapsed times for `GetItem`and `Query` should be significantly lower with DAX than with DynamoDB\.
 
-## SDK Metrics<a name="DAX.client.run-application-java.metrics"></a>
+## SDK metrics<a name="DAX.client.run-application-java.metrics"></a>
 
 With DAX SDK for Java 2\.x, you can collect metrics about the service clients in your application and analyze the output in Amazon CloudWatch\. See [Enabling SDK metrics](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics.html) for more information\.
 
 **Note**  
-The DAX SDK for Java only collets `ApiCallSuccessful` and `ApiCallDuration` metrics\.
+The DAX SDK for Java only collects `ApiCallSuccessful` and `ApiCallDuration` metrics\.

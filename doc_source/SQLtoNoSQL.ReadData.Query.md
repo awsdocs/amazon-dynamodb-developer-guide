@@ -1,4 +1,4 @@
-# Querying a Table<a name="SQLtoNoSQL.ReadData.Query"></a>
+# Querying a table<a name="SQLtoNoSQL.ReadData.Query"></a>
 
 Another common access pattern is reading multiple items from a table, based on your query criteria\.
 
@@ -49,9 +49,9 @@ In Amazon DynamoDB, you can use either the DynamoDB API, or [PartiQL](https://do
 ------
 #### [ DynamoDB API ]
 
-With Amazon DynamoDB the `Query` action lets you retrieve data in a similar fashion\. The `Query` action provides quick, efficient access to the physical locations where the data is stored\. For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.
+With Amazon DynamoDB the `Query` action lets you retrieve data in a similar fashion\. The `Query` action provides quick, efficient access to the physical locations where the data is stored\. For more information, see [Partitions and data distribution](HowItWorks.Partitions.md)\.
 
-You can use `Query` with any table that has a composite primary key \(partition key and sort key\)\. You must specify an equality condition for the partition key, and you can optionally provide another condition for the sort key\.
+You can use `Query` with any table or secondary index\. You must specify an equality condition for the partition key's value, and you can optionally provide another condition for the sort key attribute if it is defined\.
 
 The `KeyConditionExpression` parameter specifies the key values that you want to query\. You can use an optional `FilterExpression` to remove certain items from the results before they are returned to you\.
 
@@ -100,7 +100,7 @@ The following are some DynamoDB `Query` examples\.
 ```
 
 **Note**  
-For code examples that use `Query`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `Query`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 ------
 #### [ PartiQL for DynamoDB ]
@@ -115,6 +115,6 @@ WHERE Artist='No One You Know'
 
 Using the `SELECT` statement in this way returns all the songs associated with this particular `Artist`\.
 
-For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL select statements for DynamoDB](ql-reference.select.md)\.
 
 ------

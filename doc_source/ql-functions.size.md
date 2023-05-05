@@ -1,4 +1,4 @@
-# Using the SIZE Function with PartiQL for Amazon DynamoDB<a name="ql-functions.size"></a>
+# Using the SIZE function with PartiQL for amazon DynamoDB<a name="ql-functions.size"></a>
 
 Returns a number representing an attribute's size in bytes\. The following are valid data types for use with size\. For more information, see the DynamoDB [size](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html#Expressions.OperatorsAndFunctions.Functions) function\.
 

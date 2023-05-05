@@ -1,4 +1,4 @@
-# Using Global Secondary Index Write Sharding for Selective Table Queries<a name="bp-indexes-gsi-sharding"></a>
+# Using Global Secondary Index write sharding for selective table queries<a name="bp-indexes-gsi-sharding"></a>
 
 Applications frequently need to identify a small subset of items in an Amazon DynamoDB table that meet a certain condition\. When these items are distributed randomly across the partition keys of the table, you could resort to a table scan to retrieve them\. This option can be expensive, but it works well when a large number of items on the table meet the search condition\. However, when the key space is large and the search condition is very selective, this strategy can cause a lot of unnecessary processing\.
 

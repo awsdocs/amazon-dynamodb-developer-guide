@@ -1,4 +1,4 @@
-# PartiQL Select Statements for DynamoDB<a name="ql-reference.select"></a>
+# PartiQL select statements for DynamoDB<a name="ql-reference.select"></a>
 
 Use the `SELECT` statement to retrieve data from a table in Amazon DynamoDB\.
 
@@ -6,9 +6,9 @@ Using the `SELECT` statement can result in a full table scan if an equality cond
 
 If you want to avoid full table scan in PartiQL, you can:
 + Author your `SELECT` statements to not result in full table scans by making sure your [WHERE clause condition](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.select.html#ql-reference.select.parameters) is configured accordingly\.
-+ Disable full table scans using the IAM policy specified at [Example: Allow Select statements and deny full table scan statements in PartiQL for DynamoDB](ql-iam.md#access-policy-ql-iam-example6), in the DynamoDB developer guide\.
++ Disable full table scans using the IAM policy specified at [Example: Allow select statements and deny full table scan statements in PartiQL for DynamoDB](ql-iam.md#access-policy-ql-iam-example6), in the DynamoDB developer guide\.
 
-For more information see [Best Practices for Querying and Scanning Data](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html), in the DynamoDB developer guide\.
+For more information see [Best practices for querying and scanning data](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html), in the DynamoDB developer guide\.
 
 **Topics**
 + [Syntax](#ql-reference.select.syntax)
@@ -26,7 +26,7 @@ FROM table[.index]
 ## Parameters<a name="ql-reference.select.parameters"></a>
 
 ***expression***  
-\(Required\) A projection formed from the `*` wildcard or a projection list of one or more attribute names or document paths from the result set\. An expression can consist of calls to [Use PartiQL Functions with Amazon DynamoDB](ql-functions.md) or fields that are modified by [PartiQL Arithmetic, Comparison, and Logical Operators for DynamoDB ](ql-operators.md)\.
+\(Required\) A projection formed from the `*` wildcard or a projection list of one or more attribute names or document paths from the result set\. An expression can consist of calls to [Use PartiQL functions with amazon DynamoDB](ql-functions.md) or fields that are modified by [PartiQL arithmetic, comparison, and logical operators for DynamoDB ](ql-operators.md)\.
 
 ***table***  
 \(Required\) The table name to query\.

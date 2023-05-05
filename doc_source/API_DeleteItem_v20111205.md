@@ -20,7 +20,7 @@ You can perform the expected conditional check on one attribute per operation\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteItem 
 content-type: application/x-amz-json-1.0 
@@ -39,7 +39,7 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table containing the item to delete\. Type: String  |  Yes  | 
-|  Key  | The primary key that defines the item\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
+|  Key  | The primary key that defines the item\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
 | Expected  | Designates an attribute for a conditional delete\. The `Expected` parameter allows you to provide an attribute name, and whether or not DynamoDB should check to see if the attribute has a particular value before deleting it\.Type: Map of attribute names\. | No | 
 | Expected:AttributeName  | The name of the attribute for the conditional put\. Type: String | No | 
 | Expected:AttributeName: ExpectedAttributeValue | Use this parameter to specify whether or not a value already exists for the attribute name\-value pair\. The following JSON notation deletes the item if the "Color" attribute doesn't exist for that item:<pre>"Expected" :<br />	{"Color":{"Exists":false}}</pre>The following JSON notation checks to see if the attribute with name "Color" has an existing value of "Yellow" before deleting the item: <pre>"Expected" : <br />	{"Color":{"Exists":true},{"Value":{"S":"Yellow"}}}</pre>By default, if you use the `Expected` parameter and provide a `Value`, DynamoDB assumes the attribute exists and has a current value to be replaced\. So you don't have to specify `{"Exists":true}`, because it is implied\. You can shorten the request to:<pre>"Expected" : <br />	{"Color":{"Value":{"S":"Yellow"}}}</pre> If you specify `{"Exists":true}` without an attribute value to check, DynamoDB returns an error\.  | No | 
@@ -71,9 +71,9 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | If the `ReturnValues` parameter is provided as `ALL_OLD` in the request, DynamoDB returns an array of attribute name\-value pairs \(essentially, the deleted item\)\. Otherwise, the response contains an empty set\. Type: Array of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. Delete requests on non\-existent items consume 1 write capacity unit\. For more information see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Number | 
 
-## Special Errors<a name="API_DeleteItem_SpecialErrors"></a>
+## Special errors<a name="API_DeleteItem_SpecialErrors"></a>
 
 
 ****  
@@ -84,11 +84,11 @@ Date: Tue, 12 Jul 2011 21:31:03 GMT
 
 ## Examples<a name="API_DeleteItem_Examples"></a>
 
-### Sample Request<a name="API_DeleteItem_Examples_Request"></a>
+### Sample request<a name="API_DeleteItem_Examples_Request"></a>
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteItem 
 content-type: application/x-amz-json-1.0
@@ -102,7 +102,7 @@ content-type: application/x-amz-json-1.0
 }
 ```
 
-### Sample Response<a name="API_DeleteItem_Examples_Response"></a>
+### Sample response<a name="API_DeleteItem_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 OK
@@ -121,5 +121,5 @@ Date: Tue, 12 Jul 2011 22:31:23 GMT
 }
 ```
 
-## Related Actions<a name="API_DeleteItem_Related_Actions"></a>
+## Related actions<a name="API_DeleteItem_Related_Actions"></a>
 +  [PutItem](API_PutItem_v20111205.md) 

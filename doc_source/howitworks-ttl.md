@@ -1,4 +1,4 @@
-# How It Works: DynamoDB Time to Live \(TTL\)<a name="howitworks-ttl"></a>
+# How it works: DynamoDB Time to Live \(TTL\)<a name="howitworks-ttl"></a>
 
 When enabling TTL on a DynamoDB table, you must identify a specific attribute name that the service will look for when determining if an item is eligible for expiration\. After you enable TTL on a table, a per\-partition scanner background process automatically and continuously evaluates the expiry status of items in the table\.
 
@@ -10,14 +10,14 @@ As items are deleted from the table, two background operations happen simultaneo
 
 **Important**  
 Depending on the size and activity level of a table, the actual delete operation of an expired item can vary\. Because TTL is meant to be a background process, the nature of the capacity used to expire and delete items via TTL is variable \(but free of charge\)\. TTL typically deletes expired items within 48 hours of expiration\.
-Items that have expired, but haven’t yet been deleted by TTL, still appear in reads, queries, and scans\. If you do not want expired items in the result set, you must filter them out\. To do this, use a filter expression that returns only items where the Time to Live expiration value is greater than the current time in epoch format\. For more information, see [Filter Expressions for Scan](Scan.md#Scan.FilterExpression)\.
+Items that have expired, but haven’t yet been deleted by TTL, still appear in reads, queries, and scans\. If you do not want expired items in the result set, you must filter them out\. To do this, use a filter expression that returns only items where the Time to Live expiration value is greater than the current time in epoch format\. For more information, see [Filter expressions for scan](Scan.md#Scan.FilterExpression)\.
 Items that are past their expiration, but have not yet been deleted can still be updated, and successful updates to change or remove the expiration attribute will be honored\.
 
 You can monitor TTL rates on the CloudWatch metrics tab for a table, and see when and the rate at which items are deleted\.
 
 ![\[Console screenshot showing TTL and cloudwatch .\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/TTL_cloudwatch.png)
 
-## Time to Live Example<a name="howitworks-ttl-Example"></a>
+## Time to Live example<a name="howitworks-ttl-Example"></a>
 
 For example, consider a table named SessionData that tracks the session history of users\. Each item in `SessionData` is identified by the partition key \(`UserName`\) and the sort key \(`SessionId`\)\. Additional attributes like `UserName`, `SessionId`, `CreationTime`, and `ExpirationTime` track the session information\. The `ExpirationTime` attribute is set as the TTL attribute on the table \(not all of the attributes on each item are shown\)\.
 

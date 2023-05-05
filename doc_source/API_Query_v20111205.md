@@ -20,7 +20,7 @@ The result can be set for a consistent read using the `ConsistentRead` parameter
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query  
 content-type: application/x-amz-json-1.0
@@ -48,7 +48,7 @@ content-type: application/x-amz-json-1.0
 | AttributesToGet  | Array of Attribute names\. If attribute names are not specified then all attributes will be returned\. If some attributes are not found, they will not appear in the result\.Type: Array | No | 
 | Limit  | The maximum number of items to return \(not necessarily the number of matching items\)\. If DynamoDB processes the number of items up to the limit while querying the table, it stops the query and returns the matching values up to that point, and a `LastEvaluatedKey` to apply in a subsequent operation to continue the query\. Also, if the result set size exceeds 1MB before DynamoDB hits this limit, it stops the query and returns the matching values, and a `LastEvaluatedKey` to apply in a subsequent operation to continue the query\.Type: Number | No | 
 | ConsistentRead  | If set to `true`, then a consistent read is issued, otherwise eventually consistent is used\.Type: Boolean | No | 
-| Count  | If set to `true`, DynamoDB returns a total number of items that match the query parameters, instead of a list of the matching items and their attributes\. You can apply the `Limit` parameter to count\-only queries\.  Do not set `Count` to `true` while providing a list of `AttributesToGet`; otherwise, DynamoDB returns a validation error\. For more information, see [Counting the Items in the Results](Query.md#Query.Count)\.Type: Boolean | No | 
+| Count  | If set to `true`, DynamoDB returns a total number of items that match the query parameters, instead of a list of the matching items and their attributes\. You can apply the `Limit` parameter to count\-only queries\.  Do not set `Count` to `true` while providing a list of `AttributesToGet`; otherwise, DynamoDB returns a validation error\. For more information, see [Counting the items in the results](Query.md#Query.Count)\.Type: Boolean | No | 
 | HashKeyValue  | Attribute value of the hash component of the composite primary key\.Type: String, Number, or Binary | Yes | 
 | RangeKeyCondition  | A container for the attribute values and comparison operators to use for the query\. A query request does not require a `RangeKeyCondition`\. If you provide only the `HashKeyValue`, DynamoDB returns all items with the specified hash key element value\.Type: Map | No | 
 | RangeKeyCondition:​ AttributeValueList | The attribute values to evaluate for the query parameters\. The `AttributeValueList` contains one attribute value, unless a `BETWEEN` comparison is specified\. For the `BETWEEN` comparison, the `AttributeValueList` contains two attribute values\. Type: A map of `AttributeValue` to a `ComparisonOperator`\.  | No | 
@@ -96,11 +96,11 @@ content-length: 308
 |  Name  |  Description  | 
 | --- | --- | 
 | Items  | Item attributes meeting the query parameters\.Type: Map of attribute names to and their data types and values\. | 
-| Count  |  Number of items in the response\. For more information, see [Counting the Items in the Results](Query.md#Query.Count)\. Type: Number  | 
+| Count  |  Number of items in the response\. For more information, see [Counting the items in the results](Query.md#Query.Count)\. Type: Number  | 
 | LastEvaluatedKey | Primary key of the item where the query operation stopped, inclusive of the previous result set\. Use this value to start a new operation excluding this value in the new request\.The `LastEvaluatedKey` is `null` when the entire query result set is complete \(i\.e\. the operation processed the “last page”\)\. Type: `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Number | 
 
-## Special Errors<a name="API_Query_SpecialErrors"></a>
+## Special errors<a name="API_Query_SpecialErrors"></a>
 
 
 ****  
@@ -111,12 +111,12 @@ content-length: 308
 
 ## Examples<a name="API_Query_Examples"></a>
 
- For examples using the AWS SDK, see [Working with Queries in DynamoDB](Query.md)\.
+ For examples using the AWS SDK, see [Query operations in DynamoDB](Query.md)\.
 
-### Sample Request<a name="API_Query_Examples_Request"></a>
+### Sample request<a name="API_Query_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
+// This header is abbreviated. For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query  
 content-type: application/x-amz-json-1.0
@@ -132,7 +132,7 @@ content-type: application/x-amz-json-1.0
 }
 ```
 
-### Sample Response<a name="API_Query_Examples_Response"></a>
+### Sample response<a name="API_Query_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 
@@ -156,10 +156,10 @@ content-length: 308
 }
 ```
 
-### Sample Request<a name="API_Query_Examples_Request2"></a>
+### Sample request<a name="API_Query_Examples_Request2"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
+// This header is abbreviated. For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.Query 
 content-type: application/x-amz-json-1.0
@@ -171,7 +171,7 @@ content-type: application/x-amz-json-1.0
 	"ScanIndexForward":false}
 ```
 
-### Sample Response<a name="API_Query_Examples_Response2"></a>
+### Sample response<a name="API_Query_Examples_Response2"></a>
 
 ```
 HTTP/1.1 200 
@@ -189,5 +189,5 @@ content-length: 119
 }
 ```
 
-## Related Actions<a name="API_Query_Related_Actions"></a>
+## Related actions<a name="API_Query_Related_Actions"></a>
 +  [Scan](API_Scan_v20111205.md) 

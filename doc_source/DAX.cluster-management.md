@@ -1,26 +1,26 @@
-# Managing DAX Clusters<a name="DAX.cluster-management"></a>
+# Managing DAX clusters<a name="DAX.cluster-management"></a>
 
 This section addresses some of the common management tasks for Amazon DynamoDB Accelerator \(DAX\) clusters\.
 
 **Topics**
-+ [IAM Permissions for Managing a DAX Cluster](#DAX.cluster-management.iam-permissions)
-+ [Scaling a DAX Cluster](#DAX.cluster-management.scaling)
-+ [Customizing DAX Cluster Settings](#DAX.cluster-management.custom-settings)
-+ [Configuring TTL Settings](#DAX.cluster-management.custom-settings.ttl)
-+ [Tagging Support for DAX](#DAX.management.tagging)
-+ [AWS CloudTrail Integration](#DAX.management.cloudtrail)
-+ [Deleting a DAX Cluster](#DAX.cluster-management.deleting)
++ [IAM permissions for managing a DAX cluster](#DAX.cluster-management.iam-permissions)
++ [Scaling a DAX cluster](#DAX.cluster-management.scaling)
++ [Customizing DAX cluster settings](#DAX.cluster-management.custom-settings)
++ [Configuring TTL settings](#DAX.cluster-management.custom-settings.ttl)
++ [Tagging support for DAX](#DAX.management.tagging)
++ [AWS CloudTrail integration](#DAX.management.cloudtrail)
++ [Deleting a DAX cluster](#DAX.cluster-management.deleting)
 
-## IAM Permissions for Managing a DAX Cluster<a name="DAX.cluster-management.iam-permissions"></a>
+## IAM permissions for managing a DAX cluster<a name="DAX.cluster-management.iam-permissions"></a>
 
 When you administer a DAX cluster using the AWS Management Console or the AWS Command Line Interface \(AWS CLI\), we strongly recommend that you narrow the scope of actions that users can perform\. By doing so, you help mitigate risk while following the principle of least privilege\.
 
-The following discussion focuses on access control for the DAX management APIs\. For more information, see [Amazon DynamoDB Accelerator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator_(DAX).html) in the *Amazon DynamoDB API Reference*\.
+The following discussion focuses on access control for the DAX management APIs\. For more information, see [Amazon DynamoDB accelerator](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator_(DAX).html) in the *Amazon DynamoDB API Reference*\.
 
 **Note**  
 For more detailed information about managing AWS Identity and Access Management \(IAM\) permissions, see the following:  
-IAM and creating DAX clusters: [Creating a DAX Cluster](DAX.create-cluster.md)\.
-IAM and DAX data plane operations: [DAX Access Control](DAX.access-control.md)\.
+IAM and creating DAX clusters: [Creating a DAX cluster](DAX.create-cluster.md)\.
+IAM and DAX data plane operations: [DAX access control](DAX.access-control.md)\.
 
 For the DAX management APIs, you can't scope API actions to a specific resource\. The `Resource` element must be set to `"*"`\. This is different from DAX data plane API operations, such as `GetItem`, `Query`, and `Scan`\. Data plane operations are exposed through the DAX client, and those operations *can* be scoped to specific resources\.
 
@@ -110,11 +110,11 @@ The following example policy shows this approach\. Note how the `DAXDataAPIs` st
 }
 ```
 
-## Scaling a DAX Cluster<a name="DAX.cluster-management.scaling"></a>
+## Scaling a DAX cluster<a name="DAX.cluster-management.scaling"></a>
 
-There are two options available for scaling a DAX cluster\. The first option is *horizontal scaling*, where you add read replicas to the cluster\. The second option is *vertical scaling*, where you select different node types\. For advice on how to approach choosing an appropriate cluster size and node type for your application, see [DAX Cluster Sizing Guide](DAX.sizing-guide.md)\.
+There are two options available for scaling a DAX cluster\. The first option is *horizontal scaling*, where you add read replicas to the cluster\. The second option is *vertical scaling*, where you select different node types\. For advice on how to approach choosing an appropriate cluster size and node type for your application, see [DAX cluster sizing guide](DAX.sizing-guide.md)\.
 
-### Horizontal Scaling<a name="DAX.cluster-management.scaling.read-scaling"></a>
+### Horizontal scaling<a name="DAX.cluster-management.scaling.read-scaling"></a>
 
 With horizontal scaling, you can improve throughput for read operations by adding more read replicas to the cluster\. A single DAX cluster supports up to 10 read replicas, and you can add or remove replicas while the cluster is running\.
 
@@ -135,7 +135,7 @@ aws dax decrease-replication-factor \
 **Note**  
 The cluster status changes to `modifying` when you modify the replication factor\. The status changes to `available` when the modification is complete\.
 
-### Vertical Scaling<a name="DAX.cluster-management.scaling.node-types"></a>
+### Vertical scaling<a name="DAX.cluster-management.scaling.node-types"></a>
 
 If you have a large working set of data, your application might benefit from using larger node types\. Larger nodes can enable the cluster to store more data in memory, reducing cache misses and improving overall application performance of the application\. \(All of the nodes in a DAX cluster must be of the same type\.\)
 
@@ -145,7 +145,7 @@ You can't modify the node types on a running DAX cluster\. Instead, you must cre
 
 You can create a new DAX cluster using the AWS Management Console, [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html), the AWS CLI, or the [AWS SDK](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB_Accelerator_(DAX).html)\. \(For the AWS CLI, use the `--node-type` parameter to specify the node type\.\)
 
-## Customizing DAX Cluster Settings<a name="DAX.cluster-management.custom-settings"></a>
+## Customizing DAX cluster settings<a name="DAX.cluster-management.custom-settings"></a>
 
 When you create a DAX cluster, the following default settings are used:
 + Automatic cache eviction enabled with Time to Live \(TTL\) of 5 minutes
@@ -156,22 +156,22 @@ When you create a DAX cluster, the following default settings are used:
 For new clusters, you can customize the settings at creation time\. To do this in the AWS Management Console, clear **Use default settings** to modify the following settings:
 + **Network and Security**—Allows you to run individual DAX cluster nodes in different Availability Zones within the current AWS Region\. If you choose **No Preference**, the nodes are distributed among Availability Zones automatically\.
 + **Parameter Group**—A named set of parameters that are applied to every node in the cluster\. You can use a parameter group to specify cache TTL behavior\. You can change the value of any given parameter within a parameter group \(except default parameter group `default.dax.1.0`\) at any time\.
-+ **Maintenance Window**—A weekly time period during which software upgrades and patches are applied to the nodes in the cluster\. You can choose the start day, start time, and duration of the maintenance window\. If you choose **No Preference**, the maintenance window is selected at random from an 8\-hour block of time per Region\. For more information, see [Maintenance Window](DAX.concepts.cluster.md#DAX.concepts.maintenance-window)\.
++ **Maintenance Window**—A weekly time period during which software upgrades and patches are applied to the nodes in the cluster\. You can choose the start day, start time, and duration of the maintenance window\. If you choose **No Preference**, the maintenance window is selected at random from an 8\-hour block of time per Region\. For more information, see [Maintenance window](DAX.concepts.cluster.md#DAX.concepts.maintenance-window)\.
 
 **Note**  
 **Parameter Group** and **Maintenance Window** can also be changed at any time on a running cluster\.
 
 When a maintenance event occurs, DAX can notify you using Amazon Simple Notification Service \(Amazon SNS\)\. To configure notifications, choose an option from the **Topic for SNS notification** selector\. You can create a new Amazon SNS topic, or use an existing topic\.
 
-For more information about setting up and subscribing to an Amazon SNS topic, see [Getting Started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/GettingStarted.html) in the *Amazon Simple Notification Service Developer Guide*\.
+For more information about setting up and subscribing to an Amazon SNS topic, see [Getting started with Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/GettingStarted.html) in the *Amazon Simple Notification Service Developer Guide*\.
 
-## Configuring TTL Settings<a name="DAX.cluster-management.custom-settings.ttl"></a>
+## Configuring TTL settings<a name="DAX.cluster-management.custom-settings.ttl"></a>
 
 DAX maintains two caches for data that it reads from DynamoDB:
 + **Item cache**—For items retrieved using `GetItem` or `BatchGetItem`\.
 + **Query cache**—For result sets retrieved using `Query` or `Scan`\.
 
-For more information, see [Item Cache](DAX.concepts.md#DAX.concepts.item-cache) and [Query Cache](DAX.concepts.md#DAX.concepts.query-cache)\.
+For more information, see [Item cache](DAX.concepts.md#DAX.concepts.item-cache) and [Query cache](DAX.concepts.md#DAX.concepts.query-cache)\.
 
 The default TTL for each of these caches is 5 minutes\. If you want to use different TTL settings, you can launch a DAX cluster using a custom parameter group\. To do this on the console, choose **DAX \| Parameter groups** in the navigation pane\.
 
@@ -221,11 +221,11 @@ aws dax create-cluster \
 **Note**  
 You can't modify a parameter group that is being used by a running DAX instance\.
 
-## Tagging Support for DAX<a name="DAX.management.tagging"></a>
+## Tagging support for DAX<a name="DAX.management.tagging"></a>
 
 Many AWS services, including DynamoDB, support *tagging*—the ability to label resources with user\-defined names\. You can assign tags to DAX clusters, allowing you to quickly identify all of your AWS resources that have the same tag, or to categorize your AWS bills by the tags you assign\.
 
-For more information, see [Adding Tags and Labels to Resources](Tagging.md)\.
+For more information, see [Adding tags and labels to resources](Tagging.md)\.
 
 ### Using the AWS Management Console<a name="DAX.management.tagging.console"></a>
 
@@ -276,11 +276,11 @@ aws dax untag-resource  \
     --tag-keys ClusterUsage
 ```
 
-## AWS CloudTrail Integration<a name="DAX.management.cloudtrail"></a>
+## AWS CloudTrail integration<a name="DAX.management.cloudtrail"></a>
 
-DAX is integrated with AWS CloudTrail, allowing you to audit DAX cluster activities\. You can use CloudTrail logs to view all the changes that have been made at the cluster level\. You can also see changes to cluster components such as nodes, subnet groups, and parameter groups\. For more information, see [Logging DynamoDB Operations by Using AWS CloudTrail](logging-using-cloudtrail.md)\.
+DAX is integrated with AWS CloudTrail, allowing you to audit DAX cluster activities\. You can use CloudTrail logs to view all the changes that have been made at the cluster level\. You can also see changes to cluster components such as nodes, subnet groups, and parameter groups\. For more information, see [Logging DynamoDB operations by using AWS CloudTrail](logging-using-cloudtrail.md)\.
 
-## Deleting a DAX Cluster<a name="DAX.cluster-management.deleting"></a>
+## Deleting a DAX cluster<a name="DAX.cluster-management.deleting"></a>
 
 If you are no longer using a DAX cluster, you should delete it to avoid being charged for unused resources\.
 

@@ -6,51 +6,107 @@ The following code examples show how to put an item in a DynamoDB table\.
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-
-        Aws::DynamoDB::Model::PutItemRequest putItemRequest;
-        putItemRequest.SetTableName(table);
-               
-        Aws::DynamoDB::Model::AttributeValue av;
-        av.SetS(keyVal);
-        
-        Aws::DynamoDB::Model::AttributeValue album;
-        album.SetS(AlbumTitleValue);
-
-        Aws::DynamoDB::Model::AttributeValue awards;
-        awards.SetS(AwardVal);
-
-        Aws::DynamoDB::Model::AttributeValue song;
-        song.SetS(SongTitleVal);
-
-        // Add all AttributeValue objects.
-        putItemRequest.AddItem(key, av);
-        putItemRequest.AddItem(albumTitle, album);
-        putItemRequest.AddItem(Awards, awards);
-        putItemRequest.AddItem(SongTitle, song);
-
-        const Aws::DynamoDB::Model::PutItemOutcome result = dynamoClient.PutItem(putItemRequest);
-        if (!result.IsSuccess())
+        /// <summary>
+        /// Adds a new item to the table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing informtation for
+        /// the movie to add to the table.</param>
+        /// <param name="tableName">The name of the table where the item will be added.</param>
+        /// <returns>A Boolean value that indicates the results of adding the item.</returns>
+        public static async Task<bool> PutItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
         {
-            std::cout << result.GetError().GetMessage() << std::endl;
-            return 1;
+            var item = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+
+            var request = new PutItemRequest
+            {
+                TableName = tableName,
+                Item = item,
+            };
+
+            var response = await client.PutItemAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
-        std::cout << "Successfully added Item!" << std::endl;
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [PutItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Put an item in an Amazon DynamoDB table.
+/*!
+  \sa putItem()
+  \param tableName: The table name.
+  \param artistKey: The artist key. This is the partition key for the table.
+  \param artistValue: The artist value.
+  \param albumTitleKey: The album title key.
+  \param albumTitleValue: The album title value.
+  \param awardsKey: The awards key.
+  \param awardsValue: The awards value.
+  \param songTitleKey: The song title key.
+  \param songTitleValue: The song title value.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
+                               const Aws::String &artistKey,
+                               const Aws::String &artistValue,
+                               const Aws::String &albumTitleKey,
+                               const Aws::String &albumTitleValue,
+                               const Aws::String &awardsKey,
+                               const Aws::String &awardsValue,
+                               const Aws::String &songTitleKey,
+                               const Aws::String &songTitleValue,
+                               const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::PutItemRequest putItemRequest;
+    putItemRequest.SetTableName(tableName);
+
+    putItemRequest.AddItem(artistKey, Aws::DynamoDB::Model::AttributeValue().SetS(
+            artistValue)); // This is the hash key.
+    putItemRequest.AddItem(albumTitleKey, Aws::DynamoDB::Model::AttributeValue().SetS(
+            albumTitleValue));
+    putItemRequest.AddItem(awardsKey,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(awardsValue));
+    putItemRequest.AddItem(songTitleKey,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(songTitleValue));
+
+    const Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(
+            putItemRequest);
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully added Item!" << std::endl;
+    }
+    else {
+        std::cerr << outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+```
 +  For API details, see [PutItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -78,59 +134,67 @@ func (basics TableBasics) AddMovie(movie Movie) error {
 	return err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.PutItem) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
-Puts an item into a table by using the enhanced client\.  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Puts an item into a table using [DynamoDbClient](http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html)\.  
 
 ```
-    public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
+    public static void putItemInTable(DynamoDbClient ddb,
+                                      String tableName,
+                                      String key,
+                                      String keyVal,
+                                      String albumTitle,
+                                      String albumTitleValue,
+                                      String awards,
+                                      String awardVal,
+                                      String songTitle,
+                                      String songTitleVal){
+
+        HashMap<String,AttributeValue> itemValues = new HashMap<>();
+        itemValues.put(key, AttributeValue.builder().s(keyVal).build());
+        itemValues.put(songTitle, AttributeValue.builder().s(songTitleVal).build());
+        itemValues.put(albumTitle, AttributeValue.builder().s(albumTitleValue).build());
+        itemValues.put(awards, AttributeValue.builder().s(awardVal).build());
+
+        PutItemRequest request = PutItemRequest.builder()
+            .tableName(tableName)
+            .item(itemValues)
+            .build();
 
         try {
-            DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            PutItemResponse response = ddb.putItem(request);
+            System.out.println(tableName +" was successfully updated. The request id is "+response.responseMetadata().requestId());
 
-            // Create an Instant
-            LocalDate localDate = LocalDate.parse("2020-04-07");
-            LocalDateTime localDateTime = localDate.atStartOfDay();
-            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-
-            // Populate the Table
-            Customer custRecord = new Customer();
-            custRecord.setCustName("Susan red");
-            custRecord.setId("id146");
-            custRecord.setEmail("sred@noserver.com");
-            custRecord.setRegistrationDate(instant) ;
-
-            // Put the customer data into a DynamoDB table
-            custTable.putItem(custRecord);
-
+        } catch (ResourceNotFoundException e) {
+            System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
+            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            System.exit(1);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("done");
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [PutItem](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/PutItem) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create the DynamoDB document client\.  
 
@@ -138,14 +202,12 @@ Create the DynamoDB document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -155,10 +217,11 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
@@ -203,7 +266,7 @@ export const run = async (tableName, movieTitle1, movieYear1) => {
     Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
   };
   try {
-    const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
+    await ddbDocClient.send(new ExecuteStatementCommand(params));
     console.log("Success. Item added.");
     return "Run successfully"; // For unit tests.
   } catch (err) {
@@ -247,7 +310,7 @@ export const run = async (
     ],
   };
   try {
-    const data = await ddbDocClient.send(
+    await ddbDocClient.send(
       new BatchExecuteStatementCommand(params)
     );
     console.log("Success. Items added.");
@@ -258,10 +321,10 @@ export const run = async (
 };
 run(tableName, movieYear1, movieTitle1, movieYear2, movieTitle2);
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/putitemcommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 Put an item in a table\.  
 
 ```
@@ -318,7 +381,6 @@ docClient.put(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item)\. 
 +  For API details, see [PutItem](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -327,46 +389,84 @@ docClient.put(params, function(err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
 suspend fun putItemInTable(
-        tableNameVal: String,
-        key: String,
-        keyVal: String,
-        albumTitle: String,
-        albumTitleValue: String,
-        awards: String,
-        awardVal: String,
-        songTitle: String,
-        songTitleVal: String
-    ) {
-        val itemValues = mutableMapOf<String, AttributeValue>()
+    tableNameVal: String,
+    key: String,
+    keyVal: String,
+    albumTitle: String,
+    albumTitleValue: String,
+    awards: String,
+    awardVal: String,
+    songTitle: String,
+    songTitleVal: String
+) {
+    val itemValues = mutableMapOf<String, AttributeValue>()
 
-        // Add all content to the table.
-        itemValues[key] = AttributeValue.S(keyVal)
-        itemValues[songTitle] = AttributeValue.S(songTitleVal)
-        itemValues[albumTitle] =  AttributeValue.S(albumTitleValue)
-        itemValues[awards] = AttributeValue.S(awardVal)
+    // Add all content to the table.
+    itemValues[key] = AttributeValue.S(keyVal)
+    itemValues[songTitle] = AttributeValue.S(songTitleVal)
+    itemValues[albumTitle] = AttributeValue.S(albumTitleValue)
+    itemValues[awards] = AttributeValue.S(awardVal)
 
-        val request = PutItemRequest {
-            tableName=tableNameVal
-            item = itemValues
-        }
+    val request = PutItemRequest {
+        tableName = tableNameVal
+        item = itemValues
+    }
 
-       DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.putItem(request)
-            println(" A new item was placed into $tableNameVal.")
-        }
- }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.putItem(request)
+        println(" A new item was placed into $tableNameVal.")
+    }
+}
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        echo "What's the name of the last movie you watched?\n";
+        while (empty($movieName)) {
+            $movieName = testable_readline("Movie name: ");
+        }
+        echo "And what year was it released?\n";
+        $movieYear = "year";
+        while (!is_numeric($movieYear) || intval($movieYear) != $movieYear) {
+            $movieYear = testable_readline("Year released: ");
+        }
+
+        $service->putItem([
+            'Item' => [
+                'year' => [
+                    'N' => "$movieYear",
+                ],
+                'title' => [
+                    'S' => $movieName,
+                ],
+            ],
+            'TableName' => $tableName,
+        ]);
+
+    public function putItem(array $array)
+    {
+        $this->dynamoDbClient->putItem($array);
+    }
+```
++  For API details, see [PutItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -401,13 +501,13 @@ class Movies:
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -429,7 +529,6 @@ class Movies:
     raise
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/PutItem) in *AWS SDK for Ruby API Reference*\. 
 
 ------
@@ -437,23 +536,16 @@ class Movies:
 
 **SDK for Rust**  
 This documentation is for an SDK in preview release\. The SDK is subject to change and should not be used in production\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
   
 
 ```
-async fn add_item(
-    client: &Client,
-    table: &str,
-    username: &str,
-    p_type: &str,
-    age: &str,
-    first: &str,
-    last: &str,
-) -> Result<(), Error> {
-    let user_av = AttributeValue::S(username.into());
-    let type_av = AttributeValue::S(p_type.into());
-    let age_av = AttributeValue::S(age.into());
-    let first_av = AttributeValue::S(first.into());
-    let last_av = AttributeValue::S(last.into());
+pub async fn add_item(client: &Client, item: Item, table: &String) -> Result<ItemOut, Error> {
+    let user_av = AttributeValue::S(item.username);
+    let type_av = AttributeValue::S(item.p_type);
+    let age_av = AttributeValue::S(item.age);
+    let first_av = AttributeValue::S(item.first);
+    let last_av = AttributeValue::S(item.last);
 
     let request = client
         .put_item()
@@ -464,19 +556,32 @@ async fn add_item(
         .item("first_name", first_av)
         .item("last_name", last_av);
 
-    println!("Executing request [{:?}] to add item...", request);
+    println!("Executing request [{request:?}] to add item...");
 
-    request.send().await?;
+    let resp = request.send().await?;
+
+    let attributes = resp.attributes().unwrap();
+
+    let username = attributes.get("username").cloned();
+    let first_name = attributes.get("first_name").cloned();
+    let last_name = attributes.get("last_name").cloned();
+    let age = attributes.get("age").cloned();
+    let p_type = attributes.get("p_type").cloned();
 
     println!(
-        "Added user {}, {} {}, age {} as {} user",
-        username, first, last, age, p_type
+        "Added user {:?}, {:?} {:?}, age {:?} as {:?} user",
+        username, first_name, last_name, age, p_type
     );
 
-    Ok(())
+    Ok(ItemOut {
+        p_type,
+        age,
+        username,
+        first_name,
+        last_name,
+    })
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 +  For API details, see [PutItem](https://docs.rs/releases/search?query=aws-sdk) in *AWS SDK for Rust API reference*\. 
 
 ------

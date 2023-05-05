@@ -1,4 +1,4 @@
-# Loading Data From DynamoDB Into Amazon Redshift<a name="RedshiftforDynamoDB"></a>
+# Loading data from DynamoDB into Amazon Redshift<a name="RedshiftforDynamoDB"></a>
 
 
 

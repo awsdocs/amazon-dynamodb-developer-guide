@@ -1,4 +1,4 @@
-# General Guidelines for Secondary Indexes in DynamoDB<a name="bp-indexes-general"></a>
+# General guidelines for secondary indexes in DynamoDB<a name="bp-indexes-general"></a>
 
 Amazon DynamoDB supports two types of secondary indexes:
 + **Global secondary index—**An index with a partition key and a sort key that can be different from those on the base table\. A global secondary index is considered "global" because queries on the index can span all of the data in the base table, across all partitions\. A global secondary index has no size limitations and has its own provisioned throughput settings for read and write activity that are separate from those of the table\.
@@ -6,23 +6,23 @@ Amazon DynamoDB supports two types of secondary indexes:
 
 Each table in DynamoDB can have up to 20 global secondary indexes \(default quota\) and 5 local secondary indexes\. 
 
-For more information about the differences between global secondary indexes and local secondary indexes, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
+For more information about the differences between global secondary indexes and local secondary indexes, see [Improving data access with secondary indexes](SecondaryIndexes.md)\.
 
 In general, you should use global secondary indexes rather than local secondary indexes\. The exception is when you need strong consistency in your query results, which a local secondary index can provide but a global secondary index cannot \(global secondary index queries only support eventual consistency\)\.
 
 The following are some general principles and design patterns to keep in mind when creating indexes in DynamoDB:
 
 **Topics**
-+ [Use Indexes Efficiently](#bp-indexes-general-efficiency)
-+ [Choose Projections Carefully](#bp-indexes-general-projections)
-+ [Optimize Frequent Queries to Avoid Fetches](#bp-indexes-general-fetches)
-+ [Be Aware of Item\-Collection Size Limits When Creating Local Secondary Indexes](#bp-indexes-general-expanding-collections)
++ [Use indexes efficiently](#bp-indexes-general-efficiency)
++ [Choose projections carefully](#bp-indexes-general-projections)
++ [Optimize frequent queries to avoid fetches](#bp-indexes-general-fetches)
++ [Be aware of item\-collection size limits when creating local secondary indexes](#bp-indexes-general-expanding-collections)
 
-## Use Indexes Efficiently<a name="bp-indexes-general-efficiency"></a>
+## Use indexes efficiently<a name="bp-indexes-general-efficiency"></a>
 
 **Keep the number of indexes to a minimum\.** Don't create secondary indexes on attributes that you don't query often\. Indexes that are seldom used contribute to increased storage and I/O costs without improving application performance\. 
 
-## Choose Projections Carefully<a name="bp-indexes-general-projections"></a>
+## Choose projections carefully<a name="bp-indexes-general-projections"></a>
 
 Because secondary indexes consume storage and provisioned throughput, you should keep the size of the index as small as possible\. Also, the smaller the index, the greater the performance advantage compared to querying the full table\. If your queries usually return only a small subset of attributes, and the total size of those attributes is much smaller than the whole item, project only the attributes that you regularly request\.
 
@@ -33,15 +33,15 @@ If you expect a lot of write activity on a table compared to reads, follow these
 
 Balance the need to keep your indexes as small as possible against the need to keep fetches to a minimum, as explained in the next section\.
 
-## Optimize Frequent Queries to Avoid Fetches<a name="bp-indexes-general-fetches"></a>
+## Optimize frequent queries to avoid fetches<a name="bp-indexes-general-fetches"></a>
 
 To get the fastest queries with the lowest possible latency, project all the attributes that you expect those queries to return\. In particular, if you query a local secondary index for attributes that are not projected, DynamoDB automatically fetches those attributes from the table, which requires reading the entire item from the table\. This introduces latency and additional I/O operations that you can avoid\.
 
 Keep in mind that "occasional" queries can often turn into "essential" queries\. If there are attributes that you don't intend to project because you anticipate querying them only occasionally, consider whether circumstances might change and you might regret not projecting those attributes after all\.
 
-For more information about table fetches, see [Provisioned Throughput Considerations for Local Secondary Indexes](LSI.md#LSI.ThroughputConsiderations)\.
+For more information about table fetches, see [Provisioned throughput considerations for Local Secondary Indexes](LSI.md#LSI.ThroughputConsiderations)\.
 
-## Be Aware of Item\-Collection Size Limits When Creating Local Secondary Indexes<a name="bp-indexes-general-expanding-collections"></a>
+## Be aware of item\-collection size limits when creating local secondary indexes<a name="bp-indexes-general-expanding-collections"></a>
 
 An *item collection* is all the items in a table and its local secondary indexes that have the same partition key\. No item collection can exceed 10 GB, so it's possible to run out of space for a particular partition key value\.
 
@@ -49,4 +49,4 @@ When you add or update a table item, DynamoDB updates all local secondary indexe
 
 When you create a local secondary index, think about how much data will be written to it, and how many of those data items will have the same partition key value\. If you expect that the sum of table and index items for a particular partition key value might exceed 10 GB, consider whether you should avoid creating the index\.
 
-If you can't avoid creating the local secondary index, you must anticipate the item collection size limit and take action before you exceed it\. For strategies on working within the limit and taking corrective action, see [Item Collection Size Limit](LSI.md#LSI.ItemCollections.SizeLimit)\.
+If you can't avoid creating the local secondary index, you must anticipate the item collection size limit and take action before you exceed it\. For strategies on working within the limit and taking corrective action, see [Item collection size limit](LSI.md#LSI.ItemCollections.SizeLimit)\.

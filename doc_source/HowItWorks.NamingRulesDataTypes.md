@@ -1,12 +1,12 @@
 # Supported data types and naming rules in Amazon DynamoDB<a name="HowItWorks.NamingRulesDataTypes"></a>
 
-This section describes the Amazon DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data Types](ServiceQuotas.md#limits-data-types)\. 
+This section describes the Amazon DynamoDB naming rules and the various data types that DynamoDB supports\. There are limits that apply to data types\. For more information, see [Data types](ServiceQuotas.md#limits-data-types)\. 
 
 **Topics**
-+ [Naming Rules](#HowItWorks.NamingRules)
-+ [Data Types](#HowItWorks.DataTypes)
++ [Naming rules](#HowItWorks.NamingRules)
++ [Data types](#HowItWorks.DataTypes)
 
-## Naming Rules<a name="HowItWorks.NamingRules"></a>
+## Naming rules<a name="HowItWorks.NamingRules"></a>
 
 Tables, attributes, and other objects in DynamoDB must have names\. Names should be meaningful and concise—for example, names such as *Products*, *Books*, and *Authors* are self\-explanatory\.
 
@@ -19,20 +19,20 @@ The following are the naming rules for DynamoDB:
   + `_` \(underscore\)
   + `-` \(dash\)
   + `.` \(dot\)
-+ Attribute names must be at least one character long, but no greater than 64 KB long\.
++ Attribute names must be at least one character long, and less than 64 KB in size\. It is considered best practice to keep your attribute names as short as possible\. This helps to reduce read request units consumed, as attribute names are included in metering of storage and throughput usage\.
 
   The following are the exceptions\. These attribute names must be no greater than 255 characters long:
   + Secondary index partition key names\.
   + Secondary index sort key names\.
   + The names of any user\-specified projected attributes \(applicable only to local secondary indexes\)\. 
 
-### Reserved Words and Special Characters<a name="HowItWorks.NamingRules.Reserved"></a>
+### Reserved words and special characters<a name="HowItWorks.NamingRules.Reserved"></a>
 
-DynamoDB has a list of reserved words and special characters\. For a complete list of reserved words in DynamoDB, see [Reserved Words in DynamoDB](ReservedWords.md)\. Also, the following characters have special meaning in DynamoDB: **\#** \(hash\) and **:** \(colon\)\.
+DynamoDB has a list of reserved words and special characters\. For a complete list of reserved words in DynamoDB, see [Reserved words in DynamoDB](ReservedWords.md)\. Also, the following characters have special meaning in DynamoDB: **\#** \(hash\) and **:** \(colon\)\.
 
-Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid doing so because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
+Although DynamoDB allows you to use these reserved words and special characters for names, we recommend that you avoid doing so because you have to define placeholder variables whenever you use these names in an expression\. For more information, see [Expression attribute names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
 
-## Data Types<a name="HowItWorks.DataTypes"></a>
+## Data types<a name="HowItWorks.DataTypes"></a>
 
 DynamoDB supports many different data types for attributes within a table\. They can be categorized as follows:
 + **Scalar Types** – A scalar type can represent exactly one value\. The scalar types are number, string, binary, Boolean, and null\.
@@ -45,22 +45,19 @@ DynamoDB is a NoSQL database and is *schemaless*\. This means that, other than t
 
 The following are descriptions of each data type, along with examples in JSON format\.
 
-### Scalar Types<a name="HowItWorks.DataTypes.Scalar"></a>
+### Scalar types<a name="HowItWorks.DataTypes.Scalar"></a>
 
 The scalar types are number, string, binary, Boolean, and null\.
 
 #### Number<a name="HowItWorks.DataTypes.Number"></a>
 
-Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits of precision\. Exceeding this results in an exception\.
+Numbers can be positive, negative, or zero\. Numbers can have up to 38 digits of precision\. Exceeding this results in an exception\. If you need greater precision than 38 digits, you can use strings\.
 + Positive range: 1E\-130 to 9\.9999999999999999999999999999999999999E\+125
 + Negative range: \-9\.9999999999999999999999999999999999999E\+125 to \-1E\-130
 
 In DynamoDB, numbers are represented as variable length\. Leading and trailing zeroes are trimmed\.
 
 All numbers are sent across the network to DynamoDB as strings, to maximize compatibility across languages and libraries\. However, DynamoDB treats them as number type attributes for mathematical operations\. 
-
-**Note**  
-If number precision is important, you should pass numbers to DynamoDB using strings that you convert from the number type\.
 
 You can use the number data type to represent a date or a timestamp\. One way to do this is by using epoch time—the number of seconds since 00:00:00 UTC on 1 January 1970\. For example, the epoch time `1437136300` represents 12:31:40 PM UTC on 17 July 2015\.
 
@@ -82,6 +79,9 @@ You can use the string data type to represent a date or a timestamp\. One way to
 + `20150311T122706Z`
 
 For more information, see [http://en\.wikipedia\.org/wiki/ISO\_8601](http://en.wikipedia.org/wiki/ISO_8601)\.
+
+**Note**  
+Unlike conventional relational databases, DynamoDB does not natively support a date and time data type\. It can be useful instead to store data and time data as a number data type, using Unix epoch time\.
 
 #### Binary<a name="HowItWorks.DataTypes.Binary"></a>
 
@@ -109,7 +109,7 @@ A Boolean type attribute can store either `true` or `false`\.
 
 Null represents an attribute with an unknown or undefined state\.
 
-### Document Types<a name="HowItWorks.DataTypes.Document"></a>
+### Document types<a name="HowItWorks.DataTypes.Document"></a>
 
 The document types are list and map\. These data types can be nested within each other, to represent complex data structures up to 32 levels deep\. 
 
@@ -130,7 +130,7 @@ FavoriteThings: ["Cookies", "Coffee", 3.14159]
 ```
 
 **Note**  
-DynamoDB lets you work with individual elements within lists, even if those elements are deeply nested\. For more information, see [Using Expressions in DynamoDB](Expressions.md)\.
+DynamoDB lets you work with individual elements within lists, even if those elements are deeply nested\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
 
 #### Map<a name="HowItWorks.DataTypes.Document.Map"></a>
 
@@ -157,7 +157,7 @@ Maps are ideal for storing JSON documents in DynamoDB\. The following example sh
 ```
 
 **Note**  
-DynamoDB lets you work with individual elements within maps, even if those elements are deeply nested\. For more information, see [Using Expressions in DynamoDB](Expressions.md)\.
+DynamoDB lets you work with individual elements within maps, even if those elements are deeply nested\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
 
 ### Sets<a name="HowItWorks.DataTypes.SetTypes"></a>
 

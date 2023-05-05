@@ -30,7 +30,7 @@ If no item matches the specified primary key:
 **Note**  
 If you use `ADD` to increment or decrement a number value for an item that doesn't exist before the update, DynamoDB uses `0` as the initial value\. Also, if you update an item using `ADD` to increment or decrement a number value for an attribute that doesn't exist before the update \(but the item does\) DynamoDB uses `0` as the initial value\. For example, you use `ADD` to add `+3` to an attribute that did not exist before the update\. DynamoDB uses `0` for the initial value, and the value after the update is `3`\. 
 
-For more information about using this operation, see [Working with Items and Attributes](WorkingWithItems.md)\. 
+For more information about using this operation, see [Working with items and attributes](WorkingWithItems.md)\. 
 
 ## Requests<a name="API_UpdateItem_RequestParameters"></a>
 
@@ -38,7 +38,7 @@ For more information about using this operation, see [Working with Items and Att
 
 ```
 // This header is abbreviated.
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateItem
 content-type: application/x-amz-json-1.0
@@ -59,7 +59,7 @@ content-type: application/x-amz-json-1.0
 |  Name  |  Description  |  Required | 
 | --- | --- | --- | 
 |  TableName  |  The name of the table containing the item to update\.  Type: String  |  Yes  | 
-|  Key  | The primary key that defines the item\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
+|  Key  | The primary key that defines the item\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement` to its value and `RangeKeyElement` to its value\. | Yes | 
 | AttributeUpdates | Map of attribute name to the new value and action for the update\. The attribute names specify the attributes to modify, and cannot contain any primary key attributes\.Type: Map of attribute name, value, and an action for the attribute update\. |  | 
 | AttributeUpdates:Action | Specifies how to perform the update\. Possible values: `PUT` \(default\), `ADD` or `DELETE`\. The semantics are explained in the UpdateItem description\.Type: StringDefault: `PUT` | No | 
 | Expected  | Designates an attribute for a conditional update\. The `Expected` parameter allows you to provide an attribute name, and whether or not DynamoDB should check to see if the attribute value already exists; or if the attribute value exists and has a particular value before changing it\.Type: Map of attribute names\. | No | 
@@ -95,9 +95,9 @@ content-length: 140
 |  Name  |  Description  | 
 | --- | --- | 
 |  Attributes  | A map of attribute name\-value pairs, but only if the `ReturnValues` parameter is specified as something other than `NONE` in the request\.Type: Map of attribute name\-value pairs\. | 
-| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of write capacity units consumed by the operation\. This value shows the number applied toward your provisioned throughput\. For more information see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Number | 
 
-## Special Errors<a name="API_UpdateItem_SpecialErrors"></a>
+## Special errors<a name="API_UpdateItem_SpecialErrors"></a>
 
 
 ****  
@@ -109,12 +109,12 @@ content-length: 140
 
 ## Examples<a name="API_UpdateItem_Examples"></a>
 
-For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
+For examples using the AWS SDK, see [Working with items and attributes](WorkingWithItems.md)\.
 
-### Sample Request<a name="API_UpdateItem_Examples_Request"></a>
+### Sample request<a name="API_UpdateItem_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
+// This header is abbreviated. For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.UpdateItem
 content-type: application/x-amz-json-1.0 
@@ -130,7 +130,7 @@ content-type: application/x-amz-json-1.0
 }
 ```
 
-### Sample Response<a name="API_UpdateItem_Examples_Response"></a>
+### Sample response<a name="API_UpdateItem_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 OK
@@ -148,6 +148,6 @@ Date: Fri, 26 Aug 2011 21:05:00 GMT
 }
 ```
 
-## Related Actions<a name="API_UpdateItem_Related_Actions"></a>
+## Related actions<a name="API_UpdateItem_Related_Actions"></a>
 +  [PutItem](API_PutItem_v20111205.md) 
 +  [DeleteItem](API_DeleteItem_v20111205.md) 

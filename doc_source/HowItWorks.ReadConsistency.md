@@ -1,4 +1,4 @@
-# Read Consistency<a name="HowItWorks.ReadConsistency"></a>
+# Read consistency<a name="HowItWorks.ReadConsistency"></a>
 
 Amazon DynamoDB is available in multiple AWS Regions around the world\. Each Region is independent and isolated from other AWS Regions\. For example, if you have a table called *People* in the *us\-east\-2* Region and another table named *People* in the *us\-west\-2* Region, these are considered two entirely separate tables\. For a list of all the AWS Regions in which DynamoDB is available, see [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ddb_region) in the *Amazon Web Services General Reference*\.
 
@@ -13,10 +13,9 @@ When you read data from a DynamoDB table, the response might not reflect the res
 
 **Strongly Consistent Reads**  
 When you request a strongly consistent read, DynamoDB returns a response with the most up\-to\-date data, reflecting the updates from all prior write operations that were successful\. However, this consistency comes with some disadvantages:
-+ A strongly consistent read might not be available if there is a network delay or outage\. In this case, DynamoDB may return a server error \(HTTP 500\)\.
-+ Strongly consistent reads may have higher latency than eventually consistent reads\.
 + Strongly consistent reads are not supported on global secondary indexes\.
-+ Strongly consistent reads use more throughput capacity than eventually consistent reads\. For details, see [Read/Write Capacity Mode](HowItWorks.ReadWriteCapacityMode.md)
++ Strongly consistent reads use more throughput capacity than eventually consistent reads\. If there is a network delay or outage, a strongly consistent read might not be available and DynamoDB may return a server error \(HTTP 500\)\. For details, see [Read/write capacity mode](HowItWorks.ReadWriteCapacityMode.md)
++ If read requests do not reach the Leader node on the first attempt, then strongly consistent reads may experience a higher latency\.
 
 **Note**  
 DynamoDB uses eventually consistent reads, unless you specify otherwise\. Read operations \(such as `GetItem`, `Query`, and `Scan`\) provide a `ConsistentRead` parameter\. If you set this parameter to true, DynamoDB uses strongly consistent reads during the operation\.

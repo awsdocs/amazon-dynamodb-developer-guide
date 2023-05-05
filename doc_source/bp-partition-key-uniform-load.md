@@ -1,6 +1,6 @@
-# Designing Partition Keys to Distribute Your Workload Evenly<a name="bp-partition-key-uniform-load"></a>
+# Designing partition keys to distribute your workload<a name="bp-partition-key-uniform-load"></a>
 
-The partition key portion of a table's primary key determines the logical partitions in which a table's data is stored\. This in turn affects the underlying physical partitions\. A partition key design that doesn't distribute I/O requests evenly can create "hot" partitions that result in throttling and use your provisioned I/O capacity inefficiently\.
+The partition key portion of a table's primary key determines the logical partitions in which a table's data is stored\. This in turn affects the underlying physical partitions\. A partition key design that doesn't distribute I/O requests effectively can create "hot" partitions that result in throttling and use your provisioned I/O capacity inefficiently\.
 
 The optimal usage of a table's provisioned throughput depends not only on the workload patterns of individual items, but also on the partition key design\. This doesn't mean that you must access all partition key values to achieve an efficient throughput level, or even that the percentage of accessed partition key values must be high\. It does mean that the more distinct partition key values that your workload accesses, the more those requests will be spread across the partitioned space\. In general, you will use your provisioned throughput more efficiently as the ratio of partition key values accessed to the total number of partition key values increases\.
 

@@ -1,12 +1,12 @@
-# Using IAM with DynamoDB Backup and Restore<a name="backuprestore_IAM"></a>
+# Using IAM with DynamoDB backup and restore<a name="backuprestore_IAM"></a>
 
 You can use AWS Identity and Access Management \(IAM\) to restrict Amazon DynamoDB backup and restore actions for some resources\. The `CreateBackup` and `RestoreTableFromBackup` APIs operate on a per\-table basis\.
 
- For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\. 
+ For more information about using IAM policies in DynamoDB, see  [Identity\-based policies for DynamoDB](security_iam_service-with-iam.md#security_iam_service-with-iam-id-based-policies)\. 
 
 The following are examples of IAM policies that you can use to configure specific backup and restore functionality in DynamoDB\.
 
-## Example 1: Allow the CreateBackup and RestoreTableFromBackup Actions<a name="access-policy-example1"></a>
+## Example 1: Allow the CreateBackup and RestoreTableFromBackup actions<a name="access-policy-example1"></a>
 
 The following IAM policy grants permissions to allow the `CreateBackup` and `RestoreTableFromBackup` DynamoDB actions on all tables:
 
@@ -27,16 +27,17 @@ The following IAM policy grants permissions to allow the `CreateBackup` and `Res
                 "dynamodb:Scan",
                 "dynamodb:BatchWriteItem"   
             ],
-            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Movies"
+            "Resource": "*"
         }
     ]
 }
 ```
 
 **Important**  
- DynamoDB write permissions are necessary for restore functionality\. 
+ DynamoDB RestoreTableFromBackup permissions are necessary on the source backup, and DynamoDB read and write permissions on the target table are necessary for restore functionality\.  
+ DynamoDB RestoreTableToPointInTime permissions are necessary on the source table, and DynamoDB read and write permissions on the target table are necessary for restore functionality\. 
 
-## Example 2: Allow CreateBackup and Deny RestoreTableFromBackup<a name="access-policy-example2"></a>
+## Example 2: Allow CreateBackup and deny RestoreTableFromBackup<a name="access-policy-example2"></a>
 
 The following IAM policy grants permissions for the `CreateBackup` action and denies the `RestoreTableFromBackup` action:
 
@@ -47,19 +48,19 @@ The following IAM policy grants permissions for the `CreateBackup` action and de
         {
             "Effect": "Allow",
             "Action": ["dynamodb:CreateBackup"],
-            "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+            "Resource": "*"
         },
         {
             "Effect": "Deny",
             "Action": ["dynamodb:RestoreTableFromBackup"],
-            "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+            "Resource": "*"
         }
         
     ]
 }
 ```
 
-## Example 3: Allow ListBackups and Deny CreateBackup and RestoreTableFromBackup<a name="access-policy-example3"></a>
+## Example 3: Allow ListBackups and deny CreateBackup and RestoreTableFromBackup<a name="access-policy-example3"></a>
 
 The following IAM policy grants permissions for the `ListBackups` action and denies the `CreateBackup` and `RestoreTableFromBackup` actions:
 
@@ -70,7 +71,7 @@ The following IAM policy grants permissions for the `ListBackups` action and den
         {
             "Effect": "Allow",
             "Action": ["dynamodb:ListBackups"],
-            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Movies"
+            "Resource": "*"
         },
         {
             "Effect": "Deny",
@@ -78,14 +79,14 @@ The following IAM policy grants permissions for the `ListBackups` action and den
                 "dynamodb:CreateBackup",
                 "dynamodb:RestoreTableFromBackup"
             ],
-            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Movies"
+            "Resource": "*"
         }
         
     ]
 }
 ```
 
-## Example 4: Allow ListBackups and Deny DeleteBackup<a name="access-policy-example4"></a>
+## Example 4: Allow ListBackups and deny DeleteBackup<a name="access-policy-example4"></a>
 
 The following IAM policy grants permissions for the `ListBackups` action and denies the `DeleteBackup` action:
 
@@ -96,19 +97,19 @@ The following IAM policy grants permissions for the `ListBackups` action and den
         {
             "Effect": "Allow",
             "Action": ["dynamodb:ListBackups"],
-            "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+            "Resource": "*"
         },
         {
             "Effect": "Deny",
             "Action": ["dynamodb:DeleteBackup"],
-            "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+            "Resource": "*"
         }
         
     ]
 }
 ```
 
-## Example 5: Allow RestoreTableFromBackup and DescribeBackup for All Resources and Deny DeleteBackup for a Specific Backup<a name="access-policy-example5"></a>
+## Example 5: Allow RestoreTableFromBackup and DescribeBackup for all resources and deny DeleteBackup for a specific backup<a name="access-policy-example5"></a>
 
 The following IAM policy grants permissions for the `RestoreTableFromBackup` and `DescribeBackup` actions and denies the `DeleteBackup` action for a specific backup resource:
 
@@ -121,6 +122,12 @@ The following IAM policy grants permissions for the `RestoreTableFromBackup` and
             "Action": [
                 "dynamodb:DescribeBackup",
                 "dynamodb:RestoreTableFromBackup",
+            ],
+            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Music/backup/01489173575360-b308cd7d"
+        },
+        {
+             "Effect": "Allow",
+             "Action": [
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem",
                 "dynamodb:DeleteItem",
@@ -129,7 +136,7 @@ The following IAM policy grants permissions for the `RestoreTableFromBackup` and
                 "dynamodb:Scan",
                 "dynamodb:BatchWriteItem"
             ],
-            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Music/backup/01489173575360-b308cd7d"
+            "Resource": "*" 
         },
         {
             "Effect": "Deny",
@@ -143,9 +150,10 @@ The following IAM policy grants permissions for the `RestoreTableFromBackup` and
 ```
 
 **Important**  
- DynamoDB write permissions are necessary for restore functionality\. 
+ DynamoDB RestoreTableFromBackup permissions are necessary on the source backup, and DynamoDB read and write permissions on the target table are necessary for restore functionality\.  
+ DynamoDB RestoreTableToPointInTime permissions are necessary on the source table, and DynamoDB read and write permissions on the target table are necessary for restore functionality\. 
 
-## Example 6: Allow CreateBackup for a Specific Table<a name="access-policy-example6"></a>
+## Example 6: Allow CreateBackup for a specific table<a name="access-policy-example6"></a>
 
 The following IAM policy grants permissions for the `CreateBackup` action on the `Movies` table only:
 
@@ -175,9 +183,10 @@ The following IAM policy grants permissions for the `ListBackups` action:
         {
             "Effect": "Allow",
             "Action": ["dynamodb:ListBackups"],
-            "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+            "Resource": "*"
         }
     ]
+}
 }
 ```
 
@@ -188,7 +197,7 @@ The following IAM policy grants permissions for the `ListBackups` action:
 
 You will need API permissions for the `StartAwsBackupJob` action for a successful backup with advanced features, and the `dynamodb:RestoreTableFromAwsBackup` action to successfully restore that backup\.
 
-The following IAM policy grants AWS Backup the permissions to trigger backups with advanced features and restores\. Also note that if the tables are encrypted the policy will need access to the AWS KMS key\. 
+The following IAM policy grants AWS Backup the permissions to trigger backups with advanced features and restores\. Also note that if the tables are encrypted the policy will need access to the [AWS KMS key](encryption.usagenotes.html#dynamodb-kms-authz)\. 
 
 ```
 {
@@ -199,14 +208,57 @@ The following IAM policy grants AWS Backup the permissions to trigger backups wi
             "Effect": "Allow",
             "Action": [
                 "dynamodb:StartAwsBackupJob",
-                "dynamodb:RestoreTableFromAwsBackup",
                 "dynamodb:DescribeTable",
                 "dynamodb:Query",
                 "dynamodb:Scan"
             ],
             "Resource": "arn:aws:dynamodb:us-west-2:account-id:table/Books"
+        },
+        {
+            "Sid": "AllowRestoreFromAwsBackup",
+            "Effect": "Allow",
+            "Action": ["dynamodb:RestoreTableFromAwsBackup"],
+            "Resource": "*"
+        },
+
+    ]
+}
+```
+
+## Example 9: Deny RestoreTableToPointInTime for a Specific Source Table<a name="access-policy-example9"></a>
+
+The following IAM policy denies permissions for the `RestoreTableToPointInTime` action for a specific source table: 
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": [
+                "dynamodb:RestoreTableToPointInTime"
+            ],
+            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Music"
         }
     ]
 }
+```
+
+## Example 10: Deny RestoreTableFromBackup for all Backups for a Specific Source Table<a name="access-policy-example10"></a>
+
+The following IAM policy denies permissions for the `RestoreTableToPointInTime` action for all backups for a specific source table: 
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": [
+                "dynamodb:RestoreTableFromBackup"
+            ],
+            "Resource": "arn:aws:dynamodb:us-east-1:123456789012:table/Music/backup/*"
+        }
+    ]
 }
 ```

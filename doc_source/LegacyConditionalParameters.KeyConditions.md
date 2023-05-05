@@ -1,5 +1,8 @@
 # KeyConditions<a name="LegacyConditionalParameters.KeyConditions"></a>
 
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
+
 `KeyConditions` are the selection criteria for a `Query` operation\. For a query on a table, you can have conditions only on the table primary key attributes\. You must provide the partition key name and value as an `EQ` condition\. You can optionally provide a second condition, referring to the sort key\.
 
 **Note**  
@@ -44,7 +47,7 @@ Each `KeyConditions` element consists of an attribute name to compare, along wit
 
      `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary \(not a set type\)\. A target attribute matches if the target value is greater than, or equal to, the first element and less than, or equal to, the second element\. If an item contains an `AttributeValue` element of a different type than the one provided in the request, the value does not match\. For example, `{"S":"6"}` does not compare to `{"N":"6"}`\. Also, `{"N":"6"}` does not compare to `{"NS":["6", "2", "1"]}` 
 
-## Use *KeyConditionExpression* Instead<a name="w615aac41c23c25c13"></a>
+## Use *KeyConditionExpression* instead<a name="w120aac41c23c23c15"></a>
 
 Suppose you wanted to retrieve several items with the same partition key from the *Music* table\. You could use a `Query` request with a `KeyConditions` parameter, as in this AWS CLI example:
 

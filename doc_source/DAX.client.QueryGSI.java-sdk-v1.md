@@ -1,8 +1,8 @@
-# Querying Global Secondary Indexes with SDK for Java 1\.x<a name="DAX.client.QueryGSI.java-sdk-v1"></a>
+# Querying global secondary indexes with SDK for Java 1\.x<a name="DAX.client.QueryGSI.java-sdk-v1"></a>
 
 You can use Amazon DynamoDB Accelerator \(DAX\) to query [global secondary indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html) using DynamoDB [programmatic interfaces](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.SDKs.Interfaces.html)\.
 
-The following example demonstrates how to use DAX to query the `CreateDateIndex` global secondary index that is created in [Example: Global Secondary Indexes Using the AWS SDK for Java Document API](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSIJavaDocumentAPI.Example.html)\. 
+The following example demonstrates how to use DAX to query the `CreateDateIndex` global secondary index that is created in [Example: Global secondary indexes using the AWS SDK for Java document API](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSIJavaDocumentAPI.Example.html)\. 
 
 The `DAXClient` class instantiates the client objects that are needed to interact with the DynamoDB programming interfaces\.
 

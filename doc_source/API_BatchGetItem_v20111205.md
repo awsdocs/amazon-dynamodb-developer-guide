@@ -14,14 +14,14 @@ If no items could be processed because of insufficient provisioned throughput on
 By default, `BatchGetItem` performs eventually consistent reads on every table in the request\. You can set the `ConsistentRead` parameter to `true`, on a per\-table basis, if you want consistent reads instead\.  
 `BatchGetItem` fetches items in parallel to minimize response latencies\.  
 When designing your application, keep in mind that DynamoDB does not guarantee how attributes are ordered in the returned response\. Include the primary key values in the `AttributesToGet` for the items in your request to help parse the response by item\.   
-If the requested items do not exist, nothing is returned in the response for those items\. Requests for non\-existent items consume the minimum read capacity units according to the type of read\. For more information, see [DynamoDB Item Sizes and Formats](CapacityUnitCalculations.md)\.
+If the requested items do not exist, nothing is returned in the response for those items\. Requests for non\-existent items consume the minimum read capacity units according to the type of read\. For more information, see [DynamoDB Item sizes and formats](CapacityUnitCalculations.md)\.
 
 ## Requests<a name="API_BatchGetItem_RequestParameters"></a>
 
 ### Syntax<a name="API_BatchGetItem_RequestParameters.syntax"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
+// This header is abbreviated. For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 
@@ -50,7 +50,7 @@ content-type: application/x-amz-json-1.0
 | --- | --- | --- | 
 |  RequestItems  | A container of the table name and corresponding items to get by primary key\. While requesting items, each table name can be invoked only once per operation\.Type: String Default: None  |  Yes | 
 | Table |  The name of the table containing the items to get\. The entry is simply a string specifying an existing table with no label\. Type: String  Default: None   | Yes | 
-| Table:Keys  |  The primary key values that define the items in the specified table\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. Type: Keys   | Yes | 
+| Table:Keys  |  The primary key values that define the items in the specified table\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. Type: Keys   | Yes | 
 | Table:AttributesToGet  |  Array of Attribute names within the specified table\. If attribute names are not specified then all attributes will be returned\. If some attributes are not found, they will not appear in the result\.  Type: Array   | No | 
 | Table:ConsistentRead  |  If set to `true`, then a consistent read is issued, otherwise eventually consistent is used\. Type: Boolean   | No | 
 
@@ -107,13 +107,13 @@ content-length: 855
 | Responses  | Table names and the respective item attributes from the tables\.Type: Map  | 
 | Table |  The name of the table containing the items\. The entry is simply a string specifying the table with no label\.Type: String  | 
 | Items  | Container for the attribute names and values meeting the operation parameters\.Type: Map of attribute names to and their data types and values\. | 
-| ConsumedCapacityUnits | The number of read capacity units consumed, for each table\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. Type: Number | 
+| ConsumedCapacityUnits | The number of read capacity units consumed, for each table\. This value shows the number applied toward your provisioned throughput\. Requests for non\-existent items consume the minimum read capacity units, depending on the type of read\. For more information see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. Type: Number | 
 | UnprocessedKeys | Contains an array of tables and their respective keys that were not processed with the current response, possibly due to reaching a limit on the response size\. The `UnprocessedKeys` value is in the same form as a `RequestItems` parameter \(so the value can be provided directly to a subsequent `BatchGetItem` operation\)\. For more information, see the above `RequestItems` parameter\.Type: Array  | 
-| UnprocessedKeys: Table: Keys  | The primary key attribute values that define the items and the attributes associated with the items\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Array of attribute name\-value pairs\.  | 
+| UnprocessedKeys: Table: Keys  | The primary key attribute values that define the items and the attributes associated with the items\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \.Type: Array of attribute name\-value pairs\.  | 
 | UnprocessedKeys: Table: AttributesToGet  |  Attribute names within the specified table\. If attribute names are not specified then all attributes will be returned\. If some attributes are not found, they will not appear in the result\.  Type: Array of attribute names\.  | 
 | UnprocessedKeys: Table: ConsistentRead  |  If set to `true`, then a consistent read is used for the specified table, otherwise an eventually consistent read is used\. Type: Boolean\.  | 
 
-## Special Errors<a name="API_BatchGetItem_SpecialErrors"></a>
+## Special errors<a name="API_BatchGetItem_SpecialErrors"></a>
 
 
 ****  
@@ -124,15 +124,15 @@ content-length: 855
 
 ## Examples<a name="API_BatchGetItem_Examples"></a>
 
-The following examples show an HTTP POST request and response using the BatchGetItem operation\. For examples using the AWS SDK, see [Working with Items and Attributes](WorkingWithItems.md)\.
+The following examples show an HTTP POST request and response using the BatchGetItem operation\. For examples using the AWS SDK, see [Working with items and attributes](WorkingWithItems.md)\.
 
-### Sample Request<a name="API_BatchGetItem_Examples_Request"></a>
+### Sample request<a name="API_BatchGetItem_Examples_Request"></a>
 
 The following sample requests attributes from two different tables\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.BatchGetItem 
 content-type: application/x-amz-json-1.0 
@@ -153,7 +153,7 @@ content-length: 409
 }
 ```
 
-### Sample Response<a name="API_BatchGetItem_Examples_Response"></a>
+### Sample response<a name="API_BatchGetItem_Examples_Response"></a>
 
 The following sample is the response\.
 

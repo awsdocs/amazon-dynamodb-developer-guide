@@ -1,9 +1,9 @@
-# DynamoDB Integration with Other AWS Services<a name="OtherServices"></a>
+# DynamoDB integration with other AWS services<a name="OtherServices"></a>
 
 Amazon DynamoDB is integrated with other AWS services, letting you automate repeating tasks or build applications that span multiple services\. For example:
 
 **Topics**
-+ [Configuring AWS Credentials in Your Files Using Amazon Cognito](Cognito.Credentials.md)
-+ [Loading Data From DynamoDB Into Amazon Redshift](RedshiftforDynamoDB.md)
-+ [Processing DynamoDB Data With Apache Hive on Amazon EMR](EMRforDynamoDB.md)
-+ [Exporting DynamoDB table data to Amazon S3](DataExport.md)
++ [Configuring AWS credentials in your files using Amazon Cognito](Cognito.Credentials.md)
++ [Loading data from DynamoDB into Amazon Redshift](RedshiftforDynamoDB.md)
++ [Processing DynamoDB data with Apache Hive on Amazon EMR](EMRforDynamoDB.md)
++ [Integrating with Amazon S3](S3forDynamoDB.md)

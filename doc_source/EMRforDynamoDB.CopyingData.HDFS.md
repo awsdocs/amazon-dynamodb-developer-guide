@@ -1,4 +1,4 @@
-# Copying Data Between DynamoDB and HDFS<a name="EMRforDynamoDB.CopyingData.HDFS"></a>
+# Copying data between DynamoDB and HDFS<a name="EMRforDynamoDB.CopyingData.HDFS"></a>
 
 If you have data in a DynamoDB table, you can use Hive to copy the data to the Hadoop Distributed File System \(HDFS\)\.
 
@@ -10,12 +10,12 @@ In the following examples, Hive will read from and write to the following HDFS d
 The examples in this section are written with the assumption you followed the steps in [Tutorial: Working with Amazon DynamoDB and Apache Hive](EMRforDynamoDB.Tutorial.md) and you have an external table in DynamoDB named *ddb\_features*\. 
 
 **Topics**
-+ [Copying Data Using the Hive Default Format](#EMRforDynamoDB.CopyingData.HDFS.DefaultFormat)
-+ [Copying Data with a User\-Specified Format](#EMRforDynamoDB.CopyingData.HDFS.UserSpecifiedFormat)
-+ [Copying Data Without a Column Mapping](#EMRforDynamoDB.CopyingData.HDFS.NoColumnMapping)
-+ [Accessing the Data in HDFS](#EMRforDynamoDB.CopyingData.HDFS.ViewingData)
++ [Copying data using the Hive default format](#EMRforDynamoDB.CopyingData.HDFS.DefaultFormat)
++ [Copying data with a user\-specified format](#EMRforDynamoDB.CopyingData.HDFS.UserSpecifiedFormat)
++ [Copying data without a column mapping](#EMRforDynamoDB.CopyingData.HDFS.NoColumnMapping)
++ [Accessing the data in HDFS](#EMRforDynamoDB.CopyingData.HDFS.ViewingData)
 
-## Copying Data Using the Hive Default Format<a name="EMRforDynamoDB.CopyingData.HDFS.DefaultFormat"></a>
+## Copying data using the Hive default format<a name="EMRforDynamoDB.CopyingData.HDFS.DefaultFormat"></a>
 
 **Example From DynamoDB to HDFS**  
 Use an `INSERT OVERWRITE` statement to write directly to HDFS\.  
@@ -58,7 +58,7 @@ Each field is separated by an SOH character \(start of heading, 0x01\)\. In the 
    SELECT * FROM hdfs_features_unformatted;
    ```
 
-## Copying Data with a User\-Specified Format<a name="EMRforDynamoDB.CopyingData.HDFS.UserSpecifiedFormat"></a>
+## Copying data with a user\-specified format<a name="EMRforDynamoDB.CopyingData.HDFS.UserSpecifiedFormat"></a>
 
 If you want to use a different field separator character, you can create an external table that maps to the HDFS directory\. You might use this technique for creating data files with comma\-separated values \(CSV\)\.
 
@@ -104,7 +104,7 @@ INSERT OVERWRITE TABLE ddb_features
 SELECT * FROM hdfs_features_csv;
 ```
 
-## Copying Data Without a Column Mapping<a name="EMRforDynamoDB.CopyingData.HDFS.NoColumnMapping"></a>
+## Copying data without a column mapping<a name="EMRforDynamoDB.CopyingData.HDFS.NoColumnMapping"></a>
 
 You can copy data from DynamoDB in a raw format and write it to HDFS without specifying any data types or column mapping\. You can use this method to create an archive of DynamoDB data and store it in HDFS\.
 
@@ -162,7 +162,7 @@ INSERT OVERWRITE TABLE ddb_features_no_mapping
 SELECT * FROM hdfs_features_no_mapping;
 ```
 
-## Accessing the Data in HDFS<a name="EMRforDynamoDB.CopyingData.HDFS.ViewingData"></a>
+## Accessing the data in HDFS<a name="EMRforDynamoDB.CopyingData.HDFS.ViewingData"></a>
 
 HDFS is a distributed file system, accessible to all of the nodes in the Amazon EMR cluster\. If you use SSH to connect to the leader node, you can use command line tools to access the data that Hive wrote to HDFS\.
 

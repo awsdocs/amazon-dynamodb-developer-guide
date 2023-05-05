@@ -1,4 +1,4 @@
-# Step 1: Launch an Amazon EC2 Instance<a name="DAX.client.launch-ec2-instance"></a>
+# Step 1: Launch an Amazon EC2 instance<a name="DAX.client.launch-ec2-instance"></a>
 
 When your Amazon DynamoDB Accelerator \(DAX\) cluster is available, you can launch an Amazon EC2 instance in your default Amazon VPC\. You can then install and run DAX client software on that instance\.
 
@@ -50,7 +50,7 @@ When your Amazon DynamoDB Accelerator \(DAX\) cluster is available, you can laun
 
 1. After configuring your key pair, choose **Launch Instances**\.
 
-1. In the console navigation pane, choose **EC2 Dashboard**, and then choose the instance that you launched\. In the lower pane, on the **Description** tab, find the **Public DNS** for your instance, for example: `ec2-11-22-33-44.us-west-2.compute.amazonaws.com`\. Make a note of this public DNS name because you need it for [Step 3: Configure an Amazon EC2 Instance](DAX.client.configure-ec2-instance.md)\.
+1. In the console navigation pane, choose **EC2 Dashboard**, and then choose the instance that you launched\. In the lower pane, on the **Description** tab, find the **Public DNS** for your instance, for example: `ec2-11-22-33-44.us-west-2.compute.amazonaws.com`\. Make a note of this public DNS name because you need it for [Step 3: Configure an Amazon EC2 instance](DAX.client.configure-ec2-instance.md)\.
 
 **Note**  
-It takes a few minutes for your Amazon EC2 instance to become available\. In the meantime, proceed to [Step 2: Create an IAM User and Policy](DAX.client.create-user-policy.md) and follow the instructions there\.
+It takes a few minutes for your Amazon EC2 instance to become available\. In the meantime, proceed to [Step 2: Create a user and policy](DAX.client.create-user-policy.md) and follow the instructions there\.

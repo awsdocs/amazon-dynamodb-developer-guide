@@ -7,20 +7,20 @@ In this tutorial, you will launch an Amazon EMR cluster, and then use Apache Hiv
 For more information, see to the [Hive Tutorial](https://cwiki.apache.org/confluence/display/Hive/Tutorial)\.
 
 **Topics**
-+ [Before You Begin](#EMRforDynamoDB.Tutorial.BeforeYouBegin)
-+ [Step 1: Create an Amazon EC2 Key Pair](EMRforDynamoDB.Tutorial.EC2KeyPair.md)
-+ [Step 2: Launch an Amazon EMR Cluster](EMRforDynamoDB.Tutorial.LaunchEMRCluster.md)
-+ [Step 3: Connect to the Leader Node](EMRforDynamoDB.Tutorial.ConnectToLeaderNode.md)
-+ [Step 4: Load Data into HDFS](EMRforDynamoDB.Tutorial.LoadDataIntoHDFS.md)
-+ [Step 5: Copy Data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md)
-+ [Step 6: Query the Data in the DynamoDB Table](EMRforDynamoDB.Tutorial.QueryDataInDynamoDB.md)
-+ [Step 7: \(Optional\) Clean Up](EMRforDynamoDB.Tutorial.CleanUp.md)
++ [Before you begin](#EMRforDynamoDB.Tutorial.BeforeYouBegin)
++ [Step 1: Create an Amazon EC2 key pair](EMRforDynamoDB.Tutorial.EC2KeyPair.md)
++ [Step 2: Launch an Amazon EMR cluster](EMRforDynamoDB.Tutorial.LaunchEMRCluster.md)
++ [Step 3: Connect to the Leader node](EMRforDynamoDB.Tutorial.ConnectToLeaderNode.md)
++ [Step 4: Load data into HDFS](EMRforDynamoDB.Tutorial.LoadDataIntoHDFS.md)
++ [Step 5: Copy data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md)
++ [Step 6: Query the data in the DynamoDB table](EMRforDynamoDB.Tutorial.QueryDataInDynamoDB.md)
++ [Step 7: \(Optional\) clean up](EMRforDynamoDB.Tutorial.CleanUp.md)
 
-## Before You Begin<a name="EMRforDynamoDB.Tutorial.BeforeYouBegin"></a>
+## Before you begin<a name="EMRforDynamoDB.Tutorial.BeforeYouBegin"></a>
 
 For this tutorial, you will need the following:
-+ An AWS account\. If you do not have one, see [Signing Up for AWS](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.SignUpForAWS)\.
++ An AWS account\. If you do not have one, see [Signing up for AWS](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.SignUpForAWS)\.
 + An SSH client \(Secure Shell\)\. You use the SSH client to connect to the leader node of the Amazon EMR cluster and run interactive commands\. SSH clients are available by default on most Linux, Unix, and Mac OS X installations\. Windows users can download and install the [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/) client, which has SSH support\.
 
-**Next Step**  
-[Step 1: Create an Amazon EC2 Key Pair](EMRforDynamoDB.Tutorial.EC2KeyPair.md)
+**Next step**  
+[Step 1: Create an Amazon EC2 key pair](EMRforDynamoDB.Tutorial.EC2KeyPair.md)

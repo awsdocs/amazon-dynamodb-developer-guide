@@ -1,4 +1,4 @@
-# Usage Notes<a name="UsageNotesAWS"></a>
+# Usage notes<a name="UsageNotesAWS"></a>
 
 This section describes the technical differences between on\-demand backups managed by AWS Backup and DynamoDB\.
 

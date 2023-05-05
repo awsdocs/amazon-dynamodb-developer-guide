@@ -1,12 +1,12 @@
-# Restoring a Backup of a DynamoDB table from AWS Backup<a name="Restore.TutorialAWS"></a>
+# Restoring a backup of a DynamoDB table from AWS Backup<a name="Restore.TutorialAWS"></a>
 
 This section describes how to restore a backup of a DynamoDB table from AWS Backup\.
 
-** [Restoring a DynamoDB Table from AWS Backup](#Restore.TutorialAWS.simple) [Restoring a DynamoDB Table to Another Region or Account](#Restore.TutorialAWS.another)**
-+ [Restoring a DynamoDB Table from AWS Backup](#Restore.TutorialAWS.simple)
-+ [Restoring a DynamoDB Table to Another Region or Account](#Restore.TutorialAWS.another)
+** [Restoring a DynamoDB table from AWS Backup](#Restore.TutorialAWS.simple) [Restoring a DynamoDB table to another Region or account](#Restore.TutorialAWS.another)**
++ [Restoring a DynamoDB table from AWS Backup](#Restore.TutorialAWS.simple)
++ [Restoring a DynamoDB table to another Region or account](#Restore.TutorialAWS.another)
 
-## Restoring a DynamoDB Table from AWS Backup<a name="Restore.TutorialAWS.simple"></a>
+## Restoring a DynamoDB table from AWS Backup<a name="Restore.TutorialAWS.simple"></a>
 
 To restore your DynamoDB tables from AWS Backup, follow these steps:
 
@@ -28,6 +28,6 @@ To restore your DynamoDB tables from AWS Backup, follow these steps:
 
    This will take you to the AWS Backup console for further information on the progress of the task\.
 
-## Restoring a DynamoDB Table to Another Region or Account<a name="Restore.TutorialAWS.another"></a>
+## Restoring a DynamoDB table to another Region or account<a name="Restore.TutorialAWS.another"></a>
 
 To restore a DynamoDB table to another Region or account, you will first need to copy the backup to that new Region or account\. In order to copy to another account, that account must first grant you permission\. After you have copied your DynamoDB backup to the new Region or account, it can be restored with the process in the previous section\.

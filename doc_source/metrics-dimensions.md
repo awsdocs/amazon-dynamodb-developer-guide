@@ -1,4 +1,4 @@
-# DynamoDB Metrics and Dimensions<a name="metrics-dimensions"></a>
+# DynamoDB Metrics and dimensions<a name="metrics-dimensions"></a>
 
 When you interact with DynamoDB, it sends the following metrics and dimensions to CloudWatch\. You can use the following procedures to view the metrics for DynamoDB\.
 
@@ -9,6 +9,8 @@ Metrics are grouped first by the service namespace, and then by the various dime
 1. Open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
 
 1. In the navigation pane, choose **Metrics**\.
+**Note**  
+You can also select **Usage** namespace to view DynamoDB usage metrics\. For more information about usage metrics, see [AWS usage metrics\.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Service-Quota-Integration.html) 
 
 1. Select the **DynamoDB** namespace\.
 
@@ -16,16 +18,14 @@ Metrics are grouped first by the service namespace, and then by the various dime
 + At a command prompt, use the following command:
 
   ```
-  1. aws cloudwatch list-metrics --namespace "AWS/DynamoDB"
+  1.                 aws cloudwatch list-metrics --namespace "AWS/DynamoDB"
   ```
-
-CloudWatch displays the following metrics for DynamoDB:
 
 ## Viewing metrics and dimensions<a name="dynamodb-metrics-dimensions"></a>
 
-The metrics and dimensions that DynamoDB sends to Amazon CloudWatch are listed here\.
+CloudWatch displays the following metrics for DynamoDB:
 
-### DynamoDB Metrics<a name="dynamodb-metrics"></a>
+### DynamoDB metrics<a name="dynamodb-metrics"></a>
 
 **Note**  
 Amazon CloudWatch aggregates these metrics at one\-minute intervals:  
@@ -45,7 +45,9 @@ Amazon CloudWatch aggregates these metrics at one\-minute intervals:
 `WriteThrottleEvents`
 For all other DynamoDB metrics, the aggregation granularity is five minutes\.
 
-Not all statistics, such as *Average* or *Sum*, are applicable for every metric\. However, all of these values are available through the Amazon DynamoDB console, or by using the CloudWatch console, AWS CLI, or AWS SDKs for all metrics\. In the following list, each metric has a set of valid statistics that are applicable to that metric\.
+Not all statistics, such as *Average* or *Sum*, are applicable for every metric\. However, all of these values are available through the Amazon DynamoDB console, or by using the CloudWatch console, AWS CLI, or AWS SDKs for all metrics\. 
+
+In the following list, each metric has a set of valid statistics that are applicable to that metric\. 
 
 ### <a name="available-metrics"></a>
 
@@ -62,6 +64,7 @@ Not all statistics, such as *Average* or *Sum*, are applicable for every metric\
 + [ConsumedReadCapacityUnits](#ConsumedReadCapacityUnits)
 + [ConsumedWriteCapacityUnits](#ConsumedWriteCapacityUnits)
 + [FailedToReplicateRecordCount](#FailedToReplicateRecordCount)
++ [MaxProvisionedTableReadCapacityUtilization](#MaxProvisionedTableReadCapacityUtilization)
 + [MaxProvisionedTableWriteCapacityUtilization](#MaxProvisionedTableWriteCapacityUtilization)
 + [OnlineIndexConsumedWriteCapacity](#OnlineIndexConsumedWriteCapacity)
 + [OnlineIndexPercentageProgress](#OnlineIndexPercentageProgress)
@@ -189,7 +192,7 @@ Valid Statistics:
 
 The number of read capacity units consumed over the specified time period, so you can track how much of your provisioned throughput is used\. You can retrieve the total consumed read capacity for a table and all of its global secondary indexes, or for a particular global secondary index\. For more information, see [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)\.
 
-The `TableName` dimension returns the `ConsumedReadCapacityUnits` for the table, but not for any global secondary indexes\. To view `ConsumedReadCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\.
+The `TableName` dimension returns the `ConsumedReadCapacityUnits` for the table, but not for any global secondary indexes\. To view `ConsumedReadCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\.
 
 **Note**  
 Use the `Sum` statistic to calculate the consumed throughput\. For example, get the `Sum` value over a span of one minute, and divide it by the number of seconds in a minute \(60\) to calculate the average `ConsumedReadCapacityUnits` per second \(recognizing that this average does not highlight any large but brief spikes in read activity that occurred during that minute\)\. You can compare the calculated value to the provisioned throughput value that you provide DynamoDB\.
@@ -213,7 +216,7 @@ The `SampleCount` value is influenced by periods of inactivity where the sample 
 
 The number of write capacity units consumed over the specified time period, so you can track how much of your provisioned throughput is used\. You can retrieve the total consumed write capacity for a table and all of its global secondary indexes, or for a particular global secondary index\. For more information, see [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)\.
 
-The `TableName` dimension returns the `ConsumedWriteCapacityUnits` for the table, but not for any global secondary indexes\. To view `ConsumedWriteCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\.
+The `TableName` dimension returns the `ConsumedWriteCapacityUnits` for the table, but not for any global secondary indexes\. To view `ConsumedWriteCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\.
 
 **Note**  
 Use the `Sum` statistic to calculate the consumed throughput\. For example, get the `Sum` value over a span of one minute, and divide it by the number of seconds in a minute \(60\) to calculate the average `ConsumedWriteCapacityUnits` per second \(recognizing that this average does not highlight any large but brief spikes in write activity that occurred during that minute\)\. You can compare the calculated value to the provisioned throughput value that you provide DynamoDB\.
@@ -246,6 +249,17 @@ Valid Statistics:
 + `Maximum`
 + `Average`
 + `SampleCount`
+
+#### MaxProvisionedTableReadCapacityUtilization<a name="MaxProvisionedTableReadCapacityUtilization"></a>
+
+The percentage of provisioned read capacity utilized by the highest provisioned read table or global secondary index of an account\.
+
+Units: `Percent`
+
+Valid Statistics:
++ `Maximum` – The maximum percentage of provisioned read capacity units utilized by the highest provisioned read table or global secondary index of an account\. 
++ `Minimum` – The minimum percentage of provisioned read capacity units utilized by the highest provisioned read table or global secondary index of an account\.
++ `Average` – The average percentage of provisioned read capacity units utilized by the highest provisioned read table or global secondary index of the account\. The metric is published for five\-minute intervals\. Therefore, if you rapidly adjust the provisioned read capacity units, this statistic might not reflect the true average\.
 
 #### MaxProvisionedTableWriteCapacityUtilization<a name="MaxProvisionedTableWriteCapacityUtilization"></a>
 
@@ -313,7 +327,7 @@ Valid Statistics:
 
 #### PendingReplicationCount<a name="PendingReplicationCount"></a>
 
-\(This metric is for DynamoDB global tables\.\) The number of item updates that are written to one replica table, but that have not yet been written to another replica in the global table\.
+Metric for [Version 2017\.11\.29 \(Legacy\)](globaltables.V1.md) \(global tables only\)\. The number of item updates that are written to one replica table, but that have not yet been written to another replica in the global table\.
 
 Units: `Count` 
 
@@ -326,7 +340,7 @@ Valid Statistics:
 
 #### ProvisionedReadCapacityUnits<a name="ProvisionedReadCapacityUnits"></a>
 
-The number of provisioned read capacity units for a table or a global secondary index\.The `TableName` dimension returns the `ProvisionedReadCapacityUnits` for the table, but not for any global secondary indexes\. To view `ProvisionedReadCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\.
+The number of provisioned read capacity units for a table or a global secondary index\. The `TableName` dimension returns the `ProvisionedReadCapacityUnits` for the table, but not for any global secondary indexes\. To view `ProvisionedReadCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\.
 
 Units:`Count`
 
@@ -341,7 +355,7 @@ Valid Statistics:
 
 The number of provisioned write capacity units for a table or a global secondary index\.
 
-The `TableName` dimension returns the `ProvisionedWriteCapacityUnits` for the table, but not for any global secondary indexes\. To view `ProvisionedWriteCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\.
+The `TableName` dimension returns the `ProvisionedWriteCapacityUnits` for the table, but not for any global secondary indexes\. To view `ProvisionedWriteCapacityUnits` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\.
 
 Units: `Count`
 
@@ -358,7 +372,7 @@ Requests to DynamoDB that exceed the provisioned read capacity units for a table
 
 A single request can result in multiple events\. For example, a `BatchGetItem` that reads 10 items is processed as 10 `GetItem` events\. For each event, `ReadThrottleEvents` is incremented by one if that event is throttled\. The `ThrottledRequests` metric for the entire `BatchGetItem` is not incremented unless *all 10* of the `GetItem` events are throttled\.
 
-The `TableName` dimension returns the `ReadThrottleEvents` for the table, but not for any global secondary indexes\. To view `ReadThrottleEvents` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\. 
+The `TableName` dimension returns the `ReadThrottleEvents` for the table, but not for any global secondary indexes\. To view `ReadThrottleEvents` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\. 
 
 Units: `Count`
 
@@ -430,7 +444,7 @@ Valid Statistics:
 
 #### SuccessfulRequestLatency<a name="SuccessfulRequestLatency"></a>
 
-The successful requests to DynamoDB or Amazon DynamoDB Streams during the specified time period\. `SuccessfulRequestLatency` can provide two different kinds of information:
+The latency of successful requests to DynamoDB or Amazon DynamoDB Streams during the specified time period\. `SuccessfulRequestLatency` can provide two different kinds of information:
 + The elapsed time for successful requests \(`Minimum`, `Maximum`, `Sum`, or `Average`\)\.
 + The number of successful requests \(`SampleCount`\)\.
 
@@ -549,7 +563,7 @@ Requests to DynamoDB that exceed the provisioned write capacity units for a tabl
 
 A single request can result in multiple events\. For example, a `PutItem` request on a table with three global secondary indexes would result in four events—the table write, and each of the three index writes\. For each event, the `WriteThrottleEvents` metric is incremented by one if that event is throttled\. For single `PutItem` requests, if any of the events are throttled, `ThrottledRequests` is also incremented by one\. For `BatchWriteItem`, the `ThrottledRequests` metric for the entire `BatchWriteItem` is not incremented unless all of the individual `PutItem` or `DeleteItem` events are throttled\.
 
-The `TableName` dimension returns the `WriteThrottleEvents` for the table, but not for any global secondary indexes\. To view `WriteThrottleEvents` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndex`\. 
+The `TableName` dimension returns the `WriteThrottleEvents` for the table, but not for any global secondary indexes\. To view `WriteThrottleEvents` for a global secondary index, you must specify both `TableName` and `GlobalSecondaryIndexName`\. 
 
 Units: `Count`
 
@@ -559,30 +573,78 @@ Valid Statistics:
 + `Sum`
 + `SampleCount`
 
+### Usage metrics<a name="w120aac30b7c17b7b9c11"></a>
+
+Usage metrics in CloudWatch allow you to proactively manage usage by visualizing metrics in the CloudWatch console, creating custom dashboards, detecting changes in activity with CloudWatch anomaly detection, and configuring alarms that alert you when usage approaches a threshold\. 
+
+DynamoDB also integrates these usage metrics with Service Quotas\. You can use CloudWatch to manage your account's use of your service quotas\. For more information, see [ Visualizing your service quotas and setting alarms ](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Quotas-Visualize-Alarms.html)
+
+**Topics**<a name="ddb-usage-metrics.title"></a>
++ [AccountProvisionedWriteCapacityUnits](#w120aac30b7c17b7b9c11b9)
++ [AccountProvisionedReadCapacityUnits](#w120aac30b7c17b7b9c11c11)
++ [TableCount](#w120aac30b7c17b7b9c11c13)
+
+#### AccountProvisionedWriteCapacityUnits<a name="w120aac30b7c17b7b9c11b9"></a>
+
+ The sum of write capacity units provisioned for all tables and global secondary indexes of an account\.
+
+Units: `Count`
+
+Valid Statistics:
++ `Minimum` – The lowest number of provisioned write capacity units during a time period\. 
++ `Maximum` – The highest number of provisioned write capacity units during a time period\. 
++ `Average` \- The average number provisioned write capacity units account during a time period\. 
+
+This metric is published at five\-minute intervals\. Therefore, if you rapidly adjust the provisioned write capacity units, this statistic might not reflect the true average\. 
+
+#### AccountProvisionedReadCapacityUnits<a name="w120aac30b7c17b7b9c11c11"></a>
+
+The sum of read capacity units provisioned for all tables and global secondary indexes of an account\.
+
+Units: `Count`
+
+Valid Statistics:
++ `Minimum` – The lowest number of provisioned read capacity units during a time period\. 
++ `Maximum` – The highest number of provisioned read capacity units during a time period\. 
++ `Average` \- The average number provisioned read capacity units account during a time period\. 
+
+This metric is published at five\-minute intervals\. Therefore, if you rapidly adjust the provisioned read capacity units, this statistic might not reflect the true average\.
+
+#### TableCount<a name="w120aac30b7c17b7b9c11c13"></a>
+
+The number of active tables of an account\.
+
+Units: `Count`
+
+Valid Statistics:
++ `Minimum` – The lowest number of tables during a time period\. 
++ `Maximum` – The highest number of tables during a time period\. 
++ `Average` \- The average number tables during a time period\. 
+
 ## Understanding metrics and dimensions for DynamoDB<a name="ddb-understanding-metric-dimensions"></a>
 
 The metrics for DynamoDB are qualified by the values for the account, table name, global secondary index name, or operation\. You can use the CloudWatch console to retrieve DynamoDB data along any of the dimensions in the table below\.
 
 **Topics**<a name="available-metrics.title"></a>
-+ [DelegatedOperation](#w615aac30b7c17b7c13b7)
-+ [GlobalSecondaryIndexName](#w615aac30b7c17b7c13b9)
-+ [Operation](#w615aac30b7c17b7c13c11)
-+ [OperationType](#w615aac30b7c17b7c13c13)
-+ [Verb](#w615aac30b7c17b7c13c15)
-+ [ReceivingRegion](#w615aac30b7c17b7c13c17)
-+ [StreamLabel](#w615aac30b7c17b7c13c19)
-+ [TableName](#w615aac30b7c17b7c13c21)
++ [DelegatedOperation](#w120aac30b7c17b7c11b7)
++ [GlobalSecondaryIndexName](#w120aac30b7c17b7c11b9)
++ [Operation](#w120aac30b7c17b7c11c11)
++ [OperationType](#w120aac30b7c17b7c11c13)
++ [Verb](#w120aac30b7c17b7c11c15)
++ [ReceivingRegion](#w120aac30b7c17b7c11c17)
++ [StreamLabel](#w120aac30b7c17b7c11c19)
++ [TableName](#w120aac30b7c17b7c11c21)
 
-### DelegatedOperation<a name="w615aac30b7c17b7c13b7"></a>
+### DelegatedOperation<a name="w120aac30b7c17b7c11b7"></a>
 
 This dimension limits the data to operations DynamoDB performs on your behalf\. The following operations are captured:
 + Change data capture for Kinesis Data Streams\.
 
-### GlobalSecondaryIndexName<a name="w615aac30b7c17b7c13b9"></a>
+### GlobalSecondaryIndexName<a name="w120aac30b7c17b7c11b9"></a>
 
 This dimension limits the data to a global secondary index on a table\. If you specify `GlobalSecondaryIndexName`, you must also specify `TableName`\.
 
-### Operation<a name="w615aac30b7c17b7c13c11"></a>
+### Operation<a name="w120aac30b7c17b7c11c11"></a>
 
 This dimension limits the data to one of the following DynamoDB operations:
 + `PutItem`
@@ -602,7 +664,7 @@ This dimension limits the data to one of the following DynamoDB operations:
 In addition, you can limit the data to the following Amazon DynamoDB Streams operation:
 + `GetRecords`
 
-### OperationType<a name="w615aac30b7c17b7c13c13"></a>
+### OperationType<a name="w120aac30b7c17b7c11c13"></a>
 
 This dimension limits the data to one of the following operation types:
 + `Read`
@@ -610,7 +672,7 @@ This dimension limits the data to one of the following operation types:
 
 This dimension is emitted for `ExecuteTransaction` and `BatchExecuteStatement` requests\.
 
-### Verb<a name="w615aac30b7c17b7c13c15"></a>
+### Verb<a name="w120aac30b7c17b7c11c15"></a>
 
 This dimension limits the data to one of the following DynamoDB PartiQL verbs:
 + Insert: `PartiQLInsert`
@@ -620,14 +682,14 @@ This dimension limits the data to one of the following DynamoDB PartiQL verbs:
 
 This dimension is emitted for the `ExecuteStatement` operation\.
 
-### ReceivingRegion<a name="w615aac30b7c17b7c13c17"></a>
+### ReceivingRegion<a name="w120aac30b7c17b7c11c17"></a>
 
 This dimension limits the data to a particular AWS region\. It is used with metrics originating from replica tables within a DynamoDB global table\.
 
-### StreamLabel<a name="w615aac30b7c17b7c13c19"></a>
+### StreamLabel<a name="w120aac30b7c17b7c11c19"></a>
 
 This dimension limits the data to a specific stream label\. It is used with metrics originating from Amazon DynamoDB Streams `GetRecords` operations\.
 
-### TableName<a name="w615aac30b7c17b7c13c21"></a>
+### TableName<a name="w120aac30b7c17b7c11c21"></a>
 
 This dimension limits the data to a specific table\. This value can be any table name in the current region and the current AWS account\.

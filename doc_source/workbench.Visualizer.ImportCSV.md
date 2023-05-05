@@ -17,6 +17,6 @@ Data import from a CSV file is limited to 150 rows at a time\.
 1. Choose **Import CSV file**\.  
 ![\[Console screenshot showing the Import CSV file button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/VisualizerImportCSV.png)
 
-1. Select your CSV file and click **Open**\. The data in the CSV file will be appended to your table\.
+1. Select your CSV file and choose **Open**\. The data in the CSV file will be appended to your table\.
 **Note**  
 If your CSV file contains one or more rows that have the same keys as items already in your table, you will have the option of overwriting the existing items or appending them to the end of the table\. If you choose to append the items, the suffix "\-Copy" will be added to each duplicate item's key to differentiate the duplicate items from the items that were already in the table\.

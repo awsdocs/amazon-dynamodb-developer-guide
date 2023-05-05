@@ -1,26 +1,26 @@
-# \.NET: Document Model<a name="DotNetSDKMidLevel"></a>
+# \.NET: Document model<a name="DotNetSDKMidLevel"></a>
 
 **Topics**
-+ [Operations Not Supported by the Document Model](#MidLevelAPILimitations)
-+ [Supported Data Types](MidLevelAPILimitations.SupportedTypes.md)
-+ [Working with Items in DynamoDB Using the AWS SDK for \.NET Document Model](WorkingWithItemsDocumentClasses.md)
-+ [Getting an Item \- Table\.GetItem](#GetMidLevelDotNet)
-+ [Deleting an Item \- Table\.DeleteItem](#DeleteItemMidLevelDotNet)
-+ [Updating an Item \- Table\.UpdateItem](#UpdateMidLevelDotNet)
-+ [Batch Write \- Putting and Deleting Multiple Items](#BatchWriteMidLevelDotNet)
-+ [Example: CRUD Operations Using the AWS SDK for \.NET Document Model](ItemCRUDDotNetDocumentAPI.md)
-+ [Example: Batch Operations Using the AWS SDK for \.NET Document Model API](example-batch-operations-net-doc-model.md)
-+ [Querying Tables in DynamoDB Using the AWS SDK for \.NET Document Model](QueryAndScanMidLevelDotNet.md)
++ [Operations not supported by the document model](#MidLevelAPILimitations)
++ [Supported data types](MidLevelAPILimitations.SupportedTypes.md)
++ [Working with items in DynamoDB using the AWS SDK for \.NET document model](WorkingWithItemsDocumentClasses.md)
++ [Getting an item \- Table\.GetItem](#GetMidLevelDotNet)
++ [Deleting an item \- Table\.DeleteItem](#DeleteItemMidLevelDotNet)
++ [Updating an item \- Table\.UpdateItem](#UpdateMidLevelDotNet)
++ [Batch write \- putting and deleting multiple items](#BatchWriteMidLevelDotNet)
++ [Example: CRUD operations using the AWS SDK for \.NET document model](ItemCRUDDotNetDocumentAPI.md)
++ [Example: Batch operations using the AWS SDK for \.NET document model API](example-batch-operations-net-doc-model.md)
++ [Querying tables in DynamoDB using the AWS SDK for \.NET document model](QueryAndScanMidLevelDotNet.md)
 
 The AWS SDK for \.NET provides document model classes that wrap some of the low\-level Amazon DynamoDB operations, further simplifying your coding\. In the document model, the primary classes are `Table` and `Document`\. The `Table` class provides data operation methods such as `PutItem`, `GetItem`, and `DeleteItem`\. It also provides the `Query` and the `Scan` methods\. The `Document` class represents a single item in a table\.
 
 The preceding document model classes are available in the `Amazon.DynamoDBv2.DocumentModel` namespace\.
 
-## Operations Not Supported by the Document Model<a name="MidLevelAPILimitations"></a>
+## Operations not supported by the document model<a name="MidLevelAPILimitations"></a>
 
 You can't use the document model classes to create, update, and delete tables\. However, the document model does support most common data operations\.
 
-## Getting an Item \- Table\.GetItem<a name="GetMidLevelDotNet"></a>
+## Getting an item \- Table\.GetItem<a name="GetMidLevelDotNet"></a>
 
 The `GetItem` operation retrieves an item as a `Document` instance\. You must provide the primary key of the item that you want to retrieve as shown in the following C\# code example\.
 
@@ -31,13 +31,13 @@ Table table = Table.LoadTable(client, "ProductCatalog");
 Document document = table.GetItem(101); // Primary key 101.
 ```
 
-The `GetItem` operation returns all the attributes of the item and performs an eventually consistent read \(see [Read Consistency](HowItWorks.ReadConsistency.md)\) by default\.
+The `GetItem` operation returns all the attributes of the item and performs an eventually consistent read \(see [Read consistency](HowItWorks.ReadConsistency.md)\) by default\.
 
-### Specifying Optional Parameters<a name="GetMidLevelDotNetOptions"></a>
+### Specifying optional parameters<a name="GetMidLevelDotNetOptions"></a>
 
 You can configure additional options for the `GetItem` operation by adding the `GetItemOperationConfig` parameter\. For a complete list of optional parameters, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\. The following C\# code example retrieves an item from the `ProductCatalog` table\. It specifies the `GetItemOperationConfig` to provide the following optional parameters:
 + The `AttributesToGet` parameter to retrieve only the specified attributes\.
-+ The `ConsistentRead` parameter to request the latest values for all the specified attributes\. To learn more about data consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
++ The `ConsistentRead` parameter to request the latest values for all the specified attributes\. To learn more about data consistency, see [Read consistency](HowItWorks.ReadConsistency.md)\.
 
 **Example**  
 
@@ -78,7 +78,7 @@ DynamoDBList relatedItems = doc["RelatedItems"].AsDynamoDBList();
 Document pictures = doc["Pictures"].AsDocument();
 ```
 
-## Deleting an Item \- Table\.DeleteItem<a name="DeleteItemMidLevelDotNet"></a>
+## Deleting an item \- Table\.DeleteItem<a name="DeleteItemMidLevelDotNet"></a>
 
 The `DeleteItem` operation deletes an item from a table\. You can pass the item's primary key as a parameter\. Or, if you've already read an item and have the corresponding `Document` object, you can pass it as a parameter to the `DeleteItem` method, as shown in the following C\# code example\. 
 
@@ -98,7 +98,7 @@ int partitionKey = 222;
 table.DeleteItem(partitionKey)
 ```
 
-### Specifying Optional Parameters<a name="DeleteItemMidLevelDotNetOptions"></a>
+### Specifying optional parameters<a name="DeleteItemMidLevelDotNetOptions"></a>
 
 You can configure additional options for the `Delete` operation by adding the `DeleteItemOperationConfig` parameter\. For a complete list of optional parameters, see [DeleteTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html)\. The following C\# code example specifies the two following optional parameters:
 +  The `ConditionalExpression` parameter to ensure that the book item being deleted has a specific value for the ISBN attribute\. 
@@ -125,7 +125,7 @@ DeleteItemOperationConfig config = new DeleteItemOperationConfig
 Document d = table.DeleteItem(partitionKey, config);
 ```
 
-## Updating an Item \- Table\.UpdateItem<a name="UpdateMidLevelDotNet"></a>
+## Updating an item \- Table\.UpdateItem<a name="UpdateMidLevelDotNet"></a>
 
 The `UpdateItem` operation updates an existing item if it is present\. If the item that has the specified primary key is not found, the `UpdateItem` operation adds a new item\.
 
@@ -142,7 +142,7 @@ The `UpdateItem` action uses the following guidelines:
 This midlevel `UpdateItem` operation does not support the `Add` action \(see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\) that is supported by the underlying DynamoDB operation\. 
 
 **Note**  
-The `PutItem` operation \([Putting an Item \- Table\.PutItem Method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the `PutItem` operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
+The `PutItem` operation \([Putting an item \- Table\.PutItem method](WorkingWithItemsDocumentClasses.md#PutMidLevelDotNet)\) can also perform an update\. If you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified on the `Document` that is being put, the `PutItem` operation deletes those attributes\. However, `UpdateItem` only updates the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
 
 
 
@@ -179,7 +179,7 @@ book["PageCount"] = null;
 table.Update(book);
 ```
 
-### Specifying Optional Parameters<a name="UpdateMidLevelDotNetOptions"></a>
+### Specifying optional parameters<a name="UpdateMidLevelDotNetOptions"></a>
 
 You can configure additional options for the `UpdateItem` operation by adding the `UpdateItemOperationConfig` parameter\. For a complete list of optional parameters, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 
@@ -210,7 +210,7 @@ UpdateItemOperationConfig config = new UpdateItemOperationConfig()
 Document d1 = table.Update(book, config);
 ```
 
-## Batch Write \- Putting and Deleting Multiple Items<a name="BatchWriteMidLevelDotNet"></a>
+## Batch write \- putting and deleting multiple items<a name="BatchWriteMidLevelDotNet"></a>
 
 *Batch write* refers to putting and deleting multiple items in a batch\. The operation enables you to put and delete multiple items from one or more tables in a single call\. The following are the steps to put or delete multiple items from a table using the AWS SDK for \.NET document model API\.
 
@@ -245,7 +245,7 @@ batchWrite.AddKeyToDelete(12345);
 batchWrite.Execute();
 ```
 
-For a working example, see [Example: Batch Operations Using the AWS SDK for \.NET Document Model API](example-batch-operations-net-doc-model.md)\. 
+For a working example, see [Example: Batch operations using the AWS SDK for \.NET document model API](example-batch-operations-net-doc-model.md)\. 
 
 You can use the `batchWrite` operation to perform put and delete operations on multiple tables\. The following are the steps to put or delete multiple items from multiple tables using the AWS SDK for \.NET document model\.
 

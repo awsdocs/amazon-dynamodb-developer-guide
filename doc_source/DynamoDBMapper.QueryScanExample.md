@@ -1,8 +1,8 @@
-# Example: Query and Scan<a name="DynamoDBMapper.QueryScanExample"></a>
+# Example: Query and scan<a name="DynamoDBMapper.QueryScanExample"></a>
 
 
 
-The Java example in this section defines the following classes and maps them to the tables in Amazon DynamoDB\. For more information about creating sample tables, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The Java example in this section defines the following classes and maps them to the tables in Amazon DynamoDB\. For more information about creating sample tables, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 + The `Book` class maps to `ProductCatalog` table
 + The `Forum`, `Thread`, and `Reply` classes map to tables of the same name\.
 
@@ -21,8 +21,8 @@ The example then runs the following query and scan operations using a `DynamoDBM
 + Perform a parallel scan of the `ProductCatalog` table to find bicycles of a specific type\.
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 **Example**  
 

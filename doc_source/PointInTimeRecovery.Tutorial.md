@@ -1,14 +1,14 @@
-# Restoring a DynamoDB Table to a Point in Time<a name="PointInTimeRecovery.Tutorial"></a>
+# Restoring a DynamoDB table to a point in time<a name="PointInTimeRecovery.Tutorial"></a>
 
 Amazon DynamoDB point\-in\-time recovery \(PITR\) provides continuous backups of your DynamoDB table data\. You can restore a table to a point in time using the DynamoDB console or the AWS Command Line Interface \(AWS CLI\)\. The point\-in\-time recovery process restores to a new table\.
 
 If you want to use the AWS CLI, you must configure it first\. For more information, see [Accessing DynamoDB](AccessingDynamoDB.md)\.
 
 **Topics**
-+ [Restoring a DynamoDB Table to a Point in Time \(Console\)](#restoretabletopointintime_console)
-+ [Restoring a Table to a Point in Time \(AWS CLI\)](#restorepointintime_cli)
++ [Restoring a DynamoDB table to a point in time \(console\)](#restoretabletopointintime_console)
++ [Restoring a table to a point in time \(AWS CLI\)](#restorepointintime_cli)
 
-## Restoring a DynamoDB Table to a Point in Time \(Console\)<a name="restoretabletopointintime_console"></a>
+## Restoring a DynamoDB table to a point in time \(console\)<a name="restoretabletopointintime_console"></a>
 
 The following example demonstrates how to use the DynamoDB console to restore an existing table named `Music` to a point in time\.
 
@@ -33,7 +33,7 @@ You can restore the table to the same AWS Region or to a different Region from w
 
    The table that is being restored is shown with the status **Restoring**\. After the restore process is finished, the status of the `MusicMinutesAgo` table changes to **Active**\.
 
-## Restoring a Table to a Point in Time \(AWS CLI\)<a name="restorepointintime_cli"></a>
+## Restoring a table to a point in time \(AWS CLI\)<a name="restorepointintime_cli"></a>
 
 The following procedure shows how to use the AWS CLI to restore an existing table named `Music` to a point in time\.
 
@@ -96,7 +96,7 @@ aws dynamodb update-continuous-backups \
 
    You can specify a different encryption mode for the restored table, as follows\.
 **Note**  
-The `sse-specification-override` parameter takes the same values as the `sse-specification-override` parameter used in the `CreateTable` command\. To learn more, see [Managing Encrypted Tables in DynamoDB](encryption.tutorial.md)\.
+The `sse-specification-override` parameter takes the same values as the `sse-specification-override` parameter used in the `CreateTable` command\. To learn more, see [Managing encrypted tables in DynamoDB](encryption.tutorial.md)\.
 
    ```
    aws dynamodb restore-table-to-point-in-time \
@@ -110,7 +110,7 @@ The `sse-specification-override` parameter takes the same values as the `sse-spe
 **Note**  
 The `sse-specification-override` parameter is mandatory for cross\-Region restores but optional for restores to the same Region as the source table\.
 The `source-table-arn` parameter must be provided for cross\-Region restores\.
-When performing a cross\-Region restore from the command line, you must set the default AWS Region to the desired destination Region\. To learn more, see [Command Line Options](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html) in the *AWS Command Line Interface User Guide*\.
+When performing a cross\-Region restore from the command line, you must set the default AWS Region to the desired destination Region\. To learn more, see [Command line options](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html) in the *AWS Command Line Interface User Guide*\.
 
    ```
    aws dynamodb restore-table-to-point-in-time \

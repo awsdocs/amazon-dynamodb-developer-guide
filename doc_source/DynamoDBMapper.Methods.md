@@ -38,7 +38,7 @@ By default, only attributes corresponding to mapped class properties are updated
 mapper.save(obj, new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.CLOBBER));
 ```
 
-If you have versioning enabled, the client\-side and server\-side item versions must match\. However, the version does not need to match if the `SaveBehavior.CLOBBER` option is used\. For more information about versioning, see [Optimistic Locking with Version Number](DynamoDBMapper.OptimisticLocking.md)\.
+If you have versioning enabled, the client\-side and server\-side item versions must match\. However, the version does not need to match if the `SaveBehavior.CLOBBER` option is used\. For more information about versioning, see [Optimistic locking with version number](DynamoDBMapper.OptimisticLocking.md)\.
 
 ## load<a name="DynamoDBMapper.Methods.load"></a>
 
@@ -49,13 +49,13 @@ CatalogItem item = mapper.load(CatalogItem.class, item.getId(),
                 new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT));
 ```
 
-By default, DynamoDB returns the item that has values that are eventually consistent\. For information about the eventual consistency model of DynamoDB, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
+By default, DynamoDB returns the item that has values that are eventually consistent\. For information about the eventual consistency model of DynamoDB, see [Read consistency](HowItWorks.ReadConsistency.md)\.
 
 ## delete<a name="DynamoDBMapper.Methods.delete"></a>
 
 Deletes an item from the table\. You must pass in an object instance of the mapped class\. 
 
-If you have versioning enabled, the client\-side and server\-side item versions must match\. However, the version does not need to match if the `SaveBehavior.CLOBBER` option is used\. For more information about versioning, see [Optimistic Locking with Version Number](DynamoDBMapper.OptimisticLocking.md)\. 
+If you have versioning enabled, the client\-side and server\-side item versions must match\. However, the version does not need to match if the `SaveBehavior.CLOBBER` option is used\. For more information about versioning, see [Optimistic locking with version number](DynamoDBMapper.OptimisticLocking.md)\. 
 
 ## query<a name="DynamoDBMapper.Methods.query"></a>
 
@@ -208,7 +208,7 @@ DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
 List<Product> scanResult = mapper.parallelScan(Product.class, scanExpression, numberOfThreads);
 ```
 
-For a Java code example illustrating the usage of `parallelScan`, see [Example: Query and Scan](DynamoDBMapper.QueryScanExample.md)\.
+For a Java code example illustrating the usage of `parallelScan`, see [Example: Query and scan](DynamoDBMapper.QueryScanExample.md)\.
 
 ## batchSave<a name="DynamoDBMapper.Methods.batchSave"></a>
 

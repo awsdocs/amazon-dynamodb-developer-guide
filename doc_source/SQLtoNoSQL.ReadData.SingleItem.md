@@ -1,4 +1,4 @@
-# Reading an Item Using Its Primary Key<a name="SQLtoNoSQL.ReadData.SingleItem"></a>
+# Reading an item using its primary key<a name="SQLtoNoSQL.ReadData.SingleItem"></a>
 
 One common access pattern for databases is to read a single item from a table\. You have to specify the primary key of the item you want\.
 
@@ -37,7 +37,7 @@ In Amazon DynamoDB, you can use either the DynamoDB API, or [PartiQL](https://do
 
 With the DynamoDB API, you use the `PutItem` operation to add an item to a table\.
 
-DynamoDB provides the `GetItem` action for retrieving an item by its primary key\. `GetItem` is highly efficient because it provides direct access to the physical location of the item\. \(For more information, see [Partitions and Data Distribution](HowItWorks.Partitions.md)\.\)
+DynamoDB provides the `GetItem` action for retrieving an item by its primary key\. `GetItem` is highly efficient because it provides direct access to the physical location of the item\. \(For more information, see [Partitions and data distribution](HowItWorks.Partitions.md)\.\)
 
 By default, `GetItem` returns the entire item with all of its attributes\.
 
@@ -68,14 +68,14 @@ Note that the primary key for this table consists of *Artist* and *SongTitle*\.
 
 The DynamoDB `GetItem` action is very efficient: It uses the primary key values to determine the exact storage location of the item in question, and retrieves it directly from there\. The SQL `SELECT` statement is similarly efficient, in the case of retrieving items by primary key values\.
 
-The SQL `SELECT` statement supports many kinds of queries and table scans\. DynamoDB provides similar functionality with its `Query` and `Scan` actions, which are described in [Querying a Table](SQLtoNoSQL.ReadData.Query.md) and [Scanning a Table](SQLtoNoSQL.ReadData.Scan.md)\.
+The SQL `SELECT` statement supports many kinds of queries and table scans\. DynamoDB provides similar functionality with its `Query` and `Scan` actions, which are described in [Querying a table](SQLtoNoSQL.ReadData.Query.md) and [Scanning a table](SQLtoNoSQL.ReadData.Scan.md)\.
 
 The SQL `SELECT` statement can perform table joins, allowing you to retrieve data from multiple tables at the same time\. Joins are most effective where the database tables are normalized and the relationships among the tables are clear\. However, if you join too many tables in one `SELECT` statement application performance can be affected\. You can work around such issues by using database replication, materialized views, or query rewrites\.
 
 DynamoDB is a nonrelational database and doesn't support table joins\. If you are migrating an existing application from a relational database to DynamoDB, you need to denormalize your data model to eliminate the need for joins\.
 
 **Note**  
-For code examples that use `GetItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `GetItem`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 ------
 #### [ PartiQL for DynamoDB ]
@@ -93,6 +93,6 @@ Note that the primary key for this table consists of Artist and SongTitle\.
 **Note**  
  The select PartiQL statement can also be used to Query or Scan a DynamoDB table
 
-For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL select statements for DynamoDB](ql-reference.select.md)\.
 
 ------

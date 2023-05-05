@@ -14,7 +14,7 @@ Returns information about the table, including the current status of the table, 
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DescribeTable
 content-type: application/x-amz-json-1.0
@@ -62,13 +62,13 @@ Content-Length: 543
 |  Table  |  Container for the table being described\. Type: String  | 
 | CreationDateTime | Date when the table was created in [UNIX epoch time](http://www.epochconverter.com/)\. | 
 |  ItemCount  |  Number of items in the specified table\. DynamoDB updates this value approximately every six hours\. Recent changes might not be reflected in this value\. Type: Number  | 
-|  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the HashKeyElement is required, and a name\-value pair for the RangeKeyElement is optional \(only required for composite primary keys\)\. The maximum hash key size is 2048 bytes\. The maximum range key size is 1024 bytes\. Both limits are enforced separately \(i\.e\. you can have a combined hash \+ range 2048 \+ 1024 key\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \. | 
-| ProvisionedThroughput  | Throughput for the specified table, consisting of values for LastIncreaseDateTime \(if applicable\), LastDecreaseDateTime \(if applicable\), ReadCapacityUnits and WriteCapacityUnits\. If the throughput for the table has never been increased or decreased, DynamoDB does not return values for those elements\. See [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.Type: Array  | 
+|  KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the HashKeyElement is required, and a name\-value pair for the RangeKeyElement is optional \(only required for composite primary keys\)\. The maximum hash key size is 2048 bytes\. The maximum range key size is 1024 bytes\. Both limits are enforced separately \(i\.e\. you can have a combined hash \+ range 2048 \+ 1024 key\)\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey) \. | 
+| ProvisionedThroughput  | Throughput for the specified table, consisting of values for LastIncreaseDateTime \(if applicable\), LastDecreaseDateTime \(if applicable\), ReadCapacityUnits and WriteCapacityUnits\. If the throughput for the table has never been increased or decreased, DynamoDB does not return values for those elements\. See [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\.Type: Array  | 
 |  TableName  |  The name of the requested table\.  Type: String  | 
 |  TableSizeBytes  |  Total size of the specified table, in bytes\. DynamoDB updates this value approximately every six hours\. Recent changes might not be reflected in this value\. Type: Number  | 
 |  TableStatus  | The current state of the table \(CREATING, ACTIVE, DELETING or UPDATING\)\. Once the table is in the ACTIVE state, you can add data\.  | 
 
-## Special Errors<a name="API_DescribeTables_SpecialErrors"></a>
+## Special errors<a name="API_DescribeTables_SpecialErrors"></a>
 
 No errors are specific to this operation\.
 
@@ -80,7 +80,7 @@ No errors are specific to this operation\.
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DescribeTable
 content-type: application/x-amz-json-1.0
@@ -88,7 +88,7 @@ content-type: application/x-amz-json-1.0
 {"TableName":"users"}
 ```
 
-### Sample Response<a name="API_DescribeTables_Examples_Response"></a>
+### Sample response<a name="API_DescribeTables_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 
@@ -110,7 +110,7 @@ content-length: 543
 }
 ```
 
-## Related Actions<a name="API_DescribeTables_Related_Actions"></a>
+## Related actions<a name="API_DescribeTables_Related_Actions"></a>
 +  [CreateTable](API_CreateTable_v20111205.md) 
 +  [DeleteTable](API_DeleteTable_v20111205.md) 
 +  [ListTables](API_ListTables_v20111205.md) 

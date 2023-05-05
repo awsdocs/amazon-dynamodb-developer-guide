@@ -1,4 +1,4 @@
-# Working with Items: \.NET<a name="LowLevelDotNetItemCRUD"></a>
+# Working with items: \.NET<a name="LowLevelDotNetItemCRUD"></a>
 
 You can use the AWS SDK for \.NET low\-level API to perform typical create, read, update, and delete \(CRUD\) operations on an item in a table\. The following are the common steps that you follow to perform data CRUD operations using the \.NET low\-level API:
 
@@ -15,23 +15,23 @@ You can use the AWS SDK for \.NET low\-level API to perform typical create, read
    The `AmazonDynamoDBClient` client provides `PutItem`, `GetItem`, `UpdateItem`, and `DeleteItem` methods for the CRUD operations\.
 
 **Topics**
-+ [Putting an Item](#PutItemLowLevelAPIDotNet)
-+ [Getting an Item](#GetItemLowLevelDotNET)
-+ [Updating an Item](#UpdateItemLowLevelDotNet)
-+ [Atomic Counter](#AtomicCounterLowLevelDotNet)
-+ [Deleting an Item](#DeleteMidLevelDotNet)
-+ [Batch Write: Putting and Deleting Multiple Items](#BatchWriteLowLevelDotNet)
-+ [Batch Get: Getting Multiple Items](#BatchGetLowLevelDotNet)
-+ [Example: CRUD Operations Using the AWS SDK for \.NET Low\-Level API](LowLevelDotNetItemsExample.md)
-+ [Example: Batch Operations Using the AWS SDK for \.NET Low\-Level API](batch-operation-lowlevel-dotnet.md)
-+ [Example: Handling Binary Type Attributes Using the AWS SDK for \.NET Low\-Level API](LowLevelDotNetBinaryTypeExample.md)
++ [Putting an item](#PutItemLowLevelAPIDotNet)
++ [Getting an item](#GetItemLowLevelDotNET)
++ [Updating an item](#UpdateItemLowLevelDotNet)
++ [Atomic counter](#AtomicCounterLowLevelDotNet)
++ [Deleting an item](#DeleteMidLevelDotNet)
++ [Batch write: Putting and deleting multiple items](#BatchWriteLowLevelDotNet)
++ [Batch get: Getting multiple items](#BatchGetLowLevelDotNet)
++ [Example: CRUD operations using the AWS SDK for \.NET low\-level API](LowLevelDotNetItemsExample.md)
++ [Example: Batch operations using the AWS SDK for \.NET low\-level API](batch-operation-lowlevel-dotnet.md)
++ [Example: Handling binary type attributes using the AWS SDK for \.NET low\-level API](LowLevelDotNetBinaryTypeExample.md)
 
-## Putting an Item<a name="PutItemLowLevelAPIDotNet"></a>
+## Putting an item<a name="PutItemLowLevelAPIDotNet"></a>
 
 The `PutItem` method uploads an item to a table\. If the item exists, it replaces the entire item\.
 
 **Note**  
-Instead of replacing the entire item, if you want to update only specific attributes, you can use the `UpdateItem` method\. For more information, see [Updating an Item](#UpdateItemLowLevelDotNet)\.
+Instead of replacing the entire item, if you want to update only specific attributes, you can use the `UpdateItem` method\. For more information, see [Updating an item](#UpdateItemLowLevelDotNet)\.
 
 The following are the steps to upload an item using the low\-level \.NET SDK API:
 
@@ -72,7 +72,7 @@ client.PutItem(request);
 
 In the preceding example, you upload a book item that has the `Id`, `Title`, `ISBN`, and `Authors` attributes\. Note that `Id` is a numeric type attribute, and all other attributes are of the string type\. Authors is a `String` set\.
 
-### Specifying Optional Parameters<a name="PutItemLowLevelAPIDotNetOptions"></a>
+### Specifying optional parameters<a name="PutItemLowLevelAPIDotNetOptions"></a>
 
 You can also provide optional parameters using the `PutItemRequest` object as shown in the following C\# example\. The example specifies the following optional parameters:
 + `ExpressionAttributeNames`, `ExpressionAttributeValues`, and `ConditionExpression` specify that the item can be replaced only if the existing item has the ISBN attribute with a specific value\.
@@ -109,12 +109,12 @@ var response = client.PutItem(request);
 
 For more information, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\.
 
-## Getting an Item<a name="GetItemLowLevelDotNET"></a>
+## Getting an item<a name="GetItemLowLevelDotNET"></a>
 
 The `GetItem` method retrieves an item\.
 
 **Note**  
-To retrieve multiple items, you can use the `BatchGetItem` method\. For more information, see [Batch Get: Getting Multiple Items](#BatchGetLowLevelDotNet)\.
+To retrieve multiple items, you can use the `BatchGetItem` method\. For more information, see [Batch get: Getting multiple items](#BatchGetLowLevelDotNet)\.
 
 The following are the steps to retrieve an existing item using the low\-level AWS SDK for \.NET API\.
 
@@ -144,11 +144,11 @@ var result = response.GetItemResult;
 var attributeMap = result.Item; // Attribute list in the response.
 ```
 
-### Specifying Optional Parameters<a name="GetItemLowLevelDotNETOptions"></a>
+### Specifying optional parameters<a name="GetItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `GetItemRequest` object, as shown in the following C\# example\. The sample specifies the following optional parameters:
 + `ProjectionExpression` parameter to specify the attributes to retrieve\.
-+ `ConsistentRead` parameter to perform a strongly consistent read\. To learn more read consistency, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
++ `ConsistentRead` parameter to perform a strongly consistent read\. To learn more read consistency, see [Read consistency](HowItWorks.ReadConsistency.md)\.
 
 **Example**  
 
@@ -174,7 +174,7 @@ var attributeMap = result.Item;
 
 For more information, see [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)\.
 
-## Updating an Item<a name="UpdateItemLowLevelDotNet"></a>
+## Updating an item<a name="UpdateItemLowLevelDotNet"></a>
 
 The `UpdateItem` method updates an existing item if it is present\. You can use the `UpdateItem` operation to update existing attribute values, add new attributes, or delete attributes from the existing collection\. If the item that has the specified primary key is not found, it adds a new item\.
 
@@ -187,7 +187,7 @@ The `UpdateItem` operation uses the following guidelines:
   + If you use `ADD` for the `Action`, you can add values to an existing set \(string or number set\), or mathematically add \(use a positive number\) or subtract \(use a negative number\) from the existing numeric attribute value\.
 
 **Note**  
-The `PutItem` operation also can perform an update\. For more information, see [Putting an Item](#PutItemLowLevelAPIDotNet)\. For example, if you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified in the input, the `PutItem` operation deletes those attributes\. However, `UpdateItem` updates only the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
+The `PutItem` operation also can perform an update\. For more information, see [Putting an item](#PutItemLowLevelAPIDotNet)\. For example, if you call `PutItem` to upload an item and the primary key exists, the `PutItem` operation replaces the entire item\. If there are attributes in the existing item and those attributes are not specified in the input, the `PutItem` operation deletes those attributes\. However, `UpdateItem` updates only the specified input attributes\. Any other existing attributes of that item remain unchanged\. 
 
 The following are the steps to update an existing item using the low\-level \.NET SDK API:
 
@@ -235,7 +235,7 @@ var request = new UpdateItemRequest
 var response = client.UpdateItem(request);
 ```
 
-### Specifying Optional Parameters<a name="UpdateItemLowLevelDotNETOptions"></a>
+### Specifying optional parameters<a name="UpdateItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `UpdateItemRequest` object, as shown in the following C\# example\. It specifies the following optional parameters:
 + `ExpressionAttributeValues` and `ConditionExpression` to specify that the price can be updated only if the existing price is 20\.00\.
@@ -272,7 +272,7 @@ var response = client.UpdateItem(request);
 
 For more information, see [UpdateItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html)\. 
 
-## Atomic Counter<a name="AtomicCounterLowLevelDotNet"></a>
+## Atomic counter<a name="AtomicCounterLowLevelDotNet"></a>
 
 You can use `updateItem` to implement an atomic counter, where you increment or decrement the value of an existing attribute without interfering with other write requests\. To update an atomic counter, use `updateItem` with an attribute of type `Number` in the `UpdateExpression` parameter, and `ADD` as the `Action`\.
 
@@ -300,7 +300,7 @@ var request = new UpdateItemRequest
 var response = client.UpdateItem(request);
 ```
 
-## Deleting an Item<a name="DeleteMidLevelDotNet"></a>
+## Deleting an item<a name="DeleteMidLevelDotNet"></a>
 
 The `DeleteItem` method deletes an item from a table\. 
 
@@ -329,7 +329,7 @@ var request = new DeleteItemRequest
 var response = client.DeleteItem(request);
 ```
 
-### Specifying Optional Parameters<a name="DeleteItemLowLevelDotNETOptions"></a>
+### Specifying optional parameters<a name="DeleteItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `DeleteItemRequest` object as shown in the following C\# code example\. It specifies the following optional parameters:
 + `ExpressionAttributeValues` and `ConditionExpression` to specify that the book item can be deleted only if it is no longer in publication \(the InPublication attribute value is false\)\. 
@@ -361,7 +361,7 @@ var response = client.DeleteItem(request);
 
 For more information, see [DeleteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html)\.
 
-## Batch Write: Putting and Deleting Multiple Items<a name="BatchWriteLowLevelDotNet"></a>
+## Batch write: Putting and deleting multiple items<a name="BatchWriteLowLevelDotNet"></a>
 
 *Batch write* refers to putting and deleting multiple items in a batch\. The `BatchWriteItem` method enables you to put and delete multiple items from one or more tables in a single call\. The following are the steps to retrieve multiple items using the low\-level \.NET SDK API\.
 
@@ -439,9 +439,9 @@ var request = new BatchWriteItemRequest
 response = client.BatchWriteItem(request);
 ```
 
-For a working example, see [Example: Batch Operations Using the AWS SDK for \.NET Low\-Level API](batch-operation-lowlevel-dotnet.md)\. 
+For a working example, see [Example: Batch operations using the AWS SDK for \.NET low\-level API](batch-operation-lowlevel-dotnet.md)\. 
 
-## Batch Get: Getting Multiple Items<a name="BatchGetLowLevelDotNet"></a>
+## Batch get: Getting multiple items<a name="BatchGetLowLevelDotNet"></a>
 
 The `BatchGetItem` method enables you to retrieve multiple items from one or more tables\. 
 
@@ -546,7 +546,7 @@ foreach (KeyValuePair<string, KeysAndAttributes> pair in unprocessedKeys)
 
 
 
-### Specifying Optional Parameters<a name="BatchGetItemLowLevelDotNETOptions"></a>
+### Specifying optional parameters<a name="BatchGetItemLowLevelDotNETOptions"></a>
 
 You can also provide optional parameters using the `BatchGetItemRequest` object as shown in the following C\# code example\. The example retrieves two items from the `Forum` table\. It specifies the following optional parameter:
 +  `ProjectionExpression` parameter to specify the attributes to retrieve\.

@@ -1,4 +1,4 @@
-# Using Amazon VPC Endpoints to Access DynamoDB<a name="vpc-endpoints-dynamodb"></a>
+# Using Amazon VPC endpoints to access DynamoDB<a name="vpc-endpoints-dynamodb"></a>
 
 For security reasons, many AWS customers run their applications within an Amazon Virtual Private Cloud environment \(Amazon VPC\)\. With Amazon VPC, you can launch Amazon EC2 instances into a virtual private cloud, which is logically isolated from other networks—including the public internet\. With an Amazon VPC, you have control over its IP address range, subnets, routing tables, network gateways, and security settings\.
 
@@ -22,4 +22,4 @@ The following diagram shows how an EC2 instance in a VPC can use a VPC endpoint 
 
 ![\[Workflow diagram showing an EC2 instance accessing DynamoDB through a router and VPC endpoint only.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/ddb-yes-vpc-endpoint.png)![\[Workflow diagram showing an EC2 instance accessing DynamoDB through a router and VPC endpoint only.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Workflow diagram showing an EC2 instance accessing DynamoDB through a router and VPC endpoint only.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-For more information, see [Tutorial: Using a VPC Endpoint for DynamoDB](vpc-endpoints-dynamodb-tutorial.md)\.
+For more information, see [Tutorial: Using a VPC endpoint for DynamoDB](vpc-endpoints-dynamodb-tutorial.md)\.

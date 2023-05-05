@@ -1,4 +1,4 @@
-# Preparing to Use Web Identity Federation<a name="WIF.PreparingForUse"></a>
+# Preparing to use web identity federation<a name="WIF.PreparingForUse"></a>
 
 If you are an application developer and want to use web identity federation for your app, follow these steps:
 
@@ -20,7 +20,7 @@ As an alternative to AWS Security Token Service, you can use Amazon Cognito\. Am
 [How to Authenticate Users \(AWS Mobile SDK for iOS\)](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html)
 [How to Authenticate Users \(AWS Mobile SDK for Android\)](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html)
 
-## Generating an IAM Policy Using the DynamoDB Console<a name="WIF.PreparingForUse.DDBConsole"></a>
+## Generating an IAM policy using the DynamoDB console<a name="WIF.PreparingForUse.DDBConsole"></a>
 
 The DynamoDB console can help you create an IAM policy for use with web identity federation\. To do this, you choose a DynamoDB table and specify the identity provider, actions, and attributes to be included in the policy\. The DynamoDB console then generates a policy that you can attach to an IAM role\.
 

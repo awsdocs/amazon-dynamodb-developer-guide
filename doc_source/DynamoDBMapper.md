@@ -4,18 +4,18 @@
 + [Supported data types for DynamoDB Mapper for Java](DynamoDBMapper.DataTypes.md)
 + [Java Annotations for DynamoDB](DynamoDBMapper.Annotations.md)
 + [DynamoDBMapper Class](DynamoDBMapper.Methods.md)
-+ [Optional Configuration Settings for DynamoDBMapper](DynamoDBMapper.OptionalConfig.md)
-+ [Example: CRUD Operations](DynamoDBMapper.CRUDExample1.md)
-+ [Example: Batch Write Operations](DynamoDBMapper.BatchWriteExample.md)
-+ [Example: Query and Scan](DynamoDBMapper.QueryScanExample.md)
-+ [Example: Transaction Operations](DynamoDBMapper.Transactions.md)
-+ [Optimistic Locking with Version Number](DynamoDBMapper.OptimisticLocking.md)
-+ [Mapping Arbitrary Data](DynamoDBMapper.ArbitraryDataMapping.md)
++ [Optional configuration settings for DynamoDBMapper](DynamoDBMapper.OptionalConfig.md)
++ [Example: CRUD operations](DynamoDBMapper.CRUDExample1.md)
++ [Example: Batch write operations](DynamoDBMapper.BatchWriteExample.md)
++ [Example: Query and scan](DynamoDBMapper.QueryScanExample.md)
++ [Example: Transaction operations](DynamoDBMapper.Transactions.md)
++ [Optimistic locking with version number](DynamoDBMapper.OptimisticLocking.md)
++ [Mapping arbitrary data](DynamoDBMapper.ArbitraryDataMapping.md)
 
-The AWS SDK for Java provides a `DynamoDBMapper` class, allowing you to map your client\-side classes to Amazon DynamoDB tables\. To use `DynamoDBMapper`, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code\. The `DynamoDBMapper` class enables you to access your tables; perform various create, read, update, and delete \(CRUD\) operations; and run queries\.
+The AWS SDK for Java provides a `DynamoDBMapper` class, allowing you to map your client\-side classes to Amazon DynamoDB tables\. To use `DynamoDBMapper`, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code\. The `DynamoDBMapper` class enables you to perform various create, read, update, and delete \(CRUD\) operations on items, and run queries and scans against tables\.
 
 **Note**  
-The `DynamoDBMapper` class does not allow you to create, update, or delete tables\. To perform those tasks, use the low\-level SDK for Java interface instead\. For more information, see [Working with DynamoDB Tables in Java](JavaDocumentAPIWorkingWithTables.md)\.
+The `DynamoDBMapper` class does not allow you to create, update, or delete tables\. To perform those tasks, use the low\-level SDK for Java interface instead\. For more information, see [Working with DynamoDB tables in Java](JavaDocumentAPIWorkingWithTables.md)\.
 
 The SDK for Java provides a set of annotation types so that you can map your classes to tables\. For example, consider a `ProductCatalog` table that has `Id` as the partition key\. 
 
@@ -74,7 +74,7 @@ By default, the class properties map to the same name attributes in the table\. 
 
 The `@DynamoDBAttribute` annotation is optional when the name of the DynamoDB attribute matches the name of the property declared in the class\. When they differ, use this annotation with the `attributeName` parameter to specify which DynamoDB attribute this property corresponds to\. 
 
-In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
+In the preceding example, the `@DynamoDBAttribute` annotation is added to each property to ensure that the property names match exactly with the tables created in [Creating tables and loading data for code examples in DynamoDB](SampleData.md), and to be consistent with the attribute names used in other code examples in this guide\. 
 
 Your class definition can have properties that don't map to any attributes in the table\. You identify these properties by adding the `@DynamoDBIgnore` annotation\. In the preceding example, the `SomeProp` property is marked with the `@DynamoDBIgnore` annotation\. When you upload a `CatalogItem` instance to the table, your `DynamoDBMapper` instance does not include the `SomeProp` property\. In addition, the mapper does not return this attribute when you retrieve an item from the table\. 
 

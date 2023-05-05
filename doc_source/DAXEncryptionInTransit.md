@@ -1,4 +1,4 @@
-# DAX Encryption in Transit<a name="DAXEncryptionInTransit"></a>
+# DAX encryption in transit<a name="DAXEncryptionInTransit"></a>
 
 Amazon DynamoDB Accelerator \(DAX\) supports encryption in transit of data between your application and your DAX cluster, enabling you to use DAX in applications with stringent encryption requirements\.
 

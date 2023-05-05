@@ -1,4 +1,4 @@
-# Table\.Scan Method in the AWS SDK for \.NET<a name="ScanMidLevelDotNet"></a>
+# Table\.Scan method in the AWS SDK for \.NET<a name="ScanMidLevelDotNet"></a>
 
 The `Scan` method performs a full table scan\. It provides two overloads\. The only parameter required by the `Scan` method is the scan filter, which you can provide using the following overload\.
 
@@ -16,7 +16,7 @@ For example, assume that you maintain a table of forum threads tracking informat
 Thread(Subject, Message, ForumId, Tags, LastPostedDateTime, .... )
 ```
 
-This is a simplified version of forums and threads that you see on AWS forums \(see [Discussion Forums](https://forums.aws.amazon.com/)\)\. The following C\# code example queries all threads in a specific forum \(ForumId = 101\) that are tagged "sortkey"\. Because the `ForumId` is not a primary key, the example scans the table\. The `ScanFilter` includes two conditions\. The query returns all the threads that satisfy both of the conditions\.
+This is a simplified version of forums and threads that you see on AWS forums \(see [Discussion forums](https://forums.aws.amazon.com/)\)\. The following C\# code example queries all threads in a specific forum \(ForumId = 101\) that are tagged "sortkey"\. Because the `ForumId` is not a primary key, the example scans the table\. The `ScanFilter` includes two conditions\. The query returns all the threads that satisfy both of the conditions\.
 
 **Example**  
 
@@ -31,7 +31,7 @@ scanFilter.AddCondition("Tags", ScanOperator.Contains, "sortkey");
 Search search = ThreadTable.Scan(scanFilter);
 ```
 
-## Specifying Optional Parameters<a name="ScanMidLevelDotNetOptions"></a>
+## Specifying optional parameters<a name="ScanMidLevelDotNetOptions"></a>
 
 You also can specify optional parameters to `Scan`, such as a specific list of attributes to retrieve or whether to perform a strongly consistent read\. To specify optional parameters, you must create a `ScanOperationConfig` object that includes both the required and optional parameters and use the following overload\. 
 
@@ -62,7 +62,7 @@ ScanOperationConfig config = new ScanOperationConfig()
 Search search = ThreadTable.Scan(config);
 ```
 
-## Example: Scan Using the Table\.Scan Method<a name="ScanMidLevelDotNetExampleTableScan"></a>
+## Example: Scan using the Table\.Scan method<a name="ScanMidLevelDotNetExampleTableScan"></a>
 
 The `Scan` operation performs a full table scan making it a potentially expensive operation\. You should use queries instead\. However, there are times when you might need to run a scan against a table\. For example, you might have a data entry error in the product pricing, and you must scan the table as shown in the following C\# code example\. The example scans the `ProductCatalog` table to find products for which the price value is less than 0\. The example illustrates the use of the two `Table.Scan` overloads\. 
 + `Table.Scan` that takes the `ScanFilter` object as a parameter\. 

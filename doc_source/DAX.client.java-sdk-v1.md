@@ -27,7 +27,7 @@ These instructions are for applications using AWS SDK for Java 1\.x\. For applic
    wget http://dax-sdk.s3-website-us-west-2.amazonaws.com/java/DaxJavaClient-latest.jar
    ```
 **Note**  
-The client for the DAX SDK for Java is available on Apache Maven\. For more information, see [Using the Client as an Apache Maven Dependency](#DAXClient.Maven)\.
+The client for the DAX SDK for Java is available on Apache Maven\. For more information, see [Using the client as an Apache Maven dependency](#DAXClient.Maven)\.
 
 1. Set your `CLASSPATH` variable\. In this example, replace `sdkVersion` with the actual version number of the AWS SDK for Java \(for example, `1.11.112`\)\.
 
@@ -147,7 +147,7 @@ For more information about this program, see the following sections:
 + [TryDaxHelper\.java](DAX.client.run-application-java.TryDaxHelper.md)
 + [TryDaxTests\.java](DAX.client.run-application-java.TryDaxTests.md)
 
-## Using the Client as an Apache Maven Dependency<a name="DAXClient.Maven"></a>
+## Using the client as an Apache Maven dependency<a name="DAXClient.Maven"></a>
 
 Follow these steps to use the client for the DAX SDK for Java in your application as a dependency\.
 

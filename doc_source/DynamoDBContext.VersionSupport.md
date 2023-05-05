@@ -1,4 +1,4 @@
-# Optimistic Locking Using a Version Number with DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.VersionSupport"></a>
+# Optimistic locking using a version number with DynamoDB using the AWS SDK for \.NET object persistence model<a name="DynamoDBContext.VersionSupport"></a>
 
 Optimistic locking support in the object persistence model ensures that the item version for your application is the same as the item version on the server side before updating or deleting the item\. Suppose that you retrieve an item for update\. However, before you send your updates back, some other application updates the same item\. Now your application has a stale copy of the item\. Without optimistic locking, any update you perform will overwrite the update made by the other application\. 
 
@@ -52,9 +52,9 @@ Optimistic locking has the following impact on `DynamoDBContext` operations:
 
   Note that the internal implementation of optimistic locking in the object persistence model code uses the conditional update and the conditional delete API actions in DynamoDB\.
 
-## Disabling Optimistic Locking<a name="DotNetDynamoDBContext.DisablingOptimisticLocking"></a>
+## Disabling optimistic locking<a name="DotNetDynamoDBContext.DisablingOptimisticLocking"></a>
 
-To disable optimistic locking, you use the `SkipVersionCheck` configuration property\. You can set this property when creating `DynamoDBContext`\. In this case, optimistic locking is disabled for any requests that you make using the context\. For more information, see [Specifying Optional Parameters for DynamoDBContext ](DotNetDynamoDBContext.md#OptionalConfigParams)\. 
+To disable optimistic locking, you use the `SkipVersionCheck` configuration property\. You can set this property when creating `DynamoDBContext`\. In this case, optimistic locking is disabled for any requests that you make using the context\. For more information, see [Specifying optional parameters for DynamoDBContext ](DotNetDynamoDBContext.md#OptionalConfigParams)\. 
 
 Instead of setting the property at the context level, you can disable optimistic locking for a specific operation, as shown in the following C\# code example\. The example uses the context to delete a book item\. The `Delete` method sets the optional `SkipVersionCheck` property to true, disabling version checking\.
 

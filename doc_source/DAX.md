@@ -1,4 +1,4 @@
-# In\-Memory Acceleration with DynamoDB Accelerator \(DAX\)<a name="DAX"></a>
+# In\-memory acceleration with DynamoDB Accelerator \(DAX\)<a name="DAX"></a>
 
 Amazon DynamoDB is designed for scale and performance\. In most cases, the DynamoDB response times can be measured in single\-digit milliseconds\. However, there are certain use cases that require response times in microseconds\. For these use cases, DynamoDB Accelerator \(DAX\) delivers fast response times for accessing eventually consistent data\. 
 
@@ -10,30 +10,30 @@ DAX is a DynamoDB\-compatible caching service that enables you to benefit from f
 
 1. For read\-heavy or bursty workloads, DAX provides increased throughput and potential operational cost savings by reducing the need to overprovision read capacity units\. This is especially beneficial for applications that require repeated reads for individual keys\.
 
-DAX supports server\-side encryption\. With encryption at rest, the data persisted by DAX on disk will be encrypted\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. For more information, see [DAX Encryption at Rest](DAXEncryptionAtRest.md)\.
+DAX supports server\-side encryption\. With encryption at rest, the data persisted by DAX on disk will be encrypted\. DAX writes data to disk as part of propagating changes from the primary node to read replicas\. For more information, see [DAX encryption at rest](DAXEncryptionAtRest.md)\.
 
-DAX also supports encryption in transit, ensuring that all requests and responses between your application and the cluster are encrypted by transport level security \(TLS\), and connections to the cluster can be authenticated by verification of a cluster x509 certificate\. For more information, see [DAX Encryption in Transit](DAXEncryptionInTransit.md)\.
+DAX also supports encryption in transit, ensuring that all requests and responses between your application and the cluster are encrypted by transport level security \(TLS\), and connections to the cluster can be authenticated by verification of a cluster x509 certificate\. For more information, see [DAX encryption in transit](DAXEncryptionInTransit.md)\.
 
 **Topics**
-+ [Use Cases for DAX](#DAX.use-cases)
-+ [DAX Usage Notes](#DAX.usage-notes)
-+ [DAX: How It Works](DAX.concepts.md)
-+ [DAX Cluster Components](DAX.concepts.cluster.md)
-+ [Creating a DAX Cluster](DAX.create-cluster.md)
-+ [DAX and DynamoDB Consistency Models](DAX.consistency.md)
-+ [Developing with the DynamoDB Accelerator \(DAX\) Client](DAX.client.md)
-+ [Managing DAX Clusters](DAX.cluster-management.md)
++ [Use cases for DAX](#DAX.use-cases)
++ [DAX usage notes](#DAX.usage-notes)
++ [DAX: How it works](DAX.concepts.md)
++ [DAX cluster components](DAX.concepts.cluster.md)
++ [Creating a DAX cluster](DAX.create-cluster.md)
++ [DAX and DynamoDB consistency models](DAX.consistency.md)
++ [Developing with the DynamoDB Accelerator \(DAX\) client](DAX.client.md)
++ [Managing DAX clusters](DAX.cluster-management.md)
 + [Monitoring DAX](DAX.Monitoring.md)
-+ [DAX T3/T2 Burstable Instances](DAX.Burstable.md)
-+ [DAX Access Control](DAX.access-control.md)
-+ [DAX Encryption at Rest](DAXEncryptionAtRest.md)
-+ [DAX Encryption in Transit](DAXEncryptionInTransit.md)
-+ [Using Service\-Linked IAM Roles for DAX](using-service-linked-roles.md)
-+ [Accessing DAX Across AWS Accounts](DAX.cross-account-access.md)
-+ [DAX Cluster Sizing Guide](DAX.sizing-guide.md)
-+ [DAX API Reference](DAX.api.md)
++ [DAX T3/T2 burstable instances](DAX.Burstable.md)
++ [DAX access control](DAX.access-control.md)
++ [DAX encryption at rest](DAXEncryptionAtRest.md)
++ [DAX encryption in transit](DAXEncryptionInTransit.md)
++ [Using service\-linked IAM roles for DAX](using-service-linked-roles.md)
++ [Accessing DAX across AWS accounts](DAX.cross-account-access.md)
++ [DAX cluster sizing guide](DAX.sizing-guide.md)
++ [DAX API reference](DAX.api.md)
 
-## Use Cases for DAX<a name="DAX.use-cases"></a>
+## Use cases for DAX<a name="DAX.use-cases"></a>
 
 DAX provides access to eventually consistent data from DynamoDB tables, with microsecond latency\. A Multi\-AZ DAX cluster can serve millions of requests per second\.
 
@@ -49,10 +49,10 @@ DAX is ideal for the following types of applications:
 + Applications that are write\-intensive, or that do not perform much read activity\.
 + Applications that are already using a different caching solution with DynamoDB, and are using their own client\-side logic for working with that caching solution\.
 
-## DAX Usage Notes<a name="DAX.usage-notes"></a>
+## DAX usage notes<a name="DAX.usage-notes"></a>
 + For a list of AWS Regions where DAX is available, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 + DAX supports applications written in Go, Java, Node\.js, Python, and \.NET, using AWS\-provided clients for those programming languages\.
-+ DAX is only available for the EC2\-VPC platform\. \(There is no support for the EC2\-Classic platform\.\)
++ DAX is only available for the EC2\-VPC platform\.
 + The DAX cluster service role policy must allow the `dynamodb:DescribeTable` action in order to maintain metadata about the DynamoDB table\.
 + DAX clusters maintain metadata about the attribute names of items they store\. That metadata is maintained indefinitely \(even after the item has expired or been evicted from the cache\)\. Applications that use an unbounded number of attribute names can, over time, cause memory exhaustion in the DAX cluster\. This limitation applies only to top\-level attribute names, not nested attribute names\. Examples of problematic top\-level attribute names include timestamps, UUIDs, and session IDs\.
 

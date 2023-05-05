@@ -1,4 +1,4 @@
-# IAM Policy to Prevent the Purchase of DynamoDB Reserved Capacity<a name="iam-policy-prevent-purchase-reserved-capacity"></a>
+# IAM policy to prevent the purchase of DynamoDB reserved capacity<a name="iam-policy-prevent-purchase-reserved-capacity"></a>
 
 With Amazon DynamoDB reserved capacity, you pay a one\-time, upfront fee and commit to paying for a minimum usage level at significant savings over a period of time\. You can use the AWS Management Console to view and purchase reserved capacity\. However, you might not want all of the users in your organization to be able to purchase reserved capacity\. For more information about reserved capacity, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 
@@ -9,7 +9,7 @@ DynamoDB provides the following API operations for controlling access to reserve
 
 The AWS Management Console uses these API actions to display reserved capacity information and make purchases\. You cannot call these operations from an application program because they can be accessed only from the console\. However, you can allow or deny access to these operations in an IAM permissions policy\.
 
-The following policy allows users to view reserved capacity purchases and offerings by using the AWS Management Console—but new purchases are denied\.
+The following policy allows users to view reserved capacity purchases and offerings by using the AWS Management Console — but new purchases are denied\.
 
 ```
 {

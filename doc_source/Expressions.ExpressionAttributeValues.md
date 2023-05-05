@@ -1,4 +1,4 @@
-# Expression Attribute Values<a name="Expressions.ExpressionAttributeValues"></a>
+# Expression attribute values<a name="Expressions.ExpressionAttributeValues"></a>
 
 If you need to compare an attribute with a value, define an expression attribute value as a placeholder\. *Expression attribute values* in Amazon DynamoDB are substitutes for the actual values that you want to compare—values that you might not know until runtime\. An expression attribute value must begin with a colon \(`:`\) and be followed by one or more alphanumeric characters\.
 
@@ -29,4 +29,4 @@ If you define an expression attribute value, you must use it consistently throug
 Expression attribute values are used with key condition expressions, condition expressions, update expressions, and filter expressions\.
 
 **Note**  
-For programming language\-specific code examples, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For programming language\-specific code examples, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.

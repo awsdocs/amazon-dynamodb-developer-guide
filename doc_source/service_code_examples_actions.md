@@ -2,7 +2,7 @@
 
 The following code examples demonstrate how to perform individual DynamoDB actions with AWS SDKs\. These excerpts call the DynamoDB API and are not intended to be run in isolation\. Each example includes a link to GitHub, where you can find instructions on how to set up and run the code in context\.
 
- The following examples include only the most commonly used actions\. For a complete list, see the *DynamoDB API Reference*\.
+ The following examples include only the most commonly used actions\. For a complete list, see the [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)\. 
 
 **Topics**
 + [Create a table](example_dynamodb_CreateTable_section.md)
@@ -14,6 +14,8 @@ The following code examples demonstrate how to perform individual DynamoDB actio
 + [List tables](example_dynamodb_ListTables_section.md)
 + [Put an item in a table](example_dynamodb_PutItem_section.md)
 + [Query a table](example_dynamodb_Query_section.md)
++ [Run a PartiQL statement](example_dynamodb_ExecuteStatement_section.md)
++ [Run batches of PartiQL statements](example_dynamodb_BatchExecuteStatement_section.md)
 + [Scan a table](example_dynamodb_Scan_section.md)
 + [Update an item in a table](example_dynamodb_UpdateItem_section.md)
 + [Write a batch of items](example_dynamodb_BatchWriteItem_section.md)

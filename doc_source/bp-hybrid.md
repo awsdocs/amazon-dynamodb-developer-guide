@@ -1,8 +1,8 @@
-# Best Practices for Implementing a Hybrid Database System<a name="bp-hybrid"></a>
+# Best practices for implementing a hybrid database system<a name="bp-hybrid"></a>
 
 In some circumstances, migrating from one or more relational database management systems \(RDBMS\) to Amazon DynamoDB might not be advantageous\. In these cases, it might be preferable to create a hybrid system\.
 
-## If You Don't Want to Migrate Everything to DynamoDB<a name="bp-hybrid-problems"></a>
+## If you don't want to migrate everything to DynamoDB<a name="bp-hybrid-problems"></a>
 
 For example, some organizations have large investments in the code that produces a multitude of reports needed for accounting and operations\. The time it takes to generate a report is not important to them\. The flexibility of a relational system is well suited to this kind of task, and re\-creating all those reports in a NoSQL context might be prohibitively difficult\.
 
@@ -12,7 +12,7 @@ However, the same organizations may now find that their operations depend on hig
 
 In these situations, the answer might be to create a hybrid system, in which DynamoDB creates a materialized view of data stored in one or more relational systems and handles high\-traffic requests against this view\. This type of system can potentially reduce costs by eliminating server hardware, maintenance, and RDBMS licenses that were previously needed to handle customer\-facing traffic\.
 
-## How a Hybrid System Can Be Implemented<a name="bp-hybrid-solution"></a>
+## How a hybrid system can be implemented<a name="bp-hybrid-solution"></a>
 
 DynamoDB can take advantage of DynamoDB Streams and AWS Lambda to integrate seamlessly with one or more existing relational database systems:
 

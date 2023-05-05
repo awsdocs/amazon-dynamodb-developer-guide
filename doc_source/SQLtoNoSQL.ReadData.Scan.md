@@ -1,8 +1,11 @@
-# Scanning a Table<a name="SQLtoNoSQL.ReadData.Scan"></a>
+# Scanning a table<a name="SQLtoNoSQL.ReadData.Scan"></a>
 
 In SQL, a `SELECT` statement without a `WHERE` clause will return every row in a table\. In Amazon DynamoDB, the `Scan` operation does the same thing\. In both cases, you can retrieve all of the items or just some of them\.
 
 Whether you are using a SQL or a NoSQL database, scans should be used sparingly because they can consume large amounts of system resources\. Sometimes a scan is appropriate \(such as scanning a small table\) or unavoidable \(such as performing a bulk export of data\)\. However, as a general rule, you should design your applications to avoid performing scans\.
+
+**Note**  
+Doing a bulk export also creates at least 1 file per partition\. All of the items in each file are from that particular partition's hashed keyspace\.
 
 **Topics**
 + [SQL](#SQLtoNoSQL.ReadData.Scan.SQL)
@@ -51,7 +54,7 @@ With the DynamoDB API, you use the `Scan` operation to return one or more items 
 The `Scan` action also provides a `FilterExpression` parameter, which you can use to discard items that you do not want to appear in the results\. A `FilterExpression` is applied after the scan is performed, but before the results are returned to you\. \(This is not recommended with large tables\. You are still charged for the entire `Scan`, even if only a few matching items are returned\.\)
 
 **Note**  
-For code examples that use `Scan`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `Scan`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 ------
 #### [ PartiQL for DynamoDB ]
@@ -65,6 +68,6 @@ FROM Music
 
 Note that this statement will return all items for in the Music table\. 
 
-For code examples using `Select` and `ExecuteStatement`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+For code examples using `Select` and `ExecuteStatement`, see [PartiQL select statements for DynamoDB](ql-reference.select.md)\.
 
 ------

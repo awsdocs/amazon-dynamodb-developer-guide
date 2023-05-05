@@ -228,7 +228,7 @@ public class Manager extends Developer { ...}
 
 An annotation to mark a property as using a custom type converter\. Can be annotated on a user\-defined annotation to pass additional properties to the `DynamoDBTypeConverter`\. 
 
- The `DynamoDBTypeConverter` interface lets you map your own arbitrary data types to a data type that is natively supported by DynamoDB\. For more information, see [Mapping Arbitrary Data](DynamoDBMapper.ArbitraryDataMapping.md)\.
+ The `DynamoDBTypeConverter` interface lets you map your own arbitrary data types to a data type that is natively supported by DynamoDB\. For more information, see [Mapping arbitrary data](DynamoDBMapper.ArbitraryDataMapping.md)\.
 
 ## DynamoDBTyped<a name="DynamoDBMapper.Annotations.DynamoDBTyped"></a>
 
@@ -236,4 +236,4 @@ An annotation to override the standard attribute type binding\. Standard types d
 
 ## DynamoDBVersionAttribute<a name="DynamoDBMapper.Annotations.DynamoDBVersionAttribute"></a>
 
-Identifies a class property for storing an optimistic locking version number\. `DynamoDBMapper` assigns a version number to this property when it saves a new item, and increments it each time you update the item\. Only number scalar types are supported\. For more information about data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\. For more information about versioning, see [Optimistic Locking with Version Number](DynamoDBMapper.OptimisticLocking.md)\.
+Identifies a class property for storing an optimistic locking version number\. `DynamoDBMapper` assigns a version number to this property when it saves a new item, and increments it each time you update the item\. Only number scalar types are supported\. For more information about data types, see [Data types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\. For more information about versioning, see [Optimistic locking with version number](DynamoDBMapper.OptimisticLocking.md)\.

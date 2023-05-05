@@ -1,4 +1,4 @@
-# Step 3: Query the Data<a name="SampleData.Query"></a>
+# Step 3: Query the data<a name="SampleData.Query"></a>
 
 **Topics**
 

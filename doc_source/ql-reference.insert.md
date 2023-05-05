@@ -1,9 +1,9 @@
-# PartiQL Insert Statements for DynamoDB<a name="ql-reference.insert"></a>
+# PartiQL insert statements for DynamoDB<a name="ql-reference.insert"></a>
 
 Use the `INSERT` statement to add an item to a table in Amazon DynamoDB\.
 
 **Note**  
-You can only insert one item at a time; you cannot issue a single DynamoDB PartiQL statement that inserts multiple items\. For information on inserting multiple items, see [Performing Transactions with PartiQL for DynamoDB](ql-reference.multiplestatements.transactions.md) or [Running Batch Operations with PartiQL for DynamoDB](ql-reference.multiplestatements.batching.md)\.
+You can only insert one item at a time; you cannot issue a single DynamoDB PartiQL statement that inserts multiple items\. For information on inserting multiple items, see [Performing transactions with PartiQL for DynamoDB](ql-reference.multiplestatements.transactions.md) or [Running batch operations with PartiQL for DynamoDB](ql-reference.multiplestatements.batching.md)\.
 
 **Topics**
 + [Syntax](#ql-reference.insert.syntax)
@@ -38,6 +38,5 @@ If the DynamoDB table already has an item with the same primary key as the prima
 ## Examples<a name="ql-reference.insert.examples"></a>
 
 ```
-INSERT INTO 
-"Music" value {'Artist' : 'Acme Band','SongTitle' : 'PartiQL Rocks'}
+INSERT INTO "Music" value {'Artist' : 'Acme Band','SongTitle' : 'PartiQL Rocks'}
 ```

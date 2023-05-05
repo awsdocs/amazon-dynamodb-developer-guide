@@ -1,4 +1,4 @@
-# Example: Local Secondary Indexes Using the Java Document API<a name="LSIJavaDocumentAPI.Example"></a>
+# Example: Local Secondary Indexes using the Java document API<a name="LSIJavaDocumentAPI.Example"></a>
 
 The following Java code example shows how to work with local secondary indexes in Amazon DynamoDB\. The example creates a table named `CustomerOrders` with a partition key of `CustomerId` and a sort key of `OrderId`\. There are two local secondary indexes on this table:
 + `OrderCreationDateIndex` — The sort key is `OrderCreationDate`, and the following attributes are projected into the index:
@@ -10,7 +10,7 @@ The following Java code example shows how to work with local secondary indexes i
 
 After the `CustomerOrders` table is created, the program loads the table with data representing customer orders\. It then queries the data using the local secondary indexes\. Finally, the program deletes the `CustomerOrders` table\.
 
-For step\-by\-step instructions for testing the following sample, see [Java Code Examples](CodeSamples.Java.md)\.
+For step\-by\-step instructions for testing the following sample, see [Java code examples](CodeSamples.Java.md)\.
 
 **Example**  
 

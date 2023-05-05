@@ -21,7 +21,7 @@ Use the [DescribeTables](API_DescribeTables_v20111205.md) operation to check the
 
 ```
 // This header is abbreviated. 
-// For a sample of a complete header, see DynamoDB Low\-Level API.
+// For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteTable 
 content-type: application/x-amz-json-1.0
@@ -66,14 +66,14 @@ Date: Sun, 14 Aug 2011 22:56:22 GMT
 | --- | --- | 
 | TableDescription  | A container for the table properties\. | 
 | CreationDateTime | Date when the table was created\.Type: Number  | 
-| KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
-| ProvisionedThroughput  | Throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. See [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\. | 
+| KeySchema  | The primary key \(simple or composite\) structure for the table\. A name\-value pair for the `HashKeyElement` is required, and a name\-value pair for the `RangeKeyElement` is optional \(only required for composite primary keys\)\. For more information about primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\.Type: Map of `HashKeyElement`, or `HashKeyElement` and `RangeKeyElement` for a composite primary key\. | 
+| ProvisionedThroughput  | Throughput for the specified table, consisting of values for ReadCapacityUnits and WriteCapacityUnits\. See [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\. | 
 | ProvisionedThroughput: ReadCapacityUnits |  The minimum number of `ReadCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\. Type: Number  | 
 | ProvisionedThroughput: WriteCapacityUnits | The minimum number of `WriteCapacityUnits` consumed per second for the specified table before DynamoDB balances the load with other operations\.Type: Number  | 
 |  TableName  |  The name of the deleted table\. Type: String   | 
 |  TableStatus  | The current state of the table \(DELETING\)\. Once the table is deleted, subsequent requests for the table return resource not found\. Use the [DescribeTables](API_DescribeTables_v20111205.md) operation to check the status of the table\. Type: String | 
 
-## Special Errors<a name="API_DeleteTable_SpecialErrors"></a>
+## Special errors<a name="API_DeleteTable_SpecialErrors"></a>
 
 
 ****  
@@ -84,10 +84,10 @@ Date: Sun, 14 Aug 2011 22:56:22 GMT
 
 ## Examples<a name="API_DeleteTable_Examples"></a>
 
-### Sample Request<a name="API_DeleteTable_Examples_Request"></a>
+### Sample request<a name="API_DeleteTable_Examples_Request"></a>
 
 ```
-// This header is abbreviated. For a sample of a complete header, see DynamoDB Low\-Level API.
+// This header is abbreviated. For a sample of a complete header, see DynamoDB low\-level API.
 POST / HTTP/1.1 
 x-amz-target: DynamoDB_20111205.DeleteTable
 content-type: application/x-amz-json-1.0
@@ -96,7 +96,7 @@ content-length: 40
 {"TableName":"favorite-movies-table"}
 ```
 
-### Sample Response<a name="API_DeleteTable_Examples_Response"></a>
+### Sample response<a name="API_DeleteTable_Examples_Response"></a>
 
 ```
 HTTP/1.1 200 OK
@@ -114,6 +114,6 @@ Date: Sun, 14 Aug 2011 17:20:03 GMT
 }
 ```
 
-## Related Actions<a name="API_DeleteTable_Related_Actions"></a>
+## Related actions<a name="API_DeleteTable_Related_Actions"></a>
 +  [CreateTable](API_CreateTable_v20111205.md) 
 +  [DescribeTables](API_DescribeTables_v20111205.md) 

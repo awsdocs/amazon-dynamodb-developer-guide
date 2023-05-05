@@ -1,12 +1,12 @@
-# Using IAM with DynamoDB Transactions<a name="transaction-apis-iam"></a>
+# Using IAM with DynamoDB transactions<a name="transaction-apis-iam"></a>
 
-You can use AWS Identity and Access Management \(IAM\) to restrict the actions that transactional operations can perform in Amazon DynamoDB\. For more information about using IAM policies in DynamoDB, see [Using Identity\-Based Policies \(IAM Policies\) with Amazon DynamoDB](using-identity-based-policies.md)\.
+You can use AWS Identity and Access Management \(IAM\) to restrict the actions that transactional operations can perform in Amazon DynamoDB\. For more information about using IAM policies in DynamoDB, see  [Identity\-based policies for DynamoDB](security_iam_service-with-iam.md#security_iam_service-with-iam-id-based-policies)\.
 
 Permissions for `Put`, `Update`, `Delete`, and `Get` actions are governed by the permissions used for the underlying `PutItem`, `UpdateItem`, `DeleteItem`, and `GetItem` operations\. For the `ConditionCheck` action, you can use the `dynamodb:ConditionCheck` permission in IAM policies\.
 
 The following are examples of IAM policies that you can use to configure the DynamoDB transactions\.
 
-## Example 1: Allow Transactional Operations<a name="tx-policy-example-1"></a>
+## Example 1: Allow transactional operations<a name="tx-policy-example-1"></a>
 
 ```
 {
@@ -29,7 +29,7 @@ The following are examples of IAM policies that you can use to configure the Dyn
 }
 ```
 
-## Example 2: Allow Only Transactional Operations<a name="tx-policy-example-2"></a>
+## Example 2: Allow only transactional operations<a name="tx-policy-example-2"></a>
 
 ```
 {
@@ -60,7 +60,7 @@ The following are examples of IAM policies that you can use to configure the Dyn
 }
 ```
 
-## Example 3: Allow Nontransactional Reads and Writes, and Block Transactional Reads and Writes<a name="tx-policy-example-3"></a>
+## Example 3: Allow nontransactional reads and writes, and block transactional reads and writes<a name="tx-policy-example-3"></a>
 
 ```
 {
@@ -103,7 +103,7 @@ The following are examples of IAM policies that you can use to configure the Dyn
 }
 ```
 
-## Example 4: Prevent Information from Being Returned on a ConditionCheck Failure<a name="tx-policy-example-4"></a>
+## Example 4: Prevent information from being returned on a ConditionCheck failure<a name="tx-policy-example-4"></a>
 
 ```
 {

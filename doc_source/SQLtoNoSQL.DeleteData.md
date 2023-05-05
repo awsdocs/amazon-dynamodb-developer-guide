@@ -1,4 +1,4 @@
-# Deleting Data from a Table<a name="SQLtoNoSQL.DeleteData"></a>
+# Deleting data from a table<a name="SQLtoNoSQL.DeleteData"></a>
 
 In SQL, the `DELETE` statement removes one or more rows from a table\. Amazon DynamoDB uses the `DeleteItem` operation to delete one item at a time\.
 
@@ -60,7 +60,7 @@ In addition to `DeleteItem`, Amazon DynamoDB supports a `BatchWriteItem` action 
 ```
 
 **Note**  
-For code examples that use `DeleteItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples that use `DeleteItem`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 ------
 #### [ PartiQL for DynamoDB ]
@@ -82,6 +82,6 @@ WHERE Artist = 'Acme Band' AND SongTitle = 'PartiQL Rocks' AND Awards > 11
 ```
 
 **Note**  
-For code examples using `DELETE` and `ExecuteStatement`, see [PartiQL Delete Statements for DynamoDB](ql-reference.delete.md)\.
+For code examples using `DELETE` and `ExecuteStatement`, see [PartiQL delete statements for DynamoDB](ql-reference.delete.md)\.
 
 ------

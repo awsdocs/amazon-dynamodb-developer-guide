@@ -1,8 +1,8 @@
-# Step 4: Load Data into HDFS<a name="EMRforDynamoDB.Tutorial.LoadDataIntoHDFS"></a>
+# Step 4: Load data into HDFS<a name="EMRforDynamoDB.Tutorial.LoadDataIntoHDFS"></a>
 
 In this step, you will copy a data file into Hadoop Distributed File System \(HDFS\), and then create an external Hive table that maps to the data file\.
 
-**Download the Sample Data**
+**Download the sample data**
 
 1. Download the sample data archive \(`features.zip`\):
 
@@ -90,5 +90,5 @@ In this step, you will copy a data file into Hadoop Distributed File System \(HD
 
    The output should show a list of states and the number of geographic features in each\.
 
-**Next Step**  
-[Step 5: Copy Data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md)
+**Next step**  
+[Step 5: Copy data to DynamoDB](EMRforDynamoDB.Tutorial.CopyDataToDDB.md)

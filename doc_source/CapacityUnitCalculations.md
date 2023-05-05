@@ -1,4 +1,4 @@
-# DynamoDB Item Sizes and Formats<a name="CapacityUnitCalculations"></a>
+# DynamoDB Item sizes and formats<a name="CapacityUnitCalculations"></a>
 
 DynamoDB tables are schemaless, except for the primary key, so the items in a table can all have different attributes, sizes, and data types\.
 
@@ -8,6 +8,7 @@ The total size of an item is the sum of the lengths of its attribute names and v
 + A binary value must be encoded in base64 format before it can be sent to DynamoDB, but the value's raw byte length is used for calculating size\. The size of a binary attribute is *\(length of attribute name\) \+ \(number of raw bytes\)\.*
 + The size of a null attribute or a Boolean attribute is *\(length of attribute name\) \+ \(1 byte\)*\.
 + An attribute of type `List` or `Map` requires 3 bytes of overhead, regardless of its contents\. The size of a `List` or `Map` is *\(length of attribute name\) \+ sum \(size of nested elements\) \+ \(3 bytes\) *\. The size of an empty `List` or `Map` is *\(length of attribute name\) \+ \(3 bytes\)*\.
++ Each `List` or `Map` element also requires 1 byte of overhead\.
 
 **Note**  
 We recommend that you choose shorter attribute names rather than long ones\. This helps you reduce the amount of storage required, but also can lower the amount of RCU/WCUs you use\.

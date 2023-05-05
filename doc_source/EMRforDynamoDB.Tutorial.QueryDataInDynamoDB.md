@@ -1,4 +1,4 @@
-# Step 6: Query the Data in the DynamoDB Table<a name="EMRforDynamoDB.Tutorial.QueryDataInDynamoDB"></a>
+# Step 6: Query the data in the DynamoDB table<a name="EMRforDynamoDB.Tutorial.QueryDataInDynamoDB"></a>
 
 In this step, you will use HiveQL to query the Features table in DynamoDB\. Try the following Hive queries:
 
@@ -31,5 +31,5 @@ In this step, you will use HiveQL to query the Features table in DynamoDB\. Try 
    ORDER BY state_alpha, feature_class;
    ```
 
-**Next Step**  
-[Step 7: \(Optional\) Clean Up](EMRforDynamoDB.Tutorial.CleanUp.md)
+**Next step**  
+[Step 7: \(Optional\) clean up](EMRforDynamoDB.Tutorial.CleanUp.md)

@@ -6,9 +6,281 @@ The following code examples show how to get a batch of DynamoDB items\.
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
+#### [ \.NET ]
+
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
+  
+
+```
+using System;
+using System.Collections.Generic;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
+
+namespace LowLevelBatchGet
+{
+    public class LowLevelBatchGet
+    {
+        private static readonly string _table1Name = "Forum";
+        private static readonly string _table2Name = "Thread";
+
+        public static async void RetrieveMultipleItemsBatchGet(AmazonDynamoDBClient client)
+        {
+            var request = new BatchGetItemRequest
+            {
+                RequestItems = new Dictionary<string, KeysAndAttributes>()
+            {
+                { _table1Name,
+                  new KeysAndAttributes
+                  {
+                      Keys = new List<Dictionary<string, AttributeValue> >()
+                      {
+                          new Dictionary<string, AttributeValue>()
+                          {
+                              { "Name", new AttributeValue {
+                            S = "Amazon DynamoDB"
+                        } }
+                          },
+                          new Dictionary<string, AttributeValue>()
+                          {
+                              { "Name", new AttributeValue {
+                            S = "Amazon S3"
+                        } }
+                          }
+                      }
+                  }},
+                {
+                    _table2Name,
+                    new KeysAndAttributes
+                    {
+                        Keys = new List<Dictionary<string, AttributeValue> >()
+                        {
+                            new Dictionary<string, AttributeValue>()
+                            {
+                                { "ForumName", new AttributeValue {
+                                      S = "Amazon DynamoDB"
+                                  } },
+                                { "Subject", new AttributeValue {
+                                      S = "DynamoDB Thread 1"
+                                  } }
+                            },
+                            new Dictionary<string, AttributeValue>()
+                            {
+                                { "ForumName", new AttributeValue {
+                                      S = "Amazon DynamoDB"
+                                  } },
+                                { "Subject", new AttributeValue {
+                                      S = "DynamoDB Thread 2"
+                                  } }
+                            },
+                            new Dictionary<string, AttributeValue>()
+                            {
+                                { "ForumName", new AttributeValue {
+                                      S = "Amazon S3"
+                                  } },
+                                { "Subject", new AttributeValue {
+                                      S = "S3 Thread 1"
+                                  } }
+                            }
+                        }
+                    }
+                }
+            }
+            };
+
+            BatchGetItemResponse response;
+            do
+            {
+                Console.WriteLine("Making request");
+                response = await client.BatchGetItemAsync(request);
+
+                // Check the response.
+                var responses = response.Responses; // Attribute list in the response.
+
+                foreach (var tableResponse in responses)
+                {
+                    var tableResults = tableResponse.Value;
+                    Console.WriteLine("Items retrieved from table {0}", tableResponse.Key);
+                    foreach (var item1 in tableResults)
+                    {
+                        PrintItem(item1);
+                    }
+                }
+
+                // Any unprocessed keys? could happen if you exceed ProvisionedThroughput or some other error.
+                Dictionary<string, KeysAndAttributes> unprocessedKeys = response.UnprocessedKeys;
+                foreach (var unprocessedTableKeys in unprocessedKeys)
+                {
+                    // Print table name.
+                    Console.WriteLine(unprocessedTableKeys.Key);
+                    // Print unprocessed primary keys.
+                    foreach (var key in unprocessedTableKeys.Value.Keys)
+                    {
+                        PrintItem(key);
+                    }
+                }
+
+                request.RequestItems = unprocessedKeys;
+            } while (response.UnprocessedKeys.Count > 0);
+        }
+
+        private static void PrintItem(Dictionary<string, AttributeValue> attributeList)
+        {
+            foreach (KeyValuePair<string, AttributeValue> kvp in attributeList)
+            {
+                string attributeName = kvp.Key;
+                AttributeValue value = kvp.Value;
+
+                Console.WriteLine(
+                    attributeName + " " +
+                    (value.S == null ? "" : "S=[" + value.S + "]") +
+                    (value.N == null ? "" : "N=[" + value.N + "]") +
+                    (value.SS == null ? "" : "SS=[" + string.Join(",", value.SS.ToArray()) + "]") +
+                    (value.NS == null ? "" : "NS=[" + string.Join(",", value.NS.ToArray()) + "]")
+                    );
+            }
+            Console.WriteLine("************************************************");
+        }
+
+        static void Main()
+        {
+            var client = new AmazonDynamoDBClient();
+
+            RetrieveMultipleItemsBatchGet(client);
+        }
+    }
+}
+```
++  For API details, see [BatchGetItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/BatchGetItem) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Batch get items from different Amazon DynamoDB tables.
+/*!
+  \sa batchGetItem()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::DynamoDB::batchGetItem(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::BatchGetItemRequest request;
+
+    // Table1: Forum.
+    Aws::String table1Name = "Forum";
+    Aws::DynamoDB::Model::KeysAndAttributes table1KeysAndAttributes;
+
+    // Table1: Projection expression.
+    table1KeysAndAttributes.SetProjectionExpression("#n, Category, Messages, #v");
+
+    // Table1: Expression attribute names.
+    Aws::Http::HeaderValueCollection headerValueCollection;
+    headerValueCollection.emplace("#n", "Name");
+    headerValueCollection.emplace("#v", "Views");
+    table1KeysAndAttributes.SetExpressionAttributeNames(headerValueCollection);
+
+    // Table1: Set key name, type, and value to search.
+    std::vector<Aws::String> nameValues = {"Amazon DynamoDB", "Amazon S3"};
+    for (const Aws::String &name: nameValues) {
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
+        Aws::DynamoDB::Model::AttributeValue key;
+        key.SetS(name);
+        keys.emplace("Name", key);
+        table1KeysAndAttributes.AddKeys(keys);
+    }
+
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::KeysAndAttributes> requestItems;
+    requestItems.emplace(table1Name, table1KeysAndAttributes);
+
+    // Table2: ProductCatalog.
+    Aws::String table2Name = "ProductCatalog";
+    Aws::DynamoDB::Model::KeysAndAttributes table2KeysAndAttributes;
+    table2KeysAndAttributes.SetProjectionExpression("Title, Price, Color");
+
+    // Table2: Set key name, type, and value to search.
+    std::vector<Aws::String> idValues = {"102", "103", "201"};
+    for (const Aws::String &id: idValues) {
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
+        Aws::DynamoDB::Model::AttributeValue key;
+        key.SetN(id);
+        keys.emplace("Id", key);
+        table2KeysAndAttributes.AddKeys(keys);
+    }
+
+    requestItems.emplace(table2Name, table2KeysAndAttributes);
+
+    bool result = true;
+    do {  // Use a do loop to handle pagination.
+        request.SetRequestItems(requestItems);
+        const Aws::DynamoDB::Model::BatchGetItemOutcome &outcome = dynamoClient.BatchGetItem(
+                request);
+
+        if (outcome.IsSuccess()) {
+            for (const auto &responsesMapEntry: outcome.GetResult().GetResponses()) {
+                Aws::String tableName = responsesMapEntry.first;
+                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &tableResults = responsesMapEntry.second;
+                std::cout << "Retrieved " << tableResults.size()
+                          << " responses for table '" << tableName << "'.\n"
+                          << std::endl;
+                if (tableName == "Forum") {
+
+                    std::cout << "Name | Category | Message | Views" << std::endl;
+                    for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item: tableResults) {
+                        std::cout << item.at("Name").GetS() << " | ";
+                        std::cout << item.at("Category").GetS() << " | ";
+                        std::cout << (item.count("Message") == 0 ? "" : item.at(
+                                "Messages").GetN()) << " | ";
+                        std::cout << (item.count("Views") == 0 ? "" : item.at(
+                                "Views").GetN()) << std::endl;
+                    }
+                }
+                else {
+                    std::cout << "Title | Price | Color" << std::endl;
+                    for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item: tableResults) {
+                        std::cout << item.at("Title").GetS() << " | ";
+                        std::cout << (item.count("Price") == 0 ? "" : item.at(
+                                "Price").GetN());
+                        if (item.count("Color")) {
+                            std::cout << " | ";
+                            for (const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> &listItem: item.at(
+                                    "Color").GetL())
+                                std::cout << listItem->GetS() << " ";
+                        }
+                        std::cout << std::endl;
+                    }
+                }
+                std::cout << std::endl;
+            }
+
+            // If necessary, repeat request for remaining items.
+            requestItems = outcome.GetResult().GetUnprocessedKeys();
+        }
+        else {
+            std::cerr << "Batch get item failed: " << outcome.GetError().GetMessage()
+                      << std::endl;
+            result = false;
+            break;
+        }
+    } while (!requestItems.empty());
+
+    return result;
+}
+```
++  For API details, see [BatchGetItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/BatchGetItem) in *AWS SDK for C\+\+ API Reference*\. 
+
+------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
@@ -54,11 +326,11 @@ export const run = async () => {
 };
 run();
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading)\. 
 +  For API details, see [BatchGetItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/batchgetitemcommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -93,7 +365,6 @@ ddb.batchGetItem(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading)\. 
 +  For API details, see [BatchGetItem](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/BatchGetItem) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -101,6 +372,7 @@ ddb.batchGetItem(params, function(err, data) {
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -161,7 +433,6 @@ def do_batch_get(batch_keys):
 
     return retrieved
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [BatchGetItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/BatchGetItem) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
