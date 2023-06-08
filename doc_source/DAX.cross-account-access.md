@@ -1,13 +1,13 @@
-# Accessing DAX Across AWS Accounts<a name="DAX.cross-account-access"></a>
+# Accessing DAX across AWS accounts<a name="DAX.cross-account-access"></a>
 
 Imagine that you have a DynamoDB Accelerator \(DAX\) cluster running in one AWS account \(account A\), and the DAX cluster needs to be accessible from an Amazon Elastic Compute Cloud \(Amazon EC2\) instance in another AWS account \(account B\)\. In this tutorial, you accomplish this by launching an EC2 instance in account B with an IAM role from account B\. You then use temporary security credentials from the EC2 instance to assume an IAM role from account A\. Finally, you use the temporary security credentials from assuming the IAM role in account A to make application calls over an Amazon VPC peering connection to the DAX cluster in account A\. In order to perform these tasks you will need administrative access in both AWS accounts\.
 
 **Topics**
-+ [Set Up IAM](#DAX.cross-account-access.iam-setup)
-+ [Set Up a VPC](#DAX.cross-account-access.vpc-setup)
-+ [Modify the DAX Client to Allow Cross\-account Access](#DAX.cross-account-access.modify-client)
++ [Set up IAM](#DAX.cross-account-access.iam-setup)
++ [Set up a VPC](#DAX.cross-account-access.vpc-setup)
++ [Modify the DAX client to allow cross\-account access](#DAX.cross-account-access.modify-client)
 
-## Set Up IAM<a name="DAX.cross-account-access.iam-setup"></a>
+## Set up IAM<a name="DAX.cross-account-access.iam-setup"></a>
 
 1. Create a text file named `AssumeDaxRoleTrust.json` with the following content, which allows Amazon EC2 to work on your behalf\.
 
@@ -132,7 +132,7 @@ Imagine that you have a DynamoDB Accelerator \(DAX\) cluster running in one AWS 
        --policy-document file://DaxCrossAccountPolicy.json
    ```
 
-## Set Up a VPC<a name="DAX.cross-account-access.vpc-setup"></a>
+## Set up a VPC<a name="DAX.cross-account-access.vpc-setup"></a>
 
 1. Find the subnet group of account A's DAX cluster\. Replace *cluster\-name* with the name of the DAX cluster that account B must access\.
 
@@ -160,7 +160,7 @@ Imagine that you have a DynamoDB Accelerator \(DAX\) cluster running in one AWS 
 
 1. From account B, create a VPC using a different, non\-overlapping CIDR than the one found in the previous step\. Then, create at least one subnet\. You can use either the [VPC creation wizard](https://docs.aws.amazon.com/vpc/latest/userguide/getting-started-ipv4.html#getting-started-create-vpc) in the AWS Management Console or the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc.html)\.
 
-1. From account B, request a peering connection to the account A VPC as described in [Creating and Accepting a VPC Peering Connection](https://docs.aws.amazon.com/vpc/latest/peering/create-vpc-peering-connection.html)\. From account A, accept the connection\.
+1. From account B, request a peering connection to the account A VPC as described in [Creating and accepting a VPC peering connection](https://docs.aws.amazon.com/vpc/latest/peering/create-vpc-peering-connection.html)\. From account A, accept the connection\.
 
 1. From account B, find the new VPC's routing table\. Replace *vpc\-id* with the ID of the VPC you created in account B\.
 
@@ -219,7 +219,7 @@ Imagine that you have a DynamoDB Accelerator \(DAX\) cluster running in one AWS 
 
 At this point, an application on account B's EC2 instance is able to use the instance profile to assume the `arn:aws:iam::accountA-id:role/DaxCrossAccountRole` role and use the DAX cluster\.
 
-## Modify the DAX Client to Allow Cross\-account Access<a name="DAX.cross-account-access.modify-client"></a>
+## Modify the DAX client to allow cross\-account access<a name="DAX.cross-account-access.modify-client"></a>
 
 **Note**  
 AWS Security Token Service \(AWS STS\) credentials are temporary credentials\. Some clients handle refreshing automatically, while others require additional logic to refresh the credentials\. We recommend that you follow the guidance of the appropriate documentation\.

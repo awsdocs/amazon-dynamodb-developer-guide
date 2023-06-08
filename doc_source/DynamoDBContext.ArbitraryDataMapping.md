@@ -1,6 +1,6 @@
-# Mapping Arbitrary Data with DynamoDB Using the AWS SDK for \.NET Object Persistence Model<a name="DynamoDBContext.ArbitraryDataMapping"></a>
+# Mapping arbitrary data with DynamoDB using the AWS SDK for \.NET object persistence model<a name="DynamoDBContext.ArbitraryDataMapping"></a>
 
-In addition to the supported \.NET types \(see [Supported Data Types](DotNetSDKHighLevel.md#DotNetDynamoDBContext.SupportedTypes)\), you can use types in your application for which there is no direct mapping to the Amazon DynamoDB types\. The object persistence model supports storing data of arbitrary types as long as you provide the converter to convert data from the arbitrary type to the DynamoDB type and vice versa\. The converter code transforms data during both the saving and loading of the objects\.
+In addition to the supported \.NET types \(see [Supported data types](DotNetSDKHighLevel.md#DotNetDynamoDBContext.SupportedTypes)\), you can use types in your application for which there is no direct mapping to the Amazon DynamoDB types\. The object persistence model supports storing data of arbitrary types as long as you provide the converter to convert data from the arbitrary type to the DynamoDB type and vice versa\. The converter code transforms data during both the saving and loading of the objects\.
 
 You can create any types on the client\-side\. However the data stored in the tables is one of the DynamoDB types, and during query and scan, any data comparisons made are against the data stored in DynamoDB\.
 
@@ -10,7 +10,7 @@ The example maps the `Book` type to the `ProductCatalog` table\. It saves a samp
 
 
 
-For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions for testing the following example, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

@@ -1,4 +1,4 @@
-# Step 3: Create a DAX Cluster Using the AWS CLI<a name="DAX.create-cluster.cli.create-cluster"></a>
+# Step 3: Create a DAX cluster using the AWS CLI<a name="DAX.create-cluster.cli.create-cluster"></a>
 
 Follow this procedure to use the AWS Command Line Interface \(AWS CLI\) to create an Amazon DynamoDB Accelerator \(DAX\) cluster in your default Amazon VPC\.
 
@@ -42,4 +42,4 @@ aws dax describe-clusters
 The status is shown in the output—for example, `"Status": "creating"`\.
 
 **Note**  
-Creating the cluster takes several minutes\. When the cluster is ready, its status changes to `available`\. In the meantime, proceed to [Step 4: Configure Security Group Inbound Rules Using the AWS CLI](DAX.create-cluster.cli.configure-inbound-rules.md) and follow the instructions there\.
+Creating the cluster takes several minutes\. When the cluster is ready, its status changes to `available`\. In the meantime, proceed to [Step 4: Configure security group inbound rules using the AWS CLI](DAX.create-cluster.cli.configure-inbound-rules.md) and follow the instructions there\.

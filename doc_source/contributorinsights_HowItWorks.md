@@ -1,4 +1,4 @@
-# CloudWatch Contributor Insights for DynamoDB: How It Works<a name="contributorinsights_HowItWorks"></a>
+# CloudWatch contributor insights for DynamoDB: How it works<a name="contributorinsights_HowItWorks"></a>
 
 Amazon DynamoDB integrates with [Amazon CloudWatch Contributor Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights.html) to provide information about the most accessed and throttled items in a table or global secondary index\. DynamoDB delivers this information to you via CloudWatch Contributor Insights [rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html), [reports](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-ViewReports.html), and graphs of report data\. 
 
@@ -7,12 +7,12 @@ For more information about CloudWatch Contributor Insights, see [Using Contribut
  The following sections describe the core concepts and behavior of CloudWatch Contributor Insights for DynamoDB\. 
 
 **Topics**
-+ [CloudWatch Contributor Insights for DynamoDB Rules](#contributorinsights_HowItWorks.Rules)
-+ [Understanding CloudWatch Contributor Insights for DynamoDB Graphs](#contributorinsights_HowItWorks.Graphs)
-+ [Interactions with Other DynamoDB Features](#contributorinsights_HowItWorks.OtherFeatures)
-+ [CloudWatch Contributor Insights for DynamoDB Billing](#contributorinsights_HowItWorks.Billing)
++ [CloudWatch contributor insights for DynamoDB rules](#contributorinsights_HowItWorks.Rules)
++ [Understanding CloudWatch contributor insights for DynamoDB graphs](#contributorinsights_HowItWorks.Graphs)
++ [Interactions with other DynamoDB features](#contributorinsights_HowItWorks.OtherFeatures)
++ [CloudWatch contributor insights for DynamoDB billing](#contributorinsights_HowItWorks.Billing)
 
-## CloudWatch Contributor Insights for DynamoDB Rules<a name="contributorinsights_HowItWorks.Rules"></a>
+## CloudWatch contributor insights for DynamoDB rules<a name="contributorinsights_HowItWorks.Rules"></a>
 
 When you enable CloudWatch Contributor Insights for DynamoDB on a table or global secondary index, DynamoDB creates the following [rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html) on your behalf:
 + **Most accessed items \(partition key\)** — Identifies the partition keys of the most accessed items in your table or global secondary index\.
@@ -36,11 +36,11 @@ When you use the [GetInsightRuleReport](https://docs.aws.amazon.com/AmazonCloudW
 
 You can create CloudWatch Alarms using the CloudWatch Contributor Insights for DynamoDB [rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-RuleSyntax.html)\. This allows you to be notified when any item exceed or meets a specific threshold for `ConsumedThroughputUnits` or `ThrottleCount`\. For more information, see [Setting an Alarm on Contributor Insights Metric Data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights-GraphReportData.html#ContributorInsights-GraphReportData-Alarm)\.
 
-## Understanding CloudWatch Contributor Insights for DynamoDB Graphs<a name="contributorinsights_HowItWorks.Graphs"></a>
+## Understanding CloudWatch contributor insights for DynamoDB graphs<a name="contributorinsights_HowItWorks.Graphs"></a>
 
 CloudWatch Contributor Insights for DynamoDB displays two types of graphs on both the DynamoDB and CloudWatch consoles: *Most Accessed Items* and *Most Throttled Items*\.
 
-### Most Accessed Items<a name="contributorinsights_HowItWorks.Graphs.most-accessed"></a>
+### Most accessed items<a name="contributorinsights_HowItWorks.Graphs.most-accessed"></a>
 
 Use this graph to identify the most accessed items in the table or global secondary index\. The graph displays `ConsumedThroughputUnits` on the y\-axis and time on the x\-axis\. Each of the top N keys is displayed in its own color, with a legend displayed below the x\-axis\. 
 
@@ -54,7 +54,7 @@ If you see several closely clustered lines without any obvious outliers, it indi
 
 If your table or global secondary index has a sort key, DynamoDB creates two graphs: one for the most accessed partition keys and one for the most accessed partition \+ sort key pairs\. You can see traffic at the partition key level in the partition key–only graph\. You can see traffic at the item level in the partition \+ sort key graphs\.
 
-### Most Throttled Items<a name="contributorinsights_HowItWorks.Graphs.most-throttled"></a>
+### Most throttled items<a name="contributorinsights_HowItWorks.Graphs.most-throttled"></a>
 
 Use this graph to identify the most throttled items in the table or global secondary index\. The graph displays `ThrottleCount` on the y\-axis and time on the x\-axis\. Each of the top N keys is displayed in its own color, with a legend displayed below the x\-axis\. 
 
@@ -68,17 +68,17 @@ If you see no data in this graph, it indicates that your requests are not being 
 
 If your table or global secondary index has a sort key, DynamoDB creates two graphs: one for most throttled partition keys and one for most throttled partition \+ sort key pairs\. You can see throttle count at the partition key level in the partition key\-only graph, and throttle count at the item\-level in the partition \+ sort key graphs\.
 
-### Report Examples<a name="contributorinsights_HowItWorks.Graphs.examples"></a>
+### Report examples<a name="contributorinsights_HowItWorks.Graphs.examples"></a>
 
 The following are examples of the reports generated for a table with both a partition key and sort key\.
 
 ![\[4 different Contributor Insights reports showing most accessed items and most throttled items.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/CI_Graphs_Example.png)
 
-## Interactions with Other DynamoDB Features<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
+## Interactions with other DynamoDB features<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
 The following sections describe how CloudWatch Contributor Insights for DynamoDB behaves and interacts with several other features in DynamoDB\.
 
-### Global Tables<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
+### Global tables<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
 CloudWatch Contributor Insights for DynamoDB monitors global table replicas as distinct tables\. The Contributor Insights graphs for a replica in one AWS Region might not show the same patterns as another Region\. This is because write data is replicated across all replicas in a global table, but each replica can serve Region\-bound read traffic\. 
 
@@ -86,7 +86,10 @@ CloudWatch Contributor Insights for DynamoDB monitors global table replicas as d
 
 CloudWatch Contributor Insights for DynamoDB doesn't show DAX cache responses\. It only shows responses to accessing a table or a global secondary index\.
 
-### Encryption at Rest<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
+**Note**  
+DynamoDB CCI does not support PartiQL requests\.
+
+### Encryption at rest<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
 CloudWatch Contributor Insights for DynamoDB doesn't affect how encryption works in DynamoDB\. The primary key data that is published in CloudWatch is encrypted with the AWS owned key\. However, DynamoDB also supports the AWS managed key and a customer managed key\.
 
@@ -94,17 +97,17 @@ CloudWatch Contributor Insights for DynamoDB graphs display the partition key an
 
 If you require your primary key data to be encrypted with the AWS managed key or a customer managed key, you should not enable CloudWatch Contributor Insights for DynamoDB for that table\.
 
-### Fine\-Grained Access Control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
+### Fine\-grained access control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
 CloudWatch Contributor Insights for DynamoDB doesn't function differently for tables with fine\-grained access control \(FGAC\)\. In other words, any user who has the appropriate CloudWatch permissions can view FGAC\-protected primary keys in CloudWatch Contributor Insights graphs\. 
 
 If the table’s primary key contains FGAC\-protected data that you don't want published to CloudWatch, you should not enable CloudWatch Contributor Insights for DynamoDB for that table\. 
 
-### Access Control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
+### Access control<a name="contributorinsights_HowItWorks.OtherFeatures"></a>
 
 You control access to CloudWatch Contributor Insights for DynamoDB using AWS Identity and Access Management \(IAM\) by limiting DynamoDB control plane permissions and CloudWatch data plane permissions\. For more information see, [Using IAM with CloudWatch Contributor Insights for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Contributor_Insights_IAM.html)\.
 
-## CloudWatch Contributor Insights for DynamoDB Billing<a name="contributorinsights_HowItWorks.Billing"></a>
+## CloudWatch contributor insights for DynamoDB billing<a name="contributorinsights_HowItWorks.Billing"></a>
 
 Charges for CloudWatch Contributor Insights for DynamoDB appear in the [CloudWatch](https://aws.amazon.com/cloudwatch/pricing/) section of your monthly bill\. These charges are calculated based on the number of DynamoDB events that are processed\. For tables and global secondary indexes with CloudWatch Contributor Insights for DynamoDB enabled, each item that is written or read via a [data plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.DataPlane) operation represents one event\.
 

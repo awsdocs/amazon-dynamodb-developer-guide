@@ -1,4 +1,4 @@
-# Example: Global Secondary Indexes Using the AWS SDK for Java Document API<a name="GSIJavaDocumentAPI.Example"></a>
+# Example: Global Secondary Indexes using the AWS SDK for Java document API<a name="GSIJavaDocumentAPI.Example"></a>
 
 The following Java code example shows how to work with global secondary indexes\. The example creates a table named `Issues`, which might be used in a simple bug tracking system for software development\. The partition key is `IssueId` and the sort key is `Title`\. There are three global secondary indexes on this table:
 + `CreateDateIndex` — The partition key is `CreateDate` and the sort key is `IssueId`\. In addition to the table keys, the attributes `Description` and `Status` are projected into the index\.
@@ -7,7 +7,7 @@ The following Java code example shows how to work with global secondary indexes\
 
 After the `Issues` table is created, the program loads the table with data representing software bug reports\. It then queries the data using the global secondary indexes\. Finally, the program deletes the `Issues` table\.
 
-For step\-by\-step instructions for testing the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+For step\-by\-step instructions for testing the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 **Example**  
 

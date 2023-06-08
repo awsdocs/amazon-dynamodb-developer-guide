@@ -1,9 +1,9 @@
-# PartiQL Update Statements for DynamoDB<a name="ql-reference.update"></a>
+# PartiQL update statements for DynamoDB<a name="ql-reference.update"></a>
 
 Use the `UPDATE` statement to modify the value of one or more attributes within an item in an Amazon DynamoDB table\. 
 
 **Note**  
-You can only update one item at a time; you cannot issue a single DynamoDB PartiQL statement that updates multiple items\. For information on updating multiple items, see [Performing Transactions with PartiQL for DynamoDB](ql-reference.multiplestatements.transactions.md) or [Running Batch Operations with PartiQL for DynamoDB](ql-reference.multiplestatements.batching.md)\.
+You can only update one item at a time; you cannot issue a single DynamoDB PartiQL statement that updates multiple items\. For information on updating multiple items, see [Performing transactions with PartiQL for DynamoDB](ql-reference.multiplestatements.transactions.md) or [Running batch operations with PartiQL for DynamoDB](ql-reference.multiplestatements.batching.md)\.
 
 **Topics**
 + [Syntax](#ql-reference.update.syntax)
@@ -63,6 +63,71 @@ UPDATE "Music"
 SET AwardsWon=1 
 SET AwardDetail={'Grammys':[2020, 2018]}  
 WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'
+```
+
+You can add `RETURNING ALL OLD *` to return the attributes as they appeared before the `Update` operation\.
+
+```
+UPDATE "Music" 
+SET AwardsWon=1 
+SET AwardDetail={'Grammys':[2020, 2018]}  
+WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'
+RETURNING ALL OLD *
+```
+
+This returns the following:
+
+```
+{
+    "Items": [
+        {
+            "Artist": {
+                "S": "Acme Band"
+            },
+            "SongTitle": {
+                "S": "PartiQL Rocks"
+            }
+        }
+    ]
+}
+```
+
+You can add `RETURNING ALL NEW *` to return the attributes as they appeared after the `Update` operation\.
+
+```
+UPDATE "Music" 
+SET AwardsWon=1 
+SET AwardDetail={'Grammys':[2020, 2018]}  
+WHERE Artist='Acme Band' AND SongTitle='PartiQL Rocks'
+RETURNING ALL NEW *
+```
+
+This returns the following:
+
+```
+{
+    "Items": [
+        {
+            "AwardDetail": {
+                "M": {
+                    "Grammys": {
+                        "L": [
+                            {
+                                "N": "2020"
+                            },
+                            {
+                                "N": "2018"
+                            }
+                        ]
+                    }
+                }
+            },
+            "AwardsWon": {
+                "N": "1"
+            }
+        }
+    ]
+}
 ```
 
 The following query updates an item in the `"Music"` table by appending to a list `AwardDetail.Grammys`\.

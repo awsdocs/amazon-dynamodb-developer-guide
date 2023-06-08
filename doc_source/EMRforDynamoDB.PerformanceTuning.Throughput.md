@@ -1,4 +1,4 @@
-# DynamoDB Provisioned Throughput<a name="EMRforDynamoDB.PerformanceTuning.Throughput"></a>
+# DynamoDB provisioned throughput<a name="EMRforDynamoDB.PerformanceTuning.Throughput"></a>
 
 When you issue HiveQL statements against the external DynamoDB table, the `DynamoDBStorageHandler` class makes the appropriate low\-level DynamoDB API requests, which consume provisioned throughput\. If there is not enough read or write capacity on the DynamoDB table, the request will be throttled, resulting in slow HiveQL performance\. For this reason, you should ensure that the table has enough throughput capacity\.
 
@@ -12,7 +12,7 @@ You can perform a similar calculation to estimate how long it would take to bulk
 
 You should regularly monitor the CloudWatch metrics for your table\. For a quick overview in the DynamoDB console, choose your table and then choose the **Metrics** tab\. From here, you can view read and write capacity units consumed and read and write requests that have been throttled\.
 
-## Read Capacity<a name="EMRforDynamoDB.PerformanceTuning.Throughput.ReadCapacity"></a>
+## Read capacity<a name="EMRforDynamoDB.PerformanceTuning.Throughput.ReadCapacity"></a>
 
 Amazon EMR manages the request load against your DynamoDB table, according to the table's provisioned throughput settings\. However, if you notice a large number of `ProvisionedThroughputExceeded` messages in the job output, you can adjust the default read rate\. To do this, you can modify the `dynamodb.throughput.read.percent` configuration variable\. You can use the `SET` command to set this variable at the Hive command prompt:
 
@@ -26,7 +26,7 @@ The value of `dynamodb.throughput.read.percent` can be between `0.1` and `1.5`, 
 
 If you notice that Hive is frequently depleting the provisioned read capacity of the table, or if your read requests are being throttled too much, try reducing `dynamodb.throughput.read.percent` below `0.5`\. If you have sufficient read capacity in the table and want more responsive HiveQL operations, you can set the value above `0.5`\.
 
-## Write Capacity<a name="EMRforDynamoDB.PerformanceTuning.Throughput.WriteCapacity"></a>
+## Write capacity<a name="EMRforDynamoDB.PerformanceTuning.Throughput.WriteCapacity"></a>
 
 Amazon EMR manages the request load against your DynamoDB table, according to the table's provisioned throughput settings\. However, if you notice a large number of `ProvisionedThroughputExceeded` messages in the job output, you can adjust the default write rate\. To do this, you can modify the `dynamodb.throughput.write.percent` configuration variable\. You can use the `SET` command to set this variable at the Hive command prompt:
 
@@ -44,4 +44,4 @@ When you write data to DynamoDB using Hive, ensure that the number of write capa
 
 To determine the number of mappers for Amazon EMR node types, see [Task Configuration](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hadoop-task-config.html) in the *Amazon EMR Developer Guide*\.
 
-For more information on mappers, see [Adjusting the Mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)\.
+For more information on mappers, see [Adjusting the mappers](EMRforDynamoDB.PerformanceTuning.Mappers.md)\.

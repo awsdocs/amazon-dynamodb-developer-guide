@@ -1,4 +1,4 @@
-# Using the BEGINS\_WITH Function with PartiQL for DynamoDB<a name="ql-functions.beginswith"></a>
+# Using the BEGINS\_WITH function with PartiQL for DynamoDB<a name="ql-functions.beginswith"></a>
 
 Returns `TRUE` if the attribute specified begins with a particular substring\.
 

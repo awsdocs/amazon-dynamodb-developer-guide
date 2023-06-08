@@ -1,15 +1,15 @@
-# Building PartiQL Statements<a name="workbench.querybuilder.partiql"></a>
+# Building PartiQL statements<a name="workbench.querybuilder.partiql"></a>
 
-To use the NoSQL Workbench to build [PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html) statements choose **PartiQL operations** at the top right corner of the NoSQL Workbench\.
+To use NoSQL Workbench to build [PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html) statements choose **PartiQL operations** at the top right corner of NoSQL Workbench\.
 
 You can build the following PartiQL statement types in the operation builder\.
 
 **Topics**
-+ [Singleton Statements](#workbench.querybuilder.partiql.single)
++ [Singleton statements](#workbench.querybuilder.partiql.single)
 + [Transactions](#workbench.querybuilder.partiql.transaction)
 + [Batch](#workbench.querybuilder.partiql.batch)
 
-## Singleton Statements<a name="workbench.querybuilder.partiql.single"></a>
+## Singleton statements<a name="workbench.querybuilder.partiql.single"></a>
 
 To run or generate code for a PartiQL statement, do the following\.
 
@@ -19,13 +19,13 @@ To run or generate code for a PartiQL statement, do the following\.
 
 1. Enter a valid [PartiQL statement](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.statements.html)\.
 
-1. If your statement uses parameters
+1. If your statement uses parameters:
 
    1. Choose **Optional request parameters**\.
 
    1. Choose **Add new parameters**\.
 
-   1. Enter the attribute type and value
+   1. Enter the attribute type and value\.
 
    1. If you want to add additional parameters, repeat steps b and c\.
 
@@ -35,7 +35,7 @@ To run or generate code for a PartiQL statement, do the following\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
-1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+1. If you want to save this operation for later use, choose **Save operation**\. Then enter a name for your operation and choose **Save**\.
 
 ## Transactions<a name="workbench.querybuilder.partiql.transaction"></a>
 
@@ -49,7 +49,7 @@ To run or generate code for a PartiQL transaction, do the following\.
 
 1. Enter a valid [PartiQL statement](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.statements.html)\.
 **Note**  
-Read and write operations are not supported in the same PartiQL transaction request\. A SELECT statement cannot be in the same request with INSERT, UPDATE, and DELETE statements\. See [Performing Transactions with PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.multiplestatements.transactions.html) for more details\.
+Read and write operations are not supported in the same PartiQL transaction request\. A SELECT statement cannot be in the same request with INSERT, UPDATE, and DELETE statements\. See [Performing transactions with PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.multiplestatements.transactions.html) for more details\.
 
 1. If your statement uses parameters
 
@@ -57,11 +57,11 @@ Read and write operations are not supported in the same PartiQL transaction requ
 
    1. Choose **Add new parameters**\.
 
-   1. Enter the attribute type and value
+   1. Enter the attribute type and value\.
 
    1. If you want to add additional parameters, repeat steps b and c\.
 
-1. If you want to add more statements repeat steps 2 to 4\.
+1. If you want to add more statements, repeat steps 2 to 4\.
 
 1. If you want to generate code, choose **Generate code**\.
 
@@ -69,7 +69,7 @@ Read and write operations are not supported in the same PartiQL transaction requ
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
-1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+1. If you want to save this operation for later use, choose **Save operation**\. Then enter a name for your operation and choose **Save**\.
 
 ## Batch<a name="workbench.querybuilder.partiql.batch"></a>
 
@@ -83,19 +83,19 @@ To run or generate code for a PartiQL batch, do the following\.
 
 1. Enter a valid [PartiQL statement](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.statements.html)\.
 **Note**  
- Read and write operations are not supported in the same PartiQL batch request, which means a SELECT statement cannot be in the same request with INSERT, UPDATE, and DELETE statements\. Write operations to the same item are not allowed\. As with the BatchGetItem operation, only singleton read operations are supported\. Scan and query operations are not supported\. See [Running Batch Operations with PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.multiplestatements.batching.html) for more details\.
+ Read and write operations are not supported in the same PartiQL batch request, which means a SELECT statement cannot be in the same request with INSERT, UPDATE, and DELETE statements\. Write operations to the same item are not allowed\. As with the BatchGetItem operation, only singleton read operations are supported\. Scan and query operations are not supported\. See [Running batch operations with PartiQL for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.multiplestatements.batching.html) for more details\.
 
-1. If your statement uses parameters
+1. If your statement uses parameters:
 
    1. Choose **Optional request parameters**\.
 
    1. Choose **Add new parameters**\.
 
-   1. Enter the attribute type and value
+   1. Enter the attribute type and value\.
 
    1. If you want to add additional parameters, repeat steps b and c\.
 
-1. If you want to add more statements repeat steps 2 to 4\.
+1. If you want to add more statements, repeat steps 2 to 4\.
 
 1. If you want to generate code, choose **Generate code**\.
 
@@ -103,4 +103,4 @@ To run or generate code for a PartiQL batch, do the following\.
 
 1. If you want the operation to be run immediately, choose **Run**\.
 
-1. If you want to save this operation for later use, choose **Save operation**, then enter a name for your operation and click **Save**\.
+1. If you want to save this operation for later use, choose **Save operation**\. Then enter a name for your operation and choose **Save**\.

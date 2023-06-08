@@ -1,22 +1,22 @@
-# \.NET: Object Persistence Model<a name="DotNetSDKHighLevel"></a>
+# \.NET: Object persistence model<a name="DotNetSDKHighLevel"></a>
 
 **Topics**
-+ [DynamoDB Attributes](DeclarativeTagsList.md)
-+ [DynamoDBContext Class](DotNetDynamoDBContext.md)
-+ [Supported Data Types](#DotNetDynamoDBContext.SupportedTypes)
-+ [Optimistic Locking Using a Version Number with DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.VersionSupport.md)
-+ [Mapping Arbitrary Data with DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.ArbitraryDataMapping.md)
-+ [Batch Operations Using the AWS SDK for \.NET Object Persistence Model](DotNetDynamoDBContext.BatchOperations.md)
-+ [Example: CRUD Operations Using the AWS SDK for \.NET Object Persistence Model](CRUDHighLevelExample1.md)
-+ [Example: Batch Write Operation Using the AWS SDK for \.NET Object Persistence Model](orm-dotnet-batchoperations-example.md)
-+ [Example: Query and Scan in DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.QueryScan.md)
++ [DynamoDB attributes](DeclarativeTagsList.md)
++ [DynamoDBContext class](DotNetDynamoDBContext.md)
++ [Supported data types](#DotNetDynamoDBContext.SupportedTypes)
++ [Optimistic locking using a version number with DynamoDB using the AWS SDK for \.NET object persistence model](DynamoDBContext.VersionSupport.md)
++ [Mapping arbitrary data with DynamoDB using the AWS SDK for \.NET object persistence model](DynamoDBContext.ArbitraryDataMapping.md)
++ [Batch operations using the AWS SDK for \.NET object persistence model](DotNetDynamoDBContext.BatchOperations.md)
++ [Example: CRUD operations using the AWS SDK for \.NET object persistence model](CRUDHighLevelExample1.md)
++ [Example: Batch write operation using the AWS SDK for \.NET object persistence model](orm-dotnet-batchoperations-example.md)
++ [Example: Query and scan in DynamoDB using the AWS SDK for \.NET object persistence model](DynamoDBContext.QueryScan.md)
 
 The AWS SDK for \.NET provides an object persistence model that enables you to map your client\-side classes to Amazon DynamoDB tables\. Each object instance then maps to an item in the corresponding tables\. To save your client\-side objects to the tables, the object persistence model provides the `DynamoDBContext` class, an entry point to DynamoDB\. This class provides you a connection to DynamoDB and enables you to access tables, perform various CRUD operations, and run queries\.
 
 The object persistence model provides a set of attributes to map client\-side classes to tables, and properties/fields to table attributes\.
 
 **Note**  
-The object persistence model does not provide an API to create, update, or delete tables\. It provides only data operations\. You can use only the AWS SDK for \.NET low\-level API to create, update, and delete tables\. For more information, see [Working with DynamoDB Tables in \.NET](LowLevelDotNetWorkingWithTables.md)\.
+The object persistence model does not provide an API to create, update, or delete tables\. It provides only data operations\. You can use only the AWS SDK for \.NET low\-level API to create, update, and delete tables\. For more information, see [Working with DynamoDB tables in \.NET](LowLevelDotNetWorkingWithTables.md)\.
 
 The following example shows how the object persistence model works\. It starts with the `ProductCatalog` table\. It has `Id` as the primary key\.
 
@@ -58,11 +58,11 @@ The object persistence model supports both the explicit and default mapping betw
 
 You don't have to map every single class property\. You identify these properties by adding the `DynamoDBIgnore` attribute\. When you save a `Book` instance to the table, the `DynamoDBContext` does not include the `CoverPage` property\. It also does not return this property when you retrieve the book instance\.
 
-You can map properties of \.NET primitive types such as int and string\. You also can map any arbitrary data types as long as you provide an appropriate converter to map the arbitrary data to one of the DynamoDB types\. To learn about mapping arbitrary types, see [Mapping Arbitrary Data with DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.ArbitraryDataMapping.md)\.
+You can map properties of \.NET primitive types such as int and string\. You also can map any arbitrary data types as long as you provide an appropriate converter to map the arbitrary data to one of the DynamoDB types\. To learn about mapping arbitrary types, see [Mapping arbitrary data with DynamoDB using the AWS SDK for \.NET object persistence model](DynamoDBContext.ArbitraryDataMapping.md)\.
 
-The object persistence model supports optimistic locking\. During an update operation, this ensures that you have the latest copy of the item you are about to update\. For more information, see [Optimistic Locking Using a Version Number with DynamoDB Using the AWS SDK for \.NET Object Persistence Model](DynamoDBContext.VersionSupport.md)\.
+The object persistence model supports optimistic locking\. During an update operation, this ensures that you have the latest copy of the item you are about to update\. For more information, see [Optimistic locking using a version number with DynamoDB using the AWS SDK for \.NET object persistence model](DynamoDBContext.VersionSupport.md)\.
 
-## Supported Data Types<a name="DotNetDynamoDBContext.SupportedTypes"></a>
+## Supported data types<a name="DotNetDynamoDBContext.SupportedTypes"></a>
 
 The object persistence model supports a set of primitive \.NET data types, collections, and arbitrary data types\. The model supports the following primitive data types\. 
 + `bool`

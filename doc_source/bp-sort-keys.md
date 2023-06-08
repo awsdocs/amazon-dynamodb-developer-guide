@@ -1,4 +1,4 @@
-# Best Practices for Using Sort Keys to Organize Data<a name="bp-sort-keys"></a>
+# Best practices for using sort keys to organize data<a name="bp-sort-keys"></a>
 
 In an Amazon DynamoDB table, the primary key that uniquely identifies each item in the table can be composed not only of a partition key, but also of a sort key\.
 
@@ -14,7 +14,7 @@ Well\-designed sort keys have two key benefits:
 
   This would let you make efficient range queries for a list of locations at any one of these levels of aggregation, from `country`, to a `neighborhood`, and everything in between\.
 
-## Using Sort Keys for Version Control<a name="bp-sort-keys-version-control"></a>
+## Using sort keys for version control<a name="bp-sort-keys-version-control"></a>
 
 Many applications need to maintain a history of item\-level revisions for audit or compliance purposes and to be able to retrieve the most recent version easily\. There is an effective design pattern that accomplishes this using sort key prefixes:
 + For each new item, create two copies of the item: One copy should have a version\-number prefix of zero \(such as `v0_`\) at the beginning of the sort key, and one should have a version\-number prefix of one \(such as `v1_`\)\.

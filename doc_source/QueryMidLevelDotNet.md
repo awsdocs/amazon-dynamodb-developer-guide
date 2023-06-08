@@ -1,6 +1,6 @@
-# Table\.Query Method in the AWS SDK for \.NET<a name="QueryMidLevelDotNet"></a>
+# Table\.Query method in the AWS SDK for \.NET<a name="QueryMidLevelDotNet"></a>
 
-The `Query` method enables you to query your tables\. You can only query the tables that have a composite primary key \(partition key and sort key\)\. If your table's primary key is made of only a partition key, then the `Query` operation is not supported\. By default, `Query` internally performs queries that are eventually consistent\. To learn about the consistency model, see [Read Consistency](HowItWorks.ReadConsistency.md)\. 
+The `Query` method enables you to query your tables\. You can only query the tables that have a composite primary key \(partition key and sort key\)\. If your table's primary key is made of only a partition key, then the `Query` operation is not supported\. By default, `Query` internally performs queries that are eventually consistent\. To learn about the consistency model, see [Read consistency](HowItWorks.ReadConsistency.md)\. 
 
 The `Query` method provides two overloads\. The minimum required parameters to the `Query` method are a partition key value and a sort key filter\. You can use the following overload to provide these minimum required parameters\.
 
@@ -54,7 +54,7 @@ do
 }
 ```
 
-## Specifying Optional Parameters<a name="QueryMidLevelDotNetOptions"></a>
+## Specifying optional parameters<a name="QueryMidLevelDotNetOptions"></a>
 
 You can also specify optional parameters for `Query`, such as specifying a list of attributes to retrieve, strongly consistent reads, page size, and the number of items returned per page\.  For a complete list of parameters, see [Query](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html)\. To specify optional parameters, you must use the following overload in which you provide the `QueryOperationConfig` object\.
 
@@ -83,7 +83,7 @@ QueryOperationConfig config = new QueryOperationConfig()
 Search search = table.Query(config);
 ```
 
-## Example: Query Using the Table\.Query Method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
+## Example: Query using the Table\.Query method<a name="QueryMidLevelDotNetExampleTableQuery"></a>
 
 The following C\# code example uses the `Table.Query` method to run the following sample queries\.
 + The following queries are run against the `Reply` table\.

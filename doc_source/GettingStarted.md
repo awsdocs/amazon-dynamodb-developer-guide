@@ -1,6 +1,6 @@
-# Getting Started with DynamoDB and AWS SDKs<a name="GettingStarted"></a>
+# Getting started with DynamoDB and the AWS SDKs<a name="GettingStarted"></a>
 
-This section contains hands\-on tutorials to help you learn about Amazon DynamoDB\. The code examples in these tutorials can run against either the downloadable version of DynamoDB or the DynamoDB web service\.
+Use the hands\-on tutorials in this section to get started with Amazon DynamoDB and the AWS SDKs\. You can run the code examples on either the downloadable version of DynamoDB or the DynamoDB web service\.
 
 **Topics**
 + [Create a DynamoDB table](GettingStarted.CreateTable.md)

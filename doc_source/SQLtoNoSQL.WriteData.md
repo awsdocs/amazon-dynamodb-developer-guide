@@ -1,4 +1,4 @@
-# Writing Data to a Table<a name="SQLtoNoSQL.WriteData"></a>
+# Writing data to a table<a name="SQLtoNoSQL.WriteData"></a>
 
 Relational database tables contain *rows* of data\. Rows are composed of *columns*\. Amazon DynamoDB tables contain *items*\. Items are composed of *attributes*\.
 
@@ -70,7 +70,7 @@ Here are some key things to know about this `PutItem` example:
 + Most SQL databases are transaction oriented\. When you issue an `INSERT` statement, the data modifications are not permanent until you issue a `COMMIT` statement\. With Amazon DynamoDB, the effects of a `PutItem` action are permanent when DynamoDB replies with an HTTP 200 status code \(`OK`\)\.
 
 **Note**  
-For code examples using `PutItem`, see [Getting Started with DynamoDB and AWS SDKs](GettingStarted.md)\.
+For code examples using `PutItem`, see [Getting started with DynamoDB and the AWS SDKs](GettingStarted.md)\.
 
 The following are some other `PutItem` examples\.
 
@@ -151,7 +151,7 @@ INSERT into Music value {
     'Artist': 'No One You Know',
     'SongTitle': 'Call Me Today',
     'AlbumTitle': 'Somewhat Famous',
-    'Year' : '2015,
+    'Year' : '2015',
     'Genre' : 'Acme'
 }
 ```
@@ -159,6 +159,6 @@ INSERT into Music value {
 The primary key for this table consists of *Artist* and *SongTitle*\. You must specify values for these attributes\.
 
 **Note**  
-For code examples using `Insert` and `ExecuteStatement`, see [PartiQL Insert Statements for DynamoDB](ql-reference.insert.md)\.
+For code examples using `Insert` and `ExecuteStatement`, see [PartiQL insert statements for DynamoDB](ql-reference.insert.md)\.
 
 ------

@@ -1,11 +1,11 @@
-# Example Tables and Data<a name="AppendixSampleTables"></a>
+# Example tables and data<a name="AppendixSampleTables"></a>
 
 The *Amazon DynamoDB Developer Guide* uses sample tables to illustrate various aspects of DynamoDB\.
 
 
 ****  
 
-| Table Name | Primary Key | 
+| Table name | Primary key | 
 | --- | --- | 
 | ProductCatalog |  Simple primary key: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AppendixSampleTables.html)  | 
 | Forum |  Simple primary key: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AppendixSampleTables.html)  | 
@@ -17,27 +17,27 @@ The *Reply* table has a global secondary index named *PostedBy\-Message\-Index*\
 
 ****  
 
-| Index Name | Primary Key | 
+| Index name | Primary key | 
 | --- | --- | 
 | PostedBy\-Message\-Index |  Composite primary key: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AppendixSampleTables.html)  | 
 
-For more information about these tables, see [Use Case 1: Product Catalog](SampleData.CreateTables.md#SampleData.CreateTables1) and [Use Case 2: Forum Application](SampleData.CreateTables.md#SampleData.CreateTables2)\.
+For more information about these tables, see [Use case 1: Product catalog](SampleData.CreateTables.md#SampleData.CreateTables1) and [Use case 2: Forum application](SampleData.CreateTables.md#SampleData.CreateTables2)\.
 
-## Sample Data Files<a name="AppendixSampleData"></a>
+## Sample data files<a name="AppendixSampleData"></a>
 
 **Topics**
-+ [*ProductCatalog* Sample Data](#AppendixSampleData.ProductCatalog)
-+ [*Forum* Sample Data](#AppendixSampleData.Forum)
-+ [*Thread* Sample Data](#AppendixSampleData.Thread)
-+ [*Reply* Sample Data](#AppendixSampleDataProductCatalog)
++ [*ProductCatalog* sample data](#AppendixSampleData.ProductCatalog)
++ [*Forum* sample data](#AppendixSampleData.Forum)
++ [*Thread* sample data](#AppendixSampleData.Thread)
++ [*Reply* sample data](#AppendixSampleDataProductCatalog)
 
 The following sections show the sample data files that are used for loading the *ProductCatalog*, *Forum*, *Thread* and *Reply* tables\.
 
 Each data file contains multiple `PutRequest` elements, each of which contain a single item\. These `PutRequest` elements are used as input to the `BatchWriteItem` operation, using the AWS Command Line Interface \(AWS CLI\)\.
 
- For more information, see [Step 2: Load Data into Tables](SampleData.LoadData.md) in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+ For more information, see [Step 2: Load data into tables](SampleData.LoadData.md) in [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
-### *ProductCatalog* Sample Data<a name="AppendixSampleData.ProductCatalog"></a>
+### *ProductCatalog* sample data<a name="AppendixSampleData.ProductCatalog"></a>
 
 ```
 {
@@ -348,7 +348,7 @@ Each data file contains multiple `PutRequest` elements, each of which contain a 
 }
 ```
 
-### *Forum* Sample Data<a name="AppendixSampleData.Forum"></a>
+### *Forum* sample data<a name="AppendixSampleData.Forum"></a>
 
 ```
 {
@@ -376,7 +376,7 @@ Each data file contains multiple `PutRequest` elements, each of which contain a 
 }
 ```
 
-### *Thread* Sample Data<a name="AppendixSampleData.Thread"></a>
+### *Thread* sample data<a name="AppendixSampleData.Thread"></a>
 
 ```
 {
@@ -511,7 +511,7 @@ Each data file contains multiple `PutRequest` elements, each of which contain a 
 }
 ```
 
-### *Reply* Sample Data<a name="AppendixSampleDataProductCatalog"></a>
+### *Reply* sample data<a name="AppendixSampleDataProductCatalog"></a>
 
 ```
 {

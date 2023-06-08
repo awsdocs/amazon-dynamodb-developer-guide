@@ -1,4 +1,4 @@
-# Working with Scans in DynamoDB<a name="Scan"></a>
+# Working with scans in DynamoDB<a name="Scan"></a>
 
 A `Scan` operation in Amazon DynamoDB reads every item in a table or a secondary index\. By default, a `Scan` operation returns all of the data attributes for every item in the table or index\. You can use the `ProjectionExpression` parameter so that `Scan` only returns some of the attributes, rather than all of them\.
 
@@ -7,17 +7,17 @@ A `Scan` operation in Amazon DynamoDB reads every item in a table or a secondary
 A single `Scan` request can retrieve a maximum of 1 MB of data\. Optionally, DynamoDB can apply a filter expression to this data, narrowing the results before they are returned to the user\.
 
 **Topics**
-+ [Filter Expressions for Scan](#Scan.FilterExpression)
-+ [Limiting the Number of Items in the Result Set](#Scan.Limit)
-+ [Paginating the Results](#Scan.Pagination)
-+ [Counting the Items in the Results](#Scan.Count)
-+ [Capacity Units Consumed by Scan](#Scan.CapacityUnits)
-+ [Read Consistency for Scan](#Scan.ReadConsistency)
-+ [Parallel Scan](#Scan.ParallelScan)
-+ [Scanning Tables and Indexes: Java](ScanJavaDocumentAPI.md)
-+ [Scanning Tables and Indexes: \.NET](LowLevelDotNetScanning.md)
++ [Filter expressions for scan](#Scan.FilterExpression)
++ [Limiting the number of items in the result set](#Scan.Limit)
++ [Paginating the results](#Scan.Pagination)
++ [Counting the items in the results](#Scan.Count)
++ [Capacity units consumed by scan](#Scan.CapacityUnits)
++ [Read consistency for scan](#Scan.ReadConsistency)
++ [Parallel scan](#Scan.ParallelScan)
++ [Scanning tables and indexes: Java](ScanJavaDocumentAPI.md)
++ [Scanning tables and indexes: \.NET](LowLevelDotNetScanning.md)
 
-## Filter Expressions for Scan<a name="Scan.FilterExpression"></a>
+## Filter expressions for scan<a name="Scan.FilterExpression"></a>
 
 If you need to further refine the `Scan` results, you can optionally provide a filter expression\. A *filter expression* determines which items within the `Scan` results should be returned to you\. All of the other results are discarded\.
 
@@ -27,7 +27,7 @@ A `Scan` operation can retrieve a maximum of 1 MB of data\. This limit applies b
 
 With `Scan`, you can specify any attributes in a filter expression—including partition key and sort key attributes\.
 
-The syntax for a filter expression is identical to that of a condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a condition expression\. For more information, [Condition Expressions](Expressions.ConditionExpressions.md)\.
+The syntax for a filter expression is identical to that of a condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a condition expression\. See [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md) for more information about logical operators\.
 
 **Example**  
 The following AWS Command Line Interface \(AWS CLI\) example scans the `Thread` table and returns only the items that were last posted to by a particular user\.  
@@ -39,7 +39,7 @@ aws dynamodb scan \
      --expression-attribute-values '{":name":{"S":"User A"}}'
 ```
 
-## Limiting the Number of Items in the Result Set<a name="Scan.Limit"></a>
+## Limiting the number of items in the result set<a name="Scan.Limit"></a>
 
 The `Scan` operation enables you to limit the number of items that it returns in the result\. To do this, set the `Limit` parameter to the maximum number of items that you want the `Scan` operation to return, prior to filter expression evaluation\.
 
@@ -47,7 +47,7 @@ For example, suppose that you `Scan` a table with a `Limit` value of `6` and wit
 
 Now suppose that you add a filter expression to the `Scan`\. In this case, DynamoDB applies the filter expression to the six items that were returned, discarding those that do not match\. The final `Scan` result contains six items or fewer, depending on the number of items that were filtered\.
 
-## Paginating the Results<a name="Scan.Pagination"></a>
+## Paginating the results<a name="Scan.Pagination"></a>
 
 DynamoDB *paginates* the results from `Scan` operations\. With pagination, the `Scan` results are divided into "pages" of data that are 1 MB in size \(or less\)\. An application can process the first page of results, then the second page, and so on\.
 
@@ -110,7 +110,7 @@ The absence of `LastEvaluatedKey` indicates that there are no more items to retr
 The AWS SDKs handle the low\-level DynamoDB responses \(including the presence or absence of `LastEvaluatedKey`\) and provide various abstractions for paginating `Scan` results\. For example, the SDK for Java document interface provides `java.util.Iterator` support so that you can walk through the results one at a time\.  
 For code examples in various programming languages, see the [Amazon DynamoDB Getting Started Guide](https://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/) and the AWS SDK documentation for your language\.
 
-## Counting the Items in the Results<a name="Scan.Count"></a>
+## Counting the items in the results<a name="Scan.Count"></a>
 
 In addition to the items that match your criteria, the `Scan` response contains the following elements:
 + `ScannedCount` — The number of items evaluated, before any `ScanFilter` is applied\. A high `ScannedCount` value with few, or no, `Count` results indicates an inefficient `Scan` operation\. If you did not use a filter in the request, `ScannedCount` is the same as `Count`\. 
@@ -119,11 +119,11 @@ In addition to the items that match your criteria, the `Scan` response contains 
 **Note**  
 If you do not use a filter expression, `ScannedCount` and `Count` have the same value\.
 
-If the size of the `Scan` result set is larger than 1 MB, `ScannedCount` and `Count` represent only a partial count of the total items\. You need to perform multiple `Scan` operations to retrieve all the results \(see [Paginating the Results](#Scan.Pagination)\)\.
+If the size of the `Scan` result set is larger than 1 MB, `ScannedCount` and `Count` represent only a partial count of the total items\. You need to perform multiple `Scan` operations to retrieve all the results \(see [Paginating the results](#Scan.Pagination)\)\.
 
 Each `Scan` response contains the `ScannedCount` and `Count` for the items that were processed by that particular `Scan` request\. To get grand totals for all of the `Scan` requests, you could keep a running tally of both `ScannedCount` and `Count`\.
 
-## Capacity Units Consumed by Scan<a name="Scan.CapacityUnits"></a>
+## Capacity units consumed by scan<a name="Scan.CapacityUnits"></a>
 
 You can `Scan` any table or secondary index\. `Scan` operations consume read capacity units, as follows\.
 
@@ -141,11 +141,11 @@ By default, a `Scan` operation does not return any data on how much read capacit
 + `TOTAL` — The response includes the aggregate number of read capacity units consumed\.
 + `INDEXES` — The response shows the aggregate number of read capacity units consumed, together with the consumed capacity for each table and index that was accessed\.
 
-DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that is returned to an application\. For this reason, the number of capacity units consumed is the same whether you request all of the attributes \(the default behavior\) or just some of them \(using a projection expression\)\. The number is also the same whether or not you use a filter expression\.
+DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that is returned to an application\. For this reason, the number of capacity units consumed is the same whether you request all of the attributes \(the default behavior\) or just some of them \(using a projection expression\)\. The number is also the same whether or not you use a filter expression\. `Scan` consumes a minimum read capacity unit \(0\.5 with default eventually consistent, 1\.0 with strongly consistent\) for each partition involved in servicing the request \- this includes partitions which do not contain any items\.
 
-## Read Consistency for Scan<a name="Scan.ReadConsistency"></a>
+## Read consistency for scan<a name="Scan.ReadConsistency"></a>
 
-A `Scan` operation performs eventually consistent reads, by default\. This means that the `Scan` results might not reflect changes due to recently completed `PutItem` or `UpdateItem` operations\. For more information, see [Read Consistency](HowItWorks.ReadConsistency.md)\.
+A `Scan` operation performs eventually consistent reads, by default\. This means that the `Scan` results might not reflect changes due to recently completed `PutItem` or `UpdateItem` operations\. For more information, see [Read consistency](HowItWorks.ReadConsistency.md)\.
 
 If you require strongly consistent reads, as of the time that the `Scan` begins, set the `ConsistentRead` parameter to `true` in the `Scan` request\. This ensures that all of the write operations that completed before the `Scan` began are included in the `Scan` response\. 
 
@@ -154,7 +154,7 @@ Setting `ConsistentRead` to `true` can be useful in table backup or replication 
 **Note**  
 A `Scan` operation with `ConsistentRead` set to `true` consumes twice as many read capacity units as compared to leaving `ConsistentRead` at its default value \(`false`\)\.
 
-## Parallel Scan<a name="Scan.ParallelScan"></a>
+## Parallel scan<a name="Scan.ParallelScan"></a>
 
 By default, the `Scan` operation processes data sequentially\. Amazon DynamoDB returns data to the application in 1 MB increments, and an application performs additional `Scan` operations to retrieve the next 1 MB of data\. 
 

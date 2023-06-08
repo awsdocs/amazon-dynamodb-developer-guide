@@ -1,8 +1,8 @@
-# Creating CloudWatch Alarms to Monitor DAX<a name="dax-creating-alarms"></a>
+# Creating CloudWatch alarms to monitor DAX<a name="dax-creating-alarms"></a>
 
 You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notification Service \(Amazon SNS\) message when the alarm changes state\. An alarm watches a single metric over a time period that you specify\. It performs one or more actions based on the value of the metric relative to a given threshold over a number of time periods\. The action is a notification that is sent to an Amazon SNS topic or Auto Scaling policy\. Alarms invoke actions for sustained state changes only\. CloudWatch alarms do not invoke actions simply because they are in a particular state\. The state must have changed and been maintained for a specified number of periods\.
 
-## How Can I Be Notified of Query Cache Misses?<a name="dax-notify-reach-capacity"></a>
+## How can I be notified of query cache misses?<a name="dax-notify-reach-capacity"></a>
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-west-2:522194210714:QueryMissAlarm`\.
 
@@ -38,7 +38,7 @@ You can create an Amazon CloudWatch alarm that sends an Amazon Simple Notificati
 **Note**  
  You can increase or decrease the threshold to one that makes sense for your application\. You can also use [CloudWatch Metric Math](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html) to define a cache miss rate metric and set an alarm over that metric\. 
 
-## How Can I Be Notified If Requests Cause Any Internal Error in the Cluster?<a name="dax-notify-system-errors"></a>
+## How can I be notified if requests cause any internal error in the cluster?<a name="dax-notify-system-errors"></a>
 
 1. Create an Amazon SNS topic, `arn:aws:sns:us-west-2:123456789012:notify-on-system-errors`\.
 

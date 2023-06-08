@@ -1,4 +1,4 @@
-# Working with DynamoDB Tables in \.NET<a name="LowLevelDotNetWorkingWithTables"></a>
+# Working with DynamoDB tables in \.NET<a name="LowLevelDotNetWorkingWithTables"></a>
 
 You can use the AWS SDK for \.NET to create, update, and delete tables, list all the tables in your account, or get information about a specific table\.
 
@@ -13,16 +13,16 @@ The following are the common steps for Amazon DynamoDB table operations using th
 1. Run the appropriate method provided by the client that you created in the preceding step\.
 
 **Note**  
- The examples in this section don't work with \.NET core because it doesn't support synchronous methods\. For more information, see [AWS Asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
+ The examples in this section don't work with \.NET core because it doesn't support synchronous methods\. For more information, see [AWS asynchronous APIs for \.NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sdk-net-async-api.html)\.
 
 **Topics**
-+ [Creating a Table](#LowLeveldotNetCreateTable)
-+ [Updating a Table](#LowLeveldotNetUpdateTable)
-+ [Deleting a Table](#LowLeveldotNetDeleteTable)
-+ [Listing Tables](#LowLeveldotNetListTables)
-+ [Example: Create, Update, Delete, and List Tables Using the AWS SDK for \.NET Low\-Level API](LowLevelDotNetTableOperationsExample.md)
++ [Creating a table](#LowLeveldotNetCreateTable)
++ [Updating a table](#LowLeveldotNetUpdateTable)
++ [Deleting a table](#LowLeveldotNetDeleteTable)
++ [Listing tables](#LowLeveldotNetListTables)
++ [Example: Create, update, delete, and list tables using the AWS SDK for \.NET low\-level API](LowLevelDotNetTableOperationsExample.md)
 
-## Creating a Table<a name="LowLeveldotNetCreateTable"></a>
+## Creating a table<a name="LowLeveldotNetCreateTable"></a>
 
 To create a table, you must provide the table name, its primary key, and the provisioned throughput values\.
 
@@ -96,12 +96,12 @@ You can also call the `DescribeTable` method of the client to get table informat
 var res = client.DescribeTable(new DescribeTableRequest{TableName = "ProductCatalog"});
 ```
 
-## Updating a Table<a name="LowLeveldotNetUpdateTable"></a>
+## Updating a table<a name="LowLeveldotNetUpdateTable"></a>
 
 You can update only the provisioned throughput values of an existing table\. Depending on your application requirements, you might need to update these values\. 
 
 **Note**  
-You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
+You can increase throughput capacity as often as needed, and decrease it within certain constraints\. For more information about throughput increases and decreases per day, see [Service, account, and table quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 **To update a table using the AWS SDK for \.NET low\-level API**
 
@@ -134,7 +134,7 @@ var request = new UpdateTableRequest()
 var response = client.UpdateTable(request);
 ```
 
-## Deleting a Table<a name="LowLeveldotNetDeleteTable"></a>
+## Deleting a table<a name="LowLeveldotNetDeleteTable"></a>
 
 Follow these steps to delete a table using the \.NET low\-level API\.
 
@@ -158,7 +158,7 @@ var request = new DeleteTableRequest{ TableName = tableName };
 var response = client.DeleteTable(request);
 ```
 
-## Listing Tables<a name="LowLeveldotNetListTables"></a>
+## Listing tables<a name="LowLeveldotNetListTables"></a>
 
 To list tables in your account using the AWS SDK for \.NET low\-level API, create an instance of the `AmazonDynamoDBClient` and run the `ListTables` method\.
 

@@ -1,5 +1,8 @@
 # ScanFilter<a name="LegacyConditionalParameters.ScanFilter"></a>
 
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
+
 In a `Scan` operation, `ScanFilter` is a condition that evaluates the scan results and returns only the desired values\.
 
 **Note**  
@@ -16,14 +19,14 @@ Each `ScanFilter` element consists of an attribute name to compare, along with t
 
   For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values\.
 
-  For information on specifying data types in JSON, see [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)\.
+  For information on specifying data types in JSON, see [DynamoDB low\-level API](Programming.LowLevelAPI.md)\.
 +  `ComparisonOperator` \- A comparator for evaluating attributes\. For example, equals, greater than, less than, etc\.
 
   The following comparison operators are available:
 
    `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS | BEGINS_WITH | IN | BETWEEN` 
 
-## Use *FilterExpression* Instead<a name="w615aac41c23c29c13"></a>
+## Use *FilterExpression* instead<a name="w120aac41c23c27c15"></a>
 
 Suppose you wanted to scan the *Music* table and apply a condition to the matching items\. You could use a `Scan` request with a `ScanFilter` parameter, as in this AWS CLI example:
 

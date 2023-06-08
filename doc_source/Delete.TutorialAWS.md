@@ -1,4 +1,4 @@
-# Deleting a Backup of a DynamoDB Table with AWS Backup<a name="Delete.TutorialAWS"></a>
+# Deleting a backup of a DynamoDB table with AWS Backup<a name="Delete.TutorialAWS"></a>
 
 This section describes how to delete a backup of a DynamoDB table with AWS Backup\.
 

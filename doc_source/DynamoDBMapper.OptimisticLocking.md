@@ -1,4 +1,4 @@
-# Optimistic Locking with Version Number<a name="DynamoDBMapper.OptimisticLocking"></a>
+# Optimistic locking with version number<a name="DynamoDBMapper.OptimisticLocking"></a>
 
 *Optimistic locking* is a strategy to ensure that the client\-side item that you are updating \(or deleting\) is the same as the item in Amazon DynamoDB\. If you use this strategy, your database writes are protected from being overwritten by the writes of others, and vice versa\.
 
@@ -68,9 +68,9 @@ Optimistic locking has the following impact on these `DynamoDBMapper` methods:
   + `Delete` — The `DynamoDBMapper` performs a version check before deleting the item\. The delete operation succeeds only if the version number on the client side and the server side match\.
   + `ConditionCheck` — The `@DynamoDBVersionAttribute` annotation is not supported for `ConditionCheck` operations\. An SdkClientException will be thrown when a `ConditionCheck` item is annotated with `@DynamoDBVersionAttribute`\. 
 
-## Disabling Optimistic Locking<a name="DynamoDBMapper.OptimisticLocking.Disabling"></a>
+## Disabling optimistic locking<a name="DynamoDBMapper.OptimisticLocking.Disabling"></a>
 
-To disable optimistic locking, you can change the `DynamoDBMapperConfig.SaveBehavior` enumeration value from `UPDATE` to `CLOBBER`\. You can do this by creating a `DynamoDBMapperConfig` instance that skips version checking and use this instance for all your requests\. For information about `DynamoDBMapperConfig.SaveBehavior` and other optional `DynamoDBMapper` parameters, see [Optional Configuration Settings for DynamoDBMapper ](DynamoDBMapper.OptionalConfig.md)\. 
+To disable optimistic locking, you can change the `DynamoDBMapperConfig.SaveBehavior` enumeration value from `UPDATE` to `CLOBBER`\. You can do this by creating a `DynamoDBMapperConfig` instance that skips version checking and use this instance for all your requests\. For information about `DynamoDBMapperConfig.SaveBehavior` and other optional `DynamoDBMapper` parameters, see [Optional configuration settings for DynamoDBMapper ](DynamoDBMapper.OptionalConfig.md)\. 
 
 You can also set locking behavior for a specific operation only\. For example, the following Java snippet uses the `DynamoDBMapper` to save a catalog item\. It specifies `DynamoDBMapperConfig.SaveBehavior` by adding the optional `DynamoDBMapperConfig` parameter to the `save` method\. 
 

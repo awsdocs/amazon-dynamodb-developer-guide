@@ -1,18 +1,18 @@
-# DAX and DynamoDB Consistency Models<a name="DAX.consistency"></a>
+# DAX and DynamoDB consistency models<a name="DAX.consistency"></a>
 
 Amazon DynamoDB Accelerator \(DAX\) is a write\-through caching service that is designed to simplify the process of adding a cache to DynamoDB tables\. Because DAX operates separately from DynamoDB, it is important that you understand the consistency models of both DAX and DynamoDB to ensure that your applications behave as you expect\.
 
 In many use cases, the way that your application uses DAX affects the consistency of data within the DAX cluster, and the consistency of data between DAX and DynamoDB\.
 
 **Topics**
-+ [Consistency Among DAX Cluster Nodes](#DAX.consistency.nodes)
-+ [DAX Item Cache Behavior](#DAX.consistency.item-cache)
-+ [DAX Query Cache Behavior](#DAX.consistency.query-cache)
-+ [Strongly Consistent and Transactional Reads](#DAX.consistency.strongly-consistent-reads)
-+ [Negative Caching](#DAX.consistency.negative-caching)
-+ [Strategies for Writes](#DAX.consistency.strategies-for-writes)
++ [Consistency among DAX cluster nodes](#DAX.consistency.nodes)
++ [DAX item cache behavior](#DAX.consistency.item-cache)
++ [DAX query cache behavior](#DAX.consistency.query-cache)
++ [Strongly consistent and transactional reads](#DAX.consistency.strongly-consistent-reads)
++ [Negative caching](#DAX.consistency.negative-caching)
++ [Strategies for writes](#DAX.consistency.strategies-for-writes)
 
-## Consistency Among DAX Cluster Nodes<a name="DAX.consistency.nodes"></a>
+## Consistency among DAX cluster nodes<a name="DAX.consistency.nodes"></a>
 
 To achieve high availability for your application, we recommend that you provision your DAX cluster with at least three nodes\. Then place those nodes in multiple Availability Zones within a Region\.
 
@@ -22,13 +22,13 @@ In this scenario, it's possible for two clients to read the same key from the sa
 
 If you are building an application that uses DAX, that application should be designed so that it can tolerate eventually consistent data\. 
 
-## DAX Item Cache Behavior<a name="DAX.consistency.item-cache"></a>
+## DAX item cache behavior<a name="DAX.consistency.item-cache"></a>
 
-Every DAX cluster has two distinct caches—an *item* cache and a *query* cache\. For more information, see [DAX: How It Works](DAX.concepts.md)\. 
+Every DAX cluster has two distinct caches—an *item* cache and a *query* cache\. For more information, see [DAX: How it works](DAX.concepts.md)\. 
 
 This section addresses the consistency implications of reading from and writing to the DAX item cache\.
 
-### Consistency of Reads<a name="DAX.consistency.item-cache.reads"></a>
+### Consistency of reads<a name="DAX.consistency.item-cache.reads"></a>
 
 With DynamoDB, the `GetItem` operation performs an eventually consistent read by default\. Suppose that you use `UpdateItem` with the DynamoDB client\. If you then try to read the same item immediately afterward, you might see the data as it appeared before the update\. This is due to propagation delay across all the DynamoDB storage locations\. Consistency is usually reached within seconds\. So if you retry the read, you will likely see the updated item\.
 
@@ -46,7 +46,7 @@ When you use `GetItem` with the DAX client, the operation \(in this case, an eve
 
 1. \(Not shown\) If the DAX cluster contains more than one node, the item is replicated to all the other nodes in the cluster\.
 
-The item remains in the DAX item cache, subject to the Time to Live \(TTL\) setting and the least recently used \(LRU\) algorithm for the cache\. For more information, see [DAX: How It Works](DAX.concepts.md)\. 
+The item remains in the DAX item cache, subject to the Time to Live \(TTL\) setting and the least recently used \(LRU\) algorithm for the cache\. For more information, see [DAX: How it works](DAX.concepts.md)\. 
 
 However, during this period, DAX doesn't re\-read the item from DynamoDB\. If someone else updates the item using a DynamoDB client, bypassing DAX entirely, a `GetItem` request using the DAX client yields different results from the same `GetItem` request using the DynamoDB client\. In this scenario, DAX and DynamoDB hold inconsistent values for the same key until the TTL for the DAX item expires\.
 
@@ -55,7 +55,7 @@ If an application modifies data in an underlying DynamoDB table, bypassing DAX, 
 **Note**  
 In addition to `GetItem`, the DAX client also supports `BatchGetItem` requests\. `BatchGetItem` is essentially a wrapper around one or more `GetItem` requests, so DAX treats each of these as an individual `GetItem` operation\.
 
-### Consistency of Writes<a name="DAX.consistency.item-cache.writes"></a>
+### Consistency of writes<a name="DAX.consistency.item-cache.writes"></a>
 
 DAX is a write\-through cache, which simplifies the process of keeping the DAX item cache consistent with the underlying DynamoDB tables\.
 
@@ -63,7 +63,7 @@ The DAX client supports the same write API operations as DynamoDB \(`PutItem`, `
 
 For example, suppose that you issue a `GetItem` request from the DAX client to read an item from the `ProductCatalog` table\. \(The partition key is `Id`, and there is no sort key\.\) You retrieve the item whose `Id` is `101`\. The `QuantityOnHand` value for that item is `42`\. DAX stores the item in its item cache with a specific TTL\. For this example, assume that the TTL is 10 minutes\. Then, 3 minutes later, another application uses the DAX client to update the same item so that its `QuantityOnHand` value is now `41`\. Assuming that the item is not updated again, any subsequent reads of the same item during the next 10 minutes return the cached value for `QuantityOnHand` \(`41`\)\.
 
-#### How DAX Processes Writes<a name="DAX.consistency.item-cache.write-consistency.processing-writes"></a>
+#### How DAX processes writes<a name="DAX.consistency.item-cache.write-consistency.processing-writes"></a>
 
 DAX is intended for applications that require high\-performance reads\. As a write\-through cache, DAX passes your writes through to DynamoDB synchronously, then automatically and asynchronously replicates resulting updates to your item cache across all nodes in the cluster\. You don't need to manage cache invalidation logic because DAX handles it for you\.
 
@@ -86,11 +86,11 @@ If a write to DynamoDB fails for any reason, including throttling, the item is n
 **Note**  
 Every write to DAX alters the state of the item cache\. However, writes to the item cache don't affect the query cache\. \(The DAX item cache and query cache serve different purposes, and operate independently from one another\.\)
 
-## DAX Query Cache Behavior<a name="DAX.consistency.query-cache"></a>
+## DAX query cache behavior<a name="DAX.consistency.query-cache"></a>
 
 DAX caches the results from `Query` and `Scan` requests in its query cache\. However, these results don't affect the item cache at all\. When your application issues a `Query` or `Scan` request with DAX, the result set is saved in the query cache—not in the item cache\. You can't "warm up" the item cache by performing a `Scan` operation because the item cache and query cache are separate entities\.
 
-### Consistency of Query\-Update\-Query<a name="DAX.consistency.query-cache.read-consistency"></a>
+### Consistency of query\-update\-query<a name="DAX.consistency.query-cache.read-consistency"></a>
 
 Updates to the item cache, or to the underlying DynamoDB table, do not invalidate or modify the results stored in the query cache\.
 
@@ -106,13 +106,13 @@ In this scenario, the cached result set for the `Query` issued in step 3 is iden
 
 Your application should consider the TTL value for the query cache and how long your application can tolerate inconsistent results between the query cache and the item cache\.
 
-## Strongly Consistent and Transactional Reads<a name="DAX.consistency.strongly-consistent-reads"></a>
+## Strongly consistent and transactional reads<a name="DAX.consistency.strongly-consistent-reads"></a>
 
 To perform a strongly consistent `GetItem`, `BatchGetItem`, `Query`, or `Scan` request, you set the `ConsistentRead` parameter to true\. DAX passes strongly consistent read requests to DynamoDB\. When it receives a response from DynamoDB, DAX returns the results to the client, but it does not cache the results\. DAX can't serve strongly consistent reads by itself because it's not tightly coupled to DynamoDB\. For this reason, any subsequent reads from DAX would have to be eventually consistent reads\. And any subsequent strongly consistent reads would have to be passed through to DynamoDB\.
 
 DAX handles `TransactGetItems` requests the same way it handles strongly consistent reads\. DAX passes all `TransactGetItems` requests to DynamoDB\. When it receives a response from DynamoDB, DAX returns the results to the client, but it doesn't cache the results\.
 
-## Negative Caching<a name="DAX.consistency.negative-caching"></a>
+## Negative caching<a name="DAX.consistency.negative-caching"></a>
 
 DAX supports negative cache entries in both the item cache and the query cache\. A *negative cache entry* occurs when DAX can't find requested items in an underlying DynamoDB table\. Instead of generating an error, DAX caches an empty result and returns that result to the user\.
 
@@ -122,19 +122,19 @@ A negative cache entry remains in the DAX item cache until its item TTL has expi
 
 The DAX query cache handles negative cache results in a similar way\. If an application performs a `Query` or `Scan`, and the DAX query cache doesn't contain a cached result, DAX sends the request to DynamoDB\. If there are no matching items in the result set, DAX stores an empty result set in the query cache and returns the empty result set to the application\. Subsequent `Query` or `Scan` requests yield the same \(empty\) result set, until the TTL for that result set has expired\.
 
-## Strategies for Writes<a name="DAX.consistency.strategies-for-writes"></a>
+## Strategies for writes<a name="DAX.consistency.strategies-for-writes"></a>
 
 The write\-through behavior of DAX is appropriate for many application patterns\. However, there are some application patterns where a write\-through model might not be appropriate\.
 
-For applications that are sensitive to latency, writing through DAX incurs an extra network hop\. So a write to DAX is a little slower than a write directly to DynamoDB\. If your application is sensitive to write latency, you can reduce the latency by writing directly to DynamoDB instead\. For more information, see [Write\-Around](#DAX.consistency.strategies-for-writes.write-around)\.
+For applications that are sensitive to latency, writing through DAX incurs an extra network hop\. So a write to DAX is a little slower than a write directly to DynamoDB\. If your application is sensitive to write latency, you can reduce the latency by writing directly to DynamoDB instead\. For more information, see [Write\-around](#DAX.consistency.strategies-for-writes.write-around)\.
 
 For write\-intensive applications \(such as those that perform bulk data loading\), you might not want to write all of the data through DAX because only a small percentage of that data is ever read by the application\. When you write large amounts of data through DAX, it must invoke its LRU algorithm to make room in the cache for the new items to be read\. This diminishes the effectiveness of DAX as a read cache\.
 
 When you write an item to DAX, the item cache state is altered to accommodate the new item\. \(For example, DAX might need to evict older data from the item cache to make room for the new item\.\) The new item remains in the item cache, subject to the cache's LRU algorithm and the TTL setting for the cache\. As long as the item persists in the item cache, DAX doesn't re\-read the item from DynamoDB\. 
 
-### Write\-Through<a name="DAX.consistency.strategies-for-writes.write-through"></a>
+### Write\-through<a name="DAX.consistency.strategies-for-writes.write-through"></a>
 
-The DAX item cache implements a write\-through policy\. For more information, see [How DAX Processes Writes](#DAX.consistency.item-cache.write-consistency.processing-writes)\. 
+The DAX item cache implements a write\-through policy\. For more information, see [How DAX processes writes](#DAX.consistency.item-cache.write-consistency.processing-writes)\. 
 
 When you write an item, DAX ensures that the cached item is synchronized with the item as it exists in DynamoDB\. This is helpful for applications that need to re\-read an item immediately after writing it\. However, if other applications write directly to a DynamoDB table, the item in the DAX item cache is no longer in sync with DynamoDB\. 
 
@@ -150,7 +150,7 @@ To illustrate, consider two users \(Alice and Bob\), who are working with the `P
 
 In this scenario, Alice and Bob see different representations of the same `ProductCatalog` item\. This is the case until DAX evicts the item from the item cache, or until another user updates the same item again using DAX\.
 
-### Write\-Around<a name="DAX.consistency.strategies-for-writes.write-around"></a>
+### Write\-around<a name="DAX.consistency.strategies-for-writes.write-around"></a>
 
 If your application needs to write large quantities of data \(such as a bulk data load\), it might make sense to bypass DAX and write the data directly to DynamoDB\. Such a *write\-around* strategy reduces write latency\. However, the item cache doesn't remain in sync with the data in DynamoDB\.
 

@@ -1,16 +1,16 @@
-# Error Handling with DynamoDB<a name="Programming.Errors"></a>
+# Error handling with DynamoDB<a name="Programming.Errors"></a>
 
  This section describes runtime errors and how to handle them\. It also describes error messages and codes that are specific to Amazon DynamoDB\.
 
 **Topics**
-+ [Error Components](#Programming.Errors.Components)
-+ [Transactional Errors](#Programming.Errors.TransactionalErrors)
-+ [Error Messages and Codes](#Programming.Errors.MessagesAndCodes)
-+ [Error Handling in Your Application](#Programming.Errors.Handling)
-+ [Error Retries and Exponential Backoff](#Programming.Errors.RetryAndBackoff)
-+ [Batch Operations and Error Handling](#Programming.Errors.BatchOperations)
++ [Error components](#Programming.Errors.Components)
++ [Transactional errors](#Programming.Errors.TransactionalErrors)
++ [Error messages and codes](#Programming.Errors.MessagesAndCodes)
++ [Error handling in your application](#Programming.Errors.Handling)
++ [Error retries and exponential backoff](#Programming.Errors.RetryAndBackoff)
++ [Batch operations and error handling](#Programming.Errors.BatchOperations)
 
-## Error Components<a name="Programming.Errors.Components"></a>
+## Error components<a name="Programming.Errors.Components"></a>
 
 When your program sends a request, DynamoDB attempts to process it\. If the request is successful, DynamoDB returns an HTTP success status code \(`200 OK`\), along with the results from the requested operation\.
 
@@ -34,21 +34,21 @@ Date: Thu, 15 Mar 2012 23:56:23 GMT
 "message":"Requested resource not found: Table: tablename not found"}
 ```
 
-## Transactional Errors<a name="Programming.Errors.TransactionalErrors"></a>
+## Transactional errors<a name="Programming.Errors.TransactionalErrors"></a>
 
-For information on transactional errors, please see [Transaction Conflict Handling in DynamoDB](transaction-apis.md#transaction-conflict-handling)
+For information on transactional errors, please see [Transaction conflict handling in DynamoDB](transaction-apis.md#transaction-conflict-handling)
 
-## Error Messages and Codes<a name="Programming.Errors.MessagesAndCodes"></a>
+## Error messages and codes<a name="Programming.Errors.MessagesAndCodes"></a>
 
 The following is a list of exceptions returned by DynamoDB, grouped by HTTP status code\. If *OK to retry?* is *Yes*, you can submit the same request again\. If *OK to retry?* is *No*, you need to fix the problem on the client side before you submit a new request\.
 
-### HTTP Status Code 400<a name="Programming.Errors.MessagesAndCodes.http400"></a>
+### HTTP status code 400<a name="Programming.Errors.MessagesAndCodes.http400"></a>
 
 An HTTP `400` status code indicates a problem with your request, such as authentication failure, missing required parameters, or exceeding a table's provisioned throughput\. You have to fix the issue in your application before submitting the request again\.
 
 **AccessDeniedException **  
 Message: *Access denied\.*  
-The client did not correctly sign the request\. If you are using an AWS SDK, requests are signed for you automatically; otherwise, go to the [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *AWS General Reference*\.  
+The client did not correctly sign the request\. If you are using an AWS SDK, requests are signed for you automatically; otherwise, go to the [Signature version 4 signing process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *AWS General Reference*\.  
 OK to retry? No
 
 **ConditionalCheckFailedException**  
@@ -58,12 +58,12 @@ OK to retry? No
 
 **IncompleteSignatureException**  
 Message: *The request signature does not conform to AWS standards\. *  
-The request signature did not include all of the required components\. If you are using an AWS SDK, requests are signed for you automatically; otherwise, go to the [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *AWS General Reference*\.  
+The request signature did not include all of the required components\. If you are using an AWS SDK, requests are signed for you automatically; otherwise, go to the [Signature Version 4 signing process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) in the *AWS General Reference*\.  
 OK to retry? No
 
 **ItemCollectionSizeLimitExceededException**  
 Message: *Collection size exceeded\.*  
-For a table with a local secondary index, a group of items with the same partition key value has exceeded the maximum size limit of 10 GB\. For more information on item collections, see [Item Collections](LSI.md#LSI.ItemCollections)\.  
+For a table with a local secondary index, a group of items with the same partition key value has exceeded the maximum size limit of 10 GB\. For more information on item collections, see [Item collections in Local Secondary Indexes](LSI.md#LSI.ItemCollections)\.  
 OK to retry? Yes
 
 **LimitExceededException**  
@@ -73,17 +73,22 @@ OK to retry? Yes
 
 **MissingAuthenticationTokenException**  
 Message: *Request must contain a valid \(registered\) AWS Access Key ID\.*  
-The request did not include the required authorization header, or it was malformed\. See [DynamoDB Low\-Level API](Programming.LowLevelAPI.md)\.  
+The request did not include the required authorization header, or it was malformed\. See [DynamoDB low\-level API](Programming.LowLevelAPI.md)\.  
 OK to retry? No
+
+**ProvisionedThroughputExceeded**  
+Message: *Throughput exceeds the current capacity of your table or index\. DynamoDB is automatically scaling your table or index so please try again shortly\. If exceptions persist, check if you have a hot key:  [Partition key design](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)\.*  
+Example: A sudden spike in reads has exceeded the configured read capacity for the table\.  
+OK to retry? Yes
 
 **ProvisionedThroughputExceededException**  
 Message: *You exceeded your maximum allowed provisioned throughput for a table or for one or more global secondary indexes\. To view performance metrics for provisioned throughput vs\. consumed throughput, open the [Amazon CloudWatch console](https://console.aws.amazon.com/cloudwatch/home)\.*  
-Example: Your request rate is too high\. The AWS SDKs for DynamoDB automatically retry requests that receive this exception\. Your request is eventually successful, unless your retry queue is too large to finish\. Reduce the frequency of requests using [Error Retries and Exponential Backoff](#Programming.Errors.RetryAndBackoff)\.   
+Example: Your request rate is too high\. The AWS SDKs for DynamoDB automatically retry requests that receive this exception\. Your request is eventually successful, unless your retry queue is too large to finish\. Reduce the frequency of requests using [Error retries and exponential backoff](#Programming.Errors.RetryAndBackoff)\.   
 OK to retry? Yes
 
 **RequestLimitExceeded**  
-Message: Throughput exceeds the current throughput limit for your account\. To request a limit increase, contact AWS Support at [https://aws\.amazon\.com/support](https://aws.amazon.com/support)\.  
-Example: Rate of on\-demand requests exceeds the allowed account throughput\.  
+Message: *Throughput exceeds the current throughput limit for your account\. To request a limit increase, contact AWS Support at [https://aws\.amazon\.com/support](https://aws.amazon.com/support)*\.  
+Example: Rate of on\-demand requests exceeds the allowed account throughput and the table cannot be scaled further\.  
 OK to retry? Yes
 
 **ResourceInUseException**  
@@ -99,7 +104,7 @@ OK to retry? No
 **ThrottlingException**  
 Message: *Rate of requests exceeds the allowed throughput\.*  
 This exception is returned as an AmazonServiceException response with a THROTTLING\_EXCEPTION status code\. This exception might be returned if you perform [control plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.ControlPlane) API operations too rapidly\.  
-For tables using on\-demand mode, this exception might be returned for any [data plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.DataPlane) API operation if your request rate is too high\. To learn more about on\-demand scaling, see [Peak Traffic and Scaling Properties](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.PeakTraffic)   
+For tables using on\-demand mode, this exception might be returned for any [data plane](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html#HowItWorks.API.DataPlane) API operation if your request rate is too high\. To learn more about on\-demand scaling, see [Peak traffic and scaling properties](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.PeakTraffic)   
 OK to retry? Yes
 
 **UnrecognizedClientException**  
@@ -112,7 +117,7 @@ Message: Varies, depending upon the specific error\(s\) encountered
 This error can occur for several reasons, such as a required parameter that is missing, a value that is out of range, or mismatched data types\. The error message contains details about the specific part of the request that caused the error\.  
 OK to retry? No
 
-### HTTP Status Code 5xx<a name="Programming.Errors.MessagesAndCodes.http5xx"></a>
+### HTTP status code 5xx<a name="Programming.Errors.MessagesAndCodes.http5xx"></a>
 
 An HTTP `5xx` status code indicates a problem that must be resolved by AWS\. This might be a transient error, in which case you can retry your request until it succeeds\. Otherwise, go to the [AWS Service Health Dashboard](http://status.aws.amazon.com/) to see if there are any operational issues with the service\.
 
@@ -120,13 +125,13 @@ An HTTP `5xx` status code indicates a problem that must be resolved by AWS\. Thi
 DynamoDB could not process your request\.  
 OK to retry? Yes  
 You might encounter internal server errors while working with items\. These are expected during the lifetime of a table\. Any failed requests can be retried immediately\.  
-When you receive a status code 500 on a write operation, the operation may have succeeded or failed\. If the write operation is a `TransactWriteItem` request, then it is OK to retry the operation\. If the write operation is a single\-item write request such as `PutItem`, `UpdateItem`, or `DeleteItem`, then your application should read the state of the item before retrying the operation, and/or use [Condition Expressions](Expressions.ConditionExpressions.md) to ensure that the item remains in a correct state after retrying regardless of whether the prior operation succeeded or failed\. If idempotency is a requirement for the write operation, please use [`TransactWriteItem`](transaction-apis.md#transaction-apis-txwriteitems), which supports idempotent requests by automatically specifying a `ClientRequestToken` to disambiguate multiple attempts to perform the same action\.
+When you receive a status code 500 on a write operation, the operation may have succeeded or failed\. If the write operation is a `TransactWriteItem` request, then it is OK to retry the operation\. If the write operation is a single\-item write request such as `PutItem`, `UpdateItem`, or `DeleteItem`, then your application should read the state of the item before retrying the operation, and/or use [Condition expressions](Expressions.ConditionExpressions.md) to ensure that the item remains in a correct state after retrying regardless of whether the prior operation succeeded or failed\. If idempotency is a requirement for the write operation, please use [`TransactWriteItem`](transaction-apis.md#transaction-apis-txwriteitems), which supports idempotent requests by automatically specifying a `ClientRequestToken` to disambiguate multiple attempts to perform the same action\.
 
 **Service Unavailable \(HTTP 503\)**  
 DynamoDB is currently unavailable\. \(This should be a temporary state\.\)  
 OK to retry? Yes
 
-## Error Handling in Your Application<a name="Programming.Errors.Handling"></a>
+## Error handling in your application<a name="Programming.Errors.Handling"></a>
 
 For your application to run smoothly, you need to add logic to catch and respond to errors\. Typical approaches include using `try-catch` blocks or `if-then` statements\.
 
@@ -166,7 +171,7 @@ In this code example, the `try-catch` construct handles two different kinds of e
 + `AmazonServiceException`—Thrown if the client request was correctly transmitted to DynamoDB, but DynamoDB could not process the request and returned an error response instead\.
 + `AmazonClientException`—Thrown if the client could not get a response from a service, or if the client could not parse the response from a service\.
 
-## Error Retries and Exponential Backoff<a name="Programming.Errors.RetryAndBackoff"></a>
+## Error retries and exponential backoff<a name="Programming.Errors.RetryAndBackoff"></a>
 
 Numerous components on a network, such as DNS servers, switches, load balancers, and others, can generate errors anywhere in the life of a given request\. The usual technique for dealing with these error responses in a networked environment is to implement retries in the client application\. This technique increases the reliability of the application\.
 
@@ -179,9 +184,9 @@ In addition to simple retries, each AWS SDK implements an exponential backoff al
 **Note**  
 The AWS SDKs implement automatic retry logic and exponential backoff\.
 
-Most exponential backoff algorithms use jitter \(randomized delay\) to prevent successive collisions\. Because you aren't trying to avoid such collisions in these cases, you do not need to use this random number\. However, if you use concurrent clients, jitter can help your requests succeed faster\. For more information, see the blog post about [Exponential Backoff and Jitter](http://www.awsarchitectureblog.com/2015/03/backoff.html)\.
+Most exponential backoff algorithms use jitter \(randomized delay\) to prevent successive collisions\. Because you aren't trying to avoid such collisions in these cases, you do not need to use this random number\. However, if you use concurrent clients, jitter can help your requests succeed faster\. For more information, see the blog post about [Exponential backoff and jitter](http://www.awsarchitectureblog.com/2015/03/backoff.html)\.
 
-## Batch Operations and Error Handling<a name="Programming.Errors.BatchOperations"></a>
+## Batch operations and error handling<a name="Programming.Errors.BatchOperations"></a>
 
 The DynamoDB low\-level API supports batch operations for reads and writes\. `BatchGetItem` reads items from one or more tables, and `BatchWriteItem` puts or deletes items in one or more tables\. These batch operations are implemented as wrappers around other non\-batch DynamoDB operations\. In other words, `BatchGetItem` invokes `GetItem` once for each item in the batch\. Similarly,`BatchWriteItem` invokes `DeleteItem` or `PutItem`, as appropriate, for each item in the batch\.
 

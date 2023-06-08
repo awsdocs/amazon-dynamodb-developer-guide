@@ -1,8 +1,8 @@
-# Working with Items in DynamoDB Using the AWS SDK for \.NET Document Model<a name="WorkingWithItemsDocumentClasses"></a>
+# Working with items in DynamoDB using the AWS SDK for \.NET document model<a name="WorkingWithItemsDocumentClasses"></a>
 
 **Topics**
-+ [Putting an Item \- Table\.PutItem Method](#PutMidLevelDotNet)
-+ [Specifying Optional Parameters](#PutMidLevelDotNetOptions)
++ [Putting an item \- Table\.PutItem method](#PutMidLevelDotNet)
++ [Specifying optional parameters](#PutMidLevelDotNetOptions)
 
 
 
@@ -49,7 +49,7 @@ You can use the configuration object to specify several optional parameters such
 
 The following sections discuss each of the data operations that are supported by the `Table` class\.
 
-## Putting an Item \- Table\.PutItem Method<a name="PutMidLevelDotNet"></a>
+## Putting an item \- Table\.PutItem method<a name="PutMidLevelDotNet"></a>
 
 The `PutItem` method uploads the input `Document` instance to the table\. If an item that has a primary key that is specified in the input `Document` exists in the table, the `PutItem` operation replaces the entire existing item\. The new item is identical to the `Document` object that you provided to the `PutItem` method\. If your original item had any extra attributes, they are no longer present in the new item\. 
 
@@ -127,9 +127,9 @@ book.Add("Pictures", pictures);
 table.PutItem(book);
 ```
 
-These examples are based on the item shown in [Specifying Item Attributes When Using Expressions](Expressions.Attributes.md)\. The document model lets you create complex nested attributes, such as the `ProductReviews` attribute shown in the case study\.
+These examples are based on the item shown in [Specifying item attributes when using expressions](Expressions.Attributes.md)\. The document model lets you create complex nested attributes, such as the `ProductReviews` attribute shown in the case study\.
 
-## Specifying Optional Parameters<a name="PutMidLevelDotNetOptions"></a>
+## Specifying optional parameters<a name="PutMidLevelDotNetOptions"></a>
 
 You can configure optional parameters for the `PutItem` operation by adding the `PutItemOperationConfig` parameter\. For a complete list of optional parameters, see [PutItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html)\. The following C\# code example puts an item in the `ProductCatalog` table\. It specifies the following optional parameter:
 +  The `ConditionalExpression` parameter to make this a conditional put request\. The example creates an expression that specifies the `ISBN` attribute must have a specific value that has to be present in the item that you are replacing\.

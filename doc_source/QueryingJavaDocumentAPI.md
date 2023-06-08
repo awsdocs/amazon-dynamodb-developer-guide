@@ -1,4 +1,4 @@
-# Querying Tables and Indexes: Java<a name="QueryingJavaDocumentAPI"></a>
+# Querying tables and indexes: Java<a name="QueryingJavaDocumentAPI"></a>
 
 The `Query` operation enables you to query a table or a secondary index in Amazon DynamoDB\. You must provide a partition key value and an equality condition\. If the table or index has a sort key, you can refine the results by providing a sort key value and a condition\.
 
@@ -15,7 +15,7 @@ The following are the steps to retrieve an item using the AWS SDK for Java Docum
 
 The response includes an `ItemCollection` object that provides all items returned by the query\.
 
-The following Java code example demonstrates the preceding tasks\. The example assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The following Java code example demonstrates the preceding tasks\. The example assumes that you have a `Reply` table that stores replies for forum threads\. For more information, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
  ` Reply ( Id, ReplyDateTime, ... ) ` 
 
@@ -47,7 +47,7 @@ while (iterator.hasNext()) {
 }
 ```
 
-## Specifying Optional Parameters<a name="DocumentAPIJavaQueryingOptions"></a>
+## Specifying optional parameters<a name="DocumentAPIJavaQueryingOptions"></a>
 
 The `query` method supports several optional parameters\. For example, you can optionally narrow the results from the preceding query to return replies in the past two weeks by specifying a condition\. The condition is called a sort key condition, because DynamoDB evaluates the query condition that you specify against the sort key of the primary key\. You can specify other optional parameters to retrieve only a specific list of attributes from items in the query result\.
 
@@ -112,9 +112,9 @@ for (Page<Item, QueryOutcome> page : items.pages()) {
 }
 ```
 
-## Example \- Query Using Java<a name="DocumentAPIJavaQueryExample"></a>
+## Example \- query using Java<a name="DocumentAPIJavaQueryExample"></a>
 
-The following tables store information about a collection of forums\. For more information, see [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\.
+The following tables store information about a collection of forums\. For more information, see [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\.
 
 **Note**  
 The SDK for Java also provides an object persistence model, enabling you to map your client\-side classes to DynamoDB tables\. This approach can reduce the amount of code you have to write\. For more information, see [Java: DynamoDBMapper](DynamoDBMapper.md)\.
@@ -138,8 +138,8 @@ In this Java code example, you run variations of finding replies for a thread "D
   The preceding two queries show how you can specify sort key conditions to narrow the query results and use other optional query parameters\. 
 
 **Note**  
-This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md) section\.  
-For step\-by\-step instructions to run the following example, see [Java Code Examples](CodeSamples.Java.md)\.
+This code example assumes that you have already loaded data into DynamoDB for your account by following the instructions in the [Creating tables and loading data for code examples in DynamoDB](SampleData.md) section\.  
+For step\-by\-step instructions to run the following example, see [Java code examples](CodeSamples.Java.md)\.
 
 ```
 /**

@@ -2,16 +2,16 @@
 
  You can use the AWS Command Line Interface \(AWS CLI\) to control multiple AWS services from the command line and automate them through scripts\. You can use the AWS CLI for ad hoc operations, such as creating a table\. You can also use it to embed Amazon DynamoDB operations within utility scripts\.
 
- Before you can use the AWS CLI with DynamoDB, you must get an access key ID and secret access key\. For more information, see [Getting an AWS Access Key](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.GetCredentials)\. 
+ Before you can use the AWS CLI with DynamoDB, you must get an access key ID and secret access key\. For more information, see [Granting programmatic access](SettingUp.DynamoWebService.md#SettingUp.DynamoWebService.GetCredentials)\. 
 
-For a complete listing of all the commands available for DynamoDB in the AWS CLI, see the [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
+For a complete listing of all the commands available for DynamoDB in the AWS CLI, see the [AWS CLI command reference](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html)\.
 
 **Topics**
-+ [Downloading and Configuring the AWS CLI](#Tools.CLI.DownloadingAndRunning)
++ [Downloading and configuring the AWS CLI](#Tools.CLI.DownloadingAndRunning)
 + [Using the AWS CLI with DynamoDB](#Tools.CLI.UsingWithDDB)
-+ [Using the AWS CLI with Downloadable DynamoDB](#Tools.CLI.UsingWithDDBLocal)
++ [Using the AWS CLI with downloadable DynamoDB](#Tools.CLI.UsingWithDDBLocal)
 
-## Downloading and Configuring the AWS CLI<a name="Tools.CLI.DownloadingAndRunning"></a>
+## Downloading and configuring the AWS CLI<a name="Tools.CLI.DownloadingAndRunning"></a>
 
 The AWS CLI is available at [http://aws\.amazon\.com/cli](https://aws.amazon.com/cli)\. It runs on Windows, macOS, or Linux\. After you download the AWS CLI, follow these steps to install and configure it:
 
@@ -47,9 +47,9 @@ aws dynamodb put-item \
 
 aws dynamodb put-item \
     --table-name Music \
-    --item '{ \
-        "Artist": {"S": "Acme Band"}, \
-        "SongTitle": {"S": "Happy Day"}, \
+    --item '{
+        "Artist": {"S": "Acme Band"},
+        "SongTitle": {"S": "Happy Day"},
         "AlbumTitle": {"S": "Songs About Life"} }' \
     --return-consumed-capacity TOTAL
 ```
@@ -83,7 +83,7 @@ You can now issue a `Query` request using the AWS CLI\. In this example, the con
 aws dynamodb query --table-name Music --key-conditions file://key-conditions.json
 ```
 
-## Using the AWS CLI with Downloadable DynamoDB<a name="Tools.CLI.UsingWithDDBLocal"></a>
+## Using the AWS CLI with downloadable DynamoDB<a name="Tools.CLI.UsingWithDDBLocal"></a>
 
 The AWS CLI can also interact with DynamoDB \(Downloadable Version\) that runs on your computer\. To enable this, add the following parameter to each command:
 

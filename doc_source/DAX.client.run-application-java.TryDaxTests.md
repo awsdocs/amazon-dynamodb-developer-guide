@@ -7,7 +7,7 @@ You can modify the program in several ways:
 + Add a `ScanFilter` to the `scanTest` method so that only some of the items are returned to you\.
 
 **Note**  
- To run this program, you can set up Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using the Client as an Apache Maven Dependency](DAX.client.java-sdk-v1.md#DAXClient.Maven)\.   
+ To run this program, you can set up Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using the client as an Apache Maven dependency](DAX.client.java-sdk-v1.md#DAXClient.Maven)\.   
 Or, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```

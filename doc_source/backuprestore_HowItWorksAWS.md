@@ -26,9 +26,9 @@ Enhanced backup features available through AWS Backup include:
 These enhanced backup features are available in all AWS Regions\. To learn more about these features, see the [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)\.
 
 **Topics**
-+ [Backing Up and Restoring DynamoDB Tables with AWS Backup: How It Works](GettingStartedBackupsAWS.md)
-+ [Creating Backups of DynamoDB Tables with AWS Backups](CreateBackupAWS.md)
-+ [Copying a Backup of a DynamoDB table with AWS Backup](CrossRegionAccountCopyAWS.md)
-+ [Restoring a Backup of a DynamoDB table from AWS Backup](Restore.TutorialAWS.md)
-+ [Deleting a Backup of a DynamoDB Table with AWS Backup](Delete.TutorialAWS.md)
-+ [Usage Notes](UsageNotesAWS.md)
++ [Backing up and restoring DynamoDB tables with AWS Backup: How it works](GettingStartedBackupsAWS.md)
++ [Creating backups of DynamoDB tables with AWS Backup](CreateBackupAWS.md)
++ [Copying a backup of a DynamoDB table with AWS Backup](CrossRegionAccountCopyAWS.md)
++ [Restoring a backup of a DynamoDB table from AWS Backup](Restore.TutorialAWS.md)
++ [Deleting a backup of a DynamoDB table with AWS Backup](Delete.TutorialAWS.md)
++ [Usage notes](UsageNotesAWS.md)

@@ -1,5 +1,8 @@
 # Expected<a name="LegacyConditionalParameters.Expected"></a>
 
+**Note**  
+With the introduction of expression parameters, several older parameters have been deprecated\. New applications should not use these legacy parameters, but should use expression parameters instead\. For more information, see [Using expressions in DynamoDB](Expressions.md)\.
+
 `Expected` is a conditional block for an `UpdateItem` operation\. `Expected` is a map of attribute/condition pairs\. Each element of the map consists of an attribute name, a comparison operator, and one or more values\. DynamoDB compares the attribute with the value\(s\) you supplied, using the comparison operator\. For each `Expected` element, the result of the evaluation is either true or false\.
 
 If you specify more than one element in the `Expected` map, then by default all of the conditions must evaluate to true\. In other words, the conditions are ANDed together\. \(You can use the `ConditionalOperator` parameter to OR the conditions instead\. If you do this, then at least one of the conditions must evaluate to true, rather than all of them\.\)
@@ -78,7 +81,7 @@ The `Value` and `Exists` parameters are incompatible with `AttributeValueList` a
 **Note**  
 This parameter does not support attributes of type List or Map\.
 
-## Use *ConditionExpression* Instead<a name="w615aac41c23c23c21"></a>
+## Use *ConditionExpression* instead<a name="w120aac41c23c21c23"></a>
 
 Suppose you wanted to modify an item in the *Music* table, but only if a certain condition was true\. You could use an `UpdateItem` request with an `Expected` parameter, as in this AWS CLI example:
 

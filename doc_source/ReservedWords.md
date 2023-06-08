@@ -1,8 +1,8 @@
-# Reserved Words in DynamoDB<a name="ReservedWords"></a>
+# Reserved words in DynamoDB<a name="ReservedWords"></a>
 
 The following keywords are reserved for use by DynamoDB\. Do not use any of these words as attribute names in expressions\. This list is not case\-sensitive\.
 
- If you need to write an expression containing an attribute name that conflicts with a DynamoDB reserved word, you can define an expression attribute name to use in the place of the reserved word\. For more information, see [Expression Attribute Names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
+ If you need to write an expression containing an attribute name that conflicts with a DynamoDB reserved word, you can define an expression attribute name to use in the place of the reserved word\. For more information, see [Expression attribute names in DynamoDB](Expressions.ExpressionAttributeNames.md)\.
 
 ```
 ABORT

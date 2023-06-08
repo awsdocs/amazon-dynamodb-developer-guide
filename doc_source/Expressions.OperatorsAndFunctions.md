@@ -1,16 +1,16 @@
-# Comparison Operator and Function Reference<a name="Expressions.OperatorsAndFunctions"></a>
+# Comparison operator and function reference<a name="Expressions.OperatorsAndFunctions"></a>
 
 This section covers the built\-in functions and keywords for writing filter expressions and condition expressions in Amazon DynamoDB\.
 
 **Topics**
-+ [Syntax for Filter and Condition Expressions](#Expressions.OperatorsAndFunctions.Syntax)
-+ [Making Comparisons](#Expressions.OperatorsAndFunctions.Comparators)
++ [Syntax for filter and condition expressions](#Expressions.OperatorsAndFunctions.Syntax)
++ [Making comparisons](#Expressions.OperatorsAndFunctions.Comparators)
 + [Functions](#Expressions.OperatorsAndFunctions.Functions)
-+ [Logical Evaluations](#Expressions.OperatorsAndFunctions.LogicalEvaluations)
++ [Logical evaluations](#Expressions.OperatorsAndFunctions.LogicalEvaluations)
 + [Parentheses](#Expressions.OperatorsAndFunctions.Parentheses)
-+ [Precedence in Conditions](#Expressions.OperatorsAndFunctions.Precedence)
++ [Precedence in conditions](#Expressions.OperatorsAndFunctions.Precedence)
 
-## Syntax for Filter and Condition Expressions<a name="Expressions.OperatorsAndFunctions.Syntax"></a>
+## Syntax for filter and condition expressions<a name="Expressions.OperatorsAndFunctions.Syntax"></a>
 
 In the following syntax summary, an *operand* can be the following:
 + A top\-level attribute name, such as `Id`, `Title`, `Description`, or `ProductCategory`
@@ -44,7 +44,7 @@ function ::=
     | size (path)
 ```
 
-## Making Comparisons<a name="Expressions.OperatorsAndFunctions.Comparators"></a>
+## Making comparisons<a name="Expressions.OperatorsAndFunctions.Comparators"></a>
 
 Use these comparators to compare an operand against a range of values or an enumerated list of values:
 + `a = b` — true if *a* is equal to *b*
@@ -74,7 +74,7 @@ Use the following functions to determine whether an attribute exists in an item,
 |  `contains (path, operand)`  | True if the attribute specified by `path` is one of the following: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html) The `operand` must be a `String` if the attribute specified by `path` is a `String`\. If the attribute specified by `path` is a `Set`, the `operand` must be the set's element type\. The path and the operand must be distinct; that is, `contains (a, a)` returns an error\. Example: Check whether the `Brand` attribute contains the substring `Company`\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html) The expression attribute value `:v_sub` is a placeholder for `Company`\. Example: Check whether the product is available in red\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html) The expression attribute value `:v_sub` is a placeholder for `Red`\. | 
 |  `size (path)`  | Returns a number representing an attribute's size\. The following are valid data types for use with `size`\.  If the attribute is of type `String`, `size` returns the length of the string\. Example: Check whether the string `Brand` is less than or equal to 20 characters\. The expression attribute value `:v_sub` is a placeholder for `20`\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html)  If the attribute is of type `Binary`, `size` returns the number of bytes in the attribute value\. Example: Suppose that the `ProductCatalog` item has a binary attribute named `VideoClip`, which contains a short video of the product in use\. The following expression checks whether `VideoClip` exceeds 64,000 bytes\. The expression attribute value `:v_sub` is a placeholder for `64000`\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html)  If the attribute is a `Set` data type, `size` returns the number of elements in the set\.  Example: Check whether the product is available in more than one color\. The expression attribute value `:v_sub` is a placeholder for `1`\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html)  If the attribute is of type `List` or `Map`, `size` returns the number of child elements\. Example: Check whether the number of `OneStar` reviews has exceeded a certain threshold\. The expression attribute value `:v_sub` is a placeholder for `3`\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html)  | 
 
-## Logical Evaluations<a name="Expressions.OperatorsAndFunctions.LogicalEvaluations"></a>
+## Logical evaluations<a name="Expressions.OperatorsAndFunctions.LogicalEvaluations"></a>
 
 Use the `AND`, `OR`, and `NOT` keywords to perform logical evaluations\. In the list following, *a* and *b* represent conditions to be evaluated\.
 + `a AND b` — true if *a* and *b* are both true\.
@@ -92,7 +92,7 @@ However, if you enclose a condition in parentheses, it is evaluated first\. For 
 **Note**  
 You can nest parentheses in an expression\. The innermost ones are evaluated first\.
 
-## Precedence in Conditions<a name="Expressions.OperatorsAndFunctions.Precedence"></a>
+## Precedence in conditions<a name="Expressions.OperatorsAndFunctions.Precedence"></a>
 
  DynamoDB evaluates conditions from left to right using the following precedence rules:
 + `= <> < <= > >=`

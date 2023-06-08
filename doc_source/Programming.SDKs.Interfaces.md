@@ -1,4 +1,4 @@
-# Programmatic Interfaces<a name="Programming.SDKs.Interfaces"></a>
+# Programmatic interfaces<a name="Programming.SDKs.Interfaces"></a>
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/SDKSupport.SDKInterfaces.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
@@ -7,6 +7,6 @@ Every [AWS SDK](https://aws.amazon.com/tools) provides one or more programmatic 
 The following section highlights some of the interfaces available, using the AWS SDK for Java as an example\. \(Not all interfaces are available in all AWS SDKs\.\)
 
 **Topics**
-+ [Low\-Level Interfaces](Programming.SDKs.Interfaces.LowLevel.md)
-+ [Document Interfaces](Programming.SDKs.Interfaces.Document.md)
-+ [Object Persistence Interface](Programming.SDKs.Interfaces.Mapper.md)
++ [Low\-level interfaces](Programming.SDKs.Interfaces.LowLevel.md)
++ [Document interfaces](Programming.SDKs.Interfaces.Document.md)
++ [Object persistence interface](Programming.SDKs.Interfaces.Mapper.md)

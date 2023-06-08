@@ -1,4 +1,4 @@
-# Writing Your App to Use Web Identity Federation<a name="WIF.RunningYourApp"></a>
+# Writing your app to use web identity federation<a name="WIF.RunningYourApp"></a>
 
 To use web identity federation, your app must assume the IAM role that you created\. From that point on, the app honors the access policy that you attached to the role\.
 
@@ -60,6 +60,6 @@ At runtime, if your app uses web identity federation, it must follow these steps
 ****    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WIF.RunningYourApp.html)
 
-For example IAM policies where these policy variables are used, see [Example Policies: Using Conditions for Fine\-Grained Access Control](specifying-conditions.md#FGAC_DDB.Examples)\.
+For example IAM policies where these policy variables are used, see [Example policies: Using conditions for fine\-grained access control](specifying-conditions.md#FGAC_DDB.Examples)\.
 
 For more information about how AWS STS generates temporary access credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) in *IAM User Guide*\.

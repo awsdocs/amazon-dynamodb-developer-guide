@@ -11,12 +11,12 @@ The following are the common steps for table operations\.
 1. Call the appropriate method provided by the client that you created in the preceding step\. 
 
 **Topics**
-+ [Create a Table with a Global Secondary Index](#GSIJavaDocumentAPI.CreateTableWithIndex)
-+ [Describe a Table with a Global Secondary Index](#GSIJavaDocumentAPI.DescribeTableWithIndex)
++ [Create a table with a Global Secondary Index](#GSIJavaDocumentAPI.CreateTableWithIndex)
++ [Describe a table with a Global Secondary Index](#GSIJavaDocumentAPI.DescribeTableWithIndex)
 + [Query a Global Secondary Index](#GSIJavaDocumentAPI.QueryAnIndex)
-+ [Example: Global Secondary Indexes Using the AWS SDK for Java Document API](GSIJavaDocumentAPI.Example.md)
++ [Example: Global Secondary Indexes using the AWS SDK for Java document API](GSIJavaDocumentAPI.Example.md)
 
-## Create a Table with a Global Secondary Index<a name="GSIJavaDocumentAPI.CreateTableWithIndex"></a>
+## Create a table with a Global Secondary Index<a name="GSIJavaDocumentAPI.CreateTableWithIndex"></a>
 
 You can create global secondary indexes at the same time that you create a table\. To do this, use `CreateTable` and provide your specifications for one or more global secondary indexes\. The following Java code example creates a table to hold information about weather data\. The partition key is `Location` and the sort key is `Date`\. A global secondary index named `PrecipIndex` allows fast access to precipitation data for various locations\.
 
@@ -94,7 +94,7 @@ System.out.println(table.getDescription());
 
 You must wait until DynamoDB creates the table and sets the table status to `ACTIVE`\. After that, you can begin putting data items into the table\.
 
-## Describe a Table with a Global Secondary Index<a name="GSIJavaDocumentAPI.DescribeTableWithIndex"></a>
+## Describe a table with a Global Secondary Index<a name="GSIJavaDocumentAPI.DescribeTableWithIndex"></a>
 
 To get information about global secondary indexes on a table, use `DescribeTable`\. For each index, you can access its name, key schema, and projected attributes\.
 

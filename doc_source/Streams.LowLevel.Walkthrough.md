@@ -1,7 +1,7 @@
-# DynamoDB Streams Low\-Level API: Java Example<a name="Streams.LowLevel.Walkthrough"></a>
+# DynamoDB Streams low\-level API: Java example<a name="Streams.LowLevel.Walkthrough"></a>
 
 **Note**  
-The code on this page is not exhaustive and does not handle all scenarios for consuming Amazon DynamoDB Streams\. The recommended way to consume stream records from DynamoDB is through the Amazon Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis Adapter to Process Stream Records](Streams.KCLAdapter.md)\.
+The code on this page is not exhaustive and does not handle all scenarios for consuming Amazon DynamoDB Streams\. The recommended way to consume stream records from DynamoDB is through the Amazon Kinesis Adapter using the Kinesis Client Library \(KCL\), as described in [Using the DynamoDB Streams Kinesis adapter to process stream records](Streams.KCLAdapter.md)\.
 
 This section contains a Java program that shows DynamoDB Streams in action\. The program does the following:
 

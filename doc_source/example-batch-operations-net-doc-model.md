@@ -1,15 +1,15 @@
-# Example: Batch Operations Using the AWS SDK for \.NET Document Model API<a name="example-batch-operations-net-doc-model"></a>
+# Example: Batch operations using the AWS SDK for \.NET document model API<a name="example-batch-operations-net-doc-model"></a>
 
 **Topics**
-+ [Example: Batch Write Using the AWS SDK for \.NET Document Model](#example-batchwrite-NetDocumentAPI)
++ [Example: Batch write using the AWS SDK for \.NET document model](#example-batchwrite-NetDocumentAPI)
 
-## Example: Batch Write Using the AWS SDK for \.NET Document Model<a name="example-batchwrite-NetDocumentAPI"></a>
+## Example: Batch write using the AWS SDK for \.NET document model<a name="example-batchwrite-NetDocumentAPI"></a>
 
  The following C\# code example illustrates single table and multi\-table batch write operations\. The example performs the following tasks:
 + Illustrates a single table batch write\. It adds two items to the `ProductCatalog` table\. 
 + Illustrates a multi\-table batch write\. It adds an item to both the `Forum` and `Thread` tables and deletes an item from the `Thread` table\.
 
-If you followed the steps in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md), you already have the `ProductCatalog`, `Forum`, and `Thread` tables created\. You can also create these sample tables programmatically\. For more information, see [Creating Example Tables and Uploading Data Using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions for testing the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+If you followed the steps in [Creating tables and loading data for code examples in DynamoDB](SampleData.md), you already have the `ProductCatalog`, `Forum`, and `Thread` tables created\. You can also create these sample tables programmatically\. For more information, see [Creating example tables and uploading data using the AWS SDK for \.NET](AppendixSampleDataCodeDotNET.md)\. For step\-by\-step instructions for testing the following example, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 **Example**  
 

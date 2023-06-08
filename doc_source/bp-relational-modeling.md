@@ -1,4 +1,4 @@
-# Best Practices for Modeling Relational Data in DynamoDB<a name="bp-relational-modeling"></a>
+# Best practices for modeling relational data in DynamoDB<a name="bp-relational-modeling"></a>
 
 Traditional relational database management system \(RDBMS\) platforms store data in a normalized relational structure\. This structure reduces hierarchical data structures to a set of common elements that are stored across multiple tables\. The following schema is an example of a generic order\-entry application with supporting HR schema backing the operational and business support systems of a theoretical manufacturer\. 
 

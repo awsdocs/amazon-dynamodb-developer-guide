@@ -1,4 +1,4 @@
-# Using the ATTRIBUTE\_TYPE Function with PartiQL for DynamoDB<a name="ql-functions.attribute_type"></a>
+# Using the ATTRIBUTE\_TYPE function with PartiQL for DynamoDB<a name="ql-functions.attribute_type"></a>
 
 Returns `TRUE` if the attribute at the specified path is of a particular data type\.
 

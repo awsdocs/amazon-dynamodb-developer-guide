@@ -1,12 +1,12 @@
-# Step 1: Deploy and Test Locally<a name="TicTacToe.Phase1"></a>
+# Step 1: Deploy and test locally<a name="TicTacToe.Phase1"></a>
 
 **Topics**
-+ [1\.1: Download and Install the Required Packages](#TicTacToe.Phase1.InstallApp)
-+ [1\.2: Test the Game Application](#TicTacToe.RunAppLocally)
++ [1\.1: Download and install the required packages](#TicTacToe.Phase1.InstallApp)
++ [1\.2: Test the game application](#TicTacToe.RunAppLocally)
 
 In this step you download, deploy, and test the Tic\-Tac\-Toe game application on your local computer\. Instead of using the Amazon DynamoDB web service, you will download DynamoDB to your computer, and create the required table there\. 
 
-## 1\.1: Download and Install the Required Packages<a name="TicTacToe.Phase1.InstallApp"></a>
+## 1\.1: Download and install the required packages<a name="TicTacToe.Phase1.InstallApp"></a>
 
 You will need the following to test this application locally:
 + Python 
@@ -39,11 +39,11 @@ To get these tools, do the following:
      pip install configparser
      ```
 
-1. Download DynamoDB to your computer\. For instructions on how to run it, see [Setting Up DynamoDB Local \(Downloadable Version\)](DynamoDBLocal.md)\.
+1. Download DynamoDB to your computer\. For instructions on how to run it, see [Setting up DynamoDB local \(downloadable version\)](DynamoDBLocal.md)\.
 
 1. Download the Tic\-Tac\-Toe application:
 
-   1. Install Git\. For instructions, see [git Downloads](http://git-scm.com/downloads)\.
+   1. Install Git\. For instructions, see [git downloads](http://git-scm.com/downloads)\.
 
    1. Run the following code to download the application\.
 
@@ -51,11 +51,11 @@ To get these tools, do the following:
       git clone https://github.com/awslabs/dynamodb-tictactoe-example-app.git
       ```
 
-## 1\.2: Test the Game Application<a name="TicTacToe.RunAppLocally"></a>
+## 1\.2: Test the game application<a name="TicTacToe.RunAppLocally"></a>
 
 To test the Tic\-Tac\-Toe application, you need to run DynamoDB locally on your computer\. 
 
-**To run the Tic\-Tac\-Toe application**
+**To run the tic\-tac\-toe application**
 
 1. Start DynamoDB\. 
 

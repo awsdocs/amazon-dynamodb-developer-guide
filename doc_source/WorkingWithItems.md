@@ -1,6 +1,6 @@
-# Working with Items and Attributes<a name="WorkingWithItems"></a>
+# Working with items and attributes<a name="WorkingWithItems"></a>
 
-In Amazon DynamoDB, an *item* is a collection of attributes\. Each attribute has a name and a value\. An attribute value can be a scalar, a set, or a document type\. For more information, see [Amazon DynamoDB: How It Works](HowItWorks.md)\.
+In Amazon DynamoDB, an *item* is a collection of attributes\. Each attribute has a name and a value\. An attribute value can be a scalar, a set, or a document type\. For more information, see [Amazon DynamoDB: How it works](HowItWorks.md)\.
 
 DynamoDB provides four operations for basic create, read, update, and delete \(CRUD\) functionality\. All these operations are atomic\.
 + `PutItem` — Create an item\.
@@ -19,18 +19,18 @@ These batch operations combine multiple CRUD operations into a single request\. 
 This section describes how to use these operations and includes related topics, such as conditional updates and atomic counters\. This section also includes example code that uses the AWS SDKs\. 
 
 **Topics**
-+ [Reading an Item](#WorkingWithItems.ReadingData)
-+ [Writing an Item](#WorkingWithItems.WritingData)
-+ [Return Values](#WorkingWithItems.ReturnValues)
-+ [Batch Operations](#WorkingWithItems.BatchOperations)
-+ [Atomic Counters](#WorkingWithItems.AtomicCounters)
-+ [Conditional Writes](#WorkingWithItems.ConditionalUpdate)
-+ [Using Expressions in DynamoDB](Expressions.md)
-+ [Expiring Items By Using DynamoDB Time to Live \(TTL\)](TTL.md)
-+ [Working with Items: Java](JavaDocumentAPIItemCRUD.md)
-+ [Working with Items: \.NET](LowLevelDotNetItemCRUD.md)
++ [Reading an item](#WorkingWithItems.ReadingData)
++ [Writing an item](#WorkingWithItems.WritingData)
++ [Return values](#WorkingWithItems.ReturnValues)
++ [Batch operations](#WorkingWithItems.BatchOperations)
++ [Atomic counters](#WorkingWithItems.AtomicCounters)
++ [Conditional writes](#WorkingWithItems.ConditionalUpdate)
++ [Using expressions in DynamoDB](Expressions.md)
++ [Expiring items by using DynamoDB Time to Live \(TTL\)](TTL.md)
++ [Working with items: Java](JavaDocumentAPIItemCRUD.md)
++ [Working with items: \.NET](LowLevelDotNetItemCRUD.md)
 
-## Reading an Item<a name="WorkingWithItems.ReadingData"></a>
+## Reading an item<a name="WorkingWithItems.ReadingData"></a>
 
 To read an item from a DynamoDB table, use the `GetItem` operation\. You must provide the name of the table, along with the primary key of the item you want\.
 
@@ -48,7 +48,7 @@ With `GetItem`, you must specify the *entire* primary key, not just part of it\.
 
 A `GetItem` request performs an eventually consistent read by default\. You can use the `ConsistentRead` parameter to request a strongly consistent read instead\. \(This consumes additional read capacity units, but it returns the most up\-to\-date version of the item\.\)
 
-`GetItem` returns all of the item's attributes\. You can use a *projection expression* to return only some of the attributes\. For more information, see [Projection Expressions](Expressions.ProjectionExpressions.md)\.
+`GetItem` returns all of the item's attributes\. You can use a *projection expression* to return only some of the attributes\. For more information, see [Projection expressions](Expressions.ProjectionExpressions.md)\.
 
 To return the number of read capacity units consumed by `GetItem`, set the `ReturnConsumedCapacity` parameter to `TOTAL`\.
 
@@ -64,7 +64,7 @@ aws dynamodb get-item \
     --return-consumed-capacity TOTAL
 ```
 
-## Writing an Item<a name="WorkingWithItems.WritingData"></a>
+## Writing an item<a name="WorkingWithItems.WritingData"></a>
 
 To create, update, or delete an item in a DynamoDB table, use one of the following operations:
 + `PutItem`
@@ -106,12 +106,12 @@ The arguments for `--item` are stored in the `item.json` file\.
 
 If an item with the specified key does not exist, `UpdateItem` creates a new item\. Otherwise, it modifies an existing item's attributes\.
 
-You use an *update expression* to specify the attributes that you want to modify and their new values\. For more information, see [Update Expressions](Expressions.UpdateExpressions.md)\. 
+You use an *update expression* to specify the attributes that you want to modify and their new values\. For more information, see [Update expressions](Expressions.UpdateExpressions.md)\. 
 
-Within the update expression, you use expression attribute values as placeholders for the actual values\. For more information, see [Expression Attribute Values](Expressions.ExpressionAttributeValues.md)\.
+Within the update expression, you use expression attribute values as placeholders for the actual values\. For more information, see [Expression attribute values](Expressions.ExpressionAttributeValues.md)\.
 
 **Example**  
-Modify various attributes in the `Thread` item\. The optional `ReturnValues` parameter shows the item as it appears after the update\. For more information, see [Return Values](#WorkingWithItems.ReturnValues)\.  
+Modify various attributes in the `Thread` item\. The optional `ReturnValues` parameter shows the item as it appears after the update\. For more information, see [Return values](#WorkingWithItems.ReturnValues)\.  
 
 ```
 aws dynamodb update-item \
@@ -153,7 +153,7 @@ aws dynamodb delete-item \
     --key file://key.json
 ```
 
-## Return Values<a name="WorkingWithItems.ReturnValues"></a>
+## Return values<a name="WorkingWithItems.ReturnValues"></a>
 
 In some cases, you might want DynamoDB to return certain attribute values as they appeared before or after you modified them\. The `PutItem`, `UpdateItem`, and `DeleteItem` operations have a `ReturnValues` parameter that you can use to return the attribute values before or after they are modified\.
 
@@ -187,7 +187,7 @@ The most common usage for `UpdateItem` is to update an existing item\. However, 
   + If you delete an existing item, `ALL_OLD` returns the entire item as it appeared before you deleted it\.
   + If you delete a nonexistent item, `ALL_OLD` doesn't return any data\.
 
-## Batch Operations<a name="WorkingWithItems.BatchOperations"></a>
+## Batch operations<a name="WorkingWithItems.BatchOperations"></a>
 
 For applications that need to read or write multiple items, DynamoDB provides the `BatchGetItem` and `BatchWriteItem` operations\. Using these operations can reduce the number of network round trips from your application to DynamoDB\. In addition, DynamoDB performs the individual read or write operations in parallel\. Your applications benefit from this parallelism without having to manage concurrency or threading\.
 
@@ -267,7 +267,7 @@ The arguments for `--request-items` are stored in the `request-items.json` file\
 }
 ```
 
-## Atomic Counters<a name="WorkingWithItems.AtomicCounters"></a>
+## Atomic counters<a name="WorkingWithItems.AtomicCounters"></a>
 
 You can use the `UpdateItem` operation to implement an *atomic counter*—a numeric attribute that is incremented, unconditionally, without interfering with other write requests\. \(All write requests are applied in the order in which they were received\.\) With an atomic counter, the updates are not idempotent\. In other words, the numeric value increments each time you call `UpdateItem`\. 
 
@@ -275,7 +275,7 @@ You might use an atomic counter to track the number of visitors to a website\. I
 
 An atomic counter would not be appropriate where overcounting or undercounting can't be tolerated \(for example, in a banking application\)\. In this case, it is safer to use a conditional update instead of an atomic counter\.
 
-For more information, see [Incrementing and Decrementing Numeric Attributes](Expressions.UpdateExpressions.md#Expressions.UpdateExpressions.SET.IncrementAndDecrement)\.
+For more information, see [Incrementing and decrementing numeric attributes](Expressions.UpdateExpressions.md#Expressions.UpdateExpressions.SET.IncrementAndDecrement)\.
 
 **Example**  
 The following AWS CLI example increments the `Price` of a product by 5\. \(Because `UpdateItem` is not idempotent, the `Price` increases every time you run this example\.\)  
@@ -289,7 +289,7 @@ aws dynamodb update-item \
     --return-values UPDATED_NEW
 ```
 
-## Conditional Writes<a name="WorkingWithItems.ConditionalUpdate"></a>
+## Conditional writes<a name="WorkingWithItems.ConditionalUpdate"></a>
 
 By default, the DynamoDB write operations \(`PutItem`, `UpdateItem`, `DeleteItem`\) are *unconditional*: Each operation overwrites an existing item that has the specified primary key\.
 
@@ -366,15 +366,15 @@ Next, Bob attempts to update the `Price` to 12, but only if the current `Price` 
 
 Because Alice has previously changed the `Price` to 8, the condition expression evaluates to false, and Bob's update fails\.
 
-For more information, see [Condition Expressions](Expressions.ConditionExpressions.md)\.
+For more information, see [Condition expressions](Expressions.ConditionExpressions.md)\.
 
-### Conditional Write Idempotence<a name="WorkingWithItems.ConditionalWrites.Idempotence"></a>
+### Conditional write idempotence<a name="WorkingWithItems.ConditionalWrites.Idempotence"></a>
 
 Conditional writes can be *idempotent* if the conditional check is on the same attribute that is being updated\. This means that DynamoDB performs a given write request only if certain attribute values in the item match what you expect them to be at the time of the request\. 
 
 For example, suppose that you issue an `UpdateItem` request to increase the `Price` of an item by 3, but only if the `Price` is currently 20\. After you send the request, but before you get the results back, a network error occurs, and you don't know whether the request was successful\. Because this conditional write is idempotent, you can retry the same `UpdateItem` request, and DynamoDB updates the item only if the `Price` is currently 20\.
 
-### Capacity Units Consumed by Conditional Writes<a name="WorkingWithItems.ConditionalWrites.ReturnConsumedCapacity"></a>
+### Capacity units consumed by conditional writes<a name="WorkingWithItems.ConditionalWrites.ReturnConsumedCapacity"></a>
 
 If a `ConditionExpression` evaluates to false during a conditional write, DynamoDB still consumes write capacity from the table:
 + If the item does not currently exist in the table, DynamoDB consumes one write capacity unit\.
@@ -383,7 +383,7 @@ If a `ConditionExpression` evaluates to false during a conditional write, Dynamo
 **Note**  
 Write operations consume *write* capacity units only\. They never consume *read* capacity units\.
 
-A failed conditional write returns a `ConditionalCheckFailedException`\. When this occurs, you don't receive any information in the response about the write capacity that was consumed\. However, you can view the `ConsumedWriteCapacityUnits` metric for the table in Amazon CloudWatch\. For more information, see [DynamoDB Metrics](metrics-dimensions.md#dynamodb-metrics) in [Logging and Monitoring in DynamoDB](MonitoringDynamoDB.md)\.
+A failed conditional write returns a `ConditionalCheckFailedException`\. When this occurs, you don't receive any information in the response about the write capacity that was consumed\. However, you can view the `ConsumedWriteCapacityUnits` metric for the table in Amazon CloudWatch\. For more information, see [DynamoDB metrics](metrics-dimensions.md#dynamodb-metrics) in [Logging and monitoring in DynamoDB](MonitoringDynamoDB.md)\.
 
 To return the number of write capacity units consumed during a conditional write, you use the `ReturnConsumedCapacity` parameter:
 + `TOTAL` — Returns the total number of write capacity units consumed\.

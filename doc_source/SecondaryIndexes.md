@@ -1,4 +1,4 @@
-# Improving Data Access with Secondary Indexes<a name="SecondaryIndexes"></a>
+# Improving data access with secondary indexes<a name="SecondaryIndexes"></a>
 
 **Topics**
 + [Using Global Secondary Indexes in DynamoDB](GSI.md)
@@ -24,7 +24,7 @@ You should consider your application's requirements when you determine which typ
 
 ****  
 
-| Characteristic | Global Secondary Index | Local Secondary Index | 
+| Characteristic | Global secondary index | Local secondary index | 
 | --- | --- | --- | 
 | Key Schema | The primary key of a global secondary index can be either simple \(partition key\) or composite \(partition key and sort key\)\. | The primary key of a local secondary index must be composite \(partition key and sort key\)\. | 
 | Key Attributes | The index partition key and sort key \(if present\) can be any base table attributes of type string, number, or binary\. | The partition key of the index is the same attribute as the partition key of the base table\. The sort key can be any base table attribute of type string, number, or binary\. | 
@@ -32,14 +32,14 @@ You should consider your application's requirements when you determine which typ
 | Online Index Operations | Global secondary indexes can be created at the same time that you create a table\. You can also add a new global secondary index to an existing table, or delete an existing global secondary index\. For more information, see [Managing Global Secondary Indexes](GSI.OnlineOps.md)\.  | Local secondary indexes are created at the same time that you create a table\. You cannot add a local secondary index to an existing table, nor can you delete any local secondary indexes that currently exist\. | 
 | Queries and Partitions | A global secondary index lets you query over the entire table, across all partitions\.  | A local secondary index lets you query over a single partition, as specified by the partition key value in the query\. | 
 | Read Consistency | Queries on global secondary indexes support eventual consistency only\. | When you query a local secondary index, you can choose either eventual consistency or strong consistency\. | 
-| Provisioned Throughput Consumption | Every global secondary index has its own provisioned throughput settings for read and write activity\. Queries or scans on a global secondary index consume capacity units from the index, not from the base table\. The same holds true for global secondary index updates due to table writes\. | Queries or scans on a local secondary index consume read capacity units from the base table\. When you write to a table, its local secondary indexes are also updated; these updates consume write capacity units from the base table\. | 
+| Provisioned Throughput Consumption | Every global secondary index has its own provisioned throughput settings for read and write activity\. Queries or scans on a global secondary index consume capacity units from the index, not from the base table\. The same holds true for global secondary index updates due to table writes\. A global secondary index associated with global tables consumes write capacity units\.  | Queries or scans on a local secondary index consume read capacity units from the base table\. When you write to a table its local secondary indexes are also updated, and these updates consume write capacity units from the base table\. A local secondary index associated with global tables consumes replicated write capacity units\. | 
 | Projected Attributes | With global secondary index queries or scans, you can only request the attributes that are projected into the index\. DynamoDB does not fetch any attributes from the table\. | If you query or scan a local secondary index, you can request attributes that are not projected in to the index\. DynamoDB automatically fetches those attributes from the table\. | 
 
 If you want to create more than one table with secondary indexes, you must do so sequentially\. For example, you would create the first table and wait for it to become `ACTIVE`, create the next table and wait for it to become `ACTIVE`, and so on\. If you try to concurrently create more than one table with a secondary index, DynamoDB returns a `LimitExceededException`\.
 
-For each secondary index, you must specify the following:
+Each secondary index uses the same [table class](HowItWorks.TableClasses.html) and [capacity mode](HowItWorks.ReadWriteCapacityMode.html) as the base table it is associated with\. For each secondary index, you must specify the following:
 + The type of index to be created – either a global secondary index or a local secondary index\.
-+ A name for the index\. The naming rules for indexes are the same as those for tables, as listed in [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\. The name must be unique for the base table it is associated with, but you can use the same name for indexes that are associated with different base tables\.
++ A name for the index\. The naming rules for indexes are the same as those for tables, as listed in [Service, account, and table quotas in Amazon DynamoDB](ServiceQuotas.md)\. The name must be unique for the base table it is associated with, but you can use the same name for indexes that are associated with different base tables\.
 + The key schema for the index\. Every attribute in the index key schema must be a top\-level attribute of type `String`, `Number`, or `Binary`\. Other data types, including documents and sets, are not allowed\. Other requirements for the key schema depend on the type of index: 
   + For a global secondary index, the partition key can be any scalar attribute of the base table\. A sort key is optional, and it too can be any scalar attribute of the base table\.
   + For a local secondary index, the partition key must be the same as the base table's partition key, and the sort key must be a non\-key base table attribute\.
@@ -61,4 +61,4 @@ You can access the data in a secondary index using either the `Query` or `Scan` 
 
 When you delete a table, all of the indexes associated with that table are also deleted\.
 
-For best practices, see [Best Practices for Using Secondary Indexes in DynamoDB](bp-indexes.md)\.
+For best practices, see [Best practices for using secondary indexes in DynamoDB](bp-indexes.md)\.

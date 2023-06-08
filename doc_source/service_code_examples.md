@@ -2,16 +2,11 @@
 
 The following code examples show how to use DynamoDB with an AWS software development kit \(SDK\)\. 
 
-The examples are divided into the following categories:
+*Actions* are code excerpts that show you how to call individual service functions\.
 
-**Actions**  
-Code excerpts that show you how to call individual service functions\.
+*Scenarios* are code examples that show you how to accomplish a specific task by calling multiple functions within the same service\.
 
-**Scenarios**  
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service\.
-
-**Cross\-service examples**  
-Sample applications that work across multiple AWS services\.
+*Cross\-service examples* are sample applications that work across multiple AWS services\.
 
 For a complete list of AWS SDK developer guides and code examples, see [Using DynamoDB with an AWS SDK](sdk-general-information-section.md)\. This topic also includes information about getting started and details about previous SDK versions\.
 
@@ -26,15 +21,18 @@ For a complete list of AWS SDK developer guides and code examples, see [Using Dy
   + [List tables](example_dynamodb_ListTables_section.md)
   + [Put an item in a table](example_dynamodb_PutItem_section.md)
   + [Query a table](example_dynamodb_Query_section.md)
+  + [Run a PartiQL statement](example_dynamodb_ExecuteStatement_section.md)
+  + [Run batches of PartiQL statements](example_dynamodb_BatchExecuteStatement_section.md)
   + [Scan a table](example_dynamodb_Scan_section.md)
   + [Update an item in a table](example_dynamodb_UpdateItem_section.md)
   + [Write a batch of items](example_dynamodb_BatchWriteItem_section.md)
 + [Scenarios](service_code_examples_scenarios.md)
   + [Accelerate reads with DAX](example_dynamodb_Usage_DaxDemo_section.md)
   + [Get started using tables, items, and queries](example_dynamodb_Scenario_GettingStartedMovies_section.md)
-  + [Get, write, and delete batches of items](example_dynamodb_Usage_BatchGetWriteDelete_section.md)
-  + [Query a DynamoDB table by batch using PartiQL](example_dynamodb_BatchExecuteStatement_section.md)
-  + [Query a DynamoDB table using PartiQL](example_dynamodb_ExecuteStatement_section.md)
+  + [Query a table by using batches of PartiQL statements](example_dynamodb_Scenario_PartiQLBatch_section.md)
+  + [Query a table using PartiQL](example_dynamodb_Scenario_PartiQLSingle_section.md)
+  + [Use a document model](example_dynamodb_MidLevelInterface_section.md)
+  + [Use a high\-level object persistence model](example_dynamodb_HighLevelInterface_section.md)
 + [Cross\-service examples](service_code_examples_cross-service_examples.md)
   + [Build an app to submit data to a DynamoDB table](example_cross_SubmitDataApp_section.md)
   + [Create a REST API to track COVID\-19 data](example_cross_ApiGatewayDataTracker_section.md)

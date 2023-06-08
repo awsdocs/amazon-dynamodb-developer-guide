@@ -4,24 +4,24 @@ Some applications only need to query data using the base table's primary key\. H
 
 **Topics**
 + [Scenario: Using a Local Secondary Index](#LSI.Scenario)
-+ [Attribute Projections](#LSI.Projections)
++ [Attribute projections](#LSI.Projections)
 + [Creating a Local Secondary Index](#LSI.Creating)
-+ [Reading Data from a Local Secondary Index](#LSI.Reading)
-+ [Item Writes and Local Secondary Indexes](#LSI.Writes)
-+ [Provisioned Throughput Considerations for Local Secondary Indexes](#LSI.ThroughputConsiderations)
-+ [Storage Considerations for Local Secondary Indexes](#LSI.StorageConsiderations)
-+ [Item Collections](#LSI.ItemCollections)
++ [Reading data from a Local Secondary Index](#LSI.Reading)
++ [Item writes and Local Secondary Indexes](#LSI.Writes)
++ [Provisioned throughput considerations for Local Secondary Indexes](#LSI.ThroughputConsiderations)
++ [Storage considerations for Local Secondary Indexes](#LSI.StorageConsiderations)
++ [Item collections in Local Secondary Indexes](#LSI.ItemCollections)
 + [Working with Local Secondary Indexes: Java](LSIJavaDocumentAPI.md)
 + [Working with Local Secondary Indexes: \.NET](LSILowLevelDotNet.md)
 + [Working with Local Secondary Indexes: AWS CLI](LCICli.md)
 
 ## Scenario: Using a Local Secondary Index<a name="LSI.Scenario"></a>
 
-As an example, consider the `Thread` table that is defined in [Creating Tables and Loading Data for Code Examples in DynamoDB](SampleData.md)\. This table is useful for an application such as the [AWS Discussion Forums](https://forums.aws.amazon.com/)\. The following diagram shows how the items in the table would be organized\. \(Not all of the attributes are shown\.\)
+As an example, consider the `Thread` table that is defined in [Creating tables and loading data for code examples in DynamoDB](SampleData.md)\. This table is useful for an application such as the [AWS discussion forums](https://forums.aws.amazon.com/)\. The following diagram shows how the items in the table would be organized\. \(Not all of the attributes are shown\.\)
 
 ![\[Thread table containing a list of forum names, subjects, last post time, and number of replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/LSI_01.png)![\[Thread table containing a list of forum names, subjects, last post time, and number of replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Thread table containing a list of forum names, subjects, last post time, and number of replies.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 
-DynamoDB stores all of the items with the same partition key value contiguously\. In this example, given a particular `ForumName`, a `Query` operation could immediately locate all of the threads for that forum\. Within a group of items with the same partition key value, the items are sorted by sort key value\. If the sort key \(`Subject`\) is also provided in the query, DynamoDB can narrow down the results that are returned—for example, returning all of the threads in the "S3" forum that have a `Subject` beginning with the letter "a"\.
+DynamoDB stores all of the items with the same partition key value continuously\. In this example, given a particular `ForumName`, a `Query` operation could immediately locate all of the threads for that forum\. Within a group of items with the same partition key value, the items are sorted by sort key value\. If the sort key \(`Subject`\) is also provided in the query, DynamoDB can narrow down the results that are returned—for example, returning all of the threads in the "S3" forum that have a `Subject` beginning with the letter "a"\.
 
 Some requests might require more complex data access patterns\. For example:
 + Which forum threads get the most views and replies?
@@ -49,9 +49,9 @@ In this example, the partition key is `ForumName` and the sort key of the local 
 
 Every local secondary index automatically contains the partition and sort keys from its base table; you can optionally project non\-key attributes into the index\. When you query the index, DynamoDB can retrieve these projected attributes efficiently\. When you query a local secondary index, the query can also retrieve attributes that are *not* projected into the index\. DynamoDB automatically fetches these attributes from the base table, but at a greater latency and with higher provisioned throughput costs\.
 
-For any local secondary index, you can store up to 10 GB of data per distinct partition key value\. This figure includes all of the items in the base table, plus all of the items in the indexes, that have the same partition key value\. For more information, see [Item Collections](#LSI.ItemCollections)\.
+For any local secondary index, you can store up to 10 GB of data per distinct partition key value\. This figure includes all of the items in the base table, plus all of the items in the indexes, that have the same partition key value\. For more information, see [Item collections in Local Secondary Indexes](#LSI.ItemCollections)\.
 
-## Attribute Projections<a name="LSI.Projections"></a>
+## Attribute projections<a name="LSI.Projections"></a>
 
 With `LastPostIndex`, an application could use `ForumName` and `LastPostDateTime` as query criteria\. However, to retrieve any additional attributes, DynamoDB must perform additional read operations against the `Thread` table\. These extra reads are known as *fetches*, and they can increase the total amount of provisioned throughput required for a query\.
 
@@ -87,14 +87,14 @@ When you choose the attributes to project into a local secondary index, you must
 
 To create one or more local secondary indexes on a table, use the `LocalSecondaryIndexes` parameter of the `CreateTable` operation\. Local secondary indexes on a table are created when the table is created\. When you delete a table, any local secondary indexes on that table are also deleted\.
 
-You must specify one non\-key attribute to act as the sort key of the local secondary index\. The attribute that you choose must be a scalar `String`, `Number`, or `Binary`\. Other scalar types, document types, and set types are not allowed\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
+You must specify one non\-key attribute to act as the sort key of the local secondary index\. The attribute that you choose must be a scalar `String`, `Number`, or `Binary`\. Other scalar types, document types, and set types are not allowed\. For a complete list of data types, see [Data types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
 **Important**  
-For tables with local secondary indexes, there is a 10 GB size limit per partition key value\. A table with local secondary indexes can store any number of items, as long as the total size for any one partition key value does not exceed 10 GB\. For more information, see [Item Collection Size Limit](#LSI.ItemCollections.SizeLimit)\.
+For tables with local secondary indexes, there is a 10 GB size limit per partition key value\. A table with local secondary indexes can store any number of items, as long as the total size for any one partition key value does not exceed 10 GB\. For more information, see [Item collection size limit](#LSI.ItemCollections.SizeLimit)\.
 
-You can project attributes of any data type into a local secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data Types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
+You can project attributes of any data type into a local secondary index\. This includes scalars, documents, and sets\. For a complete list of data types, see [Data types](HowItWorks.NamingRulesDataTypes.md#HowItWorks.DataTypes)\.
 
-## Reading Data from a Local Secondary Index<a name="LSI.Reading"></a>
+## Reading data from a Local Secondary Index<a name="LSI.Reading"></a>
 
 You can retrieve items from a local secondary index using the `Query` and `Scan` operations\. The `GetItem` and `BatchGetItem` operations can't be used on a local secondary index\.
 
@@ -132,9 +132,9 @@ Because the `Tags` attribute is not projected into the local secondary index, Dy
 
 ### Scanning a Local Secondary Index<a name="LSI.Scanning"></a>
 
-You can use `Scan` to retrieve all of the data from a local secondary index\. You must provide the base table name and the index name in the request\. With a `Scan`, DynamoDB reads all of the data in the index and returns it to the application\. You can also request that only some of the data be returned, and that the remaining data should be discarded\. To do this, use the `FilterExpression` parameter of the `Scan` API\. For more information, see [Filter Expressions for Scan](Scan.md#Scan.FilterExpression)\.
+You can use `Scan` to retrieve all of the data from a local secondary index\. You must provide the base table name and the index name in the request\. With a `Scan`, DynamoDB reads all of the data in the index and returns it to the application\. You can also request that only some of the data be returned, and that the remaining data should be discarded\. To do this, use the `FilterExpression` parameter of the `Scan` API\. For more information, see [Filter expressions for scan](Scan.md#Scan.FilterExpression)\.
 
-## Item Writes and Local Secondary Indexes<a name="LSI.Writes"></a>
+## Item writes and Local Secondary Indexes<a name="LSI.Writes"></a>
 
 DynamoDB automatically keeps all local secondary indexes synchronized with their respective base tables\. Applications never write directly to an index\. However, it is important that you understand the implications of how DynamoDB maintains these indexes\.
 
@@ -142,24 +142,24 @@ When you create a local secondary index, you specify an attribute to serve as th
 
 There is no requirement for a one\-to\-one relationship between the items in a base table and the items in a local secondary index\. In fact, this behavior can be advantageous for many applications\. 
 
-A table with many local secondary indexes incurs higher costs for write activity than tables with fewer indexes\. For more information, see [Provisioned Throughput Considerations for Local Secondary Indexes](#LSI.ThroughputConsiderations)\.
+A table with many local secondary indexes incurs higher costs for write activity than tables with fewer indexes\. For more information, see [Provisioned throughput considerations for Local Secondary Indexes](#LSI.ThroughputConsiderations)\.
 
 **Important**  
-For tables with local secondary indexes, there is a 10 GB size limit per partition key value\. A table with local secondary indexes can store any number of items, as long as the total size for any one partition key value does not exceed 10 GB\. For more information, see [Item Collection Size Limit](#LSI.ItemCollections.SizeLimit)\.
+For tables with local secondary indexes, there is a 10 GB size limit per partition key value\. A table with local secondary indexes can store any number of items, as long as the total size for any one partition key value does not exceed 10 GB\. For more information, see [Item collection size limit](#LSI.ItemCollections.SizeLimit)\.
 
-## Provisioned Throughput Considerations for Local Secondary Indexes<a name="LSI.ThroughputConsiderations"></a>
+## Provisioned throughput considerations for Local Secondary Indexes<a name="LSI.ThroughputConsiderations"></a>
 
 When you create a table in DynamoDB, you provision read and write capacity units for the table's expected workload\. That workload includes read and write activity on the table's local secondary indexes\.
 
 To view the current rates for provisioned throughput capacity, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 
-### Read Capacity Units<a name="LSI.ThroughputConsiderations.Reads"></a>
+### Read capacity units<a name="LSI.ThroughputConsiderations.Reads"></a>
 
 When you query a local secondary index, the number of read capacity units consumed depends on how the data is accessed\.
 
 As with table queries, an index query can use either eventually consistent or strongly consistent reads depending on the value of `ConsistentRead`\. One strongly consistent read consumes one read capacity unit; an eventually consistent read consumes only half of that\. Thus, by choosing eventually consistent reads, you can reduce your read capacity unit charges\.
 
-For index queries that request only index keys and projected attributes, DynamoDB calculates the provisioned read activity in the same way as it does for queries against tables\. The only difference is that the calculation is based on the sizes of the index entries, rather than the size of the item in the base table\. The number of read capacity units is the sum of all projected attribute sizes across all of the items returned; the result is then rounded up to the next 4 KB boundary\. For more information about how DynamoDB calculates provisioned throughput usage, see [Managing Settings on DynamoDB Provisioned Capacity Tables](ProvisionedThroughput.md)\.
+For index queries that request only index keys and projected attributes, DynamoDB calculates the provisioned read activity in the same way as it does for queries against tables\. The only difference is that the calculation is based on the sizes of the index entries, rather than the size of the item in the base table\. The number of read capacity units is the sum of all projected attribute sizes across all of the items returned; the result is then rounded up to the next 4 KB boundary\. For more information about how DynamoDB calculates provisioned throughput usage, see [Managing settings on DynamoDB provisioned capacity tables](ProvisionedThroughput.md)\.
 
 For index queries that read attributes that are not projected into the local secondary index, DynamoDB needs to fetch those attributes from the base table, in addition to reading the projected attributes from the index\. These fetches occur when you include any non\-projected attributes in the `Select` or `ProjectionExpression` parameters of the `Query` operation\. Fetching causes additional latency in query responses, and it also incurs a higher provisioned throughput cost: In addition to the reads from the local secondary index described previously, you are charged for read capacity units for every base table item fetched\. This charge is for reading each entire item from the table, not just the requested attributes\.
 
@@ -175,7 +175,7 @@ For example, consider a table where the size of each item is 300 bytes\. There i
 
 The total size of the data in the result is therefore 20 KB\.
 
-### Write Capacity Units<a name="LSI.ThroughputConsiderations.Writes"></a>
+### Write capacity units<a name="LSI.ThroughputConsiderations.Writes"></a>
 
 When an item in a table is added, updated, or deleted, updating the local secondary indexes consumes provisioned write capacity units for the table\. The total provisioned throughput cost for a write is the sum of write capacity units consumed by writing to the table and those consumed by updating the local secondary indexes\.
 
@@ -187,7 +187,7 @@ The cost of writing an item to a local secondary index depends on several factor
 
 All of these factors assume that the size of each item in the index is less than or equal to the 1 KB item size for calculating write capacity units\. Larger index entries require additional write capacity units\. You can minimize your write costs by considering which attributes your queries need to return and projecting only those attributes into the index\.
 
-## Storage Considerations for Local Secondary Indexes<a name="LSI.StorageConsiderations"></a>
+## Storage considerations for Local Secondary Indexes<a name="LSI.StorageConsiderations"></a>
 
 When an application writes an item to a table, DynamoDB automatically copies the correct subset of attributes to any local secondary indexes in which those attributes should appear\. Your AWS account is charged for storage of the item in the base table and also for storage of attributes in any local secondary indexes on that table\.
 
@@ -201,7 +201,7 @@ To estimate the storage requirements for a local secondary index, you can estima
 
 If a table contains an item where a particular attribute is not defined, but that attribute is defined as an index sort key, then DynamoDB does not write any data for that item to the index\.
 
-## Item Collections<a name="LSI.ItemCollections"></a>
+## Item collections in Local Secondary Indexes<a name="LSI.ItemCollections"></a>
 
 **Note**  
 This section pertains only to tables that have local secondary indexes\.
@@ -238,9 +238,9 @@ The following is an example from the output of an `UpdateItem` operation on the 
 ```
 The `SizeEstimateRangeGB` object shows that the size of this item collection is between 0 and 1 GB\. DynamoDB periodically updates this size estimate, so the numbers might be different next time the item is modified\.
 
-### Item Collection Size Limit<a name="LSI.ItemCollections.SizeLimit"></a>
+### Item collection size limit<a name="LSI.ItemCollections.SizeLimit"></a>
 
-The maximum size of any item collection is 10 GB\. This limit does not apply to tables without local secondary indexes\. Only tables that have one or more local secondary indexes are affected\.
+The maximum size of any item collection for a table which has one or more local secondary indexes is 10 GB\. This does not apply to item collections in tables without local secondary indexes, and also does not apply to item collections in global secondary indexes\. Only tables that have one or more local secondary indexes are affected\.
 
 If an item collection exceeds the 10 GB limit, DynamoDB returns an `ItemCollectionSizeLimitExceededException`, and you won't be able to add more items to the item collection or increase the sizes of items that are in the item collection\. \(Read and write operations that shrink the size of the item collection are still allowed\.\) You can still add items to other item collections\.
 
@@ -253,8 +253,8 @@ When the total size of the item collection drops below 10 GB, you can once again
 
 We recommend as a best practice that you instrument your application to monitor the sizes of your item collections\. One way to do so is to set the `ReturnItemCollectionMetrics` parameter to `SIZE` whenever you use `BatchWriteItem`, `DeleteItem`, `PutItem`, or `UpdateItem`\. Your application should examine the `ReturnItemCollectionMetrics` object in the output and log an error message whenever an item collection exceeds a user\-defined limit \(8 GB, for example\)\. Setting a limit that is less than 10 GB would provide an early warning system so you know that an item collection is approaching the limit in time to do something about it\.
 
-### Item Collections and Partitions<a name="LSI.ItemCollections.OnePartition"></a>
+### Item collections and partitions<a name="LSI.ItemCollections.OnePartition"></a>
 
-The table and index data for each item collection is stored in a single partition\. Referring to the `Thread` table example, all of the base table and index items with the same `ForumName` attribute would be stored in the same partition\. The "S3" item collection would be stored on one partition, "EC2" in another partition, and "RDS" in a third partition\.
+In a table with one or more local secondary indexes, each item collection is stored in one partition\. The total size of such an item collection is limited to the capability of that partition: 10 GB\. For an application where the data model includes item collections which are unbounded in size, or where you might reasonably expect some item collections to grow beyond 10 GB in the future, you should consider using a global secondary index instead\.
 
 You should design your applications so that table data is evenly distributed across distinct partition key values\. For tables with local secondary indexes, your applications should not create "hot spots" of read and write activity within a single item collection on a single partition\. 

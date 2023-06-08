@@ -1,4 +1,4 @@
-# Processing HiveQL Statements<a name="EMRforDynamoDB.ProcessingHiveQL"></a>
+# Processing HiveQL statements<a name="EMRforDynamoDB.ProcessingHiveQL"></a>
 
 Hive is an application that runs on Hadoop, which is a batch\-oriented framework for running MapReduce jobs\. When you issue a HiveQL statement, Hive determines whether it can return the results immediately or whether it must submit a MapReduce job\.
 
@@ -42,7 +42,7 @@ WY  3
 Time taken: 8.753 seconds, Fetched: 25 row(s)
 ```
 
-## Monitoring and Canceling Jobs<a name="EMRforDynamoDB.MonitorAndCancelJob"></a>
+## Monitoring and canceling jobs<a name="EMRforDynamoDB.MonitorAndCancelJob"></a>
 
 When Hive launches a Hadoop job, it prints output from that job\. The job completion status is updated as the job progresses\. In some cases, the status might not be updated for a long time\. \(This can happen when you are querying a large DynamoDB table that has a low provisioned read capacity setting\.\)
 

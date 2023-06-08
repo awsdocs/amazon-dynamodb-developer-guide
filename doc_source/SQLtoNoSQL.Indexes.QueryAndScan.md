@@ -1,4 +1,4 @@
-# Querying and Scanning an Index<a name="SQLtoNoSQL.Indexes.QueryAndScan"></a>
+# Querying and scanning an index<a name="SQLtoNoSQL.Indexes.QueryAndScan"></a>
 
 Compare querying and scanning an index using the SELECT statement in SQL with the `Query` and `Scan` operations in Amazon DynamoDB\.
 
@@ -109,6 +109,6 @@ FROM Music.GenreAndPriceIndex
 ```
 
 **Note**  
-For code examples using `Select`, see [PartiQL Select Statements for DynamoDB](ql-reference.select.md)\.
+For code examples using `Select`, see [PartiQL select statements for DynamoDB](ql-reference.select.md)\.
 
 ------

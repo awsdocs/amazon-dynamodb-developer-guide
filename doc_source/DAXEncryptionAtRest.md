@@ -1,4 +1,4 @@
-# DAX Encryption at Rest<a name="DAXEncryptionAtRest"></a>
+# DAX encryption at rest<a name="DAXEncryptionAtRest"></a>
 
 Amazon DynamoDB Accelerator \(DAX\) encryption at rest provides an additional layer of data protection by helping secure your data from unauthorized access to the underlying storage\. Organizational policies, industry or government regulations, and compliance requirements might require the use of encryption at rest to protect your data\. You can use encryption to increase the data security of your applications that are deployed in the cloud\. 
 
@@ -14,19 +14,20 @@ DAX does not call AWS KMS for every single DAX operation\. DAX only uses the key
 DAX encryption at rest is available for the following cluster node types\.
 
 
-| Family | Node Type | 
+| Family | Node type | 
 | --- | --- | 
 | Memory\-optimized \(R4 and R5\) |  dax\.r4\.large dax\.r4\.xlarge dax\.r4\.2xlarge dax\.r4\.4xlarge dax\.r4\.8xlarge dax\.r4\.16xlarge dax\.r5\.large dax\.r5\.xlarge dax\.r5\.2xlarge dax\.r5\.4xlarge dax\.r5\.8xlarge dax\.r5\.12xlarge dax\.r5\.16xlarge dax\.r5\.24xlarge  | 
 | General purpose \(T2\) |  dax\.t2\.small dax\.t2\.medium  | 
+| General purpose \(T3\) |  dax\.t3\.small dax\.t3\.medium  | 
 
 **Important**  
 DAX encryption at rest is not supported for `dax.r3.*` node types\. 
 
 You cannot enable or disable encryption at rest after a cluster has been created\. You must re\-create the cluster to enable encryption at rest if it was not enabled at creation\. 
 
-DAX encryption at rest is offered at no additional cost \(AWS KMS encryption key usage charges apply\)\. For information about pricing, see [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing)\.
+DAX encryption at rest is offered at no additional cost \(AWS KMS encryption key usage charges apply\)\. For information about pricing, see [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing)\.
 
-## Enabling Encryption at Rest Using the AWS Management Console<a name="dax.encryption.tutorial-console"></a>
+## Enabling encryption at rest using the AWS Management Console<a name="dax.encryption.tutorial-console"></a>
 
 Follow these steps to enable DAX encryption at rest on a table using the console\.
 

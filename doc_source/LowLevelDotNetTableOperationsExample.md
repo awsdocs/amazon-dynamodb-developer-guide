@@ -1,6 +1,6 @@
-# Example: Create, Update, Delete, and List Tables Using the AWS SDK for \.NET Low\-Level API<a name="LowLevelDotNetTableOperationsExample"></a>
+# Example: Create, update, delete, and list tables using the AWS SDK for \.NET low\-level API<a name="LowLevelDotNetTableOperationsExample"></a>
 
-The following C\# example creates, updates, and deletes a table \(`ExampleTable`\)\. It also lists all the tables in your account and gets the description of a specific table\. The table update increases the provisioned throughput values\. For step\-by\-step instructions to test the following example, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+The following C\# example creates, updates, and deletes a table \(`ExampleTable`\)\. It also lists all the tables in your account and gets the description of a specific table\. The table update increases the provisioned throughput values\. For step\-by\-step instructions to test the following example, see [\.NET code examples](CodeSamples.DotNet.md)\. 
 
 ```
 /**

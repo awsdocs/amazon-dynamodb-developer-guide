@@ -1,20 +1,20 @@
-# Tutorial: Creating a Global Table<a name="V2globaltables.tutorial"></a>
+# Tutorial: Creating a global table<a name="V2globaltables.tutorial"></a>
 
 
 ****  
 
 |  | 
 | --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
+| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29 \(Legacy\)](globaltables.V1.md)\. Customers should use version 2019\.11\.21 \(Current\) when possible, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017\.11\.29 \(Legacy\)\. To determine which version you are using, see [Determining the global table version you are using](globaltables.DetermineVersion.md)\. | 
 
 This section describes how to create a global table using the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\)\. 
 
 **Topics**
-+ [Creating a Global Table \(Console\)](#V2creategt_console)
-+ [Creating a Global Table \(AWS CLI\)](#V2creategt_cli)
-+ [Creating a Global Table \(Java\)](#V2creategt_java)
++ [Creating a global table \(console\)](#V2creategt_console)
++ [Creating a global table \(AWS CLI\)](#V2creategt_cli)
++ [Creating a global table \(Java\)](#V2creategt_java)
 
-## Creating a Global Table \(Console\)<a name="V2creategt_console"></a>
+## Creating a global table \(console\)<a name="V2creategt_console"></a>
 
 Follow these steps to create a global table using the console\. The following example creates a global table with replica tables in United States and Europe\.
 
@@ -54,7 +54,7 @@ Follow these steps to create a global table using the console\. The following ex
 
 1. Repeat step 9 and choose **US West \(Oregon\)** to verify replication in that region\.
 
-## Creating a Global Table \(AWS CLI\)<a name="V2creategt_cli"></a>
+## Creating a global table \(AWS CLI\)<a name="V2creategt_cli"></a>
 
 Follow these steps to create a global table `Music` using the AWS CLI\. The following example creates a global table, with replica tables in the United States and in Europe\.
 
@@ -87,7 +87,8 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
          }
        }
      ]
-   }'
+   }' \
+   --region=us-east-2
    ```
 
 1. Repeat step 2 to create a table in Europe \(Ireland\) \(eu\-west\-1\)\.
@@ -139,7 +140,7 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
    }'
    ```
 
-## Creating a Global Table \(Java\)<a name="V2creategt_java"></a>
+## Creating a global table \(Java\)<a name="V2creategt_java"></a>
 
 The following java code sample, create a `Music` table in Europe \(Ireland\) region then creates a replica in Asia Pacific \(Seoul\) region\.
 

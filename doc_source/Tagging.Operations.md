@@ -1,6 +1,6 @@
-# Tagging Resources in DynamoDB<a name="Tagging.Operations"></a>
+# Tagging resources in DynamoDB<a name="Tagging.Operations"></a>
 
-You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\) to add, list, edit, or delete tags\. You can then activate these user\-defined tags so that they appear on the AWS Billing and Cost Management console for cost allocation tracking\. For more information, see [Cost Allocation Reports](CostAllocationReports.md)\. 
+You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\) to add, list, edit, or delete tags\. You can then activate these user\-defined tags so that they appear on the AWS Billing and Cost Management console for cost allocation tracking\. For more information, see [Cost allocation reports](CostAllocationReports.md)\. 
 
  For bulk editing, you can also use Tag Editor on the AWS Management Console\. For more information, see [Working with Tag Editor](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html)\. 
 
@@ -16,11 +16,11 @@ You can use the Amazon DynamoDB console or the AWS Command Line Interface \(AWS 
 
 ## Setting permissions to filter by tags<a name="Tagging.Operations.permissions"></a>
 
-To use tags to filter your table list in the DynamoDB console, make sure your IAM user's policies include access to the following operations:
+To use tags to filter your table list in the DynamoDB console, make sure your user's policies include access to the following operations:
 + `tag:GetTagKeys`
 + `tag:GetTagValues`
 
-You can access these operations by attaching a new IAM policy to your IAM user by following the steps below\.
+You can access these operations by attaching a new IAM policy to your user by following the steps below\.
 
 1. Go to the [IAM console](https://console.aws.amazon.com/iam/) with an Admin user\.
 
@@ -72,9 +72,9 @@ You can use the DynamoDB console to add tags to new tables when you create them,
 
 1. On the **Create DynamoDB table** page, provide a name and primary key\. In the **Tags** section, choose **Add new tag** and enter the tags that you want to use\.
 
-   For information about tag structure, see [Tagging Restrictions in DynamoDB](TaggingRestrictions.md)\. 
+   For information about tag structure, see [Tagging restrictions in DynamoDB](TaggingRestrictions.md)\. 
 
-   For more information about creating tables, see [Basic Operations on DynamoDB Tables](WorkingWithTables.Basics.md)\.
+   For more information about creating tables, see [Basic operations on DynamoDB tables](WorkingWithTables.Basics.md)\.
 
 **To tag existing resources \(console\)**
 

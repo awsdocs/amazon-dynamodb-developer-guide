@@ -10,7 +10,7 @@ You can modify the program in several ways:
 + Comment out the lines containing `helper.createTable` and `helper.deleteTable` \(if you don't want to create and delete the table each time you run the program\)\.
 
 **Note**  
-To run this program, you can set up Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using the Client as an Apache Maven Dependency](DAX.client.java-sdk-v1.md#DAXClient.Maven)\.   
+To run this program, you can set up Maven to use the client for the DAX SDK for Java and the AWS SDK for Java as dependencies\. For more information, see [Using the client as an Apache Maven dependency](DAX.client.java-sdk-v1.md#DAXClient.Maven)\.   
 Alternatively, you can download and include both the DAX Java client and the AWS SDK for Java in your classpath\. See [Java and DAX](DAX.client.run-application-java.md) for an example of setting your `CLASSPATH` variable\.
 
 ```

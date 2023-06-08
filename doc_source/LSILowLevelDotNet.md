@@ -1,12 +1,12 @@
 # Working with Local Secondary Indexes: \.NET<a name="LSILowLevelDotNet"></a>
 
 **Topics**
-+ [Create a Table with a Local Secondary Index](#LSILowLevelDotNet.CreateTableWithIndex)
-+ [Describe a Table with a Local Secondary Index](#LSILowLevelDotNet.DescribeTableWithIndex)
++ [Create a table with a Local Secondary Index](#LSILowLevelDotNet.CreateTableWithIndex)
++ [Describe a table with a Local Secondary Index](#LSILowLevelDotNet.DescribeTableWithIndex)
 + [Query a Local Secondary Index](#LSILowLevelDotNet.QueryAnIndex)
-+ [Example: Local Secondary Indexes Using the AWS SDK for \.NET Low\-Level API](LSILowLevelDotNet.Example.md)
++ [Example: Local Secondary Indexes using the AWS SDK for \.NET low\-level API](LSILowLevelDotNet.Example.md)
 
-You can use the AWS SDK for \.NET low\-level API to create an Amazon DynamoDB table with one or more local secondary indexes, describe the indexes on the table, and perform queries using the indexes\. These operations map to the corresponding low\-level DynamoDB API actions\. For more information, see [\.NET Code Examples](CodeSamples.DotNet.md)\. 
+You can use the AWS SDK for \.NET low\-level API to create an Amazon DynamoDB table with one or more local secondary indexes, describe the indexes on the table, and perform queries using the indexes\. These operations map to the corresponding low\-level DynamoDB API actions\. For more information, see [\.NET code examples](CodeSamples.DotNet.md)\. 
 
 The following are the common steps for table operations using the \.NET low\-level API\. 
 
@@ -18,7 +18,7 @@ The following are the common steps for table operations using the \.NET low\-lev
 
 1. Run the appropriate method provided by the client that you created in the preceding step\. 
 
-## Create a Table with a Local Secondary Index<a name="LSILowLevelDotNet.CreateTableWithIndex"></a>
+## Create a table with a Local Secondary Index<a name="LSILowLevelDotNet.CreateTableWithIndex"></a>
 
 Local secondary indexes must be created at the same time that you create a table\. To do this, use `CreateTable` and provide your specifications for one or more local secondary indexes\. The following C\# code example creates a table to hold information about songs in a music collection\. The partition key is `Artist` and the sort key is `SongTitle`\. A secondary index, `AlbumTitleIndex`, facilitates queries by album title\. 
 
@@ -110,7 +110,7 @@ Console.WriteLine(result.CreateTableResult.TableDescription.TableStatus);
 
 You must wait until DynamoDB creates the table and sets the table status to `ACTIVE`\. After that, you can begin putting data items into the table\.
 
-## Describe a Table with a Local Secondary Index<a name="LSILowLevelDotNet.DescribeTableWithIndex"></a>
+## Describe a table with a Local Secondary Index<a name="LSILowLevelDotNet.DescribeTableWithIndex"></a>
 
 To get information about local secondary indexes on a table, use the `DescribeTable` API\. For each index, you can access its name, key schema, and projected attributes\.
 
@@ -166,7 +166,7 @@ foreach (LocalSecondaryIndexDescription lsiDescription in localSecondaryIndexes)
 
 You can use `Query` on a local secondary index in much the same way you `Query` a table\. You must specify the index name, the query criteria for the index sort key, and the attributes that you want to return\. In this example, the index is `AlbumTitleIndex`, and the index sort key is `AlbumTitle`\. 
 
-The only attributes returned are those that have been projected into the index\. You could modify this query to select non\-key attributes too, but this would require table fetch activity that is relatively expensive\. For more information about table fetches, see [Attribute Projections](LSI.md#LSI.Projections)
+The only attributes returned are those that have been projected into the index\. You could modify this query to select non\-key attributes too, but this would require table fetch activity that is relatively expensive\. For more information about table fetches, see [Attribute projections](LSI.md#LSI.Projections)
 
 The following are the steps to query a local secondary index using the \.NET low\-level API\. 
 

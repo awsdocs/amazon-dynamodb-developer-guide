@@ -1,19 +1,19 @@
-# DAX Cluster Components<a name="DAX.concepts.cluster"></a>
+# DAX cluster components<a name="DAX.concepts.cluster"></a>
 
 An Amazon DynamoDB Accelerator \(DAX\) cluster consists of AWS infrastructure components\. This section describes these components and how they work together\.
 
 **Topics**
 + [Nodes](#DAX.concepts.nodes)
 + [Clusters](#DAX.concepts.clusters)
-+ [Regions and Availability Zones](#DAX.concepts.regions-and-azs)
-+ [Parameter Groups](#DAX.concepts.parameter-groups)
-+ [Security Groups](#DAX.concepts.security-groups)
++ [Regions and availability zones](#DAX.concepts.regions-and-azs)
++ [Parameter groups](#DAX.concepts.parameter-groups)
++ [Security groups](#DAX.concepts.security-groups)
 + [Cluster ARN](#DAX.concepts.cluster-arn)
-+ [Cluster Endpoint](#DAX.concepts.cluster-endpoint)
-+ [Node Endpoints](#DAX.concepts.node-endpoints)
-+ [Subnet Groups](#DAX.concepts.cluster.security)
++ [Cluster endpoint](#DAX.concepts.cluster-endpoint)
++ [Node endpoints](#DAX.concepts.node-endpoints)
++ [Subnet groups](#DAX.concepts.cluster.security)
 + [Events](#DAX.concepts.events)
-+ [Maintenance Window](#DAX.concepts.maintenance-window)
++ [Maintenance window](#DAX.concepts.maintenance-window)
 
 ## Nodes<a name="DAX.concepts.nodes"></a>
 
@@ -52,7 +52,7 @@ A DAX cluster can support up to 11 nodes per cluster \(the primary node plus a m
 For production usage, we strongly recommend using DAX with at least three nodes, where each node is placed in different Availability Zones\. Three nodes are required for a DAX cluster to be fault\-tolerant\.  
 A DAX cluster can be deployed with one or two nodes for development or test workloads\. One\- and two\-node clusters are not fault\-tolerant, and we don't recommend using fewer than three nodes for production use\. If a one\- or two\-node cluster encounters software or hardware errors, the cluster can become unavailable or lose cached data\.
 
-## Regions and Availability Zones<a name="DAX.concepts.regions-and-azs"></a>
+## Regions and availability zones<a name="DAX.concepts.regions-and-azs"></a>
 
 A DAX cluster in an AWS Region can only interact with DynamoDB tables that are in the same Region\. For this reason, ensure that you launch your DAX cluster in the correct Region\. If you have DynamoDB tables in other Regions, you must launch DAX clusters in those Regions too\.
 
@@ -63,11 +63,11 @@ Don't place all of your cluster's nodes in a single Availability Zone\. In this 
 For production usage, we strongly recommend using DAX with at least three nodes, where each node is placed in different Availability Zones\. Three nodes are required for a DAX cluster to be fault\-tolerant\.  
 A DAX cluster can be deployed with one or two nodes for development or test workloads\. One\- and two\-node clusters are not fault\-tolerant, and we don't recommend using fewer than three nodes for production use\. If a one\- or two\-node cluster encounters software or hardware errors, the cluster can become unavailable or lose cached data\.
 
-## Parameter Groups<a name="DAX.concepts.parameter-groups"></a>
+## Parameter groups<a name="DAX.concepts.parameter-groups"></a>
 
 *Parameter groups* are used to manage runtime settings for DAX clusters\. DAX has several parameters that you can use to optimize performance \(such as defining a TTL policy for cached data\)\. A parameter group is a named set of parameters that you can apply to a cluster\. You can thereby ensure that all the nodes in that cluster are configured in exactly the same way\.
 
-## Security Groups<a name="DAX.concepts.security-groups"></a>
+## Security groups<a name="DAX.concepts.security-groups"></a>
 
 A DAX cluster runs in an Amazon Virtual Private Cloud \(Amazon VPC\) environment\. This environment is a virtual network that is dedicated to your AWS account and is isolated from other VPCs\. A *security group* acts as a virtual firewall for your VPC, allowing you to control inbound and outbound network traffic\.
 
@@ -81,9 +81,9 @@ Every DAX cluster is assigned an *Amazon Resource Name* \(ARN\)\. The ARN format
 arn:aws:dax:region:accountID:cache/clusterName
 ```
 
-You use the cluster ARN in an IAM policy to define permissions for DAX API operations\. For more information, see [DAX Access Control](DAX.access-control.md)\.
+You use the cluster ARN in an IAM policy to define permissions for DAX API operations\. For more information, see [DAX access control](DAX.access-control.md)\.
 
-## Cluster Endpoint<a name="DAX.concepts.cluster-endpoint"></a>
+## Cluster endpoint<a name="DAX.concepts.cluster-endpoint"></a>
 
 Every DAX cluster provides a *cluster endpoint* for use by your application\. By accessing the cluster using its endpoint, your application does not need to know the hostnames and port numbers of individual nodes in the cluster\. Your application automatically "knows" all the nodes in the cluster, even if you add or remove read replicas\.
 
@@ -95,7 +95,7 @@ The following is an example of a cluster endpoint in the same region that is con
 
 `daxs://my-encrypted-cluster.l6fzcv.dax-clusters.us-east-1.amazonaws.com`
 
-## Node Endpoints<a name="DAX.concepts.node-endpoints"></a>
+## Node endpoints<a name="DAX.concepts.node-endpoints"></a>
 
 Each of the individual nodes in a DAX cluster has its own hostname and port number\. The following is an example of a *node endpoint*\.
 
@@ -103,7 +103,7 @@ Each of the individual nodes in a DAX cluster has its own hostname and port numb
 
 Your application can access a node directly by using its endpoint\. However, we recommend that you treat the DAX cluster as a single unit and access it using the cluster endpoint instead\. The cluster endpoint insulates your application from having to maintain a list of nodes and keep that list up to date when you add or remove nodes from the cluster\.
 
-## Subnet Groups<a name="DAX.concepts.cluster.security"></a>
+## Subnet groups<a name="DAX.concepts.cluster.security"></a>
 
 Access to DAX cluster nodes is restricted to applications running on Amazon EC2 instances within an Amazon VPC environment\. You can use *subnet groups* to grant cluster access from Amazon EC2 instances running on specific subnets\. A subnet group is a collection of subnets \(typically private\) that you can designate for your clusters running in an Amazon VPC environment\. 
 
@@ -115,7 +115,7 @@ DAX records significant events within your clusters, such as a failure to add a 
 
 You can also request that notifications be sent to a specific Amazon Simple Notification Service \(Amazon SNS\) topic\. Then you will know immediately when an event occurs in your DAX cluster\.
 
-## Maintenance Window<a name="DAX.concepts.maintenance-window"></a>
+## Maintenance window<a name="DAX.concepts.maintenance-window"></a>
 
 Every cluster has a weekly maintenance window during which any system changes are applied\. If you don't specify a preferred maintenance window when you create or modify a cache cluster, DAX assigns a 60\-minute maintenance window on a randomly selected day of the week\.
 
@@ -124,7 +124,7 @@ The 60\-minute maintenance window is selected at random from an 8\-hour block of
 
 ****  
 
-| Region Code | Region Name | Maintenance Window | 
+| Region code | Region name | Maintenance window | 
 | --- | --- | --- | 
 |  ap\-northeast\-1  |  Asia Pacific \(Tokyo\) Region  |  13:00–21:00 UTC  | 
 |  ap\-southeast\-1  |  Asia Pacific \(Singapore\) Region  |  14:00–22:00 UTC  | 

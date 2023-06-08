@@ -1,14 +1,19 @@
 # Accelerate DynamoDB reads with DAX using an AWS SDK<a name="example_dynamodb_Usage_DaxDemo_section"></a>
 
-The following code example shows how to accelerate DynamoDB reads with DynamoDB Accelerator\. This example requires additional setup\. For instructions, see [Developing with the DynamoDB Accelerator Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html) in the *Amazon DynamoDB Developer Guide*\.
+The following code example shows how to:
++ Create and write data to a table with both the DAX and SDK clients\.
++ Get, query, and scan the table with both the DAX and SDK clients and compare their performance\.
 
 **Note**  
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
+
+For more information, see [Developing with the DynamoDB Accelerator Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html)\.
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb/TryDax#code-examples)\. 
 Create a table with either the DAX or Boto3 client\.  
 
 ```
@@ -302,7 +307,13 @@ if __name__ == '__main__':
     delete_dax_table()
     print("Table deleted!")
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb/TryDax#code-examples)\. 
++ For API details, see the following topics in *AWS SDK for Python \(Boto3\) API Reference*\.
+  + [CreateTable](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/CreateTable)
+  + [DeleteTable](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/DeleteTable)
+  + [GetItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/GetItem)
+  + [PutItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem)
+  + [Query](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/Query)
+  + [Scan](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/Scan)
 
 ------
 

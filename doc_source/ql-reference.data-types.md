@@ -1,4 +1,4 @@
-# PartiQL Data Types for DynamoDB<a name="ql-reference.data-types"></a>
+# PartiQL data types for DynamoDB<a name="ql-reference.data-types"></a>
 
 The following table lists the data types you can use with PartiQL for DynamoDB\.
 

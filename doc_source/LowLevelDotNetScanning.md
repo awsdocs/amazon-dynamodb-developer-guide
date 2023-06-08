@@ -1,4 +1,4 @@
-# Scanning Tables and Indexes: \.NET<a name="LowLevelDotNetScanning"></a>
+# Scanning tables and indexes: \.NET<a name="LowLevelDotNetScanning"></a>
 
 
 
@@ -12,7 +12,7 @@ The following are the steps to scan a table using the AWS SDK for \.NET low\-lev
 
    The only required parameter is the table name\.
 
-1. Run the `Scan` method and provide the `QueryRequest` object that you created in the preceding step\.
+1. Run the `Scan` method and provide the `ScanRequest` object that you created in the preceding step\.
 
 The following `Reply` table stores replies for forum threads\.
 
@@ -44,7 +44,7 @@ foreach (Dictionary<string, AttributeValue> item in response.ScanResult.Items)
 }
 ```
 
-## Specifying Optional Parameters<a name="LowLevelDotNetScanningOptions"></a>
+## Specifying optional parameters<a name="LowLevelDotNetScanningOptions"></a>
 
 
 
@@ -100,11 +100,11 @@ do
 } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
 ```
 
-## Example \- Scan Using \.NET<a name="LowLevelDotNetScanExample"></a>
+## Example \- scan using \.NET<a name="LowLevelDotNetScanExample"></a>
 
 The following C\# code provides a working example that scans the `ProductCatalog` table to find items priced less than 0\.
 
-For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions for testing the following sample, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 ```
 /**
@@ -206,11 +206,11 @@ namespace com.amazonaws.codesamples
 }
 ```
 
-## Example \- Parallel Scan Using \.NET<a name="LowLevelDotNetParallelScanExample"></a>
+## Example \- parallel scan using \.NET<a name="LowLevelDotNetParallelScanExample"></a>
 
 The following C\# code example demonstrates a parallel scan\. The program deletes and then re\-creates the `ProductCatalog` table and then loads the table with data\. When the data load is finished, the program spawns multiple threads and issues parallel `Scan` requests\. Finally, the program prints a summary of runtime statistics\.
 
-For step\-by\-step instructions for testing the following sample, see [\.NET Code Examples](CodeSamples.DotNet.md)\.
+For step\-by\-step instructions for testing the following sample, see [\.NET code examples](CodeSamples.DotNet.md)\.
 
 ```
 /**

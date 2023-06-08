@@ -1,4 +1,4 @@
-# Step 7: \(Optional\) Clean Up<a name="EMRforDynamoDB.Tutorial.CleanUp"></a>
+# Step 7: \(Optional\) clean up<a name="EMRforDynamoDB.Tutorial.CleanUp"></a>
 
 Now that you have completed the tutorial, you can continue reading this section to learn more about working with DynamoDB data in Amazon EMR\. You might decide to keep your Amazon EMR cluster up and running while you do this\.
 
@@ -6,7 +6,7 @@ If you don't need the cluster anymore, you should terminate it and remove any as
 
 1. Terminate the Amazon EMR cluster:
 
-   1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/elasticmapreduce/](https://console.aws.amazon.com/elasticmapreduce/)\.
+   1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/emr](https://console.aws.amazon.com/emr/)\.
 
    1. Choose the Amazon EMR cluster, choose **Terminate**, and then confirm\.
 

@@ -1,17 +1,17 @@
-# Step 2: Examine the Data Model and Implementation Details<a name="TicTacToe.Phase2"></a>
+# Step 2: Examine the data model and implementation details<a name="TicTacToe.Phase2"></a>
 
 **Topics**
-+ [2\.1: Basic Data Model](#TicTacToe.Phase2.DataModel)
-+ [2\.2: Application in Action \(Code Walkthrough\)](#TicTacToe.Phase2.AppInAction)
++ [2\.1: Basic data model](#TicTacToe.Phase2.DataModel)
++ [2\.2: Application in action \(code walkthrough\)](#TicTacToe.Phase2.AppInAction)
 
-## 2\.1: Basic Data Model<a name="TicTacToe.Phase2.DataModel"></a>
+## 2\.1: Basic data model<a name="TicTacToe.Phase2.DataModel"></a>
 
 This example application highlights the following DynamoDB data model concepts:
 + ****Table**** – In DynamoDB, a table is a collection of items \(that is, records\), and each item is a collection of name\-value pairs called attributes\.
 
   In this Tic\-Tac\-Toe example, the application stores all game data in a table, `Games`\. The application creates one item in the table per game and stores all game data as attributes\. A tic\-tac\-toe game can have up to nine moves\. Because DynamoDB tables do not have a schema in cases where only the primary key is the required attribute, the application can store varying number of attributes per game item\.
 
-  The `Games` table has a simple primary key made of one attribute, `GameId`, of string type\. The application assigns a unique ID to each game\. For more information on DynamoDB primary keys, see [Primary Key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. 
+  The `Games` table has a simple primary key made of one attribute, `GameId`, of string type\. The application assigns a unique ID to each game\. For more information on DynamoDB primary keys, see [Primary key](HowItWorks.CoreComponents.md#HowItWorks.CoreComponents.PrimaryKey)\. 
 
   When a user initiates a tic\-tac\-toe game by inviting another user to play, the application creates a new item in the `Games` table with attributes storing game metadata, such as the following:
   + `HostId`, the user who initiated the game\.
@@ -40,9 +40,9 @@ This example application highlights the following DynamoDB data model concepts:
     + Retrieve up to 10 of the most recent `IN_PROGRESS` games hosted by the user who is logged in\. For this query, you specify the `HostId-StatusDate-index` index\.
     + Retrieve up to 10 of the most recent `IN_PROGRESS` games where the user logged in is the opponent\. For this query, you specify the `OpponentId-StatusDate-index` index\.
 
-For more information about secondary indexes, see [Improving Data Access with Secondary Indexes](SecondaryIndexes.md)\.
+For more information about secondary indexes, see [Improving data access with secondary indexes](SecondaryIndexes.md)\.
 
-## 2\.2: Application in Action \(Code Walkthrough\)<a name="TicTacToe.Phase2.AppInAction"></a>
+## 2\.2: Application in action \(code walkthrough\)<a name="TicTacToe.Phase2.AppInAction"></a>
 
 This application has two main pages:
 + ****Home page**** – This page provides the user a simple login, a **CREATE** button to create a new tic\-tac\-toe game, a list of games in progress, game history, and any active pending game invitations\. 
@@ -54,14 +54,14 @@ This application has two main pages:
 
 Let us see in detail how the application works\.
 
-### Home Page<a name="TicTacToe.Phase2.AppInAction.HomePage"></a>
+### Home page<a name="TicTacToe.Phase2.AppInAction.HomePage"></a>
 
 After the user logs in, the application displays the following three lists of information\.
 
 ![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/tic-tac-toe-homepage-10.png)![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)![\[Screenshot showing the application home page with 3 lists: pending invitations, games in progress, and recent history.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 + ****Invitations**** – This list shows up to the 10 most recent invitations from others that are pending acceptance by the user who is logged in\. In the preceding screenshot, user1 has invitations from user5 and user2 pending\.
-+ ****Games In\-Progress**** – This list shows up to the 10 most recent games that are in progress\. These are games that the user is actively playing, which have the status `IN_PROGRESS`\. In the screenshot, user1 is actively playing a tic\-tac\-toe game with user3 and user4\.
-+ ****Recent History**** – This list shows up to the 10 most recent games that the user finished, which have the status `FINISHED`\. In game shown in the screenshot, user1 has previously played with user2\. For each completed game, the list shows the game result\.
++ ****Games in\-progress**** – This list shows up to the 10 most recent games that are in progress\. These are games that the user is actively playing, which have the status `IN_PROGRESS`\. In the screenshot, user1 is actively playing a tic\-tac\-toe game with user3 and user4\.
++ ****Recent history**** – This list shows up to the 10 most recent games that the user finished, which have the status `FINISHED`\. In game shown in the screenshot, user1 has previously played with user2\. For each completed game, the list shows the game result\.
 
 In the code, the `index` function \(in `application.py`\) makes the following three calls to retrieve game status information:
 
@@ -87,7 +87,7 @@ The architectural pattern described here is also referred as the model\-view\-co
 
 Let us review the three functions and how they query the Games table using global secondary indexes to retrieve relevant data\.
 
-#### Using getGameInvites to Get the List of Pending Game Invitations<a name="TicTacToe.Phase2.GameInAction.ListInvitations"></a>
+#### Using getGameInvites to get the list of pending game invitations<a name="TicTacToe.Phase2.GameInAction.ListInvitations"></a>
 
 The `getGameInvites` function retrieves the list of the 10 most recent pending invitations\. These games have been created by users, but the opponents have not accepted the game invitations\. For these games, the status remains `PENDING` until the opponent accepts the invite\. If the opponent declines the invite, the application removes the corresponding item from the table\. 
 
@@ -109,7 +109,7 @@ gameInvitesIndex = self.cm.getGamesTable().query(
 
 In the index, for each `OpponentId` \(the partition key\) DynamoDB keeps items sorted by `StatusDate` \(the sort key\)\. Therefore, the games that the query returns will be the 10 most recent games\.
 
-#### Using getGamesWithStatus to Get the List of Games with a Specific Status<a name="TicTacToe.Phase2.GameInAction.ListGamesInProgressHistory"></a>
+#### Using getGamesWithStatus to get the list of games with a specific status<a name="TicTacToe.Phase2.GameInAction.ListGamesInProgressHistory"></a>
 
 After an opponent accepts a game invitation, the game status changes to `IN_PROGRESS`\. After the game completes, the status changes to `FINISHED`\. 
 
@@ -155,7 +155,7 @@ The `getGamesWithStatus` function runs the following two queries, each time usin
   return games
   ```
 
-### Game Page<a name="TicTacToe.Phase2.AppInAction.GamePage"></a>
+### Game page<a name="TicTacToe.Phase2.AppInAction.GamePage"></a>
 
 The game page is where the user plays tic\-tac\-toe games\. It shows the game grid along with game\-relevant information\. The following screenshot shows an example game in progress:
 

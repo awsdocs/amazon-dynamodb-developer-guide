@@ -1,14 +1,14 @@
-# Exporting and Importing DynamoDB Data Using AWS Data Pipeline<a name="DynamoDBPipeline"></a>
+# Exporting and importing DynamoDB data using AWS Data Pipeline<a name="DynamoDBPipeline"></a>
 
 You can use AWS Data Pipeline to export data from a DynamoDB table to a file in an Amazon S3 bucket\. You can also use the console to import data from Amazon S3 into a DynamoDB table, in the same AWS region or in a different region\.
 
 **Note**  
- DynamoDB Console now supports its own Export to Amazon S3 flow, however it is not compatible with AWS Data Pipeline import flow\. For more information, see [Exporting DynamoDB table data to Amazon S3](DataExport.md) and the blog post [ Export Amazon DynamoDB Table Data to Your Data Lake in Amazon S3, No Code Writing Required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
+ DynamoDB Console now natively supports importing from Amazon S3 and exporting to Amazon S3\. These flows are not compatible with AWS Data Pipeline import flow\. For more information see [Import from Amazon S3](S3DataImport.HowItWorks.md), [Export from Amazon S3](S3DataExport.HowItWorks.md), and the blog post [ Export Amazon DynamoDB table data to your data lake in Amazon S3](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
 
 The ability to export and import data is useful in many scenarios\. For example, suppose you want to maintain a baseline set of data, for testing purposes\. You could put the baseline data into a DynamoDB table and export it to Amazon S3\. Then, after you run an application that modifies the test data, you could "reset" the data set by importing the baseline from Amazon S3 back into the DynamoDB table\. Another example involves accidental deletion of data, or even an accidental `DeleteTable` operation\. In these cases, you could restore the data from a previous export file in Amazon S3\. You can even copy data from a DynamoDB table in one AWS region, store the data in Amazon S3, and then import the data from Amazon S3 to an identical DynamoDB table in a second region\. Applications in the second region could then access their nearest DynamoDB endpoint and work with their own copy of the data, with reduced network latency\.
 
 **Important**  
-DynamoDB Backup and Restore is a fully managed feature\. You can back up tables from a few megabytes to hundreds of terabytes of data, with no impact on the performance and availability of your production applications\. You can restore your table with a single click in the AWS Management Console or a single API call\. We highly recommend that you use DynamoDB's native backup and restore feature instead of using AWS Data Pipeline\. For more information, see [Using On\-Demand Backup and Restore for DynamoDB](BackupRestore.md)\.
+DynamoDB Backup and Restore is a fully managed feature\. You can back up tables from a few megabytes to hundreds of terabytes of data, with no impact on the performance and availability of your production applications\. You can restore your table with a single click in the AWS Management Console or a single API call\. We highly recommend that you use DynamoDB's native backup and restore feature instead of using AWS Data Pipeline\. For more information, see [Using On\-Demand backup and restore for DynamoDB](BackupRestore.md)\.
 
 The following diagram shows an overview of exporting and importing DynamoDB data using AWS Data Pipeline\.
 
@@ -23,18 +23,31 @@ When you export or import DynamoDB data, you will incur additional costs for the
 **AWS Data Pipeline**— manages the import/export workflow for you\.
 **Amazon S3**— contains the data that you export from DynamoDB, or import into DynamoDB\.
 **Amazon EMR**— runs a managed Hadoop cluster to perform reads and writes between DynamoDB to Amazon S3\. The cluster configuration is one `m3.xlarge` instance leader node and one `m3.xlarge` instance core node\.
-For more information see [AWS Data Pipeline Pricing](https://aws.amazon.com/datapipeline/pricing), [Amazon EMR Pricing](https://aws.amazon.com/elasticmapreduce/pricing), and [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing)\.
+For more information see [AWS Data Pipeline pricing](https://aws.amazon.com/datapipeline/pricing), [Amazon EMR pricing](https://aws.amazon.com/elasticmapreduce/pricing), and [Amazon S3 pricing](https://aws.amazon.com/s3/pricing)\.
 
-## Prerequisites to Export and Import Data<a name="DataPipelineExportImport.Prereqs"></a>
+## Prerequisites to export and import data<a name="DataPipelineExportImport.Prereqs"></a>
 
 When you use AWS Data Pipeline for exporting and importing data, you must specify the actions that the pipeline is allowed to perform, and which resources the pipeline can consume\. The permitted actions and resources are defined using AWS Identity and Access Management \(IAM\) roles\.
 
-You can also control access by creating IAM policies and attaching them to IAM users, roles or groups\. These policies let you specify which users are allowed to import and export your DynamoDB data\.
+You can also control access by creating IAM policies and attaching them to users, roles or groups\. These policies let you specify which users are allowed to import and export your DynamoDB data\.
 
 **Important**  
-The IAM user that performs the exports and imports must have an *active* AWS Access Key Id and Secret Key\. For more information, see [Administering Access Keys for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the *IAM User Guide*\.
+Users need programmatic access if they want to interact with AWS outside of the AWS Management Console\. The way to grant programmatic access depends on the type of user that's accessing AWS:  
+If you manage identities in IAM Identity Center, the AWS APIs require a profile, and the AWS Command Line Interface requires a profile or an environment variable\.
+If you have IAM users, the AWS APIs and the AWS Command Line Interface require access keys\. Whenever possible, create temporary credentials that consist of an access key ID, a secret access key, and a security token that indicates when the credentials expire\.
+To grant users programmatic access, choose one of the following options\.  
 
-### Creating IAM Roles for AWS Data Pipeline<a name="DataPipelineExportImport.Prereqs.IAMRoles"></a>
+
+****  
+
+| Which user needs programmatic access? | To | By | 
+| --- | --- | --- | 
+|  Workforce identity \(Users managed in IAM Identity Center\)  | Use short\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\. |  Following the instructions for the interface that you want to use: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBPipeline.html)  | 
+| IAM | Use short\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\. | Following the instructions in [Using temporary credentials with AWS resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html) in the IAM User Guide\. | 
+| IAM | Use long\-term credentials to sign programmatic requests to the AWS CLI or AWS APIs \(directly or by using the AWS SDKs\)\.\(Not recommended\) | Following the instructions in [Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) in the IAM User Guide\. | 
+ 
+
+### Creating IAM roles for AWS Data Pipeline<a name="DataPipelineExportImport.Prereqs.IAMRoles"></a>
 
 In order to use AWS Data Pipeline, the following IAM roles must be present in your AWS account:
 + ***DataPipelineDefaultRole*** — the actions that your pipeline can take on your behalf\.
@@ -43,7 +56,7 @@ In order to use AWS Data Pipeline, the following IAM roles must be present in yo
 If you have never used AWS Data Pipeline before, you will need to create *DataPipelineDefaultRole* and *DataPipelineDefaultResourceRole* yourself\. Once you have created these roles, you can use them any time you want to export or import DynamoDB data\.
 
 **Note**  
-If you have previously used the AWS Data Pipeline console to create a pipeline, then *DataPipelineDefaultRole* and *DataPipelineDefaultResourceRole* were created for you at that time\. No further action is required; you can skip this section and begin creating pipelines using the DynamoDB console\. For more information, see [Exporting Data From DynamoDB to Amazon S3](#DataPipelineExportImport.Exporting) and [Importing Data From Amazon S3 to DynamoDB](#DataPipelineExportImport.Importing)\.
+If you have previously used the AWS Data Pipeline console to create a pipeline, then *DataPipelineDefaultRole* and *DataPipelineDefaultResourceRole* were created for you at that time\. No further action is required; you can skip this section and begin creating pipelines using the DynamoDB console\. For more information, see [Exporting data from DynamoDB to Amazon S3](#DataPipelineExportImport.Exporting) and [Importing data from Amazon S3 to DynamoDB](#DataPipelineExportImport.Importing)\.
 
 1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
@@ -69,15 +82,15 @@ If you have previously used the AWS Data Pipeline console to create a pipeline, 
 
    1. In the **Role name** field, type `DataPipelineDefaultResourceRole` as the role name and choose **Create role**\.
 
-Now that you have created these roles, you can begin creating pipelines using the DynamoDB console\. For more information, see [Exporting Data From DynamoDB to Amazon S3](#DataPipelineExportImport.Exporting) and [Importing Data From Amazon S3 to DynamoDB](#DataPipelineExportImport.Importing)\.
+Now that you have created these roles, you can begin creating pipelines using the DynamoDB console\. For more information, see [Exporting data from DynamoDB to Amazon S3](#DataPipelineExportImport.Exporting) and [Importing data from Amazon S3 to DynamoDB](#DataPipelineExportImport.Importing)\.
 
-### Granting IAM Users and Groups Permission to Perform Export and Import Tasks<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers"></a>
+### Granting users and groups permission to perform export and import tasks using AWS Identity and Access Management<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers"></a>
 
-If you want to allow other IAM users, roles or groups to export and import your DynamoDB table data, you can create an IAM policy and attach it to the users or groups that you designate\. The policy contains only the necessary permissions for performing these tasks\.
+If you want to allow other users, roles or groups to export and import your DynamoDB table data, you can create an IAM policy and attach it to the users or groups that you designate\. The policy contains only the necessary permissions for performing these tasks\.
 
-#### Granting Full Access<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources"></a>
+#### Granting full access<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources"></a>
 
-The following procedure describes how to attach the AWS managed policies `AmazonDynamoDBFullAccess`,`AWSDataPipeline_FullAccess` and an Amazon EMR inline policy to an IAM user\. These managed policies provides full access to AWS Data Pipeline and to DynamoDB resources, and used with the Amazon EMR inline policy, allow the user to perform the actions described in this documentation\.
+The following procedure describes how to attach the AWS managed policies `AmazonDynamoDBFullAccess`,`AWSDataPipeline_FullAccess` and an Amazon EMR inline policy to a user\. These managed policies provides full access to AWS Data Pipeline and to DynamoDB resources, and used with the Amazon EMR inline policy, allow the user to perform the actions described in this documentation\.
 
 **Note**  
 To limit the scope of the suggested permissions, the inline policy above is enforcing the usage of the tag `dynamodbdatapipeline`\. If you want to utilize this documentation without this limitation, you can remove the `Condition` section of the suggested policy\. 
@@ -133,11 +146,11 @@ To limit the scope of the suggested permissions, the inline policy above is enfo
 **Note**  
 You can use a similar procedure to attach this managed policy to a role or group, rather than to a user\.
 
-#### Restricting Access to Particular DynamoDB Tables<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.RestrictingAccess"></a>
+#### Restricting access to particular DynamoDB tables<a name="DataPipelineExportImport.Prereqs.PrivsForIAMUsers.RestrictingAccess"></a>
 
-If you want to restrict access so that a user can only export or import a subset of your tables, you will need to create a customized IAM policy document\. You can use the process described on [Granting Full Access](#DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources) as a starting point for your custom policy, and then modify the policy so that a user can only work with the tables that you specify\.
+If you want to restrict access so that a user can only export or import a subset of your tables, you will need to create a customized IAM policy document\. You can use the process described on [Granting full access](#DataPipelineExportImport.Prereqs.PrivsForIAMUsers.PolicyAllDDBResources) as a starting point for your custom policy, and then modify the policy so that a user can only work with the tables that you specify\.
 
-For example, suppose that you want to allow an IAM user to export and import only the *Forum*, *Thread*, and *Reply* tables\. This procedure describes how to create a custom policy so that a user can work with those tables, but no others\.
+For example, suppose that you want to allow a user to export and import only the *Forum*, *Thread*, and *Reply* tables\. This procedure describes how to create a custom policy so that a user can work with those tables, but no others\.
 
 1. Sign in to the AWS Management Console and open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
@@ -251,7 +264,7 @@ Replace `us-west-2` with the region in which your DynamoDB tables reside\. Repla
 
 1. When the policy settings are as you want them, click **Create Policy**\.
 
-After you have created the policy, you can attach it to an IAM user\.
+After you have created the policy, you can attach it to a user\.
 
 1. From the IAM Console Dashboard, click **Users** and select the user you want to modify\.
 
@@ -262,12 +275,12 @@ After you have created the policy, you can attach it to an IAM user\.
 **Note**  
 You can use a similar procedure to attach your policy to a role or group, rather than to a user\.
 
-## Exporting Data From DynamoDB to Amazon S3<a name="DataPipelineExportImport.Exporting"></a>
+## Exporting data from DynamoDB to Amazon S3<a name="DataPipelineExportImport.Exporting"></a>
 
 This section describes how to export data from one or more DynamoDB tables to an Amazon S3 bucket\. You need to create the Amazon S3 bucket before you can perform the export\.
 
 **Important**  
-If you have never used AWS Data Pipeline before, you will need to set up two IAM roles before following this procedure\. For more information, see [Creating IAM Roles for AWS Data Pipeline](#DataPipelineExportImport.Prereqs.IAMRoles)\.
+If you have never used AWS Data Pipeline before, you will need to set up two IAM roles before following this procedure\. For more information, see [Creating IAM roles for AWS Data Pipeline](#DataPipelineExportImport.Prereqs.IAMRoles)\.
 
 1. Sign in to the AWS Management Console and open the AWS Data Pipeline console at [https://console\.aws\.amazon\.com/datapipeline/](https://console.aws.amazon.com/datapipeline/)\.
 
@@ -299,11 +312,11 @@ If you have never used AWS Data Pipeline before, you will need to set up two IAM
 
 Your pipeline will now be created; this process can take several minutes to complete\. You can monitor the progress in the AWS Data Pipeline console\.
 
-When the export has finished, you can go to the [Amazon S3 console](https://console.aws.amazon.com/s3) to view your export file\. The output file name is an identifier value with no extension, such as this example: `ae10f955-fb2f-4790-9b11-fbfea01a871e_000000`\. The internal format of this file is described at [Verify Data Export File](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\.
+When the export has finished, you can go to the [Amazon S3 console](https://console.aws.amazon.com/s3) to view your export file\. The output file name is an identifier value with no extension, such as this example: `ae10f955-fb2f-4790-9b11-fbfea01a871e_000000`\. The internal format of this file is described at [Verify data export file](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\.
 
-## Importing Data From Amazon S3 to DynamoDB<a name="DataPipelineExportImport.Importing"></a>
+## Importing data from Amazon S3 to DynamoDB<a name="DataPipelineExportImport.Importing"></a>
 
-This section assumes that you have already exported data from a DynamoDB table, and that the export file has been written to your Amazon S3 bucket\. The internal format of this file is described at [Verify Data Export File](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\. Note that this is the *only* file format that DynamoDB can import using AWS Data Pipeline\.
+This section assumes that you have already exported data from a DynamoDB table, and that the export file has been written to your Amazon S3 bucket\. The internal format of this file is described at [Verify data export file](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\. Note that this is the *only* file format that DynamoDB can import using AWS Data Pipeline\.
 
 We will use the term *source table* for the original table from which the data was exported, and *destination table* for the table that will receive the imported data\. You can import data from an export file in Amazon S3, provided that all of the following are true:
 + The destination table already exists\. \(The import process will not create the table for you\.\)
@@ -311,7 +324,7 @@ We will use the term *source table* for the original table from which the data w
 
 The destination table does not have to be empty\. However, the import process will replace any data items in the table that have the same keys as the items in the export file\. For example, suppose you have a *Customer* table with a key of *CustomerId*, and that there are only three items in the table \(*CustomerId* 1, 2, and 3\)\. If your export file also contains data items for *CustomerID* 1, 2, and 3, the items in the destination table will be replaced with those from the export file\. If the export file also contains a data item for *CustomerId* 4, then that item will be added to the table\.
 
-The destination table can be in a different AWS region\. For example, suppose you have a *Customer* table in the US West \(Oregon\) region and export its data to Amazon S3\. You could then import that data into an identical *Customer* table in the Europe \(Ireland\) region\. This is referred to as a *cross\-region* export and import\. For a list of AWS regions, go to [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
+The destination table can be in a different AWS region\. For example, suppose you have a *Customer* table in the US West \(Oregon\) region and export its data to Amazon S3\. You could then import that data into an identical *Customer* table in the Europe \(Ireland\) region\. This is referred to as a *cross\-region* export and import\. For a list of AWS regions, go to [Regions and endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *AWS General Reference*\.
 
 Note that the AWS Management Console lets you export multiple source tables at once\. However, you can only import one table at a time\.
 
@@ -333,7 +346,7 @@ Note that the AWS Management Console lets you export multiple source tables at o
       + `bucketname` is the name of your Amazon S3 bucket\.
       + `folder` is the name of the folder that contains the export file\.
 
-      The import job will expect to find a file at the specified Amazon S3 location\. The internal format of the file is described at [Verify Data Export File](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\.
+      The import job will expect to find a file at the specified Amazon S3 location\. The internal format of the file is described at [Verify data export file](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb-pipelinejson-verifydata2.html) in the *AWS Data Pipeline Developer Guide*\.
 
    1. In the **Target DynamoDB table name** field, type the name of the DynamoDB table into which you want to import the data\.
 
@@ -361,22 +374,22 @@ The following are some common issues that may cause a pipeline to fail, along wi
 + Ensure that the Amazon S3 bucket you specified has been created, and that you have read and write permissions on it\.
 + The pipeline might have exceeded its execution timeout\. \(You set this parameter when you created the pipeline\.\) For example, you might have set the execution timeout for 1 hour, but the export job might have required more time than this\. Try deleting and then re\-creating the pipeline, but with a longer execution timeout interval this time\.
 + Update the manifest file if you restore from a Amazon S3 bucket that is not the original bucket that the export was performed with \(contains a copy of the export\)\. 
-+ You might not have the correct permissions for performing an export or import\. For more information, see [Prerequisites to Export and Import Data](#DataPipelineExportImport.Prereqs)\.
++ You might not have the correct permissions for performing an export or import\. For more information, see [Prerequisites to export and import data](#DataPipelineExportImport.Prereqs)\.
 + You might have reached a resource quota in your AWS account, such as the maximum number of Amazon EC2 instances or the maximum number of AWS Data Pipeline pipelines\. For more information, including how to request increases in these quotas, see [AWS service quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ec2) in the *AWS General Reference*\. 
 
 **Note**  
 For more details on troubleshooting a pipeline, go to [Troubleshooting](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-troubleshooting.html) in the *AWS Data Pipeline Developer Guide*\.
 
-## Predefined Templates for AWS Data Pipeline and DynamoDB<a name="DynamoDBPipeline.Templates"></a>
+## Predefined templates for AWS Data Pipeline and DynamoDB<a name="DynamoDBPipeline.Templates"></a>
 
-If you would like a deeper understanding of how AWS Data Pipeline works, we recommend that you consult the *AWS Data Pipeline Developer Guide*\. This guide contains step\-by\-step tutorials for creating and working with pipelines; you can use these tutorials as starting points for creating your own pipelines\. We recommend that you read the AWS Data Pipeline tutorial, which walks you through the steps required to create an import and export pipeline that you can customize for your requirements\. See [ Tutorial: Amazon DynamoDB Import and Export Using AWS Data Pipeline](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb.html) in the *AWS Data Pipeline Developer Guide*\.
+If you would like a deeper understanding of how AWS Data Pipeline works, we recommend that you consult the *AWS Data Pipeline Developer Guide*\. This guide contains step\-by\-step tutorials for creating and working with pipelines; you can use these tutorials as starting points for creating your own pipelines\. We recommend that you read the AWS Data Pipeline tutorial, which walks you through the steps required to create an import and export pipeline that you can customize for your requirements\. See [ Tutorial: Amazon DynamoDB import and export using AWS Data Pipeline](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-importexport-ddb.html) in the *AWS Data Pipeline Developer Guide*\.
 
 AWS Data Pipeline offers several templates for creating pipelines; the following templates are relevant to DynamoDB\.
 
-### Exporting Data Between DynamoDB and Amazon S3<a name="DynamoDBPipeline.ExportDDBToS3"></a>
+### Exporting data between DynamoDB and Amazon S3<a name="DynamoDBPipeline.ExportDDBToS3"></a>
 
 **Note**  
- DynamoDB Console now supports its own Export to Amazon S3 flow, however it is not compatible with AWS Data Pipeline import flow\. For more information, see [Exporting DynamoDB table data to Amazon S3](DataExport.md) and the blog post [ Export Amazon DynamoDB Table Data to Your Data Lake in Amazon S3, No Code Writing Required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
+ DynamoDB Console now supports its own Export to Amazon S3 flow, however it is not compatible with AWS Data Pipeline import flow\. For more information, see [DynamoDB data export to Amazon S3: how it works](S3DataExport.HowItWorks.md) and the blog post [ Export Amazon DynamoDB table data to your data lake in Amazon S3, no code writing required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3)\. 
 
 The AWS Data Pipeline console provides two predefined templates for exporting data between DynamoDB and Amazon S3\. For more information about these templates, see the following sections of the *AWS Data Pipeline Developer Guide*:
 + [Export DynamoDB to Amazon S3](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-template-exportddbtos3.html)

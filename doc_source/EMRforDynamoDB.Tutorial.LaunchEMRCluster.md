@@ -1,8 +1,8 @@
-# Step 2: Launch an Amazon EMR Cluster<a name="EMRforDynamoDB.Tutorial.LaunchEMRCluster"></a>
+# Step 2: Launch an Amazon EMR cluster<a name="EMRforDynamoDB.Tutorial.LaunchEMRCluster"></a>
 
 In this step, you will configure and launch an Amazon EMR cluster\. Hive and a storage handler for DynamoDB will already be installed on the cluster\.
 
-1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/elasticmapreduce/](https://console.aws.amazon.com/elasticmapreduce/)\.
+1. Open the Amazon EMR console at [https://console\.aws\.amazon\.com/emr](https://console.aws.amazon.com/emr/)\.
 
 1. Choose **Create Cluster**\.
 
@@ -20,7 +20,7 @@ It will take several minutes to launch your cluster\. You can use the **Cluster 
 
 When the status changes to `Waiting`, the cluster is ready for use\.
 
-## Cluster Log Files and Amazon S3<a name="EMRforDynamoDB.Tutorial.LaunchEMRCluster.LogFilesAndS3"></a>
+## Cluster log files and Amazon S3<a name="EMRforDynamoDB.Tutorial.LaunchEMRCluster.LogFilesAndS3"></a>
 
 An Amazon EMR cluster generates log files that contain information about the cluster status and debugging information\. The default settings for **Create Cluster \- Quick Options** include setting up Amazon EMR logging\.
 
@@ -31,5 +31,5 @@ You can use the Amazon S3 console to view the log files\. For more information, 
 
 You can use this bucket for purposes in addition to logging\. For example, you can use the bucket as a location for storing a Hive script or as a destination when exporting data from Amazon DynamoDB to Amazon S3\.
 
-**Next Step**  
-[Step 3: Connect to the Leader Node](EMRforDynamoDB.Tutorial.ConnectToLeaderNode.md)
+**Next step**  
+[Step 3: Connect to the Leader node](EMRforDynamoDB.Tutorial.ConnectToLeaderNode.md)

@@ -1,10 +1,10 @@
-# Condition Expressions<a name="Expressions.ConditionExpressions"></a>
+# Condition expressions<a name="Expressions.ConditionExpressions"></a>
 
 To manipulate data in an Amazon DynamoDB table, you use the `PutItem`, `UpdateItem`, and `DeleteItem` operations\. \(You can also use `BatchWriteItem` to perform multiple `PutItem` or `DeleteItem` operations in a single call\.\)
 
 For these data manipulation operations, you can specify a *condition expression* to determine which items should be modified\. If the condition expression evaluates to true, the operation succeeds; otherwise, the operation fails\.
 
-The following are some AWS Command Line Interface \(AWS CLI\) examples of using condition expressions\. These examples are based on the `ProductCatalog` table, which was introduced in [Specifying Item Attributes When Using Expressions](Expressions.Attributes.md)\. The partition key for this table is `Id`; there is no sort key\. The following `PutItem` operation creates a sample `ProductCatalog` item that the examples refer to\.
+The following are some AWS Command Line Interface \(AWS CLI\) examples of using condition expressions\. These examples are based on the `ProductCatalog` table, which was introduced in [Specifying item attributes when using expressions](Expressions.Attributes.md)\. The partition key for this table is `Id`; there is no sort key\. The following `PutItem` operation creates a sample `ProductCatalog` item that the examples refer to\.
 
 ```
 aws dynamodb put-item \
@@ -23,13 +23,13 @@ The arguments for `--item` are stored in the `item.json` file\. \(For simplicity
 ```
 
 **Topics**
-+ [Conditional Put](#Expressions.ConditionExpressions.PreventingOverwrites)
-+ [Conditional Deletes](#Expressions.ConditionExpressions.AdvancedComparisons)
-+ [Conditional Updates](#Expressions.ConditionExpressions.SimpleComparisons)
-+ [Conditional Expression Examples](#Expressions.ConditionExpressions.ConditionalExamples)
-+ [Comparison Operator and Function Reference](Expressions.OperatorsAndFunctions.md)
++ [Conditional put](#Expressions.ConditionExpressions.PreventingOverwrites)
++ [Conditional deletes](#Expressions.ConditionExpressions.AdvancedComparisons)
++ [Conditional updates](#Expressions.ConditionExpressions.SimpleComparisons)
++ [Conditional expression examples](#Expressions.ConditionExpressions.ConditionalExamples)
++ [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md)
 
-## Conditional Put<a name="Expressions.ConditionExpressions.PreventingOverwrites"></a>
+## Conditional put<a name="Expressions.ConditionExpressions.PreventingOverwrites"></a>
 
 The `PutItem` operation overwrites an item with the same key \(if it exists\)\. If you want to avoid this, use a condition expression\. This allows the write to proceed only if the item in question does not already have the same key\.
 
@@ -43,13 +43,13 @@ aws dynamodb put-item \
 If the condition expression evaluates to false, DynamoDB returns the following error message: The conditional request failed\.
 
 **Note**  
-For more information about `attribute_not_exists` and other functions, see [Comparison Operator and Function Reference](Expressions.OperatorsAndFunctions.md)\.
+For more information about `attribute_not_exists` and other functions, see [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md)\.
 
-## Conditional Deletes<a name="Expressions.ConditionExpressions.AdvancedComparisons"></a>
+## Conditional deletes<a name="Expressions.ConditionExpressions.AdvancedComparisons"></a>
 
 To perform a conditional delete, you use a `DeleteItem` operation with a condition expression\. The condition expression must evaluate to true in order for the operation to succeed; otherwise, the operation fails\.
 
-Consider the item from [Condition Expressions](#Expressions.ConditionExpressions)\.
+Consider the item from [Condition expressions](#Expressions.ConditionExpressions)\.
 
 ```
 {
@@ -91,19 +91,19 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 ```
 
 **Note**  
-In the condition expression, the `:` \(colon character\) indicates an *expression attribute value*—a placeholder for an actual value\. For more information, see [Expression Attribute Values](Expressions.ExpressionAttributeValues.md)\.  
-For more information about `IN`, `AND`, and other keywords, see [Comparison Operator and Function Reference](Expressions.OperatorsAndFunctions.md)\.
+In the condition expression, the `:` \(colon character\) indicates an *expression attribute value*—a placeholder for an actual value\. For more information, see [Expression attribute values](Expressions.ExpressionAttributeValues.md)\.  
+For more information about `IN`, `AND`, and other keywords, see [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md)\.
 
 In this example, the `ProductCategory` comparison evaluates to true, but the `Price` comparison evaluates to false\. This causes the condition expression to evaluate to false and the `DeleteItem` operation to fail\.
 
-## Conditional Updates<a name="Expressions.ConditionExpressions.SimpleComparisons"></a>
+## Conditional updates<a name="Expressions.ConditionExpressions.SimpleComparisons"></a>
 
 To perform a conditional update, you use an `UpdateItem` operation with a condition expression\. The condition expression must evaluate to true in order for the operation to succeed; otherwise, the operation fails\.
 
 **Note**  
-`UpdateItem` also supports *update expressions*, where you specify the modifications you want to make to an item\. For more information, see [Update Expressions](Expressions.UpdateExpressions.md)\.
+`UpdateItem` also supports *update expressions*, where you specify the modifications you want to make to an item\. For more information, see [Update expressions](Expressions.UpdateExpressions.md)\.
 
-Suppose that you started with the item shown in [Condition Expressions](#Expressions.ConditionExpressions)\.
+Suppose that you started with the item shown in [Condition expressions](#Expressions.ConditionExpressions)\.
 
 ```
 {
@@ -136,14 +136,14 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 If the starting `Price` is 650, the `UpdateItem` operation reduces the `Price` to 575\. If you run the `UpdateItem` operation again, the `Price` is reduced to 500\. If you run it a third time, the condition expression evaluates to false, and the update fails\.
 
 **Note**  
-In the condition expression, the `:` \(colon character\) indicates an *expression attribute value*—a placeholder for an actual value\. For more information, see [Expression Attribute Values](Expressions.ExpressionAttributeValues.md)\.  
-For more information about "*>*" and other operators, see [Comparison Operator and Function Reference](Expressions.OperatorsAndFunctions.md)\.
+In the condition expression, the `:` \(colon character\) indicates an *expression attribute value*—a placeholder for an actual value\. For more information, see [Expression attribute values](Expressions.ExpressionAttributeValues.md)\.  
+For more information about "*>*" and other operators, see [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md)\.
 
-## Conditional Expression Examples<a name="Expressions.ConditionExpressions.ConditionalExamples"></a>
+## Conditional expression examples<a name="Expressions.ConditionExpressions.ConditionalExamples"></a>
 
-For more information about the functions used in the following examples, see [Comparison Operator and Function Reference](Expressions.OperatorsAndFunctions.md)\. If you want to know more about how to specify different attribute types in an expression, see [Specifying Item Attributes When Using Expressions](Expressions.Attributes.md)\. 
+For more information about the functions used in the following examples, see [Comparison operator and function reference](Expressions.OperatorsAndFunctions.md)\. If you want to know more about how to specify different attribute types in an expression, see [Specifying item attributes when using expressions](Expressions.Attributes.md)\. 
 
-### Checking for Attributes in an Item<a name="Expressions.ConditionExpressions.CheckingForAttributes"></a>
+### Checking for attributes in an item<a name="Expressions.ConditionExpressions.CheckingForAttributes"></a>
 
 You can check for the existence \(or nonexistence\) of any attribute\. If the condition expression evaluates to true, the operation succeeds; otherwise, it fails\.
 
@@ -165,7 +165,7 @@ aws dynamodb delete-item \
     --condition-expression "attribute_exists(ProductReviews.OneStar)"
 ```
 
-### Checking for Attribute Type<a name="Expressions.ConditionExpressions.CheckingForAttributeType"></a>
+### Checking for attribute type<a name="Expressions.ConditionExpressions.CheckingForAttributeType"></a>
 
 You can check the data type of an attribute value by using the `attribute_type` function\. If the condition expression evaluates to true, the operation succeeds; otherwise, it fails\.
 
@@ -187,7 +187,7 @@ The arguments for `--expression-attribute-values` are stored in the expression\-
 }
 ```
 
-### Checking String Starting Value<a name="Expressions.ConditionExpressions.CheckingBeginsWith"></a>
+### Checking string starting value<a name="Expressions.ConditionExpressions.CheckingBeginsWith"></a>
 
 You can check if a String attribute value begins with a particular substring by using the `begins_with` function\. If the condition expression evaluates to true, the operation succeeds; otherwise, it fails\. 
 
@@ -209,7 +209,7 @@ The arguments for `--expression-attribute-values` are stored in the expression\-
 }
 ```
 
-### Checking for an Element in a Set<a name="Expressions.ConditionExpressions.CheckingForContains"></a>
+### Checking for an element in a set<a name="Expressions.ConditionExpressions.CheckingForContains"></a>
 
 You can check for an element in a set or look for a substring within a string by using the `contains` function\. If the condition expression evaluates to true, the operation succeeds; otherwise, it fails\. 
 
@@ -231,7 +231,7 @@ The arguments for `--expression-attribute-values` are stored in the expression\-
 }
 ```
 
-### Checking the Size of an Attribute Value<a name="Expressions.ConditionExpressions.CheckingForSize"></a>
+### Checking the size of an attribute value<a name="Expressions.ConditionExpressions.CheckingForSize"></a>
 
 You can check for the size of an attribute value by using the `size` function\. If the condition expression evaluates to true, the operation succeeds; otherwise, it fails\. 
 

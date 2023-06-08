@@ -1,19 +1,16 @@
-# Creating a Global Table<a name="globaltables.tutorial"></a>
+# Creating a global table<a name="globaltables.tutorial"></a>
 
-
-****  
-
-|  | 
-| --- |
-| There are two versions of DynamoDB global tables available: [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) and [Version 2017\.11\.29](globaltables.V1.md)\. To find out which version you are using, see [Determining the version](globaltables.DetermineVersion.md)\. | 
+**Important**  
+ This documentation is for version 2017\.11\.29 \(Legacy\) of global tables, which should be avoided for new global tables\. Customers should use [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) when possible, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017\.11\.29 \(Legacy\)\.   
+To determine which version you are using, see [Determining the global table version you are using](globaltables.DetermineVersion.md)\. To update existing global tables from version 2017\.11\.29 \(Legacy\) to version 2019\.11\.21 \(Current\), see [Updating global tables](V2globaltables_upgrade.md)\. 
 
 This section describes how to create a global table using the Amazon DynamoDB console or the AWS Command Line Interface \(AWS CLI\)\. 
 
 **Topics**
-+ [Creating a Global Table \(Console\)](#creategt_console)
-+ [Creating a Global Table \(AWS CLI\)](#creategt_cli)
++ [Creating a global table \(console\)](#creategt_console)
++ [Creating a global table \(AWS CLI\)](#creategt_cli)
 
-## Creating a Global Table \(Console\)<a name="creategt_console"></a>
+## Creating a global table \(console\)<a name="creategt_console"></a>
 
 Follow these steps to create a global table using the console\. The following example creates a global table with replica tables in United States and Europe\.
 
@@ -29,8 +26,8 @@ Follow these steps to create a global table using the console\. The following ex
 
    To create the table, choose **Create**\. This table serves as the first replica table in a new global table\. It is the prototype for other replica tables that you add later\.
 
-1. Choose the **Global Tables** tab, and then choose **Create a version 2017\.11\.29 replica**\.  
-![\[Console screenshot showing the Create a version 2017.11.29 replica button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-old.png)
+1. Choose the **Global Tables** tab, and then choose **Create a Version 2017\.11\.29 \(Legacy\) replica**\.  
+![\[Console screenshot showing the Create a Version 2017.11.29 (Legacy) replica button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/GlobalTables-old.png)
 
 1. From the **Available replication Regions** dropdown, choose **US West \(Oregon\)**\.
 
@@ -54,7 +51,7 @@ Follow these steps to create a global table using the console\. The following ex
 
 1. Repeat step 9 and choose **US West \(Oregon\)** to verify replication in that region\.
 
-## Creating a Global Table \(AWS CLI\)<a name="creategt_cli"></a>
+## Creating a global table \(AWS CLI\)<a name="creategt_cli"></a>
 
 Follow these steps to create a global table `Music` using the AWS CLI\. The following example creates a global table, with replica tables in the United States and in Europe\.
 
@@ -101,7 +98,7 @@ Follow these steps to create a global table `Music` using the AWS CLI\. The foll
        --region us-east-2
    ```
 **Note**  
- The global table name \(`Music`\) must match the name of each of the replica tables \(`Music`\)\. For more information, see [Best Practices and Requirements for Managing Global Tables](globaltables_reqs_bestpractices.md)\. 
+ The global table name \(`Music`\) must match the name of each of the replica tables \(`Music`\)\. For more information, see [Best practices and requirements for managing global tables](globaltables_reqs_bestpractices.md)\. 
 
 1. Create another table in Europe \(Ireland\), with the same settings as those you created in step 1 and step 2\.
 

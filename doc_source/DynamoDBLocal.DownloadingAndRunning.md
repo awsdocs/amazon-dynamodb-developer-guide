@@ -1,11 +1,14 @@
-# Deploying DynamoDB Locally on Your Computer<a name="DynamoDBLocal.DownloadingAndRunning"></a>
+# Deploying DynamoDB locally on your computer<a name="DynamoDBLocal.DownloadingAndRunning"></a>
 
 ------
-#### [ Download Locally ]
+#### [ Download locally ]
 
-The downloadable version of Amazon DynamoDB is provided as an executable `.jar` file\. The application runs on Windows, Linux, macOS, and other platforms that support Java\.
+DynamoDB local is provided as an executable `.jar` file\. The application runs on Windows, Linux, macOS, and other platforms that support Java\.
 
 Follow these steps to set up and run DynamoDB on your computer\.
+
+**Note**  
+ DynamoDB local v1\.20 and greater is required for use on M1 and newer Apple processors\. 
 
 **To set up DynamoDB on your computer**
 
@@ -55,9 +58,9 @@ The downloadable version of Amazon DynamoDB is available as a Docker image\. For
 
 If you want to run a multi\-container application that also uses the DynamoDB local container, use Docker Compose to define and run all the services in your application, including DynamoDB local\.
 
-**To install and run DynamoDB local with Docker Compose:**
+**To install and run DynamoDB local with Docker compose:**
 
-1. Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)\.
+1. Download and install [Docker desktop](https://www.docker.com/products/docker-desktop)\.
 
 1. Copy the following code to a file and save it as `docker-compose.yml`\.
 
@@ -92,7 +95,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
      app-node:
        depends_on:
          - dynamodb-local
-       image: banst/awscli
+       image: amazon/aws-cli
        container_name: app-node
        ports:
         - "8080:8080"
@@ -134,7 +137,7 @@ If you want to run a multi\-container application that also uses the DynamoDB lo
          REGION: 'eu-west-1'
    ```
 **Note**  
-The YAML scripts require that you specify an AWS access key and an AWS secret key, but they are not required to be valid AWS keys for you to access DynamoDB Local\.
+The YAML scripts require that you specify an AWS access key and an AWS secret key, but they are not required to be valid AWS keys for you to access DynamoDB local\.
 
 1. Run the following command\-line command:
 

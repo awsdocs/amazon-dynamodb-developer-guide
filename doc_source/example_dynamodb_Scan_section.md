@@ -6,57 +6,116 @@ The following code examples show how to scan a DynamoDB table\.
 The source code for these examples is in the [AWS Code Examples GitHub repository](https://github.com/awsdocs/aws-doc-sdk-examples)\. Have feedback on a code example? [Create an Issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose) in the code examples repo\. 
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-       
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-        Aws::DynamoDB::Model::ScanRequest req;
-        req.SetTableName(table);
-
-        if (!projection.empty())
-            req.SetProjectionExpression(projection);        
-
-        // Perform scan on table
-        const Aws::DynamoDB::Model::ScanOutcome& result = dynamoClient.Scan(req);
-        if (result.IsSuccess())
+        public static async Task<int> ScanTableAsync(
+            AmazonDynamoDBClient client,
+            string tableName,
+            int startYear,
+            int endYear)
         {
-            // Reference the retrieved items
-            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0) 
+            var request = new ScanRequest
             {
-                std::cout << "Number of items retrieved from scan: " << items.size() << std::endl;
-                //Iterate each item and print
-                for(const auto &item: items)
+                TableName = tableName,
+                ExpressionAttributeNames = new Dictionary<string, string>
                 {
-                std::cout << "******************************************************" << std::endl;
-                // Output each retrieved field and its value
-                for (const auto& i : item)
-                    std::cout << i.first << ": " << i.second.GetS() << std::endl;
-                }
-            }
+                  { "#yr", "year" },
+                },
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":y_a", new AttributeValue { N = startYear.ToString() } },
+                    { ":y_z", new AttributeValue { N = endYear.ToString() } },
+                },
+                FilterExpression = "#yr between :y_a and :y_z",
+                ProjectionExpression = "#yr, title, info.actors[0], info.directors, info.running_time_secs",
+            };
 
-            else
+            // Keep track of how many movies were found.
+            int foundCount = 0;
+
+            var response = new ScanResponse();
+            do
             {
-                std::cout << "No item found in table: " << table << std::endl;
+                response = await client.ScanAsync(request);
+                foundCount += response.Items.Count;
+                response.Items.ForEach(i => DisplayItem(i));
             }
-        }
-        else
-        {
-            std::cout << "Failed to Scan items: " << result.GetError().GetMessage();
+            while (response.LastEvaluatedKey.Count > 1);
+            return foundCount;
         }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [Scan](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/Scan) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Scan an Amazon DynamoDB table.
+/*!
+  \sa scanTable()
+  \param tableName: Name for the DynamoDB table.
+  \param projectionExpression: An optional projection expression, ignored if empty.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+
+bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
+                                 const Aws::String &projectionExpression,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+    Aws::DynamoDB::Model::ScanRequest request;
+    request.SetTableName(tableName);
+
+    if (!projectionExpression.empty())
+        request.SetProjectionExpression(projectionExpression);
+
+    // Perform scan on table.
+    const Aws::DynamoDB::Model::ScanOutcome &outcome = dynamoClient.Scan(request);
+    if (outcome.IsSuccess()) {
+        // Reference the retrieved items.
+        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+        if (!items.empty()) {
+            std::cout << "Number of items retrieved from scan: " << items.size()
+                      << std::endl;
+            // Iterate each item and print.
+            for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &itemMap: items) {
+                std::cout << "******************************************************"
+                          << std::endl;
+                // Output each retrieved field and its value.
+                for (const auto &itemEntry: itemMap)
+                    std::cout << itemEntry.first << ": " << itemEntry.second.GetS()
+                              << std::endl;
+            }
+        }
+
+        else {
+            std::cout << "No item found in table: " << tableName << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Failed to Scan items: " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+```
 +  For API details, see [Scan](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/Scan) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -104,52 +163,53 @@ func (basics TableBasics) Scan(startYear int, endYear int) ([]Movie, error) {
 	return movies, err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.Scan) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
-Scans an Amazon DynamoDB table by using the enhanced client\.  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Scans an Amazon DynamoDB table using [DynamoDbClient](http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html)\.  
 
 ```
-    public static void scan( DynamoDbEnhancedClient enhancedClient) {
+    public static void scanItems( DynamoDbClient ddb,String tableName ) {
 
-        try{
-            // Create a DynamoDbTable object
-            DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-            Iterator<Customer> results = custTable.scan().items().iterator();
-            while (results.hasNext()) {
+        try {
+            ScanRequest scanRequest = ScanRequest.builder()
+                .tableName(tableName)
+                .build();
 
-                Customer rec = results.next();
-                System.out.println("The record id is "+rec.getId());
-                System.out.println("The name is " +rec.getCustName());
+            ScanResponse response = ddb.scan(scanRequest);
+            for (Map<String, AttributeValue> item : response.items()) {
+                Set<String> keys = item.keySet();
+                for (String key : keys) {
+                    System.out.println ("The key name is "+key +"\n" );
+                    System.out.println("The value is "+item.get(key).s());
+                }
             }
 
         } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Done");
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [Scan](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/Scan) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create the DynamoDB document client\.  
 
@@ -157,14 +217,12 @@ Create the DynamoDB document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -174,10 +232,11 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
@@ -210,10 +269,10 @@ export const scanTable = async () => {
 };
 scanTable();
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/scancommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -253,7 +312,6 @@ ddb.scan(params, function (err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning)\. 
 +  For API details, see [Scan](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/Scan) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -262,6 +320,7 @@ ddb.scan(params, function (err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
@@ -272,23 +331,65 @@ suspend fun scanItems(tableNameVal: String) {
     }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val response = ddb.scan(request)
-            response.items?.forEach { item ->
-                 item.keys.forEach { key ->
-                     println("The key name is $key\n")
-                     println("The value is ${item[key]}")
-                }
+        val response = ddb.scan(request)
+        response.items?.forEach { item ->
+            item.keys.forEach { key ->
+                println("The key name is $key\n")
+                println("The value is ${item[key]}")
             }
         }
- }
+    }
+}
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        $yearsKey = [
+            'Key' => [
+                'year' => [
+                    'N' => [
+                        'minRange' => 1990,
+                        'maxRange' => 1999,
+                    ],
+                ],
+            ],
+        ];
+        $filter = "year between 1990 and 1999";
+        echo "\nHere's a list of all the movies released in the 90s:\n";
+        $result = $service->scan($tableName, $yearsKey, $filter);
+        foreach ($result['Items'] as $movie) {
+            $movie = $marshal->unmarshalItem($movie);
+            echo $movie['title'] . "\n";
+        }
+
+    public function scan(string $tableName, array $key, string $filters)
+    {
+        $query = [
+            'ExpressionAttributeNames' => ['#year' => 'year'],
+            'ExpressionAttributeValues' => [
+                ":min" => ['N' => '1990'],
+                ":max" => ['N' => '1999'],
+            ],
+            'FilterExpression' => "#year between :min and :max",
+            'TableName' => $tableName,
+        ];
+        return $this->dynamoDbClient->scan($query);
+    }
+```
++  For API details, see [Scan](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/Scan) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -332,13 +433,13 @@ class Movies:
 
         return movies
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/Scan) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -373,7 +474,6 @@ class Movies:
     movies
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/Scan) in *AWS SDK for Ruby API Reference*\. 
 
 ------
@@ -381,10 +481,11 @@ class Movies:
 
 **SDK for Rust**  
 This documentation is for an SDK in preview release\. The SDK is subject to change and should not be used in production\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
   
 
 ```
-async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
+pub async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
     let items: Result<Vec<_>, _> = client
         .scan()
         .table_name(table)
@@ -402,7 +503,6 @@ async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
     Ok(())
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/dynamodb#code-examples)\. 
 +  For API details, see [Scan](https://docs.rs/releases/search?query=aws-sdk) in *AWS SDK for Rust API reference*\. 
 
 ------

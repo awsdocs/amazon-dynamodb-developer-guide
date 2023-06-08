@@ -1,4 +1,4 @@
-# Update Expressions<a name="Expressions.UpdateExpressions"></a>
+# Update expressions<a name="Expressions.UpdateExpressions"></a>
 
 To update an existing item in an Amazon DynamoDB table, you use the `UpdateItem` operation\. You must provide the key of the item that you want to update\. You must also provide an update expression, indicating the attributes that you want to modify and the values that you want to assign to them\. 
 
@@ -18,15 +18,15 @@ An update expression consists of one or more clauses\. Each clause begins with a
 
 Within each clause, there are one or more actions separated by commas\. Each action represents a data modification\.
 
-The examples in this section are based on the `ProductCatalog` item shown in [Projection Expressions](Expressions.ProjectionExpressions.md)\.
+The examples in this section are based on the `ProductCatalog` item shown in [Projection expressions](Expressions.ProjectionExpressions.md)\.
 
 **Topics**
-+ [SET—Modifying or Adding Item Attributes](#Expressions.UpdateExpressions.SET)
-+ [REMOVE—Deleting Attributes from an Item](#Expressions.UpdateExpressions.REMOVE)
-+ [ADD—Updating Numbers and Sets](#Expressions.UpdateExpressions.ADD)
-+ [DELETE—Removing Elements from a Set](#Expressions.UpdateExpressions.DELETE)
++ [SET—modifying or adding item attributes](#Expressions.UpdateExpressions.SET)
++ [REMOVE—deleting attributes from an item](#Expressions.UpdateExpressions.REMOVE)
++ [ADD—updating numbers and sets](#Expressions.UpdateExpressions.ADD)
++ [DELETE—removing elements from a set](#Expressions.UpdateExpressions.DELETE)
 
-## SET—Modifying or Adding Item Attributes<a name="Expressions.UpdateExpressions.SET"></a>
+## SET—modifying or adding item attributes<a name="Expressions.UpdateExpressions.SET"></a>
 
 Use the `SET` action in an update expression to add one or more attributes to an item\. If any of these attributes already exists, they are overwritten by the new values\. 
 
@@ -70,15 +70,15 @@ The arguments for `--item` are stored in the `item.json` file\. \(For simplicity
 ```
 
 **Topics**
-+ [Modifying Attributes](#Expressions.UpdateExpressions.SET.ModifyingAttributes)
-+ [Adding Lists and Maps](#Expressions.UpdateExpressions.SET.AddingListsAndMaps)
-+ [Adding Elements to a List](#Expressions.UpdateExpressions.SET.AddingListElements)
-+ [Adding Nested Map Attributes](#Expressions.UpdateExpressions.SET.AddingNestedMapAttributes)
-+ [Incrementing and Decrementing Numeric Attributes](#Expressions.UpdateExpressions.SET.IncrementAndDecrement)
-+ [Appending Elements to a List](#Expressions.UpdateExpressions.SET.UpdatingListElements)
-+ [Preventing Overwrites of an Existing Attribute](#Expressions.UpdateExpressions.SET.PreventingAttributeOverwrites)
++ [Modifying attributes](#Expressions.UpdateExpressions.SET.ModifyingAttributes)
++ [Adding lists and maps](#Expressions.UpdateExpressions.SET.AddingListsAndMaps)
++ [Adding elements to a list](#Expressions.UpdateExpressions.SET.AddingListElements)
++ [Adding nested map attributes](#Expressions.UpdateExpressions.SET.AddingNestedMapAttributes)
++ [Incrementing and decrementing numeric attributes](#Expressions.UpdateExpressions.SET.IncrementAndDecrement)
++ [Appending elements to a list](#Expressions.UpdateExpressions.SET.UpdatingListElements)
++ [Preventing overwrites of an existing attribute](#Expressions.UpdateExpressions.SET.PreventingAttributeOverwrites)
 
-### Modifying Attributes<a name="Expressions.UpdateExpressions.SET.ModifyingAttributes"></a>
+### Modifying attributes<a name="Expressions.UpdateExpressions.SET.ModifyingAttributes"></a>
 
 **Example**  
 Update the `ProductCategory` and `Price` attributes\.  
@@ -103,7 +103,7 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 **Note**  
 In the `UpdateItem` operation, `--return-values ALL_NEW` causes DynamoDB to return the item as it appears after the update\.
 
-### Adding Lists and Maps<a name="Expressions.UpdateExpressions.SET.AddingListsAndMaps"></a>
+### Adding lists and maps<a name="Expressions.UpdateExpressions.SET.AddingListsAndMaps"></a>
 
 **Example**  
 Add a new list and a new map\.  
@@ -137,7 +137,7 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 }
 ```
 
-### Adding Elements to a List<a name="Expressions.UpdateExpressions.SET.AddingListElements"></a>
+### Adding elements to a list<a name="Expressions.UpdateExpressions.SET.AddingListElements"></a>
 
 **Example**  
 Add a new attribute to the `RelatedItems` list\. \(Remember that list elements are zero\-based, so \[0\] represents the first element in the list, \[1\] represents the second, and so on\.\)  
@@ -162,7 +162,7 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 When you use `SET` to update a list element, the contents of that element are replaced with the new data that you specify\. If the element doesn't already exist, `SET` appends the new element at the end of the list\.  
 If you add multiple elements in a single `SET` operation, the elements are sorted in order by element number\.
 
-### Adding Nested Map Attributes<a name="Expressions.UpdateExpressions.SET.AddingNestedMapAttributes"></a>
+### Adding nested map attributes<a name="Expressions.UpdateExpressions.SET.AddingNestedMapAttributes"></a>
 
 **Example**  
 Add some nested map attributes\.  
@@ -198,7 +198,7 @@ The arguments for `--expression-attribute-values` are stored in the `values.json
 }
 ```
 
-### Incrementing and Decrementing Numeric Attributes<a name="Expressions.UpdateExpressions.SET.IncrementAndDecrement"></a>
+### Incrementing and decrementing numeric attributes<a name="Expressions.UpdateExpressions.SET.IncrementAndDecrement"></a>
 
 You can add to or subtract from an existing numeric attribute\. To do this, use the `+` \(plus\) and `-` \(minus\) operators\.
 
@@ -215,7 +215,7 @@ aws dynamodb update-item \
 ```
 To increase the `Price`, you would use the `+` operator in the update expression\.
 
-### Appending Elements to a List<a name="Expressions.UpdateExpressions.SET.UpdatingListElements"></a>
+### Appending elements to a list<a name="Expressions.UpdateExpressions.SET.UpdatingListElements"></a>
 
 You can add elements to the end of a list\. To do this, use `SET` with the `list_append` function\. \(The function name is case sensitive\.\) The `list_append` function is specific to the `SET` action and can only be used in an update expression\. The syntax is as follows\.
 + `list_append (list1, list2)`
@@ -223,7 +223,7 @@ You can add elements to the end of a list\. To do this, use `SET` with the `list
 The function takes two lists as input and appends all elements from `list2` to ` list1`\.
 
 **Example**  
-In [Adding Elements to a List](#Expressions.UpdateExpressions.SET.AddingListElements), you create the `RelatedItems` list and populate it with two elements: `Hammer` and `Nails`\. Now you append two more elements to the end of `RelatedItems`\.  
+In [Adding elements to a list](#Expressions.UpdateExpressions.SET.AddingListElements), you create the `RelatedItems` list and populate it with two elements: `Hammer` and `Nails`\. Now you append two more elements to the end of `RelatedItems`\.  
 
 ```
 aws dynamodb update-item \
@@ -259,7 +259,7 @@ aws dynamodb update-item \
 ```
 The resulting `RelatedItems` attribute now contains five elements, in the following order: `Chisel`, `Hammer`, `Nails`, `Screwdriver`, `Hacksaw`\.
 
-### Preventing Overwrites of an Existing Attribute<a name="Expressions.UpdateExpressions.SET.PreventingAttributeOverwrites"></a>
+### Preventing overwrites of an existing attribute<a name="Expressions.UpdateExpressions.SET.PreventingAttributeOverwrites"></a>
 
 If you want to avoid overwriting an existing attribute, you can use `SET` with the `if_not_exists` function\. \(The function name is case sensitive\.\) The `if_not_exists` function is specific to the `SET` action and can only be used in an update expression\. The syntax is as follows\.
 + `if_not_exists (path, value)`
@@ -278,7 +278,7 @@ aws dynamodb update-item \
     --return-values ALL_NEW
 ```
 
-## REMOVE—Deleting Attributes from an Item<a name="Expressions.UpdateExpressions.REMOVE"></a>
+## REMOVE—deleting attributes from an item<a name="Expressions.UpdateExpressions.REMOVE"></a>
 
 Use the `REMOVE` action in an update expression to remove one or more attributes from an item in Amazon DynamoDB\. To perform multiple `REMOVE` actions, separate them with commas\.
 
@@ -300,12 +300,12 @@ aws dynamodb update-item \
     --return-values ALL_NEW
 ```
 
-### Removing Elements from a List<a name="Expressions.UpdateExpressions.REMOVE.RemovingListElements"></a>
+### Removing elements from a list<a name="Expressions.UpdateExpressions.REMOVE.RemovingListElements"></a>
 
 You can use `REMOVE` to delete individual elements from a list\.
 
 **Example**  
-In [Appending Elements to a List](#Expressions.UpdateExpressions.SET.UpdatingListElements), you modify a list attribute \(`RelatedItems`\) so that it contained five elements:   
+In [Appending elements to a list](#Expressions.UpdateExpressions.SET.UpdatingListElements), you modify a list attribute \(`RelatedItems`\) so that it contained five elements:   
 + `[0]`—`Chisel`
 + `[1]`—`Hammer`
 + `[2]`—`Nails`
@@ -325,7 +325,7 @@ After `Hammer` and `Nails` are removed, the remaining elements are shifted\. The
 + `[1]`—`Screwdriver`
 + `[2]`—`Hacksaw`
 
-## ADD—Updating Numbers and Sets<a name="Expressions.UpdateExpressions.ADD"></a>
+## ADD—updating numbers and sets<a name="Expressions.UpdateExpressions.ADD"></a>
 
 **Note**  
 In general, we recommend using `SET` rather than `ADD`\.
@@ -350,7 +350,7 @@ add-action ::=
     path value
 ```
 
-### Adding a Number<a name="Expressions.UpdateExpressions.ADD.Number"></a>
+### Adding a number<a name="Expressions.UpdateExpressions.ADD.Number"></a>
 
 Assume that the `QuantityOnHand` attribute does not exist\. The following AWS CLI example sets `QuantityOnHand` to 5\.
 
@@ -365,7 +365,7 @@ aws dynamodb update-item \
 
 Now that `QuantityOnHand` exists, you can rerun the example to increment `QuantityOnHand` by 5 each time\.
 
-### Adding Elements to a Set<a name="Expressions.UpdateExpressions.ADD.Set"></a>
+### Adding elements to a set<a name="Expressions.UpdateExpressions.ADD.Set"></a>
 
 Assume that the `Color` attribute does not exist\. The following AWS CLI example sets `Color` to a string set with two elements\.
 
@@ -389,7 +389,7 @@ aws dynamodb update-item \
     --return-values ALL_NEW
 ```
 
-## DELETE—Removing Elements from a Set<a name="Expressions.UpdateExpressions.DELETE"></a>
+## DELETE—removing elements from a set<a name="Expressions.UpdateExpressions.DELETE"></a>
 
 **Important**  
 The `DELETE` action supports only `Set` data types\.
@@ -406,7 +406,7 @@ delete-action ::=
 ```
 
 **Example**  
-In [Adding Elements to a Set](#Expressions.UpdateExpressions.ADD.Set), you create the `Color` string set\. This example removes some of the elements from that set\.  
+In [Adding elements to a set](#Expressions.UpdateExpressions.ADD.Set), you create the `Color` string set\. This example removes some of the elements from that set\.  
 
 ```
 aws dynamodb update-item \

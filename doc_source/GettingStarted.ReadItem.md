@@ -1,57 +1,107 @@
 # Read an item from a DynamoDB table<a name="GettingStarted.ReadItem"></a>
 
-You can read items from DynamoDB tables using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on items, see [Core Components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
+You can read items from DynamoDB tables using the AWS Management Console, the AWS CLI, or an AWS SDK\. For more information on items, see [Core components of Amazon DynamoDB](HowItWorks.CoreComponents.md)\.
 
 ## Read an item from a DynamoDB table using an AWS SDK<a name="GettingStarted.ReadItem.SDK"></a>
 
 The following code examples show how to read an item from a DynamoDB table using an AWS SDK\.
 
 ------
-#### [ C\+\+ ]
+#### [ \.NET ]
 
-**SDK for C\+\+**  
+**AWS SDK for \.NET**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/dynamodb#code-examples)\. 
   
 
 ```
-        Aws::Client::ClientConfiguration clientConfig;
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-        Aws::DynamoDB::Model::GetItemRequest req;
+        /// <summary>
+        /// Gets information about an existing movie from the table.
+        /// </summary>
+        /// <param name="client">An initialized Amazon DynamoDB client object.</param>
+        /// <param name="newMovie">A Movie object containing information about
+        /// the movie to retrieve.</param>
+        /// <param name="tableName">The name of the table containing the movie.</param>
+        /// <returns>A Dictionary object containing information about the item
+        /// retrieved.</returns>
+        public static async Task<Dictionary<string, AttributeValue>> GetItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
+        {
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
 
-        // Set up the request.
-        req.SetTableName(table);
-        Aws::DynamoDB::Model::AttributeValue hashKey;
-        hashKey.SetS(keyval);
-        req.AddKey(key, hashKey);
-     
-        // Retrieve the item's fields and values
-        const Aws::DynamoDB::Model::GetItemOutcome& result = dynamoClient.GetItem(req);
-        if (result.IsSuccess())
-        {
-            // Reference the retrieved fields/values.
-            const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = result.GetResult().GetItem();
-            if (item.size() > 0)
+            var request = new GetItemRequest
             {
-                // Output each retrieved field and its value.
-                for (const auto& i : item)
-                    std::cout << "Values: " << i.first << ": " << i.second.GetS() << std::endl;
-            }
-            else
-            {
-                std::cout << "No item found with the key " << key << std::endl;
-            }
-        }
-        else
-        {
-            std::cout << "Failed to get item: " << result.GetError().GetMessage();
+                Key = key,
+                TableName = tableName,
+            };
+
+            var response = await client.GetItemAsync(request);
+            return response.Item;
         }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
++  For API details, see [GetItem](https://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/GetItem) in *AWS SDK for \.NET API Reference*\. 
+
+------
+#### [ C\+\+ ]
+
+**SDK for C\+\+**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/dynamodb#code-examples)\. 
+  
+
+```
+//! Get an item from an Amazon DynamoDB table.
+/*!
+  \sa getItem()
+  \param tableName: The table name.
+  \param partitionKey: The partition key.
+  \param partitionValue: The value for the partition key.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+
+bool AwsDoc::DynamoDB::getItem(const Aws::String &tableName,
+                               const Aws::String &partitionKey,
+                               const Aws::String &partitionValue,
+                               const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+    Aws::DynamoDB::Model::GetItemRequest request;
+
+    // Set up the request.
+    request.SetTableName(tableName);
+    request.AddKey(partitionKey,
+                   Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
+
+    // Retrieve the item's fields and values.
+    const Aws::DynamoDB::Model::GetItemOutcome &outcome = dynamoClient.GetItem(request);
+    if (outcome.IsSuccess()) {
+        // Reference the retrieved fields/values.
+        const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = outcome.GetResult().GetItem();
+        if (!item.empty()) {
+            // Output each retrieved field and its value.
+            for (const auto &i: item)
+                std::cout << "Values: " << i.first << ": " << i.second.GetS()
+                          << std::endl;
+        }
+        else {
+            std::cout << "No item found with the key " << partitionKey << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Failed to get item: " << outcome.GetError().GetMessage();
+    }
+
+    return outcome.IsSuccess();
+}
+```
 +  For API details, see [GetItem](https://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/GetItem) in *AWS SDK for C\+\+ API Reference*\. 
 
 ------
 #### [ Go ]
 
 **SDK for Go V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
   
 
 ```
@@ -82,54 +132,62 @@ func (basics TableBasics) GetMovie(title string, year int) (Movie, error) {
 	return movie, err
 }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/dynamodb#code-examples)\. 
 +  For API details, see [GetItem](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb#Client.GetItem) in *AWS SDK for Go API Reference*\. 
 
 ------
 #### [ Java ]
 
 **SDK for Java 2\.x**  
-Gets an item from a table by using the enhanced client\.  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
+Gets an item from a table by using the DynamoDbClient\.  
 
 ```
-    public static String getItem(DynamoDbEnhancedClient enhancedClient) {
+    public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal, String partitionAlias) {
+
+        // Set up an alias for the partition key name in case it's a reserved word.
+        HashMap<String,String> attrNameAlias = new HashMap<String,String>();
+        attrNameAlias.put(partitionAlias, partitionKeyName);
+
+        // Set up mapping of the partition name with the value.
+        HashMap<String, AttributeValue> attrValues = new HashMap<>();
+
+        attrValues.put(":"+partitionKeyName, AttributeValue.builder()
+            .s(partitionKeyVal)
+            .build());
+
+        QueryRequest queryReq = QueryRequest.builder()
+            .tableName(tableName)
+            .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)
+            .expressionAttributeNames(attrNameAlias)
+            .expressionAttributeValues(attrValues)
+            .build();
+
         try {
-            //Create a DynamoDbTable object
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-
-            //Create a KEY object
-            Key key = Key.builder()
-                    .partitionValue("id146")
-                    .build();
-
-            // Get the item by using the key
-            Customer result = mappedTable.getItem(r->r.key(key));
-            return "The email value is "+result.getEmail();
+            QueryResponse response = ddb.query(queryReq);
+            return response.count();
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
-        return "";
+        return -1;
     }
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/dynamodb#readme)\. 
 +  For API details, see [GetItem](https://docs.aws.amazon.com/goto/SdkForJavaV2/dynamodb-2012-08-10/GetItem) in *AWS SDK for Java 2\.x API Reference*\. 
 
 ------
 #### [ JavaScript ]
 
 **SDK for JavaScript V3**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 Create the client\.  
 
 ```
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 ```
 Create the DynamoDB document client\.  
 
@@ -137,14 +195,12 @@ Create the DynamoDB document client\.
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
-  removeUndefinedValues: false, // false, by default.
+  removeUndefinedValues: true, // false, by default.
   // Whether to convert typeof object to map attribute.
   convertClassInstanceToMap: false, // false, by default.
 };
@@ -154,10 +210,11 @@ const unmarshallOptions = {
   wrapNumbers: false, // false, by default.
 };
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
 // Create the DynamoDB document client.
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
+  marshallOptions,
+  unmarshallOptions,
+});
 
 export { ddbDocClient };
 ```
@@ -265,10 +322,10 @@ export const run = async (
 };
 run(tableName, movieYear1, movieTitle1, movieYear2, movieTitle2);
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/dynamodb#code-examples)\. 
 +  For API details, see [GetItem](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/classes/getitemcommand.html) in *AWS SDK for JavaScript API Reference*\. 
 
 **SDK for JavaScript V2**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 Get an item from a table\.  
 
 ```
@@ -321,7 +378,6 @@ docClient.get(params, function(err, data) {
   }
 });
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascript/example_code/dynamodb#code-examples)\. 
 +  For more information, see [AWS SDK for JavaScript Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get)\. 
 +  For API details, see [GetItem](https://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/GetItem) in *AWS SDK for JavaScript API Reference*\. 
 
@@ -330,36 +386,58 @@ docClient.get(params, function(err, data) {
 
 **SDK for Kotlin**  
 This is prerelease documentation for a feature in preview release\. It is subject to change\.
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
   
 
 ```
 suspend fun getSpecificItem(tableNameVal: String, keyName: String, keyVal: String) {
 
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet[keyName] = AttributeValue.S(keyVal)
+    val keyToGet = mutableMapOf<String, AttributeValue>()
+    keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val request = GetItemRequest {
-           key = keyToGet
-           tableName = tableNameVal
+    val request = GetItemRequest {
+        key = keyToGet
+        tableName = tableNameVal
+    }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        val returnedItem = ddb.getItem(request)
+        val numbersMap = returnedItem.item
+        numbersMap?.forEach { key1 ->
+            println(key1.key)
+            println(key1.value)
         }
-
-         DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val returnedItem = ddb.getItem(request)
-            val numbersMap = returnedItem.item
-            numbersMap?.forEach { key1 ->
-                    println(key1.key)
-                    println(key1.value)
-            }
-         }
- }
+    }
+}
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/dynamodb#code-examples)\. 
 +  For API details, see [GetItem](https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation) in *AWS SDK for Kotlin API reference*\. 
+
+------
+#### [ PHP ]
+
+**SDK for PHP**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/php/example_code/dynamodb#code-examples)\. 
+  
+
+```
+        $movie = $service->getItemByKey($tableName, $key);
+        echo "\nThe movie {$movie['Item']['title']['S']} was released in {$movie['Item']['year']['N']}.\n";
+
+    public function getItemByKey(string $tableName, array $key)
+    {
+        return $this->dynamoDbClient->getItem([
+            'Key' => $key['Item'],
+            'TableName' => $tableName,
+        ]);
+    }
+```
++  For API details, see [GetItem](https://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/GetItem) in *AWS SDK for PHP API Reference*\. 
 
 ------
 #### [ Python ]
 
 **SDK for Python \(Boto3\)**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -391,13 +469,13 @@ class Movies:
         else:
             return response['Item']
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/dynamodb#code-examples)\. 
 +  For API details, see [GetItem](https://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/GetItem) in *AWS SDK for Python \(Boto3\) API Reference*\. 
 
 ------
 #### [ Ruby ]
 
 **SDK for Ruby**  
+ There's more on GitHub\. Find the complete example and learn how to set up and run in the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
   
 
 ```
@@ -416,7 +494,6 @@ class Movies:
     response.item
   end
 ```
-+  Find instructions and more code on [GitHub](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/dynamodb#code-examples)\. 
 +  For API details, see [GetItem](https://docs.aws.amazon.com/goto/SdkForRubyV3/dynamodb-2012-08-10/GetItem) in *AWS SDK for Ruby API Reference*\. 
 
 ------

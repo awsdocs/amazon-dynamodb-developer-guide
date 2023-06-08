@@ -6,7 +6,9 @@ You can export the results of a query from Operation Builder to a CSV file\. Thi
 
 1. In the Operation Builder, run an operation of your choice, such as a Scan or Query\.
 **Note**  
-The operation may be a PartiQL statement or an API operation, but it may not be a batch or transaction operation\.
+
+The operation may be a PartiQL statement or an API operation, but it cannot be a batch or transaction operation\.
+For paginated operations, only the first page of results will be exported\.
 
 1. In the **Results** panel, choose **Export to CSV**\.  
 ![\[Console screenshot showing the Export to CSV button.\]](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/images/workbench/QueryBuilderExportToCSV.png)

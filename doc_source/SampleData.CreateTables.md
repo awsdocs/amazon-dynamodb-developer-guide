@@ -1,8 +1,8 @@
-# Step 1: Create Example Tables<a name="SampleData.CreateTables"></a>
+# Step 1: Create example tables<a name="SampleData.CreateTables"></a>
 
 In this section, you use the AWS Management Console to create tables in Amazon DynamoDB for two simple use cases\.
 
-## Use Case 1: Product Catalog<a name="SampleData.CreateTables1"></a>
+## Use case 1: Product catalog<a name="SampleData.CreateTables1"></a>
 
 Suppose that you want to store product information in DynamoDB\. Each product has its own distinct attributes, so you need to store different information about each of these products\. 
 
@@ -11,20 +11,20 @@ You can create a `ProductCatalog` table, where each item is uniquely identified 
 
 ****  
 
-| Table Name | Primary Key | 
+| Table name | Primary key | 
 | --- | --- | 
 | ProductCatalog |  Partition key: `Id` \(Number\)  | 
 
-## Use Case 2: Forum Application<a name="SampleData.CreateTables2"></a>
+## Use case 2: Forum application<a name="SampleData.CreateTables2"></a>
 
-Suppose that you want to build an application for message boards or discussion forums\. AWS [Discussion Forums](https://forums.aws.amazon.com/) represent one example of such an application\. Customers can engage with the developer community, ask questions, or reply to other customers' posts\. Each AWS service has a dedicated forum\. Anyone can start a new discussion thread by posting a message in a forum\. Each thread might receive any number of replies\.
+Suppose that you want to build an application for message boards or discussion forums\. AWS [Discussion forums](https://forums.aws.amazon.com/) represent one example of such an application\. Customers can engage with the developer community, ask questions, or reply to other customers' posts\. Each AWS service has a dedicated forum\. Anyone can start a new discussion thread by posting a message in a forum\. Each thread might receive any number of replies\.
 
 You can model this application by creating three tables: `Forum`, `Thread`, and `Reply`\.
 
 
 ****  
 
-| Table Name | Primary Key | 
+| Table name | Primary key | 
 | --- | --- | 
 | Forum |  Partition key: `Name` \(String\)  | 
 | Thread |  Partition key: `ForumName` \(String\) Sort key: `Subject` \(String\)  | 
@@ -35,11 +35,11 @@ The `Reply` table has a global secondary index named `PostedBy-Message-Index`\. 
 
 ****  
 
-| Index Name | Primary Key | 
+| Index name | Primary key | 
 | --- | --- | 
 | PostedBy\-Message\-Index |  Partition key: `PostedBy` \(String\) Sort key: `Message` \(String\)  | 
 
-## Create the ProductCatalog Table<a name="SampleData.CreateTablesSteps.ProductCatalog"></a>
+## Create the ProductCatalog table<a name="SampleData.CreateTablesSteps.ProductCatalog"></a>
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
@@ -53,7 +53,7 @@ The `Reply` table has a global secondary index named `PostedBy-Message-Index`\. 
 
 1. When the settings are as you want them, choose **Create**\.
 
-## Create the Forum Table<a name="SampleData.CreateTablesSteps.Forum"></a>
+## Create the forum table<a name="SampleData.CreateTablesSteps.Forum"></a>
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
@@ -67,7 +67,7 @@ The `Reply` table has a global secondary index named `PostedBy-Message-Index`\. 
 
 1. When the settings are as you want them, choose **Create**\.
 
-## Create the Thread Table<a name="SampleData.CreateTablesSteps.Thread"></a>
+## Create the thread table<a name="SampleData.CreateTablesSteps.Thread"></a>
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 
@@ -84,7 +84,7 @@ The `Reply` table has a global secondary index named `PostedBy-Message-Index`\. 
 
 1. When the settings are as you want them, choose **Create**\.
 
-## Create the Reply Table<a name="SampleData.CreateTablesSteps.Reply"></a>
+## Create the reply table<a name="SampleData.CreateTablesSteps.Reply"></a>
 
 1. Open the DynamoDB console at [https://console\.aws\.amazon\.com/dynamodb/](https://console.aws.amazon.com/dynamodb/)\.
 

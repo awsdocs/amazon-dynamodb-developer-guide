@@ -1,4 +1,4 @@
-# Step 5: Copy Data to DynamoDB<a name="EMRforDynamoDB.Tutorial.CopyDataToDDB"></a>
+# Step 5: Copy data to DynamoDB<a name="EMRforDynamoDB.Tutorial.CopyDataToDDB"></a>
 
 In this step, you will copy data from the Hive table \(`hive_features`\) to a new table in DynamoDB\.
 
@@ -61,5 +61,5 @@ In this step, you will copy data from the Hive table \(`hive_features`\) to a ne
 
    1. Choose the Features table, and then choose the **Items** tab to view the data\.
 
-**Next Step**  
-[Step 6: Query the Data in the DynamoDB Table](EMRforDynamoDB.Tutorial.QueryDataInDynamoDB.md)
+**Next step**  
+[Step 6: Query the data in the DynamoDB table](EMRforDynamoDB.Tutorial.QueryDataInDynamoDB.md)

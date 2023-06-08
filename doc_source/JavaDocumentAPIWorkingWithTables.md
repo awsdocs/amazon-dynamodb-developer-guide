@@ -1,15 +1,15 @@
-# Working with DynamoDB Tables in Java<a name="JavaDocumentAPIWorkingWithTables"></a>
+# Working with DynamoDB tables in Java<a name="JavaDocumentAPIWorkingWithTables"></a>
 
 You can use the AWS SDK for Java to create, update, and delete Amazon DynamoDB tables, list all the tables in your account, or get information about a specific table\.
 
 **Topics**
-+ [Creating a Table](#JavaDocumentAPICreate)
-+ [Updating a Table](#JavaDocumentAPIUpdate)
-+ [Deleting a Table](#JavaDocumentAPIDelete)
-+ [Listing Tables](#JavaDocumentAPIListTables)
-+ [Example: Create, Update, Delete, and List Tables Using the AWS SDK for Java Document API](JavaDocumentAPITablesExample.md)
++ [Creating a table](#JavaDocumentAPICreate)
++ [Updating a table](#JavaDocumentAPIUpdate)
++ [Deleting a table](#JavaDocumentAPIDelete)
++ [Listing tables](#JavaDocumentAPIListTables)
++ [Example: Create, update, delete, and list tables using the AWS SDK for Java document API](JavaDocumentAPITablesExample.md)
 
-## Creating a Table<a name="JavaDocumentAPICreate"></a>
+## Creating a table<a name="JavaDocumentAPICreate"></a>
 
 To create a table, you must provide the table name, its primary key, and the provisioned throughput values\. The following code snippet creates an example table that uses a numeric type attribute ID as its primary key\.
 
@@ -71,12 +71,12 @@ You can call the `describe` method of the client to get table information at any
 TableDescription tableDescription = dynamoDB.getTable(tableName).describe();
 ```
 
-## Updating a Table<a name="JavaDocumentAPIUpdate"></a>
+## Updating a table<a name="JavaDocumentAPIUpdate"></a>
 
 You can update only the provisioned throughput values of an existing table\. Depending on your application requirements, you might need to update these values\. 
 
 **Note**  
-For more information about throughput increases and decreases per day, see [Service, Account, and Table Quotas in Amazon DynamoDB](ServiceQuotas.md)\.
+For more information about throughput increases and decreases per day, see [Service, account, and table quotas in Amazon DynamoDB](ServiceQuotas.md)\.
 
 **To update a table using the AWS SDK for Java API**
 
@@ -105,7 +105,7 @@ table.updateTable(provisionedThroughput);
 table.waitForActive();
 ```
 
-## Deleting a Table<a name="JavaDocumentAPIDelete"></a>
+## Deleting a table<a name="JavaDocumentAPIDelete"></a>
 
 **To delete a table using the AWS SDK for Java API**
 
@@ -130,7 +130,7 @@ table.delete();
 table.waitForDelete();
 ```
 
-## Listing Tables<a name="JavaDocumentAPIListTables"></a>
+## Listing tables<a name="JavaDocumentAPIListTables"></a>
 
 To list tables in your account, create an instance of `DynamoDB` and run the `listTables` method\. The [ListTables](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html) operation requires no parameters\.
 
