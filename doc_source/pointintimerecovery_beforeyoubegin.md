@@ -1,7 +1,0 @@
-# Before you begin using point\-in\-time recovery<a name="pointintimerecovery_beforeyoubegin"></a>
-
-Before you enable point\-in\-time recovery \(PITR\) on an Amazon DynamoDB table, consider the following:
-+ If you disable point\-in\-time recovery and later re\-enable it on a table, you reset the start time for which you can recover that table\. As a result, you can only immediately restore that table using the `LatestRestorableDateTime`\.
-+ You can enable point\-in\-time recovery on each local replica of a global table\. When you restore the table, the backup restores to an independent table that is not part of the global table\. If you are using [Version 2019\.11\.21 \(Current\)](globaltables.V2.md) of global tables, you can create a new global table from the restored table\. For more information, see [Global tables: How it works](V2globaltables_HowItWorks.md)\.
-+ You can also restore your DynamoDB table data across AWS Regions such that the restored table is created in a different Region from where the source table resides\. You can do cross\-Region restores between AWS commercial Regions, AWS China Regions, and AWS GovCloud \(US\) Regions\. You pay only for the data you transfer out of the source Region and for restoring to a new table in the destination Region\.
-+ AWS CloudTrail logs all console and API actions for point\-in\-time recovery to enable logging, continuous monitoring, and auditing\. For more information, see [Logging DynamoDB operations by using AWS CloudTrail](logging-using-cloudtrail.md)\.
